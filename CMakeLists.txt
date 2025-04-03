@@ -1,9 +1,9 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.7)
 
 set(PROJECT_NAME deepin-update-ui)
 project(${PROJECT_NAME})
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -38,7 +38,7 @@ install(FILES ${QM_FILES} DESTINATION share/${PROJECT_NAME}/translations)
 #    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
 #endfunction(generation_dbus_adaptor)
 
-add_subdirectory("src/dde-update")
+#add_subdirectory("src/dde-update")
 add_subdirectory("src/dde-abrecovery")
 add_subdirectory("src/dcc-update-plugin")
 

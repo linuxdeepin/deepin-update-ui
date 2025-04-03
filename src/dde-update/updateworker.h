@@ -26,13 +26,13 @@
 #include <org_freedesktop_login1.h>
 #include <org_freedesktop_dbus.h>
 
-using UpdateInter = com::deepin::lastore::Updater;
-using JobInter = com::deepin::lastore::Job;
-using ManagerInter = com::deepin::lastore::Manager;
-using RecoveryInter = com::deepin::ABRecovery;
-using PowerInter = com::deepin::system::Power;
-using Login1Manager = org::freedesktop::login1::Manager;
-using DBusManager = org::freedesktop::DBus;
+// using UpdateInter = com::deepin::lastore::Updater;
+// using JobInter = com::deepin::lastore::Job;
+// using ManagerInter = com::deepin::lastore::Manager;
+// using RecoveryInter = com::deepin::ABRecovery;
+// using PowerInter = com::deepin::system::Power;
+// using Login1Manager = org::freedesktop::login1::Manager;
+// using DBusManager = org::freedesktop::DBus;
 
 class UpdateWorker : public QObject
 {
