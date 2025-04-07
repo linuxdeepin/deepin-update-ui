@@ -4,9 +4,8 @@
 
 #include "updatework.h"
 #include "signalbridge.h"
-#include "widgets/utils.h"
-#include "dconfigwatcher.h"
 #include "utils.h"
+#include "dconfigwatcher.h"
 #include "updateloghelper.h"
 
 #include <QDBusError>

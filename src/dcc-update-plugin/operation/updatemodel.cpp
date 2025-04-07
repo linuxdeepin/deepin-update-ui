@@ -808,3 +808,16 @@ void UpdateModel::updateAvailableState()
 
     setIsUpdatable(false);
 }
+
+bool UpdateModel::showUpdateCtl() const
+{
+    return m_showUpdateCtl;
+}
+
+void UpdateModel::setShowUpdateCtl(bool newShowUpdateCtl)
+{
+    if (m_showUpdateCtl == newShowUpdateCtl)
+        return;
+    m_showUpdateCtl = newShowUpdateCtl;
+    emit showUpdateCtlChanged();
+}

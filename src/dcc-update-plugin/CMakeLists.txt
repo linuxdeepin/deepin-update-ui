@@ -1,4 +1,5 @@
 set(PROJECT_NAME dcc-update-plugin)
+
 project(${PROJECT_NAME})
 
 set(CMAKE_CXX_STANDARD 17)
@@ -14,7 +15,7 @@ find_package(PkgConfig REQUIRED)
 #find_package(Qt5 COMPONENTS Core Widgets DBus Network Concurrent REQUIRED)
 find_package(DdeControlCenter REQUIRED)
 
-find_package(Qt6 COMPONENTS Core Gui DBus Network LinguistTools Concurrent REQUIRED)
+find_package(Qt6 COMPONENTS Core Gui Widgets DBus Network LinguistTools Concurrent REQUIRED)
 find_package(Dtk6 COMPONENTS Core Gui REQUIRED)
 
 pkg_check_modules(QGSettings REQUIRED gsettings-qt)
@@ -27,23 +28,27 @@ if(DdeControlCenter_VERSION VERSION_GREATER "5.7.5")
   message(STATUS "dcc module category is valid")
 endif()
 
-file(GLOB_RECURSE SRCS
+set(Update_Name update)
+
+file(GLOB_RECURSE update_SRCS
         "operation/*.cpp"
         "operation/*.h"
         "operation/qrc/update.qrc"
 )
 
-add_library(${PROJECT_NAME} MODULE
-        ${SRCS}
+
+add_library(${Update_Name} MODULE
+        ${update_SRCS}
 )
 
-target_include_directories(${PROJECT_NAME} PUBLIC
+target_include_directories(${Update_Name} PUBLIC
         Dde::Control-Center
 )
 
-set(DccUpdate_Libraries
+set(Update_Libraries
         Qt6::DBus
         Qt6::Gui
+        Qt6::Widgets
         Dtk6::Gui
         Qt6::Concurrent
         # Qt6::Quick
@@ -53,8 +58,8 @@ set(DccUpdate_Libraries
 )
 
 
-target_link_libraries(${PROJECT_NAME} PRIVATE
-        ${DccUpdate_Libraries}
+target_link_libraries(${Update_Name} PRIVATE
+        ${Update_Libraries}
 )
 
 #target_include_directories(${PROJECT_NAME} PRIVATE
@@ -86,11 +91,11 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
 #    ${DdeControlCenter_LIBRARIES}
 #)
 
-install(FILES "misc/org.deepin.dde.control-center.update.json" DESTINATION share/dsg/configs/org.deepin.dde.control-center)
+#install(FILES "misc/org.deepin.dde.control-center.update.json" DESTINATION share/dsg/configs/org.deepin.dde.control-center)
 
-dcc_install_plugin(NAME ${PROJECT_NAME} TARGET ${PROJECT_NAME})
+dcc_install_plugin(NAME ${Update_Name} TARGET ${Update_Name})
 
-dcc_handle_plugin_translation(NAME ${PROJECT_NAME} )
+dcc_handle_plugin_translation(NAME ${Update_Name} )
 
 
 #install(TARGETS ${PROJECT_NAME} DESTINATION lib/dde-control-center/modules)

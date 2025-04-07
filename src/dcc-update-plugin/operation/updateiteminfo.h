@@ -6,7 +6,7 @@
 #define UPDATEITEMINFO_H
 
 #include "common.h"
-#include "widgets/utils.h"
+#include "utils.h"
 
 struct DetailInfo {
     QString name;

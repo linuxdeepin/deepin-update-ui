@@ -17,7 +17,7 @@ UpdateInteraction::UpdateInteraction(QObject *parent)
     qmlRegisterType<UpdateWorker>("org.deepin.dcc.update", 1, 0, "UpdateWorker");
     qmlRegisterType<UpdateModel>("org.deepin.dcc.update", 1, 0, "UpdateModel");
 
-  //  m_work->activate();
+    m_work->activate();
 }
 
 UpdateWorker *UpdateInteraction::work() const

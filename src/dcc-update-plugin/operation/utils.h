@@ -102,6 +102,25 @@ struct ListSubItem {
 const QList<int> FontSizeList {11, 12, 13, 14, 15, 16, 18, 20};
 const QList<int> FontSizeList_Compact {10, 11, 12, 13, 14, 15, 16};
 
+template <typename T>
+T valueByQSettings(const QStringList& configFiles, const QString& group, const QString& key, const QVariant& failback)
+{
+    for (const QString& path : configFiles) {
+        QSettings settings(path, QSettings::IniFormat);
+        if (!group.isEmpty()) {
+            settings.beginGroup(group);
+        }
+
+        const QVariant& v = settings.value(key);
+        if (v.isValid()) {
+            T t = v.value<T>();
+            return t;
+        }
+    }
+
+    return failback.value<T>();
+}
+
 inline bool compareVersion(const QString &targetVersion, const QString &baseVersion)
 {
     QStringList version1 = baseVersion.split(".");

@@ -25,6 +25,9 @@ struct UpdateJobErrorMessage {
 
 class UpdateModel : public QObject {
     Q_OBJECT
+
+    Q_PROPERTY(bool showUpdateCtl READ showUpdateCtl  NOTIFY showUpdateCtlChanged FINAL)
+
 public:
     explicit UpdateModel(QObject* parent = nullptr);
     ~UpdateModel();
@@ -82,7 +85,7 @@ public:
     inline UiActiveState systemActivation() const { return m_systemActivation; }
     void setSystemActivation(const UiActiveState& systemActivation);
 
-    inline bool isUpdatable() const { return m_isUpdatable; }
+    bool isUpdatable() const { return m_isUpdatable; }
 
     const QString& lastCheckUpdateTime() const { return m_lastCheckUpdateTime; }
     void setLastCheckUpdateTime(const QString& lastTime);
@@ -173,6 +176,9 @@ public:
     static ControlPanelType getControlPanelType(UpdatesStatus status);
     static QString updateErrorToString(UpdateErrorType error);
 
+    bool showUpdateCtl() const;
+    void setShowUpdateCtl(bool newShowUpdateCtl);
+
 public slots:
     void onUpdatePropertiesChanged(const QString& interfaceName,
         const QVariantMap& changedProperties,
@@ -215,6 +221,8 @@ Q_SIGNALS:
     void notifyBackupSuccess();
     void p2pUpdateEnableStateChanged(bool enabled);
     void baselineChanged(const QString &baseline);
+
+    void showUpdateCtlChanged();
 
 private:
     void setUpdateItemEnabled();
@@ -263,6 +271,8 @@ private:
     bool m_p2pUpdateEnabled;
     QString m_showVersion;
     QString m_baseline;
+
+    bool m_showUpdateCtl;
 };
 
 
