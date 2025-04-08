@@ -8,6 +8,8 @@
 #include "common.h"
 #include "utils.h"
 
+using namespace dcc::update::common;
+
 struct DetailInfo {
     QString name;
     QString updateTime;

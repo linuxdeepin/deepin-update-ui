@@ -7,6 +7,8 @@
 
 #include <DSysInfo>
 
+Q_LOGGING_CATEGORY(DCC_UPDATE_MODEL, "dcc-update-model")
+
 DCORE_USE_NAMESPACE
 static const QMap<UpdatesStatus, ControlPanelType> ControlPanelTypeMapping = {
     { Default, CPT_Invalid },
@@ -80,7 +82,7 @@ void UpdateModel::initConfig()
             }
         });
     } else {
-        qCWarning(DCC_UPDATE) << "Lastore dconfig is nullptr or invalid";
+        qCWarning(DCC_UPDATE_MODEL) << "Lastore dconfig is nullptr or invalid";
     }
 }
 
@@ -133,7 +135,7 @@ MirrorInfo UpdateModel::defaultMirror() const
 
 void UpdateModel::setLastStatus(const UpdatesStatus& status, int line, int types)
 {
-    qCInfo(DCC_UPDATE) << "Status:" << status << ", types:" << types << ", line:" << line;
+    qCInfo(DCC_UPDATE_MODEL) << "Status:" << status << ", types:" << types << ", line:" << line;
     if (status == UpgradeWaiting || status == DownloadWaiting) {
         m_waitingStatusMap.insert(status, types);
     }
@@ -174,7 +176,7 @@ void UpdateModel::setNetselectExist(bool netselectExist)
 
 void UpdateModel::setUpdateMode(quint64 updateMode)
 {
-    qCInfo(DCC_UPDATE) << "Set update mode:" << updateMode << ", current mode: " << m_updateMode;
+    qCInfo(DCC_UPDATE_MODEL) << "Set update mode:" << updateMode << ", current mode: " << m_updateMode;
 
     if (m_updateMode == updateMode)
         return;
@@ -212,7 +214,7 @@ void UpdateModel::setSystemVersionInfo(const QString& systemVersionInfo)
 
 void UpdateModel::setSystemActivation(const UiActiveState& systemActivation)
 {
-    qCInfo(DCC_UPDATE) << "System activation:" << systemActivation;
+    qCInfo(DCC_UPDATE_MODEL) << "System activation:" << systemActivation;
     if (m_systemActivation == systemActivation) {
         return;
     }
@@ -244,7 +246,7 @@ void UpdateModel::setSourceCheck(bool sourceCheck)
 
 void UpdateModel::setLastCheckUpdateTime(const QString& lastTime)
 {
-    qCDebug(DCC_UPDATE) << "Last check time:" << lastTime;
+    qCDebug(DCC_UPDATE_MODEL) << "Last check time:" << lastTime;
     m_lastCheckUpdateTime = lastTime.left(QString("0000-00-00 00:00:00").size());
 }
 
@@ -283,7 +285,7 @@ void UpdateModel::addUpdateInfo(UpdateItemInfo* info)
         return;
 
     const auto updateType = info->updateType();
-    qCDebug(DCC_UPDATE) << "Add update info:" << info->updateType();
+    qCDebug(DCC_UPDATE_MODEL) << "Add update info:" << info->updateType();
     info->setUpdateStatus(updateStatus(updateType));
     if (m_allUpdateInfos.contains(updateType)) {
         if (m_allUpdateInfos.value(updateType))
@@ -304,7 +306,7 @@ void UpdateModel::addUpdateInfo(UpdateItemInfo* info)
 
 void UpdateModel::setLastError(UpdatesStatus status, UpdateErrorType errorType)
 {
-    qCInfo(DCC_UPDATE) << "Set last error: " << errorType;
+    qCInfo(DCC_UPDATE_MODEL) << "Set last error: " << errorType;
     if (m_errorMap.value(status, NoError) == errorType) {
         return;
     }
@@ -424,6 +426,7 @@ qlonglong UpdateModel::downloadSize(int updateTypes) const
 
 void UpdateModel::setUpdateItemEnabled()
 {
+
     for (const auto item : m_allUpdateInfos.values()) {
         item->setUpdateModeEnabled(m_updateMode & item->updateType());
     }
@@ -526,11 +529,11 @@ void UpdateModel::refreshUpdateStatus()
         const auto controlType = getControlPanelType(updateStatus);
 
         if (it.value() == Default || (updateItemInfo(updateType) && !updateItemInfo(updateType)->isUpdateAvailable())) {
-            qCInfo(DCC_UPDATE) << updateType << " is not available";
+            qCInfo(DCC_UPDATE_MODEL) << updateType << " is not available";
             continue;
         }
         if (!m_controlStatusMap.contains(controlType)) {
-            qCInfo(DCC_UPDATE) << "Insert control type:" << controlType;
+            qCInfo(DCC_UPDATE_MODEL) << "Insert control type:" << controlType;
             m_controlStatusMap.insert( controlType, qMakePair<UpdatesStatus, QList<UpdateType>>(std::move(const_cast<UpdatesStatus&>(updateStatus)), { updateType }));
             Q_EMIT updateStatusChanged(controlType, updateStatus);
         }
@@ -542,17 +545,17 @@ void UpdateModel::refreshUpdateStatus()
             if (controlIt.key() == controlType) {
                 if (controlIt.value().second.contains(updateType)) {
                     if (controlIt.value().first != updateStatus) {
-                        qCInfo(DCC_UPDATE) << controlType << " change status from " << controlIt.value().first << " to " << updateStatus;
+                        qCInfo(DCC_UPDATE_MODEL) << controlType << " change status from " << controlIt.value().first << " to " << updateStatus;
                         controlIt.value().first = updateStatus;
                         Q_EMIT updateStatusChanged(controlIt.key(), updateStatus);
                     }
                 } else {
-                    qCInfo(DCC_UPDATE) << "Append " << updateType << " to " << controlType;
+                    qCInfo(DCC_UPDATE_MODEL) << "Append " << updateType << " to " << controlType;
                     controlIt.value().second.append(updateType);
                 }
             } else {
                 if (controlIt.value().second.contains(updateType)) {
-                    qCInfo(DCC_UPDATE) << "Remove " << updateType << " from " <<controlIt.key();
+                    qCInfo(DCC_UPDATE_MODEL) << "Remove " << updateType << " from " <<controlIt.key();
                     controlIt.value().second.removeOne(updateType);
                 }
 
@@ -579,7 +582,7 @@ void UpdateModel::refreshUpdateStatus()
         }
 
         if (!exist) {
-            qCInfo(DCC_UPDATE) << "Remove control type:" << key;
+            qCInfo(DCC_UPDATE_MODEL) << "Remove control type:" << key;
             m_controlStatusMap.remove(key);
         }
     }
@@ -636,7 +639,7 @@ void UpdateModel::modifyUpdateStatusByBackupStatus(LastoreDaemonUpdateStatus& la
 
 void UpdateModel::setUpdateStatus(const QByteArray& status)
 {
-    qCInfo(DCC_UPDATE) << "Lastore update status:" << status;
+    qCInfo(DCC_UPDATE_MODEL) << "Lastore update status:" << status;
     if (m_updateStatus == status)
         return;
 
@@ -703,7 +706,7 @@ int UpdateModel::updateTypes(ControlPanelType type) const
 
 void UpdateModel::setCheckUpdateMode(int value)
 {
-    qCInfo(DCC_UPDATE) << "Set check update mode: " << value;
+    qCInfo(DCC_UPDATE_MODEL) << "Set check update mode: " << value;
     if (m_checkUpdateMode == value)
         return;
 

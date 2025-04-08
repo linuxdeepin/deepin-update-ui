@@ -14,14 +14,17 @@
 
 using namespace std;
 
+
+namespace dcc {
+namespace update {
+namespace common {
+
 Q_NAMESPACE
 
 const double Epsion = 1e-6;
 const QString SYSTEM_UPGRADE_TYPE_STRING = "system_upgrade";
 const QString SECURITY_UPGRADE_TYPE_STRING = "security_upgrade";
 const QString UNKNOWN_UPGRADE_STRING = "unknown_upgrade";
-
-Q_DECLARE_LOGGING_CATEGORY(DCC_UPDATE)
 
 enum UpdatesStatus {
     Default,
@@ -121,6 +124,8 @@ enum CtrlWidgetType {
 };
 Q_ENUM_NS(CtrlWidgetType)
 
+
+
 static inline QString formatCap(qulonglong cap, const int size = 1024)
 {
     static QString type[] = { "B", "KB", "MB", "GB", "TB" };
@@ -157,5 +162,9 @@ static inline vector<double> getNumListFromStr(const QString& str)
 
     return v;
 }
+
+} // end namespace common
+} // end namespace update
+} // end namespace dcc
 
 #endif // COMMON_H

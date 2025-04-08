@@ -12,7 +12,7 @@ import org.deepin.dcc 1.0
 DccObject {
 
     DccTitleObject {
-        visible: false
+        // visible: false
         name: "updateTypeGrpTitle"
         parentName: "updateSettingsPage"
         displayName: qsTr("update type")
@@ -20,7 +20,7 @@ DccObject {
     }
 
     DccObject {
-        visible: false
+        // visible: false
         name: "updateTypeGrp"
         parentName: "updateSettingsPage"
         weight: 20
@@ -29,8 +29,8 @@ DccObject {
         page: DccGroupView {
             height: implicitHeight + 10
             spacing: 0
-
         }
+
         DccObject {
             name: "functionUpdate"
             parentName: "updateTypeGrp"
@@ -44,7 +44,6 @@ DccObject {
                   //  dccData.worker().setAudioMono(checked)
                 }
             }
-
         }
         DccObject {
             name: "qualityUpdate"
@@ -59,13 +58,12 @@ DccObject {
                     //  dccData.worker().setAudioMono(checked)
                 }
             }
-
         }
         DccObject {
             name: "safeUpdate"
             parentName: "updateTypeGrp"
-           // displayName: qsTr("安全更新")
-           // description: qsTr("提供安全漏洞修复")
+            displayName: qsTr("安全更新")
+            description: qsTr("提供安全漏洞修复")
             weight: 30
             pageType: DccObject.Editor
             page: Switch {
@@ -74,7 +72,6 @@ DccObject {
                     //  dccData.worker().setAudioMono(checked)
                 }
             }
-
         }
     }
 

@@ -18,8 +18,6 @@ find_package(DdeControlCenter REQUIRED)
 find_package(Qt6 COMPONENTS Core Gui Widgets DBus Network LinguistTools Concurrent REQUIRED)
 find_package(Dtk6 COMPONENTS Core Gui REQUIRED)
 
-pkg_check_modules(QGSettings REQUIRED gsettings-qt)
-
 message(STATUS "dde-control-center version:" ${DdeControlCenter_VERSION})
 
 # 比较版本号
@@ -46,14 +44,15 @@ target_include_directories(${Update_Name} PUBLIC
 )
 
 set(Update_Libraries
-        Qt6::DBus
+        Qt6::Core
         Qt6::Gui
         Qt6::Widgets
-        Dtk6::Gui
+        Qt6::DBus
         Qt6::Concurrent
-        # Qt6::Quick
         Qt::Network
+        # Qt6::Quick
         Dtk6::Core
+        Dtk6::Gui
         Dde::Control-Center
 )
 
@@ -68,7 +67,6 @@ target_link_libraries(${Update_Name} PRIVATE
 #    ${Qt6DBus_INCLUDE_DIRS}
 #    ${Qt6Network_INCLUDE_DIRS}
 #    ${Qt6Concurrent_INCLUDE_DIRS}
-#    ${QGSettings_INCLUDE_DIRS}
 #    ${DtkCore_INCLUDE_DIRS}
 #    ${DtkWidget_INCLUDE_DIRS}
 #    ${DtkGui_INCLUDE_DIRS}
@@ -84,7 +82,6 @@ target_link_libraries(${Update_Name} PRIVATE
 #    ${Qt6DBus_LIBRARIES}
 #    ${Qt6Network_LIBRARIES}
 #    ${Qt6Concurrent_LIBRARIES}
-#    ${QGSettings_LIBRARIES}
 #    ${DtkCore_LIBRARIES}
 #    ${DtkWidget_LIBRARIES}
 #    ${DtkGui_LIBRARIES}

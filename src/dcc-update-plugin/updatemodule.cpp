@@ -13,7 +13,6 @@
 #include "window/dconfigwatcher.h"
 
 #include <QVBoxLayout>
-#include <QGSettings>
 
 #include <DLog>
 

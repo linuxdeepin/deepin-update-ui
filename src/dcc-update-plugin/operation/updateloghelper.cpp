@@ -8,6 +8,7 @@
 #include <QMap>
 #include <QPair>
 
+Q_LOGGING_CATEGORY(DCC_UPDATE_HELPER, "dcc-update-helper")
 
 UpdateLogHelper::UpdateLogHelper()
 {
@@ -65,7 +66,7 @@ void UpdateLogHelper::handleUpdateLog(const QString &log)
     const QJsonDocument& doc = QJsonDocument::fromJson(log.toLocal8Bit());
     const QJsonObject& rootObj = doc.object();
     if (rootObj.isEmpty()) {
-        qCWarning(DCC_UPDATE) << "Update log json object is empty";
+        qCWarning(DCC_UPDATE_HELPER) << "Update log json object is empty";
         return;
     }
 
@@ -189,7 +190,7 @@ QList<HistoryItemInfo> UpdateLogHelper::handleHistoryUpdateLog(const QString &lo
 
     const auto& rootArray = doc.array();
     if (rootArray.isEmpty()) {
-        qCWarning(DCC_UPDATE) << "log json object is empty";
+        qCWarning(DCC_UPDATE_HELPER) << "log json object is empty";
         return infos;
     }
 

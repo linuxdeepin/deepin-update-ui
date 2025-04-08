@@ -13,6 +13,9 @@
 
 #ifndef UPDATE_DATA_STRUCTS_H
 #define UPDATE_DATA_STRUCTS_H
+
+using namespace dcc::update::common;
+
 /**
  * @brief 空闲下载配置
  */
@@ -156,12 +159,12 @@ struct LastoreDaemonUpdateStatus {
         QJsonParseError jsonParseError;
         const QJsonDocument doc = QJsonDocument::fromJson(status, &jsonParseError);
         if (jsonParseError.error != QJsonParseError::NoError || doc.isEmpty()) {
-            qCWarning(DCC_UPDATE) << "Parse update status string failed: " << jsonParseError.errorString();
+            // qCWarning(DCC_UPDATE) << "Parse update status string failed: " << jsonParseError.errorString();
         }
 
         QJsonObject obj = doc.object();
         if (!obj.contains("UpdateStatus")) {
-            qCWarning(DCC_UPDATE) << "Can not find UpdateStatus key in update status string";
+            // qCWarning(DCC_UPDATE) << "Can not find UpdateStatus key in update status string";
         }
 
         QJsonObject updateStatusObj = obj.value("UpdateStatus").toObject();
