@@ -36,45 +36,65 @@ DccObject {
         parentName: "update"
         backgroundType: DccObject.Normal
         weight: 30
-        visible: dccData.model().showUpdateCtl
+        visible:  dccData.model().installCompleteListModel.anyVisible
         pageType: DccObject.Item
 
         page: UpdateControl{
 
-            updateListModels: ListModel {
-                    ListElement {
-                        name: qsTr("Feature Updates")
-                        checked: true
-                    }
-                }
+            updateListModels: dccData.model().installCompleteListModel
+
+            updateStateTips: "更新完成"
+
+            // updateListModels: ListModel {
+            //         ListElement {
+            //             name: qsTr("Feature Updates")
+            //             checked: true
+            //         }
+            //     }
+        }
+    }
+
+    DccObject {
+        name: "installFailedList"
+        parentName: "update"
+        backgroundType: DccObject.Normal
+        weight:35
+        pageType: DccObject.Item
+        visible: dccData.model().installFailedListModel.anyVisible
+        page:  UpdateControl{
+            updateListModels: dccData.model().installFailedListModel
+            updateStateTips: "更新失败"
         }
     }
 
 
     DccObject {
-        name: "installingCompleteList"
+        name: "installingList"
         parentName: "update"
         backgroundType: DccObject.Normal
         weight: 40
-        visible: false
-        //    visible: dccData.model().showUpdateCtl
+        //visible: false
+        visible: dccData.model().installinglistModel.anyVisible
         pageType: DccObject.Item
         page: UpdateControl{
 
-            updateListModels: ListModel {
-                ListElement {
-                    name: qsTr("Feature Updates")
-                    checked: true
-                }
-                ListElement {
-                    name: qsTr("Feature Updates")
-                    checked: true
-                }
-                ListElement {
-                    name: qsTr("Feature Updates")
-                    checked: true
-                }
-            }
+            updateListModels: dccData.model().installinglistModel
+            updateStateTips: "正在下载更新"
+
+            // updateListModels: ListModel {
+            //     ListElement {
+            //         name: qsTr("Feature Updates")
+            //         checked: true
+            //     }
+            //     ListElement {
+            //         name: qsTr("Feature Updates")
+            //         checked: true
+            //     }
+            //     ListElement {
+            //         name: qsTr("Feature Updates")
+            //         checked: true
+            //     }
+            // }
         }
     }
 
@@ -84,21 +104,37 @@ DccObject {
         backgroundType: DccObject.Normal
         weight: 50
         pageType: DccObject.Item
-        visible: false
+        visible: dccData.model().preInstallListModel.anyVisible
         page:  UpdateControl{
-
+            updateListModels: dccData.model().preInstallListModel
+            updateStateTips: "更新下载完成"
         }
     }
 
+    DccObject {
+        name: "downloadFailedList"
+        parentName: "update"
+        backgroundType: DccObject.Normal
+        weight: 60
+        pageType: DccObject.Item
+        visible: dccData.model().downloadFailedListModel.anyVisible
+        page:  UpdateControl{
+            updateListModels: dccData.model().downloadFailedListModel
+            updateStateTips: "更新下载失败"
+        }
+    }
 
     DccObject {
         name: "downloadingList"
         parentName: "update"
         backgroundType: DccObject.Normal
-        weight: 60
+        weight: 65
         pageType: DccObject.Item
-        visible: false
-        page:  UpdateControl{}
+        visible: dccData.model().downloadinglistModel.anyVisible
+        page:  UpdateControl{
+            updateListModels: dccData.model().downloadinglistModel
+            updateStateTips: "正在下载。。"
+        }
     }
 
     DccObject {
@@ -107,14 +143,10 @@ DccObject {
         backgroundType: DccObject.Normal
         weight: 70
         pageType: DccObject.Item
-        visible: false
-        page: UpdateList {
-            model: ListModel {
-                ListElement {
-                    name: qsTr("Feature Updates")
-                    checked: true
-                }
-            }
+        visible: dccData.model().preUpdatelistModel.anyVisible
+        page:  UpdateControl{
+            updateListModels: dccData.model().preUpdatelistModel
+            updateStateTips: "检查到有更新可用"
         }
     }
 

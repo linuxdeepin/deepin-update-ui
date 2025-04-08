@@ -11,6 +11,18 @@ import org.deepin.dcc 1.0
 ColumnLayout {
     id: rootLayout
     property alias updateListModels: updatelistModel.model;
+    property string updateStateTips : "aaaaaaa";
+    property string actionBtnText : "sssssss"
+    property string updateSize: "dddddddd"
+    property string updateTips: qsTr("Expected installation time:") + qsTr("30min")
+    property double processValue: 0
+
+    property bool btnVisible: true
+
+    signal btnClicked()
+    signal startProcess()
+    signal stopProcess()
+
 
     width: parent.width
     RowLayout {
@@ -24,7 +36,7 @@ ColumnLayout {
                 spacing: 5
                 Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
                 DccCheckIcon {
-                    visible: dccData.model().distUpgradeState === 3
+                  //  visible: dccData.model().distUpgradeState === 3
                     checked: true
                     size: 18
                 }
@@ -32,35 +44,38 @@ ColumnLayout {
                 D.Label {
                     font.pixelSize: 16
                     font.bold: true
-                    text: dccData.model().updateStateTips
+                    text: updateStateTips
                 }
             }
 
-            RowLayout {
-                spacing: 5
-                visible: false
-                D.Label {
-                    text: qsTr("Expected installation time:")
-                    font.pixelSize: 12
-                }
-
-                D.Label {
-                    text: qsTr("30min")
-                    font.pixelSize: 12
-                }
+            D.Label {
+                text: updateTips
+                font.pixelSize: 12
             }
+
+            // RowLayout {
+            //     spacing: 5
+            //   //  visible: false
+            //     D.Label {
+            //         text:
+            //         font.pixelSize: 12
+            //     }
+            //
+            //
+            // }
         }
 
         D.Button {
             Layout.rightMargin: 12
             Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-            text: dccData.model().actionBtnText
+            text: actionBtnText
             font.pixelSize: 14
             textColor: DS.Style.highlightedButton.background1
-
-            visible: dccData.model().distUpgradeState !== 1 && dccData.model().distUpgradeState !== 0
+            visible: btnVisible
+          //  visible: dccData.model().distUpgradeState !== 1 && dccData.model().distUpgradeState !== 0
             onClicked: {
-                dccData.work().onActionBtnClicked();
+               // dccData.work().onActionBtnClicked();
+                rootLayout.btnClicked()
             }
         }
 
@@ -68,14 +83,14 @@ ColumnLayout {
             id: scanAnimation
 
             Layout.alignment: Qt.AlignRight
-            running: dccData.model().distUpgradeState === 1 || dccData.model().distUpgradeState === 0
-            visible: dccData.model().distUpgradeState === 1 || dccData.model().distUpgradeState === 0
+        //    running: dccData.model().distUpgradeState === 1 || dccData.model().distUpgradeState === 0
+        //    visible: dccData.model().distUpgradeState === 1 || dccData.model().distUpgradeState === 0
             implicitWidth: 32
             implicitHeight: 32
         }
 
         ColumnLayout {
-            visible: false
+            visible: processValue === 0
            // visible: dccData.model().distUpgradeState === 1
             Layout.rightMargin: 12
             Layout.alignment: Qt.AlignRight
@@ -89,23 +104,30 @@ ColumnLayout {
                     Layout.alignment: Qt.AlignHCenter
                     from: 0
                     to: 100
-                    value: 45
+                    value: processValue
                     implicitHeight: 8
                     implicitWidth: 240
                 }
 
-                D.DciIcon {
+                D.ToolButton {
                     id: stratIcon
-                    name: "qrc:/icons/deepin/builtin/icons/update_stop.png"
-                    width: 16
-                    height: 16
+                    icon.name: "qrc:/icons/deepin/builtin/icons/update_stop.png"
+                    width: 12
+                    height: 12
+
+                    onClicked: {
+                        root.startProcess()
+                    }
                 }
 
-                D.DciIcon {
+                D.ToolButton {
                     id: stopIcon
-                    name: "qrc:/icons/deepin/builtin/icons/update_close.png"
-                    width: 16
-                    height: 16
+                    icon.name: "qrc:/icons/deepin/builtin/icons/update_close.png"
+                    width: 12
+                    height: 12
+                    onClicked: {
+                        root.stopProcess()
+                    }
                 }
             }
 

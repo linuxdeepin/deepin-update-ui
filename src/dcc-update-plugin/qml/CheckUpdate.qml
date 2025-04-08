@@ -39,13 +39,13 @@ ColumnLayout {
                 value: dccData.model().checkUpdateProgress
                 implicitHeight: 8
                 implicitWidth: 160
-                visible: dccData.model().checkUpdateState == 0
+                visible: dccData.model().checkUpdateStatus == 1
             }
 
             D.Label {
                 Layout.alignment: Qt.AlignHCenter
                 width: implicitWidth
-                text: dccData.model().checkUpdateStateTips
+                text: dccData.model().checkUpdateErrTips
                 font.pixelSize: 12
             }
 
@@ -53,24 +53,24 @@ ColumnLayout {
                 Layout.alignment: Qt.AlignHCenter
                 implicitWidth: 200
                 font.pixelSize: 14
-                visible: dccData.model().checkUpdateState != 0
-                text: dccData.model().checkUpdateState === 1 ? qsTr("Check Again") : qsTr("Check for Updates")
+                visible: dccData.model().checkUpdateStatus != 1
+                text: dccData.model().checkBtnText
                 onClicked: {
-                    dccData.work().checkUpgrade();
+                    dccData.work().checkForUpdates();
                 }
             }
 
             D.Label {
-                visible: false
+                visible: dccData.model().checkUpdateStatus == 4
                 Layout.alignment: Qt.AlignHCenter
-                text: qsTr("Last checking time")
+                text: qsTr("Last checking time: ") + dccData.model().lastCheckUpdateTime
                 font.pixelSize: 10
             }
         }
 
         Component.onCompleted: {
-            console.log(" checkUpdate :", dccData.model().upgradable)
-            dccData.work().checkUpgrade();
+            console.log(" checkUpdate :", dccData.model().lastStatus)
+            dccData.work().checkForUpdates();
         }
    }
 

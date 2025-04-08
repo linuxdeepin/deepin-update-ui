@@ -55,6 +55,18 @@ UpdateModel::UpdateModel(QObject* parent)
     , m_checkUpdateMode(0)
     , m_batterIsOK(false)
     , m_p2pUpdateEnabled(false)
+    , m_showUpdateCtl(false)
+    , checkBtnText("")
+    , checkUpdateErrTips("")
+    , m_checkUpdateIcon("")
+    , m_checkUpdateStatus(UpdatesStatus::Default)
+    , m_preUpdatelistModel(new UpdateListModel(this))
+    , m_downloadinglistModel(new UpdateListModel(this))
+    , m_preInstallListModel(new UpdateListModel(this))
+    , m_installinglistModel(new UpdateListModel(this))
+    , m_installCompleteListModel(new UpdateListModel(this))
+    , m_installFailedListModel(new UpdateListModel(this))
+    , m_downloadFailedListModel(new UpdateListModel(this))
 {
     qRegisterMetaType<TestingChannelStatus>("TestingChannelStatus");
     qRegisterMetaType<UpdateType>("UpdateType");
@@ -135,7 +147,7 @@ MirrorInfo UpdateModel::defaultMirror() const
 
 void UpdateModel::setLastStatus(const UpdatesStatus& status, int line, int types)
 {
-    qCInfo(DCC_UPDATE_MODEL) << "Status:" << status << ", types:" << types << ", line:" << line;
+    qCInfo(DCC_UPDATE_MODEL) << "Status: ======== " << status << ", types:" << types << ", line:" << line;
     if (status == UpgradeWaiting || status == DownloadWaiting) {
         m_waitingStatusMap.insert(status, types);
     }
@@ -157,6 +169,7 @@ void UpdateModel::setAutoCleanCache(bool autoCleanCache)
 
 void UpdateModel::setCheckUpdateProgress(double updateProgress)
 {
+    qDebug() << "Update progress: ============= " << updateProgress;
     if (!qFuzzyCompare(m_checkUpdateProgress, updateProgress)) {
         m_checkUpdateProgress = updateProgress;
         Q_EMIT updateProgressChanged(updateProgress);
@@ -520,6 +533,7 @@ void UpdateModel::refreshUpdateStatus()
     }
     for (auto info : m_allUpdateInfos.values()) {
         info->setUpdateStatus(lastoreUpdateStatus.m_statusMap.value(info->updateType(), Default));
+
     }
 
     auto it = lastoreUpdateStatus.m_statusMap.begin();
@@ -587,6 +601,7 @@ void UpdateModel::refreshUpdateStatus()
         }
     }
 
+    refreshUpdateUiModel();
     Q_EMIT controlTypeChanged();
 }
 
@@ -602,6 +617,250 @@ void UpdateModel::updateWaitingStatus(UpdateType updateType, UpdatesStatus updat
     if (updateStatus > UpgradeWaiting && updateStatus <= UpgradeComplete && upgradeWaitingTypes & updateType) {
         m_waitingStatusMap.remove(UpgradeWaiting);
     }
+}
+
+UpdateListModel *UpdateModel::downloadinglistModel() const
+{
+    return m_downloadinglistModel;
+}
+
+void UpdateModel::setDownloadinglistModel(UpdateListModel *newDownloadinglistModel)
+{
+    if (m_downloadinglistModel == newDownloadinglistModel)
+        return;
+    m_downloadinglistModel = newDownloadinglistModel;
+    emit downloadinglistModelChanged();
+}
+
+UpdateListModel *UpdateModel::downloadFailedListModel() const
+{
+    return m_downloadFailedListModel;
+}
+
+void UpdateModel::setDownloadFailedListModel(UpdateListModel *newDownloadFailedListModel)
+{
+    if (m_downloadFailedListModel == newDownloadFailedListModel)
+        return;
+    m_downloadFailedListModel = newDownloadFailedListModel;
+    emit downloadFailedListModelChanged();
+}
+
+UpdateListModel *UpdateModel::installFailedListModel() const
+{
+    return m_installFailedListModel;
+}
+
+void UpdateModel::setInstallFailedListModel(UpdateListModel *newInstallFailedListModel)
+{
+    if (m_installFailedListModel == newInstallFailedListModel)
+        return;
+    m_installFailedListModel = newInstallFailedListModel;
+    emit installFailedListModelChanged();
+}
+
+UpdateListModel *UpdateModel::installCompleteListModel() const
+{
+    return m_installCompleteListModel;
+}
+
+void UpdateModel::setInstallCompleteListModel(UpdateListModel *newInstallCompleteListModel)
+{
+    if (m_installCompleteListModel == newInstallCompleteListModel)
+        return;
+    m_installCompleteListModel = newInstallCompleteListModel;
+    emit installCompleteListModelChanged();
+}
+
+UpdateListModel *UpdateModel::installinglistModel() const
+{
+    return m_installinglistModel;
+}
+
+void UpdateModel::setInstallinglistModel(UpdateListModel *newInstallinglistModel)
+{
+    if (m_installinglistModel == newInstallinglistModel)
+        return;
+    m_installinglistModel = newInstallinglistModel;
+    emit installinglistModelChanged();
+}
+
+UpdateListModel *UpdateModel::preInstallListModel() const
+{
+    return m_preInstallListModel;
+}
+
+void UpdateModel::setPreInstallListModel(UpdateListModel *newPreInstallListModel)
+{
+    if (m_preInstallListModel == newPreInstallListModel)
+        return;
+    m_preInstallListModel = newPreInstallListModel;
+    emit preInstallListModelChanged();
+}
+
+QString UpdateModel::preUpdateTips() const
+{
+    return m_preUpdateTips;
+}
+
+void UpdateModel::setPreUpdateTips(const QString &newPreUpdateTips)
+{
+    if (m_preUpdateTips == newPreUpdateTips)
+        return;
+    m_preUpdateTips = newPreUpdateTips;
+    emit preUpdateTipsChanged();
+}
+
+UpdateListModel *UpdateModel::preUpdatelistModel() const
+{
+    return m_preUpdatelistModel;
+}
+
+void UpdateModel::setPreUpdatelistModel(UpdateListModel *newPreUpdatelistModel)
+{
+    if (m_preUpdatelistModel == newPreUpdatelistModel)
+        return;
+    m_preUpdatelistModel = newPreUpdatelistModel;
+    emit preUpdatelistModelChanged();
+}
+
+int UpdateModel::checkUpdateStatus() const
+{
+    return m_checkUpdateStatus;
+}
+
+void UpdateModel::setCheckUpdateStatus(int newCheckUpdateStatus)
+{
+    if (m_checkUpdateStatus == newCheckUpdateStatus)
+        return;
+    m_checkUpdateStatus = newCheckUpdateStatus;
+    emit checkUpdateStatusChanged();
+
+    updateCheckUpdateUi();
+}
+
+void UpdateModel::refreshUpdateUiModel()
+{
+    if (m_preUpdatelistModel) {
+        m_preUpdatelistModel->clearAllData();
+    }
+
+    if (m_downloadinglistModel) {
+        m_downloadinglistModel->clearAllData();
+    }
+
+    if (m_installinglistModel) {
+        m_installinglistModel->clearAllData();
+    }
+
+    if (m_installCompleteListModel) {
+        m_installCompleteListModel->clearAllData();
+    }
+
+    if (m_installFailedListModel) {
+        m_installFailedListModel->clearAllData();
+    }
+
+    if (m_downloadFailedListModel) {
+        m_downloadFailedListModel->clearAllData();
+    }
+
+    for (auto item : m_allUpdateInfos.values()) {
+        switch (item->updateStatus()) {
+        case Updated:
+            m_installCompleteListModel->addUpdateData(item);
+            break;
+        case UpdatesAvailable:
+            m_preUpdatelistModel->addUpdateData(item);
+            break;
+        case DownloadWaiting:
+        case Downloading:
+        case DownloadPaused:
+        case UpgradeWaiting:
+            m_downloadinglistModel->addUpdateData(item);
+            break;
+        case Downloaded:
+            m_preInstallListModel->addUpdateData(item);
+            break;
+        case DownloadFailed:
+            m_downloadFailedListModel->addUpdateData(item);
+            break;
+        case UpgradeReady:
+        case Upgrading:
+            m_installinglistModel->addUpdateData(item);
+            break;
+        case  UpgradeFailed:
+            m_installFailedListModel->addUpdateData(item);
+            break;
+        case UpgradeSuccess:
+        case UpgradeComplete:
+            m_installCompleteListModel->addUpdateData(item);
+            break;
+        default:
+            break;
+        }
+    }
+}
+
+QString UpdateModel::checkUpdateIcon() const
+{
+    return m_checkUpdateIcon;
+}
+
+void UpdateModel::setCheckUpdateIcon(const QString &newCheckUpdateIcon)
+{
+    if (m_checkUpdateIcon == newCheckUpdateIcon)
+        return;
+    m_checkUpdateIcon = newCheckUpdateIcon;
+    emit checkUpdateIconChanged();
+}
+
+void UpdateModel::updateCheckUpdateUi()
+{
+    switch (m_checkUpdateStatus) {
+        case Checking:
+            setCheckUpdateErrTips(tr("Checking for updates, please wait…"));
+            setCheckUpdateIcon("updating");
+            break;
+        case UpdatesAvailable:
+            break;
+        case Updated:
+            setCheckBtnText(tr("Check Again"));
+            setCheckUpdateErrTips(tr("Your system is up to date"));
+            setCheckUpdateIcon("update_abreast_of_time");
+            break;
+        case CheckingFailed:
+            setCheckUpdateErrTips(errorToText(lastError(CheckingFailed)));
+            setCheckUpdateIcon("update_failure");
+            break;
+        default:
+            return;
+    }
+}
+
+QString UpdateModel::getCheckUpdateErrTips() const
+{
+    return checkUpdateErrTips;
+}
+
+void UpdateModel::setCheckUpdateErrTips(const QString &newCheckUpdateErrTips)
+{
+    if (checkUpdateErrTips == newCheckUpdateErrTips)
+        return;
+    checkUpdateErrTips = newCheckUpdateErrTips;
+    emit checkUpdateErrTipsChanged();
+}
+
+QString UpdateModel::getCheckBtnText() const
+{
+    return checkBtnText;
+}
+
+void UpdateModel::setCheckBtnText(const QString &newCheckBtnText)
+{
+    if (checkBtnText == newCheckBtnText)
+        return;
+    checkBtnText = newCheckBtnText;
+    emit checkBtnTextChanged();
 }
 
 /**

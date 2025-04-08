@@ -94,6 +94,7 @@ UpdateWorker::UpdateWorker(UpdateModel* model, QObject* parent)
     , m_updateInter(new UpdateDBusProxy(this))
     , m_jobPath("")
 {
+    init();
 }
 
 UpdateWorker::~UpdateWorker()
@@ -114,7 +115,7 @@ void UpdateWorker::init()
     // m_iconTheme->setSync(false);
 
     connect(m_updateInter, &UpdateDBusProxy::JobListChanged, this, &UpdateWorker::onJobListChanged);
-    connect(m_updateInter, &UpdateDBusProxy::JobListChanged, this, &UpdateWorker::onJobListChanged);
+    //connect(m_updateInter, &UpdateDBusProxy::JobListChanged, this, &UpdateWorker::onJobListChanged);
     connect(m_updateInter, &UpdateDBusProxy::AutoCleanChanged, m_model, &UpdateModel::setAutoCleanCache);
     connect(m_updateInter, &UpdateDBusProxy::UpdateModeChanged, this, &UpdateWorker::onUpdateModeChanged);
     connect(m_updateInter, &UpdateDBusProxy::AutoDownloadUpdatesChanged, m_model, &UpdateModel::setAutoDownloadUpdates);
@@ -217,7 +218,7 @@ void UpdateWorker::activate()
         QDBusConnection::systemBus());
     m_model->setCheckUpdateMode(managerInter.property("CheckUpdateMode").toInt());
     m_model->setUpdateNotify(m_updateInter->updateNotify());
-    m_model->setUpdateStatus(managerInter.property("UpdateStatus").toByteArray());
+    m_model->setUpdateStatus(m_updateInter->updateStatus().toUtf8());
     // FIXME 使用m_updateInter->property 无法获取到属性
     QDBusInterface updaterInter("com.deepin.lastore",
         "/com/deepin/lastore",
@@ -260,6 +261,8 @@ void UpdateWorker::activate()
     //     return iconTheme;
     // }));
 
+    m_model->setShowUpdateCtl(false);
+
     if (LastoreDaemonDConfigStatusHelper::isUpdateDisabled(m_model->lastoreDaemonStatus())) {
         m_model->setLastStatus(UpdatesStatus::UpdateIsDisabled, __LINE__);
     } else {
@@ -301,11 +304,11 @@ void UpdateWorker::checkForUpdates()
         return;
     }
 
-    const auto activeState = m_model->systemActivation();
-    if (!m_model->isActivationValid()) {
-        qCWarning(DCC_UPDATE_WORKER) << "System activation is invalid: " << activeState;
-        return;
-    }
+    // const auto activeState = m_model->systemActivation();
+    // if (!m_model->isActivationValid()) {
+    //     qCWarning(DCC_UPDATE_WORKER) << "System activation is invalid: " << activeState;
+    //     return;
+    // }
 
     if (checkDbusIsValid()) {
         qCWarning(DCC_UPDATE_WORKER) << "Check Dbus's validation failed do nothing";
@@ -332,7 +335,11 @@ void UpdateWorker::checkForUpdates()
     QDBusPendingCallWatcher* watcher = new QDBusPendingCallWatcher(call, this);
     connect(watcher, &QDBusPendingCallWatcher::finished, [this, call, watcher] {
         watcher->deleteLater();
-        if (call.isError()) {
+        if (!call.isError()) {
+            QDBusReply<QDBusObjectPath> reply = call.reply();
+            const QString jobPath = reply.value().path();
+            setCheckUpdatesJob(jobPath);
+        } else {
             qCWarning(DCC_UPDATE_WORKER) << "Check update failed, error: " << call.error().message();
             m_model->setLastStatus(UpdatesStatus::CheckingFailed, __LINE__);
             cleanLaStoreJob(m_checkUpdateJob);
@@ -782,6 +789,8 @@ void UpdateWorker::setCheckUpdatesJob(const QString& jobPath)
     if (UpdatesStatus::Downloading != state && UpdatesStatus::DownloadPaused != state) {
         m_model->setLastStatus(UpdatesStatus::Checking, __LINE__);
     }
+
+    m_model->setCheckUpdateStatus(UpdatesStatus::Checking);
     createCheckUpdateJob(jobPath);
 }
 
@@ -927,6 +936,7 @@ void UpdateWorker::onCheckUpdateStatusChanged(const QString& value)
             m_model->setLastErrorLog(CheckingFailed, description);
             m_model->setLastError(CheckingFailed, analyzeJobErrorMessage(description, CheckingFailed));
             m_model->setLastStatus(CheckingFailed, __LINE__);
+            m_model->setCheckUpdateStatus(CheckingFailed);
             deleteJob(m_checkUpdateJob);
         }
     } else if (value == "success" || value == "succeed") {
@@ -940,11 +950,14 @@ void UpdateWorker::onCheckUpdateStatusChanged(const QString& value)
                 qWarning() << "Get update log failed";
             }
             // 日志处理完了再显示更新内容界面
-            m_model->setLastStatus(CheckingSucceed, __LINE__);
-            setUpdateInfo();
         });
+        m_model->setLastStatus(CheckingSucceed, __LINE__);
+        m_model->setCheckUpdateStatus(CheckingSucceed);
+        setUpdateInfo();
+        m_model->setShowUpdateCtl(m_model->isUpdatable());
     } else if (value == "end") {
         Q_EMIT m_model->updateCheckUpdateTime();
+        m_model->updateCheckUpdateUi();
         deleteJob(m_checkUpdateJob);
     }
 }

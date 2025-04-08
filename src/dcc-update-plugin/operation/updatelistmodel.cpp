@@ -23,35 +23,36 @@ QVariant UpdateListModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
-    // FIXME: Implement me!
-    UpdateItemData data = m_updateLists[index.row()];
+    UpdateItemInfo* data = m_updateLists[index.row()];
 
     switch (role) {
     case Title:
-        return data.title;
+        return data->name();
     case TitleDescription:
-        return data.titleDescription;
+        return data->explain();
     case UpdateLog:
-        return data.updateLog;
+        return "";
     case ReleaseTime:
-        return data.releaseTime;
+        return data->updateTime();
     case Checked:
-        return data.checked;
+        return data->isChecked();
     case UpdateStatus:
-        return data.updateStatus;
+        return data->updateStatus();
     default:
         break;
     }
-    return QVariant();
+     return QVariant();
 }
 
-void UpdateListModel::addUpdateData(const UpdateItemData &itemData)
+void UpdateListModel::addUpdateData(UpdateItemInfo* itemData)
 {
     int row = rowCount();
     beginInsertRows(QModelIndex(), row, row);
     // FIXME: Implement me!
     m_updateLists.append(itemData);
     endInsertRows();
+
+    emit visibilityChanged();
 }
 
 bool UpdateListModel::insertRows(int row, int count, const QModelIndex &parent)
@@ -59,6 +60,8 @@ bool UpdateListModel::insertRows(int row, int count, const QModelIndex &parent)
     beginInsertRows(parent, row, row + count - 1);
     // FIXME: Implement me!
     endInsertRows();
+
+    emit visibilityChanged();
     return true;
 }
 
@@ -67,5 +70,16 @@ bool UpdateListModel::removeRows(int row, int count, const QModelIndex &parent)
     beginRemoveRows(parent, row, row + count - 1);
     // FIXME: Implement me!
     endRemoveRows();
+
+    emit visibilityChanged();
     return true;
+}
+
+void UpdateListModel::clearAllData()
+{
+    beginResetModel();
+    m_updateLists.clear();
+    endResetModel();
+
+    emit visibilityChanged();
 }

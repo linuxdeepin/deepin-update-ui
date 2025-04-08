@@ -105,7 +105,7 @@ DccObject {
             page: D.Switch {
                 // checked: dccData.model().audioMono
                 onCheckedChanged: {
-                    //  dccData.worker().setAudioMono(checked)
+                    //  dccData.work().setAudioMono(checked)
                 }
             }
 
