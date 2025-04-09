@@ -280,7 +280,9 @@ QDBusPendingReply<QDBusObjectPath> UpdateDBusProxy::DistUpgrade()
 
 QDBusPendingReply<QDBusObjectPath> UpdateDBusProxy::DistUpgradePartly(int updateTypes, bool doBackup)
 {
-    return m_managerInter->asyncCall(QStringLiteral("DistUpgrade"),updateTypes, doBackup);
+    QList<QVariant> argumentList;
+    argumentList << QVariant::fromValue(updateTypes) << QVariant::fromValue(doBackup);
+    return m_managerInter->asyncCallWithArgumentList(QStringLiteral("DistUpgradePartly"),argumentList);
 }
 
 QDBusPendingReply<void> UpdateDBusProxy::SetDownloadSpeedLimit(const QString& config)

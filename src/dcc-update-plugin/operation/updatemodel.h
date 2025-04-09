@@ -38,6 +38,9 @@ class UpdateModel : public QObject
     Q_PROPERTY(QString lastCheckUpdateTime READ lastCheckUpdateTime  NOTIFY updateCheckUpdateTime FINAL)
     Q_PROPERTY(int checkUpdateStatus READ checkUpdateStatus NOTIFY checkUpdateStatusChanged FINAL)
     Q_PROPERTY(double checkUpdateProgress READ checkUpdateProgress NOTIFY updateProgressChanged FINAL)
+    Q_PROPERTY(double downloadProgress READ downloadProgress NOTIFY downloadProgressChanged FINAL)
+    Q_PROPERTY(double distUpgradeProgress READ distUpgradeProgress NOTIFY distUpgradeProgressChanged FINAL)
+
 
     Q_PROPERTY(UpdateListModel *preUpdatelistModel READ preUpdatelistModel  NOTIFY preUpdatelistModelChanged FINAL)
     Q_PROPERTY(QString preUpdateTips READ preUpdateTips WRITE setPreUpdateTips NOTIFY preUpdateTipsChanged FINAL)
@@ -47,6 +50,8 @@ class UpdateModel : public QObject
     Q_PROPERTY(UpdateListModel *installFailedListModel READ installFailedListModel  NOTIFY installFailedListModelChanged FINAL)
     Q_PROPERTY(UpdateListModel *downloadFailedListModel READ downloadFailedListModel  NOTIFY downloadFailedListModelChanged FINAL)
     Q_PROPERTY(UpdateListModel *downloadinglistModel READ downloadinglistModel NOTIFY downloadinglistModelChanged FINAL)
+    Q_PROPERTY(QString downloadFailedTips READ downloadFailedTips NOTIFY downloadFailedTipsChanged FINAL)
+    Q_PROPERTY(QString installFailedTips READ installFailedTips NOTIFY installFailedTipsChanged FINAL)
 
 
 public:
@@ -283,6 +288,12 @@ public:
     UpdateListModel *downloadinglistModel() const;
     void setDownloadinglistModel(UpdateListModel *newDownloadinglistModel);
 
+    QString downloadFailedTips() const;
+    void setDownloadFailedTips(const QString &newDownloadFailedTips);
+
+    QString installFailedTips() const;
+    void setInstallFailedTips(const QString &newInstallFailedTips);
+
 public slots:
     void onUpdatePropertiesChanged(const QString &interfaceName,
                                    const QVariantMap &changedProperties,
@@ -351,6 +362,12 @@ Q_SIGNALS:
     void downloadFailedListModelChanged();
 
     void downloadinglistModelChanged();
+
+
+
+    void downloadFailedTipsChanged();
+
+    void installFailedTipsChanged();
 
 private:
     void setUpdateItemEnabled();
@@ -426,9 +443,11 @@ private:
 
     // installFailedList qml data
     UpdateListModel *m_installFailedListModel;
+    QString m_installFailedTips;
 
     // downloadFailedList qml data
     UpdateListModel *m_downloadFailedListModel;
+    QString m_downloadFailedTips;
 
 };
 

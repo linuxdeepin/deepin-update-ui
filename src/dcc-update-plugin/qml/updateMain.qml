@@ -21,8 +21,6 @@ DccObject {
     DccObject {
         name: "checkUpdatePage"
         parentName: "update"
-        //displayName: qsTr("check update")
-        //description: dccData.model().upgradable ? qsTr("Your system is already the latest version") : qsTr("You have a new system update, please check and update")
         pageType: DccObject.Item
         backgroundType: DccObject.Audobg
         visible: !dccData.model().showUpdateCtl
@@ -42,15 +40,15 @@ DccObject {
         page: UpdateControl{
 
             updateListModels: dccData.model().installCompleteListModel
+            updateStateTips: "Update installation successful"
+            updateTips: qsTr("In order for you to use the system and applications normally, please restart your computer after the update")
+            actionBtnText: qsTr("Restart Now")
+            checkVisible: false
 
-            updateStateTips: "更新完成"
-
-            // updateListModels: ListModel {
-            //         ListElement {
-            //             name: qsTr("Feature Updates")
-            //             checked: true
-            //         }
-            //     }
+            onBtnClicked: function(updateType){
+                console.log("立即重启 =================== ", updateType)
+                dccData.work().reStart()
+            }
         }
     }
 
@@ -63,7 +61,16 @@ DccObject {
         visible: dccData.model().installFailedListModel.anyVisible
         page:  UpdateControl{
             updateListModels: dccData.model().installFailedListModel
-            updateStateTips: "更新失败"
+            updateStateTips: qsTr("Update failed")
+            actionBtnText: qsTr("retry")
+            updateTips: dccData.model().downloadFailedTips
+
+            checkVisible: false
+            onBtnClicked: function(updateType){
+                console.log("更新失败 =================== ", updateType)
+
+                dccData.work().onRequestRetry(2, updateType)
+            }
         }
     }
 
@@ -73,28 +80,16 @@ DccObject {
         parentName: "update"
         backgroundType: DccObject.Normal
         weight: 40
-        //visible: false
         visible: dccData.model().installinglistModel.anyVisible
         pageType: DccObject.Item
         page: UpdateControl{
 
+            checkVisible: false
             updateListModels: dccData.model().installinglistModel
-            updateStateTips: "正在下载更新"
+            updateStateTips: qsTr("Installing updates")
 
-            // updateListModels: ListModel {
-            //     ListElement {
-            //         name: qsTr("Feature Updates")
-            //         checked: true
-            //     }
-            //     ListElement {
-            //         name: qsTr("Feature Updates")
-            //         checked: true
-            //     }
-            //     ListElement {
-            //         name: qsTr("Feature Updates")
-            //         checked: true
-            //     }
-            // }
+            processValue: dccData.model().distUpgradeProgress
+
         }
     }
 
@@ -107,7 +102,15 @@ DccObject {
         visible: dccData.model().preInstallListModel.anyVisible
         page:  UpdateControl{
             updateListModels: dccData.model().preInstallListModel
-            updateStateTips: "更新下载完成"
+            updateStateTips: qsTr("Update download completed")
+            actionBtnText: qsTr("Install updates")
+            updateTips: qsTr("Update size: ") + dccData.model().downloadinglistModel.downloadSize + "G"
+
+            onBtnClicked: function(updateType) {
+
+                console.log("安装更新 =================== ", updateType)
+                dccData.work().doUpgrade(updateType, false)
+            }
         }
     }
 
@@ -120,7 +123,15 @@ DccObject {
         visible: dccData.model().downloadFailedListModel.anyVisible
         page:  UpdateControl{
             updateListModels: dccData.model().downloadFailedListModel
-            updateStateTips: "更新下载失败"
+            updateStateTips: qsTr("Update download failed")
+            actionBtnText: qsTr("retry")
+            checkVisible: false
+            updateTips: dccData.model().installFailedTips
+
+            onBtnClicked: function(updateType){
+                console.log("重试 =================== ", updateType)
+                dccData.work().onRequestRetry(6, updateType)
+            }
         }
     }
 
@@ -133,7 +144,19 @@ DccObject {
         visible: dccData.model().downloadinglistModel.anyVisible
         page:  UpdateControl{
             updateListModels: dccData.model().downloadinglistModel
-            updateStateTips: "正在下载。。"
+            updateStateTips: qsTr("Downloading updates...")
+            updateTips: qsTr("Update size: ") + dccData.model().downloadinglistModel.downloadSize + "G"
+
+            checkVisible: false
+            processValue: dccData.model().downloadProgress
+
+            onDownloadJobCtrl: function(updateCtrlType) {
+                dccData.work().onDownloadJobCtrl(updateCtrlType)
+            }
+
+            onCloseDownload: {
+                dccData.work().stopDownload()
+            }
         }
     }
 
@@ -146,7 +169,16 @@ DccObject {
         visible: dccData.model().preUpdatelistModel.anyVisible
         page:  UpdateControl{
             updateListModels: dccData.model().preUpdatelistModel
-            updateStateTips: "检查到有更新可用"
+            updateStateTips: qsTr("Detected updates available")
+            actionBtnText: qsTr("download")
+            checkVisible: false
+            updateTips: qsTr("Update size: ") + dccData.model().downloadinglistModel.downloadSize + "G"
+
+            onBtnClicked: function(updateType){
+
+                console.log("下载 =================== ", updateType)
+                dccData.work().startDownload(updateType)
+            }
         }
     }
 

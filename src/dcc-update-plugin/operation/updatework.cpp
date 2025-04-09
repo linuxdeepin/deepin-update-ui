@@ -115,7 +115,7 @@ void UpdateWorker::init()
     // m_iconTheme->setSync(false);
 
     connect(m_updateInter, &UpdateDBusProxy::JobListChanged, this, &UpdateWorker::onJobListChanged);
-    //connect(m_updateInter, &UpdateDBusProxy::JobListChanged, this, &UpdateWorker::onJobListChanged);
+    connect(m_updateInter, &UpdateDBusProxy::UpdateStatusChanged, this, &UpdateWorker::onUpdateStatusChanged);
     connect(m_updateInter, &UpdateDBusProxy::AutoCleanChanged, m_model, &UpdateModel::setAutoCleanCache);
     connect(m_updateInter, &UpdateDBusProxy::UpdateModeChanged, this, &UpdateWorker::onUpdateModeChanged);
     connect(m_updateInter, &UpdateDBusProxy::AutoDownloadUpdatesChanged, m_model, &UpdateModel::setAutoDownloadUpdates);
@@ -188,15 +188,26 @@ void UpdateWorker::getLicenseState()
         return;
     }
     QDBusInterface licenseInfo("com.deepin.license",
-        "/com/deepin/license/Info",
-        "com.deepin.license.Info",
-        QDBusConnection::systemBus());
+                               "/com/deepin/license/Info",
+                               "com.deepin.license.Info",
+                               QDBusConnection::systemBus());
     if (!licenseInfo.isValid()) {
         qCWarning(DCC_UPDATE_WORKER) << "License info dbus is invalid.";
         return;
     }
-    UiActiveState reply = static_cast<UiActiveState>(licenseInfo.property("AuthorizationState").toInt());
+    UiActiveState reply =
+            static_cast<UiActiveState>(licenseInfo.property("AuthorizationState").toInt());
     emit systemActivationChanged(reply);
+}
+
+void UpdateWorker::reStart()
+{
+    DDBusSender()
+    .service("com.deepin.dde.shutdownFront")
+    .interface("com.deepin.dde.shutdownFront")
+    .path("/com/deepin/dde/shutdownFront")
+    .method("Restart")
+    .call();
 }
 
 void UpdateWorker::activate()
@@ -913,7 +924,7 @@ void UpdateWorker::onDistUpgradeStatusChanged(const QString& status)
                 const QString& description = m_distUpgradeJob->description();
                 m_model->setLastErrorLog(UpgradeFailed, description);
                 m_model->setLastError(UpgradeFailed, analyzeJobErrorMessage(description));
-
+                m_model->setInstallFailedTips(m_model->errorToText(m_model->lastError(UpgradeFailed)));
             }
         }
     } else {
@@ -957,6 +968,7 @@ void UpdateWorker::onCheckUpdateStatusChanged(const QString& value)
         m_model->setShowUpdateCtl(m_model->isUpdatable());
     } else if (value == "end") {
         Q_EMIT m_model->updateCheckUpdateTime();
+        m_model->setCheckUpdateStatus(m_model->lastStatus());
         m_model->updateCheckUpdateUi();
         deleteJob(m_checkUpdateJob);
     }
@@ -1077,6 +1089,7 @@ void UpdateWorker::onDownloadStatusChanged(const QString& value)
         const auto& description = m_downloadJob->description();
         m_model->setLastErrorLog(DownloadFailed, description);
         m_model->setLastError(DownloadFailed, analyzeJobErrorMessage(description, DownloadFailed));
+        m_model->setDownloadFailedTips(m_model->errorToText(m_model->lastError(DownloadFailed)));
     } else if (value == "end") {
         // 有多个下载项时,每下载完一个就会收到`end`,全部下载完毕后再析构job
         if (m_model->allUpdateStatus().contains(Downloading)) {
@@ -1307,6 +1320,11 @@ void UpdateWorker::checkPower()
     double data = m_updateInter->batteryPercentage().value("Display", 0);
     int batteryPercentage = uint(qMin(100.0, qMax(0.0, data)));
     m_model->setBatterIsOK(batteryPercentage >= LOWEST_BATTERY_PERCENT);
+}
+
+void UpdateWorker::onUpdateStatusChanged(const QString &value)
+{
+    m_model->setUpdateStatus(value.toUtf8());
 }
 
 void UpdateWorker::setP2PUpdateEnabled(bool enabled)

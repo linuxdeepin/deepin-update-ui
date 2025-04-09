@@ -48,6 +48,8 @@ public:
     void deactivate();
     void getLicenseState();
 
+    Q_INVOKABLE void reStart();
+
 Q_SIGNALS:
     void requestInit();
     void requestActive();
@@ -88,6 +90,9 @@ public Q_SLOTS:
     void setDownloadSpeedLimitConfig(const QString& config);
     void setP2PUpdateEnabled(bool enabled);
 
+    void doUpgrade(int updateTypes, bool doBackup);
+    void stopDownload();
+
 private Q_SLOTS:
     void setCheckUpdatesJob(const QString& jobPath);
     void onJobListChanged(const QList<QDBusObjectPath>& jobs);
@@ -99,9 +104,8 @@ private Q_SLOTS:
     QString getTestingChannelSource();
     void onUpdateModeChanged(qulonglong value);
     void onDistUpgradeStatusChanged(const QString& status);
-    void doUpgrade(int updateTypes, bool doBackup);
-    void stopDownload();
     void checkPower();
+    void onUpdateStatusChanged(const QString& value);
 
 private:
     QMap<UpdateType, UpdateItemInfo*> getAllUpdateInfo(const QMap<QString, QStringList>& updatePackages);

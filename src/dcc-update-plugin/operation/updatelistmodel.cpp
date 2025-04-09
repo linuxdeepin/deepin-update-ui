@@ -38,6 +38,8 @@ QVariant UpdateListModel::data(const QModelIndex &index, int role) const
         return data->isChecked();
     case UpdateStatus:
         return data->updateStatus();
+    case IconName:
+        return getIconName(data->updateType());
     default:
         break;
     }
@@ -53,6 +55,7 @@ void UpdateListModel::addUpdateData(UpdateItemInfo* itemData)
     endInsertRows();
 
     emit visibilityChanged();
+    emit downloadSizeChanged();
 }
 
 bool UpdateListModel::insertRows(int row, int count, const QModelIndex &parent)
@@ -62,6 +65,7 @@ bool UpdateListModel::insertRows(int row, int count, const QModelIndex &parent)
     endInsertRows();
 
     emit visibilityChanged();
+    emit downloadSizeChanged();
     return true;
 }
 
@@ -72,7 +76,38 @@ bool UpdateListModel::removeRows(int row, int count, const QModelIndex &parent)
     endRemoveRows();
 
     emit visibilityChanged();
+    emit downloadSizeChanged();
     return true;
+}
+
+QString UpdateListModel::getIconName(UpdateType type) const
+{
+    QString path = "qrc:/icons/deepin/builtin/icons/";
+    switch (type) {
+    case Invalid:
+    case UnknownUpdate:
+        return path + "dcc_unknown_update.svg";
+    case SystemUpdate:
+        return path + "dcc_system_update.svg";
+    case AppStoreUpdate:
+        return path + "dcc_app_update.svg";
+    case SecurityUpdate:
+    case OnlySecurityUpdate:
+        return path + "dcc_safe_update";
+    }
+
+    return path + "dcc_unknown_update.svg";
+}
+
+double UpdateListModel::downloadSize() const
+{
+    int size = 0;
+    for (int i = 0; i < m_updateLists.size(); ++i) {
+        qDebug() <<"========== " << m_updateLists[i]->downloadSize();
+        size += m_updateLists[i]->downloadSize();
+    }
+
+    return size;
 }
 
 void UpdateListModel::clearAllData()
@@ -82,4 +117,25 @@ void UpdateListModel::clearAllData()
     endResetModel();
 
     emit visibilityChanged();
+}
+
+void UpdateListModel::setChecked(int index, bool checked)
+{
+    if (index >= 0 && index < m_updateLists.count()) {
+        m_updateLists[index]->setIsChecked(checked);
+
+        QModelIndex changedIndex = this->index(index);
+        emit dataChanged(changedIndex, changedIndex, {});
+    }
+}
+
+int UpdateListModel::getAllUpdateType() const
+{
+    int updateType = 0;
+    for (int i = 0; i < m_updateLists.count(); ++i) {
+        if (m_updateLists[i]->isChecked()) {
+            updateType |= m_updateLists[i]->updateType();
+        }
+    }
+    return updateType;
 }

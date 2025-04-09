@@ -50,10 +50,11 @@ ColumnLayout {
             }
 
             D.Button {
+
                 Layout.alignment: Qt.AlignHCenter
                 implicitWidth: 200
                 font.pixelSize: 14
-                visible: dccData.model().checkUpdateStatus != 1
+                visible: text.length !== 0
                 text: dccData.model().checkBtnText
                 onClicked: {
                     dccData.work().checkForUpdates();

@@ -18,7 +18,6 @@ Rectangle {
     property bool backgroundVisible: true
     property bool showPlayBtn: false
     signal clicked(int index, bool checked)
-    signal playbtnClicked(int index)
 
     color: "transparent"
     implicitHeight: layoutView.height
@@ -50,7 +49,7 @@ Rectangle {
 
                     D.DciIcon {
                         Layout.alignment: Qt.AlignLeft | Qt.AlignTop
-                        name: "update_upgrade"
+                        name: model.iconName
                         width: 36
                         height: 36
                         Layout.preferredWidth: 40
@@ -63,17 +62,21 @@ Rectangle {
                         RowLayout {
                             Label {
                                 Layout.alignment: Qt.AlignLeft
-                                text: model.name
+                                text: model.title
                                 font.pixelSize: 14
                                 width: 100
                                 Layout.fillWidth: true
                             }
 
                             DccCheckIcon {
-                                visible: false
                                 Layout.alignment: Qt.AlignRight
                                 checked: model.checked
                                 size: 18
+
+                                onClicked: {
+                                    repeater.model.setChecked(index, !model.checked)
+                                }
+
                             }
                         }
 
@@ -82,7 +85,7 @@ Rectangle {
                             horizontalAlignment: Text.AlignLeft
                             Layout.fillWidth: true
                             font.pixelSize: 12
-                            text: qsTr("This patch update mainly improves the operational performance experience of desktop environment and commonly used applications, and fixes some known system issues, further enhancing product quality.")
+                            text: model.titleDescription
                             wrapMode: Text.WordWrap
                         }
 
@@ -105,10 +108,9 @@ Rectangle {
 
                         D.Label {
                             id: shortLog
-                            visible: false
                             Layout.alignment: Qt.AlignLeft
                             horizontalAlignment: Text.AlignLeft
-                            text: ""
+                            text: model.updateLog
                             font.pixelSize: 12
                             Layout.fillWidth: true
                             opacity: 0.7
@@ -128,8 +130,8 @@ Rectangle {
                         }
 
                         RowLayout {
-                            visible: false
                             RowLayout {
+                                visible: releaseContent.text.length !== 0
                                 Layout.alignment: Qt.AlignLeft
                                 D.Label {
                                     id: releaseTitle
@@ -145,7 +147,7 @@ Rectangle {
                                     Layout.alignment: Qt.AlignLeft
                                     horizontalAlignment: Text.AlignLeft
                                     font.pixelSize: 12
-                                    text: qsTr("2025.1.20")
+                                    text: model.releaseTime
                                     opacity: 0.7
                                 }
                             }
@@ -156,9 +158,9 @@ Rectangle {
 
                             D.ToolButton {
                                 Layout.alignment: Qt.AlignRight
+                                visible: detailLog.visible
                                 text: shortLog.visible ? qsTr("View Details") : qsTr("收起")
                                 textColor: DS.Style.highlightedButton.text
-                              //  Layout.rightMargin: -25
 
                                 onClicked: {
                                     shortLog.visible = !shortLog.visible

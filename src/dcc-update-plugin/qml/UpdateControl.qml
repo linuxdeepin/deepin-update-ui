@@ -12,16 +12,16 @@ ColumnLayout {
     id: rootLayout
     property alias updateListModels: updatelistModel.model;
     property string updateStateTips : "aaaaaaa";
-    property string actionBtnText : "sssssss"
-    property string updateSize: "dddddddd"
-    property string updateTips: qsTr("Expected installation time:") + qsTr("30min")
+    property string actionBtnText : ""
+    property string updateTips: ""
     property double processValue: 0
+    property bool processState: false
 
-    property bool btnVisible: true
+    property bool checkVisible: false
 
-    signal btnClicked()
-    signal startProcess()
-    signal stopProcess()
+    signal btnClicked(int updateType)
+    signal downloadJobCtrl(int updateCtrlType)
+    signal closeDownload()
 
 
     width: parent.width
@@ -36,7 +36,7 @@ ColumnLayout {
                 spacing: 5
                 Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
                 DccCheckIcon {
-                  //  visible: dccData.model().distUpgradeState === 3
+                    visible: checkVisible
                     checked: true
                     size: 18
                 }
@@ -49,8 +49,10 @@ ColumnLayout {
             }
 
             D.Label {
+                visible: updateTips.length !== 0
                 text: updateTips
                 font.pixelSize: 12
+                wrapMode: Text.WordWrap
             }
 
             // RowLayout {
@@ -71,29 +73,29 @@ ColumnLayout {
             text: actionBtnText
             font.pixelSize: 14
             textColor: DS.Style.highlightedButton.background1
-            visible: btnVisible
-          //  visible: dccData.model().distUpgradeState !== 1 && dccData.model().distUpgradeState !== 0
+            visible: actionBtnText.length !== 0
             onClicked: {
                // dccData.work().onActionBtnClicked();
-                rootLayout.btnClicked()
+                rootLayout.btnClicked(updateListModels.getAllUpdateType())
             }
         }
 
-        D.BusyIndicator {
-            id: scanAnimation
-
-            Layout.alignment: Qt.AlignRight
-        //    running: dccData.model().distUpgradeState === 1 || dccData.model().distUpgradeState === 0
-        //    visible: dccData.model().distUpgradeState === 1 || dccData.model().distUpgradeState === 0
-            implicitWidth: 32
-            implicitHeight: 32
-        }
+        // D.BusyIndicator {
+        //     id: scanAnimation
+        //
+        //     Layout.alignment: Qt.AlignRight
+        // //    running: dccData.model().distUpgradeState === 1 || dccData.model().distUpgradeState === 0
+        // //    visible: dccData.model().distUpgradeState === 1 || dccData.model().distUpgradeState === 0
+        //     implicitWidth: 32
+        //     implicitHeight: 32
+        // }
 
         ColumnLayout {
-            visible: processValue === 0
-           // visible: dccData.model().distUpgradeState === 1
+            visible: processValue !== 0 && processValue !== 1
             Layout.rightMargin: 12
             Layout.alignment: Qt.AlignRight
+
+
 
             RowLayout {
                 id: progressCtl
@@ -103,7 +105,7 @@ ColumnLayout {
                     id: process
                     Layout.alignment: Qt.AlignHCenter
                     from: 0
-                    to: 100
+                    to: 1
                     value: processValue
                     implicitHeight: 8
                     implicitWidth: 240
@@ -116,9 +118,11 @@ ColumnLayout {
                     height: 12
 
                     onClicked: {
-                        root.startProcess()
+                        processState = !processState
+                        root.downloadJobCtrl(processState)
                     }
                 }
+
 
                 D.ToolButton {
                     id: stopIcon
@@ -126,7 +130,7 @@ ColumnLayout {
                     width: 12
                     height: 12
                     onClicked: {
-                        root.stopProcess()
+                        root.closeDownload()
                     }
                 }
             }
@@ -135,7 +139,7 @@ ColumnLayout {
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: stratIcon.width + stopIcon.width + progressCtl.spacing * 2
                 width: parent.width
-                text: qsTr("Installing") + process.value + "%"
+                text: qsTr("Installing") + process.value*100 + "%"
                 font.pixelSize: 12
             }
         }

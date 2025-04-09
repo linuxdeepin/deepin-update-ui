@@ -169,7 +169,6 @@ void UpdateModel::setAutoCleanCache(bool autoCleanCache)
 
 void UpdateModel::setCheckUpdateProgress(double updateProgress)
 {
-    qDebug() << "Update progress: ============= " << updateProgress;
     if (!qFuzzyCompare(m_checkUpdateProgress, updateProgress)) {
         m_checkUpdateProgress = updateProgress;
         Q_EMIT updateProgressChanged(updateProgress);
@@ -379,6 +378,7 @@ void UpdateModel::onUpdatePropertiesChanged(const QString& interfaceName, const 
 
     if (interfaceName == "com.deepin.lastore.Manager") {
         if (changedProperties.contains("UpdateStatus")) {
+            qDebug() << "Update properties changed ======= " << changedProperties ;
             setUpdateStatus(changedProperties.value("UpdateStatus").toByteArray());
         }
 
@@ -619,6 +619,32 @@ void UpdateModel::updateWaitingStatus(UpdateType updateType, UpdatesStatus updat
     }
 }
 
+QString UpdateModel::installFailedTips() const
+{
+    return m_installFailedTips;
+}
+
+void UpdateModel::setInstallFailedTips(const QString &newInstallFailedTips)
+{
+    if (m_installFailedTips == newInstallFailedTips)
+        return;
+    m_installFailedTips = newInstallFailedTips;
+    emit installFailedTipsChanged();
+}
+
+QString UpdateModel::downloadFailedTips() const
+{
+    return m_downloadFailedTips;
+}
+
+void UpdateModel::setDownloadFailedTips(const QString &newDownloadFailedTips)
+{
+    if (m_downloadFailedTips == newDownloadFailedTips)
+        return;
+    m_downloadFailedTips = newDownloadFailedTips;
+    emit downloadFailedTipsChanged();
+}
+
 UpdateListModel *UpdateModel::downloadinglistModel() const
 {
     return m_downloadinglistModel;
@@ -764,6 +790,10 @@ void UpdateModel::refreshUpdateUiModel()
         m_downloadFailedListModel->clearAllData();
     }
 
+    if (m_preInstallListModel) {
+        m_preInstallListModel->clearAllData();
+    }
+
     for (auto item : m_allUpdateInfos.values()) {
         switch (item->updateStatus()) {
         case Updated:
@@ -820,6 +850,7 @@ void UpdateModel::updateCheckUpdateUi()
         case Checking:
             setCheckUpdateErrTips(tr("Checking for updates, please wait…"));
             setCheckUpdateIcon("updating");
+            setCheckBtnText(tr(""));
             break;
         case UpdatesAvailable:
             break;
@@ -831,8 +862,10 @@ void UpdateModel::updateCheckUpdateUi()
         case CheckingFailed:
             setCheckUpdateErrTips(errorToText(lastError(CheckingFailed)));
             setCheckUpdateIcon("update_failure");
+            setCheckBtnText(tr("重新检查"));
             break;
         default:
+            setCheckBtnText(tr(""));
             return;
     }
 }
@@ -978,6 +1011,7 @@ void UpdateModel::setCheckUpdateMode(int value)
 
 void UpdateModel::setDistUpgradeProgress(double progress)
 {
+    qDebug() << " setDistUpgradeProgress ============ " << progress;
     if (qFuzzyCompare(progress, m_distUpgradeProgress))
         return;
 
