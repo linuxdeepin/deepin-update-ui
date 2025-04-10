@@ -1,3 +1,9 @@
+deepin-update-ui (1.0.1) unstable; urgency=medium
+
+  * release 1.0.1
+
+ -- xionglinlin <xionglinlin@uniontech.com>  Thu, 10 Apr 2025 17:28:42 +0800
+
 deepin-update-ui (1.0.0) unstable; urgency=medium
 
   * Autobuild Tag 1.0.0
