@@ -199,6 +199,31 @@ QString UpdateDBusProxy::hardwareId()
     return qvariant_cast<QString>(m_managerInter->property("HardwareId"));
 }
 
+int UpdateDBusProxy::checkUpdateMode()
+{
+    return qvariant_cast<int>(m_managerInter->property("CheckUpdateMode"));
+}
+
+void UpdateDBusProxy::setCheckUpdateMode(int value)
+{
+    m_managerInter->setProperty("CheckUpdateMode", QVariant::fromValue(value));
+}
+
+QString UpdateDBusProxy::idleDownloadConfig()
+{
+    return qvariant_cast<QString>(m_updateInter->property("IdleDownloadConfig"));
+}
+
+QString UpdateDBusProxy::downloadSpeedLimitConfig()
+{
+    return qvariant_cast<QString>(m_updateInter->property("DownloadSpeedLimitConfig"));
+}
+
+bool UpdateDBusProxy::p2pUpdateEnable()
+{
+    return qvariant_cast<bool>(m_updateInter->property("P2PUpdateEnable"));
+}
+
 QDBusPendingReply<QDBusObjectPath> UpdateDBusProxy::UpdateSource()
 {
     QList<QVariant> argumentList;
@@ -289,7 +314,7 @@ QDBusPendingReply<void> UpdateDBusProxy::SetDownloadSpeedLimit(const QString& co
 {
     QList<QVariant> argumentList;
     argumentList << QVariant::fromValue(config);
-    return m_managerInter->asyncCallWithArgumentList(QStringLiteral("SetDownloadSpeedLimit"), argumentList);
+    return m_updateInter->asyncCallWithArgumentList(QStringLiteral("SetDownloadSpeedLimit"), argumentList);
 }
 
 QDBusPendingReply<qlonglong> UpdateDBusProxy::QueryAllSizeWithSource(int updatetype)
@@ -310,7 +335,7 @@ QDBusPendingReply<void> UpdateDBusProxy::SetIdleDownloadConfig(const QString& co
 {
     QList<QVariant> argumentList;
     argumentList << QVariant::fromValue(config);
-    return m_managerInter->asyncCallWithArgumentList(QStringLiteral("SetIdleDownloadConfig"), argumentList);
+    return m_updateInter->asyncCallWithArgumentList(QStringLiteral("SetIdleDownloadConfig"), argumentList);
 }
 
 QDBusPendingReply<QDBusObjectPath> UpdateDBusProxy::PrepareDistUpgradePartly(int updateMode)

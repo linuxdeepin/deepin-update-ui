@@ -7,6 +7,8 @@
 
 #include <DSysInfo>
 
+using namespace dcc::update::common;
+
 Q_LOGGING_CATEGORY(DCC_UPDATE_MODEL, "dcc-update-model")
 
 DCORE_USE_NAMESPACE
@@ -40,7 +42,12 @@ UpdateModel::UpdateModel(QObject* parent)
     , m_netselectExist(false)
     , m_autoCleanCache(false)
     , m_autoDownloadUpdates(false)
+    , m_securityUpdateEnabled(false)
+    , m_thirdPartyUpdateEnabled(false)
     , m_updateMode(UpdateType::Invalid)
+    , m_functionUpdate(false)
+    , m_securityUpdate(false)
+    , m_thirdPartyUpdate(false)
     , m_updateNotify(false)
     , m_smartMirrorSwitch(false)
     , m_mirrorId(QString())
@@ -96,6 +103,36 @@ void UpdateModel::initConfig()
     } else {
         qCWarning(DCC_UPDATE_MODEL) << "Lastore dconfig is nullptr or invalid";
     }
+}
+
+void UpdateModel::setSecurityUpdateEnabled(bool enable)
+{
+    if (m_securityUpdateEnabled == enable)
+        return;
+
+    m_securityUpdateEnabled = enable;
+    Q_EMIT securityUpdateEnabledChanged(enable);
+}
+
+void UpdateModel::setThirdPartyUpdateEnabled(bool enable)
+{
+    if (m_thirdPartyUpdateEnabled == enable)
+        return;
+
+    m_thirdPartyUpdateEnabled = enable;
+    Q_EMIT thirdPartyUpdateEnabledChanged(enable);
+}
+
+void UpdateModel::setUpdateType(quint64 updateMode)
+{
+    m_functionUpdate = updateMode & UpdateType::SystemUpdate;
+    emit functionUpdateChanged(m_functionUpdate);
+
+    m_securityUpdate = updateMode & UpdateType::SecurityUpdate;
+    emit securityUpdateChanged(m_securityUpdate);
+
+    m_thirdPartyUpdate = updateMode & UpdateType::UnknownUpdate;
+    emit thirdPartyUpdateChanged(m_thirdPartyUpdate);
 }
 
 void UpdateModel::setMirrorInfos(const MirrorInfoList& list)
@@ -195,6 +232,7 @@ void UpdateModel::setUpdateMode(quint64 updateMode)
 
     m_updateMode = updateMode;
 
+    setUpdateType(m_updateMode);
     setUpdateItemEnabled();
     refreshUpdateStatus();
     updateAvailableState();
@@ -366,7 +404,6 @@ void UpdateModel::setTestingChannelServer(const QString server)
     m_testingChannelServer = server;
 }
 
-
 void UpdateModel::setCanExitTestingChannel(const bool can)
 {
     Q_EMIT canExitTestingChannelChanged(can);
@@ -376,9 +413,8 @@ void UpdateModel::onUpdatePropertiesChanged(const QString& interfaceName, const 
 {
     Q_UNUSED(invalidatedProperties)
 
-    if (interfaceName == "com.deepin.lastore.Manager") {
+    if (interfaceName == "org.deepin.dde.Lastore1.Manager") {
         if (changedProperties.contains("UpdateStatus")) {
-            qDebug() << "Update properties changed ======= " << changedProperties ;
             setUpdateStatus(changedProperties.value("UpdateStatus").toByteArray());
         }
 
@@ -402,7 +438,7 @@ void UpdateModel::onUpdatePropertiesChanged(const QString& interfaceName, const 
         }
     }
 
-    if (interfaceName == "com.deepin.lastore.Updater") {
+    if (interfaceName == "org.deepin.dde.Lastore1.Updater") {
         if (changedProperties.contains("IdleDownloadConfig")) {
             setIdleDownloadConfig(IdleDownloadConfig::toConfig(changedProperties.value("IdleDownloadConfig").toByteArray()));
         }
@@ -426,6 +462,23 @@ void UpdateModel::setIdleDownloadConfig(const IdleDownloadConfig& config)
     Q_EMIT idleDownloadConfigChanged();
 }
 
+bool UpdateModel::idleDownloadEnabled() const
+{
+    return m_idleDownloadConfig.idleDownloadEnabled;
+}
+
+int UpdateModel::beginTime() const
+{
+    QTime time = QTime::fromString(m_idleDownloadConfig.beginTime);
+    return time.hour() * 60 + time.minute();
+}
+
+int UpdateModel::endTime() const
+{
+    QTime time = QTime::fromString(m_idleDownloadConfig.endTime);
+    return time.hour() * 60 + time.minute();
+}
+
 qlonglong UpdateModel::downloadSize(int updateTypes) const
 {
     qlonglong downloadSize = 0;
@@ -439,7 +492,6 @@ qlonglong UpdateModel::downloadSize(int updateTypes) const
 
 void UpdateModel::setUpdateItemEnabled()
 {
-
     for (const auto item : m_allUpdateInfos.values()) {
         item->setUpdateModeEnabled(m_updateMode & item->updateType());
     }
@@ -478,6 +530,16 @@ void UpdateModel::setSpeedLimitConfig(const QByteArray& config)
 DownloadSpeedLimitConfig UpdateModel::speedLimitConfig() const
 {
     return DownloadSpeedLimitConfig::fromJson(m_speedLimitConfig);
+}
+
+bool UpdateModel::downloadSpeedLimitEnabled() const
+{
+    return DownloadSpeedLimitConfig::fromJson(m_speedLimitConfig).downloadSpeedLimitEnabled;
+}
+
+QString UpdateModel::downloadSpeedLimitSize() const
+{
+    return DownloadSpeedLimitConfig::fromJson(m_speedLimitConfig).limitSpeed;
 }
 
 void UpdateModel::setDownloadProgress(double downloadProgress)
@@ -1116,4 +1178,9 @@ void UpdateModel::setShowUpdateCtl(bool newShowUpdateCtl)
         return;
     m_showUpdateCtl = newShowUpdateCtl;
     emit showUpdateCtlChanged();
+}
+
+bool UpdateModel::isCommunitySystem() const
+{
+    return Dtk::Core::DSysInfo::UosCommunity == Dtk::Core::DSysInfo::DSysInfo::uosEditionType();
 }

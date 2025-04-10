@@ -120,8 +120,8 @@ void UpdateWorker::init()
     connect(m_updateInter, &UpdateDBusProxy::UpdateModeChanged, this, &UpdateWorker::onUpdateModeChanged);
     connect(m_updateInter, &UpdateDBusProxy::AutoDownloadUpdatesChanged, m_model, &UpdateModel::setAutoDownloadUpdates);
     connect(m_updateInter, &UpdateDBusProxy::MirrorSourceChanged, m_model, &UpdateModel::setDefaultMirror);
-    QDBusConnection::systemBus().connect("com.deepin.lastore",
-        "/com/deepin/lastore",
+    QDBusConnection::systemBus().connect("org.deepin.dde.Lastore1",
+        "/org/deepin/dde/Lastore1",
         "org.freedesktop.DBus.Properties",
         "PropertiesChanged",
         m_model, SLOT(onUpdatePropertiesChanged(QString, QVariantMap, QStringList)));
@@ -166,6 +166,24 @@ void UpdateWorker::init()
     connect(&SignalBridge::ref(), &SignalBridge::requestBackgroundInstall, this, &UpdateWorker::doUpgrade);
     connect(&SignalBridge::ref(), &SignalBridge::requestStopDownload, this, &UpdateWorker::stopDownload);
     connect(this, &UpdateWorker::systemActivationChanged, m_model, &UpdateModel::setSystemActivation, Qt::QueuedConnection); // systemActivationChanged是在线程中发出
+
+    connect(DConfigWatcher::instance(), &DConfigWatcher::notifyDConfigChanged, [this](const QString &moduleName, const QString &configName) {
+        qCDebug(DCC_UPDATE_WORKER) << "Config changed:" << moduleName << configName;
+
+        if (moduleName != "update") {
+            return;
+        }
+
+        if (configName == "updateThirdPartySource") {
+            m_model->setThirdPartyUpdateEnabled(IsCommunitySystem ? true : DConfigWatcher::instance()->getValue(DConfigWatcher::update, "updateThirdPartySource").toString() != "Hidden");
+        } else if (configName == "updateSafety") {
+            m_model->setSecurityUpdateEnabled(DConfigWatcher::instance()->getValue(DConfigWatcher::update, configName).toString() != "Hidden");
+        } else if (configName == "updateHistoryEnabled") {
+            // m_model->setUpdateHistoryEnabled(DConfigWatcher::instance()->getValue(DConfigWatcher::update, configName).toBool());
+        } else if (configName == "p2pUpdateEnabled") {
+            // m_model->setP2PUpdateEnabled(DConfigWatcher::instance()->getValue(DConfigWatcher::update, configName).toBool());
+        }
+    });
 }
 
 void UpdateWorker::licenseStateChangeSlot()
@@ -221,24 +239,16 @@ void UpdateWorker::activate()
     m_model->setLastCheckUpdateTime(checkTime);
     m_model->setAutoCleanCache(m_updateInter->autoClean());
     m_model->setAutoDownloadUpdates(m_updateInter->autoDownloadUpdates());
+    m_model->setSecurityUpdateEnabled(DConfigWatcher::instance()->getValue(DConfigWatcher::update, "updateSafety").toString() != "Hidden");
+    m_model->setThirdPartyUpdateEnabled(IsCommunitySystem ? true : DConfigWatcher::instance()->getValue(DConfigWatcher::update, "updateThirdPartySource").toString() != "Hidden");
     m_model->setUpdateMode(m_updateInter->updateMode());
-    // FIXME 使用m_managerInter->property 无法获取到属性
-    QDBusInterface managerInter("com.deepin.lastore",
-        "/com/deepin/lastore",
-        "com.deepin.lastore.Manager",
-        QDBusConnection::systemBus());
-    m_model->setCheckUpdateMode(managerInter.property("CheckUpdateMode").toInt());
+    m_model->setCheckUpdateMode(m_updateInter->checkUpdateMode());
     m_model->setUpdateNotify(m_updateInter->updateNotify());
     m_model->setUpdateStatus(m_updateInter->updateStatus().toUtf8());
-    // FIXME 使用m_updateInter->property 无法获取到属性
-    QDBusInterface updaterInter("com.deepin.lastore",
-        "/com/deepin/lastore",
-        "com.deepin.lastore.Updater",
-        QDBusConnection::systemBus());
-    QString config = updaterInter.property("IdleDownloadConfig").toString();
-    m_model->setIdleDownloadConfig(IdleDownloadConfig::toConfig(config.toLatin1()));
-    m_model->setSpeedLimitConfig(updaterInter.property("DownloadSpeedLimitConfig").toByteArray());
-    m_model->setP2PUpdateEnabled(updaterInter.property("P2PUpdateEnable").toBool());
+    QString config = m_updateInter->idleDownloadConfig();
+    m_model->setIdleDownloadConfig(IdleDownloadConfig::toConfig(config.toUtf8()));
+    m_model->setSpeedLimitConfig(m_updateInter->downloadSpeedLimitConfig().toUtf8());
+    m_model->setP2PUpdateEnabled(m_updateInter->p2pUpdateEnable());
 
     if (IsCommunitySystem) {
         m_model->setSmartMirrorSwitch(m_updateInter->enable());
@@ -482,6 +492,29 @@ void UpdateWorker::startDownload(int updateTypes)
     });
 }
 
+void UpdateWorker::setIdleDownloadEnabled(bool enable)
+{
+    auto config = m_model->idleDownloadConfig();
+    config.idleDownloadEnabled = enable;
+    setIdleDownloadConfig(config);
+}
+
+void UpdateWorker::setIdleDownloadBeginTime(int time)
+{
+    auto config = m_model->idleDownloadConfig();
+    config.beginTime = timeToString(time);
+    config.endTime = adjustTimeFunc(config.beginTime, config.endTime, true);
+    setIdleDownloadConfig(config);
+}
+
+void UpdateWorker::setIdleDownloadEndTime(int time)
+{
+    auto config = m_model->idleDownloadConfig();
+    config.endTime = timeToString(time);
+    config.beginTime = adjustTimeFunc(config.beginTime, config.endTime, false);
+    setIdleDownloadConfig(config);
+}
+
 void UpdateWorker::setIdleDownloadConfig(const IdleDownloadConfig& config)
 {
     QDBusPendingCall call = m_updateInter->SetIdleDownloadConfig(QString(config.toJson()));
@@ -492,6 +525,39 @@ void UpdateWorker::setIdleDownloadConfig(const IdleDownloadConfig& config)
             qCWarning(DCC_UPDATE_WORKER) << "Set idle download config error:" << call.error().message();
         }
     });
+}
+
+void UpdateWorker::setFunctionUpdate(bool update)
+{
+    quint64 updateMode = m_model->updateMode();
+    if (update) {
+        updateMode |= UpdateType::SystemUpdate;
+    } else {
+        updateMode &= ~UpdateType::SystemUpdate;
+    }
+    setUpdateMode(updateMode);
+}
+
+void UpdateWorker::setSecurityUpdate(bool update)
+{
+    quint64 updateMode = m_model->updateMode();
+    if (update) {
+        updateMode |= UpdateType::SecurityUpdate;
+    } else {
+        updateMode &= ~UpdateType::SecurityUpdate;
+    }
+    setUpdateMode(updateMode);
+}
+
+void UpdateWorker::setThirdPartyUpdate(bool update)
+{
+    quint64 updateMode = m_model->updateMode();
+    if (update) {
+        updateMode |= UpdateType::UnknownUpdate;
+    } else {
+        updateMode &= ~UpdateType::UnknownUpdate;
+    }
+    setUpdateMode(updateMode);
 }
 
 void UpdateWorker::setUpdateMode(const quint64 updateMode)
@@ -538,7 +604,7 @@ void UpdateWorker::checkTestingChannelStatus()
         auto obj = doc.object();
         auto status = obj["data"].toObject()["status"].toString();
         // Exit the loop if switch status is disable
-        if (m_model->getTestingChannelStatus() != UpdateModel::TestingChannelStatus::WaitJoined) {
+        if (m_model->testingChannelStatus() != UpdateModel::TestingChannelStatus::WaitJoined) {
             return;
         }
         // If user has joined then install testing source package;
@@ -558,6 +624,19 @@ void UpdateWorker::checkTestingChannelStatus()
         QTimer::singleShot(5000, this, &UpdateWorker::checkTestingChannelStatus);
     });
     http->get(request);
+}
+
+void UpdateWorker::testingChannelCheck(bool checked)
+{
+    const auto status = m_model->testingChannelStatus();
+    if (checked) {
+        setTestingChannelEnable(checked);
+        return;
+    }
+    if (status != UpdateModel::TestingChannelStatus::Joined) {
+        setTestingChannelEnable(checked);
+        return;
+    }
 }
 
 void UpdateWorker::setTestingChannelEnable(const bool& enable)
@@ -902,6 +981,28 @@ QUrl UpdateWorker::getTestingChannelJoinURL() const
     return u;
 }
 
+QString UpdateWorker::timeToString(int value)
+{
+    int time = value / 60;
+    QString timeStr = time < 10 ? ("0" + QString::number(time)) : QString::number(time);
+    int minute = value % 60;
+    QString minuteStr = minute < 10 ? ("0" + QString::number(minute)) : QString::number(minute);
+    return timeStr + ":" + minuteStr;
+}
+
+// 规则：开始时间和结束时间不能相等，否则默认按相隔五分钟处理
+// 修改开始时间时，如果不满足规则，那么自动调整结束时间，结束时间=开始时间+5分钟
+// 修改结束时间时，如果不满足规则，那么自动调整开始时间，开始时间=结束时间-5分钟
+QString UpdateWorker::adjustTimeFunc(const QString& start, const QString& end, bool returnEndTime)
+{
+    if (start != end)
+        return returnEndTime ? end : start;
+
+    static const int MIN_INTERVAL_SECS = 5 * 60;
+    QDateTime dateTime(QDate::currentDate(), QTime::fromString(start));
+    return returnEndTime ? dateTime.addSecs(MIN_INTERVAL_SECS).time().toString("hh:mm")
+                         : dateTime.addSecs(-MIN_INTERVAL_SECS).time().toString("hh:mm");
+}
 
 void UpdateWorker::onDistUpgradeStatusChanged(const QString& status)
 {
@@ -1243,6 +1344,20 @@ int UpdateWorker::isUnstableResource() const
     return "Enabled" == value ? UNSTABLE_VERSION : RELEASE_VERSION;
 }
 
+void UpdateWorker::setDownloadSpeedLimitEnabled(bool enable)
+{
+    auto config = m_model->speedLimitConfig();
+    config.downloadSpeedLimitEnabled = enable;
+    setDownloadSpeedLimitConfig(config.toJson());
+}
+
+void UpdateWorker::setDownloadSpeedLimitSize(const QString& size)
+{
+    auto config = m_model->speedLimitConfig();
+    config.limitSpeed = size;
+    setDownloadSpeedLimitConfig(config.toJson());
+}
+
 void UpdateWorker::setDownloadSpeedLimitConfig(const QString& config)
 {
     QDBusPendingCall call = m_updateInter->SetDownloadSpeedLimit(config);
@@ -1262,13 +1377,10 @@ void UpdateWorker::onUpdateModeChanged(qulonglong value)
 
 void UpdateWorker::onRequestCheckUpdateModeChanged(int type, bool isChecked)
 {
-    QDBusInterface managerInter("com.deepin.lastore",
-        "/com/deepin/lastore",
-        "com.deepin.lastore.Manager",
-        QDBusConnection::systemBus());
     const int currentMode = m_model->checkUpdateMode();
     const int outMode = isChecked ? (currentMode | type) : (currentMode & ~type);
-    managerInter.setProperty("CheckUpdateMode", outMode);
+
+    m_updateInter->setCheckUpdateMode(outMode);
 }
 
 void UpdateWorker::doUpgrade(int updateTypes, bool doBackup)

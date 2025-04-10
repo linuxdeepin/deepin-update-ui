@@ -64,13 +64,13 @@ struct IdleDownloadConfig {
  */
 struct DownloadSpeedLimitConfig {
     bool downloadSpeedLimitEnabled = false;
-    int limitSpeed = 10240;
+    QString limitSpeed = "10240";
 
     QString toJson() const
     {
         QJsonObject obj;
         obj.insert("DownloadSpeedLimitEnabled", downloadSpeedLimitEnabled);
-        obj.insert("LimitSpeed", QString::number(limitSpeed));
+        obj.insert("LimitSpeed", limitSpeed);
         QJsonDocument doc;
         doc.setObject(obj);
         return doc.toJson();
@@ -88,11 +88,7 @@ struct DownloadSpeedLimitConfig {
 
         QJsonObject obj = doc.object();
         config.downloadSpeedLimitEnabled = obj.contains("DownloadSpeedLimitEnabled") ? obj.value("DownloadSpeedLimitEnabled").toBool() : false;
-        const QString& limitSpeedStr = obj.contains("LimitSpeed") ? obj.value("LimitSpeed").toString() : "10240";
-        bool ok;
-        int tmpValue = limitSpeedStr.toInt(&ok);
-        if (ok)
-            config.limitSpeed = tmpValue;
+        config.limitSpeed = obj.contains("LimitSpeed") ? obj.value("LimitSpeed").toString() : "10240";
 
         return config;
     }

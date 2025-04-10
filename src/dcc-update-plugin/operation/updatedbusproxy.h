@@ -68,6 +68,13 @@ public:
 
     QString hardwareId();
 
+    int checkUpdateMode();
+    void setCheckUpdateMode(int value);
+
+    QString idleDownloadConfig();
+    QString downloadSpeedLimitConfig();
+    bool p2pUpdateEnable();
+
     QDBusPendingReply<QDBusObjectPath> UpdateSource();
     void CleanJob(const QString &in0);
     void SetAutoClean(bool in0);
@@ -87,9 +94,6 @@ public:
     QDBusPendingReply<QString> GetUpdateLogs(int updateType);
     QDBusPendingReply<void> SetIdleDownloadConfig(const QString &config);
     QDBusPendingReply<QDBusObjectPath> PrepareDistUpgradePartly(int updateMode);
-
-
-
 
     // Power
     bool onBattery();

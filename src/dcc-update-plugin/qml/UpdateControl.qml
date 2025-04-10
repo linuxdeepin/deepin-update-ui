@@ -14,6 +14,7 @@ ColumnLayout {
     property string updateStateTips : "aaaaaaa";
     property string actionBtnText : ""
     property string updateTips: ""
+    property string updateTitle: ""
     property double processValue: 0
     property bool processState: false
 
@@ -139,7 +140,7 @@ ColumnLayout {
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: stratIcon.width + stopIcon.width + progressCtl.spacing * 2
                 width: parent.width
-                text: qsTr("Installing") + process.value*100 + "%"
+                text: updateTitle + process.value*100 + "%"
                 font.pixelSize: 12
             }
         }

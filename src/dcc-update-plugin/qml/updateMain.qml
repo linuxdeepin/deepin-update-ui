@@ -87,6 +87,7 @@ DccObject {
             checkVisible: false
             updateListModels: dccData.model().installinglistModel
             updateStateTips: qsTr("Installing updates")
+            updateTitle: qsTr("Installing")
 
             processValue: dccData.model().distUpgradeProgress
 
@@ -146,6 +147,7 @@ DccObject {
             updateListModels: dccData.model().downloadinglistModel
             updateStateTips: qsTr("Downloading updates...")
             updateTips: qsTr("Update size: ") + dccData.model().downloadinglistModel.downloadSize + "G"
+            updateTitle: qsTr("Downloading")
 
             checkVisible: false
             processValue: dccData.model().downloadProgress

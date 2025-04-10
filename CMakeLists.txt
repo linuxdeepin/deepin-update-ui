@@ -38,7 +38,7 @@ install(FILES ${QM_FILES} DESTINATION share/${PROJECT_NAME}/translations)
 #    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
 #endfunction(generation_dbus_adaptor)
 
-#add_subdirectory("src/dde-update")
-add_subdirectory("src/dde-abrecovery")
+# add_subdirectory("src/dde-update")
+# add_subdirectory("src/dde-abrecovery")
 add_subdirectory("src/dcc-update-plugin")
 

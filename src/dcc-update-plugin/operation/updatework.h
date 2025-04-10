@@ -62,10 +62,14 @@ Q_SIGNALS:
 public Q_SLOTS:
     void init();
     void checkForUpdates();
+    void setFunctionUpdate(bool update);
+    void setSecurityUpdate(bool update);
+    void setThirdPartyUpdate(bool update);
     void setUpdateMode(const quint64 updateMode);
     void setAutoCleanCache(const bool autoCleanCache);
     void setAutoDownloadUpdates(const bool& autoDownload);
     void setMirrorSource(const MirrorInfo& mirror);
+    void testingChannelCheck(bool checked);
     void setTestingChannelEnable(const bool& enable);
     void checkCanExitTestingChannel();
 #ifndef DISABLE_SYS_UPDATE_SOURCE_CHECK
@@ -86,7 +90,12 @@ public Q_SLOTS:
     void onRequestRetry(int type, int updateTypes);
     void onRequestLastoreHeartBeat();
     void startDownload(int updateTypes);
+    void setIdleDownloadEnabled(bool enable);
+    void setIdleDownloadBeginTime(int time);
+    void setIdleDownloadEndTime(int time);
     void setIdleDownloadConfig(const IdleDownloadConfig& config);
+    void setDownloadSpeedLimitEnabled(bool enable);
+    void setDownloadSpeedLimitSize(const QString& size);
     void setDownloadSpeedLimitConfig(const QString& config);
     void setP2PUpdateEnabled(bool enabled);
 
@@ -125,6 +134,8 @@ private:
     void setDistUpgradeJob(const QString& jobPath);
     void updateSystemVersion();
     QUrl getTestingChannelJoinURL() const;
+    QString timeToString(int value);
+    QString adjustTimeFunc(const QString& start, const QString& end, bool returnEndTime);
 
 private:
     UpdateModel* m_model;

@@ -41,7 +41,6 @@ class UpdateModel : public QObject
     Q_PROPERTY(double downloadProgress READ downloadProgress NOTIFY downloadProgressChanged FINAL)
     Q_PROPERTY(double distUpgradeProgress READ distUpgradeProgress NOTIFY distUpgradeProgressChanged FINAL)
 
-
     Q_PROPERTY(UpdateListModel *preUpdatelistModel READ preUpdatelistModel  NOTIFY preUpdatelistModelChanged FINAL)
     Q_PROPERTY(QString preUpdateTips READ preUpdateTips WRITE setPreUpdateTips NOTIFY preUpdateTipsChanged FINAL)
     Q_PROPERTY(UpdateListModel *preInstallListModel READ preInstallListModel NOTIFY preInstallListModelChanged FINAL)
@@ -52,6 +51,22 @@ class UpdateModel : public QObject
     Q_PROPERTY(UpdateListModel *downloadinglistModel READ downloadinglistModel NOTIFY downloadinglistModelChanged FINAL)
     Q_PROPERTY(QString downloadFailedTips READ downloadFailedTips NOTIFY downloadFailedTipsChanged FINAL)
     Q_PROPERTY(QString installFailedTips READ installFailedTips NOTIFY installFailedTipsChanged FINAL)
+
+    Q_PROPERTY(bool securityUpdateEnabled READ securityUpdateEnabled WRITE setSecurityUpdateEnabled NOTIFY securityUpdateEnabledChanged FINAL)
+    Q_PROPERTY(bool thirdPartyUpdateEnabled READ thirdPartyUpdateEnabled WRITE setThirdPartyUpdateEnabled NOTIFY thirdPartyUpdateEnabledChanged FINAL)
+    Q_PROPERTY(bool functionUpdate READ functionUpdate NOTIFY functionUpdateChanged FINAL)
+    Q_PROPERTY(bool securityUpdate READ securityUpdate NOTIFY securityUpdateChanged FINAL)
+    Q_PROPERTY(bool thirdPartyUpdate READ thirdPartyUpdate NOTIFY thirdPartyUpdateChanged FINAL)
+    Q_PROPERTY(bool downloadSpeedLimitEnabled READ downloadSpeedLimitEnabled NOTIFY downloadSpeedLimitConfigChanged FINAL)
+    Q_PROPERTY(QString downloadSpeedLimitSize READ downloadSpeedLimitSize NOTIFY downloadSpeedLimitConfigChanged FINAL)
+    Q_PROPERTY(bool autoDownloadUpdates READ autoDownloadUpdates WRITE setAutoDownloadUpdates NOTIFY autoDownloadUpdatesChanged FINAL)
+    Q_PROPERTY(bool idleDownloadEnabled READ idleDownloadEnabled NOTIFY idleDownloadConfigChanged FINAL)
+    Q_PROPERTY(int beginTime READ beginTime NOTIFY idleDownloadConfigChanged FINAL)
+    Q_PROPERTY(int endTime READ endTime NOTIFY idleDownloadConfigChanged FINAL)
+    Q_PROPERTY(bool updateNotify READ updateNotify WRITE setUpdateNotify NOTIFY updateNotifyChanged FINAL)
+    Q_PROPERTY(bool autoCleanCache READ autoCleanCache WRITE setAutoCleanCache NOTIFY autoCleanCacheChanged FINAL)
+    Q_PROPERTY(bool smartMirrorSwitch READ smartMirrorSwitch WRITE setSmartMirrorSwitch NOTIFY smartMirrorSwitchChanged FINAL)
+    Q_PROPERTY(TestingChannelStatus testingChannelStatus READ testingChannelStatus WRITE setTestingChannelStatus NOTIFY testingChannelStatusChanged FINAL)
 
 
 public:
@@ -68,8 +83,19 @@ public:
 
     Q_ENUM(TestingChannelStatus);
 
-    void setMirrorInfos(const MirrorInfoList &list);
+    void setSecurityUpdateEnabled(bool enable);
+    bool securityUpdateEnabled() const { return m_securityUpdateEnabled; }
 
+    void setThirdPartyUpdateEnabled(bool enable);
+    bool thirdPartyUpdateEnabled() const { return m_thirdPartyUpdateEnabled; }
+
+    bool functionUpdate() const { return m_functionUpdate; }
+    bool securityUpdate() const { return m_securityUpdate; }
+    bool thirdPartyUpdate() const { return m_thirdPartyUpdate; }
+
+    void setUpdateType(quint64 updateMode);
+
+    void setMirrorInfos(const MirrorInfoList& list);
     MirrorInfoList mirrorInfos() const { return m_mirrorList; }
 
     int lastStatus() const { return m_lastStatus; }
@@ -156,13 +182,14 @@ public:
     void setIdleDownloadConfig(const IdleDownloadConfig &config);
 
     inline IdleDownloadConfig idleDownloadConfig() const { return m_idleDownloadConfig; }
+    bool idleDownloadEnabled() const;
+    int beginTime() const;
+    int endTime() const;
 
     QString getMachineID() const;
 
     void setTestingChannelStatus(const TestingChannelStatus status);
-
-    TestingChannelStatus getTestingChannelStatus() const { return m_testingChannelStatus; }
-
+    TestingChannelStatus testingChannelStatus() const { return m_testingChannelStatus; }
     QString getTestingChannelServer() const { return m_testingChannelServer; }
 
     void setTestingChannelServer(const QString server);
@@ -172,6 +199,8 @@ public:
 
     void setSpeedLimitConfig(const QByteArray &config);
     DownloadSpeedLimitConfig speedLimitConfig() const;
+    bool downloadSpeedLimitEnabled() const;
+    QString downloadSpeedLimitSize() const;
 
     void setDownloadProgress(double downloadProgress);
 
@@ -294,14 +323,21 @@ public:
     QString installFailedTips() const;
     void setInstallFailedTips(const QString &newInstallFailedTips);
 
+    Q_INVOKABLE bool isCommunitySystem() const;
+
 public slots:
     void onUpdatePropertiesChanged(const QString &interfaceName,
                                    const QVariantMap &changedProperties,
                                    const QStringList &invalidatedProperties);
 
 Q_SIGNALS:
-    void autoDownloadUpdatesChanged(const bool &autoDownloadUpdates);
-    void defaultMirrorChanged(const MirrorInfo &mirror);
+    void securityUpdateEnabledChanged(bool enable);
+    void thirdPartyUpdateEnabledChanged(bool enable);
+    void functionUpdateChanged(bool update);
+    void securityUpdateChanged(bool update);
+    void thirdPartyUpdateChanged(bool update);
+    void autoDownloadUpdatesChanged(bool autoDownloadUpdates);
+    void defaultMirrorChanged(const MirrorInfo& mirror);
     void smartMirrorSwitchChanged(bool smartMirrorSwitch);
     void lastStatusChanged(int status);
     void notifyDownloadSizeChanged();
@@ -389,7 +425,12 @@ private:
     bool m_netselectExist;
     bool m_autoCleanCache;
     bool m_autoDownloadUpdates;
+    bool m_securityUpdateEnabled;
+    bool m_thirdPartyUpdateEnabled;
     quint64 m_updateMode;
+    bool m_functionUpdate;
+    bool m_securityUpdate;
+    bool m_thirdPartyUpdate;
     bool m_updateNotify;
     bool m_smartMirrorSwitch;
     QString m_mirrorId;
