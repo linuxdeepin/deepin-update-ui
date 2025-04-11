@@ -22,7 +22,7 @@ DccObject {
         name: "checkUpdatePage"
         parentName: "update"
         pageType: DccObject.Item
-        backgroundType: DccObject.Audobg
+        backgroundType: DccObject.Normal
         visible: !dccData.model().showUpdateCtl
         weight: 20
         page: CheckUpdate{}
@@ -187,9 +187,10 @@ DccObject {
         name: "updateSettingsPage"
         parentName: "update"
         displayName: qsTr("Update Settings")
-      //  description: qsTr("You can set system updates, security updates, idle updates, update reminders, etc.")
+        description: qsTr("Configure Update settings、Security Updates、Auto Download Updates and Updates Notification")
         icon: "update_set"
         weight: 100
-        page: UpdateSetting{}
+
+        UpdateSetting{}
     }
 }
