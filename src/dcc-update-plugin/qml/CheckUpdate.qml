@@ -10,8 +10,8 @@ import org.deepin.dtk 1.0 as D
 import org.deepin.dcc 1.0
 
 ColumnLayout {
-    width: parent.width
 
+    width: parent.width
     Rectangle {
         id: checkRoot
         width: parent.width
@@ -74,6 +74,4 @@ ColumnLayout {
             dccData.work().checkForUpdates();
         }
    }
-
 }
-

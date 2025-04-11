@@ -25,18 +25,17 @@ ColumnLayout {
             Image {
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 visible: true
-                source: "qrc:/icons/deepin/builtin/icons/dcc_update_success.png"
+                source: "update_no_active"
                 height: 140
             }
 
             D.Label {
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 width: implicitWidth
-                text: qsTr("The current system is not activated, unable to start the update service")
+                text: qsTr("Your system is not activated, and it failed to connect to update services")
                 font.pixelSize: 12
                 height: 30
             }
-
         }
     }
 }
