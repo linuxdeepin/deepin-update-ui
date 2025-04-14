@@ -14,7 +14,7 @@ DccObject {
         pageType: DccObject.Item
         backgroundType: DccObject.Audobg
         weight: 10
-        visible: false
+        visible: !dccData.model().systemActivation
         page: NoActive{}
     }
 
@@ -23,7 +23,7 @@ DccObject {
         parentName: "update"
         pageType: DccObject.Item
         backgroundType: DccObject.Normal
-        visible: !dccData.model().showUpdateCtl
+        visible: dccData.model().systemActivation && !dccData.model().showUpdateCtl
         weight: 20
         page: CheckUpdate{}
     }
@@ -190,6 +190,7 @@ DccObject {
         description: qsTr("Configure Update settings、Security Updates、Auto Download Updates and Updates Notification")
         icon: "update_set"
         weight: 100
+        visible: dccData.model().systemActivation
 
         UpdateSetting{}
     }

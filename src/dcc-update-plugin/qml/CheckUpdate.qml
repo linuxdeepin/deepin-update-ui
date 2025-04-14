@@ -10,24 +10,21 @@ import org.deepin.dtk 1.0 as D
 import org.deepin.dcc 1.0
 
 ColumnLayout {
+    id: root
 
-    width: parent.width
     Rectangle {
-        id: checkRoot
-        width: parent.width
-        height: 438
+        Layout.fillWidth: true
+        Layout.preferredHeight: 338
         color: "transparent"
         clip: true
-        property int processVal: 0
-        visible: true
+
         ColumnLayout {
+            anchors.centerIn: parent
             width: parent.width
             spacing: 10
 
-            anchors.centerIn: parent
             Image {
                 Layout.alignment: Qt.AlignHCenter
-                visible: true
                 source: dccData.model().checkUpdateIcon
             }
 
@@ -50,7 +47,6 @@ ColumnLayout {
             }
 
             D.Button {
-
                 Layout.alignment: Qt.AlignHCenter
                 implicitWidth: 200
                 font.pixelSize: 14

@@ -19,25 +19,24 @@
 #include <DConfig>
 
 
-struct UpdateJobErrorMessage {
-    QString jobErrorType;
-    QString jobErrorMessage;
-};
-
 class UpdateModel : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(bool showUpdateCtl READ showUpdateCtl  NOTIFY showUpdateCtlChanged FINAL)
+    // 系统激活状态
+    Q_PROPERTY(bool systemActivation READ systemActivation WRITE setSystemActivation NOTIFY systemActivationChanged FINAL)
+
     Q_PROPERTY(int lastStatus READ lastStatus  NOTIFY lastStatusChanged FINAL)
 
-    // checkupdate data
-    Q_PROPERTY(QString checkBtnText READ getCheckBtnText NOTIFY checkBtnTextChanged FINAL)
-    Q_PROPERTY(QString checkUpdateErrTips READ getCheckUpdateErrTips NOTIFY checkUpdateErrTipsChanged FINAL)
-    Q_PROPERTY(QString checkUpdateIcon READ checkUpdateIcon  NOTIFY checkUpdateIconChanged FINAL)
-    Q_PROPERTY(QString lastCheckUpdateTime READ lastCheckUpdateTime  NOTIFY updateCheckUpdateTime FINAL)
+    // 检查更新页面数据
+    Q_PROPERTY(bool showUpdateCtl READ showUpdateCtl NOTIFY showUpdateCtlChanged FINAL)
+    Q_PROPERTY(QString checkUpdateIcon READ checkUpdateIcon NOTIFY checkUpdateIconChanged FINAL)
+    Q_PROPERTY(double checkUpdateProgress READ checkUpdateProgress NOTIFY checkUpdateProgressChanged FINAL)
     Q_PROPERTY(int checkUpdateStatus READ checkUpdateStatus NOTIFY checkUpdateStatusChanged FINAL)
-    Q_PROPERTY(double checkUpdateProgress READ checkUpdateProgress NOTIFY updateProgressChanged FINAL)
+    Q_PROPERTY(QString checkUpdateErrTips READ checkUpdateErrTips NOTIFY checkUpdateErrTipsChanged FINAL)
+    Q_PROPERTY(QString checkBtnText READ checkBtnText NOTIFY checkBtnTextChanged FINAL)
+    Q_PROPERTY(QString lastCheckUpdateTime READ lastCheckUpdateTime NOTIFY lastCheckUpdateTimeChanged FINAL)
+
     Q_PROPERTY(double downloadProgress READ downloadProgress NOTIFY downloadProgressChanged FINAL)
     Q_PROPERTY(double distUpgradeProgress READ distUpgradeProgress NOTIFY distUpgradeProgressChanged FINAL)
 
@@ -52,6 +51,7 @@ class UpdateModel : public QObject
     Q_PROPERTY(QString downloadFailedTips READ downloadFailedTips NOTIFY downloadFailedTipsChanged FINAL)
     Q_PROPERTY(QString installFailedTips READ installFailedTips NOTIFY installFailedTipsChanged FINAL)
 
+    // 更新设置页面数据
     Q_PROPERTY(bool securityUpdateEnabled READ securityUpdateEnabled WRITE setSecurityUpdateEnabled NOTIFY securityUpdateEnabledChanged FINAL)
     Q_PROPERTY(bool thirdPartyUpdateEnabled READ thirdPartyUpdateEnabled WRITE setThirdPartyUpdateEnabled NOTIFY thirdPartyUpdateEnabledChanged FINAL)
     Q_PROPERTY(bool functionUpdate READ functionUpdate NOTIFY functionUpdateChanged FINAL)
@@ -80,7 +80,6 @@ public:
         WaitJoined,
         Joined,
     };
-
     Q_ENUM(TestingChannelStatus);
 
     void setSecurityUpdateEnabled(bool enable);
@@ -121,9 +120,6 @@ public:
 
     void setAutoCleanCache(bool autoCleanCache);
 
-    double checkUpdateProgress() const { return m_checkUpdateProgress; }
-
-    void setCheckUpdateProgress(double updateProgress);
 
 #ifndef DISABLE_SYS_UPDATE_SOURCE_CHECK
     bool sourceCheck() const { return m_sourceCheck; }
@@ -147,15 +143,10 @@ public:
 
     void setSystemVersionInfo(const QString &systemVersionInfo);
 
-    inline UiActiveState systemActivation() const { return m_systemActivation; }
-
-    void setSystemActivation(const UiActiveState &systemActivation);
+    inline bool systemActivation() const { return m_systemActivation; }
+    void setSystemActivation(bool systemActivation);
 
     bool isUpdatable() const { return m_isUpdatable; }
-
-    const QString &lastCheckUpdateTime() const { return m_lastCheckUpdateTime; }
-
-    void setLastCheckUpdateTime(const QString &lastTime);
 
     const QList<AppUpdateInfo> &historyAppInfos() const { return m_historyAppInfos; }
 
@@ -191,7 +182,6 @@ public:
     void setTestingChannelStatus(const TestingChannelStatus status);
     TestingChannelStatus testingChannelStatus() const { return m_testingChannelStatus; }
     QString getTestingChannelServer() const { return m_testingChannelServer; }
-
     void setTestingChannelServer(const QString server);
     void setCanExitTestingChannel(const bool can);
 
@@ -211,7 +201,6 @@ public:
     int lastoreDaemonStatus() const { return m_lastoreDeamonStatus; }
 
     bool isUpdateToDate() const;
-    bool isActivationValid() const;
 
     void resetDownloadInfo();
 
@@ -272,24 +261,30 @@ public:
     static QList<UpdatesStatus> getSupportUpdateTypes(ControlPanelType type);
     static ControlPanelType getControlPanelType(UpdatesStatus status);
     static QString updateErrorToString(UpdateErrorType error);
+    
 
-    bool showUpdateCtl() const;
+    // 检查更新页面数据
+    bool showUpdateCtl() const { return m_showUpdateCtl; }
     void setShowUpdateCtl(bool newShowUpdateCtl);
 
-    QString getCheckBtnText() const;
-    void setCheckBtnText(const QString &newCheckBtnText);
-
-    QString getCheckUpdateErrTips() const;
-    void setCheckUpdateErrTips(const QString &newCheckUpdateErrTips);
-
-    // checkupdate qml data
-    void updateCheckUpdateUi();
-
-    QString checkUpdateIcon() const;
+    QString checkUpdateIcon() const { return m_checkUpdateIcon; }
     void setCheckUpdateIcon(const QString &newCheckUpdateIcon);
 
-    int checkUpdateStatus() const;
+    double checkUpdateProgress() const { return m_checkUpdateProgress; }
+    void setCheckUpdateProgress(double updateProgress);
+    void updateCheckUpdateUi();
+
+    int checkUpdateStatus() const { return m_checkUpdateStatus; }
     void setCheckUpdateStatus(int newCheckUpdateStatus);
+
+    QString checkUpdateErrTips() const { return m_checkUpdateErrTips; }
+    void setCheckUpdateErrTips(const QString &newCheckUpdateErrTips);
+
+    QString checkBtnText() const { return m_checkBtnText; }
+    void setCheckBtnText(const QString &newCheckBtnText);
+
+    QString lastCheckUpdateTime() const { return m_lastCheckUpdateTime; }
+    void setLastCheckUpdateTime(const QString &lastTime);
 
     void refreshUpdateUiModel();
 
@@ -345,13 +340,11 @@ Q_SIGNALS:
     void sourceCheckChanged(bool sourceCheck);
 #endif
     void mirrorSpeedInfoAvailable(const QMap<QString, int> &mirrorSpeedInfo);
-    void updateProgressChanged(const double &updateProgress);
     void autoCleanCacheChanged(const bool autoCleanCache);
     void netselectExistChanged(const bool netselectExist);
     void systemVersionChanged(QString version);
-    void systemActivationChanged(UiActiveState systemActivation);
+    void systemActivationChanged(bool systemActivation);
     void beginCheckUpdate();
-    void updateCheckUpdateTime();
     void updateHistoryAppInfos();
     void updateNotifyChanged(const bool notify);
     void isUpdatableChanged(const bool isUpdatablePackages);
@@ -373,15 +366,14 @@ Q_SIGNALS:
     void p2pUpdateEnableStateChanged(bool enabled);
     void baselineChanged(const QString &baseline);
 
+    // 检查更新页面数据
     void showUpdateCtlChanged();
-
-    void checkBtnTextChanged();
-
-    void checkUpdateErrTipsChanged();
-
     void checkUpdateIconChanged();
-
+    void checkUpdateProgressChanged();
     void checkUpdateStatusChanged();
+    void checkUpdateErrTipsChanged();
+    void checkBtnTextChanged();
+    void lastCheckUpdateTimeChanged();
 
     void preUpdatelistModelChanged();
 
@@ -399,8 +391,6 @@ Q_SIGNALS:
 
     void downloadinglistModelChanged();
 
-
-
     void downloadFailedTipsChanged();
 
     void installFailedTipsChanged();
@@ -416,7 +406,7 @@ private:
 private:
     int m_lastStatus;
     QMap<UpdateType, UpdateItemInfo *> m_allUpdateInfos;
-    double m_checkUpdateProgress;
+    
     double m_downloadProgress;
     double m_distUpgradeProgress;
 #ifndef DISABLE_SYS_UPDATE_SOURCE_CHECK
@@ -437,8 +427,8 @@ private:
     MirrorInfoList m_mirrorList;
     QMap<QString, int> m_mirrorSpeedInfo;
     QString m_systemVersionInfo;
-    UiActiveState m_systemActivation;
-    QString m_lastCheckUpdateTime;          // 上次检查更新时间
+    bool m_systemActivation;
+    
     QList<AppUpdateInfo> m_historyAppInfos; // 历史更新应用列表
     QString m_testingChannelServer;
     TestingChannelStatus m_testingChannelStatus;
@@ -458,12 +448,14 @@ private:
     QString m_showVersion;
     QString m_baseline;
 
+    // 检查更新页面数据
     bool m_showUpdateCtl;
-    // checkupdate qml data
-    QString checkBtnText;
-    QString checkUpdateErrTips;
     QString m_checkUpdateIcon;
+    double m_checkUpdateProgress;
     int m_checkUpdateStatus;
+    QString m_checkUpdateErrTips;
+    QString m_checkBtnText;
+    QString m_lastCheckUpdateTime;
 
     // preUpdateList qml data
     UpdateListModel *m_preUpdatelistModel;

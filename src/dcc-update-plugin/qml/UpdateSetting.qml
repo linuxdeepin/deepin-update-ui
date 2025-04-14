@@ -362,7 +362,7 @@ DccObject {
         displayName: qsTr("Join Internal Testing Channel")
         description: qsTr("Join the internal testing channel to get deepin latest updates")
         backgroundType: DccObject.Normal
-        visible: false //dccData.mode().isCommunitySystem()
+        visible: dccData.mode().isCommunitySystem()
         weight: 90
         pageType: DccObject.Editor
         page: D.Switch {

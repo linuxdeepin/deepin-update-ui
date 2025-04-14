@@ -189,22 +189,21 @@ void UpdateWorker::init()
 void UpdateWorker::licenseStateChangeSlot()
 {
     QFutureWatcher<void>* watcher = new QFutureWatcher<void>(this);
-
     connect(watcher, &QFutureWatcher<void>::finished, watcher, &QFutureWatcher<void>::deleteLater);
 
     QFuture<void> future = QtConcurrent::run([this]() {
         this->getLicenseState();  // 调用成员函数
     });
-
     watcher->setFuture(future);
 }
 
 void UpdateWorker::getLicenseState()
 {
-    if (DSysInfo::DeepinDesktop == DSysInfo::deepinType()) {
-        emit systemActivationChanged(UiActiveState::Authorized);
+    if (IsCommunitySystem) {
+        emit systemActivationChanged(true);
         return;
     }
+
     QDBusInterface licenseInfo("com.deepin.license",
                                "/com/deepin/license/Info",
                                "com.deepin.license.Info",
@@ -215,7 +214,7 @@ void UpdateWorker::getLicenseState()
     }
     UiActiveState reply =
             static_cast<UiActiveState>(licenseInfo.property("AuthorizationState").toInt());
-    emit systemActivationChanged(reply);
+    emit systemActivationChanged(reply == UiActiveState::Authorized || reply == UiActiveState::TrialAuthorized);
 }
 
 void UpdateWorker::reStart()
@@ -234,9 +233,7 @@ void UpdateWorker::activate()
 #ifndef DISABLE_SYS_UPDATE_MIRRORS
     refreshMirrors();
 #endif
-    QString checkTime;
-    m_updateInter->GetCheckIntervalAndTime(checkTime);
-    m_model->setLastCheckUpdateTime(checkTime);
+    refreshLastTimeAndCheckCircle();
     m_model->setAutoCleanCache(m_updateInter->autoClean());
     m_model->setAutoDownloadUpdates(m_updateInter->autoDownloadUpdates());
     m_model->setSecurityUpdateEnabled(DConfigWatcher::instance()->getValue(DConfigWatcher::update, "updateSafety").toString() != "Hidden");
@@ -323,13 +320,12 @@ void UpdateWorker::checkForUpdates()
     if (LastoreDaemonDConfigStatusHelper::isUpdateDisabled(m_model->lastoreDaemonStatus())) {
         qCWarning(DCC_UPDATE_WORKER) << "Update is disabled";
         return;
-    }
+    }    
 
-    // const auto activeState = m_model->systemActivation();
-    // if (!m_model->isActivationValid()) {
-    //     qCWarning(DCC_UPDATE_WORKER) << "System activation is invalid: " << activeState;
-    //     return;
-    // }
+    if (!m_model->systemActivation()) {
+        qCWarning(DCC_UPDATE_WORKER) << "System activation is invalid: " << m_model->systemActivation();
+        return;
+    }
 
     if (checkDbusIsValid()) {
         qCWarning(DCC_UPDATE_WORKER) << "Check Dbus's validation failed do nothing";
@@ -628,11 +624,12 @@ void UpdateWorker::checkTestingChannelStatus()
 
 void UpdateWorker::testingChannelCheck(bool checked)
 {
-    const auto status = m_model->testingChannelStatus();
     if (checked) {
         setTestingChannelEnable(checked);
         return;
     }
+
+    const auto status = m_model->testingChannelStatus();
     if (status != UpdateModel::TestingChannelStatus::Joined) {
         setTestingChannelEnable(checked);
         return;
@@ -1068,7 +1065,7 @@ void UpdateWorker::onCheckUpdateStatusChanged(const QString& value)
         setUpdateInfo();
         m_model->setShowUpdateCtl(m_model->isUpdatable());
     } else if (value == "end") {
-        Q_EMIT m_model->updateCheckUpdateTime();
+        refreshLastTimeAndCheckCircle()
         m_model->setCheckUpdateStatus(m_model->lastStatus());
         m_model->updateCheckUpdateUi();
         deleteJob(m_checkUpdateJob);

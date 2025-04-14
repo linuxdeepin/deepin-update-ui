@@ -57,7 +57,7 @@ Q_SIGNALS:
 #ifndef DISABLE_SYS_UPDATE_MIRRORS
     void requestRefreshMirrors();
 #endif
-    void systemActivationChanged(const UiActiveState& systemActivation);
+    void systemActivationChanged(bool systemActivation);
 
 public Q_SLOTS:
     void init();

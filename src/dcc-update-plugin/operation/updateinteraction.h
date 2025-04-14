@@ -14,19 +14,15 @@ class UpdateInteraction : public QObject
 public:
     explicit UpdateInteraction(QObject *parent = nullptr);
 
-    Q_INVOKABLE UpdateWorker *work() const;
-    void setWork(UpdateWorker *newWork);
-
-    Q_INVOKABLE UpdateModel *model() const;
+    Q_INVOKABLE UpdateModel *model() const { return m_model; }
     void setModel(UpdateModel *newModel);
 
-signals:
-
-
+    Q_INVOKABLE UpdateWorker *work() const { return m_work; }
+    void setWork(UpdateWorker *newWork);
 
 private:
-    UpdateWorker* m_work;
-    UpdateModel* m_model;
+    UpdateModel *m_model;
+    UpdateWorker *m_work;
 };
 
 #endif // UPDATEINTERACTION_H

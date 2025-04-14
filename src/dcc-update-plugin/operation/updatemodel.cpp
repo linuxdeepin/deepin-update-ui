@@ -33,7 +33,6 @@ static const QMap<UpdatesStatus, ControlPanelType> ControlPanelTypeMapping = {
 UpdateModel::UpdateModel(QObject* parent)
     : QObject(parent)
     , m_lastStatus(Default)
-    , m_checkUpdateProgress(0.0)
     , m_downloadProgress(0.0)
     , m_distUpgradeProgress(0.0)
 #ifndef DISABLE_SYS_UPDATE_SOURCE_CHECK
@@ -52,21 +51,22 @@ UpdateModel::UpdateModel(QObject* parent)
     , m_smartMirrorSwitch(false)
     , m_mirrorId(QString())
     , m_systemVersionInfo(QString())
-    , m_systemActivation(UiActiveState::Unknown)
-    , m_lastCheckUpdateTime(QString())
+    , m_systemActivation(false)
     , m_testingChannelServer(QString())
     , m_testingChannelStatus(TestingChannelStatus::Hidden)
     , m_isUpdatable(false)
-    , lastoreDConfig(DConfig::create("org.deepin.lastore", "org.deepin.lastore", "", this))
+    , lastoreDConfig(DConfig::create("org.deepin.dde.lastore", "org.deepin.dde.lastore", "", this))
     , m_lastoreDeamonStatus(0)
     , m_checkUpdateMode(0)
     , m_batterIsOK(false)
     , m_p2pUpdateEnabled(false)
     , m_showUpdateCtl(false)
-    , checkBtnText("")
-    , checkUpdateErrTips("")
     , m_checkUpdateIcon("")
+    , m_checkUpdateProgress(0.0)
     , m_checkUpdateStatus(UpdatesStatus::Default)
+    , m_checkUpdateErrTips("")
+    , m_checkBtnText("")
+    , m_lastCheckUpdateTime("")
     , m_preUpdatelistModel(new UpdateListModel(this))
     , m_downloadinglistModel(new UpdateListModel(this))
     , m_preInstallListModel(new UpdateListModel(this))
@@ -208,7 +208,7 @@ void UpdateModel::setCheckUpdateProgress(double updateProgress)
 {
     if (!qFuzzyCompare(m_checkUpdateProgress, updateProgress)) {
         m_checkUpdateProgress = updateProgress;
-        Q_EMIT updateProgressChanged(updateProgress);
+        Q_EMIT checkUpdateProgressChanged();
     }
 }
 
@@ -262,14 +262,13 @@ void UpdateModel::setSystemVersionInfo(const QString& systemVersionInfo)
     Q_EMIT systemVersionChanged(systemVersionInfo);
 }
 
-void UpdateModel::setSystemActivation(const UiActiveState& systemActivation)
+void UpdateModel::setSystemActivation(bool systemActivation)
 {
     qCInfo(DCC_UPDATE_MODEL) << "System activation:" << systemActivation;
     if (m_systemActivation == systemActivation) {
         return;
     }
     m_systemActivation = systemActivation;
-
     Q_EMIT systemActivationChanged(systemActivation);
 }
 
@@ -298,6 +297,7 @@ void UpdateModel::setLastCheckUpdateTime(const QString& lastTime)
 {
     qCDebug(DCC_UPDATE_MODEL) << "Last check time:" << lastTime;
     m_lastCheckUpdateTime = lastTime.left(QString("0000-00-00 00:00:00").size());
+    emit lastCheckUpdateTimeChanged();
 }
 
 void UpdateModel::setHistoryAppInfos(const QList<AppUpdateInfo>& infos)
@@ -570,11 +570,6 @@ bool UpdateModel::isUpdateToDate() const
     return true;
 }
 
-bool UpdateModel::isActivationValid() const
-{
-    return m_systemActivation == UiActiveState::Authorized || m_systemActivation == UiActiveState::TrialAuthorized;
-}
-
 void UpdateModel::resetDownloadInfo()
 {
     for (const auto item : m_allUpdateInfos.values()) {
@@ -811,11 +806,6 @@ void UpdateModel::setPreUpdatelistModel(UpdateListModel *newPreUpdatelistModel)
     emit preUpdatelistModelChanged();
 }
 
-int UpdateModel::checkUpdateStatus() const
-{
-    return m_checkUpdateStatus;
-}
-
 void UpdateModel::setCheckUpdateStatus(int newCheckUpdateStatus)
 {
     if (m_checkUpdateStatus == newCheckUpdateStatus)
@@ -893,11 +883,6 @@ void UpdateModel::refreshUpdateUiModel()
     }
 }
 
-QString UpdateModel::checkUpdateIcon() const
-{
-    return m_checkUpdateIcon;
-}
-
 void UpdateModel::setCheckUpdateIcon(const QString &newCheckUpdateIcon)
 {
     if (m_checkUpdateIcon == newCheckUpdateIcon)
@@ -932,29 +917,21 @@ void UpdateModel::updateCheckUpdateUi()
     }
 }
 
-QString UpdateModel::getCheckUpdateErrTips() const
-{
-    return checkUpdateErrTips;
-}
-
 void UpdateModel::setCheckUpdateErrTips(const QString &newCheckUpdateErrTips)
 {
-    if (checkUpdateErrTips == newCheckUpdateErrTips)
+    if (m_checkUpdateErrTips == newCheckUpdateErrTips)
         return;
-    checkUpdateErrTips = newCheckUpdateErrTips;
-    emit checkUpdateErrTipsChanged();
-}
 
-QString UpdateModel::getCheckBtnText() const
-{
-    return checkBtnText;
+    m_checkUpdateErrTips = newCheckUpdateErrTips;
+    emit checkUpdateErrTipsChanged();
 }
 
 void UpdateModel::setCheckBtnText(const QString &newCheckBtnText)
 {
-    if (checkBtnText == newCheckBtnText)
+    if (m_checkBtnText == newCheckBtnText)
         return;
-    checkBtnText = newCheckBtnText;
+
+    m_checkBtnText = newCheckBtnText;
     emit checkBtnTextChanged();
 }
 
@@ -1165,11 +1142,6 @@ void UpdateModel::updateAvailableState()
     }
 
     setIsUpdatable(false);
-}
-
-bool UpdateModel::showUpdateCtl() const
-{
-    return m_showUpdateCtl;
 }
 
 void UpdateModel::setShowUpdateCtl(bool newShowUpdateCtl)
