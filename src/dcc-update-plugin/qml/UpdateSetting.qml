@@ -76,9 +76,9 @@ DccObject {
     }
 
     DccTitleObject {
-        name: "otherSettingGrpTitle"
+        name: "advancedSettingTitle"
         parentName: "updateSettingsPage"
-        displayName: qsTr("Other Settings")
+        displayName: qsTr("Advanced Settings")
         weight: 30
     }
 
@@ -241,17 +241,10 @@ DccObject {
         }
     }
 
-    DccTitleObject {
-        name: "advancedSettingTitle"
-        parentName: "updateSettingsPage"
-        displayName: qsTr("Advanced Settings")
-        weight: 60
-    }
-
     DccObject {
         name: "advancedSettingGrp"
         parentName: "updateSettingsPage"
-        weight: 70
+        weight: 60
         pageType: DccObject.Item
         page: DccGroupView {
             height: implicitHeight + 10
@@ -318,8 +311,8 @@ DccObject {
     DccObject {
         name: "mirrorSettingGrp"
         parentName: "updateSettingsPage"
-        visible: dccData.mode().isCommunitySystem()
-        weight: 80
+        visible: dccData.model().isCommunitySystem()
+        weight: 70
         pageType: DccObject.Item
         page: DccGroupView {
             height: implicitHeight + 10
@@ -362,8 +355,8 @@ DccObject {
         displayName: qsTr("Join Internal Testing Channel")
         description: qsTr("Join the internal testing channel to get deepin latest updates")
         backgroundType: DccObject.Normal
-        visible: dccData.mode().isCommunitySystem()
-        weight: 90
+        visible: false //dccData.model().isCommunitySystem()
+        weight: 80
         pageType: DccObject.Editor
         page: D.Switch {
             checked: dccData.model().testingChannelStatus != UpdateModel.NotJoined

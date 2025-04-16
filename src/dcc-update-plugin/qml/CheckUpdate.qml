@@ -60,7 +60,7 @@ ColumnLayout {
             D.Label {
                 visible: dccData.model().checkUpdateStatus == 4
                 Layout.alignment: Qt.AlignHCenter
-                text: qsTr("Last checking time: ") + dccData.model().lastCheckUpdateTime
+                text: qsTr("Last check: ") + dccData.model().lastCheckUpdateTime
                 font.pixelSize: 10
             }
         }

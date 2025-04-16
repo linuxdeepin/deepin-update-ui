@@ -909,7 +909,7 @@ void UpdateModel::updateCheckUpdateUi()
         case CheckingFailed:
             setCheckUpdateErrTips(errorToText(lastError(CheckingFailed)));
             setCheckUpdateIcon("update_failure");
-            setCheckBtnText(tr("重新检查"));
+            setCheckBtnText(tr("Check Again"));
             break;
         default:
             setCheckBtnText(tr(""));

@@ -32,6 +32,8 @@ file(GLOB_RECURSE update_SRCS
         "operation/*.cpp"
         "operation/*.h"
         "operation/qrc/update.qrc"
+        "../common/*.h"
+        "../common/*.cpp"        
 )
 
 

@@ -12,7 +12,7 @@ DccObject {
         name: "noActive"
         parentName: "update"
         pageType: DccObject.Item
-        backgroundType: DccObject.Audobg
+        backgroundType: DccObject.AutoBg
         weight: 10
         visible: !dccData.model().systemActivation
         page: NoActive{}
@@ -40,8 +40,8 @@ DccObject {
 
             updateListModels: dccData.model().installCompleteListModel
             updateStateTips: "Update installation successful"
-            updateTips: qsTr("In order for you to use the system and applications normally, please restart your computer after the update")
-            actionBtnText: qsTr("Restart Now")
+            updateTips: qsTr("To ensure proper functioning of your system and applications, please restart your computer after the update")
+            actionBtnText: qsTr("Reboot now")
             checkVisible: false
 
             onBtnClicked: function(updateType){
@@ -60,8 +60,8 @@ DccObject {
         visible: dccData.model().installFailedListModel.anyVisible
         page:  UpdateControl{
             updateListModels: dccData.model().installFailedListModel
-            updateStateTips: qsTr("Update failed")
-            actionBtnText: qsTr("retry")
+            updateStateTips: qsTr("Installation update failed")
+            actionBtnText: qsTr("Continue Update")
             updateTips: dccData.model().downloadFailedTips
 
             checkVisible: false
@@ -85,7 +85,7 @@ DccObject {
 
             checkVisible: false
             updateListModels: dccData.model().installinglistModel
-            updateStateTips: qsTr("Installing updates")
+            updateStateTips: qsTr("Installing updates...")
             updateTitle: qsTr("Installing")
 
             processValue: dccData.model().distUpgradeProgress
@@ -124,7 +124,7 @@ DccObject {
         page:  UpdateControl{
             updateListModels: dccData.model().downloadFailedListModel
             updateStateTips: qsTr("Update download failed")
-            actionBtnText: qsTr("retry")
+            actionBtnText: qsTr("Retry")
             checkVisible: false
             updateTips: dccData.model().installFailedTips
 
@@ -170,8 +170,8 @@ DccObject {
         visible: dccData.model().preUpdatelistModel.anyVisible
         page:  UpdateControl{
             updateListModels: dccData.model().preUpdatelistModel
-            updateStateTips: qsTr("Detected updates available")
-            actionBtnText: qsTr("download")
+            updateStateTips: qsTr("Updates Available")
+            actionBtnText: qsTr("Download")
             checkVisible: false
             updateTips: qsTr("Update size: ") + dccData.model().downloadinglistModel.downloadSize + "G"
 

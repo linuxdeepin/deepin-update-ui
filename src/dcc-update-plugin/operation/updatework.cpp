@@ -1065,7 +1065,7 @@ void UpdateWorker::onCheckUpdateStatusChanged(const QString& value)
         setUpdateInfo();
         m_model->setShowUpdateCtl(m_model->isUpdatable());
     } else if (value == "end") {
-        refreshLastTimeAndCheckCircle()
+        refreshLastTimeAndCheckCircle();
         m_model->setCheckUpdateStatus(m_model->lastStatus());
         m_model->updateCheckUpdateUi();
         deleteJob(m_checkUpdateJob);
