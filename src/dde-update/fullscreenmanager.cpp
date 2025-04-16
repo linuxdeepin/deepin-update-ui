@@ -118,11 +118,6 @@ void FullScreenManager::screenCountChanged()
 
     // 创建关联
     for (const auto &s : screens_to_add) {
-        s->setOrientationUpdateMask(Qt::PrimaryOrientation
-                                    | Qt::LandscapeOrientation
-                                    | Qt::PortraitOrientation
-                                    | Qt::InvertedLandscapeOrientation
-                                    | Qt::InvertedPortraitOrientation);
 
         // 显示器信息发生任何变化时，都应该重新刷新一次任务栏的显示位置
         connect(s, &QScreen::geometryChanged, this, &FullScreenManager::handleScreenChanged);

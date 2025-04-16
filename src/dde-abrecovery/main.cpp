@@ -26,7 +26,6 @@ int main(int argc, char *argv[])
     a.installTranslator(&translator);
 
     DLogManager::registerConsoleAppender();
-    DLogManager::registerFileAppender();
     DLogManager::registerJournalAppender();
 
     Manage recovery;

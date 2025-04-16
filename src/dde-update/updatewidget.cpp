@@ -13,10 +13,10 @@
 #include <QWindow>
 
 #include <DFontSizeManager>
-#include <DHiDPIHelper>
 #include <QKeyEvent>
 #include <DPaletteHelper>
 #include <DGuiApplicationHelper>
+#include <DIcon>
 
 DCORE_USE_NAMESPACE
 DWIDGET_USE_NAMESPACE
@@ -55,7 +55,7 @@ UpdateLogWidget::UpdateLogWidget(QWidget *parent)
     scrollArea->setWidget(m_logLabel);
     scrollArea->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
     QPalette pa = scrollArea->palette();
-    pa.setColor(QPalette::Background, Qt::transparent);
+    pa.setColor(QPalette::Window, Qt::transparent);
     scrollArea->setPalette(pa);
 
 #ifdef QT_SCROLL_WHEEL_ANI
@@ -92,7 +92,7 @@ UpdatePrepareWidget::UpdatePrepareWidget(QWidget *parent) : QFrame(parent)
     m_spinner->setFixedSize(72, 72);
 
     QVBoxLayout *pLayout = new QVBoxLayout(this);
-    pLayout->setMargin(0);
+    pLayout->setContentsMargins(0, 0, 0, 0);
     pLayout->addStretch();
     pLayout->addWidget(m_spinner, 0, Qt::AlignCenter);
     pLayout->addSpacing(30);
@@ -117,7 +117,7 @@ UpdateProgressWidget::UpdateProgressWidget(QWidget *parent)
     , m_installBeginValue(0)
 {
     m_logo->setFixedSize(286, 57);
-    m_logo->setPixmap(DHiDPIHelper::loadNxPixmap(":img/logo.svg"));
+    m_logo->setPixmap(DIcon::loadNxPixmap(":img/logo.svg"));
 
     auto palette = m_tip->palette();
     palette.setColor(QPalette::WindowText, Qt::white);
@@ -229,7 +229,7 @@ UpdateCompleteWidget::UpdateCompleteWidget(QWidget *parent)
     DFontSizeManager::instance()->bind(m_tips, DFontSizeManager::T6);
 
     m_mainLayout = new QVBoxLayout(this);
-    m_mainLayout->setMargin(0);
+    m_mainLayout->setContentsMargins(0, 0, 0, 0);
     m_mainLayout->setSpacing(10);
     m_mainLayout->setAlignment(Qt::AlignCenter);
     m_mainLayout->addWidget(m_iconLabel, 0, Qt::AlignCenter);
@@ -260,7 +260,7 @@ void UpdateCompleteWidget::showSuccessFrame()
     m_mainLayout->invalidate();
     m_showLogButton->setVisible(false);
 
-    m_iconLabel->setPixmap(DHiDPIHelper::loadNxPixmap(":img/success.svg"));
+    m_iconLabel->setPixmap(DIcon::loadNxPixmap(":img/success.svg"));
     m_title->setText(tr("Updates successful"));
     m_countDown = 3;
 
@@ -329,7 +329,7 @@ void UpdateCompleteWidget::showErrorFrame(UpdateModel::UpdateError error)
         {UpdateModel::UnKnown, {UpdateModel::Reboot, UpdateModel::ShutDown}}
     };
 
-    m_iconLabel->setPixmap(DHiDPIHelper::loadNxPixmap(":img/failed.svg"));
+    m_iconLabel->setPixmap(DIcon::loadNxPixmap(":img/failed.svg"));
     const auto actions = ErrorActions.value(error);
     auto pair = UpdateModel::updateErrorMessage(error);
     m_title->setText(pair.first);
@@ -492,7 +492,7 @@ void UpdateWidget::initUi()
     m_stackedWidget->addWidget(m_logWidget);
 
     QVBoxLayout * pLayout = new QVBoxLayout(this);
-    pLayout->setMargin(0);
+    pLayout->setContentsMargins(0, 0, 0, 0);
     pLayout->setSpacing(0);
     pLayout->addWidget(m_stackedWidget, 0, Qt::AlignCenter);
 

@@ -25,21 +25,20 @@
 #include <QPainter>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QPointer>
+#include <QDBusReply>
+#include <DIcon>
 
 DCORE_USE_NAMESPACE
 
 Manage::Manage(QObject *parent)
     : QObject(parent)
-    , m_systemRecovery(new AbRecoveryInter("com.deepin.ABRecovery",
-                                           "/com/deepin/ABRecovery",
-                                           QDBusConnection::systemBus(), this))
-    , m_login1Manager(new Login1ManagerInter("org.freedesktop.login1",
-                                            "/org/freedesktop/login1",
-                                            QDBusConnection::systemBus(), this))
+    , m_updateDBusProxy(new UpdateDBusProxy(this))
     , m_recoveryWidget(nullptr)
 {
     // 满足配置条件,再判断是否满足恢复的条件
-    if (m_systemRecovery->configValid()) {
+    // TODO : 恢复条件判断
+    if (true) {
         qInfo() << "Recovery can restore, start recovery ...";
         recoveryCanRestore();
     } else {
@@ -55,49 +54,19 @@ void Manage::showDialog()
         return;
 
     m_recoveryWidget = new RecoveryWidget();
-    m_recoveryWidget->backupInfomation(m_systemRecovery->backupVersion(), getBackupTime());
+    // TODO 缺少版本号
+    m_recoveryWidget->backupInfomation("", getBackupTime());
 
     connect(m_recoveryWidget, &RecoveryWidget::notifyButtonClicked, this, [ = ](bool state) {
         // 能够进入到弹框页面,说明是满足一切版本回退的条件
         // true: 确认 , 要恢复旧版本
         qInfo() << "Notify button clicked, state: " << state;
         if (state) {
-            m_systemRecovery->StartRestore();
+            m_updateDBusProxy->ConfirmRollback(true);
             m_recoveryWidget->updateRestoringWaitUI();
         } else {
             // false: 取消并重启
-            requestReboot();
-        }
-    });
-
-    connect(m_systemRecovery, &AbRecoveryInter::JobEnd, this, [ this ](const QString &kind, bool success, const QString &errMsg) {
-        qInfo() << "Ab recovery interface job end, kind: " << kind << ", success: " << success << ", error message: " << errMsg;
-        m_recoveryWidget->destroyRestoringWaitUI();
-        if ("restore" != kind) {
-            return;
-        }
-
-        if (success) {
-            // 恢复成功
-            qInfo() << "Restore successful, exitApp.";
-
-            // 回滚成功后，需要将upgrade-status状态恢复
-            QJsonObject recoveryObj;
-            recoveryObj.insert("Status", "ready");
-            recoveryObj.insert("ReasonCode", "NoError");
-            DConfigHelper::instance()->setConfig(
-                "org.deepin.lastore",
-                "org.deepin.lastore",
-                "",
-                "upgrade-status",
-                QVariant(QJsonDocument(recoveryObj).toJson(QJsonDocument::JsonFormat::Compact))
-            );
-
-            exitApp();
-        } else {
-            // 恢复失败
-            qWarning() << "Recovery restore failed, error message: " << errMsg;
-            m_recoveryWidget->updateRestoringFailedUI();
+            m_updateDBusProxy->ConfirmRollback(false);
         }
     });
 
@@ -128,7 +97,7 @@ void Manage::showDialog()
 
 void Manage::recoveryCanRestore()
 {
-    QDBusPendingCall call = m_systemRecovery->CanRestore();
+    QDBusPendingCall call = m_updateDBusProxy->CanRollback();
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
     connect(watcher, &QDBusPendingCallWatcher::finished, [this, call] {
         if (!call.isError()) {
@@ -151,7 +120,9 @@ void Manage::recoveryCanRestore()
 
 QString Manage::getBackupTime()
 {
-    time_t t = static_cast<time_t>(m_systemRecovery->backupTime());
+    // TODO 缺少备份时间
+    // time_t t = static_cast<time_t>(m_systemRecovery->backupTime());
+    time_t t = static_cast<time_t>(0);
     QDateTime time = QDateTime::fromSecsSinceEpoch(t);
 
     return time.toString("yyyy/MM/dd hh:mm:ss");
@@ -173,7 +144,7 @@ void Manage::exitApp(bool isExec)
 
 void Manage::requestReboot()
 {
-    QDBusPendingCall call = m_login1Manager->Reboot(false);
+    QDBusPendingCall call = m_updateDBusProxy->Poweroff(false);
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
     connect(watcher, &QDBusPendingCallWatcher::finished, [this, call] {
         if (!call.isError()) {
@@ -243,7 +214,7 @@ void RecoveryWidget::updateRestoringFailedUI()
 
     DLabel *iconLabel = new DLabel();
     iconLabel->setFixedSize(56, 56);
-    iconLabel->setPixmap(DHiDPIHelper::loadNxPixmap(":icon/images/dialog-warning.svg").scaled(QSize(56, 56), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    iconLabel->setPixmap(DIcon::loadNxPixmap(":icon/images/dialog-warning.svg").scaled(QSize(56, 56), Qt::KeepAspectRatio, Qt::SmoothTransformation));
     mainLayout->addWidget(iconLabel, Qt::AlignLeft);
 
     DLabel *msgLabel = new DLabel();
@@ -280,7 +251,7 @@ void RecoveryWidget::initUI()
 
     DLabel *iconLabel = new DLabel();
     iconLabel->setFixedSize(56, 56);
-    iconLabel->setPixmap(DHiDPIHelper::loadNxPixmap(":icon/images/dialog-warning.svg").scaled(QSize(56, 56), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    iconLabel->setPixmap(DIcon::loadNxPixmap(":icon/images/dialog-warning.svg").scaled(QSize(56, 56), Qt::KeepAspectRatio, Qt::SmoothTransformation));
     mainLayout->addWidget(iconLabel, Qt::AlignLeft);
 
     DLabel *reasonLabel = new DLabel();
@@ -334,7 +305,7 @@ void RecoveryWidget::initUI()
     mainLayout->addWidget(tip, Qt::AlignCenter);
 
     QHBoxLayout *btnLayout = new QHBoxLayout();
-    btnLayout->setMargin(0);
+    btnLayout->setContentsMargins(0, 0, 0, 0);
 
     QPushButton *rebootBtn = new QPushButton();
     rebootBtn->setText(tr("Cancel and Reboot"));

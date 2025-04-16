@@ -7,13 +7,13 @@
 
 #include "common.h"
 #include "updatemodel.h"
-#include "updatedbusproxy.h"
 
 #include <QLoggingCategory>
 #include <QNetworkAccessManager>
 #include <QObject>
 
-#include "updatejobdbusproxy.h"
+#include "common/dbus/updatedbusproxy.h"
+#include "common/dbus/updatejobdbusproxy.h"
 
 //#include <com_deepin_abrecovery.h>
 //#include <com_deepin_daemon_appearance.h>

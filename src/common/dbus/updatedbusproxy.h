@@ -9,6 +9,7 @@
 #include <QDBusObjectPath>
 #include <QDBusPendingReply>
 #include <QObject>
+#include <QDBusServiceWatcher>
 
 typedef QMap<QString, QStringList> LastoreUpdatePackagesInfo;
 typedef QMap<QString, double> BatteryPercentageInfo;
@@ -75,6 +76,13 @@ public:
     QString downloadSpeedLimitConfig();
     bool p2pUpdateEnable();
 
+    QDBusPendingCall CanRollback();
+    void ConfirmRollback(bool confirm);
+
+    bool managerInterIsValid() const { return m_managerInter && m_managerInter->isValid(); }
+
+    QDBusPendingCall Poweroff(bool reboot = false);
+
     QDBusPendingReply<QDBusObjectPath> UpdateSource();
     void CleanJob(const QString &in0);
     void SetAutoClean(bool in0);
@@ -94,6 +102,9 @@ public:
     QDBusPendingReply<QString> GetUpdateLogs(int updateType);
     QDBusPendingReply<void> SetIdleDownloadConfig(const QString &config);
     QDBusPendingReply<QDBusObjectPath> PrepareDistUpgradePartly(int updateMode);
+    QDBusPendingReply<QDBusObjectPath> fixError(const QString &errorType);
+    QDBusPendingCall CheckUpgrade(int checkMode, int checkOrder);
+
 
     // Power
     bool onBattery();
@@ -122,6 +133,7 @@ signals:
     void AutoCleanChanged(bool value) const;
     void UpdateModeChanged(qulonglong value) const;
     void UpdateStatusChanged(QString value) const;
+    void managerInterServiceValidChanged(bool value) const;
 
     // Power
     void OnBatteryChanged(bool value) const;
@@ -132,7 +144,6 @@ signals:
     void RunningChanged(bool value) const;
     // Smart Mirror
     void EnableChanged(bool enable);
-
 private:
     DDBusInterface *m_hostname1Inter;
     DDBusInterface *m_updateInter;
@@ -140,6 +151,9 @@ private:
     DDBusInterface *m_powerInter;
     DDBusInterface *m_atomicUpgradeInter;
     DDBusInterface *m_smartMirrorInter;
+    DDBusInterface *m_login1Inter;
+
+    QDBusServiceWatcher *m_interWatcher;
 };
 
 #endif // UPDATEDBUSPROXY_H

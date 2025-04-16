@@ -1,4 +1,0 @@
-{
-    "ExecPath": "/usr/bin/dde-abrecovery",
-    "NeedExecScript": "/usr/bin/ab_rollback_check.sh"
-}

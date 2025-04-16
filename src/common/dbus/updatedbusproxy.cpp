@@ -9,33 +9,7 @@
 #include <QDBusPendingReply>
 #include <QDBusReply>
 
-// HostName
-const static QString HostnameService = QStringLiteral("org.freedesktop.hostname1");
-const static QString HostnamePath = QStringLiteral("/org/freedesktop/hostname1");
-const static QString HostnameInterface = QStringLiteral("org.freedesktop.hostname1");
-
-// Updater
-const static QString UpdaterService = QStringLiteral("org.deepin.dde.Lastore1");
-const static QString UpdaterPath = QStringLiteral("/org/deepin/dde/Lastore1");
-const static QString UpdaterInterface = QStringLiteral("org.deepin.dde.Lastore1.Updater");
-
-// Manager
-const static QString ManagerService = QStringLiteral("org.deepin.dde.Lastore1");
-const static QString ManagerPath = QStringLiteral("/org/deepin/dde/Lastore1");
-const static QString ManagerInterface = QStringLiteral("org.deepin.dde.Lastore1.Manager");
-
-// PowerInter
-const static QString PowerService = QStringLiteral("org.deepin.dde.Power1");
-const static QString PowerPath = QStringLiteral("/org/deepin/dde/Power1");
-const static QString PowerInterface = QStringLiteral("org.deepin.dde.Power1");
-
-// Atomic Upgrade
-const static QString AtomicUpdaterService = QStringLiteral("org.deepin.AtomicUpgrade1");
-const static QString AtomicUpdaterPath = QStringLiteral("/org/deepin/AtomicUpgrade1");
-const static QString AtomicUpdaterJobInterface = QStringLiteral("org.deepin.AtomicUpgrade1");
-
-const static QString PropertiesInterface = QStringLiteral("org.freedesktop.DBus.Properties");
-const static QString PropertiesChanged = QStringLiteral("PropertiesChanged");
+#include "common/commondefine.h"
 
 UpdateDBusProxy::UpdateDBusProxy(QObject *parent)
     : QObject(parent)
@@ -57,6 +31,7 @@ UpdateDBusProxy::UpdateDBusProxy(QObject *parent)
                                           "org.deepin.dde.Lastore1.Smartmirror",
                                           QDBusConnection::systemBus(),
                                           this))
+    , m_interWatcher(new QDBusServiceWatcher(UpdaterService, QDBusConnection::systemBus()))
 
 
 {
@@ -65,6 +40,20 @@ UpdateDBusProxy::UpdateDBusProxy(QObject *parent)
 
     qRegisterMetaType<BatteryPercentageInfo>("BatteryPercentageInfo");
     qDBusRegisterMetaType<BatteryPercentageInfo>();
+
+    m_interWatcher->setWatchedServices({UpdaterService, ManagerInterface, HostnameService});
+
+    connect(m_interWatcher, &QDBusServiceWatcher::serviceRegistered, this, [this](const QString &serviceName) {
+        if (serviceName == ManagerService) {
+            emit managerInterServiceValidChanged(true);
+        }
+    });
+
+    connect(m_interWatcher, &QDBusServiceWatcher::serviceUnregistered, this, [this](const QString &serviceName) {
+        if (serviceName == ManagerService) {
+            emit managerInterServiceValidChanged(false);
+        }
+    });
 }
 
 UpdateDBusProxy::~UpdateDBusProxy()
@@ -224,6 +213,25 @@ bool UpdateDBusProxy::p2pUpdateEnable()
     return qvariant_cast<bool>(m_updateInter->property("P2PUpdateEnable"));
 }
 
+QDBusPendingCall UpdateDBusProxy::CanRollback()
+{
+    return m_managerInter->asyncCall(QStringLiteral("CanRollback"));
+}
+
+void UpdateDBusProxy::ConfirmRollback(bool confirm)
+{
+    QList<QVariant> argumentList;
+    argumentList << QVariant::fromValue(confirm);
+    m_managerInter->asyncCallWithArgumentList(QStringLiteral("ConfirmRollback"), argumentList);
+}
+
+QDBusPendingCall UpdateDBusProxy::Poweroff(bool reboot)
+{
+    QList<QVariant> argumentList;
+    argumentList << QVariant::fromValue(reboot);
+    return m_managerInter->asyncCallWithArgumentList(QStringLiteral("PowerOff"), argumentList);
+}
+
 QDBusPendingReply<QDBusObjectPath> UpdateDBusProxy::UpdateSource()
 {
     QList<QVariant> argumentList;
@@ -343,6 +351,20 @@ QDBusPendingReply<QDBusObjectPath> UpdateDBusProxy::PrepareDistUpgradePartly(int
     QList<QVariant> argumentList;
     argumentList << QVariant::fromValue(updateMode);
     return m_managerInter->asyncCallWithArgumentList(QStringLiteral("PrepareDistUpgradePartly"), argumentList);
+}
+
+QDBusPendingReply<QDBusObjectPath> UpdateDBusProxy::fixError(const QString &errorType)
+{
+    QList<QVariant> argumentList;
+    argumentList << QVariant::fromValue(errorType);
+    return m_managerInter->asyncCallWithArgumentList(QStringLiteral("FixError"), argumentList);
+}
+
+QDBusPendingCall UpdateDBusProxy::CheckUpgrade(int checkMode, int checkOrder)
+{
+    QList<QVariant> argumentList;
+    argumentList << QVariant::fromValue(checkMode) << QVariant::fromValue(checkOrder);
+    return m_managerInter->asyncCallWithArgumentList(QStringLiteral("CheckUpgrade"), argumentList);
 }
 
 bool UpdateDBusProxy::onBattery()

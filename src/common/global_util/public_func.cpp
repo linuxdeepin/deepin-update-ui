@@ -6,12 +6,7 @@
 #include "dbus/dbuslockservice.h"
 
 #include <QJsonDocument>
-
-#include <com_deepin_daemon_accounts.h>
-#include <com_deepin_daemon_accounts_user.h>
-
-using AccountsInter = com::deepin::daemon::Accounts;
-using UserInter = com::deepin::daemon::accounts::User;
+#include <DDBusSender>
 
 QPixmap loadPixmap(const QString &file)
 {
@@ -57,14 +52,14 @@ QString getCurrentLocale()
         return DEFAULT_LOCALE;
     }
 
-    const QString& path = QStringLiteral("/com/deepin/daemon/Accounts/User") + QString::number(uid);
+    const auto path(QString("/org/deepin/dde/Accounts1/User%1").arg(uid));
     qInfo() << "Current user account path: " << path;
-    UserInter userInter("com.deepin.daemon.Accounts", path, QDBusConnection::systemBus());
-    if (!userInter.isValid()) {
-        qWarning() << "User DBus interface is invalid, error: " << userInter.lastError().message();
+    QDBusReply<QDBusVariant> reply = DDBusSender::system().interface("org.deepin.dde.Accounts1.User").path(path).service("org.deepin.dde.Accounts1").property("Locale").get();
+    if (!reply.isValid()) {
+        qWarning() << "Failed to get current user locale, error: " << reply.error().message();
         return DEFAULT_LOCALE;
     }
-    userInter.setSync(true);
-    userInter.setTimeout(3000);
-    return userInter.locale();
+
+    auto ret = qdbus_cast<QString>(reply.value().variant());
+    return ret;
 }

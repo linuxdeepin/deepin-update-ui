@@ -87,7 +87,7 @@ void BlurTransparentButton::setRadius(int radius)
     m_radius = radius;
 }
 
-void BlurTransparentButton::enterEvent(QEvent *event)
+void BlurTransparentButton::enterEvent(QEnterEvent *event)
 {
     m_state = Enter;
     QPalette palette = this->palette();

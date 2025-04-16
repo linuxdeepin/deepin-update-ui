@@ -8,6 +8,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_FLAGS "-g -Wall")
+set(QT_VERSION_MAJOR 6)
 
 # 增加安全编译参数
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fstack-protector-all -fPIC")
@@ -38,7 +39,11 @@ install(FILES ${QM_FILES} DESTINATION share/${PROJECT_NAME}/translations)
 #    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
 #endfunction(generation_dbus_adaptor)
 
-# add_subdirectory("src/dde-update")
-# add_subdirectory("src/dde-abrecovery")
+include_directories(
+    ${CMAKE_SOURCE_DIR}/src
+)
+
+add_subdirectory("src/dde-update")
+add_subdirectory("src/dde-abrecovery")
 add_subdirectory("src/dcc-update-plugin")
 

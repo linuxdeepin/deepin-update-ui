@@ -19,6 +19,7 @@
 #include <QDBusConnection>
 #include <QDBusInterface>
 #include <QDBusReply>
+#include <QFile>
 
 DGUI_USE_NAMESPACE
 
@@ -109,8 +110,8 @@ void FullScreenBackground::updateBlurBackground(const QString &path)
         update();
     };
 
-    QDBusMessage message = QDBusMessage::createMethodCall("com.deepin.daemon.ImageEffect", "/com/deepin/daemon/ImageEffect",
-                                                          "com.deepin.daemon.ImageEffect", "Get");
+    QDBusMessage message = QDBusMessage::createMethodCall("org.deepin.dde.ImageEffect1", "/org/deepin/dde/ImageEffect1",
+                                                          "org.deepin.dde.ImageEffect1", "Get");
     message << "" << path;
     // 异步调用
     QDBusPendingCall async = QDBusConnection::systemBus().asyncCall(message);
@@ -232,7 +233,7 @@ void FullScreenBackground::paintEvent(QPaintEvent *e)
     }
 }
 
-void FullScreenBackground::enterEvent(QEvent *event)
+void FullScreenBackground::enterEvent(QEnterEvent *event)
 {
     updateCurrentFrame(this);
     // 多屏情况下，此Frame晚于其它Frame显示出来时，可能处于未激活状态（特别是在wayland环境下比较明显）

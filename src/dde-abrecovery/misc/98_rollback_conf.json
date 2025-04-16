@@ -1,0 +1,4 @@
+{
+    "ExecPath": "/usr/bin/dde-rollback",
+    "NeedExecScript": "/usr/bin/rollback_check.sh"
+}

@@ -6,16 +6,11 @@
 #define RECOVERYDIALOG_H
 
 #include "backgroundwidget.h"
+#include "common/dbus/updatedbusproxy.h"
 
 #include <QWidget>
 #include <QKeyEvent>
 
-#include <com_deepin_abrecovery.h>
-#include <org_freedesktop_login1.h>
-#include <com_deepin_daemon_grub2.h>
-
-using AbRecoveryInter = com::deepin::ABRecovery;
-using Login1ManagerInter = org::freedesktop::login1::Manager;
 
 DWIDGET_USE_NAMESPACE
 
@@ -47,8 +42,7 @@ private:
     QString getBackupTime();
 
 private:
-    AbRecoveryInter *m_systemRecovery;
-    Login1ManagerInter *m_login1Manager;
+    UpdateDBusProxy *m_updateDBusProxy;
     RecoveryWidget *m_recoveryWidget;
 };
 

@@ -24,6 +24,7 @@ UpdateJobDBusProxy::UpdateJobDBusProxy(const QString &jobPath, QObject *parent)
     : QObject(parent)
     , m_updateJobInter(new DDBusInterface(
               UpdaterService, jobPath, UpdaterJobInterface, QDBusConnection::systemBus(), this))
+    , m_path(jobPath)
 {
 }
 

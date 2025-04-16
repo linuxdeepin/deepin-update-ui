@@ -4,6 +4,8 @@
 
 #include "updateworker.h"
 #include "dconfig_helper.h"
+#include "common/dbus/updatejobdbusproxy.h"
+#include "common/commondefine.h"
 
 #include <QTimer>
 #include <QDir>
@@ -25,23 +27,19 @@ static const QList<UpdateModel::UpdateError> CAN_BE_FIXED_ERRORS = { UpdateModel
 
 UpdateWorker::UpdateWorker(QObject *parent)
     : QObject(parent)
-    , m_powerInter(new PowerInter("com.deepin.system.Power", "/com/deepin/system/Power", QDBusConnection::systemBus(), this))
-    , m_managerInter(new ManagerInter("com.deepin.lastore", "/com/deepin/lastore", QDBusConnection::systemBus(), this))
-    , m_abRecoveryInter(new RecoveryInter("com.deepin.ABRecovery", "/com/deepin/ABRecovery", QDBusConnection::systemBus(), this))
-    , m_login1Manager(new Login1Manager("org.freedesktop.login1", "/org/freedesktop/login1", QDBusConnection::systemBus(), this))
     , m_distUpgradeJob(nullptr)
     , m_fixErrorJob(nullptr)
     , m_checkSystemJob(nullptr)
+    , m_dbusProxy(new UpdateDBusProxy(this))
     , m_waitingToCheckSystem(false)
 {
 }
 
 void UpdateWorker::init()
 {
-    m_managerInter->setSync(false);
-    m_abRecoveryInter->setSync(false);
-    connect(m_managerInter, &ManagerInter::JobListChanged, this, &UpdateWorker::onJobListChanged);
-    connect(m_managerInter, &ManagerInter::serviceValidChanged, this, [this](bool valid) {
+    // m_managerInter->setSync(false);
+    connect(m_dbusProxy, &UpdateDBusProxy::JobListChanged, this, &UpdateWorker::onJobListChanged);
+    connect(m_dbusProxy, &UpdateDBusProxy::managerInterServiceValidChanged, this, [this](bool valid) {
         if (!valid) {
             const auto status = UpdateModel::instance()->updateStatus();
             qWarning() << "Lastore daemon manager service is invalid, curren status: " << status;
@@ -53,7 +51,7 @@ void UpdateWorker::init()
             if (status != UpdateModel::Installing)
                 return;
 
-            UpdateModel::instance()->setLastErrorLog("com.deepin.lastore.Manager interface is invalid.");
+            UpdateModel::instance()->setLastErrorLog("org.deepin.dde.Lastore1 interface is invalid.");
             UpdateModel::instance()->setUpdateError(UpdateModel::UpdateError::UpdateInterfaceError);
             UpdateModel::instance()->setUpdateStatus(UpdateModel::UpdateStatus::InstallFailed);
         } else {
@@ -63,6 +61,7 @@ void UpdateWorker::init()
             }
         }
     });
+#if 0 // TODO
     connect(m_abRecoveryInter, &RecoveryInter::JobEnd, this, [](const QString &kind, bool success, const QString &errMsg) {
         qInfo() << "Backup job end, kind: " << kind << ", success: " << success << ", error message: " << errMsg;
         if ("backup" != kind) {
@@ -100,9 +99,10 @@ void UpdateWorker::init()
             UpdateModel::instance()->setUpdateStatus(UpdateModel::UpdateStatus::BackupFailed);
         }
     });
+#endif
 
     getUpdateOption();
-    onJobListChanged(m_managerInter->jobList());
+    onJobListChanged(m_dbusProxy->jobList());
 }
 
 /**
@@ -119,7 +119,7 @@ void UpdateWorker::startUpdateProgress()
 void UpdateWorker::doDistUpgrade(bool doBackup)
 {
     qInfo() << "Do dist upgrade, do backup: " << doBackup;
-    if (!m_managerInter->isValid()) {
+    if (!m_dbusProxy->managerInterIsValid()) {
         UpdateModel::instance()->setLastErrorLog("com.deepin.lastore.Manager interface is invalid.");
         UpdateModel::instance()->setUpdateError(UpdateModel::UpdateError::UpdateInterfaceError);
         UpdateModel::instance()->setUpdateStatus(UpdateModel::UpdateStatus::InstallFailed);
@@ -132,7 +132,7 @@ void UpdateWorker::doDistUpgrade(bool doBackup)
     }
 
     cleanLaStoreJob(m_distUpgradeJob);
-    QDBusPendingReply<QDBusObjectPath> reply = m_managerInter->asyncCall("DistUpgradePartly", UpdateModel::instance()->updateMode(), doBackup);
+    QDBusPendingReply<QDBusObjectPath> reply = m_dbusProxy->DistUpgradePartly(UpdateModel::instance()->updateMode(), doBackup);
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, this);
     connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, reply, watcher] {
         watcher->deleteLater();
@@ -155,7 +155,7 @@ void UpdateWorker::onJobListChanged(const QList<QDBusObjectPath> &jobs)
     for (const auto &job : jobs) {
         const QString &jobPath = job.path();
         qInfo() << "Path : " << jobPath;
-        JobInter jobInter("com.deepin.lastore", jobPath, QDBusConnection::systemBus());
+        JobInter jobInter(jobPath, this);
         if (!jobInter.isValid()) {
             qWarning() << "Job is invalid";
             continue;
@@ -187,9 +187,9 @@ void UpdateWorker::createDistUpgradeJob(const QString& jobPath)
         return;
     }
 
-    m_distUpgradeJob = new JobInter("com.deepin.lastore", jobPath, QDBusConnection::systemBus(), this);
-    connect(m_distUpgradeJob, &__Job::ProgressChanged, UpdateModel::instance(), &UpdateModel::setJobProgress);
-    connect(m_distUpgradeJob, &__Job::StatusChanged, this, &UpdateWorker::onDistUpgradeStatusChanged);
+    m_distUpgradeJob = new JobInter(jobPath, this);
+    connect(m_distUpgradeJob, &UpdateJobDBusProxy::ProgressChanged, UpdateModel::instance(), &UpdateModel::setJobProgress);
+    connect(m_distUpgradeJob, &UpdateJobDBusProxy::StatusChanged, this, &UpdateWorker::onDistUpgradeStatusChanged);
     UpdateModel::instance()->setJobProgress(m_distUpgradeJob->progress());
     onDistUpgradeStatusChanged(m_distUpgradeJob->status());
 }
@@ -207,14 +207,14 @@ void UpdateWorker::createCheckSystemJob(const QString& jobPath)
         return;
     }
 
-    m_checkSystemJob = new JobInter("com.deepin.lastore", jobPath, QDBusConnection::systemBus(), this);
+    m_checkSystemJob = new JobInter(jobPath, this);
     // 低概率出现创建 job 时，系统检查已经完成的情况，此时直接退出进程即可。
     if (m_checkSystemJob->id().isEmpty()) {
         qWarning() << "Check system job id is empty, exit application now";
         qApp->exit();
     }
-    connect(m_checkSystemJob, &__Job::ProgressChanged, UpdateModel::instance(), &UpdateModel::setJobProgress);
-    connect(m_checkSystemJob, &__Job::StatusChanged, this, &UpdateWorker::onCheckSystemStatusChanged);
+    connect(m_checkSystemJob, &UpdateJobDBusProxy::ProgressChanged, UpdateModel::instance(), &UpdateModel::setJobProgress);
+    connect(m_checkSystemJob, &UpdateJobDBusProxy::StatusChanged, this, &UpdateWorker::onCheckSystemStatusChanged);
     UpdateModel::instance()->setJobProgress(m_checkSystemJob->progress());
     onCheckSystemStatusChanged(m_checkSystemJob->status());
 }
@@ -323,6 +323,7 @@ UpdateModel::UpdateError UpdateWorker::analyzeJobErrorMessage(QString jobDescrip
 
 void UpdateWorker::doDistUpgradeIfCanBackup()
 {
+#if 0 // TODO
     qInfo() << "Prepare to do backup";
     QDBusPendingCall call = m_abRecoveryInter->CanBackup();
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
@@ -354,19 +355,19 @@ void UpdateWorker::doDistUpgradeIfCanBackup()
             UpdateModel::instance()->setUpdateStatus(UpdateModel::UpdateStatus::BackupFailed);
         }
     });
+#endif
 }
 
 void UpdateWorker::doCheckSystem(int updateMode, UpdateModel::CheckSystemStage stage)
 {
     qInfo() << "Update mode:" << updateMode << ", check system stage:" << stage;
-    ManagerInter manager("com.deepin.lastore", "/com/deepin/lastore", QDBusConnection::systemBus(), this);
-    if (!manager.isValid()) {
-        qWarning() << "Update mode is invalid, last error:" << manager.lastError().message();
+    if (!m_dbusProxy->managerInterIsValid()) {
+        qWarning() << "Update mode is invalid";
         m_waitingToCheckSystem = true;
         return;
     }
 
-    QDBusPendingReply<QDBusObjectPath> reply = manager.asyncCall("CheckUpgrade", updateMode, static_cast<int>(stage));
+    QDBusPendingReply<QDBusObjectPath> reply = m_dbusProxy->CheckUpgrade(updateMode, static_cast<int>(stage));
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, this);
     connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, reply, watcher] {
         watcher->deleteLater();
@@ -412,13 +413,13 @@ void UpdateWorker::doAction(UpdateModel::UpdateAction action)
 bool UpdateWorker::checkPower()
 {
     qInfo() << "Check power";
-    bool onBattery = m_powerInter->onBattery();
+    bool onBattery = m_dbusProxy->onBattery();
     if (!onBattery) {
         qInfo() << "No battery";
         return true;
     }
 
-    double data = m_powerInter->batteryPercentage();
+    double data = m_dbusProxy->batteryPercentage().value("Display", 0);
     int batteryPercentage = uint(qMin(100.0, qMax(0.0, data)));
     qInfo() << "Battery percentage: " << batteryPercentage;
     return batteryPercentage >= 60;
@@ -447,13 +448,13 @@ bool UpdateWorker::fixError(UpdateModel::UpdateError error, const QString &descr
         return false;
     }
 
-    QDBusReply<QDBusObjectPath> reply = m_managerInter->call("FixError", errorString);
+    QDBusReply<QDBusObjectPath> reply = m_dbusProxy->fixError(errorString);
     if (!reply.isValid()) {
         qWarning() << "Call `FixError` reply is invalid, error: " << reply.error().message();
         return false;
     }
 
-    m_fixErrorJob = new JobInter("com.deepin.lastore", reply.value().path(), QDBusConnection::systemBus());
+    m_fixErrorJob = new JobInter(reply.value().path(), this);
     if (!m_fixErrorJob->isValid()) {
         qWarning() << "Fix error job is invalid";
         delete m_fixErrorJob;
@@ -487,7 +488,7 @@ void UpdateWorker::doPowerAction(bool reboot)
 {
     qInfo() << "Update worker do power action, is reboot: " << reboot;
 
-    auto powerActionReply = reboot ? m_login1Manager->Reboot(false) : m_login1Manager->PowerOff(false);
+    auto powerActionReply = m_dbusProxy->Poweroff(reboot);
     powerActionReply.waitForFinished();
     if (powerActionReply.isError()) {
         qWarning() << "Do power action failed: " << powerActionReply.error().message();
@@ -522,16 +523,15 @@ void UpdateWorker::enableShortcuts(bool enable)
  * @return true service is valid
  * @return false service is invalid
  */
-bool UpdateWorker::syncStartService(DBusExtendedAbstractInterface *interface)
+bool UpdateWorker::syncStartService(const QString &serviceName)
 {
-    const QString &service = interface->service();
-    DBusManager dbusManager("org.freedesktop.DBus", "/", QDBusConnection::systemBus());
-    QDBusReply<uint32_t> reply = dbusManager.call("StartServiceByName", service, quint32(0));
+    QDBusInterface inter("org.freedesktop.DBus", "/", "org.freedesktop.DBus", QDBusConnection::systemBus());
+    QDBusReply<uint32_t> reply = inter.call("StartServiceByName", serviceName, quint32(0));
     if (reply.isValid()) {
-        qInfo() << QString("Start %1 service result: ").arg(service) << reply.value();
+        qInfo() << QString("Start %1 service result: ").arg(serviceName) << reply.value();
         return reply.value() == 1;
     } else {
-        qWarning() << QString("Start %1 service failed, error: ").arg(service) << reply.error().message();
+        qWarning() << QString("Start %1 service failed, error: ").arg(serviceName) << reply.error().message();
         return false;
     }
 }
@@ -544,14 +544,14 @@ bool UpdateWorker::syncStartService(DBusExtendedAbstractInterface *interface)
 void UpdateWorker::checkStatusAfterSessionActive()
 {
     qInfo() << "Check installation status";
-    if (!m_managerInter->isValid() && m_distUpgradeJob) {
+    if (!m_dbusProxy->managerInterIsValid() && m_distUpgradeJob) {
         delete m_distUpgradeJob;
         m_distUpgradeJob = nullptr;
-        syncStartService(m_managerInter);
+        syncStartService(ManagerService);
     }
 
-    if (m_managerInter->isValid()) {
-        onJobListChanged(m_managerInter->jobList());
+    if (m_dbusProxy->managerInterIsValid()) {
+        onJobListChanged(m_dbusProxy->jobList());
         if (m_distUpgradeJob) {
             return;
         }
@@ -572,7 +572,7 @@ void UpdateWorker::cleanLaStoreJob(QPointer<JobInter> dbusJob)
     qInfo() << "Clean job";
     if (dbusJob != nullptr) {
         qInfo() << "Job path" << dbusJob->path();
-        m_managerInter->CleanJob(dbusJob->id());
+        m_dbusProxy->CleanJob(dbusJob->id());
         delete dbusJob;
         dbusJob = nullptr;
     }
@@ -628,7 +628,7 @@ void UpdateWorker::getUpdateOption()
 void UpdateWorker::forceReboot(bool reboot)
 {
     qInfo() << "Force reboot:" << reboot;
-    QDBusPendingReply<void> reply = m_managerInter->asyncCall("PowerOff", reboot);
+    QDBusPendingReply<void> reply = m_dbusProxy->Poweroff(reboot);
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, this);
     connect(watcher, &QDBusPendingCallWatcher::finished, this, [reply, watcher] {
         watcher->deleteLater();

@@ -18,21 +18,10 @@
 #include <QtDBus/QDBusMetaType>
 #include <QtDBus/QtDBus>
 
-#include <com_deepin_abrecovery.h>
-#include <com_deepin_lastore_job.h>
-#include <com_deepin_lastore_jobmanager.h>
-#include <com_deepin_lastore_updater.h>
-#include <com_deepin_system_systempower.h>
-#include <org_freedesktop_login1.h>
-#include <org_freedesktop_dbus.h>
+#include "common/dbus/updatedbusproxy.h"
+#include "common/dbus/updatejobdbusproxy.h"
 
-// using UpdateInter = com::deepin::lastore::Updater;
-// using JobInter = com::deepin::lastore::Job;
-// using ManagerInter = com::deepin::lastore::Manager;
-// using RecoveryInter = com::deepin::ABRecovery;
-// using PowerInter = com::deepin::system::Power;
-// using Login1Manager = org::freedesktop::login1::Manager;
-// using DBusManager = org::freedesktop::DBus;
+using JobInter = UpdateJobDBusProxy;
 
 class UpdateWorker : public QObject
 {
@@ -66,7 +55,7 @@ private:
     UpdateModel::UpdateError analyzeJobErrorMessage(QString jobDescription);
     bool fixError(UpdateModel::UpdateError error, const QString &description, UpdateModel::UpdateStatus status);
     void checkStatusAfterSessionActive();
-    bool syncStartService(DBusExtendedAbstractInterface *interface);
+    bool syncStartService(const QString &serviceName);
     void createDistUpgradeJob(const QString& jobPath);
     void createCheckSystemJob(const QString& jobPath);
     void cleanLaStoreJob(QPointer<JobInter> dbusJob);
@@ -78,13 +67,10 @@ private slots:
     void onCheckSystemStatusChanged(const QString &status);
 
 private:
-    PowerInter *m_powerInter;
-    ManagerInter *m_managerInter;
-    RecoveryInter *m_abRecoveryInter;
-    Login1Manager* m_login1Manager;
     QPointer<JobInter> m_distUpgradeJob; // 更新job
     QPointer<JobInter> m_fixErrorJob; // 修复错误job
     QPointer<JobInter> m_checkSystemJob; // 修复错误job
+    UpdateDBusProxy *m_dbusProxy;
     bool m_waitingToCheckSystem;
 };
 

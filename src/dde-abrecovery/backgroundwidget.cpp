@@ -8,7 +8,7 @@
 #include <DLabel>
 
 #include <QPainter>
-#include <QDesktopWidget>
+#include <QScreen>
 #include <QApplication>
 
 DWIDGET_USE_NAMESPACE
@@ -19,8 +19,8 @@ BackgroundWidget::BackgroundWidget(bool bRestoring, QWidget *parent)
 {
     setAttribute(Qt::WA_TranslucentBackground, true);
     setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
-    QDesktopWidget *desktop = qApp->desktop();
-    this->setFixedSize(desktop->size());
+    QScreen *pScreen = qApp->primaryScreen();
+    this->setFixedSize(pScreen->size());
 
     if (m_bIsRestoring) {
         m_loadingIndicator = new DSpinner(this);
@@ -33,7 +33,7 @@ BackgroundWidget::BackgroundWidget(bool bRestoring, QWidget *parent)
         QFontMetrics fm(font);
         QRect rec = fm.boundingRect(tr("Rolling back the system, please wait..."));
 
-        m_loadingIndicator->move((desktop->width() - rec.width() - m_loadingIndicator->width()) / 2, (desktop->height() - rec.height()) / 2);
+        m_loadingIndicator->move((pScreen->size().width() - rec.width() - m_loadingIndicator->width()) / 2, (pScreen->size().height() - rec.height()) / 2);
     }
 }
 

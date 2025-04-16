@@ -56,6 +56,8 @@ public:
     Q_PROPERTY(QString Type READ type NOTIFY TypeChanged)
     QString type();
 
+    inline QString path() const { return m_path; };
+
 signals:
     void Notify(int in0);
     // begin property changed signals
@@ -74,6 +76,7 @@ signals:
 
 private:
     DDBusInterface *m_updateJobInter;
+    QString m_path;
 };
 
 #endif // UPDATEJOBDBUSPROXY_H

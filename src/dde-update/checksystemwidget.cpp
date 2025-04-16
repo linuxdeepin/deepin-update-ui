@@ -140,7 +140,7 @@ SuccessFrame::SuccessFrame(QWidget *parent)
     m_enterBtn->enableHighLightFocus(false);
 
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
-    mainLayout->setMargin(0);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->setSpacing(0);
     mainLayout->addStretch(4);
     mainLayout->addWidget(successTip, 0, Qt::AlignHCenter);
@@ -206,7 +206,7 @@ ErrorFrame::ErrorFrame(QWidget *parent)
     DFontSizeManager::instance()->bind(m_tips, DFontSizeManager::T6);
 
     m_mainLayout = new QVBoxLayout(this);
-    m_mainLayout->setMargin(0);
+    m_mainLayout->setContentsMargins(0, 0, 0, 0);
     m_mainLayout->setSpacing(10);
     m_mainLayout->setAlignment(Qt::AlignCenter);
     m_mainLayout->addWidget(m_iconLabel, 0, Qt::AlignCenter);
