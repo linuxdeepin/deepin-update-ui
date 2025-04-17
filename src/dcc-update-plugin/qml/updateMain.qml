@@ -104,7 +104,7 @@ DccObject {
             updateListModels: dccData.model().preInstallListModel
             updateStateTips: qsTr("Update download completed")
             actionBtnText: qsTr("Install updates")
-            updateTips: qsTr("Update size: ") + dccData.model().downloadinglistModel.downloadSize + "G"
+            updateTips: qsTr("Update size: ") + dccData.model().preInstallListModel.downloadSize
 
             onBtnClicked: function(updateType) {
 
@@ -145,7 +145,7 @@ DccObject {
         page:  UpdateControl{
             updateListModels: dccData.model().downloadinglistModel
             updateStateTips: qsTr("Downloading updates...")
-            updateTips: qsTr("Update size: ") + dccData.model().downloadinglistModel.downloadSize + "G"
+            updateTips: qsTr("Update size: ") + dccData.model().downloadinglistModel.downloadSize
             updateTitle: qsTr("Downloading")
 
             checkVisible: false
@@ -173,7 +173,7 @@ DccObject {
             updateStateTips: qsTr("Updates Available")
             actionBtnText: qsTr("Download")
             checkVisible: false
-            updateTips: qsTr("Update size: ") + dccData.model().downloadinglistModel.downloadSize + "G"
+            updateTips: qsTr("Update size: ") + dccData.model().preUpdatelistModel.downloadSize
 
             onBtnClicked: function(updateType){
 

@@ -24,8 +24,6 @@ ColumnLayout {
     signal downloadJobCtrl(int updateCtrlType)
     signal closeDownload()
 
-
-    width: parent.width
     RowLayout {
         Layout.preferredWidth: parent.width
         ColumnLayout {

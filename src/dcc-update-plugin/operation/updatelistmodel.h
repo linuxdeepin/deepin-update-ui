@@ -27,8 +27,7 @@ class UpdateListModel : public QAbstractListModel
     Q_OBJECT
 
     Q_PROPERTY(bool anyVisible READ anyVisible NOTIFY visibilityChanged)
-
-    Q_PROPERTY(double downloadSize READ downloadSize NOTIFY downloadSizeChanged)
+    Q_PROPERTY(QString downloadSize READ downloadSize NOTIFY downloadSizeChanged)
 
 public:
     enum updateRoles {
@@ -56,13 +55,6 @@ public:
 
     Q_INVOKABLE int getAllUpdateType() const;
 
-
-    // Add data:
-    bool insertRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
-
-    // Remove data:
-    bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
-
     QString getIconName(UpdateType type) const;
 
     QHash<int, QByteArray> roleNames() const override
@@ -82,7 +74,10 @@ public:
         return m_updateLists.count();
     }
 
-    double downloadSize() const;
+    QString downloadSize() const;
+
+public Q_SLOTS:
+    void refreshDownloadSize();
 
 signals:
     void visibilityChanged();
@@ -90,5 +85,6 @@ signals:
 
 private:
     QList<UpdateItemInfo *> m_updateLists;
+    QString m_downloadSize;
 };
 #endif // UPDATELISTMODEL_H

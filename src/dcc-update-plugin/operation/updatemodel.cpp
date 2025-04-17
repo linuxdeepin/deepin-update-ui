@@ -345,7 +345,7 @@ void UpdateModel::addUpdateInfo(UpdateItemInfo* info)
             deleteUpdateInfo(m_allUpdateInfos.value(updateType));
         m_allUpdateInfos.remove(updateType);
     }
-    connect(info, &UpdateItemInfo::downloadSizeChanged, this, &UpdateModel::notifyDownloadSizeChanged);
+
     m_allUpdateInfos.insert(updateType, info);
 
     if (!info->isUpdateAvailable()) {

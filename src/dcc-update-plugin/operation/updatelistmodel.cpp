@@ -52,32 +52,11 @@ void UpdateListModel::addUpdateData(UpdateItemInfo* itemData)
     beginInsertRows(QModelIndex(), row, row);
     // FIXME: Implement me!
     m_updateLists.append(itemData);
+    connect(itemData, &UpdateItemInfo::downloadSizeChanged, this, &UpdateListModel::refreshDownloadSize);
     endInsertRows();
 
+    refreshDownloadSize();
     emit visibilityChanged();
-    emit downloadSizeChanged();
-}
-
-bool UpdateListModel::insertRows(int row, int count, const QModelIndex &parent)
-{
-    beginInsertRows(parent, row, row + count - 1);
-    // FIXME: Implement me!
-    endInsertRows();
-
-    emit visibilityChanged();
-    emit downloadSizeChanged();
-    return true;
-}
-
-bool UpdateListModel::removeRows(int row, int count, const QModelIndex &parent)
-{
-    beginRemoveRows(parent, row, row + count - 1);
-    // FIXME: Implement me!
-    endRemoveRows();
-
-    emit visibilityChanged();
-    emit downloadSizeChanged();
-    return true;
 }
 
 QString UpdateListModel::getIconName(UpdateType type) const
@@ -99,15 +78,33 @@ QString UpdateListModel::getIconName(UpdateType type) const
     return path + "dcc_unknown_update.svg";
 }
 
-double UpdateListModel::downloadSize() const
+void UpdateListModel::refreshDownloadSize()
 {
-    int size = 0;
+    double downloadSize = 0;
     for (int i = 0; i < m_updateLists.size(); ++i) {
-        qDebug() <<"========== " << m_updateLists[i]->downloadSize();
-        size += m_updateLists[i]->downloadSize();
+        downloadSize += m_updateLists[i]->downloadSize();
     }
 
-    return size;
+    const int oneGB = 1024 * 1024 * 1024;
+    const int oneMB = 1024 * 1024;
+    const int oneKB = 1024;
+
+    QString sizeUnit;
+    if (downloadSize >= oneGB) { // more than 1 GB
+        sizeUnit = QString("%1G").arg(downloadSize /= oneGB, 0, 'f', 1);
+    } else if (downloadSize >= oneMB) { // less than 1 GB
+        sizeUnit = QString("%1M").arg(downloadSize /= oneMB, 0, 'f', 1);
+    } else { // less than 1 KB
+        sizeUnit = QString("%1K").arg(downloadSize /= oneKB, 0, 'f', 1);
+    }
+
+    m_downloadSize = sizeUnit;
+    emit downloadSizeChanged();
+}
+
+QString UpdateListModel::downloadSize() const
+{
+    return m_downloadSize;
 }
 
 void UpdateListModel::clearAllData()
