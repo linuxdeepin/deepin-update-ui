@@ -29,7 +29,7 @@ DConfigWatcher::DConfigWatcher(QObject *parent)
     QMetaEnum metaEnum = QMetaEnum::fromType<ModuleType>();
     for (int i = 0; i <  metaEnum.keyCount(); i++) {
         const QString fileName = QString("org.deepin.dde.control-center.%1").arg(metaEnum.valueToKey(i));
-        DConfig *config = DConfig::create("org.deepin.dde.control-center", fileName);
+        DConfig *config = DConfig::create("org.deepin.dde.control-center", fileName, "", this);
         if (!config->isValid()) {
             qWarning() << QString("DConfig is invalide, name: [%1], subpath: [%2]").arg(config->name(), config->subpath());
             continue;

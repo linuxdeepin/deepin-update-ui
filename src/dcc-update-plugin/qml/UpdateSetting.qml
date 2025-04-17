@@ -83,7 +83,7 @@ DccObject {
     }
 
     DccObject {
-        name: "otherSettingGrp"
+        name: "downloadLimitGrp"
         parentName: "updateSettingsPage"
         weight: 40
         pageType: DccObject.Item
@@ -94,7 +94,7 @@ DccObject {
 
         DccObject {
             name: "downloadLimit"
-            parentName: "otherSettingGrp"
+            parentName: "downloadLimitGrp"
             displayName: qsTr("Limit Speed")
             weight: 10
             pageType: DccObject.Editor
@@ -108,7 +108,7 @@ DccObject {
 
         DccObject {
             name: "limitSetting"
-            parentName: "otherSettingGrp"
+            parentName: "downloadLimitGrp"
             displayName: qsTr("Limit Setting")
             visible: dccData.model().downloadSpeedLimitEnabled
             weight: 20
