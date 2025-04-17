@@ -14,9 +14,6 @@ find_package(PkgConfig REQUIRED)
 find_package(Dtk6 COMPONENTS Widget REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Widgets DBus REQUIRED)
 
-pkg_check_modules(QGSettings REQUIRED gsettings-qt)
-pkg_check_modules(DFrameworkDBus REQUIRED dframeworkdbus)
-
 file(GLOB_RECURSE SRCS
     "*.h"
     "*.cpp"
