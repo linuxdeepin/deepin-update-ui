@@ -25,22 +25,17 @@ if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set(CMAKE_INSTALL_PREFIX /usr)
 endif ()
 
-if (NOT (${CMAKE_BUILD_TYPE} MATCHES "Debug"))
-    # generate qm
-    execute_process(COMMAND bash "translate_generation.sh"
-                    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-endif ()
-#file(GLOB TS_FILES "translations/*.ts")
-#qt5_add_translation(QM_FILES ${TS_FILES})
-file(GLOB QM_FILES "translations/*.qm")
-install(FILES ${QM_FILES} DESTINATION share/${PROJECT_NAME}/translations)
-#function(generation_dbus_adaptor xml class_name class_file option)
-#    execute_process(COMMAND qdbusxml2cpp ${option} -a ${class_file} -c ${class_name} ${xml}
-#    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
-#endfunction(generation_dbus_adaptor)
 
 include_directories(
     ${CMAKE_SOURCE_DIR}/src
+)
+
+set(TRANSLATION_LANGUAGES
+    af ak am_ET ar ar_EG ast az bg bn bo br ca cgg cs da de de_CH el en en_AU
+    en_GB en_US eo es es_MX et eu fa fi fil fr gl_ES he hi_IN hr hu hy id it
+    ja kab ka kk km_KH kn_IN ko ku ku_IQ ky ky@Arab la lo lt lv ml mn mr ms
+    nb ne nl pa pam pl ps pt pt_BR ro ru sc si sk sl sq sr sv sw ta te th tr
+    tzm ug uk ur uz vi zh_CN zh_HK zh_TW
 )
 
 add_subdirectory("src/dde-update")

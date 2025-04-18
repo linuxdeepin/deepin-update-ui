@@ -1,0 +1,18 @@
+filters:
+  - filter_type: file
+    source_file: src/dcc-update-plugin/translations/update_en.ts
+    file_format: QT
+    source_language: en_US
+    translation_files_expression: src/dcc-update-plugin/translations/update_<lang>.ts
+  - filter_type: file
+    source_file: src/dde-abrecovery/translations/dde-rollback_en.ts
+    file_format: QT
+    source_language: en_US
+    translation_files_expression: src/dde-abrecovery/translations/dde-rollback_<lang>.ts
+  - filter_type: file
+    source_file: src/dde-update/translations/dde-update_en.ts
+    file_format: QT
+    source_language: en_US
+    translation_files_expression: src/dde-update/translations/dde-update_<lang>.ts
+settings:
+    pr_branch_name: transifex_update_<br_unique_id>

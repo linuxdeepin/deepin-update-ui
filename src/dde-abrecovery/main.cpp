@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
     a.setQuitOnLastWindowClosed(false);
 
     QTranslator translator;
-    translator.load("/usr/share/deepin-update-ui/translations/dde-abrecovery_" + getCurrentLocale());
+    translator.load("/usr/share/deepin-update-ui/translations/dde-rollback_" + getCurrentLocale());
     a.installTranslator(&translator);
 
     DLogManager::registerConsoleAppender();
