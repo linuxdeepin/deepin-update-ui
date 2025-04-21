@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="nl">
 <context>
     <name>CheckProgressWidget</name>
     <message>
@@ -54,11 +52,11 @@
     </message>
     <message>
         <source>The automatic reboot process has failed. Please try to manually reboot your device.</source>
-        <translation type="unfinished"/>
+        <translation>Het automatisch opnieuw opstarten is mislukt - herstart zelf je apparaat.</translation>
     </message>
     <message>
         <source>The automatic shutdown process has failed. Please try to manually shut down your device.</source>
-        <translation type="unfinished"/>
+        <translation>Het automatisch afsluiten is mislukt - sluit zelf je apparaat af.</translation>
     </message>
 </context>
 <context>
