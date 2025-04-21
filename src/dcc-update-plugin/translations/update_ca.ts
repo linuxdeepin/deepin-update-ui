@@ -232,47 +232,47 @@
     </message>
     <message>
         <source>Enabling &quot;Auto Download Updates&quot; will automatically download updates when connected to the internet</source>
-        <translation type="unfinished"/>
+        <translation>Si activeu «baixa-les automàticament», les actualitzacions es baixaran automàticament quan estigueu connectats a Internet</translation>
     </message>
     <message>
         <source>Download when Inactive</source>
-        <translation type="unfinished"/>
+        <translation>Baixa-les quan estigueu inactiu</translation>
     </message>
     <message>
         <source>Start at</source>
-        <translation type="unfinished"/>
+        <translation>Comença a</translation>
     </message>
     <message>
         <source>End at</source>
-        <translation type="unfinished"/>
+        <translation>Acaba a</translation>
     </message>
     <message>
         <source>Advanced Settings</source>
-        <translation type="unfinished"/>
+        <translation>Configuració avançada</translation>
     </message>
     <message>
         <source>Updates Notification</source>
-        <translation type="unfinished"/>
+        <translation>Notificació d&apos;actualitzacions</translation>
     </message>
     <message>
         <source>Clear Package Cache</source>
-        <translation type="unfinished"/>
+        <translation>Neteja la cau de paquets</translation>
     </message>
     <message>
         <source>Update History</source>
-        <translation type="unfinished"/>
+        <translation>Historial d&apos;actualitzacions</translation>
     </message>
     <message>
         <source>View</source>
-        <translation type="unfinished"/>
+        <translation>Visualitza</translation>
     </message>
     <message>
         <source>Join Internal Testing Channel</source>
-        <translation type="unfinished"/>
+        <translation>Uniu-vos al canal de proves internes</translation>
     </message>
     <message>
         <source>Join the internal testing channel to get deepin latest updates</source>
-        <translation type="unfinished"/>
+        <translation>Uniu-vos al canal de proves internes per rebre les darreres actualitzacions del Deepin.</translation>
     </message>
 </context>
 <context>
@@ -313,31 +313,31 @@
     </message>
     <message>
         <source>Installing</source>
-        <translation type="unfinished"/>
+        <translation>S&apos;està instal·lant</translation>
     </message>
     <message>
         <source>Update download completed</source>
-        <translation type="unfinished"/>
+        <translation>S&apos;ha completat la baixada de l&apos;actualització</translation>
     </message>
     <message>
         <source>Install updates</source>
-        <translation type="unfinished"/>
+        <translation>Instal·la les actualitzacions</translation>
     </message>
     <message>
         <source>Update size: </source>
-        <translation type="unfinished"/>
+        <translation>Mida de l&apos;actualització:</translation>
     </message>
     <message>
         <source>Update download failed</source>
-        <translation type="unfinished"/>
+        <translation> Ha fallat la baixada de l&apos;actualització.</translation>
     </message>
     <message>
         <source>Downloading updates...</source>
-        <translation type="unfinished"/>
+        <translation>S&apos;estan baixant les actualitzacions...</translation>
     </message>
     <message>
         <source>Downloading</source>
-        <translation type="unfinished"/>
+        <translation>S&apos;està baixant</translation>
     </message>
     <message>
         <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
