@@ -236,7 +236,7 @@
     </message>
     <message>
         <source>Download when Inactive</source>
-        <translation>Baixar quando inativo</translation>
+        <translation>Download quando inativo</translation>
     </message>
     <message>
         <source>Start at</source>
@@ -341,23 +341,23 @@
     </message>
     <message>
         <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
-        <translation type="unfinished"/>
+        <translation>Configurar as atualizações de segurança, download automático de atualizações e notificação de atualizações</translation>
     </message>
     <message>
         <source>Reboot now</source>
-        <translation type="unfinished"/>
+        <translation>Reiniciar agora</translation>
     </message>
     <message>
         <source>Download</source>
-        <translation type="unfinished"/>
+        <translation>Download</translation>
     </message>
     <message>
         <source>Installing updates...</source>
-        <translation type="unfinished"/>
+        <translation>Instalando atualizações...</translation>
     </message>
     <message>
         <source>Retry</source>
-        <translation type="unfinished"/>
+        <translation>Tentar Novamente</translation>
     </message>
     <message>
         <source>Continue Update</source>
