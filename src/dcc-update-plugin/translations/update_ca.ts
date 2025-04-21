@@ -393,7 +393,7 @@
     </message>
     <message>
         <source>Back Up Again</source>
-        <translation type="unfinished"/>
+        <translation>Torna a fer una còpia de seguretat</translation>
     </message>
 </context>
 </TS>
