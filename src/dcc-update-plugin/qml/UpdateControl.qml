@@ -65,6 +65,7 @@ ColumnLayout {
             font.pixelSize: 14
             textColor: DS.Style.highlightedButton.background1
             visible: actionBtnText.length !== 0
+            enabled: updatelistModel.model.isUpdateEnable
             onClicked: {
                 rootLayout.btnClicked(updateListModels.getAllUpdateType())
             }

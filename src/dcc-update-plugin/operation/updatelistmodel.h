@@ -7,26 +7,12 @@
 
 #include <QAbstractListModel>
 
-// struct UpdateItemData
-// {
-//     UpdateItemData() {}
-//
-//     QString title;
-//     QString titleDescription;
-//     QString updateLog;
-//     QString releaseTime;
-//
-//     bool checked;
-//
-//     int updateStatus;
-// };
-//
-
 class UpdateListModel : public QAbstractListModel
 {
     Q_OBJECT
 
     Q_PROPERTY(bool anyVisible READ anyVisible NOTIFY visibilityChanged)
+    Q_PROPERTY(bool isUpdateEnable READ isUpdateEnable NOTIFY isUpdateEnableChanged)
     Q_PROPERTY(QString downloadSize READ downloadSize NOTIFY downloadSizeChanged)
 
 public:
@@ -70,10 +56,8 @@ public:
         return roles;
     }
 
-    bool anyVisible() const {
-        return m_updateLists.count();
-    }
-
+    bool anyVisible() const;
+    bool isUpdateEnable() const;
     QString downloadSize() const;
 
 public Q_SLOTS:
@@ -81,6 +65,7 @@ public Q_SLOTS:
 
 signals:
     void visibilityChanged();
+    void isUpdateEnableChanged();
     void downloadSizeChanged();
 
 private:
