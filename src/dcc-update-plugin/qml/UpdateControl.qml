@@ -4,6 +4,7 @@ import QtQuick 2.0
 import QtQuick.Controls 2.0
 import Qt.labs.qmlmodels 1.2
 import QtQuick.Layouts 1.15
+
 import org.deepin.dtk 1.0 as D
 import org.deepin.dtk.style 1.0 as DS
 import org.deepin.dcc 1.0
@@ -12,13 +13,13 @@ ColumnLayout {
     id: rootLayout
 
     property alias updateListModels: updatelistModel.model;
-    property string updateStateTips : "";
-    property string actionBtnText : ""
+    property string updateStateIcon: ""
+    property string updateTitle : ""
     property string updateTips: ""
-    property string updateTitle: ""
+    property string actionBtnText : ""
+    property string processTitle: ""
     property double processValue: 0
     property bool processState: false
-    property bool checkVisible: false
 
     signal btnClicked(int updateType)
     signal downloadJobCtrl(int updateCtrlType)
@@ -34,16 +35,18 @@ ColumnLayout {
             RowLayout {
                 spacing: 5
                 Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-                DccCheckIcon {
-                    visible: checkVisible
-                    checked: true
-                    size: 18
+
+                Image {
+                    visible: updateStateIcon.length !== 0
+                    sourceSize: Qt.size(24, 24)
+                    clip: true
+                    source: updateStateIcon
                 }
 
                 D.Label {
                     font.pixelSize: 16
                     font.bold: true
-                    text: updateStateTips
+                    text: updateTitle
                 }
             }
 
@@ -53,17 +56,6 @@ ColumnLayout {
                 font.pixelSize: 12
                 wrapMode: Text.WordWrap
             }
-
-            // RowLayout {
-            //     spacing: 5
-            //   //  visible: false
-            //     D.Label {
-            //         text:
-            //         font.pixelSize: 12
-            //     }
-            //
-            //
-            // }
         }
 
         D.Button {
@@ -74,27 +66,14 @@ ColumnLayout {
             textColor: DS.Style.highlightedButton.background1
             visible: actionBtnText.length !== 0
             onClicked: {
-               // dccData.work().onActionBtnClicked();
                 rootLayout.btnClicked(updateListModels.getAllUpdateType())
             }
         }
-
-        // D.BusyIndicator {
-        //     id: scanAnimation
-        //
-        //     Layout.alignment: Qt.AlignRight
-        // //    running: dccData.model().distUpgradeState === 1 || dccData.model().distUpgradeState === 0
-        // //    visible: dccData.model().distUpgradeState === 1 || dccData.model().distUpgradeState === 0
-        //     implicitWidth: 32
-        //     implicitHeight: 32
-        // }
 
         ColumnLayout {
             visible: processValue !== 0 && processValue !== 1
             Layout.rightMargin: 12
             Layout.alignment: Qt.AlignRight
-
-
 
             RowLayout {
                 id: progressCtl
@@ -110,35 +89,37 @@ ColumnLayout {
                     implicitWidth: 240
                 }
 
-                D.ToolButton {
-                    id: stratIcon
-                    icon.name: "qrc:/icons/deepin/builtin/icons/update_stop.png"
-                    width: 12
-                    height: 12
+                // TODO: 暂时屏蔽暂停和停止按钮
+                // D.ToolButton {
+                //     id: startIcon
+                //     icon.name: "qrc:/icons/deepin/builtin/icons/update_stop.png"
+                //     width: 12
+                //     height: 12
 
-                    onClicked: {
-                        processState = !processState
-                        root.downloadJobCtrl(processState)
-                    }
-                }
+                //     onClicked: {
+                //         processState = !processState
+                //         root.downloadJobCtrl(processState)
+                //     }
+                // }
 
 
-                D.ToolButton {
-                    id: stopIcon
-                    icon.name: "qrc:/icons/deepin/builtin/icons/update_close.png"
-                    width: 12
-                    height: 12
-                    onClicked: {
-                        root.closeDownload()
-                    }
-                }
+                // D.ToolButton {
+                //     id: stopIcon
+                //     icon.name: "qrc:/icons/deepin/builtin/icons/update_close.png"
+                //     width: 12
+                //     height: 12
+
+                //     onClicked: {
+                //         root.closeDownload()
+                //     }
+                // }
             }
 
             Label {
                 Layout.alignment: Qt.AlignRight
-                Layout.rightMargin: stratIcon.width + stopIcon.width + progressCtl.spacing * 2
+                // Layout.rightMargin: startIcon.width + stopIcon.width + progressCtl.spacing * 2
                 width: parent.width
-                text: updateTitle + Math.floor(process.value * 100) + "%"
+                text: processTitle + Math.floor(process.value * 100) + "%"
                 font.pixelSize: 12
             }
         }
@@ -155,6 +136,5 @@ ColumnLayout {
 
     UpdateList {
         id: updatelistModel
-
     }
 }

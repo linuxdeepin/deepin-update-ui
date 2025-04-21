@@ -7,13 +7,11 @@ import QtQuick.Layouts 1.15
 
 import org.deepin.dtk 1.0 as D
 import org.deepin.dtk.style 1.0 as DS
-
 import org.deepin.dcc 1.0
-
-
 
 Rectangle {
     id: root
+
     property alias model: repeater.model
     property bool backgroundVisible: true
     property bool showPlayBtn: false
@@ -170,7 +168,6 @@ Rectangle {
                         }
                     }
                 }
-
 
                 background: DccItemBackground {
                     separatorVisible: true

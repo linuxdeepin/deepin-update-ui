@@ -6,7 +6,6 @@ import Qt.labs.qmlmodels 1.2
 import QtQuick.Layouts 1.15
 
 import org.deepin.dtk 1.0 as D
-
 import org.deepin.dcc 1.0
 
 ColumnLayout {
