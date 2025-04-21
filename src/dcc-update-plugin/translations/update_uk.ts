@@ -391,5 +391,9 @@
         <source>Update installation successful</source>
         <translation>Успішне встановлення оновлень</translation>
     </message>
+    <message>
+        <source>Back Up Again</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 </TS>
