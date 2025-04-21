@@ -393,7 +393,7 @@
     </message>
     <message>
         <source>Back Up Again</source>
-        <translation type="unfinished"/>
+        <translation>Ribëj Kopjeruajtje</translation>
     </message>
 </context>
 </TS>
