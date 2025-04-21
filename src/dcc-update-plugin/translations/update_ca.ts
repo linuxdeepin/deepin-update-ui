@@ -341,7 +341,7 @@
     </message>
     <message>
         <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
-        <translation>Definiu la configuració d&apos;actualitzacions, actualitzacions de seguretat, actualitzacions de baixada automàtica i la notificació d&apos;actualitzacions</translation>
+        <translation>Estableix la configuració de l&apos;actualització, de les actualitzacions de seguretat, la baixada automàtica i la notificació de les actualitzacions.</translation>
     </message>
     <message>
         <source>Reboot now</source>
@@ -369,11 +369,11 @@
     </message>
     <message>
         <source>Installation update failed</source>
-        <translation>La instal·lació de l&apos;actualització ha fallat</translation>
+        <translation>Ha fallat la instal·lació de l&apos;actualització.</translation>
     </message>
     <message>
         <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
-        <translation>Per garantir el bon funcionament del sistema i aplicacions, reinicieu l&apos;ordinador després de l&apos;actualització</translation>
+        <translation>Per assegurar el bon funcionament del sistema i les aplicacions, reinicieu l&apos;ordinador després de l&apos;actualització.</translation>
     </message>
     <message>
         <source>Backing up in progress...</source>
@@ -385,7 +385,7 @@
     </message>
     <message>
         <source>Backup failed</source>
-        <translation>Ha fallat la còpia de seguretat</translation>
+        <translation>Ha fallat la còpia de seguretat.</translation>
     </message>
     <message>
         <source>Update installation successful</source>
