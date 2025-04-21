@@ -219,7 +219,7 @@ DccObject {
         description: qsTr("Configure Update settings、Security Updates、Auto Download Updates and Updates Notification")
         icon: "update_set"
         weight: 100
-        visible: dccData.model().systemActivation
+        visible: false //dccData.model().systemActivation
 
         UpdateSetting {}
     }
