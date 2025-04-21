@@ -10,14 +10,14 @@ import org.deepin.dcc 1.0
 
 ColumnLayout {
     id: rootLayout
+
     property alias updateListModels: updatelistModel.model;
-    property string updateStateTips : "aaaaaaa";
+    property string updateStateTips : "";
     property string actionBtnText : ""
     property string updateTips: ""
     property string updateTitle: ""
     property double processValue: 0
     property bool processState: false
-
     property bool checkVisible: false
 
     signal btnClicked(int updateType)

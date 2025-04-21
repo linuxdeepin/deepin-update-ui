@@ -389,5 +389,9 @@
         <source>Backup failed</source>
         <translation>备份失败</translation>
     </message>
+    <message>
+        <source>Update installation successful</source>
+        <translation>更新安装成功</translation>
+    </message>
 </context>
 </TS>

@@ -28,6 +28,7 @@ DccObject {
         page: CheckUpdate{}
     }
 
+    // 安装完成列表
     DccObject {
         name: "installCompleteList"
         parentName: "update"
@@ -39,18 +40,18 @@ DccObject {
         page: UpdateControl{
 
             updateListModels: dccData.model().installCompleteListModel
-            updateStateTips: "Update installation successful"
+            updateStateTips: qsTr("Update installation successful")
             updateTips: qsTr("To ensure proper functioning of your system and applications, please restart your computer after the update")
             actionBtnText: qsTr("Reboot now")
             checkVisible: false
 
             onBtnClicked: function(updateType){
-                console.log("立即重启 =================== ", updateType)
                 dccData.work().reStart()
             }
         }
     }
 
+    // 安装失败列表
     DccObject {
         name: "installFailedList"
         parentName: "update"
@@ -66,14 +67,12 @@ DccObject {
 
             checkVisible: false
             onBtnClicked: function(updateType){
-                console.log("更新失败 =================== ", updateType)
-
                 dccData.work().onRequestRetry(2, updateType)
             }
         }
     }
 
-
+    // 正在安装列表
     DccObject {
         name: "installingList"
         parentName: "update"
@@ -93,6 +92,7 @@ DccObject {
         }
     }
 
+    // 下载完成列表
     DccObject {
         name: "preInstallList"
         parentName: "update"
@@ -107,13 +107,12 @@ DccObject {
             updateTips: qsTr("Update size: ") + dccData.model().preInstallListModel.downloadSize
 
             onBtnClicked: function(updateType) {
-
-                console.log("安装更新 =================== ", updateType)
                 dccData.work().doUpgrade(updateType, true)
             }
         }
     }
 
+    // 下载失败列表
     DccObject {
         name: "downloadFailedList"
         parentName: "update"
@@ -129,12 +128,12 @@ DccObject {
             updateTips: dccData.model().installFailedTips
 
             onBtnClicked: function(updateType){
-                console.log("重试 =================== ", updateType)
                 dccData.work().onRequestRetry(6, updateType)
             }
         }
     }
 
+    // 正在下载列表
     DccObject {
         name: "downloadingList"
         parentName: "update"
@@ -161,6 +160,7 @@ DccObject {
         }
     }
 
+    // 检测到可更新列表
     DccObject {
         name: "preUpdateList"
         parentName: "update"
@@ -168,7 +168,7 @@ DccObject {
         weight: 70
         pageType: DccObject.Item
         visible: dccData.model().preUpdatelistModel.anyVisible
-        page:  UpdateControl{
+        page: UpdateControl {
             updateListModels: dccData.model().preUpdatelistModel
             updateStateTips: qsTr("Updates Available")
             actionBtnText: qsTr("Download")
@@ -176,13 +176,12 @@ DccObject {
             updateTips: qsTr("Update size: ") + dccData.model().preUpdatelistModel.downloadSize
 
             onBtnClicked: function(updateType){
-
-                console.log("下载 =================== ", updateType)
                 dccData.work().startDownload(updateType)
             }
         }
     }
 
+    // 正在备份列表
     DccObject {
         name: "backupList"
         parentName: "update"
@@ -201,6 +200,7 @@ DccObject {
         }
     }
 
+    // 备份失败列表
     DccObject {
         name: "backupFailedList"
         parentName: "update"
@@ -216,6 +216,7 @@ DccObject {
         }
     }
 
+    // 更新设置
     DccObject {
         name: "updateSettingsPage"
         parentName: "update"

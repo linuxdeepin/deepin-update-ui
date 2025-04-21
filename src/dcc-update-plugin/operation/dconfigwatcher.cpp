@@ -35,9 +35,9 @@ DConfigWatcher::DConfigWatcher(QObject *parent)
             continue;
         } else {
             m_mapModulesConfig.insert(metaEnum.valueToKey(i), config);
-            connect(config, &DConfig::valueChanged, this, [&](QString key) {
-                auto moduleName = m_mapModulesConfig.key(static_cast<DConfig *>(sender())).toStdString().c_str();
-                int type = QMetaEnum::fromType<ModuleType>().keyToValue(moduleName);
+            connect(config, &DConfig::valueChanged, [&, config](QString key) {
+                auto moduleName = m_mapModulesConfig.key(config);
+                int type = QMetaEnum::fromType<ModuleType>().keyToValue(moduleName.toStdString().c_str());
                 onStatusModeChanged(static_cast<ModuleType>(type), key);
             });
         }
