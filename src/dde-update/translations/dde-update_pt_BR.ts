@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="pt_BR">
 <context>
     <name>CheckProgressWidget</name>
     <message>
@@ -31,7 +29,7 @@
     </message>
     <message>
         <source>Current Edition:</source>
-        <translation>Edição atual:</translation>
+        <translation>Versão atual:</translation>
     </message>
 </context>
 <context>
@@ -54,11 +52,11 @@
     </message>
     <message>
         <source>The automatic reboot process has failed. Please try to manually reboot your device.</source>
-        <translation type="unfinished"/>
+        <translation>O processo de reinicialização automática falhou. Tente reiniciar manualmente.</translation>
     </message>
     <message>
         <source>The automatic shutdown process has failed. Please try to manually shut down your device.</source>
-        <translation type="unfinished"/>
+        <translation>O processo de desligamento automático falhou. Tente desligar manualmente.</translation>
     </message>
 </context>
 <context>
