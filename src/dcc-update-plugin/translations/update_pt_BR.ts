@@ -361,23 +361,23 @@
     </message>
     <message>
         <source>Continue Update</source>
-        <translation type="unfinished"/>
+        <translation>Continuar a atualização</translation>
     </message>
     <message>
         <source>Updates Available</source>
-        <translation type="unfinished"/>
+        <translation>Atualizações disponíveis</translation>
     </message>
     <message>
         <source>Installation update failed</source>
-        <translation type="unfinished"/>
+        <translation>Falha na Instalação</translation>
     </message>
     <message>
         <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
-        <translation type="unfinished"/>
+        <translation>Para garantir o funcionamento adequado do seu sistema e aplicativos, reinicie o computador após a atualização</translation>
     </message>
     <message>
         <source>Backing up in progress...</source>
-        <translation type="unfinished"/>
+        <translation>Fazendo backup, aguarde...</translation>
     </message>
     <message>
         <source>Backing up in progress</source>
