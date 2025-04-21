@@ -232,11 +232,11 @@
     </message>
     <message>
         <source>Enabling &quot;Auto Download Updates&quot; will automatically download updates when connected to the internet</source>
-        <translation>Si activeu «baixa-les automàticament», les actualitzacions es baixaran automàticament quan estigueu connectats a Internet</translation>
+        <translation>Si n&apos;activeu la baixada automàtica, les actualitzacions es baixaran automàticament quan hi hagi connexió a Internet.</translation>
     </message>
     <message>
         <source>Download when Inactive</source>
-        <translation>Baixa-les quan estigueu inactiu</translation>
+        <translation>Baixa-les durant l&apos;estat inactiu</translation>
     </message>
     <message>
         <source>Start at</source>
@@ -313,11 +313,11 @@
     </message>
     <message>
         <source>Installing</source>
-        <translation>S&apos;està instal·lant</translation>
+        <translation>S&apos;instal·la</translation>
     </message>
     <message>
         <source>Update download completed</source>
-        <translation>S&apos;ha completat la baixada de l&apos;actualització</translation>
+        <translation>S&apos;ha completat la baixada de l&apos;actualització.</translation>
     </message>
     <message>
         <source>Install updates</source>
@@ -333,11 +333,11 @@
     </message>
     <message>
         <source>Downloading updates...</source>
-        <translation>S&apos;estan baixant les actualitzacions...</translation>
+        <translation>Es baixen les actualitzacions...</translation>
     </message>
     <message>
         <source>Downloading</source>
-        <translation>S&apos;està baixant</translation>
+        <translation>Es baixa</translation>
     </message>
     <message>
         <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
@@ -353,7 +353,7 @@
     </message>
     <message>
         <source>Installing updates...</source>
-        <translation>S&apos;estan instal·lant actualitzacions...</translation>
+        <translation>S&apos;instal·len actualitzacions...</translation>
     </message>
     <message>
         <source>Retry</source>
