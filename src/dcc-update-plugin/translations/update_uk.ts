@@ -321,75 +321,75 @@
     </message>
     <message>
         <source>Install updates</source>
-        <translation type="unfinished"/>
+        <translation>Встановити оновлення</translation>
     </message>
     <message>
         <source>Update size: </source>
-        <translation type="unfinished"/>
+        <translation>Розмір оновлення:</translation>
     </message>
     <message>
         <source>Update download failed</source>
-        <translation type="unfinished"/>
+        <translation>Не вдалося отримати оновлення</translation>
     </message>
     <message>
         <source>Downloading updates...</source>
-        <translation type="unfinished"/>
+        <translation>Отримуємо оновлення…</translation>
     </message>
     <message>
         <source>Downloading</source>
-        <translation type="unfinished"/>
+        <translation>Отримання</translation>
     </message>
     <message>
         <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
-        <translation type="unfinished"/>
+        <translation>Налаштування параметрів оновлення. Оновлення захисту, Автоматичне отримання оновлень та сповіщення щодо оновлень</translation>
     </message>
     <message>
         <source>Reboot now</source>
-        <translation type="unfinished"/>
+        <translation>Перезавантажити зараз</translation>
     </message>
     <message>
         <source>Download</source>
-        <translation type="unfinished"/>
+        <translation>Отримати</translation>
     </message>
     <message>
         <source>Installing updates...</source>
-        <translation type="unfinished"/>
+        <translation>Встановлення оновлень…</translation>
     </message>
     <message>
         <source>Retry</source>
-        <translation type="unfinished"/>
+        <translation>Спробувати ще раз</translation>
     </message>
     <message>
         <source>Continue Update</source>
-        <translation type="unfinished"/>
+        <translation>Продовжити оновлення</translation>
     </message>
     <message>
         <source>Updates Available</source>
-        <translation type="unfinished"/>
+        <translation>Доступні оновлення</translation>
     </message>
     <message>
         <source>Installation update failed</source>
-        <translation type="unfinished"/>
+        <translation>Не вдалося встановити оновлення</translation>
     </message>
     <message>
         <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
-        <translation type="unfinished"/>
+        <translation>Для забезпечення належної роботи вашої системи і програм, будь ласка, перезавантажте систему після оновлення</translation>
     </message>
     <message>
         <source>Backing up in progress...</source>
-        <translation type="unfinished"/>
+        <translation>Створюємо резервну копію…</translation>
     </message>
     <message>
         <source>Backing up in progress</source>
-        <translation type="unfinished"/>
+        <translation>Виконуємо створення резервної копії</translation>
     </message>
     <message>
         <source>Backup failed</source>
-        <translation type="unfinished"/>
+        <translation>Не вдалося створити резервну копію</translation>
     </message>
     <message>
         <source>Update installation successful</source>
-        <translation type="unfinished"/>
+        <translation>Успішне встановлення оновлень</translation>
     </message>
 </context>
 </TS>
