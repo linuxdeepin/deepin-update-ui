@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ru">
 <context>
     <name>CheckProgressWidget</name>
     <message>
@@ -80,7 +78,7 @@
     </message>
     <message>
         <source>Backup failed</source>
-        <translation>Ошибка резервного копирования</translation>
+        <translation>Сбой резервного копирования</translation>
     </message>
     <message>
         <source>Unable to perform system backup. If you continue the updates, you cannot roll back to the old system later.</source>
@@ -116,7 +114,7 @@
     </message>
     <message>
         <source>Proceed to Update</source>
-        <translation type="unfinished"/>
+        <translation>Перейти к обновлению</translation>
     </message>
     <message>
         <source>Reboot</source>
