@@ -252,27 +252,27 @@
     </message>
     <message>
         <source>Updates Notification</source>
-        <translation>Notificar se há atualizações disponíveis</translation>
+        <translation>Notificação de Atualizações</translation>
     </message>
     <message>
         <source>Clear Package Cache</source>
-        <translation type="unfinished"/>
+        <translation>Limpar cache de pacotes</translation>
     </message>
     <message>
         <source>Update History</source>
-        <translation type="unfinished"/>
+        <translation>Histórico de Atualizações</translation>
     </message>
     <message>
         <source>View</source>
-        <translation type="unfinished"/>
+        <translation>Visualizar</translation>
     </message>
     <message>
         <source>Join Internal Testing Channel</source>
-        <translation type="unfinished"/>
+        <translation>Participar do canal de testes interno</translation>
     </message>
     <message>
         <source>Join the internal testing channel to get deepin latest updates</source>
-        <translation type="unfinished"/>
+        <translation>Participe do canal de testes internos para receber as atualizações mais recentes</translation>
     </message>
 </context>
 <context>
@@ -313,19 +313,19 @@
     </message>
     <message>
         <source>Installing</source>
-        <translation type="unfinished"/>
+        <translation>Instalando</translation>
     </message>
     <message>
         <source>Update download completed</source>
-        <translation type="unfinished"/>
+        <translation>Download concluído</translation>
     </message>
     <message>
         <source>Install updates</source>
-        <translation type="unfinished"/>
+        <translation>Instalar atualizações</translation>
     </message>
     <message>
         <source>Update size: </source>
-        <translation type="unfinished"/>
+        <translation>Tamanho da atualização: </translation>
     </message>
     <message>
         <source>Update download failed</source>
