@@ -137,7 +137,7 @@
     </message>
     <message>
         <source>Downloading updates failed. Please free up %1 disk space first.</source>
-        <translation>No s&apos;han pogut baixar les actualitzacions. Primer allibereu %1 espai al disc.</translation>
+        <translation>Ha fallat baixar les actualitzacions. Primer allibereu %1 d&apos;espai al disc.</translation>
     </message>
     <message>
         <source>Dependency error, failed to detect the updates</source>
@@ -149,7 +149,7 @@
     </message>
     <message>
         <source>Downloading updates failed. Please check your network and try again.</source>
-        <translation>No s&apos;han pogut baixar les actualitzacions. Comproveu la xarxa i torneu-ho a provar.</translation>
+        <translation>Ha fallat baixar les actualitzacions. Comproveu la xarxa i torneu-ho a provar.</translation>
     </message>
     <message>
         <source>Unable to perform system backup. If you continue the updates, you cannot roll back to the old system later.</source>
@@ -173,11 +173,11 @@
     </message>
     <message>
         <source>Service connection is abnormal, please check the network and try again</source>
-        <translation>La connexió del servei és anormal, comproveu la xarxa i torneu-ho a provar.</translation>
+        <translation>La connexió del servei és anormal. Comproveu la xarxa i torneu-ho a provar.</translation>
     </message>
     <message>
         <source>The repository source configuration is not valid, please check and try again.</source>
-        <translation>La configuració de l&apos;origen del repositori no és vàlida, comproveu-ho i torneu-ho a provar.</translation>
+        <translation>La configuració de l&apos;origen del repositori no és vàlida. Comproveu-ho i torneu-ho a provar.</translation>
     </message>
     <message>
         <source>Check Again</source>
@@ -196,11 +196,11 @@
     </message>
     <message>
         <source>Function Updates</source>
-        <translation>Actualització de funcions</translation>
+        <translation>Actualitzacions de funcions</translation>
     </message>
     <message>
         <source>Delivers a cumulative update including new features, quality updates, and  security updates</source>
-        <translation>Ofereix una actualització acumulativa que inclou noves funcions, actualitzacions de qualitat i actualitzacions de seguretat</translation>
+        <translation>Ofereix una actualització acumulativa que inclou funcions noves, actualitzacions de qualitat i actualitzacions de seguretat.</translation>
     </message>
     <message>
         <source>Security Updates</source>
@@ -208,7 +208,7 @@
     </message>
     <message>
         <source>Delivers security updates</source>
-        <translation>Ofereix actualitzacions de seguretat</translation>
+        <translation>Ofereix actualitzacions de seguretat.</translation>
     </message>
     <message>
         <source>Third-party Updates</source>
@@ -216,7 +216,7 @@
     </message>
     <message>
         <source>Delivers  updates for additional repository sources</source>
-        <translation>Ofereix actualitzacions per a fonts de repositoris addicionals</translation>
+        <translation>Ofereix actualitzacions per a fonts de repositoris addicionals.</translation>
     </message>
     <message>
         <source>Limit Speed</source>
@@ -228,7 +228,7 @@
     </message>
     <message>
         <source>Auto Download</source>
-        <translation>Baixa-les automàticament</translation>
+        <translation>Baixa-les automàticament.</translation>
     </message>
     <message>
         <source>Enabling &quot;Auto Download Updates&quot; will automatically download updates when connected to the internet</source>
