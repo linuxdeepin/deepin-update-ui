@@ -236,43 +236,43 @@
     </message>
     <message>
         <source>Download when Inactive</source>
-        <translation type="unfinished"/>
+        <translation>Lataa ei aktiiviseen aikaan</translation>
     </message>
     <message>
         <source>Start at</source>
-        <translation type="unfinished"/>
+        <translation>Alkaen</translation>
     </message>
     <message>
         <source>End at</source>
-        <translation type="unfinished"/>
+        <translation>Päättyen</translation>
     </message>
     <message>
         <source>Advanced Settings</source>
-        <translation type="unfinished"/>
+        <translation>Lisäasetukset</translation>
     </message>
     <message>
         <source>Updates Notification</source>
-        <translation type="unfinished"/>
+        <translation>Päivitysten ilmoitus</translation>
     </message>
     <message>
         <source>Clear Package Cache</source>
-        <translation type="unfinished"/>
+        <translation>Tyhjennä pakettivälimuisti</translation>
     </message>
     <message>
         <source>Update History</source>
-        <translation type="unfinished"/>
+        <translation>Päivityshistoria</translation>
     </message>
     <message>
         <source>View</source>
-        <translation type="unfinished"/>
+        <translation>Katsele</translation>
     </message>
     <message>
         <source>Join Internal Testing Channel</source>
-        <translation type="unfinished"/>
+        <translation>Liity testauskanavaan</translation>
     </message>
     <message>
         <source>Join the internal testing channel to get deepin latest updates</source>
-        <translation type="unfinished"/>
+        <translation>Liity testauskanavaan ja saat viimeisimmät päivitykset</translation>
     </message>
 </context>
 <context>
@@ -313,19 +313,19 @@
     </message>
     <message>
         <source>Installing</source>
-        <translation type="unfinished"/>
+        <translation>Asennetaan</translation>
     </message>
     <message>
         <source>Update download completed</source>
-        <translation type="unfinished"/>
+        <translation>Päivitykset ladattiin</translation>
     </message>
     <message>
         <source>Install updates</source>
-        <translation type="unfinished"/>
+        <translation>Asenna päivitykset</translation>
     </message>
     <message>
         <source>Update size: </source>
-        <translation type="unfinished"/>
+        <translation>Päivityksen koko:</translation>
     </message>
     <message>
         <source>Update download failed</source>
