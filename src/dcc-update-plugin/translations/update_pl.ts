@@ -1,18 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="pl">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="pl">
 <context>
     <name>CheckUpdate</name>
     <message>
         <source>Last check: </source>
-        <translation type="unfinished"></translation>
+        <translation>Ostatnie sprawdzenie: </translation>
     </message>
 </context>
 <context>
     <name>NoActive</name>
     <message>
         <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation type="unfinished"></translation>
+        <translation>Twój system nie jest aktywowany i nie udało mu się połączyć z usługą aktualizacji.</translation>
     </message>
 </context>
 <context>
@@ -42,84 +40,84 @@
     </message>
     <message>
         <source>Updates:</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktualizacje:</translation>
     </message>
     <message>
         <source>Release time:</source>
-        <translation type="unfinished"></translation>
+        <translation>Data wydania:</translation>
     </message>
     <message>
         <source>Collapse</source>
-        <translation type="unfinished"></translation>
+        <translation>Zwiń</translation>
     </message>
 </context>
 <context>
     <name>UpdateLogHelper</name>
     <message>
         <source>NONE</source>
-        <translation type="unfinished"></translation>
+        <translation>BRAK</translation>
     </message>
     <message>
         <source>LOW</source>
-        <translation type="unfinished"></translation>
+        <translation>NISKIE</translation>
     </message>
     <message>
         <source>MEDIUM</source>
-        <translation type="unfinished"></translation>
+        <translation>ŚREDNIE</translation>
     </message>
     <message>
         <source>HIGH</source>
-        <translation type="unfinished"></translation>
+        <translation>WYSOKIE</translation>
     </message>
     <message>
         <source>CRITICAL</source>
-        <translation type="unfinished"></translation>
+        <translation>KRYTYCZNE</translation>
     </message>
     <message>
         <source>critical-risk</source>
-        <translation type="unfinished"></translation>
+        <translation>ryzyko-krytyczne</translation>
     </message>
     <message>
         <source>high-risk</source>
-        <translation type="unfinished"></translation>
+        <translation>ryzyko-wysokie</translation>
     </message>
     <message>
         <source>medium-risk</source>
-        <translation type="unfinished"></translation>
+        <translation>ryzyko-średnie</translation>
     </message>
     <message>
         <source>low-risk</source>
-        <translation type="unfinished"></translation>
+        <translation>ryzyko-niskie</translation>
     </message>
     <message>
         <source>unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>nieznany</translation>
     </message>
     <message>
         <source>This update fixes</source>
-        <translation type="unfinished"></translation>
+        <translation>Ta aktualizacja naprawia</translation>
     </message>
     <message>
         <source>vulnerabilities</source>
-        <translation type="unfinished"></translation>
+        <translation>luki zabezpieczeń</translation>
     </message>
     <message>
         <source>vulnerability</source>
-        <translation type="unfinished"></translation>
+        <translation>lukę zabezpieczeń</translation>
     </message>
     <message>
         <source>%1 of %2 %3</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 z %2 %3</translation>
         <extra-content_explain>`数字+%`会在代码中替换为字符串，例如：3 of high-risk vulnerabilities；各语言需要根据实际情况增加空格(例如：中文没有空格，英文有空格)</extra-content_explain>
     </message>
     <message>
         <source>, </source>
-        <translation type="unfinished"></translation>
+        <translation>, </translation>
         <extra-content_explain>中文逗号不需要空格，英文逗号需要空格For more details, please visit</extra-content_explain>
     </message>
     <message>
         <source>for more details, please visit </source>
-        <translation type="unfinished"></translation>
+        <translation>Aby uzyskać więcej informacji, odwiedź: </translation>
         <extra-content_explain>这句话后面会带上一个超链接，各语言自行决定末尾需不需要加空格</extra-content_explain>
     </message>
 </context>
@@ -135,55 +133,55 @@
     </message>
     <message>
         <source>Unknown error</source>
-        <translation type="unfinished">Nieznany błąd</translation>
+        <translation>Nieznany błąd</translation>
     </message>
     <message>
         <source>Downloading updates failed. Please free up %1 disk space first.</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd pobierania aktualizacji. Najpierw zwolnij %1 miejsca na dysku.</translation>
     </message>
     <message>
         <source>Dependency error, failed to detect the updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd zależności, nie udało się wykryć aktualizacji</translation>
     </message>
     <message>
         <source>Please check your network and try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sprawdź swoją sieć i spróbuj ponownie.</translation>
     </message>
     <message>
         <source>Downloading updates failed. Please check your network and try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd pobierania aktualizacji. Sprawdź swoją sieć i spróbuj ponownie.</translation>
     </message>
     <message>
         <source>Unable to perform system backup. If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie udało się utworzyć kopii zapasowej. Jeśli kontynuujesz aktualizacje, nie będziesz mógł przywrócić starego systemu.</translation>
     </message>
     <message>
         <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation type="unfinished"></translation>
+        <translation>Jeśli kontynuujesz aktualizacje, nie będziesz mógł przywrócić starego systemu.</translation>
     </message>
     <message>
         <source>Insufficient disk space</source>
-        <translation type="unfinished"></translation>
+        <translation>Za mało miejsca na dysku</translation>
     </message>
     <message>
         <source>DPKG error</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd DPKG</translation>
     </message>
     <message>
         <source>File missing</source>
-        <translation type="unfinished"></translation>
+        <translation>Brakuje pliku</translation>
     </message>
     <message>
         <source>Service connection is abnormal, please check the network and try again</source>
-        <translation type="unfinished"></translation>
+        <translation>Występują problemy połączenia z usługą, sprawdź sieć i spróbuj ponownie.</translation>
     </message>
     <message>
         <source>The repository source configuration is not valid, please check and try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Konfiguracja repozytorium źródłowego jest nieprawidłowa, sprawdź i spróbuj ponownie.</translation>
     </message>
     <message>
         <source>Check Again</source>
-        <translation type="unfinished">Sprawdź ponownie</translation>
+        <translation>Sprawdź ponownie</translation>
     </message>
 </context>
 <context>
@@ -194,106 +192,106 @@
     </message>
     <message>
         <source>Update Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Typ aktualizacji</translation>
     </message>
     <message>
         <source>Function Updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktualizacje funkcjonalności</translation>
     </message>
     <message>
         <source>Delivers a cumulative update including new features, quality updates, and  security updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapewnia cały pakiet aktualizacji, w tym nowe funkcje, usprawnienia i aktualizacje zabezpieczeń</translation>
     </message>
     <message>
         <source>Security Updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktualizacje zabezpieczeń</translation>
     </message>
     <message>
         <source>Delivers security updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapewnia aktualizacje bezpieczeństwa</translation>
     </message>
     <message>
         <source>Third-party Updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktualizacje stron trzecich</translation>
     </message>
     <message>
         <source>Delivers  updates for additional repository sources</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Limit Speed</source>
-        <translation type="unfinished"></translation>
+        <translation>Limit prędkości</translation>
     </message>
     <message>
         <source>Limit Setting</source>
-        <translation type="unfinished"></translation>
+        <translation>Ustawienia limitu</translation>
     </message>
     <message>
         <source>Auto Download</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatyczne pobieranie</translation>
     </message>
     <message>
         <source>Enabling &quot;Auto Download Updates&quot; will automatically download updates when connected to the internet</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Download when Inactive</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Start at</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>End at</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Advanced Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Updates Notification</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Clear Package Cache</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update History</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>View</source>
-        <translation type="unfinished">Wyświetl</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Join Internal Testing Channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Join the internal testing channel to get deepin latest updates</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>UpdateWorker</name>
     <message>
         <source>System Updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktualizacje systemu</translation>
     </message>
     <message>
         <source>Fixed some known bugs and security vulnerabilities</source>
-        <translation type="unfinished"></translation>
+        <translation>Naprawiono kilka znanych błędów i luk bezpieczeństwa</translation>
     </message>
     <message>
         <source>Security Updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktualizacje zabezpieczeń</translation>
     </message>
     <message>
         <source>Third-party Repositories</source>
-        <translation type="unfinished"></translation>
+        <translation>Zewnętrzne repozytoria</translation>
     </message>
 </context>
 <context>
@@ -315,87 +313,87 @@
     </message>
     <message>
         <source>Installing</source>
-        <translation type="unfinished">Instalowanie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update download completed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Install updates</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update size: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update download failed</source>
-        <translation type="unfinished">Nie udało się pobrać aktualizacji</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Downloading updates...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Downloading</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Reboot now</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Download</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Installing updates...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Retry</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Continue Update</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Updates Available</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Installation update failed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Backing up in progress...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Backing up in progress</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Backup failed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update installation successful</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Back Up Again</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>
