@@ -102,6 +102,7 @@ UpdateWorker::~UpdateWorker()
     deleteJob(m_downloadJob);
     deleteJob(m_checkUpdateJob);
     deleteJob(m_fixErrorJob);
+    deleteJob(m_backupJob);
 }
 
 void UpdateWorker::init()
@@ -963,13 +964,14 @@ void UpdateWorker::setBackupJob(const QString& jobPath)
 
     m_backupJob = new UpdateJobDBusProxy(jobPath, this);
     connect(m_backupJob, &UpdateJobDBusProxy::ProgressChanged, m_model, &UpdateModel::setBackupProgress);
-    // TODO 错误提示处理
+    connect(m_backupJob, &UpdateJobDBusProxy::StatusChanged, this, &UpdateWorker::onBackupStatusChanged);
     connect(m_backupJob, &UpdateJobDBusProxy::DescriptionChanged, this, [this](const QString &description) {
-        if (m_distUpgradeJob->status() == "failed") {
+        if (m_backupJob->status() == "failed") {
             m_model->setLastErrorLog(BackupFailed, description);
         }
     });
-    m_model->setBackupProgress(m_distUpgradeJob->progress());
+    m_model->setBackupProgress(m_backupJob->progress());
+    onBackupStatusChanged(m_backupJob->status());
 }
 
 void UpdateWorker::updateSystemVersion()
@@ -1215,6 +1217,19 @@ void UpdateWorker::onDownloadStatusChanged(const QString& value)
             qCInfo(DCC_UPDATE_WORKER) << "Downloading, do not handle `end` status";
             return;
         }
+        deleteJob(m_downloadJob);
+    }
+}
+
+void UpdateWorker::onBackupStatusChanged(const QString &value)
+{
+    qCInfo(DCC_UPDATE_WORKER) << "backup status changed: " << value;
+    if (value == "failed") {
+        const auto& description = m_backupJob->description();
+        m_model->setLastErrorLog(BackupFailed, description);
+        m_model->setLastError(BackupFailed, analyzeJobErrorMessage(description, BackupFailed));
+        m_model->setBackupFailedTips(m_model->errorToText(m_model->lastError(BackupFailed)));
+    } else if (value == "end") {
         deleteJob(m_downloadJob);
     }
 }

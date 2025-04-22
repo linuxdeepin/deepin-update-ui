@@ -3,10 +3,11 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #include "public_func.h"
-#include "dbus/dbuslockservice.h"
+#include "common/dbus/updatedbusproxy.h"
 
 #include <QJsonDocument>
 #include <DDBusSender>
+#include <QDBusReply>
 
 QPixmap loadPixmap(const QString &file)
 {
@@ -34,8 +35,8 @@ QString getCurrentLocale()
 {
     static const QString DEFAULT_LOCALE = QStringLiteral("en_US");
 
-    DBusLockService lockService("com.deepin.dde.LockService", "/com/deepin/dde/LockService", QDBusConnection::systemBus());
-    const QString &currentUserJson = lockService.CurrentUser();
+    UpdateDBusProxy dbusProxy;
+    const QString &currentUserJson = dbusProxy.CurrentUser();
     qInfo() << "Get current locale, current user:" << currentUserJson;
 
     QJsonParseError jsonParseError;

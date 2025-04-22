@@ -108,6 +108,7 @@ private Q_SLOTS:
     void onIconThemeChanged(const QString& theme);
     void onCheckUpdateStatusChanged(const QString& value);
     void onDownloadStatusChanged(const QString& value);
+    void onBackupStatusChanged(const QString& value);
     void checkTestingChannelStatus();
     QStringList getSourcesOfPackage(const QString pkg, const QString version);
     QString getTestingChannelSource();

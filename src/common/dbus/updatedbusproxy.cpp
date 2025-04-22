@@ -31,8 +31,9 @@ UpdateDBusProxy::UpdateDBusProxy(QObject *parent)
                                           "org.deepin.dde.Lastore1.Smartmirror",
                                           QDBusConnection::systemBus(),
                                           this))
+    , m_lockServiceInter(new DDBusInterface(
+        LockService, LockPath, LockInterface, QDBusConnection::systemBus(), this))
     , m_interWatcher(new QDBusServiceWatcher(UpdaterService, QDBusConnection::systemBus()))
-
 
 {
     qRegisterMetaType<LastoreUpdatePackagesInfo>("LastoreUpdatePackagesInfo");
@@ -410,4 +411,9 @@ void UpdateDBusProxy::SetEnable(bool enable)
     QList<QVariant> argumentList;
     argumentList << QVariant::fromValue(enable);
     m_smartMirrorInter->asyncCallWithArgumentList(QStringLiteral("SetEnable"), argumentList);
+}
+
+QString UpdateDBusProxy::CurrentUser()
+{
+    return QDBusPendingReply<QString>(m_lockServiceInter->asyncCall(QStringLiteral("CurrentUser")));
 }

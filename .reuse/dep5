@@ -1,0 +1,59 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: deepin-update-ui
+Upstream-Contact: UnionTech Software Technology Co., Ltd.  <>
+Source: https://github.com/linuxdeepin/deepin-update-ui
+
+# README and documentations
+Files: README.md README.*.md docs/*.md
+Copyright: UnionTech Software Technology Co., Ltd.
+License: CC-BY-4.0
+
+# images
+Files: **/*.svg **/*.png **/*.dci **/*.gif **/*.webp
+Copyright: UnionTech Software Technology Co., Ltd.
+License: GPL-3.0-or-later
+
+# translations
+Files: */translations/*.ts
+Copyright: UnionTech Software Technology Co., Ltd.
+License: GPL-3.0-or-later
+
+# packaging manifests
+Files: debian/* rpm/* archlinux/* .packit.yaml
+Copyright: None
+License: CC0-1.0
+
+# cmake
+Files: misc/*.in cmake/*.cmake
+Copyright: None
+License: CC0-1.0
+
+# bash scripts
+Files: *.sh src/dde-update/misc/98deepin-upgrade-check
+Copyright: None
+License: CC0-1.0
+
+# configuration files for CI scripts/tools
+Files: .github/* .obs/* .tx/transifex.yaml .tx/deepin.conf
+Copyright: None
+License: CC0-1.0
+
+# package json
+Files: */misc/*.json src/*.json
+Copyright: None
+License: CC0-1.0
+
+# resource sheet
+Files: *.qrc
+Copyright: None
+License: CC0-1.0
+
+# desktop files
+Files: *.desktop
+Copyright: None
+License: CC0-1.0
+
+# git
+Files: .gitignore
+Copyright: None
+License: CC0-1.0

@@ -7,16 +7,12 @@ import QtQuick.Layouts 1.15
 
 import org.deepin.dtk 1.0 as D
 import org.deepin.dtk.style 1.0 as DS
-
 import org.deepin.dcc 1.0
-
-
 
 Rectangle {
     id: root
+
     property alias model: repeater.model
-    property bool backgroundVisible: true
-    property bool showPlayBtn: false
     signal clicked(int index, bool checked)
 
     color: "transparent"
@@ -28,9 +24,10 @@ Rectangle {
         clip: true
         width: parent.width
         spacing: 10
+
         Repeater {
             id: repeater
-            // height: contentHeight
+
             delegate: D.ItemDelegate {
                 id: itemCtl
                 Layout.fillWidth: true
@@ -38,27 +35,25 @@ Rectangle {
                 rightPadding: 10
                 topPadding: 10
                 cascadeSelected: true
-                backgroundVisible: true
                 contentFlow: true
                 spacing: 0
 
-                // text: model.name
-                // hoverEnabled: true
                 content: RowLayout {
                     spacing: 10
 
                     D.DciIcon {
                         Layout.alignment: Qt.AlignLeft | Qt.AlignTop
                         name: model.iconName
-                        width: 36
-                        height: 36
-                        Layout.preferredWidth: 40
+                        sourceSize {
+                            width: 28
+                            height: 28
+                        }
                     }
 
                     ColumnLayout {
                         Layout.alignment: Qt.AlignRight
-
                         spacing: 10
+
                         RowLayout {
                             Label {
                                 Layout.alignment: Qt.AlignLeft
@@ -76,7 +71,6 @@ Rectangle {
                                 onClicked: {
                                     repeater.model.setChecked(index, !model.checked)
                                 }
-
                             }
                         }
 
@@ -170,7 +164,6 @@ Rectangle {
                         }
                     }
                 }
-
 
                 background: DccItemBackground {
                     separatorVisible: true

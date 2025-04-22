@@ -118,6 +118,9 @@ public:
     Q_PROPERTY(bool Enable READ enable NOTIFY EnableChanged)
     bool enable() const;
     void SetEnable(bool enable);
+
+    // lockService
+    QString CurrentUser();
 signals:
     // updater
     void UpdateNotifyChanged(bool value) const;
@@ -152,6 +155,7 @@ private:
     DDBusInterface *m_atomicUpgradeInter;
     DDBusInterface *m_smartMirrorInter;
     DDBusInterface *m_login1Inter;
+    DDBusInterface *m_lockServiceInter;
 
     QDBusServiceWatcher *m_interWatcher;
 };

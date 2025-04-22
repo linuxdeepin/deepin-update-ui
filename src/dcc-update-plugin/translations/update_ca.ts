@@ -395,5 +395,13 @@
         <source>Back Up Again</source>
         <translation>Torna a fer una còpia de seguretat</translation>
     </message>
+    <message>
+        <source>Update installation successful</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Back Up Again</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>

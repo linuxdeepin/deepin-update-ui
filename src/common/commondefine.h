@@ -31,5 +31,10 @@ const static QString AtomicUpdaterService = QStringLiteral("org.deepin.AtomicUpg
 const static QString AtomicUpdaterPath = QStringLiteral("/org/deepin/AtomicUpgrade1");
 const static QString AtomicUpdaterJobInterface = QStringLiteral("org.deepin.AtomicUpgrade1");
 
+// LockService
+const static QString LockService = QStringLiteral("org.deepin.dde.LockService1");
+const static QString LockPath = QStringLiteral("/org/deepin/dde/LockService1");
+const static QString LockInterface = QStringLiteral("org.deepin.dde.LockService1");
+
 const static QString PropertiesInterface = QStringLiteral("org.freedesktop.DBus.Properties");
 const static QString PropertiesChanged = QStringLiteral("PropertiesChanged");
