@@ -208,7 +208,7 @@
     </message>
     <message>
         <source>Delivers security updates</source>
-        <translation>Tietoturvapäivityksiä</translation>
+        <translation>Toimittaa tietoturvapäivityksiä</translation>
     </message>
     <message>
         <source>Third-party Updates</source>
@@ -216,23 +216,23 @@
     </message>
     <message>
         <source>Delivers  updates for additional repository sources</source>
-        <translation type="unfinished"/>
+        <translation>Toimittaa päivityksiä ohjelma-arkistojen lähteille</translation>
     </message>
     <message>
         <source>Limit Speed</source>
-        <translation type="unfinished"/>
+        <translation>Rajoita nopeutta</translation>
     </message>
     <message>
         <source>Limit Setting</source>
-        <translation type="unfinished"/>
+        <translation>Rajoituksen asetus</translation>
     </message>
     <message>
         <source>Auto Download</source>
-        <translation type="unfinished"/>
+        <translation>Automaattinen lataus</translation>
     </message>
     <message>
         <source>Enabling &quot;Auto Download Updates&quot; will automatically download updates when connected to the internet</source>
-        <translation type="unfinished"/>
+        <translation>Ottamalla &quot;Automaattinen lataus&quot; käyttöön se lataa päivitykset, kun Internet on muodostettu</translation>
     </message>
     <message>
         <source>Download when Inactive</source>
