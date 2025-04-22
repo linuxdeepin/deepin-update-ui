@@ -200,11 +200,11 @@
     </message>
     <message>
         <source>Delivers a cumulative update including new features, quality updates, and  security updates</source>
-        <translation>Zapewnia cały pakiet aktualizacji, w tym nowe funkcje, usprawnienia i aktualizacje zabezpieczeń</translation>
+        <translation>Zapewnia cały pakiet aktualizacji, w tym nowe funkcje, usprawnienia i aktualizacje bezpieczeństwa</translation>
     </message>
     <message>
         <source>Security Updates</source>
-        <translation>Aktualizacje zabezpieczeń</translation>
+        <translation>Aktualizacje bezpieczeństwa</translation>
     </message>
     <message>
         <source>Delivers security updates</source>
@@ -216,7 +216,7 @@
     </message>
     <message>
         <source>Delivers  updates for additional repository sources</source>
-        <translation type="unfinished"/>
+        <translation>Zapewnia aktualizacje dla dodatkowych repozytoriów</translation>
     </message>
     <message>
         <source>Limit Speed</source>
@@ -287,7 +287,7 @@
     </message>
     <message>
         <source>Security Updates</source>
-        <translation>Aktualizacje zabezpieczeń</translation>
+        <translation>Aktualizacje bezpieczeństwa</translation>
     </message>
     <message>
         <source>Third-party Repositories</source>
@@ -377,23 +377,23 @@
     </message>
     <message>
         <source>Backing up in progress...</source>
-        <translation type="unfinished"/>
+        <translation>Tworzenie kopii zapasowej...</translation>
     </message>
     <message>
         <source>Backing up in progress</source>
-        <translation type="unfinished"/>
+        <translation>Tworzenie kopii zapasowej</translation>
     </message>
     <message>
         <source>Backup failed</source>
-        <translation type="unfinished"/>
+        <translation>Błąd tworzenia kopii zapasowej</translation>
     </message>
     <message>
         <source>Update installation successful</source>
-        <translation type="unfinished"/>
+        <translation>Aktualizacja zainstalowana pomyślnie</translation>
     </message>
     <message>
         <source>Back Up Again</source>
-        <translation type="unfinished"/>
+        <translation>Utwórz ponownie kopię zapasową</translation>
     </message>
 </context>
 </TS>
