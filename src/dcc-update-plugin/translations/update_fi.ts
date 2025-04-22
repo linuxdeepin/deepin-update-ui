@@ -329,43 +329,43 @@
     </message>
     <message>
         <source>Update download failed</source>
-        <translation type="unfinished"/>
+        <translation>Päivityksen lataus epäonnistui</translation>
     </message>
     <message>
         <source>Downloading updates...</source>
-        <translation type="unfinished"/>
+        <translation>Ladataan päivityksiä...</translation>
     </message>
     <message>
         <source>Downloading</source>
-        <translation type="unfinished"/>
+        <translation>Ladataan</translation>
     </message>
     <message>
         <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
-        <translation type="unfinished"/>
+        <translation>Määritä päivitysasetukset, tietoturva, automaattinen lataaminen ja ilmoitukset</translation>
     </message>
     <message>
         <source>Reboot now</source>
-        <translation type="unfinished"/>
+        <translation>Käynnistä</translation>
     </message>
     <message>
         <source>Download</source>
-        <translation type="unfinished"/>
+        <translation>Lataa</translation>
     </message>
     <message>
         <source>Installing updates...</source>
-        <translation type="unfinished"/>
+        <translation>Asentaa päivityksiä...</translation>
     </message>
     <message>
         <source>Retry</source>
-        <translation type="unfinished"/>
+        <translation>Uudelleen</translation>
     </message>
     <message>
         <source>Continue Update</source>
-        <translation type="unfinished"/>
+        <translation>Jatka päivitystä</translation>
     </message>
     <message>
         <source>Updates Available</source>
-        <translation type="unfinished"/>
+        <translation>Päivityksiä saatavilla</translation>
     </message>
     <message>
         <source>Installation update failed</source>
