@@ -20,6 +20,7 @@ ColumnLayout {
     property string processTitle: ""
     property double processValue: 0
     property bool processState: false
+    property bool updateListEnable: true
 
     signal btnClicked(int updateType)
     signal downloadJobCtrl(int updateCtrlType)
@@ -137,5 +138,6 @@ ColumnLayout {
 
     UpdateList {
         id: updatelistModel
+        enabled: updateListEnable
     }
 }

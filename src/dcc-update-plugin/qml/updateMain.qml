@@ -87,6 +87,7 @@ DccObject {
             updateTitle: qsTr("Installing updates...")
             processTitle: qsTr("Installing")
             processValue: dccData.model().distUpgradeProgress
+            updateListEnable: false
         }
     }
 
@@ -147,6 +148,7 @@ DccObject {
             updateTips: qsTr("Update size: ") + dccData.model().downloadinglistModel.downloadSize
             processTitle: qsTr("Downloading")
             processValue: dccData.model().downloadProgress
+            updateListEnable: false
 
             onDownloadJobCtrl: function(updateCtrlType) {
                 dccData.work().onDownloadJobCtrl(updateCtrlType)
@@ -193,6 +195,7 @@ DccObject {
             updateTitle: qsTr("Backing up in progress...")
             processTitle: qsTr("Backing up in progress")
             processValue: dccData.model().backupProgress
+            updateListEnable: false
         }
     }
 
