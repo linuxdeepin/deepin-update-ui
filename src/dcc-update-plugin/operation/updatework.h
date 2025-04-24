@@ -58,6 +58,7 @@ Q_SIGNALS:
     void requestRefreshMirrors();
 #endif
     void systemActivationChanged(bool systemActivation);
+    void requestCloseTestingChannel();
 
 public Q_SLOTS:
     void init();
@@ -69,9 +70,17 @@ public Q_SLOTS:
     void setAutoCleanCache(const bool autoCleanCache);
     void setAutoDownloadUpdates(const bool& autoDownload);
     void setMirrorSource(const MirrorInfo& mirror);
-    void testingChannelCheck(bool checked);
+
+    std::optional<QUrl> updateTestingChannelUrl();
+    std::optional<QUrl> getTestingChannelUrl();        
+    std::optional<QString> getMachineId();
     void setTestingChannelEnable(const bool& enable);
+    void checkTestingChannelStatus();
+    bool openTestingChannelUrl();
+    void exitTestingChannel(bool value);
+
     void checkCanExitTestingChannel();
+
 #ifndef DISABLE_SYS_UPDATE_SOURCE_CHECK
     void setSourceCheck(bool enable);
 #endif
@@ -81,6 +90,7 @@ public Q_SLOTS:
 #ifndef DISABLE_SYS_UPDATE_MIRRORS
     void refreshMirrors();
 #endif
+    void testingChannelChangeSlot();
     void licenseStateChangeSlot();
     void refreshHistoryAppsInfo();
     void refreshLastTimeAndCheckCircle();
@@ -109,7 +119,8 @@ private Q_SLOTS:
     void onCheckUpdateStatusChanged(const QString& value);
     void onDownloadStatusChanged(const QString& value);
     void onBackupStatusChanged(const QString& value);
-    void checkTestingChannelStatus();
+    void onInstallPackageStatusChanged(const QString& value);
+    void onRemovePackageStatusChanged(const QString& value);
     QStringList getSourcesOfPackage(const QString pkg, const QString version);
     QString getTestingChannelSource();
     void onUpdateModeChanged(qulonglong value);
@@ -138,6 +149,8 @@ private:
     QString timeToString(int value);
     QString adjustTimeFunc(const QString& start, const QString& end, bool returnEndTime);
     void setBackupJob(const QString& jobPath);
+    void setInstallPackageJob(const QString& jobPath);
+    void setRemovePackageJob(const QString& jobPath);
 
 private:
     UpdateModel* m_model;
@@ -160,6 +173,8 @@ private:
     QPointer<UpdateJobDBusProxy> m_downloadJob;
     QPointer<UpdateJobDBusProxy> m_distUpgradeJob;
     QPointer<UpdateJobDBusProxy> m_backupJob;
+    QPointer<UpdateJobDBusProxy> m_installPackageJob;
+    QPointer<UpdateJobDBusProxy> m_removePackageJob;
     // QPointer<UpdateJobDBusProxy> m_sysUpdateDownloadJob;
     // QPointer<UpdateJobDBusProxy> m_safeUpdateDownloadJob;
     // QPointer<UpdateJobDBusProxy> m_unknownUpdateDownloadJob;
@@ -172,6 +187,7 @@ private:
 
     UpdateDBusProxy *m_updateInter;
 
-    QString m_jobPath;
+    std::optional<QString> m_machineid;
+    std::optional<QUrl> m_testingChannelUrl;
 };
 #endif // UPDATEWORK_H

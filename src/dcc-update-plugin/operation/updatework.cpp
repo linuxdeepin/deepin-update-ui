@@ -21,6 +21,7 @@
 #include <QtConcurrent>
 
 #include <DDBusSender>
+#include <DNotifySender>
 
 Q_LOGGING_CATEGORY(DCC_UPDATE_WORKER, "dcc-update-worker")
 
@@ -28,7 +29,9 @@ Q_LOGGING_CATEGORY(DCC_UPDATE_WORKER, "dcc-update-worker")
 #define UPDATE_PACKAGE_SIZE 0
 using namespace DCC_NAMESPACE;
 
+const QString TestingChannel = "testing Channel";
 const QString TestingChannelPackage = "deepin-unstable-source";
+const QString ServiceLink = QStringLiteral("https://insider.deepin.org");
 const QString ChangeLogFile = "/usr/share/deepin/release-note/UpdateInfo.json";
 const QString ChangeLogDic = "/usr/share/deepin/";
 const QString UpdateLogTmpFile = "/tmp/deepin-update-log.json";
@@ -40,6 +43,25 @@ static const QStringList DCC_CONFIG_FILES {
     "/etc/deepin/dde-control-center.conf",
     "/usr/share/dde-control-center/dde-control-center.conf"
 };
+
+void notifyError(const QString &summary, const QString &body)
+{
+    DUtil::DNotifySender(summary)
+            .appIcon("")
+            .appName("org.deepin.dde.control-center")
+            .appBody(body)
+            .timeOut(5000)
+            .call();
+}
+
+void notifyErrorWithoutBody(const QString &summary)
+{
+    DUtil::DNotifySender(summary)
+            .appIcon("")
+            .appName("org.deepin.dde.control-center")
+            .timeOut(5000)
+            .call();
+}
 
 static int TestMirrorSpeedInternal(const QString& url, QPointer<QObject> baseObject)
 {
@@ -89,10 +111,14 @@ UpdateWorker::UpdateWorker(UpdateModel* model, QObject* parent)
     , m_fixErrorJob(nullptr)
     , m_downloadJob(nullptr)
     , m_distUpgradeJob(nullptr)
+    , m_backupJob(nullptr)
+    , m_installPackageJob(nullptr)
+    , m_removePackageJob(nullptr)
     //, m_lastoreSessionHelper(nullptr)
     //, m_iconTheme(nullptr)
     , m_updateInter(new UpdateDBusProxy(this))
-    , m_jobPath("")
+    , m_machineid(std::nullopt)
+    , m_testingChannelUrl(std::nullopt)    
 {
     init();
 }
@@ -103,6 +129,8 @@ UpdateWorker::~UpdateWorker()
     deleteJob(m_checkUpdateJob);
     deleteJob(m_fixErrorJob);
     deleteJob(m_backupJob);
+    deleteJob(m_installPackageJob);
+    deleteJob(m_removePackageJob);
 }
 
 void UpdateWorker::init()
@@ -151,16 +179,6 @@ void UpdateWorker::init()
 
     updateSystemVersion();
 
-    const auto server = valueByQSettings<QString>(DCC_CONFIG_FILES, "Testing", "Server", "");
-    if (!server.isEmpty()) {
-        m_model->setTestingChannelServer(server);
-        if (m_updateInter->PackageExists(TestingChannelPackage)) {
-            m_model->setTestingChannelStatus(UpdateModel::TestingChannelStatus::Joined);
-        } else {
-            m_model->setTestingChannelStatus(UpdateModel::TestingChannelStatus::NotJoined);
-        }
-    }
-
     connect(&SignalBridge::ref(), &SignalBridge::requestCheckUpdateModeChanged, this, &UpdateWorker::onRequestCheckUpdateModeChanged);
     connect(&SignalBridge::ref(), &SignalBridge::requestDownload, this, &UpdateWorker::startDownload);
     connect(&SignalBridge::ref(), &SignalBridge::requestRetry, this, &UpdateWorker::onRequestRetry);
@@ -184,6 +202,25 @@ void UpdateWorker::init()
         } else if (configName == "p2pUpdateEnabled") {
             // m_model->setP2PUpdateEnabled(DConfigWatcher::instance()->getValue(DConfigWatcher::update, configName).toBool());
         }
+    });
+}
+
+void UpdateWorker::testingChannelChangeSlot()
+{
+    if (!IsCommunitySystem) {
+        m_model->setTestingChannelStatus(TestingChannelStatus::DeActive);
+        return;
+    }
+    QDBusPendingCall call = m_updateInter->PackageExists(TestingChannelPackage);
+    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, [watcher, call, this] {
+        if (!call.isError()) {
+            QDBusPendingReply<bool> reply = call.reply();
+            if (reply.value()) {
+                m_model->setTestingChannelStatus(TestingChannelStatus::Joined);
+            };
+        }
+        watcher->deleteLater();
     });
 }
 
@@ -262,6 +299,8 @@ void UpdateWorker::activate()
 
     checkPower();
 
+    testingChannelChangeSlot();
+
     licenseStateChangeSlot();
     QDBusConnection::systemBus().connect("com.deepin.license", "/com/deepin/license/Info",
         "com.deepin.license.Info", "LicenseStateChange",
@@ -300,7 +339,7 @@ void UpdateWorker::activate()
                         QDBusPendingReply<QString> reply = watcher->reply();
                         UpdateLogHelper::ref().handleUpdateLog(reply.value());
                     } else {
-                        qWarning() << "Get update log failed";
+                        qCWarning(DCC_UPDATE_WORKER) << "Get update log failed";
                     }
                     // 日志处理完了再显示更新内容界面
                     m_model->setLastStatus(CheckingSucceed, __LINE__);
@@ -475,13 +514,13 @@ void UpdateWorker::startDownload(int updateTypes)
             QDBusPendingReply<QDBusObjectPath> reply = watcher->reply();
             QDBusObjectPath data = reply.value();
             if (data.path().isEmpty()) {
-                qWarning() << "Download job path is empty, error:" << watcher->error().message();
+                qCWarning(DCC_UPDATE_WORKER) << "Download job path is empty, error:" << watcher->error().message();
                 return;
             }
             setDownloadJob(data.path());
         } else {
             const QString& errorMessage = watcher->error().message();
-            qWarning() << "Start download failed, error:" << errorMessage;
+            qCWarning(DCC_UPDATE_WORKER) << "Start download failed, error:" << errorMessage;
             m_model->setLastErrorLog(DownloadFailed, errorMessage);
             m_model->setLastError(DownloadFailed, analyzeJobErrorMessage(errorMessage, DownloadFailed));
             cleanLaStoreJob(m_downloadJob);
@@ -575,46 +614,146 @@ void UpdateWorker::setMirrorSource(const MirrorInfo& mirror)
     m_updateInter->SetMirrorSource(mirror.m_id);
 }
 
-void UpdateWorker::checkTestingChannelStatus()
+std::optional<QUrl> UpdateWorker::updateTestingChannelUrl()
 {
-    qCDebug(DCC_UPDATE_WORKER) << "Testing:"
-             << "check testing join status";
-    const auto server = m_model->getTestingChannelServer();
-    const auto machineID = m_model->getMachineID();
+    QString hostname = m_updateInter->staticHostname();
+    auto machineid = getMachineId();
+    if (!machineid.has_value()) {
+        return std::nullopt;
+    }
+    QUrl testingUrl = QUrl(ServiceLink + "/internal-testing");
+    auto query = QUrlQuery(testingUrl.query());
+    query.addQueryItem("h", hostname);
+    query.addQueryItem("m", machineid.value());
+    query.addQueryItem("v", DSysInfo::minorVersion());
+    testingUrl.setQuery(query);
+    return testingUrl;
+}
+
+std::optional<QUrl> UpdateWorker::getTestingChannelUrl()
+{
+    if (!m_testingChannelUrl.has_value()) {
+        m_testingChannelUrl = updateTestingChannelUrl();
+    }
+    return m_testingChannelUrl;
+}
+
+std::optional<QString> UpdateWorker::getMachineId()
+{
+    if (m_machineid.has_value()) {
+        return m_machineid.value();
+    }
+    QString machineid = m_updateInter->hardwareId();
+    if (!machineid.isEmpty()) {
+        m_machineid = machineid;
+        return machineid;
+    }
+    return std::nullopt;
+}
+
+void UpdateWorker::setTestingChannelEnable(const bool& enable)
+{
+    qCDebug(DCC_UPDATE_WORKER) << "Testing:" << "setTestingChannelEnable" << enable;
+    if (enable) {
+        m_model->setTestingChannelStatus(TestingChannelStatus::WaitJoined);
+    } else {
+        m_model->setTestingChannelStatus(TestingChannelStatus::WaitToLeave);
+    }
+
+    auto machineidopt = getMachineId();
+    if (!machineidopt.has_value()) {
+        notifyErrorWithoutBody(tr("Cannot find machineid"));
+
+        // INFO: 99lastore-token.conf is not generated, need wait for lastore to generating it, if
+        // it is not generated for a long time, please post a issue to lastore
+        qCInfo(DCC_UPDATE_WORKER)
+                << "machineid need to read /etc/apt/apt.conf.d/99lastore-token.conf, the file is "
+                   "generated by lastore. Maybe you need wait for the file to be generated.";
+        m_model->setTestingChannelStatus(TestingChannelStatus::NotJoined);
+        return;
+    }
+
+    // every time, clear the machineid in server
     auto http = new QNetworkAccessManager(this);
     QNetworkRequest request;
-    request.setUrl(QUrl(server + QString("/api/v2/public/testing/machine/status/") + machineID));
+    request.setUrl(QUrl(ServiceLink + "/api/v2/public/testing/machine/" + machineidopt.value()));
+    request.setRawHeader("content-type", "application/json");
+    QEventLoop loop;
+    connect(http, &QNetworkAccessManager::finished, this, [http, &loop](QNetworkReply *reply) {
+        reply->deleteLater();
+        http->deleteLater();
+        loop.quit();
+    });
+    http->deleteResource(request);
+    loop.exec();
+
+    // Disable Testing Channel
+    if (!enable) {
+        if (m_updateInter->PackageExists(TestingChannelPackage)) {
+            qCDebug(DCC_UPDATE_WORKER) << "Testing:" << "Uninstall testing channel package";
+            emit requestCloseTestingChannel();
+        } else {
+            m_model->setTestingChannelStatus(TestingChannelStatus::NotJoined);
+        }
+        return;
+    }
+
+    if (!openTestingChannelUrl()) 
+        return;
+
+    // Loop to check if user hava joined
+    QTimer::singleShot(1000, this, &UpdateWorker::checkTestingChannelStatus);
+}
+
+void UpdateWorker::checkTestingChannelStatus()
+{
+    // Leave page
+    if (m_model->testingChannelStatus() == TestingChannelStatus::DeActive) {
+        return;
+    }
+    if (!m_machineid.has_value()) {
+        return;
+    }
+
+    qCDebug(DCC_UPDATE_WORKER) << "Testing:" << "check testing join status";
+    QString machineid = m_machineid.value();
+    auto http = new QNetworkAccessManager(this);
+    QNetworkRequest request;
+    request.setUrl(QUrl(ServiceLink + "/api/v2/public/testing/machine/status/" + machineid));
     request.setRawHeader("content-type", "application/json");
     connect(http, &QNetworkAccessManager::finished, this, [=](QNetworkReply* reply) {
         reply->deleteLater();
         http->deleteLater();
 
         if (reply->error() != QNetworkReply::NoError) {
-            qCDebug(DCC_UPDATE_WORKER) << "Testing:"
-                     << "Network Error" << reply->errorString();
+            qCDebug(DCC_UPDATE_WORKER) << "Testing:" << "Network Error" << reply->errorString();
             return;
         }
         auto data = reply->readAll();
-        qCDebug(DCC_UPDATE_WORKER) << "Testing:"
-                 << "machine status body" << data;
+        qCDebug(DCC_UPDATE_WORKER) << "Testing:" << "machine status body" << data;
         auto doc = QJsonDocument::fromJson(data);
         auto obj = doc.object();
         auto status = obj["data"].toObject()["status"].toString();
         // Exit the loop if switch status is disable
-        if (m_model->testingChannelStatus() != UpdateModel::TestingChannelStatus::WaitJoined) {
+        if (m_model->testingChannelStatus() != TestingChannelStatus::WaitJoined) {
             return;
         }
         // If user has joined then install testing source package;
         if (status == "joined") {
-            m_model->setTestingChannelStatus(UpdateModel::TestingChannelStatus::Joined);
-            qCDebug(DCC_UPDATE_WORKER) << "Testing:"
-                     << "Install testing channel package";
-            // 安装内测源之前执行一次apt update，避免刚安装的系统没有仓库索引导致安装失败
-            checkForUpdates();
-            // 延迟1秒是为了把安装任务放在update之后
-            QThread::sleep(1);
-            // lastore会自动等待apt update完成后再执行安装。
-            m_updateInter->InstallPackage("testing channel", TestingChannelPackage);
+            qCDebug(DCC_UPDATE_WORKER) << "Testing:" << "Install testing channel package";
+            QDBusPendingCall call = m_updateInter->InstallPackage(TestingChannel, TestingChannelPackage);
+            QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
+            connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, call, watcher] {
+                watcher->deleteLater();
+                if (call.isError()) {
+                    qCWarning(DCC_UPDATE_WORKER) << "dbus call failed: " << call.error();
+                    m_model->setTestingChannelStatus(TestingChannelStatus::NotJoined);
+                } else {
+                    QDBusReply<QDBusObjectPath> reply = call.reply();
+                    const QString jobPath = reply.value().path();
+                    setInstallPackageJob(jobPath);
+                }
+            });
             return;
         }
         // Run again after sleep
@@ -623,64 +762,38 @@ void UpdateWorker::checkTestingChannelStatus()
     http->get(request);
 }
 
-void UpdateWorker::testingChannelCheck(bool checked)
+bool UpdateWorker::openTestingChannelUrl()
 {
-    if (checked) {
-        setTestingChannelEnable(checked);
-        return;
+    auto testChannelUrlOpt = getTestingChannelUrl();
+    if (!testChannelUrlOpt.has_value()) {
+        m_model->setTestingChannelStatus(TestingChannelStatus::NotJoined);
+        return false;
     }
-
-    const auto status = m_model->testingChannelStatus();
-    if (status != UpdateModel::TestingChannelStatus::Joined) {
-        setTestingChannelEnable(checked);
-        return;
-    }
+    QUrl testChannelUrl = testChannelUrlOpt.value();
+    qCDebug(DCC_UPDATE_WORKER) << "Testing:" << "open join page" << testChannelUrl.toString();
+    QDesktopServices::openUrl(testChannelUrl);
+    return true;
 }
 
-void UpdateWorker::setTestingChannelEnable(const bool& enable)
+void UpdateWorker::exitTestingChannel(bool value)
 {
-    qCDebug(DCC_UPDATE_WORKER) << "Testing:"
-             << "TestingChannelEnableChange" << enable;
-    if (enable) {
-        m_model->setTestingChannelStatus(UpdateModel::TestingChannelStatus::WaitJoined);
+    if (value) {
+        QDBusPendingCall call = m_updateInter->RemovePackage(TestingChannel, TestingChannelPackage);
+        QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
+        connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, call, watcher] {
+            watcher->deleteLater();
+            if (call.isError()) {
+                qCWarning(DCC_UPDATE_WORKER) << "dbus call failed: " << call.error();
+                m_model->setTestingChannelStatus(TestingChannelStatus::Joined);
+            } else {
+                QDBusReply<QDBusObjectPath> reply = call.reply();
+                const QString jobPath = reply.value().path();
+                setRemovePackageJob(jobPath);                
+            }
+        });
     } else {
-        m_model->setTestingChannelStatus(UpdateModel::TestingChannelStatus::NotJoined);
+        m_model->setTestingChannelStatus(TestingChannelStatus::Joined);
     }
-
-    const auto server = m_model->getTestingChannelServer();
-    const auto machineID = m_model->getMachineID();
-
-    // 无论是加入还是退出都先在服务器标记退出
-    // 避免重装系统后机器码相同，没申请就自动加入
-    auto http = new QNetworkAccessManager(this);
-    QNetworkRequest request;
-    request.setUrl(QUrl(server + QString("/api/v2/public/testing/machine/") + machineID));
-    request.setRawHeader("content-type", "application/json");
-    connect(http, &QNetworkAccessManager::finished, this, [http](QNetworkReply* reply) {
-        reply->deleteLater();
-        http->deleteLater();
-    });
-    http->deleteResource(request);
-
-    /* Disable Testing Channel */
-    if (!enable) {
-        // Uninstall testing source package if it is installed
-        if (m_updateInter->PackageExists(TestingChannelPackage)) {
-            qCDebug(DCC_UPDATE_WORKER) << "Testing:"
-                     << "Uninstall testing channel package";
-            m_updateInter->RemovePackage("testing channel", TestingChannelPackage);
-        }
-        return;
-    }
-
-    /* Enable Testing Channel */
-    auto u = getTestingChannelJoinURL();
-    qCDebug(DCC_UPDATE_WORKER) << "Testing:"
-             << "open join page" << u.toString();
-    QDesktopServices::openUrl(u);
-
-    // Loop to check if user have joined
-    QTimer::singleShot(1000, this, &UpdateWorker::checkTestingChannelStatus);
 }
 
 QString UpdateWorker::getTestingChannelSource()
@@ -913,23 +1026,27 @@ void UpdateWorker::onJobListChanged(const QList<QDBusObjectPath>& jobs)
     qCInfo(DCC_UPDATE_WORKER) << "Job list changed, size:" << jobs.size();
 
     for (const auto& job : jobs) {
-        m_jobPath = job.path();
-        UpdateJobDBusProxy jobInter(m_jobPath, this);
+        QString jobPath = job.path();
+        UpdateJobDBusProxy jobInter(jobPath, this);
 
         // id maybe scrapped
         const QString& id = jobInter.id();
         if (!jobInter.isValid() || id.isEmpty())
             continue;
 
-        qCInfo(DCC_UPDATE_WORKER) << "Job id: " << id << ", job path: " << m_jobPath;
+        qCInfo(DCC_UPDATE_WORKER) << "Job id: " << id << ", job path: " << jobPath;
         if ((id == "update_source" || id == "custom_update") && m_checkUpdateJob == nullptr) {
-            setCheckUpdatesJob(m_jobPath);
+            setCheckUpdatesJob(jobPath);
         } else if (id == "dist_upgrade" && m_distUpgradeJob == nullptr) {
-            setDistUpgradeJob(m_jobPath);
+            setDistUpgradeJob(jobPath);
         } else if (id == "prepare_dist_upgrade" && m_downloadJob == nullptr) {
-            setDownloadJob(m_jobPath);
+            setDownloadJob(jobPath);
         } else if (id == "backup" && m_backupJob == nullptr) {
-            setBackupJob(m_jobPath);
+            setBackupJob(jobPath);
+        } else if (jobInter.name() == TestingChannel && jobInter.id().contains("install") && m_installPackageJob == nullptr) {
+            setInstallPackageJob(jobPath);
+        } else if (jobInter.name() == TestingChannel && jobInter.id().contains("remove") && m_removePackageJob == nullptr) {
+            setRemovePackageJob(jobPath);
         }
     }
 }
@@ -972,6 +1089,32 @@ void UpdateWorker::setBackupJob(const QString& jobPath)
     });
     m_model->setBackupProgress(m_backupJob->progress());
     onBackupStatusChanged(m_backupJob->status());
+}
+
+void UpdateWorker::setInstallPackageJob(const QString& jobPath)
+{
+    qCInfo(DCC_UPDATE_WORKER) << "Create install package job, path:" << jobPath;
+    if (m_installPackageJob || jobPath.isEmpty()) {
+        qCInfo(DCC_UPDATE_WORKER) << "Job is not null or job path is empty";
+        return;
+    }
+
+    m_installPackageJob = new UpdateJobDBusProxy(jobPath, this);
+    connect(m_installPackageJob, &UpdateJobDBusProxy::StatusChanged, this, &UpdateWorker::onInstallPackageStatusChanged);
+    onInstallPackageStatusChanged(m_installPackageJob->status());
+}
+
+void UpdateWorker::setRemovePackageJob(const QString& jobPath)
+{
+    qCInfo(DCC_UPDATE_WORKER) << "Create remove package job, path:" << jobPath;
+    if (m_removePackageJob || jobPath.isEmpty()) {
+        qCInfo(DCC_UPDATE_WORKER) << "Job is not null or job path is empty";
+        return;
+    }
+
+    m_removePackageJob = new UpdateJobDBusProxy(jobPath, this);
+    connect(m_removePackageJob, &UpdateJobDBusProxy::StatusChanged, this, &UpdateWorker::onRemovePackageStatusChanged);
+    onRemovePackageStatusChanged(m_removePackageJob->status());
 }
 
 void UpdateWorker::updateSystemVersion()
@@ -1079,7 +1222,7 @@ void UpdateWorker::onCheckUpdateStatusChanged(const QString& value)
                 QDBusPendingReply<QString> reply = watcher->reply();
                 UpdateLogHelper::ref().handleUpdateLog(reply.value());
             } else {
-                qWarning() << "Get update log failed";
+                qCWarning(DCC_UPDATE_WORKER) << "Get update log failed";
             }
             // 日志处理完了再显示更新内容界面
         });
@@ -1234,6 +1377,42 @@ void UpdateWorker::onBackupStatusChanged(const QString &value)
     }
 }
 
+void UpdateWorker::onInstallPackageStatusChanged(const QString& value)
+{
+    qCInfo(DCC_UPDATE_WORKER) << "Install package status changed: " << value;
+    if (value == "failed") {
+        if (m_installPackageJob != nullptr) {
+            const auto& description = m_installPackageJob->description();
+            qCWarning(DCC_UPDATE_WORKER) << "Cannot install package" << TestingChannelPackage << ": " << description;
+            notifyErrorWithoutBody(tr("Cannot install package: ") + TestingChannelPackage);
+            m_model->setTestingChannelStatus(TestingChannelStatus::NotJoined);
+            cleanLaStoreJob(m_installPackageJob);            
+        }
+    } else if (value == "succeed") {
+        m_model->setTestingChannelStatus(TestingChannelStatus::Joined);
+    } else if (value == "end") {
+        deleteJob(m_installPackageJob);
+    }
+}
+
+void UpdateWorker::onRemovePackageStatusChanged(const QString& value)
+{
+    qCInfo(DCC_UPDATE_WORKER) << "Remove package status changed: " << value;
+    if (value == "failed") {
+        if (m_removePackageJob != nullptr) {
+            const auto& description = m_removePackageJob->description();
+            qCWarning(DCC_UPDATE_WORKER) << "Cannot uninstall package" << TestingChannelPackage << ": " << description;
+            notifyErrorWithoutBody(tr("Cannot uninstall package: ") + TestingChannelPackage);
+            m_model->setTestingChannelStatus(TestingChannelStatus::Joined);
+            cleanLaStoreJob(m_removePackageJob);
+        }
+    } else if (value == "succeed") {
+        m_model->setTestingChannelStatus(TestingChannelStatus::NotJoined);
+    } else if (value == "end") {
+        deleteJob(m_removePackageJob);
+    }
+}
+
 bool UpdateWorker::isUpdatesAvailable(const QMap<QString, QStringList>& updatablePackages)
 {
     QMap<UpdateType, QString> keyMap;
@@ -1262,7 +1441,7 @@ void UpdateWorker::onRequestRetry(int type, int updateTypes)
     const auto updateStatus = m_model->updateStatus(controlType);
     const auto lastError = m_model->lastError(m_model->updateStatus(controlType));
 
-    qWarning() << "Control type:" << controlType
+    qCWarning(DCC_UPDATE_WORKER) << "Control type:" << controlType
                << ", update status:" << updateStatus
                << ", update types:" << updateTypes;
 

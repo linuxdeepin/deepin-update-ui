@@ -8,7 +8,6 @@
 #include "common.h"
 #include "updatedatastructs.h"
 #include "updateiteminfo.h"
-#include "utils.h"
 #include "mirrorinfolist.h"
 #include "appupdateinfolist.h"
 #include "updatelistmodel.h"
@@ -78,13 +77,6 @@ public:
     ~UpdateModel();
 
 public:
-    enum TestingChannelStatus {
-        Hidden,
-        NotJoined,
-        WaitJoined,
-        Joined,
-    };
-    Q_ENUM(TestingChannelStatus);
 
     void setSecurityUpdateEnabled(bool enable);
     bool securityUpdateEnabled() const { return m_securityUpdateEnabled; }
@@ -183,8 +175,9 @@ public:
 
     QString getMachineID() const;
 
-    void setTestingChannelStatus(const TestingChannelStatus status);
+    void setTestingChannelStatus(TestingChannelStatus status);
     TestingChannelStatus testingChannelStatus() const { return m_testingChannelStatus; }
+
     QString getTestingChannelServer() const { return m_testingChannelServer; }
     void setTestingChannelServer(const QString server);
     void setCanExitTestingChannel(const bool can);
@@ -365,7 +358,7 @@ Q_SIGNALS:
     void updateHistoryAppInfos();
     void updateNotifyChanged(const bool notify);
     void isUpdatableChanged(const bool isUpdatablePackages);
-    void testingChannelStatusChanged(const TestingChannelStatus status);
+    void testingChannelStatusChanged(TestingChannelStatus status);
     void canExitTestingChannelChanged(const bool can);
     void idleDownloadConfigChanged();
     void updateModeChanged(quint64 updateMode);

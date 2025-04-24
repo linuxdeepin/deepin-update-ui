@@ -295,7 +295,7 @@ DccObject {
                 Loader {
                     id: uhloader
                     active: false
-                    sourceComponent: UpdateHistory {
+                    sourceComponent: UpdateHistoryDialog {
                         onClosing: function (close) {
                             uhloader.active = false
                         }
@@ -355,13 +355,79 @@ DccObject {
         displayName: qsTr("Join Internal Testing Channel")
         description: qsTr("Join the internal testing channel to get deepin latest updates")
         backgroundType: DccObject.Normal
-        visible: false //dccData.model().isCommunitySystem()
+        visible: dccData.model().isCommunitySystem()
         weight: 80
         pageType: DccObject.Editor
+        enabled: {
+            if (dccData.model().testingChannelStatus === Common.WaitJoined || 
+                dccData.model().testingChannelStatus === Common.WaitToLeave)
+                return false
+            else
+                return true
+        }
+
         page: D.Switch {
-            checked: dccData.model().testingChannelStatus != UpdateModel.NotJoined
-            onCheckedChanged: {
-                dccData.work().testingChannelCheck(checked)
+            checked: {
+                if (dccData.model().testingChannelStatus === Common.WaitToLeave || 
+                    dccData.model().testingChannelStatus === Common.Joined)
+                    return true
+                else
+                    return false
+            }
+
+            onClicked: {
+                dccData.work().setTestingChannelEnable(checked)
+            }
+
+            Connections {
+                target: dccData.work()
+                onRequestCloseTestingChannel: {
+                    ctcloader.active = true
+                }
+            }
+
+            Loader {
+                id: ctcloader
+                active: false
+                sourceComponent: QuitTestingChannelDialog {
+                    onClosing: function (close) {
+                        ctcloader.active = false
+                    }
+                }
+                onLoaded: function () {
+                    ctcloader.item.show()
+                }
+            }
+        }
+    }
+
+    DccObject {
+        name: "testingChannelUrl"
+        parentName: "updateSettingsPage"
+        backgroundType: DccObject.AutoBg
+        weight: 90
+        visible: {
+            if (dccData.model().testingChannelStatus === Common.WaitJoined)
+                return true
+            else
+                return false
+        }
+        pageType: DccObject.Editor
+        page: D.ToolButton {
+            text: qsTr("Click here to complete the application")
+            textColor: D.Palette {
+                normal {
+                    common: D.DTK.makeColor(D.Color.Highlight)
+                }
+                normalDark: normal
+                hovered {
+                    common: D.DTK.makeColor(D.Color.Highlight).lightness(+30)
+                }
+                hoveredDark: hovered
+            }
+            background: Item {}
+            onClicked: {
+                dccData.work().openTestingChannelUrl()
             }
         }
     }

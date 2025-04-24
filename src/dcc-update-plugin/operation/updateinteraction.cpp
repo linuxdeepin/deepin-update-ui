@@ -15,6 +15,7 @@ UpdateInteraction::UpdateInteraction(QObject *parent)
 
     qmlRegisterType<UpdateWorker>("org.deepin.dcc.update", 1, 0, "UpdateWorker");
     qmlRegisterType<UpdateModel>("org.deepin.dcc.update", 1, 0, "UpdateModel");
+    qmlRegisterUncreatableMetaObject(dcc::update::common::staticMetaObject, "org.deepin.dcc.update", 1, 0, "Common", "Cannot create namespace");
 
     m_work->activate();
 }

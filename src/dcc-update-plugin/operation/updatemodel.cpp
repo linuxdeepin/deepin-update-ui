@@ -54,7 +54,7 @@ UpdateModel::UpdateModel(QObject* parent)
     , m_systemVersionInfo(QString())
     , m_systemActivation(false)
     , m_testingChannelServer(QString())
-    , m_testingChannelStatus(TestingChannelStatus::Hidden)
+    , m_testingChannelStatus(TestingChannelStatus::DeActive)
     , m_isUpdatable(false)
     , lastoreDConfig(DConfig::create("org.deepin.dde.lastore", "org.deepin.dde.lastore", "", this))
     , m_lastoreDeamonStatus(0)
@@ -396,10 +396,12 @@ QString UpdateModel::getMachineID() const
     return "";
 }
 
-void UpdateModel::setTestingChannelStatus(const TestingChannelStatus status)
+void UpdateModel::setTestingChannelStatus(TestingChannelStatus status)
 {
-    m_testingChannelStatus = status;
-    Q_EMIT testingChannelStatusChanged(m_testingChannelStatus);
+    if (status != m_testingChannelStatus) {
+        m_testingChannelStatus = status;
+        Q_EMIT testingChannelStatusChanged(m_testingChannelStatus);
+    }
 }
 
 void UpdateModel::setTestingChannelServer(const QString server)
