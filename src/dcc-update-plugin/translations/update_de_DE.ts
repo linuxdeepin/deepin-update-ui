@@ -200,35 +200,35 @@
     </message>
     <message>
         <source>Delivers a cumulative update including new features, quality updates, and  security updates</source>
-        <translation type="unfinished"/>
+        <translation>Liefert eine Aktualisierungs-Kombination aus neuen Funktionen, Verbesserungen und Sicherheitsverbesserungen</translation>
     </message>
     <message>
         <source>Security Updates</source>
-        <translation type="unfinished"/>
+        <translation>Sicherheits-Aktualisierungen</translation>
     </message>
     <message>
         <source>Delivers security updates</source>
-        <translation type="unfinished"/>
+        <translation>Liefert Sicherheits-Aktualisierungen</translation>
     </message>
     <message>
         <source>Third-party Updates</source>
-        <translation type="unfinished"/>
+        <translation>Drittparteien-Aktualisierungen</translation>
     </message>
     <message>
         <source>Delivers  updates for additional repository sources</source>
-        <translation type="unfinished"/>
+        <translation>Liefert Aktualisierungen für zusätzliche Repositorien-Quellen</translation>
     </message>
     <message>
         <source>Limit Speed</source>
-        <translation type="unfinished"/>
+        <translation>Geschwindigkeit begrenzen</translation>
     </message>
     <message>
         <source>Limit Setting</source>
-        <translation type="unfinished"/>
+        <translation>Geschwindigkeitseinstellung</translation>
     </message>
     <message>
         <source>Auto Download</source>
-        <translation type="unfinished"/>
+        <translation>Automatischer Download</translation>
     </message>
     <message>
         <source>Enabling &quot;Auto Download Updates&quot; will automatically download updates when connected to the internet</source>
