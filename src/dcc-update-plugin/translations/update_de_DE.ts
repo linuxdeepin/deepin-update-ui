@@ -232,47 +232,47 @@
     </message>
     <message>
         <source>Enabling &quot;Auto Download Updates&quot; will automatically download updates when connected to the internet</source>
-        <translation type="unfinished"/>
+        <translation>Das Einschalten von &quot;Aktualisierungen automatisch herunterladen&quot; wird eben dieses tun, wenn eine Internetverbindung besteht</translation>
     </message>
     <message>
         <source>Download when Inactive</source>
-        <translation type="unfinished"/>
+        <translation>Herunterladen, wenn inaktiv</translation>
     </message>
     <message>
         <source>Start at</source>
-        <translation type="unfinished"/>
+        <translation>Beginn um</translation>
     </message>
     <message>
         <source>End at</source>
-        <translation type="unfinished"/>
+        <translation>Ende um</translation>
     </message>
     <message>
         <source>Advanced Settings</source>
-        <translation type="unfinished"/>
+        <translation>Fortgeschrittene Einstellungen</translation>
     </message>
     <message>
         <source>Updates Notification</source>
-        <translation type="unfinished"/>
+        <translation>Aktualisierungs-Benachrichtigung</translation>
     </message>
     <message>
         <source>Clear Package Cache</source>
-        <translation type="unfinished"/>
+        <translation>Paket-Cache-Speicher leeren</translation>
     </message>
     <message>
         <source>Update History</source>
-        <translation type="unfinished"/>
+        <translation>Aktualisierungs-Chronik</translation>
     </message>
     <message>
         <source>View</source>
-        <translation type="unfinished"/>
+        <translation>Ansicht</translation>
     </message>
     <message>
         <source>Join Internal Testing Channel</source>
-        <translation type="unfinished"/>
+        <translation>Dem Intern-Test-Kanal beitreten</translation>
     </message>
     <message>
         <source>Join the internal testing channel to get deepin latest updates</source>
-        <translation type="unfinished"/>
+        <translation>Dem Intern-Test-Kanal beitreten um Deepin-latest-Aktualisierungen zu erhalten</translation>
     </message>
 </context>
 <context>
@@ -298,7 +298,7 @@
     <name>update</name>
     <message>
         <source>System Update</source>
-        <translation type="unfinished"/>
+        <translation>System-Aktualisierungen</translation>
     </message>
     <message>
         <source>System update and upgrade</source>
