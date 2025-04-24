@@ -369,11 +369,11 @@
     </message>
     <message>
         <source>Installation update failed</source>
-        <translation>Installation fehlgeschlagen</translation>
+        <translation>Einbau der Aktualisierung fehlgeschlagen</translation>
     </message>
     <message>
         <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
-        <translation type="unfinished"/>
+        <translation>Um das korrekte Funktionieren ihres Systems und der Programme sicherzustellen, machen Sie bitte einen Neustart nach der Aktualisierung</translation>
     </message>
     <message>
         <source>Backing up in progress...</source>
@@ -389,11 +389,11 @@
     </message>
     <message>
         <source>Update installation successful</source>
-        <translation type="unfinished"/>
+        <translation>Einbau der Aktualisierung erfolgreich</translation>
     </message>
     <message>
         <source>Back Up Again</source>
-        <translation type="unfinished"/>
+        <translation>Erneut BackUp erstellen</translation>
     </message>
 </context>
 </TS>
