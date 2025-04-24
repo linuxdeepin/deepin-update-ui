@@ -302,42 +302,42 @@
     </message>
     <message>
         <source>System update and upgrade</source>
-        <translation type="unfinished"/>
+        <translation>System-Aktuakisierung und -Hochstufung</translation>
     </message>
 </context>
 <context>
     <name>updateMain</name>
     <message>
         <source>Update Settings</source>
-        <translation type="unfinished"/>
+        <translation>Aktualisierungs-Einstellungen</translation>
     </message>
     <message>
         <source>Installing</source>
-        <translation type="unfinished"/>
+        <translation>Installieren</translation>
     </message>
     <message>
         <source>Update download completed</source>
-        <translation type="unfinished"/>
+        <translation>Herunterladen abgeschlossen</translation>
     </message>
     <message>
         <source>Install updates</source>
-        <translation type="unfinished"/>
+        <translation>Aktualisierungen einbauen</translation>
     </message>
     <message>
         <source>Update size: </source>
-        <translation type="unfinished"/>
+        <translation>Größe der Aktualisierung:</translation>
     </message>
     <message>
         <source>Update download failed</source>
-        <translation type="unfinished"/>
+        <translation>Herunterladen der Aktualisierung fehlgeschlagen</translation>
     </message>
     <message>
         <source>Downloading updates...</source>
-        <translation type="unfinished"/>
+        <translation>Aktualisierungen werden heruntergeladen…</translation>
     </message>
     <message>
         <source>Downloading</source>
-        <translation type="unfinished"/>
+        <translation>Am Herunterladen</translation>
     </message>
     <message>
         <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
