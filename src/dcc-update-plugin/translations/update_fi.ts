@@ -14,22 +14,37 @@
     </message>
 </context>
 <context>
-    <name>UpdateHistory</name>
+    <name>QuitTestingChannelDialog</name>
     <message>
-        <source>Settings will be reverted in %1s.</source>
-        <translation>Asetukset palautetaan %1s kulttua.</translation>
+        <source>If you exit the beta program, you will no longer receive beta updates.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
+        <source>Cancel</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Exit</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>UpdateHistoryDialog</name>
+    <message>
         <source>Save the display settings?</source>
-        <translation>Tallennatko näytön asetukset?</translation>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Settings will be reverted in %1s.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Revert</source>
-        <translation>Palauta</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Save</source>
-        <translation>Tallenna</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -273,6 +288,10 @@
     <message>
         <source>Join the internal testing channel to get deepin latest updates</source>
         <translation>Liity testauskanavaan ja saat viimeisimmät päivitykset</translation>
+    </message>
+    <message>
+        <source>Click here to complete the application</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
