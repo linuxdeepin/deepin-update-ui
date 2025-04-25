@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="uk">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="uk">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -14,22 +16,37 @@
     </message>
 </context>
 <context>
-    <name>UpdateHistory</name>
+    <name>QuitTestingChannelDialog</name>
     <message>
-        <source>Settings will be reverted in %1s.</source>
-        <translation>Система повернеться до початкових налаштувань за %1 с.</translation>
+        <source>If you exit the beta program, you will no longer receive beta updates.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exit</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UpdateHistoryDialog</name>
+    <message>
         <source>Save the display settings?</source>
-        <translation>Зберегти налаштування дисплея?</translation>
+        <translation type="unfinished">Зберегти налаштування дисплея?</translation>
+    </message>
+    <message>
+        <source>Settings will be reverted in %1s.</source>
+        <translation type="unfinished">Система повернеться до початкових налаштувань за %1 с.</translation>
     </message>
     <message>
         <source>Revert</source>
-        <translation>Повернути</translation>
+        <translation type="unfinished">Повернути</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Зберегти</translation>
+        <translation type="unfinished">Зберегти</translation>
     </message>
 </context>
 <context>
@@ -274,6 +291,10 @@
         <source>Join the internal testing channel to get deepin latest updates</source>
         <translation>Долучіться до каналу внутрішнього тестування, щоб отримати найсвіжіші оновлення deepin</translation>
     </message>
+    <message>
+        <source>Click here to complete the application</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UpdateWorker</name>
@@ -390,14 +411,6 @@
     <message>
         <source>Update installation successful</source>
         <translation>Успішне встановлення оновлень</translation>
-    </message>
-    <message>
-        <source>Back Up Again</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Update installation successful</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Back Up Again</source>

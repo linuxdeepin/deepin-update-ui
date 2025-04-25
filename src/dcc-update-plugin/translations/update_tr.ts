@@ -16,22 +16,37 @@
     </message>
 </context>
 <context>
-    <name>UpdateHistory</name>
+    <name>QuitTestingChannelDialog</name>
     <message>
-        <source>Settings will be reverted in %1s.</source>
+        <source>If you exit the beta program, you will no longer receive beta updates.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exit</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UpdateHistoryDialog</name>
     <message>
         <source>Save the display settings?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Settings will be reverted in %1s.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Revert</source>
-        <translation>Eski haline döndür</translation>
+        <translation type="unfinished">Eski haline döndür</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Kaydet</translation>
+        <translation type="unfinished">Kaydet</translation>
     </message>
 </context>
 <context>
@@ -274,6 +289,10 @@
     </message>
     <message>
         <source>Join the internal testing channel to get deepin latest updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click here to complete the application</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

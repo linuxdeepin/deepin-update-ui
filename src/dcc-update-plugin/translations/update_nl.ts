@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="nl">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="nl">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -14,22 +16,37 @@
     </message>
 </context>
 <context>
-    <name>UpdateHistory</name>
+    <name>QuitTestingChannelDialog</name>
     <message>
-        <source>Settings will be reverted in %1s.</source>
-        <translation>De instellingen worden over %1 sec. teruggezet.</translation>
+        <source>If you exit the beta program, you will no longer receive beta updates.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exit</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UpdateHistoryDialog</name>
+    <message>
         <source>Save the display settings?</source>
-        <translation>Wil je de beeldscherminstellingen opslaan?</translation>
+        <translation type="unfinished">Wil je de beeldscherminstellingen opslaan?</translation>
+    </message>
+    <message>
+        <source>Settings will be reverted in %1s.</source>
+        <translation type="unfinished">De instellingen worden over %1 sec. teruggezet.</translation>
     </message>
     <message>
         <source>Revert</source>
-        <translation>Herstellen</translation>
+        <translation type="unfinished">Herstellen</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Opslaan</translation>
+        <translation type="unfinished">Opslaan</translation>
     </message>
 </context>
 <context>
@@ -273,6 +290,10 @@
     <message>
         <source>Join the internal testing channel to get deepin latest updates</source>
         <translation>Schakel het interne testkanaal in om de nieuwste Deepin-updates te ontvangen.</translation>
+    </message>
+    <message>
+        <source>Click here to complete the application</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -16,23 +16,38 @@
     </message>
 </context>
 <context>
-    <name>UpdateHistory</name>
+    <name>QuitTestingChannelDialog</name>
     <message>
-        <source>Settings will be reverted in %1s.</source>
-        <translation>سيتم تعيين الإعدادات مرة أخرى بعد %1 ثانية.</translation>
+        <source>If you exit the beta program, you will no longer receive beta updates.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exit</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UpdateHistoryDialog</name>
+    <message>
         <source>Save the display settings?</source>
-        <translation>حفظ إعدادات العرض؟
+        <translation type="unfinished">حفظ إعدادات العرض؟
 </translation>
     </message>
     <message>
+        <source>Settings will be reverted in %1s.</source>
+        <translation type="unfinished">سيتم تعيين الإعدادات مرة أخرى بعد %1 ثانية.</translation>
+    </message>
+    <message>
         <source>Revert</source>
-        <translation>العودة</translation>
+        <translation type="unfinished">العودة</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>حفظ</translation>
+        <translation type="unfinished">حفظ</translation>
     </message>
 </context>
 <context>
@@ -275,6 +290,10 @@
     </message>
     <message>
         <source>Join the internal testing channel to get deepin latest updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click here to complete the application</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

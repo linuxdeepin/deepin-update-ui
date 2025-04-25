@@ -16,22 +16,37 @@
     </message>
 </context>
 <context>
-    <name>UpdateHistory</name>
+    <name>QuitTestingChannelDialog</name>
     <message>
-        <source>Settings will be reverted in %1s.</source>
-        <translation>%1 समयमा सेटिंगहरू वापराउँछ।</translation>
+        <source>If you exit the beta program, you will no longer receive beta updates.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exit</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UpdateHistoryDialog</name>
+    <message>
         <source>Save the display settings?</source>
-        <translation>प्रदर्शन सेटिंगहरू बचाउँदैछ？</translation>
+        <translation type="unfinished">प्रदर्शन सेटिंगहरू बचाउँदैछ？</translation>
+    </message>
+    <message>
+        <source>Settings will be reverted in %1s.</source>
+        <translation type="unfinished">%1 समयमा सेटिंगहरू वापराउँछ।</translation>
     </message>
     <message>
         <source>Revert</source>
-        <translation>वापराउनुहोस्</translation>
+        <translation type="unfinished">वापराउनुहोस्</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>बचाउनुहोस्</translation>
+        <translation type="unfinished">बचाउनुहोस्</translation>
     </message>
 </context>
 <context>
@@ -274,6 +289,10 @@
     </message>
     <message>
         <source>Join the internal testing channel to get deepin latest updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click here to complete the application</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
