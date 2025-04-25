@@ -317,7 +317,7 @@
     <name>update</name>
     <message>
         <source>System Update</source>
-        <translation>Aktualizacja systemu</translation>
+        <translation>Aktualizacje systemu</translation>
     </message>
     <message>
         <source>System update and upgrade</source>
