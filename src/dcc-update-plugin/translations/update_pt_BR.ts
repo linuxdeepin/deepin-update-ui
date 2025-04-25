@@ -14,22 +14,37 @@
     </message>
 </context>
 <context>
-    <name>UpdateHistory</name>
+    <name>QuitTestingChannelDialog</name>
     <message>
-        <source>Settings will be reverted in %1s.</source>
-        <translation>As configurações serão revertidas em %1s.</translation>
+        <source>If you exit the beta program, you will no longer receive beta updates.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
+        <source>Cancel</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Exit</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>UpdateHistoryDialog</name>
+    <message>
         <source>Save the display settings?</source>
-        <translation>Salvar as configurações de exibição?</translation>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Settings will be reverted in %1s.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Revert</source>
-        <translation>Reverter</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Save</source>
-        <translation>Salvar</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -274,6 +289,10 @@
         <source>Join the internal testing channel to get deepin latest updates</source>
         <translation>Participe do canal de testes internos para receber as atualizações mais recentes</translation>
     </message>
+    <message>
+        <source>Click here to complete the application</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>UpdateWorker</name>
@@ -394,14 +413,6 @@
     <message>
         <source>Back Up Again</source>
         <translation>Faça backup novamente</translation>
-    </message>
-    <message>
-        <source>Update installation successful</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Back Up Again</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
