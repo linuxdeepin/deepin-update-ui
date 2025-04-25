@@ -17,22 +17,22 @@
     <name>QuitTestingChannelDialog</name>
     <message>
         <source>If you exit the beta program, you will no longer receive beta updates.</source>
-        <translation type="unfinished"/>
+        <translation>Якщо ви вийдете з програми тестування, ви більше не отримуватимете тестових оновлень.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Скасувати</translation>
     </message>
     <message>
         <source>Exit</source>
-        <translation type="unfinished"/>
+        <translation>Вийти</translation>
     </message>
 </context>
 <context>
     <name>UpdateHistoryDialog</name>
     <message>
         <source>Save the display settings?</source>
-        <translation type="unfinished"/>
+        <translation>Зберегти налаштування дисплея?</translation>
     </message>
     <message>
         <source>Settings will be reverted in %1s.</source>
