@@ -184,7 +184,8 @@ void UpdateWorker::init()
     connect(&SignalBridge::ref(), &SignalBridge::requestRetry, this, &UpdateWorker::onRequestRetry);
     connect(&SignalBridge::ref(), &SignalBridge::requestBackgroundInstall, this, &UpdateWorker::doUpgrade);
     connect(&SignalBridge::ref(), &SignalBridge::requestStopDownload, this, &UpdateWorker::stopDownload);
-    connect(this, &UpdateWorker::systemActivationChanged, m_model, &UpdateModel::setSystemActivation, Qt::QueuedConnection); // systemActivationChanged是在线程中发出
+    // systemActivationChanged是在线程中发出
+    connect(this, &UpdateWorker::systemActivationChanged, m_model, &UpdateModel::setSystemActivation, Qt::QueuedConnection);
 
     connect(DConfigWatcher::instance(), &DConfigWatcher::notifyDConfigChanged, [this](const QString &moduleName, const QString &configName) {
         qCDebug(DCC_UPDATE_WORKER) << "Config changed:" << moduleName << configName;
@@ -319,8 +320,6 @@ void UpdateWorker::activate()
     //     return iconTheme;
     // }));
 
-    m_model->setShowUpdateCtl(false);
-
     if (LastoreDaemonDConfigStatusHelper::isUpdateDisabled(m_model->lastoreDaemonStatus())) {
         m_model->setLastStatus(UpdatesStatus::UpdateIsDisabled, __LINE__);
     } else {
@@ -417,6 +416,7 @@ void UpdateWorker::setUpdateInfo()
         }
     }
     m_model->refreshUpdateStatus();
+    m_model->updateAvailableState();
     m_model->setLastStatus(isUpdated ? Updated : UpdatesAvailable, __LINE__);
 }
 
@@ -612,6 +612,32 @@ void UpdateWorker::setAutoDownloadUpdates(const bool& autoDownload)
 void UpdateWorker::setMirrorSource(const MirrorInfo& mirror)
 {
     m_updateInter->SetMirrorSource(mirror.m_id);
+}
+
+void UpdateWorker::updateNeedDoCheck()
+{
+    if (!m_model->systemActivation())
+        return;
+
+    static bool doCheckFirst = true;
+    if (doCheckFirst) {
+        doCheckFirst = false;
+        m_model->setShowCheckUpdate(true);
+        m_model->setNeedDoCheck(true);
+        return;
+    }
+
+    // 决定进入检查更新界面是否自动检查,单位：小时; 默认24小时
+    static const int AUTO_CHECK_UPDATE_CIRCLE = 60; //3600 * 24;
+    qint64 checkTimeInterval = QDateTime::fromString(m_model->lastCheckUpdateTime(), "yyyy-MM-dd hh:mm:ss").secsTo(QDateTime::currentDateTime());
+    bool bEnter = checkTimeInterval > AUTO_CHECK_UPDATE_CIRCLE;
+    qCDebug(DCC_UPDATE_WORKER) << "check time interval:" << checkTimeInterval << " need to check:" << bEnter;
+    if (bEnter) {
+        m_model->setShowCheckUpdate(true);
+        m_model->setNeedDoCheck(true);
+    } else {
+        m_model->setNeedDoCheck(false);
+    }
 }
 
 std::optional<QUrl> UpdateWorker::updateTestingChannelUrl()
@@ -1227,7 +1253,7 @@ void UpdateWorker::onCheckUpdateStatusChanged(const QString& value)
         m_model->setLastStatus(CheckingSucceed, __LINE__);
         m_model->setCheckUpdateStatus(CheckingSucceed);
         setUpdateInfo();
-        m_model->setShowUpdateCtl(m_model->isUpdatable());
+        m_model->setShowCheckUpdate(!m_model->isUpdatable());
     } else if (value == "end") {
         refreshLastTimeAndCheckCircle();
         m_model->setCheckUpdateStatus(m_model->lastStatus());

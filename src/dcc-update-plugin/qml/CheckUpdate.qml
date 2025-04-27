@@ -63,10 +63,5 @@ ColumnLayout {
                 font.pixelSize: 10
             }
         }
-
-        Component.onCompleted: {
-            console.log(" checkUpdate :", dccData.model().lastStatus)
-            dccData.work().checkForUpdates();
-        }
    }
 }

@@ -61,7 +61,8 @@ UpdateModel::UpdateModel(QObject* parent)
     , m_checkUpdateMode(0)
     , m_batterIsOK(false)
     , m_p2pUpdateEnabled(false)
-    , m_showUpdateCtl(false)
+    , m_showCheckUpdate(false)
+    , m_needDoCheck(false)
     , m_checkUpdateIcon("")
     , m_checkUpdateProgress(0.0)
     , m_checkUpdateStatus(UpdatesStatus::Default)
@@ -1210,13 +1211,22 @@ void UpdateModel::updateAvailableState()
     setIsUpdatable(false);
 }
 
-void UpdateModel::setShowUpdateCtl(bool newShowUpdateCtl)
+void UpdateModel::setShowCheckUpdate(bool value)
 {
-    if (m_showUpdateCtl == newShowUpdateCtl)
+    if (m_showCheckUpdate == value)
         return;
 
-    m_showUpdateCtl = newShowUpdateCtl;
-    emit showUpdateCtlChanged();
+    m_showCheckUpdate = value;
+    emit showCheckUpdateChanged();
+}
+
+void UpdateModel::setNeedDoCheck(bool value)
+{
+    if (m_needDoCheck == value)
+        return;
+
+    m_needDoCheck = value;
+    emit needDoCheckChanged();
 }
 
 bool UpdateModel::isCommunitySystem() const

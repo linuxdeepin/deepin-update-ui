@@ -70,6 +70,7 @@ public Q_SLOTS:
     void setAutoCleanCache(const bool autoCleanCache);
     void setAutoDownloadUpdates(const bool& autoDownload);
     void setMirrorSource(const MirrorInfo& mirror);
+    void updateNeedDoCheck();
 
     std::optional<QUrl> updateTestingChannelUrl();
     std::optional<QUrl> getTestingChannelUrl();        

@@ -9,6 +9,19 @@ import org.deepin.dtk 1.0 as D
 import org.deepin.dcc 1.0
 
 DccObject {
+
+    Connections {
+        target: DccApp
+        function onActiveObjectChanged(obj) {
+            if (obj === dccModule) {
+                dccData.work().updateNeedDoCheck()
+                if (dccData.model().needDoCheck) {
+                    dccData.work().checkForUpdates();
+                }                
+            }
+        }
+    }
+
     DccObject {
         name: "noActive"
         parentName: "update"
@@ -24,7 +37,7 @@ DccObject {
         parentName: "update"
         pageType: DccObject.Item
         backgroundType: DccObject.Normal
-        visible: dccData.model().systemActivation && !dccData.model().showUpdateCtl
+        visible: dccData.model().showCheckUpdate
         weight: 20
         page: CheckUpdate {}
     }
@@ -35,7 +48,7 @@ DccObject {
         parentName: "update"
         backgroundType: DccObject.Normal
         weight: 30
-        visible: dccData.model().installCompleteListModel.anyVisible
+        visible: !dccData.model().showCheckUpdate && dccData.model().installCompleteListModel.anyVisible
         pageType: DccObject.Item
 
         page: UpdateControl {
@@ -57,7 +70,7 @@ DccObject {
         parentName: "update"
         backgroundType: DccObject.Normal
         weight: 35
-        visible: dccData.model().installFailedListModel.anyVisible
+        visible: !dccData.model().showCheckUpdate && dccData.model().installFailedListModel.anyVisible
         pageType: DccObject.Item
 
         page: UpdateControl {
@@ -79,7 +92,7 @@ DccObject {
         parentName: "update"
         backgroundType: DccObject.Normal
         weight: 40
-        visible: dccData.model().installinglistModel.anyVisible
+        visible: !dccData.model().showCheckUpdate && dccData.model().installinglistModel.anyVisible
         pageType: DccObject.Item
 
         page: UpdateControl {
@@ -97,7 +110,7 @@ DccObject {
         parentName: "update"
         backgroundType: DccObject.Normal
         weight: 50
-        visible: dccData.model().preInstallListModel.anyVisible
+        visible: !dccData.model().showCheckUpdate && dccData.model().preInstallListModel.anyVisible
         pageType: DccObject.Item
 
         page: UpdateControl {
@@ -118,7 +131,7 @@ DccObject {
         parentName: "update"
         backgroundType: DccObject.Normal
         weight: 60
-        visible: dccData.model().downloadFailedListModel.anyVisible
+        visible: !dccData.model().showCheckUpdate && dccData.model().downloadFailedListModel.anyVisible
         pageType: DccObject.Item
 
         page: UpdateControl {
@@ -139,7 +152,7 @@ DccObject {
         parentName: "update"
         backgroundType: DccObject.Normal
         weight: 65
-        visible: dccData.model().downloadinglistModel.anyVisible
+        visible: !dccData.model().showCheckUpdate && dccData.model().downloadinglistModel.anyVisible
         pageType: DccObject.Item
 
         page: UpdateControl {
@@ -166,7 +179,7 @@ DccObject {
         parentName: "update"
         backgroundType: DccObject.Normal
         weight: 70
-        visible: dccData.model().preUpdatelistModel.anyVisible
+        visible: !dccData.model().showCheckUpdate && dccData.model().preUpdatelistModel.anyVisible
         pageType: DccObject.Item
 
         page: UpdateControl {
@@ -187,7 +200,7 @@ DccObject {
         parentName: "update"
         backgroundType: DccObject.Normal
         weight: 80
-        visible: dccData.model().backingUpListModel.anyVisible
+        visible: !dccData.model().showCheckUpdate && dccData.model().backingUpListModel.anyVisible
         pageType: DccObject.Item
 
         page: UpdateControl {
@@ -205,7 +218,7 @@ DccObject {
         parentName: "update"
         backgroundType: DccObject.Normal
         weight: 90
-        visible: dccData.model().backupFailedListModel.anyVisible
+        visible: !dccData.model().showCheckUpdate && dccData.model().backupFailedListModel.anyVisible
         pageType: DccObject.Item
 
         page: UpdateControl {
