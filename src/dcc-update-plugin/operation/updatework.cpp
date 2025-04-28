@@ -628,7 +628,7 @@ void UpdateWorker::updateNeedDoCheck()
     }
 
     // 决定进入检查更新界面是否自动检查,单位：小时; 默认24小时
-    static const int AUTO_CHECK_UPDATE_CIRCLE = 60; //3600 * 24;
+    static const int AUTO_CHECK_UPDATE_CIRCLE = 3600 * 24;
     qint64 checkTimeInterval = QDateTime::fromString(m_model->lastCheckUpdateTime(), "yyyy-MM-dd hh:mm:ss").secsTo(QDateTime::currentDateTime());
     bool bEnter = checkTimeInterval > AUTO_CHECK_UPDATE_CIRCLE;
     qCDebug(DCC_UPDATE_WORKER) << "check time interval:" << checkTimeInterval << " need to check:" << bEnter;
