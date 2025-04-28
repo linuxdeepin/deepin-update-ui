@@ -17,7 +17,7 @@
     <name>QuitTestingChannelDialog</name>
     <message>
         <source>If you exit the beta program, you will no longer receive beta updates.</source>
-        <translation type="unfinished"/>
+        <translation>Wenn Sie das Beta-Programm verlassen, erhalten Sie keine weiteren Beta-Aktualsierungen mehr</translation>
     </message>
     <message>
         <source>Cancel</source>
