@@ -382,6 +382,7 @@ void UpdateWorker::checkForUpdates()
         || allUpdateStatuses.contains(Downloading)
         || allUpdateStatuses.contains(DownloadPaused)) {
         qCInfo(DCC_UPDATE_WORKER) << "Lastore daemon is busy now, current statuses:" << allUpdateStatuses;
+        m_model->setShowCheckUpdate(false);
         return;
     }
 
@@ -795,8 +796,7 @@ bool UpdateWorker::openTestingChannelUrl()
     }
     QUrl testChannelUrl = testChannelUrlOpt.value();
     qCDebug(DCC_UPDATE_WORKER) << "Testing:" << "open join page" << testChannelUrl.toString();
-    QDesktopServices::openUrl(testChannelUrl);
-    return true;
+    return openUrl(testChannelUrl.toString());
 }
 
 void UpdateWorker::exitTestingChannel(bool value)
@@ -1652,6 +1652,11 @@ void UpdateWorker::stopDownload()
     }
 
     cleanLaStoreJob(m_downloadJob);
+}
+
+bool UpdateWorker::openUrl(const QString& url)
+{
+    return QDesktopServices::openUrl(QUrl(url));
 }
 
 /**

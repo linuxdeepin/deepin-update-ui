@@ -109,6 +109,7 @@ Rectangle {
                             Layout.fillWidth: true
                             opacity: 0.7
                             wrapMode: Text.WordWrap
+                            visible: false
                         }
 
                         D.Label {

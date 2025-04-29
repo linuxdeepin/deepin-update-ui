@@ -42,12 +42,75 @@ DccObject {
         page: CheckUpdate {}
     }
 
+    // 正在安装列表
+    DccObject {
+        name: "installingList"
+        parentName: "update"
+        backgroundType: DccObject.Normal
+        weight: 30
+        visible: !dccData.model().showCheckUpdate && dccData.model().installinglistModel.anyVisible
+        pageType: DccObject.Item
+
+        page: UpdateControl {
+            updateListModels: dccData.model().installinglistModel
+            updateTitle: qsTr("Installing updates...")
+            processTitle: qsTr("Installing")
+            processValue: dccData.model().distUpgradeProgress
+            updateListEnable: false
+        }
+    }
+
+    // 正在备份列表
+    DccObject {
+        name: "backupList"
+        parentName: "update"
+        backgroundType: DccObject.Normal
+        weight: 40
+        visible: !dccData.model().showCheckUpdate && dccData.model().backingUpListModel.anyVisible
+        pageType: DccObject.Item
+
+        page: UpdateControl {
+            updateListModels: dccData.model().backingUpListModel
+            updateTitle: qsTr("Backing up in progress...")
+            processTitle: qsTr("Backing up in progress")
+            processValue: dccData.model().backupProgress
+            updateListEnable: false
+        }
+    }
+    
+    // 正在下载列表
+    DccObject {
+        name: "downloadingList"
+        parentName: "update"
+        backgroundType: DccObject.Normal
+        weight: 50
+        visible: !dccData.model().showCheckUpdate && dccData.model().downloadinglistModel.anyVisible
+        pageType: DccObject.Item
+
+        page: UpdateControl {
+            updateListModels: dccData.model().downloadinglistModel
+            updateTitle: qsTr("Downloading updates...")
+            updateTips: qsTr("Update size: ") + dccData.model().downloadinglistModel.downloadSize
+            processTitle: qsTr("Downloading")
+            processValue: dccData.model().downloadProgress
+            updateListEnable: false
+
+            onDownloadJobCtrl: function(updateCtrlType) {
+                dccData.work().onDownloadJobCtrl(updateCtrlType)
+            }
+
+            onCloseDownload: {
+                dccData.work().stopDownload()
+            }
+        }
+    }    
+
     // 安装完成列表
     DccObject {
         name: "installCompleteList"
         parentName: "update"
         backgroundType: DccObject.Normal
-        weight: 30
+        weight: 60
         visible: !dccData.model().showCheckUpdate && dccData.model().installCompleteListModel.anyVisible
         pageType: DccObject.Item
 
@@ -69,7 +132,7 @@ DccObject {
         name: "installFailedList"
         parentName: "update"
         backgroundType: DccObject.Normal
-        weight: 35
+        weight: 70
         visible: !dccData.model().showCheckUpdate && dccData.model().installFailedListModel.anyVisible
         pageType: DccObject.Item
 
@@ -86,30 +149,33 @@ DccObject {
         }
     }
 
-    // 正在安装列表
+    // 备份失败列表
     DccObject {
-        name: "installingList"
+        name: "backupFailedList"
         parentName: "update"
         backgroundType: DccObject.Normal
-        weight: 40
-        visible: !dccData.model().showCheckUpdate && dccData.model().installinglistModel.anyVisible
+        weight: 80
+        visible: !dccData.model().showCheckUpdate && dccData.model().backupFailedListModel.anyVisible
         pageType: DccObject.Item
 
         page: UpdateControl {
-            updateListModels: dccData.model().installinglistModel
-            updateTitle: qsTr("Installing updates...")
-            processTitle: qsTr("Installing")
-            processValue: dccData.model().distUpgradeProgress
-            updateListEnable: false
+            updateListModels: dccData.model().backupFailedListModel
+            processTitle: qsTr("Backup failed")
+            updateTitle: qsTr("Backup failed")
+            updateTips: dccData.model().backUpFailedTips
+            onBtnClicked: function(updateType) {
+            actionBtnText: qsTr("Back Up Again")
+                dccData.work().onRequestRetry(3, updateType)
+            }
         }
-    }
+    }    
 
     // 下载完成列表
     DccObject {
         name: "preInstallList"
         parentName: "update"
         backgroundType: DccObject.Normal
-        weight: 50
+        weight: 90
         visible: !dccData.model().showCheckUpdate && dccData.model().preInstallListModel.anyVisible
         pageType: DccObject.Item
 
@@ -130,7 +196,7 @@ DccObject {
         name: "downloadFailedList"
         parentName: "update"
         backgroundType: DccObject.Normal
-        weight: 60
+        weight: 100
         visible: !dccData.model().showCheckUpdate && dccData.model().downloadFailedListModel.anyVisible
         pageType: DccObject.Item
 
@@ -146,39 +212,12 @@ DccObject {
         }
     }
 
-    // 正在下载列表
-    DccObject {
-        name: "downloadingList"
-        parentName: "update"
-        backgroundType: DccObject.Normal
-        weight: 65
-        visible: !dccData.model().showCheckUpdate && dccData.model().downloadinglistModel.anyVisible
-        pageType: DccObject.Item
-
-        page: UpdateControl {
-            updateListModels: dccData.model().downloadinglistModel
-            updateTitle: qsTr("Downloading updates...")
-            updateTips: qsTr("Update size: ") + dccData.model().downloadinglistModel.downloadSize
-            processTitle: qsTr("Downloading")
-            processValue: dccData.model().downloadProgress
-            updateListEnable: false
-
-            onDownloadJobCtrl: function(updateCtrlType) {
-                dccData.work().onDownloadJobCtrl(updateCtrlType)
-            }
-
-            onCloseDownload: {
-                dccData.work().stopDownload()
-            }
-        }
-    }
-
     // 检测到可更新列表
     DccObject {
         name: "preUpdateList"
         parentName: "update"
         backgroundType: DccObject.Normal
-        weight: 70
+        weight: 110
         visible: !dccData.model().showCheckUpdate && dccData.model().preUpdatelistModel.anyVisible
         pageType: DccObject.Item
 
@@ -194,45 +233,6 @@ DccObject {
         }
     }
 
-    // 正在备份列表
-    DccObject {
-        name: "backupList"
-        parentName: "update"
-        backgroundType: DccObject.Normal
-        weight: 80
-        visible: !dccData.model().showCheckUpdate && dccData.model().backingUpListModel.anyVisible
-        pageType: DccObject.Item
-
-        page: UpdateControl {
-            updateListModels: dccData.model().backingUpListModel
-            updateTitle: qsTr("Backing up in progress...")
-            processTitle: qsTr("Backing up in progress")
-            processValue: dccData.model().backupProgress
-            updateListEnable: false
-        }
-    }
-
-    // 备份失败列表
-    DccObject {
-        name: "backupFailedList"
-        parentName: "update"
-        backgroundType: DccObject.Normal
-        weight: 90
-        visible: !dccData.model().showCheckUpdate && dccData.model().backupFailedListModel.anyVisible
-        pageType: DccObject.Item
-
-        page: UpdateControl {
-            updateListModels: dccData.model().backupFailedListModel
-            processTitle: qsTr("Backup failed")
-            updateTitle: qsTr("Backup failed")
-            updateTips: dccData.model().backUpFailedTips
-            onBtnClicked: function(updateType) {
-            actionBtnText: qsTr("Back Up Again")
-                dccData.work().onRequestRetry(3, updateType)
-            }
-        }
-    }
-
     // 更新设置
     DccObject {
         name: "updateSettingsPage"
@@ -240,9 +240,38 @@ DccObject {
         displayName: qsTr("Update Settings")
         description: qsTr("Configure Update settings、Security Updates、Auto Download Updates and Updates Notification")
         icon: "update_set"
-        weight: 100
+        weight: 120
         visible: false //dccData.model().systemActivation
 
         UpdateSetting {}
+    }
+
+    // 隐私协议
+    DccObject {
+        name: "privacyAgreement"
+        parentName: "update"
+        weight: 130
+        backgroundType: DccObject.Normal
+        visible: !dccData.model().showCheckUpdate
+        pageType: DccObject.Item
+
+        page: RowLayout {
+            Rectangle {
+                color: 'transparent'
+                Layout.fillWidth: true
+                Layout.preferredHeight: 40
+                D.Label {
+                    anchors.left: parent.left
+                    anchors.leftMargin: 10
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 12
+                    textFormat: Text.RichText
+                    text: dccData.model().privacyAgreementText()
+                    onLinkActivated: (link)=> {
+                        dccData.work().openUrl(link)
+                    }
+                }
+            }
+        }
     }
 }

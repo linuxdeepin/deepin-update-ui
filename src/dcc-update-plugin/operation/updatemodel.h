@@ -336,6 +336,8 @@ public:
 
     void updateAvailableState();
 
+    Q_INVOKABLE QString privacyAgreementText() const;
+
 public slots:
     void onUpdatePropertiesChanged(const QString &interfaceName,
                                    const QVariantMap &changedProperties,

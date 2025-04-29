@@ -1211,6 +1211,29 @@ void UpdateModel::updateAvailableState()
     setIsUpdatable(false);
 }
 
+QString UpdateModel::privacyAgreementText() const
+{
+    static QStringList supportedRegion = { "cn", "en", "tw", "hk", "ti", "uy" };
+    static QStringList communitySupportRegion = { "cn", "en" };
+    const QString& systemLocaleName = QLocale::system().name();
+    if (systemLocaleName.length() != QString("zh_CN").length()) {
+        qCWarning(DCC_UPDATE_MODEL) << "Get system locale name failed:" << systemLocaleName;
+    }
+    QString region = systemLocaleName.right(2).toLower();
+
+    QString addr = "https://www.uniontech.com/agreement/privacy-";
+    if (DCC_NAMESPACE::IsCommunitySystem) {
+        addr = "https://www.uniontech.com/agreement/deepin-privacy-";
+        if (!communitySupportRegion.contains(region))
+            region = "en";
+    } else if (!supportedRegion.contains(region)) {
+        region = "en";
+    }
+
+    QString link = QString("<a style=\"text-decoration: none\" href=\"%1%2\">%3</a>").arg(addr).arg(region).arg(tr("Privacy Policy"));
+    return tr("To use this software, you must accept the %1 that accompanies software updates.").arg(link);
+}
+
 void UpdateModel::setShowCheckUpdate(bool value)
 {
     if (m_showCheckUpdate == value)

@@ -113,6 +113,8 @@ public Q_SLOTS:
     void doUpgrade(int updateTypes, bool doBackup);
     void stopDownload();
 
+    Q_INVOKABLE bool openUrl(const QString& url);
+
 private Q_SLOTS:
     void setCheckUpdatesJob(const QString& jobPath);
     void onJobListChanged(const QList<QDBusObjectPath>& jobs);
