@@ -1,3 +1,13 @@
+deepin-update-ui (1.0.6) unstable; urgency=medium
+
+  * [dde-update-ui] Updates for project Deepin Desktop Environment (#32)
+  * fix: check for updates by default every 24 hours
+  * fix: disable automatic update check within 24 hours
+  * feat: update translations
+  * feat: add testing channel setting
+
+ -- YeShanShan <yeshanshan@uniontech.com>  Tue, 29 Apr 2025 10:58:00 +0800
+
 deepin-update-ui (1.0.5) unstable; urgency=medium
 
   * [dde-update-ui] Updates for project Deepin Desktop Environment (#20)
