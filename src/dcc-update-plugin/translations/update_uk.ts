@@ -41,10 +41,6 @@
         <translation type="unfinished">Система повернеться до початкових налаштувань за %1 с.</translation>
     </message>
     <message>
-        <source>Settings will be reverted in %1s.</source>
-        <translation>Система повернеться до початкових налаштувань за %1 с.</translation>
-    </message>
-    <message>
         <source>Revert</source>
         <translation type="unfinished">Повернути</translation>
     </message>
@@ -203,6 +199,14 @@
     <message>
         <source>Check Again</source>
         <translation>Перевірити знову</translation>
+    </message>
+    <message>
+        <source>Privacy Policy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To use this software, you must accept the %1 that accompanies software updates.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

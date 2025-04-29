@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="fi">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="fi">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -17,18 +19,15 @@
     <name>QuitTestingChannelDialog</name>
     <message>
         <source>If you exit the beta program, you will no longer receive beta updates.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
-</context>
-<context>
-    <name>UpdateHistoryDialog</name>
     <message>
         <source>Exit</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -201,6 +200,14 @@
         <source>Check Again</source>
         <translation>Tarkista uudelleen</translation>
     </message>
+    <message>
+        <source>Privacy Policy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To use this software, you must accept the %1 that accompanies software updates.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UpdateSetting</name>
@@ -291,10 +298,6 @@
     <message>
         <source>Join the internal testing channel to get deepin latest updates</source>
         <translation>Liity testauskanavaan ja saat viimeisimmät päivitykset</translation>
-    </message>
-    <message>
-        <source>Click here to complete the application</source>
-        <translation type="unfinished"/>
     </message>
     <message>
         <source>Click here to complete the application</source>

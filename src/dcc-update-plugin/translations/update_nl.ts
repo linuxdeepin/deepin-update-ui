@@ -41,10 +41,6 @@
         <translation type="unfinished">De instellingen worden over %1 sec. teruggezet.</translation>
     </message>
     <message>
-        <source>Settings will be reverted in %1s.</source>
-        <translation>De instellingen worden over %1 sec. teruggezet.</translation>
-    </message>
-    <message>
         <source>Revert</source>
         <translation type="unfinished">Herstellen</translation>
     </message>
@@ -203,6 +199,14 @@
     <message>
         <source>Check Again</source>
         <translation>Opnieuw controleren</translation>
+    </message>
+    <message>
+        <source>Privacy Policy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To use this software, you must accept the %1 that accompanies software updates.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

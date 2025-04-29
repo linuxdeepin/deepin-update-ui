@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="pl">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="pl">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -23,12 +25,9 @@
         <source>Cancel</source>
         <translation>Anuluj</translation>
     </message>
-</context>
-<context>
-    <name>UpdateHistoryDialog</name>
     <message>
         <source>Exit</source>
-        <translation>Wyjdź</translation>
+        <translation type="unfinished">Wyjdź</translation>
     </message>
 </context>
 <context>
@@ -40,10 +39,6 @@
     <message>
         <source>Settings will be reverted in %1s.</source>
         <translation type="unfinished">Ustawienia zostaną przywrócone za %1s.</translation>
-    </message>
-    <message>
-        <source>Settings will be reverted in %1s.</source>
-        <translation>Ustawienia zostaną przywrócone za %1s.</translation>
     </message>
     <message>
         <source>Revert</source>
@@ -205,6 +200,14 @@
         <source>Check Again</source>
         <translation>Sprawdź ponownie</translation>
     </message>
+    <message>
+        <source>Privacy Policy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To use this software, you must accept the %1 that accompanies software updates.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UpdateSetting</name>
@@ -299,10 +302,6 @@
     <message>
         <source>Click here to complete the application</source>
         <translation>Kliknij tutaj, aby zakończyć aplikacje</translation>
-    </message>
-    <message>
-        <source>Click here to complete the application</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -200,6 +200,14 @@
         <source>Check Again</source>
         <translation>重新检查更新</translation>
     </message>
+    <message>
+        <source>Privacy Policy</source>
+        <translation>《隐私政策》</translation>
+    </message>
+    <message>
+        <source>To use this software, you must accept the %1 that accompanies software updates.</source>
+        <translation>使用此软件需要接受软件更新时附带的%1</translation>
+    </message>
 </context>
 <context>
     <name>UpdateSetting</name>

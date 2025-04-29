@@ -200,6 +200,14 @@
         <source>Check Again</source>
         <translation type="unfinished">Kiểm tra lại</translation>
     </message>
+    <message>
+        <source>Privacy Policy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To use this software, you must accept the %1 that accompanies software updates.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UpdateSetting</name>
