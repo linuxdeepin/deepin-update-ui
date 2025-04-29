@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ca">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="ca">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -32,7 +34,11 @@
     <name>UpdateHistoryDialog</name>
     <message>
         <source>Save the display settings?</source>
-        <translation>Voleu desar els paràmetres de la pantalla?</translation>
+        <translation type="unfinished">Voleu desar els paràmetres de la pantalla?</translation>
+    </message>
+    <message>
+        <source>Settings will be reverted in %1s.</source>
+        <translation type="unfinished">La configuració es revertirà d&apos;aquí a %1 s.</translation>
     </message>
     <message>
         <source>Settings will be reverted in %1s.</source>
@@ -40,11 +46,11 @@
     </message>
     <message>
         <source>Revert</source>
-        <translation>Reveteix</translation>
+        <translation type="unfinished">Reveteix</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Desa</translation>
+        <translation type="unfinished">Desa</translation>
     </message>
 </context>
 <context>

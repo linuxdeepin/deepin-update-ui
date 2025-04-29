@@ -16,14 +16,29 @@
     </message>
 </context>
 <context>
-    <name>UpdateHistory</name>
+    <name>QuitTestingChannelDialog</name>
     <message>
-        <source>Settings will be reverted in %1s.</source>
-        <translation>如无任何操作将在%1秒后还原。</translation>
+        <source>If you exit the beta program, you will no longer receive beta updates.</source>
+        <translation>退出内测您将无法获取内测更新</translation>
     </message>
+    <message>
+        <source>Cancel</source>
+        <translation>取 消</translation>
+    </message>
+    <message>
+        <source>Exit</source>
+        <translation>退 出</translation>
+    </message>
+</context>
+<context>
+    <name>UpdateHistoryDialog</name>
     <message>
         <source>Save the display settings?</source>
         <translation>是否要保存显示设置？</translation>
+    </message>
+    <message>
+        <source>Settings will be reverted in %1s.</source>
+        <translation>如无任何操作将在%1秒后还原。</translation>
     </message>
     <message>
         <source>Revert</source>
@@ -275,6 +290,10 @@
     <message>
         <source>Join the internal testing channel to get deepin latest updates</source>
         <translation>加入deepin内测通道，以获取deepin最新更新内容</translation>
+    </message>
+    <message>
+        <source>Click here to complete the application</source>
+        <translation>点击此处完成内测申请</translation>
     </message>
 </context>
 <context>

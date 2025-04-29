@@ -8,6 +8,7 @@
 #include <QObject>
 #include <QString>
 #include <QLoggingCategory>
+#include <QtQml/qqml.h>
 
 #include <QRegularExpression>
 #include <vector>
@@ -20,6 +21,7 @@ namespace update {
 namespace common {
 
 Q_NAMESPACE
+QML_NAMED_ELEMENT(Common)
 
 const double Epsion = 1e-6;
 const QString SYSTEM_UPGRADE_TYPE_STRING = "system_upgrade";
@@ -102,6 +104,15 @@ enum UiActiveState {
     TrialAuthorized,  // 试用期已授权
     TrialExpired      // 试用期已过期
 };
+
+enum TestingChannelStatus {
+    DeActive,
+    NotJoined,
+    WaitJoined,
+    WaitToLeave,
+    Joined,
+};
+Q_ENUM_NS(TestingChannelStatus)
 
 enum ControlPanelType {
     CPT_Invalid,

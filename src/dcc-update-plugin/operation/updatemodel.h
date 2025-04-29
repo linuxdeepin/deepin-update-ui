@@ -8,7 +8,6 @@
 #include "common.h"
 #include "updatedatastructs.h"
 #include "updateiteminfo.h"
-#include "utils.h"
 #include "mirrorinfolist.h"
 #include "appupdateinfolist.h"
 #include "updatelistmodel.h"
@@ -29,7 +28,8 @@ class UpdateModel : public QObject
     Q_PROPERTY(int lastStatus READ lastStatus  NOTIFY lastStatusChanged FINAL)
 
     // 检查更新页面数据
-    Q_PROPERTY(bool showUpdateCtl READ showUpdateCtl NOTIFY showUpdateCtlChanged FINAL)
+    Q_PROPERTY(bool showCheckUpdate READ showCheckUpdate NOTIFY showCheckUpdateChanged FINAL)
+    Q_PROPERTY(bool needDoCheck READ needDoCheck NOTIFY needDoCheckChanged FINAL)
     Q_PROPERTY(QString checkUpdateIcon READ checkUpdateIcon NOTIFY checkUpdateIconChanged FINAL)
     Q_PROPERTY(double checkUpdateProgress READ checkUpdateProgress NOTIFY checkUpdateProgressChanged FINAL)
     Q_PROPERTY(int checkUpdateStatus READ checkUpdateStatus NOTIFY checkUpdateStatusChanged FINAL)
@@ -78,13 +78,6 @@ public:
     ~UpdateModel();
 
 public:
-    enum TestingChannelStatus {
-        Hidden,
-        NotJoined,
-        WaitJoined,
-        Joined,
-    };
-    Q_ENUM(TestingChannelStatus);
 
     void setSecurityUpdateEnabled(bool enable);
     bool securityUpdateEnabled() const { return m_securityUpdateEnabled; }
@@ -156,7 +149,7 @@ public:
 
     void setHistoryAppInfos(const QList<AppUpdateInfo> &infos);
 
-    bool enterCheckUpdate();
+    Q_INVOKABLE bool enterCheckUpdate();
 
     inline bool updateNotify() { return m_updateNotify; }
 
@@ -183,8 +176,9 @@ public:
 
     QString getMachineID() const;
 
-    void setTestingChannelStatus(const TestingChannelStatus status);
+    void setTestingChannelStatus(TestingChannelStatus status);
     TestingChannelStatus testingChannelStatus() const { return m_testingChannelStatus; }
+
     QString getTestingChannelServer() const { return m_testingChannelServer; }
     void setTestingChannelServer(const QString server);
     void setCanExitTestingChannel(const bool can);
@@ -272,8 +266,11 @@ public:
     
 
     // 检查更新页面数据
-    bool showUpdateCtl() const { return m_showUpdateCtl; }
-    void setShowUpdateCtl(bool newShowUpdateCtl);
+    bool showCheckUpdate() const { return m_showCheckUpdate; }
+    void setShowCheckUpdate(bool value);
+
+    bool needDoCheck() const { return m_needDoCheck; }
+    void setNeedDoCheck(bool value);
 
     QString checkUpdateIcon() const { return m_checkUpdateIcon; }
     void setCheckUpdateIcon(const QString &newCheckUpdateIcon);
@@ -337,6 +334,8 @@ public:
 
     Q_INVOKABLE bool isCommunitySystem() const;
 
+    void updateAvailableState();
+
 public slots:
     void onUpdatePropertiesChanged(const QString &interfaceName,
                                    const QVariantMap &changedProperties,
@@ -365,7 +364,7 @@ Q_SIGNALS:
     void updateHistoryAppInfos();
     void updateNotifyChanged(const bool notify);
     void isUpdatableChanged(const bool isUpdatablePackages);
-    void testingChannelStatusChanged(const TestingChannelStatus status);
+    void testingChannelStatusChanged(TestingChannelStatus status);
     void canExitTestingChannelChanged(const bool can);
     void idleDownloadConfigChanged();
     void updateModeChanged(quint64 updateMode);
@@ -385,7 +384,8 @@ Q_SIGNALS:
     void backupProgressChanged(double progress);
 
     // 检查更新页面数据
-    void showUpdateCtlChanged();
+    void showCheckUpdateChanged();
+    void needDoCheckChanged();
     void checkUpdateIconChanged();
     void checkUpdateProgressChanged();
     void checkUpdateStatusChanged();
@@ -423,7 +423,6 @@ private:
     void setUpdateItemEnabled();
     void initConfig();
     void modifyUpdateStatusByBackupStatus(LastoreDaemonUpdateStatus &);
-    void updateAvailableState();
     void setIsUpdatable(bool isUpdatable);
     void updateWaitingStatus(UpdateType updateType, UpdatesStatus status);
 
@@ -474,7 +473,8 @@ private:
     QString m_baseline;
 
     // 检查更新页面数据
-    bool m_showUpdateCtl;
+    bool m_showCheckUpdate;
+    bool m_needDoCheck;
     QString m_checkUpdateIcon;
     double m_checkUpdateProgress;
     int m_checkUpdateStatus;

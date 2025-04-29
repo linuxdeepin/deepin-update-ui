@@ -16,22 +16,37 @@
     </message>
 </context>
 <context>
-    <name>UpdateHistory</name>
+    <name>QuitTestingChannelDialog</name>
     <message>
-        <source>Settings will be reverted in %1s.</source>
-        <translation>Cài đặt sẽ được khôi phục sau %1s.</translation>
+        <source>If you exit the beta program, you will no longer receive beta updates.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exit</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UpdateHistoryDialog</name>
+    <message>
         <source>Save the display settings?</source>
-        <translation>Lưu cài đặt hiển thị?</translation>
+        <translation type="unfinished">Lưu cài đặt hiển thị?</translation>
+    </message>
+    <message>
+        <source>Settings will be reverted in %1s.</source>
+        <translation type="unfinished">Cài đặt sẽ được khôi phục sau %1s.</translation>
     </message>
     <message>
         <source>Revert</source>
-        <translation>Khôi phục</translation>
+        <translation type="unfinished">Khôi phục</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Lưu</translation>
+        <translation type="unfinished">Lưu</translation>
     </message>
 </context>
 <context>
@@ -274,6 +289,10 @@
     </message>
     <message>
         <source>Join the internal testing channel to get deepin latest updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click here to complete the application</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

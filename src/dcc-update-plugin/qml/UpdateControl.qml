@@ -64,7 +64,6 @@ ColumnLayout {
             Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
             text: actionBtnText
             font.pixelSize: 14
-            textColor: DS.Style.highlightedButton.background1
             visible: actionBtnText.length !== 0
             enabled: updatelistModel.model.isUpdateEnable
             onClicked: {

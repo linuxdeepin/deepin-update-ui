@@ -8,20 +8,16 @@ import org.deepin.dtk 1.0 as D
 
 D.DialogWindow {
     id: root
-    property real screenX: 0
-    property real screenY: 0
-    property real screenWidth: 1920
-    property real screenHeight: 1080
+
+    width: 380
+    icon: "preferences-system"
+    modality: Qt.WindowModal
+    title: qsTr("Save the display settings?")
 
     property string message: qsTr("Settings will be reverted in %1s.")
     property real timeout: 15
     property bool save: false
-    modality: Qt.ApplicationModal
-    width: 380
-    x: screenX + ((screenWidth - width) / 2)
-    y: screenY + ((screenHeight - height) / 2)
-    icon: "preferences-system"
-    title: qsTr("Save the display settings?")
+
     onClosing: {
         destroy(10)
         if (save) {
@@ -36,7 +32,6 @@ D.DialogWindow {
             running: root.visible
             repeat: true
             onTriggered: {
-                root.timeout--
                 if (root.timeout < 1) {
                     close()
                 }

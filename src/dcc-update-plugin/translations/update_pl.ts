@@ -23,6 +23,9 @@
         <source>Cancel</source>
         <translation>Anuluj</translation>
     </message>
+</context>
+<context>
+    <name>UpdateHistoryDialog</name>
     <message>
         <source>Exit</source>
         <translation>Wyjdź</translation>
@@ -32,7 +35,11 @@
     <name>UpdateHistoryDialog</name>
     <message>
         <source>Save the display settings?</source>
-        <translation>Zapisać ustawienia wyświetlania?</translation>
+        <translation type="unfinished">Zapisać ustawienia wyświetlania?</translation>
+    </message>
+    <message>
+        <source>Settings will be reverted in %1s.</source>
+        <translation type="unfinished">Ustawienia zostaną przywrócone za %1s.</translation>
     </message>
     <message>
         <source>Settings will be reverted in %1s.</source>
@@ -40,11 +47,11 @@
     </message>
     <message>
         <source>Revert</source>
-        <translation>Przywróć</translation>
+        <translation type="unfinished">Przywróć</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Zapisz</translation>
+        <translation type="unfinished">Zapisz</translation>
     </message>
 </context>
 <context>
@@ -292,6 +299,10 @@
     <message>
         <source>Click here to complete the application</source>
         <translation>Kliknij tutaj, aby zakończyć aplikacje</translation>
+    </message>
+    <message>
+        <source>Click here to complete the application</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -16,22 +16,37 @@
     </message>
 </context>
 <context>
-    <name>UpdateHistory</name>
+    <name>QuitTestingChannelDialog</name>
     <message>
-        <source>Settings will be reverted in %1s.</source>
-        <translation>Түймөлдөр %1с деңгээлінде анықталуы көбөйүп келет.</translation>
+        <source>If you exit the beta program, you will no longer receive beta updates.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exit</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UpdateHistoryDialog</name>
+    <message>
         <source>Save the display settings?</source>
-        <translation>Жылдыз түймөлдөрүн кеңейтүү</translation>
+        <translation type="unfinished">Жылдыз түймөлдөрүн кеңейтүү</translation>
+    </message>
+    <message>
+        <source>Settings will be reverted in %1s.</source>
+        <translation type="unfinished">Түймөлдөр %1с деңгээлінде анықталуы көбөйүп келет.</translation>
     </message>
     <message>
         <source>Revert</source>
-        <translation>Анықтау</translation>
+        <translation type="unfinished">Анықтау</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Сақтау</translation>
+        <translation type="unfinished">Сақтау</translation>
     </message>
 </context>
 <context>
@@ -274,6 +289,10 @@
     </message>
     <message>
         <source>Join the internal testing channel to get deepin latest updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click here to complete the application</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

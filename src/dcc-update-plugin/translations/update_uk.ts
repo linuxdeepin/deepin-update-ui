@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="uk">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="uk">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -32,7 +34,11 @@
     <name>UpdateHistoryDialog</name>
     <message>
         <source>Save the display settings?</source>
-        <translation>Зберегти налаштування дисплея?</translation>
+        <translation type="unfinished">Зберегти налаштування дисплея?</translation>
+    </message>
+    <message>
+        <source>Settings will be reverted in %1s.</source>
+        <translation type="unfinished">Система повернеться до початкових налаштувань за %1 с.</translation>
     </message>
     <message>
         <source>Settings will be reverted in %1s.</source>
@@ -40,11 +46,11 @@
     </message>
     <message>
         <source>Revert</source>
-        <translation>Повернути</translation>
+        <translation type="unfinished">Повернути</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Зберегти</translation>
+        <translation type="unfinished">Зберегти</translation>
     </message>
 </context>
 <context>

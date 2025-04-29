@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="nl">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="nl">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -32,7 +34,11 @@
     <name>UpdateHistoryDialog</name>
     <message>
         <source>Save the display settings?</source>
-        <translation>Wil je de beeldscherminstellingen opslaan?</translation>
+        <translation type="unfinished">Wil je de beeldscherminstellingen opslaan?</translation>
+    </message>
+    <message>
+        <source>Settings will be reverted in %1s.</source>
+        <translation type="unfinished">De instellingen worden over %1 sec. teruggezet.</translation>
     </message>
     <message>
         <source>Settings will be reverted in %1s.</source>
@@ -40,11 +46,11 @@
     </message>
     <message>
         <source>Revert</source>
-        <translation>Herstellen</translation>
+        <translation type="unfinished">Herstellen</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Opslaan</translation>
+        <translation type="unfinished">Opslaan</translation>
     </message>
 </context>
 <context>

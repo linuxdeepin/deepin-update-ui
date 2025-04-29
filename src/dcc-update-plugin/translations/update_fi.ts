@@ -23,6 +23,9 @@
         <source>Cancel</source>
         <translation type="unfinished"/>
     </message>
+</context>
+<context>
+    <name>UpdateHistoryDialog</name>
     <message>
         <source>Exit</source>
         <translation type="unfinished"/>
@@ -32,19 +35,19 @@
     <name>UpdateHistoryDialog</name>
     <message>
         <source>Save the display settings?</source>
-        <translation type="unfinished"/>
+        <translation>Tallennatko näytön asetukset?</translation>
     </message>
     <message>
         <source>Settings will be reverted in %1s.</source>
-        <translation type="unfinished"/>
+        <translation>Asetukset palautetaan %1s kulttua.</translation>
     </message>
     <message>
         <source>Revert</source>
-        <translation type="unfinished"/>
+        <translation>Palauta</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished"/>
+        <translation>Tallenna</translation>
     </message>
 </context>
 <context>
@@ -292,6 +295,10 @@
     <message>
         <source>Click here to complete the application</source>
         <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Click here to complete the application</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
