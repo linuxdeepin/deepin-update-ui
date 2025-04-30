@@ -86,7 +86,7 @@
     </message>
     <message>
         <source>Insufficient disk space. Please clean up your disk and try again.</source>
-        <translation>Espacio en disco insuficiente. Limpia tu disco e inténtalo de nuevo.</translation>
+        <translation>Espacio en disco insuficiente. Limpie el disco e inténtelo de nuevo.</translation>
     </message>
     <message>
         <source>Failed to connect to backup services. Please check and retry again.</source>
