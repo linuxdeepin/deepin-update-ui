@@ -11,6 +11,7 @@
 #include <QWidget>
 #include <QDebug>
 #include <QMetaEnum>
+#include <QCoreApplication>
 
 using namespace DTK_NAMESPACE::Core;
 
@@ -35,7 +36,7 @@ DConfigWatcher::DConfigWatcher(QObject *parent)
             continue;
         } else {
             m_mapModulesConfig.insert(metaEnum.valueToKey(i), config);
-            connect(config, &DConfig::valueChanged, [&, config](QString key) {
+            connect(config, &DConfig::valueChanged, this, [this, config](QString key) {
                 auto moduleName = m_mapModulesConfig.key(config);
                 int type = QMetaEnum::fromType<ModuleType>().keyToValue(moduleName.toStdString().c_str());
                 onStatusModeChanged(static_cast<ModuleType>(type), key);
@@ -46,8 +47,13 @@ DConfigWatcher::DConfigWatcher(QObject *parent)
 
 DConfigWatcher *DConfigWatcher::instance()
 {
-    static DConfigWatcher w;
-    return &w;
+    static DConfigWatcher *w = nullptr;
+    if (w == nullptr) {
+        w = new DConfigWatcher();
+        w->moveToThread(qApp->thread());
+        w->setParent(qApp);
+    }
+    return w;
 }
 
 /**
