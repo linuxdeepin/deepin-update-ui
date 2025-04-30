@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="uk">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="uk">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -34,19 +32,19 @@
     <name>UpdateHistoryDialog</name>
     <message>
         <source>Save the display settings?</source>
-        <translation type="unfinished">Зберегти налаштування дисплея?</translation>
+        <translation>Зберегти налаштування дисплея?</translation>
     </message>
     <message>
         <source>Settings will be reverted in %1s.</source>
-        <translation type="unfinished">Система повернеться до початкових налаштувань за %1 с.</translation>
+        <translation>Система повернеться до початкових налаштувань за %1 с.</translation>
     </message>
     <message>
         <source>Revert</source>
-        <translation type="unfinished">Повернути</translation>
+        <translation>Повернути</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished">Зберегти</translation>
+        <translation>Зберегти</translation>
     </message>
 </context>
 <context>
@@ -202,11 +200,11 @@
     </message>
     <message>
         <source>Privacy Policy</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>To use this software, you must accept the %1 that accompanies software updates.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
