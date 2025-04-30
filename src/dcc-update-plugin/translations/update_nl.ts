@@ -200,11 +200,11 @@
     </message>
     <message>
         <source>Privacy Policy</source>
-        <translation type="unfinished"/>
+        <translation>Privacybeleid</translation>
     </message>
     <message>
         <source>To use this software, you must accept the %1 that accompanies software updates.</source>
-        <translation type="unfinished"/>
+        <translation>Om deze software te kunnen gebruiken, dien je akkoord te gaan met het %1 omtrent software-updates.</translation>
     </message>
 </context>
 <context>
