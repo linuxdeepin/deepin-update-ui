@@ -200,11 +200,11 @@
     </message>
     <message>
         <source>Privacy Policy</source>
-        <translation type="unfinished"/>
+        <translation>Rregulla Privatësie</translation>
     </message>
     <message>
         <source>To use this software, you must accept the %1 that accompanies software updates.</source>
-        <translation type="unfinished"/>
+        <translation>Që të përdorni këtë software, duhet të pranoni %1 që shoqëron përditësimet e software-it.</translation>
     </message>
 </context>
 <context>
