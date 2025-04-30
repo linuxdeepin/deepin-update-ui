@@ -204,7 +204,7 @@
     </message>
     <message>
         <source>To use this software, you must accept the %1 that accompanies software updates.</source>
-        <translation type="unfinished"/>
+        <translation>Jotta voit käyttää tätä ohjelmistoa, sinun on hyväksyttävä ohjelmistopäivitysten mukana tuleva %1.</translation>
     </message>
 </context>
 <context>
@@ -299,7 +299,7 @@
     </message>
     <message>
         <source>Click here to complete the application</source>
-        <translation type="unfinished"/>
+        <translation>Viimeistele sovellus painamalla</translation>
     </message>
 </context>
 <context>
