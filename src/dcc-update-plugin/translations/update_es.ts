@@ -412,11 +412,11 @@
     </message>
     <message>
         <source>Backup failed</source>
-        <translation type="unfinished"/>
+        <translation>La copia de seguridad falló</translation>
     </message>
     <message>
         <source>Update installation successful</source>
-        <translation type="unfinished"/>
+        <translation>Actualización exitosa</translation>
     </message>
     <message>
         <source>Back Up Again</source>
