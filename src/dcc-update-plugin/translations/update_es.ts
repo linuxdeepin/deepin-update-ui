@@ -380,35 +380,35 @@
     </message>
     <message>
         <source>Installing updates...</source>
-        <translation type="unfinished"/>
+        <translation>Instalando actualizaciones...</translation>
     </message>
     <message>
         <source>Retry</source>
-        <translation type="unfinished"/>
+        <translation>Reintentar</translation>
     </message>
     <message>
         <source>Continue Update</source>
-        <translation type="unfinished"/>
+        <translation>Continuar actualización</translation>
     </message>
     <message>
         <source>Updates Available</source>
-        <translation type="unfinished"/>
+        <translation>Actualizaciones disponibles</translation>
     </message>
     <message>
         <source>Installation update failed</source>
-        <translation type="unfinished"/>
+        <translation>La instalación de la actualización falló</translation>
     </message>
     <message>
         <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
-        <translation type="unfinished"/>
+        <translation>Para garantizar el correcto funcionamiento del sistema y las aplicaciones, reinicie el equipo después de la actualización</translation>
     </message>
     <message>
         <source>Backing up in progress...</source>
-        <translation type="unfinished"/>
+        <translation>Copia de seguridad en progreso...</translation>
     </message>
     <message>
         <source>Backing up in progress</source>
-        <translation type="unfinished"/>
+        <translation>Copia de seguridad en progreso</translation>
     </message>
     <message>
         <source>Backup failed</source>
