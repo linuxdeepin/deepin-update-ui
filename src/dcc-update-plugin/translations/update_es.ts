@@ -420,7 +420,7 @@
     </message>
     <message>
         <source>Back Up Again</source>
-        <translation>Rehacer copia de seguridad</translation>
+        <translation>Respaldar nuevamente</translation>
     </message>
 </context>
 </TS>
