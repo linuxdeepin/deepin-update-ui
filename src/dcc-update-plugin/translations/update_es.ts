@@ -360,23 +360,23 @@
     </message>
     <message>
         <source>Downloading updates...</source>
-        <translation type="unfinished"/>
+        <translation>Descargando actualizaciones...</translation>
     </message>
     <message>
         <source>Downloading</source>
-        <translation type="unfinished"/>
+        <translation>Descargando</translation>
     </message>
     <message>
         <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
-        <translation type="unfinished"/>
+        <translation>Ajustes de actualizaciones, actualizaciones de seguridad, descarga automática y notificación</translation>
     </message>
     <message>
         <source>Reboot now</source>
-        <translation type="unfinished"/>
+        <translation>Reiniciar ahora</translation>
     </message>
     <message>
         <source>Download</source>
-        <translation type="unfinished"/>
+        <translation>Descargar</translation>
     </message>
     <message>
         <source>Installing updates...</source>
