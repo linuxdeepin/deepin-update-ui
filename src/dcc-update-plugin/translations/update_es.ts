@@ -255,11 +255,11 @@
     </message>
     <message>
         <source>Enabling &quot;Auto Download Updates&quot; will automatically download updates when connected to the internet</source>
-        <translation type="unfinished"/>
+        <translation>Al activar la descarga automática de actualizaciones, se descargarán automáticamente cuando esté conectado a Internet</translation>
     </message>
     <message>
         <source>Download when Inactive</source>
-        <translation type="unfinished"/>
+        <translation>Descargar cuando está inactivo</translation>
     </message>
     <message>
         <source>Start at</source>
