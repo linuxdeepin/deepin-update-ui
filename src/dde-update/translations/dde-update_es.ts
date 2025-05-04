@@ -106,7 +106,7 @@
     </message>
     <message>
         <source>Back Up Again</source>
-        <translation>Respaldar datos nuevamente</translation>
+        <translation>Respaldar nuevamente</translation>
     </message>
     <message>
         <source>Abort</source>
