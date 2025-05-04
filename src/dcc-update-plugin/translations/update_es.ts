@@ -263,39 +263,39 @@
     </message>
     <message>
         <source>Start at</source>
-        <translation type="unfinished"/>
+        <translation>Inicia</translation>
     </message>
     <message>
         <source>End at</source>
-        <translation type="unfinished"/>
+        <translation>Finaliza</translation>
     </message>
     <message>
         <source>Advanced Settings</source>
-        <translation type="unfinished"/>
+        <translation>Ajustes avanzados</translation>
     </message>
     <message>
         <source>Updates Notification</source>
-        <translation type="unfinished"/>
+        <translation>Notificación de actualizaciones</translation>
     </message>
     <message>
         <source>Clear Package Cache</source>
-        <translation type="unfinished"/>
+        <translation>Borrar caché de paquetes</translation>
     </message>
     <message>
         <source>Update History</source>
-        <translation type="unfinished"/>
+        <translation>Historial de actualizaciones</translation>
     </message>
     <message>
         <source>View</source>
-        <translation type="unfinished"/>
+        <translation>Ver</translation>
     </message>
     <message>
         <source>Join Internal Testing Channel</source>
-        <translation type="unfinished"/>
+        <translation>Unirse al canal de pruebas internas (versión inestable)</translation>
     </message>
     <message>
         <source>Join the internal testing channel to get deepin latest updates</source>
-        <translation type="unfinished"/>
+        <translation>Únase al canal de pruebas internas para probar las últimas actualizaciones de Deepin</translation>
     </message>
     <message>
         <source>Click here to complete the application</source>
