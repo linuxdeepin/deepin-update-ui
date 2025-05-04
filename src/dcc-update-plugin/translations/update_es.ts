@@ -420,7 +420,7 @@
     </message>
     <message>
         <source>Back Up Again</source>
-        <translation type="unfinished"/>
+        <translation>Rehacer copia de seguridad</translation>
     </message>
 </context>
 </TS>
