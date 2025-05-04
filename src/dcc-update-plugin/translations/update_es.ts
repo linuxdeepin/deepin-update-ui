@@ -219,23 +219,23 @@
     </message>
     <message>
         <source>Function Updates</source>
-        <translation type="unfinished"/>
+        <translation>Actualización de funciones</translation>
     </message>
     <message>
         <source>Delivers a cumulative update including new features, quality updates, and  security updates</source>
-        <translation type="unfinished"/>
+        <translation>Ofrece una actualización acumulativa que incluye nuevas funciones, actualizaciones de calidad y seguridad</translation>
     </message>
     <message>
         <source>Security Updates</source>
-        <translation type="unfinished"/>
+        <translation>Actualizaciones de seguridad</translation>
     </message>
     <message>
         <source>Delivers security updates</source>
-        <translation type="unfinished"/>
+        <translation>Ofrece actualizaciones de seguridad</translation>
     </message>
     <message>
         <source>Third-party Updates</source>
-        <translation type="unfinished"/>
+        <translation>Actualizaciones de terceros</translation>
     </message>
     <message>
         <source>Delivers  updates for additional repository sources</source>
