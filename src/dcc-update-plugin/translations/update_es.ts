@@ -299,7 +299,7 @@
     </message>
     <message>
         <source>Click here to complete the application</source>
-        <translation type="unfinished"/>
+        <translation>Haga clic aquí para completar la solicitud</translation>
     </message>
 </context>
 <context>
@@ -325,38 +325,38 @@
     <name>update</name>
     <message>
         <source>System Update</source>
-        <translation type="unfinished"/>
+        <translation>Actualización del sistema</translation>
     </message>
     <message>
         <source>System update and upgrade</source>
-        <translation type="unfinished"/>
+        <translation>Actualización y mejora del sistema</translation>
     </message>
 </context>
 <context>
     <name>updateMain</name>
     <message>
         <source>Update Settings</source>
-        <translation type="unfinished"/>
+        <translation>Ajustes de actualización</translation>
     </message>
     <message>
         <source>Installing</source>
-        <translation type="unfinished"/>
+        <translation>Instalando</translation>
     </message>
     <message>
         <source>Update download completed</source>
-        <translation type="unfinished"/>
+        <translation>Descarga de actualización completada</translation>
     </message>
     <message>
         <source>Install updates</source>
-        <translation type="unfinished"/>
+        <translation>Instalar actualizaciones</translation>
     </message>
     <message>
         <source>Update size: </source>
-        <translation type="unfinished"/>
+        <translation>Tamaño de la actualización: </translation>
     </message>
     <message>
         <source>Update download failed</source>
-        <translation type="unfinished"/>
+        <translation>La descarga de la actualización falló</translation>
     </message>
     <message>
         <source>Downloading updates...</source>
