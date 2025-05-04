@@ -200,11 +200,11 @@
     </message>
     <message>
         <source>Privacy Policy</source>
-        <translation type="unfinished"/>
+        <translation>Правила конфіденційності</translation>
     </message>
     <message>
         <source>To use this software, you must accept the %1 that accompanies software updates.</source>
-        <translation type="unfinished"/>
+        <translation>Щоб користуватися програмним забезпеченням, вам слід погодитися із %1, яка є супутньою до оновлень програмного забезпечення.</translation>
     </message>
 </context>
 <context>
