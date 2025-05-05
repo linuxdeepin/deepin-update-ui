@@ -44,11 +44,11 @@
     </message>
     <message>
         <source>Your computer will reboot soon %1</source>
-        <translation>Su computadora se reiniciará pronto %1</translation>
+        <translation>Su equipo se reiniciará pronto %1</translation>
     </message>
     <message>
         <source>Your computer will be turned off soon %1</source>
-        <translation>Su computadora se apagará pronto %1</translation>
+        <translation>Su equipo se apagará pronto %1</translation>
     </message>
     <message>
         <source>The automatic reboot process has failed. Please try to manually reboot your device.</source>
