@@ -70,7 +70,7 @@
     <name>UpdateModel</name>
     <message>
         <source>Update failed</source>
-        <translation>Actualización fallida</translation>
+        <translation>La actualización falló</translation>
     </message>
     <message>
         <source>Unknown error</source>
@@ -78,7 +78,7 @@
     </message>
     <message>
         <source>Backup failed</source>
-        <translation>Copia de seguridad fallida</translation>
+        <translation>La copia de seguridad falló</translation>
     </message>
     <message>
         <source>Unable to perform system backup. If you continue the updates, you cannot roll back to the old system later.</source>
