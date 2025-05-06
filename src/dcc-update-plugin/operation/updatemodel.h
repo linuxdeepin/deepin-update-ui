@@ -14,20 +14,16 @@
 
 #include <QJsonDocument>
 #include <QObject>
-
 #include <DConfig>
-
 
 class UpdateModel : public QObject
 {
     Q_OBJECT
 
-    // 系统激活状态
     Q_PROPERTY(bool systemActivation READ systemActivation WRITE setSystemActivation NOTIFY systemActivationChanged FINAL)
-
     Q_PROPERTY(int lastStatus READ lastStatus  NOTIFY lastStatusChanged FINAL)
 
-    // 检查更新页面数据
+    // ---------------检查更新页面数据---------------
     Q_PROPERTY(bool showCheckUpdate READ showCheckUpdate NOTIFY showCheckUpdateChanged FINAL)
     Q_PROPERTY(bool needDoCheck READ needDoCheck NOTIFY needDoCheckChanged FINAL)
     Q_PROPERTY(QString checkUpdateIcon READ checkUpdateIcon NOTIFY checkUpdateIconChanged FINAL)
@@ -37,30 +33,32 @@ class UpdateModel : public QObject
     Q_PROPERTY(QString checkBtnText READ checkBtnText NOTIFY checkBtnTextChanged FINAL)
     Q_PROPERTY(QString lastCheckUpdateTime READ lastCheckUpdateTime NOTIFY lastCheckUpdateTimeChanged FINAL)
 
-    Q_PROPERTY(double downloadProgress READ downloadProgress NOTIFY downloadProgressChanged FINAL)
-    Q_PROPERTY(double distUpgradeProgress READ distUpgradeProgress NOTIFY distUpgradeProgressChanged FINAL)
-    Q_PROPERTY(double backupProgress READ backupProgress NOTIFY backupProgressChanged FINAL)
-
-    Q_PROPERTY(UpdateListModel *preUpdatelistModel READ preUpdatelistModel  NOTIFY preUpdatelistModelChanged FINAL)
-    Q_PROPERTY(QString preUpdateTips READ preUpdateTips WRITE setPreUpdateTips NOTIFY preUpdateTipsChanged FINAL)
+    // ---------------下载、备份、安装列表数据---------------
+    Q_PROPERTY(UpdateListModel *preUpdatelistModel READ preUpdatelistModel NOTIFY preUpdatelistModelChanged FINAL)
+    Q_PROPERTY(UpdateListModel *downloadinglistModel READ downloadinglistModel NOTIFY downloadinglistModelChanged FINAL)
+    Q_PROPERTY(UpdateListModel *downloadFailedListModel READ downloadFailedListModel NOTIFY downloadFailedListModelChanged FINAL)
     Q_PROPERTY(UpdateListModel *preInstallListModel READ preInstallListModel NOTIFY preInstallListModelChanged FINAL)
     Q_PROPERTY(UpdateListModel *installinglistModel READ installinglistModel NOTIFY installinglistModelChanged FINAL)
-    Q_PROPERTY(UpdateListModel *installCompleteListModel READ installCompleteListModel  NOTIFY installCompleteListModelChanged FINAL)
-    Q_PROPERTY(UpdateListModel *installFailedListModel READ installFailedListModel  NOTIFY installFailedListModelChanged FINAL)
-    Q_PROPERTY(UpdateListModel *downloadFailedListModel READ downloadFailedListModel  NOTIFY downloadFailedListModelChanged FINAL)
-    Q_PROPERTY(UpdateListModel *downloadinglistModel READ downloadinglistModel NOTIFY downloadinglistModelChanged FINAL)
+    Q_PROPERTY(UpdateListModel *installCompleteListModel READ installCompleteListModel NOTIFY installCompleteListModelChanged FINAL)
+    Q_PROPERTY(UpdateListModel *installFailedListModel READ installFailedListModel NOTIFY installFailedListModelChanged FINAL)
     Q_PROPERTY(UpdateListModel *backingUpListModel READ backingUpListModel NOTIFY backingUpListModelChanged FINAL)
-    Q_PROPERTY(UpdateListModel *backupFailedListModel READ backupFailedListModel NOTIFY backupFailedListModelChanged FINAL)
+    Q_PROPERTY(UpdateListModel *backupFailedListModel READ backupFailedListModel NOTIFY backupFailedListModelChanged FINAL)    
+
+    Q_PROPERTY(double downloadProgress READ downloadProgress NOTIFY downloadProgressChanged FINAL)
+    Q_PROPERTY(double backupProgress READ backupProgress NOTIFY backupProgressChanged FINAL)
+    Q_PROPERTY(double distUpgradeProgress READ distUpgradeProgress NOTIFY distUpgradeProgressChanged FINAL)
+
+    Q_PROPERTY(QString preUpdateTips READ preUpdateTips WRITE setPreUpdateTips NOTIFY preUpdateTipsChanged FINAL)
     Q_PROPERTY(QString downloadFailedTips READ downloadFailedTips NOTIFY downloadFailedTipsChanged FINAL)
     Q_PROPERTY(QString installFailedTips READ installFailedTips NOTIFY installFailedTipsChanged FINAL)
     Q_PROPERTY(QString backUpFailedTips READ backupFailedTips NOTIFY backupFailedTipsChanged FINAL)
 
-    // 更新设置页面数据
+    // ---------------更新设置页面数据---------------
     Q_PROPERTY(bool securityUpdateEnabled READ securityUpdateEnabled WRITE setSecurityUpdateEnabled NOTIFY securityUpdateEnabledChanged FINAL)
     Q_PROPERTY(bool thirdPartyUpdateEnabled READ thirdPartyUpdateEnabled WRITE setThirdPartyUpdateEnabled NOTIFY thirdPartyUpdateEnabledChanged FINAL)
-    Q_PROPERTY(bool functionUpdate READ functionUpdate NOTIFY functionUpdateChanged FINAL)
-    Q_PROPERTY(bool securityUpdate READ securityUpdate NOTIFY securityUpdateChanged FINAL)
-    Q_PROPERTY(bool thirdPartyUpdate READ thirdPartyUpdate NOTIFY thirdPartyUpdateChanged FINAL)
+    Q_PROPERTY(bool functionUpdate READ functionUpdate NOTIFY updateModeChanged FINAL)
+    Q_PROPERTY(bool securityUpdate READ securityUpdate NOTIFY updateModeChanged FINAL)
+    Q_PROPERTY(bool thirdPartyUpdate READ thirdPartyUpdate NOTIFY updateModeChanged FINAL)
     Q_PROPERTY(bool downloadSpeedLimitEnabled READ downloadSpeedLimitEnabled NOTIFY downloadSpeedLimitConfigChanged FINAL)
     Q_PROPERTY(QString downloadSpeedLimitSize READ downloadSpeedLimitSize NOTIFY downloadSpeedLimitConfigChanged FINAL)
     Q_PROPERTY(bool autoDownloadUpdates READ autoDownloadUpdates WRITE setAutoDownloadUpdates NOTIFY autoDownloadUpdatesChanged FINAL)
@@ -78,194 +76,21 @@ public:
     ~UpdateModel();
 
 public:
+    void initConfig();
 
-    void setSecurityUpdateEnabled(bool enable);
-    bool securityUpdateEnabled() const { return m_securityUpdateEnabled; }
-
-    void setThirdPartyUpdateEnabled(bool enable);
-    bool thirdPartyUpdateEnabled() const { return m_thirdPartyUpdateEnabled; }
-
-    bool functionUpdate() const { return m_functionUpdate; }
-    bool securityUpdate() const { return m_securityUpdate; }
-    bool thirdPartyUpdate() const { return m_thirdPartyUpdate; }
-
-    void setUpdateType(quint64 updateMode);
-
-    void setMirrorInfos(const MirrorInfoList& list);
-    MirrorInfoList mirrorInfos() const { return m_mirrorList; }
-
-    int lastStatus() const { return m_lastStatus; }
-
-    void setLastStatus(const UpdatesStatus &status, int line, int types = 0);
-
-    MirrorInfo defaultMirror() const;
-    void setDefaultMirror(const QString &mirrorId);
-
-    QMap<UpdateType, UpdateItemInfo *> allDownloadInfo() const { return m_allUpdateInfos; }
-
-    UpdateItemInfo *updateItemInfo(UpdateType type) const { return m_allUpdateInfos.value(type); }
-
-    QMap<QString, int> mirrorSpeedInfo() const { return m_mirrorSpeedInfo; }
-
-    void setMirrorSpeedInfo(const QMap<QString, int> &mirrorSpeedInfo);
-
-    bool autoDownloadUpdates() const { return m_autoDownloadUpdates; }
-
-    void setAutoDownloadUpdates(bool autoDownloadUpdates);
-
-    bool autoCleanCache() const { return m_autoCleanCache; }
-
-    void setAutoCleanCache(bool autoCleanCache);
-
-
-#ifndef DISABLE_SYS_UPDATE_SOURCE_CHECK
-    bool sourceCheck() const { return m_sourceCheck; }
-
-    void setSourceCheck(bool sourceCheck);
-#endif
-
-    bool netselectExist() const { return m_netselectExist; }
-
-    void setNetselectExist(bool netselectExist);
-
-    inline quint64 updateMode() const { return m_updateMode; }
-
-    void setUpdateMode(quint64 updateMode);
-
-    bool smartMirrorSwitch() const { return m_smartMirrorSwitch; }
-
-    void setSmartMirrorSwitch(bool smartMirrorSwitch);
-
-    inline QString systemVersionInfo() const { return m_systemVersionInfo; }
-
-    void setSystemVersionInfo(const QString &systemVersionInfo);
-
-    inline bool systemActivation() const { return m_systemActivation; }
+    bool systemActivation() const { return m_systemActivation; }
     void setSystemActivation(bool systemActivation);
 
-    bool isUpdatable() const { return m_isUpdatable; }
-
-    const QList<AppUpdateInfo> &historyAppInfos() const { return m_historyAppInfos; }
-
-    void setHistoryAppInfos(const QList<AppUpdateInfo> &infos);
-
-    Q_INVOKABLE bool enterCheckUpdate();
-
-    inline bool updateNotify() { return m_updateNotify; }
-
-    void setUpdateNotify(const bool notify);
-
-    void deleteUpdateInfo(UpdateItemInfo *updateItemInfo);
-
-    void addUpdateInfo(UpdateItemInfo *info);
-
-    QMap<UpdateType, UpdateItemInfo *> getAllUpdateInfos() const { return m_allUpdateInfos; }
-
-    void setLastError(UpdatesStatus status, UpdateErrorType errorType);
-
-    UpdateErrorType lastError(UpdatesStatus status) { return m_errorMap.value(status, NoError); }
-
-    static QString errorToText(UpdateErrorType error);
-
-    void setIdleDownloadConfig(const IdleDownloadConfig &config);
-
-    inline IdleDownloadConfig idleDownloadConfig() const { return m_idleDownloadConfig; }
-    bool idleDownloadEnabled() const;
-    int beginTime() const;
-    int endTime() const;
-
-    QString getMachineID() const;
-
-    void setTestingChannelStatus(TestingChannelStatus status);
-    TestingChannelStatus testingChannelStatus() const { return m_testingChannelStatus; }
-
-    QString getTestingChannelServer() const { return m_testingChannelServer; }
-    void setTestingChannelServer(const QString server);
-    void setCanExitTestingChannel(const bool can);
-
-    qlonglong downloadSize(int updateTypes) const;
-
-    void setSpeedLimitConfig(const QByteArray &config);
-    DownloadSpeedLimitConfig speedLimitConfig() const;
-    bool downloadSpeedLimitEnabled() const;
-    QString downloadSpeedLimitSize() const;
-
-    void setDownloadProgress(double downloadProgress);
-
-    double downloadProgress() const { return m_downloadProgress; }
-
+    int lastoreDaemonStatus() const { return m_lastoreDeamonStatus; }
     void setLastoreDaemonStatus(int status);
 
-    int lastoreDaemonStatus() const { return m_lastoreDeamonStatus; }
-
-    bool isUpdateToDate() const;
-
-    void resetDownloadInfo();
-
-    void refreshUpdateStatus();
-    void setUpdateStatus(const QByteArray &status);
-
-    void setCheckUpdateMode(int value);
-
-    int checkUpdateMode() const { return m_checkUpdateMode; }
-
-    void setDistUpgradeProgress(double progress);
-
-    double distUpgradeProgress() const { return m_distUpgradeProgress; }
-
-    void setBackupProgress(double progress);
-
-    double backupProgress() const { return m_backupProgress; }
-
-    UpdatesStatus updateStatus(ControlPanelType type) const;
-    UpdatesStatus updateStatus(UpdateType type) const;
-    QList<UpdateType> updateTypesList(ControlPanelType type) const;
-    int updateTypes(ControlPanelType type) const;
-
-    QList<ControlPanelType> controlTypes() const { return m_controlStatusMap.keys(); }
-
-    QList<UpdatesStatus> allUpdateStatus() const;
-
-    QMap<UpdatesStatus, int> allWaitingStatus() const { return m_waitingStatusMap; };
-
-    void updatePackages(const QMap<QString, QStringList> &packages);
-
+    bool batterIsOK() const { return m_batterIsOK; }
     void setBatterIsOK(bool ok);
 
-    bool batterIsOK() const { return m_batterIsOK; }
+    int lastStatus() const { return m_lastStatus; }
+    void setLastStatus(const UpdatesStatus &status, int line, int types = 0);    
 
-    void setShowVersion(const QString &showVersion);
-
-    QString showVersion() const { return m_showVersion; }
-
-    void setBaseline(const QString &baseline);
-
-    inline QString baseline() const { return m_baseline; }
-
-    LastoreDaemonUpdateStatus getLastoreDaemonStatus()
-    {
-        return LastoreDaemonUpdateStatus::fromJson(m_updateStatus);
-    };
-
-    void setLastErrorLog(UpdatesStatus status, const QString &description)
-    {
-        m_descriptionMap.insert(status, description);
-    }
-
-    QString lastErrorLog(UpdatesStatus status) const { return m_descriptionMap.value(status, ""); }
-
-    void setP2PUpdateEnabled(bool enabled);
-
-    bool isP2PUpdateEnabled() const { return m_p2pUpdateEnabled; }
-
-    static bool isSupportedUpdateType(UpdateType type);
-    static QList<UpdateType> getSupportUpdateTypes(int updateTypes);
-    static QList<UpdatesStatus> getSupportUpdateTypes(ControlPanelType type);
-    static ControlPanelType getControlPanelType(UpdatesStatus status);
-    static QString updateErrorToString(UpdateErrorType error);
-    
-
-    // 检查更新页面数据
+    // ---------------检查更新页面数据---------------
     bool showCheckUpdate() const { return m_showCheckUpdate; }
     void setShowCheckUpdate(bool value);
 
@@ -277,10 +102,10 @@ public:
 
     double checkUpdateProgress() const { return m_checkUpdateProgress; }
     void setCheckUpdateProgress(double updateProgress);
-    void updateCheckUpdateUi();
 
     int checkUpdateStatus() const { return m_checkUpdateStatus; }
     void setCheckUpdateStatus(int newCheckUpdateStatus);
+    void updateCheckUpdateUi();
 
     QString checkUpdateErrTips() const { return m_checkUpdateErrTips; }
     void setCheckUpdateErrTips(const QString &newCheckUpdateErrTips);
@@ -291,52 +116,164 @@ public:
     QString lastCheckUpdateTime() const { return m_lastCheckUpdateTime; }
     void setLastCheckUpdateTime(const QString &lastTime);
 
-    void refreshUpdateUiModel();
+    int checkUpdateMode() const { return m_checkUpdateMode; }
+    void setCheckUpdateMode(int value);
 
-    UpdateListModel *preUpdatelistModel() const;
+
+    // ---------------下载、备份、安装列表数据---------------
+    UpdateListModel *preUpdatelistModel() const { return m_preUpdatelistModel; }
     void setPreUpdatelistModel(UpdateListModel *newPreUpdatelistModel);
 
-    QString preUpdateTips() const;
-    void setPreUpdateTips(const QString &newPreUpdateTips);
-
-    UpdateListModel *preInstallListModel() const;
-    void setPreInstallListModel(UpdateListModel *newPreInstallListModel);
-
-    UpdateListModel *installinglistModel() const;
-    void setInstallinglistModel(UpdateListModel *newInstallinglistModel);
-
-    UpdateListModel *installCompleteListModel() const;
-    void setInstallCompleteListModel(UpdateListModel *newInstallCompleteListModel);
-
-    UpdateListModel *installFailedListModel() const;
-    void setInstallFailedListModel(UpdateListModel *newInstallFailedListModel);
-
-    UpdateListModel *downloadFailedListModel() const;
-    void setDownloadFailedListModel(UpdateListModel *newDownloadFailedListModel);
-
-    UpdateListModel *downloadinglistModel() const;
+    UpdateListModel *downloadinglistModel() const { return m_downloadinglistModel; }
     void setDownloadinglistModel(UpdateListModel *newDownloadinglistModel);
 
-    UpdateListModel *backingUpListModel() const;
+    UpdateListModel *downloadFailedListModel() const { return m_downloadFailedListModel; }
+    void setDownloadFailedListModel(UpdateListModel *newDownloadFailedListModel);
+
+    UpdateListModel *preInstallListModel() const { return m_preInstallListModel; }
+    void setPreInstallListModel(UpdateListModel *newPreInstallListModel);
+
+    UpdateListModel *installinglistModel() const { return m_installinglistModel; }
+    void setInstallinglistModel(UpdateListModel *newInstallinglistModel);
+
+    UpdateListModel *installCompleteListModel() const { return m_installCompleteListModel; }
+    void setInstallCompleteListModel(UpdateListModel *newInstallCompleteListModel);
+
+    UpdateListModel *installFailedListModel() const { return m_installFailedListModel; }
+    void setInstallFailedListModel(UpdateListModel *newInstallFailedListModel);
+
+    UpdateListModel *backingUpListModel() const { return m_backingUpListModel; }
     void setBackingUpListModel(UpdateListModel *newBackingUpListModel);
 
-    UpdateListModel *backupFailedListModel() const;
+    UpdateListModel *backupFailedListModel() const { return m_backupFailedListModel; }
     void setBackupFailedListModel(UpdateListModel *newBackupFailedListModel);
 
-    QString downloadFailedTips() const;
+    double downloadProgress() const { return m_downloadProgress; }
+    void setDownloadProgress(double downloadProgress);
+
+    double distUpgradeProgress() const { return m_distUpgradeProgress; }
+    void setDistUpgradeProgress(double progress);
+
+    double backupProgress() const { return m_backupProgress; }
+    void setBackupProgress(double progress);
+
+    QString preUpdateTips() const { return m_preUpdateTips; }
+    void setPreUpdateTips(const QString &newPreUpdateTips);
+
+    QString downloadFailedTips() const { return m_downloadFailedTips; }
     void setDownloadFailedTips(const QString &newDownloadFailedTips);
 
-    QString installFailedTips() const;
+    QString installFailedTips() const { return m_installFailedTips; }
     void setInstallFailedTips(const QString &newInstallFailedTips);
 
-    QString backupFailedTips() const;
+    QString backupFailedTips() const { return m_backupFailedTips; }
     void setBackupFailedTips(const QString &newBackupFailedTips);
 
-    Q_INVOKABLE bool isCommunitySystem() const;
+    QMap<UpdateType, UpdateItemInfo *> getAllUpdateInfos() const { return m_allUpdateInfos; }
+    UpdateItemInfo *updateItemInfo(UpdateType type) const { return m_allUpdateInfos.value(type); }
+    void addUpdateInfo(UpdateItemInfo *info);
+    void deleteUpdateInfo(UpdateItemInfo *updateItemInfo);
+    void resetDownloadInfo();
+    void updatePackages(const QMap<QString, QStringList> &packages);
 
+    static QString errorToText(UpdateErrorType error);
+    UpdateErrorType lastError(UpdatesStatus status) { return m_errorMap.value(status, NoError); }
+    void setLastError(UpdatesStatus status, UpdateErrorType errorType);
+    QString lastErrorLog(UpdatesStatus status) const { return m_descriptionMap.value(status, ""); }
+    void setLastErrorLog(UpdatesStatus status, const QString &description);
+
+    static ControlPanelType getControlPanelType(UpdatesStatus status);
+    static QString updateErrorToString(UpdateErrorType error);
+
+    void setUpdateStatus(const QByteArray &status);
+    void refreshUpdateStatus();
+    void refreshUpdateUiModel();
     void updateAvailableState();
+    void modifyUpdateStatusByBackupStatus(LastoreDaemonUpdateStatus &);
+    void updateWaitingStatus(UpdateType updateType, UpdatesStatus status);
 
+    bool isUpdatable() const { return m_isUpdatable; }
+    void setIsUpdatable(bool isUpdatable);
+
+    UpdatesStatus updateStatus(ControlPanelType type) const;
+    UpdatesStatus updateStatus(UpdateType type) const;
+    QList<UpdateType> updateTypesList(ControlPanelType type) const;
+    int updateTypes(ControlPanelType type) const;
+    QList<UpdatesStatus> allUpdateStatus() const;
+    QMap<UpdatesStatus, int> allWaitingStatus() const { return m_waitingStatusMap; };
+
+
+    // ---------------更新设置页面数据---------------
+    bool securityUpdateEnabled() const { return m_securityUpdateEnabled; }
+    void setSecurityUpdateEnabled(bool enable);
+
+    bool thirdPartyUpdateEnabled() const { return m_thirdPartyUpdateEnabled; }
+    void setThirdPartyUpdateEnabled(bool enable);
+
+    bool functionUpdate() const;
+    bool securityUpdate() const;
+    bool thirdPartyUpdate() const;
+    quint64 updateMode() const { return m_updateMode; }
+    void setUpdateMode(quint64 updateMode);
+    void setUpdateItemEnabled();
+
+    bool downloadSpeedLimitEnabled() const;
+    QString downloadSpeedLimitSize() const;
+    DownloadSpeedLimitConfig speedLimitConfig() const;
+    void setSpeedLimitConfig(const QByteArray &config);
+
+    bool autoDownloadUpdates() const { return m_autoDownloadUpdates; }
+    void setAutoDownloadUpdates(bool autoDownloadUpdates);
+
+    bool idleDownloadEnabled() const;
+    int beginTime() const;
+    int endTime() const;
+    IdleDownloadConfig idleDownloadConfig() const { return m_idleDownloadConfig; }
+    void setIdleDownloadConfig(const IdleDownloadConfig &config);
+
+    bool updateNotify() { return m_updateNotify; }
+    void setUpdateNotify(const bool notify);
+
+    bool autoCleanCache() const { return m_autoCleanCache; }
+    void setAutoCleanCache(bool autoCleanCache);
+
+    const QList<AppUpdateInfo> &historyAppInfos() const { return m_historyAppInfos; }
+    void setHistoryAppInfos(const QList<AppUpdateInfo> &infos);
+
+    bool smartMirrorSwitch() const { return m_smartMirrorSwitch; }
+    void setSmartMirrorSwitch(bool smartMirrorSwitch);
+
+    MirrorInfoList mirrorInfos() const { return m_mirrorList; }
+    void setMirrorInfos(const MirrorInfoList& list);
+
+    MirrorInfo defaultMirror() const;
+    void setDefaultMirror(const QString &mirrorId);
+    
+    QMap<QString, int> mirrorSpeedInfo() const { return m_mirrorSpeedInfo; }
+    void setMirrorSpeedInfo(const QMap<QString, int> &mirrorSpeedInfo);
+
+    bool netselectExist() const { return m_netselectExist; }
+    void setNetselectExist(bool netselectExist);
+
+    TestingChannelStatus testingChannelStatus() const { return m_testingChannelStatus; }
+    void setTestingChannelStatus(TestingChannelStatus status);
+
+    QString systemVersionInfo() const { return m_systemVersionInfo; }
+    void setSystemVersionInfo(const QString &systemVersionInfo);
+
+    QString showVersion() const { return m_showVersion; }
+    void setShowVersion(const QString &showVersion);
+
+    QString baseline() const { return m_baseline; }
+    void setBaseline(const QString &baseline);
+
+    bool isP2PUpdateEnabled() const { return m_p2pUpdateEnabled; }
+    void setP2PUpdateEnabled(bool enabled);
+
+
+    Q_INVOKABLE bool isCommunitySystem() const;
     Q_INVOKABLE QString privacyAgreementText() const;
+
 
 public slots:
     void onUpdatePropertiesChanged(const QString &interfaceName,
@@ -344,46 +281,10 @@ public slots:
                                    const QStringList &invalidatedProperties);
 
 Q_SIGNALS:
-    void securityUpdateEnabledChanged(bool enable);
-    void thirdPartyUpdateEnabledChanged(bool enable);
-    void functionUpdateChanged(bool update);
-    void securityUpdateChanged(bool update);
-    void thirdPartyUpdateChanged(bool update);
-    void autoDownloadUpdatesChanged(bool autoDownloadUpdates);
-    void defaultMirrorChanged(const MirrorInfo& mirror);
-    void smartMirrorSwitchChanged(bool smartMirrorSwitch);
-    void lastStatusChanged(int status);
-    void notifyDownloadSizeChanged();
-#ifndef DISABLE_SYS_UPDATE_SOURCE_CHECK
-    void sourceCheckChanged(bool sourceCheck);
-#endif
-    void mirrorSpeedInfoAvailable(const QMap<QString, int> &mirrorSpeedInfo);
-    void autoCleanCacheChanged(const bool autoCleanCache);
-    void netselectExistChanged(const bool netselectExist);
-    void systemVersionChanged(QString version);
     void systemActivationChanged(bool systemActivation);
-    void beginCheckUpdate();
-    void updateHistoryAppInfos();
-    void updateNotifyChanged(const bool notify);
-    void isUpdatableChanged(const bool isUpdatablePackages);
-    void testingChannelStatusChanged(TestingChannelStatus status);
-    void canExitTestingChannelChanged(const bool can);
-    void idleDownloadConfigChanged();
-    void updateModeChanged(quint64 updateMode);
-    void downloadSpeedLimitConfigChanged();
-    void downloadProgressChanged(const double &progress);
     void lastoreDaemonStatusChanged(int status);
-    void checkUpdateModeChanged(int);
-    void updateInfoChanged(UpdateType);
-    void distUpgradeProgressChanged(double progress);
-    void updateStatusChanged(ControlPanelType, UpdatesStatus);
-    void controlTypeChanged();
-    void lastErrorChanged(UpdatesStatus, UpdateErrorType);
     void batterStatusChanged(bool isOK);
-    void notifyBackupSuccess();
-    void p2pUpdateEnableStateChanged(bool enabled);
-    void baselineChanged(const QString &baseline);
-    void backupProgressChanged(double progress);
+    void lastStatusChanged(int status);
 
     // 检查更新页面数据
     void showCheckUpdateChanged();
@@ -394,85 +295,60 @@ Q_SIGNALS:
     void checkUpdateErrTipsChanged();
     void checkBtnTextChanged();
     void lastCheckUpdateTimeChanged();
+    void checkUpdateModeChanged(int);
 
+    // 下载、备份、安装列表数据
     void preUpdatelistModelChanged();
-
-    void preUpdateTipsChanged();
-
-    void preInstallListModelChanged();
-
-    void installinglistModelChanged();
-
-    void installCompleteListModelChanged();
-
-    void installFailedListModelChanged();
-
-    void downloadFailedListModelChanged();
-
     void downloadinglistModelChanged();
-
+    void downloadFailedListModelChanged();
+    void preInstallListModelChanged();
+    void installinglistModelChanged();
+    void installCompleteListModelChanged();
+    void installFailedListModelChanged();
     void backingUpListModelChanged();
-
     void backupFailedListModelChanged();
 
+    void downloadProgressChanged(const double &progress);
+    void backupProgressChanged(double progress);
+    void distUpgradeProgressChanged(double progress);
+
+    void preUpdateTipsChanged();
     void downloadFailedTipsChanged();
-
     void installFailedTipsChanged();
-
     void backupFailedTipsChanged();
 
-private:
-    void setUpdateItemEnabled();
-    void initConfig();
-    void modifyUpdateStatusByBackupStatus(LastoreDaemonUpdateStatus &);
-    void setIsUpdatable(bool isUpdatable);
-    void updateWaitingStatus(UpdateType updateType, UpdatesStatus status);
+    void updateInfoChanged(UpdateType);
+    void isUpdatableChanged(const bool isUpdatablePackages);
+    void updateStatusChanged(ControlPanelType, UpdatesStatus);
+    void controlTypeChanged();
+    void lastErrorChanged(UpdatesStatus, UpdateErrorType);
+    void notifyBackupSuccess();
+
+    // 更新设置页面数据
+    void securityUpdateEnabledChanged(bool enable);
+    void thirdPartyUpdateEnabledChanged(bool enable);
+    void updateModeChanged(quint64 updateMode);
+    void downloadSpeedLimitConfigChanged();
+    void autoDownloadUpdatesChanged(bool autoDownloadUpdates);
+    void idleDownloadConfigChanged();
+    void updateNotifyChanged(const bool notify);
+    void autoCleanCacheChanged(const bool autoCleanCache);
+    void smartMirrorSwitchChanged(bool smartMirrorSwitch);
+    void defaultMirrorChanged(const MirrorInfo& mirror);
+    void mirrorSpeedInfoAvailable(const QMap<QString, int> &mirrorSpeedInfo);
+    void netselectExistChanged(const bool netselectExist);
+    void testingChannelStatusChanged(TestingChannelStatus status);
+    void systemVersionChanged(QString version);
+    void showVersionChanged(QString version);
+    void baselineChanged(const QString &baseline);
+    void p2pUpdateEnableStateChanged(bool enabled);
 
 private:
-    int m_lastStatus;
-    QMap<UpdateType, UpdateItemInfo *> m_allUpdateInfos;
-    
-    double m_downloadProgress;
-    double m_distUpgradeProgress;
-    double m_backupProgress;
-#ifndef DISABLE_SYS_UPDATE_SOURCE_CHECK
-    bool m_sourceCheck;
-#endif
-    bool m_netselectExist;
-    bool m_autoCleanCache;
-    bool m_autoDownloadUpdates;
-    bool m_securityUpdateEnabled;
-    bool m_thirdPartyUpdateEnabled;
-    quint64 m_updateMode;
-    bool m_functionUpdate;
-    bool m_securityUpdate;
-    bool m_thirdPartyUpdate;
-    bool m_updateNotify;
-    bool m_smartMirrorSwitch;
-    QString m_mirrorId;
-    MirrorInfoList m_mirrorList;
-    QMap<QString, int> m_mirrorSpeedInfo;
-    QString m_systemVersionInfo;
-    bool m_systemActivation;
-    
-    QList<AppUpdateInfo> m_historyAppInfos; // 历史更新应用列表
-    QString m_testingChannelServer;
-    TestingChannelStatus m_testingChannelStatus;
-    bool m_isUpdatable; // 是否有包可更新
-    IdleDownloadConfig m_idleDownloadConfig;
-    QByteArray m_speedLimitConfig;
     Dtk::Core::DConfig *lastoreDConfig;
-    int m_lastoreDeamonStatus; // 比较重要的数值，每个位标识不同的含义，使用LastoreDaemonStatusHelper对它进行解析
-    QByteArray m_updateStatus; // lastore daemon发上来的原始json数据
-    QMap<ControlPanelType, QPair<UpdatesStatus, QList<UpdateType>>> m_controlStatusMap;
-    QMap<UpdatesStatus, UpdateErrorType> m_errorMap;
-    QMap<UpdatesStatus, QString> m_descriptionMap;
-    QMap<UpdatesStatus, int> m_waitingStatusMap;
-    int m_checkUpdateMode;
+    bool m_systemActivation;
+    int m_lastoreDeamonStatus; // 比较重要的数值，每个位标识不同的含义，使用 LastoreDaemonDConfigStatusHelper 对它进行解析
     bool m_batterIsOK;
-    bool m_p2pUpdateEnabled;
-    QString m_showVersion;
-    QString m_baseline;
+    int m_lastStatus;
 
     // 检查更新页面数据
     bool m_showCheckUpdate;
@@ -483,38 +359,55 @@ private:
     QString m_checkUpdateErrTips;
     QString m_checkBtnText;
     QString m_lastCheckUpdateTime;
+    int m_checkUpdateMode;
 
-    // preUpdateList qml data
-    UpdateListModel *m_preUpdatelistModel;
+    // 下载、备份、安装列表数据
+    UpdateListModel *m_preUpdatelistModel; // preUpdateList qml data
+    UpdateListModel *m_downloadinglistModel; // downloadingList qml data
+    UpdateListModel *m_downloadFailedListModel; // downloadFailedList qml data
+    UpdateListModel *m_preInstallListModel; // preInstallList qml data
+    UpdateListModel *m_installinglistModel; // installingList qml data
+    UpdateListModel *m_installCompleteListModel; // installCompleteList qml data
+    UpdateListModel *m_installFailedListModel; // installFailedList qml data
+    UpdateListModel *m_backingUpListModel; // backing up qml data
+    UpdateListModel *m_backupFailedListModel; // backup failed qml data
+    double m_downloadProgress;
+    double m_distUpgradeProgress;
+    double m_backupProgress;
     QString m_preUpdateTips;
-
-    // downloadingList qml data
-    UpdateListModel *m_downloadinglistModel;
-    QString m_downloadTips;
-
-    // preInstallList qml data
-    UpdateListModel *m_preInstallListModel;
-
-    // installingList qml data
-    UpdateListModel *m_installinglistModel;
-
-    // installCompleteList qml data
-    UpdateListModel *m_installCompleteListModel;
-
-    // installFailedList qml data
-    UpdateListModel *m_installFailedListModel;
-    QString m_installFailedTips;
-
-    // downloadFailedList qml data
-    UpdateListModel *m_downloadFailedListModel;
     QString m_downloadFailedTips;
-
-    // backing up qml data
-    UpdateListModel *m_backingUpListModel;
-
-    // backup failed qml data
-    UpdateListModel *m_backupFailedListModel;
+    QString m_installFailedTips;
     QString m_backupFailedTips;
+
+    QMap<UpdateType, UpdateItemInfo *> m_allUpdateInfos;
+    QMap<UpdatesStatus, UpdateErrorType> m_errorMap;
+    QMap<UpdatesStatus, QString> m_descriptionMap;
+    QByteArray m_updateStatus; // lastore daemon发上来的原始json数据
+
+    bool m_isUpdatable; // 是否有包可更新
+    QMap<ControlPanelType, QPair<UpdatesStatus, QList<UpdateType>>> m_controlStatusMap;
+    QMap<UpdatesStatus, int> m_waitingStatusMap;
+
+    // 更新设置页面数据
+    bool m_securityUpdateEnabled;
+    bool m_thirdPartyUpdateEnabled;
+    quint64 m_updateMode;
+    QByteArray m_speedLimitConfig;
+    bool m_autoDownloadUpdates;
+    IdleDownloadConfig m_idleDownloadConfig;
+    bool m_updateNotify;
+    bool m_autoCleanCache;
+    QList<AppUpdateInfo> m_historyAppInfos;
+    bool m_smartMirrorSwitch;
+    MirrorInfoList m_mirrorList;
+    QString m_mirrorId;
+    QMap<QString, int> m_mirrorSpeedInfo;
+    bool m_netselectExist;
+    TestingChannelStatus m_testingChannelStatus;
+    QString m_systemVersionInfo;
+    QString m_showVersion;
+    QString m_baseline;
+    bool m_p2pUpdateEnabled;
 
 };
 

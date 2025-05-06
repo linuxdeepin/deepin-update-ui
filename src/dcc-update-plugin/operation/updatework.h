@@ -7,190 +7,135 @@
 
 #include "common.h"
 #include "updatemodel.h"
+#include "common/dbus/updatedbusproxy.h"
+#include "common/dbus/updatejobdbusproxy.h"
 
 #include <QLoggingCategory>
 #include <QNetworkAccessManager>
 #include <QObject>
 
-#include "common/dbus/updatedbusproxy.h"
-#include "common/dbus/updatejobdbusproxy.h"
-
-//#include <com_deepin_abrecovery.h>
-//#include <com_deepin_daemon_appearance.h>
-//#include <com_deepin_daemon_network.h>
-//#include <com_deepin_daemon_power.h>
-//#include <com_deepin_lastore_job.h>
-//#include <com_deepin_lastore_jobmanager.h>
-//#include <com_deepin_lastore_smartmirror.h>
-//#include <com_deepin_lastore_updater.h>
-//#include <com_deepin_lastoresessionhelper.h>
-//#include <com_deepin_system_systempower.h>
-
-//using UpdateInter = com::deepin::lastore::Updater;
-//using JobInter = com::deepin::lastore::Job;
-//using ManagerInter = com::deepin::lastore::Manager;
-//using Network = com::deepin::daemon::Network;
-//using LastoressionHelper = com::deepin::LastoreSessionHelper;
-//using SmartMirrorInter = com::deepin::lastore::Smartmirror;
-//using Appearance = com::deepin::daemon::Appearance;
-//using RecoveryInter = com::deepin::ABRecovery;
-//using PowerInter = com::deepin::system::Power;
-
-class QJsonArray;
-
-
-class UpdateWorker : public QObject {
+class UpdateWorker : public QObject 
+{
     Q_OBJECT
+
 public:
     explicit UpdateWorker(UpdateModel* model, QObject* parent = nullptr);
     ~UpdateWorker();
+
+    void initConnect();
     void activate();
-    void deactivate();
     void getLicenseState();
 
-    Q_INVOKABLE void reStart();
-
-Q_SIGNALS:
-    void requestInit();
-    void requestActive();
-    void requestRefreshLicenseState();
-#ifndef DISABLE_SYS_UPDATE_MIRRORS
-    void requestRefreshMirrors();
-#endif
-    void systemActivationChanged(bool systemActivation);
-    void requestCloseTestingChannel();
-
-public Q_SLOTS:
-    void init();
-    void checkForUpdates();
-    void setFunctionUpdate(bool update);
-    void setSecurityUpdate(bool update);
-    void setThirdPartyUpdate(bool update);
-    void setUpdateMode(const quint64 updateMode);
-    void setAutoCleanCache(const bool autoCleanCache);
-    void setAutoDownloadUpdates(const bool& autoDownload);
-    void setMirrorSource(const MirrorInfo& mirror);
-    void updateNeedDoCheck();
-
-    std::optional<QUrl> updateTestingChannelUrl();
-    std::optional<QUrl> getTestingChannelUrl();        
-    std::optional<QString> getMachineId();
-    void setTestingChannelEnable(const bool& enable);
-    void checkTestingChannelStatus();
-    bool openTestingChannelUrl();
-    void exitTestingChannel(bool value);
-
-    void checkCanExitTestingChannel();
-
-#ifndef DISABLE_SYS_UPDATE_SOURCE_CHECK
-    void setSourceCheck(bool enable);
-#endif
-    void testMirrorSpeed();
-    void checkNetselect();
-    void setSmartMirror(bool enable);
-#ifndef DISABLE_SYS_UPDATE_MIRRORS
-    void refreshMirrors();
-#endif
-    void testingChannelChangeSlot();
-    void licenseStateChangeSlot();
-    void refreshHistoryAppsInfo();
-    void refreshLastTimeAndCheckCircle();
-    void setUpdateNotify(const bool notify);
-    void onDownloadJobCtrl(int updateCtrlType);
-    void onClassifiedUpdatablePackagesChanged(const QMap<QString, QStringList>& packages);
-    void onRequestRetry(int type, int updateTypes);
-    void onRequestLastoreHeartBeat();
-    void startDownload(int updateTypes);
-    void setIdleDownloadEnabled(bool enable);
-    void setIdleDownloadBeginTime(int time);
-    void setIdleDownloadEndTime(int time);
-    void setIdleDownloadConfig(const IdleDownloadConfig& config);
-    void setDownloadSpeedLimitEnabled(bool enable);
-    void setDownloadSpeedLimitSize(const QString& size);
-    void setDownloadSpeedLimitConfig(const QString& config);
-    void setP2PUpdateEnabled(bool enabled);
-
-    void doUpgrade(int updateTypes, bool doBackup);
-    void stopDownload();
-
-    Q_INVOKABLE bool openUrl(const QString& url);
-
-private Q_SLOTS:
-    void setCheckUpdatesJob(const QString& jobPath);
-    void onJobListChanged(const QList<QDBusObjectPath>& jobs);
-    void onIconThemeChanged(const QString& theme);
-    void onCheckUpdateStatusChanged(const QString& value);
-    void onDownloadStatusChanged(const QString& value);
-    void onBackupStatusChanged(const QString& value);
-    void onInstallPackageStatusChanged(const QString& value);
-    void onRemovePackageStatusChanged(const QString& value);
-    QStringList getSourcesOfPackage(const QString pkg, const QString version);
-    QString getTestingChannelSource();
-    void onUpdateModeChanged(qulonglong value);
-    void onDistUpgradeStatusChanged(const QString& status);
-    void checkPower();
-    void onUpdateStatusChanged(const QString& value);
-
-private:
-    QMap<UpdateType, UpdateItemInfo*> getAllUpdateInfo(const QMap<QString, QStringList>& updatePackages);
-    void setUpdateInfo();
-    void setUpdateItemDownloadSize(UpdateItemInfo* updateItem);
-    inline bool checkDbusIsValid();
-    void onSmartMirrorServiceIsValid(bool valid);
-    void createCheckUpdateJob(const QString& jobPath);
-    void setDownloadJob(const QString& jobPath);
+    bool checkDbusIsValid();
     bool checkJobIsValid(QPointer<UpdateJobDBusProxy> dbusJob);
     void deleteJob(QPointer<UpdateJobDBusProxy> dbusJob);
     void cleanLaStoreJob(QPointer<UpdateJobDBusProxy> dbusJob);
     UpdateErrorType analyzeJobErrorMessage(const QString& jobDescription, UpdatesStatus status = Default);
-    bool isUpdatesAvailable(const QMap<QString, QStringList>& updatablePackages);
-    int isUnstableResource() const;
-    void onRequestCheckUpdateModeChanged(int type, bool isChecked);
+
+    // 检查更新
+    Q_INVOKABLE void updateNeedDoCheck();
+    Q_INVOKABLE void checkForUpdates();
+    void setCheckUpdatesJob(const QString& jobPath);
+    void createCheckUpdateJob(const QString& jobPath);
+    void refreshLastTimeAndCheckCircle();
+    void setUpdateInfo();
+    QMap<UpdateType, UpdateItemInfo*> getAllUpdateInfo(const QMap<QString, QStringList>& updatePackages);
+    void setUpdateItemDownloadSize(UpdateItemInfo* updateItem);
+
+    // 下载更新
+    Q_INVOKABLE void startDownload(int updateTypes);
+    Q_INVOKABLE void stopDownload();
+    Q_INVOKABLE void onDownloadJobCtrl(int updateCtrlType);
+    void setDownloadJob(const QString& jobPath);
+
+    // 备份并安装更新
+    Q_INVOKABLE void doUpgrade(int updateTypes, bool doBackup);
+    Q_INVOKABLE void reStart();
+    void setBackupJob(const QString& jobPath);
     void setDistUpgradeJob(const QString& jobPath);
     void updateSystemVersion();
-    QUrl getTestingChannelJoinURL() const;
+
+    // 更新设置-更新类型
+    Q_INVOKABLE void setFunctionUpdate(bool update);
+    Q_INVOKABLE void setSecurityUpdate(bool update);
+    Q_INVOKABLE void setThirdPartyUpdate(bool update);
+
+    // 更新设置-下载设置
+    Q_INVOKABLE void setDownloadSpeedLimitEnabled(bool enable);
+    Q_INVOKABLE void setDownloadSpeedLimitSize(const QString& size);
+    void setDownloadSpeedLimitConfig(const QString& config);
+    Q_INVOKABLE void setAutoDownloadUpdates(const bool& autoDownload);
+    Q_INVOKABLE void setIdleDownloadEnabled(bool enable);
+    Q_INVOKABLE void setIdleDownloadBeginTime(int time);
+    Q_INVOKABLE void setIdleDownloadEndTime(int time);
+    void setIdleDownloadConfig(const IdleDownloadConfig& config);
     QString timeToString(int value);
     QString adjustTimeFunc(const QString& start, const QString& end, bool returnEndTime);
-    void setBackupJob(const QString& jobPath);
+
+    // 更新设置-更新提醒
+    Q_INVOKABLE void setUpdateNotify(const bool notify);
+    // 更新设置-清除软件缓存包
+    Q_INVOKABLE void setAutoCleanCache(const bool autoCleanCache);
+
+    // 更新设置-镜像源
+    Q_INVOKABLE void setSmartMirror(bool enable);
+    Q_INVOKABLE void setMirrorSource(const MirrorInfo& mirror);
+    void testMirrorSpeed();
+    void checkNetselect();
+#ifndef DISABLE_SYS_UPDATE_MIRRORS
+    void refreshMirrors();
+#endif
+
+    // 更新设置-内测通道
+    Q_INVOKABLE void setTestingChannelEnable(const bool& enable);
+    Q_INVOKABLE bool openTestingChannelUrl();
+    Q_INVOKABLE void exitTestingChannel(bool value);
+    std::optional<QString> getMachineId();
+    std::optional<QUrl> getTestingChannelUrl();
+    void initTestingChannel();
+    void checkTestingChannelStatus();
     void setInstallPackageJob(const QString& jobPath);
     void setRemovePackageJob(const QString& jobPath);
 
+    Q_INVOKABLE bool openUrl(const QString& url);
+    Q_INVOKABLE void onRequestRetry(int type, int updateTypes);
+
+public Q_SLOTS:
+    void onLicenseStateChange();
+    void onPowerChange();
+    void onUpdateModeChanged(qulonglong value);
+    void onJobListChanged(const QList<QDBusObjectPath>& jobs);
+    void onUpdateStatusChanged(const QString& value);
+    void onClassifiedUpdatablePackagesChanged(const QMap<QString, QStringList>& packages);
+
+    void onRequestCheckUpdateModeChanged(int type, bool isChecked);
+    void onCheckUpdateStatusChanged(const QString& value);
+    void onDownloadStatusChanged(const QString& value);
+    void onBackupStatusChanged(const QString& value);
+    void onDistUpgradeStatusChanged(const QString& status);
+    void onInstallPackageStatusChanged(const QString& value);
+    void onRemovePackageStatusChanged(const QString& value);
+
+Q_SIGNALS:
+    void systemActivationChanged(bool systemActivation);
+    void requestCloseTestingChannel();
+
 private:
     UpdateModel* m_model;
-//    QPointer<JobInter> m_checkUpdateJob; // 检查更新
-//    QPointer<JobInter> m_downloadJob; // 下载
-//    QPointer<JobInter> m_fixErrorJob; // 修复错误
-//    QPointer<JobInter> m_distUpgradeJob; // 升级
-//    LastoressionHelper* m_lastoreSessionHelper;
- //   UpdateInter* m_updateInter;
-//    ManagerInter* m_managerInter;
-//    SmartMirrorInter* m_smartMirrorInter;
-//    Appearance* m_iconTheme;
-//    PowerInter *m_powerInter;
-    QString m_iconThemeState;
+    UpdateDBusProxy *m_updateInter;
+    QTimer *m_lastoreHeartBeatTimer; // lastore-daemon 心跳信号，防止lastore-daemon自动退出
+
+    std::optional<QString> m_machineid;
+    std::optional<QUrl> m_testingChannelUrl;
     QMutex m_downloadMutex;
 
     QPointer<UpdateJobDBusProxy> m_checkUpdateJob;
     QPointer<UpdateJobDBusProxy> m_fixErrorJob;
-
     QPointer<UpdateJobDBusProxy> m_downloadJob;
     QPointer<UpdateJobDBusProxy> m_distUpgradeJob;
     QPointer<UpdateJobDBusProxy> m_backupJob;
     QPointer<UpdateJobDBusProxy> m_installPackageJob;
     QPointer<UpdateJobDBusProxy> m_removePackageJob;
-    // QPointer<UpdateJobDBusProxy> m_sysUpdateDownloadJob;
-    // QPointer<UpdateJobDBusProxy> m_safeUpdateDownloadJob;
-    // QPointer<UpdateJobDBusProxy> m_unknownUpdateDownloadJob;
-
-    // QPointer<UpdateJobDBusProxy> m_sysUpdateInstallJob;
-    // QPointer<UpdateJobDBusProxy> m_safeUpdateInstallJob;
-    // QPointer<UpdateJobDBusProxy> m_unknownUpdateInstallJob;
-
-    // QPointer<UpdateJobDBusProxy> m_releaseNoteInstallJob;
-
-    UpdateDBusProxy *m_updateInter;
-
-    std::optional<QString> m_machineid;
-    std::optional<QUrl> m_testingChannelUrl;
 };
+
 #endif // UPDATEWORK_H

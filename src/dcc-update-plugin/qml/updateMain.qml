@@ -103,7 +103,7 @@ DccObject {
                 dccData.work().stopDownload()
             }
         }
-    }    
+    }
 
     // 安装完成列表
     DccObject {
@@ -250,7 +250,7 @@ DccObject {
     DccObject {
         name: "privacyAgreement"
         parentName: "update"
-        weight: 130
+        weight: 1000
         backgroundType: DccObject.Normal
         visible: !dccData.model().showCheckUpdate
         pageType: DccObject.Item

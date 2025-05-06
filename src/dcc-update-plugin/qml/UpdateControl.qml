@@ -71,6 +71,14 @@ ColumnLayout {
             }
         }
 
+        // BusyIndicator {
+        //     id: initAnimation
+        //     running: true
+        //     visible: true
+        //     implicitWidth: 32
+        //     implicitHeight: 32
+        // }
+
         ColumnLayout {
             visible: processValue !== 0 && processValue !== 1
             Layout.rightMargin: 12
