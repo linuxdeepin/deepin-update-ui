@@ -75,17 +75,57 @@ DccObject {
         }
     }
 
-    DccTitleObject {
+    DccObject {
+        id: advancedSetting
+        property bool showDetails: false
         name: "advancedSettingTitle"
         parentName: "updateSettingsPage"
         displayName: qsTr("Advanced Settings")
         weight: 30
+        pageType: DccObject.Item
+        page: RowLayout {
+            Component.onCompleted: {
+                advancedSetting.showDetails = false
+            }
+            DccLabel {
+                property D.Palette textColor: D.Palette {
+                    normal: Qt.rgba(0, 0, 0, 0.9)
+                    normalDark: Qt.rgba(1, 1, 1, 0.9)
+                }
+                font: DccUtils.copyFont(D.DTK.fontManager.t5, {
+                                            "weight": 700
+                                        })
+                text: dccObj.displayName
+            }
+            Item {
+                Layout.fillWidth: true
+            }
+            D.ToolButton {
+                visible: !advancedSetting.showDetails
+                textColor: D.Palette {
+                    normal {
+                        common: D.DTK.makeColor(D.Color.Highlight)
+                    }
+                    normalDark: normal
+                    hovered {
+                        common: D.DTK.makeColor(D.Color.Highlight).lightness(+30)
+                    }
+                    hoveredDark: hovered
+                }
+                text: qsTr("Expand")
+                onClicked: {
+                    advancedSetting.showDetails = true
+                }
+                background: Item {}
+            }
+        }
     }
 
     DccObject {
         name: "downloadLimitGrp"
         parentName: "updateSettingsPage"
         weight: 40
+        visible: advancedSetting.showDetails
         pageType: DccObject.Item
         page: DccGroupView {
             height: implicitHeight + 10
@@ -137,6 +177,7 @@ DccObject {
         parentName: "updateSettingsPage"
         weight: 50
         pageType: DccObject.Item
+        visible: advancedSetting.showDetails
         page: DccGroupView {
             height: implicitHeight + 10
             spacing: 0
@@ -245,6 +286,7 @@ DccObject {
         name: "advancedSettingGrp"
         parentName: "updateSettingsPage"
         weight: 60
+        visible: advancedSetting.showDetails
         pageType: DccObject.Item
         page: DccGroupView {
             height: implicitHeight + 10
@@ -311,7 +353,7 @@ DccObject {
     DccObject {
         name: "mirrorSettingGrp"
         parentName: "updateSettingsPage"
-        visible: dccData.model().isCommunitySystem()
+        visible: advancedSetting.showDetails && dccData.model().isCommunitySystem()
         weight: 70
         pageType: DccObject.Item
         page: DccGroupView {
@@ -355,7 +397,7 @@ DccObject {
         displayName: qsTr("Join Internal Testing Channel")
         description: qsTr("Join the internal testing channel to get deepin latest updates")
         backgroundType: DccObject.Normal
-        visible: dccData.model().isCommunitySystem()
+        visible: advancedSetting.showDetails && dccData.model().isCommunitySystem()
         weight: 80
         pageType: DccObject.Editor
         enabled: {
@@ -407,7 +449,7 @@ DccObject {
         backgroundType: DccObject.AutoBg
         weight: 90
         visible: {
-            if (dccData.model().testingChannelStatus === Common.WaitJoined)
+            if (advancedSetting.showDetails && dccData.model().testingChannelStatus === Common.WaitJoined)
                 return true
             else
                 return false
