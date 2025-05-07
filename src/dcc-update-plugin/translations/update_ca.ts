@@ -301,6 +301,10 @@
         <source>Click here to complete the application</source>
         <translation>Feu clic aquí per completar la sol·licitud.</translation>
     </message>
+    <message>
+        <source>Expand</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>UpdateWorker</name>
@@ -419,8 +423,16 @@
         <translation>Actualització instal·lada correctament</translation>
     </message>
     <message>
-        <source>Back Up Again</source>
-        <translation>Torna a fer una còpia de seguretat</translation>
+        <source>If you continue the updates, you cannot roll back to the old system later.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Try Again</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Proceed to Update</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>
