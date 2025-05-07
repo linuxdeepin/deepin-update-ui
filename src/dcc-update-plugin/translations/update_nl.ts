@@ -303,7 +303,7 @@
     </message>
     <message>
         <source>Expand</source>
-        <translation type="unfinished"/>
+        <translation>Uitklappen</translation>
     </message>
 </context>
 <context>
@@ -424,15 +424,15 @@
     </message>
     <message>
         <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation type="unfinished"/>
+        <translation>Als je doorgaat met de installatie, dan kun je je systeem niet meer herstellen naar een oudere versie.</translation>
     </message>
     <message>
         <source>Try Again</source>
-        <translation type="unfinished"/>
+        <translation>Opnieuw proberen</translation>
     </message>
     <message>
         <source>Proceed to Update</source>
-        <translation type="unfinished"/>
+        <translation>Doorgaan met bijwerken</translation>
     </message>
 </context>
 </TS>
