@@ -303,7 +303,7 @@
     </message>
     <message>
         <source>Expand</source>
-        <translation type="unfinished"/>
+        <translation>Zgjeroje</translation>
     </message>
 </context>
 <context>
@@ -424,15 +424,15 @@
     </message>
     <message>
         <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation type="unfinished"/>
+        <translation>Nëse vazhdoni përditësimet, s’mund të ktheheni mbrapsht më vonë te sistemi i mëparshëm.</translation>
     </message>
     <message>
         <source>Try Again</source>
-        <translation type="unfinished"/>
+        <translation>Riprovoni</translation>
     </message>
     <message>
         <source>Proceed to Update</source>
-        <translation type="unfinished"/>
+        <translation>Vazhdo ta Përditësosh</translation>
     </message>
 </context>
 </TS>
