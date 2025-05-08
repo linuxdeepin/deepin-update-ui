@@ -100,6 +100,8 @@ public:
     Q_INVOKABLE bool openUrl(const QString& url);
     Q_INVOKABLE void onRequestRetry(int type, int updateTypes);
 
+    Q_INVOKABLE void setCheckUpdateMode(int type, bool isChecked);
+
 public Q_SLOTS:
     void onLicenseStateChange();
     void onPowerChange();
@@ -108,7 +110,6 @@ public Q_SLOTS:
     void onUpdateStatusChanged(const QString& value);
     void onClassifiedUpdatablePackagesChanged(const QMap<QString, QStringList>& packages);
 
-    void onRequestCheckUpdateModeChanged(int type, bool isChecked);
     void onCheckUpdateStatusChanged(const QString& value);
     void onDownloadStatusChanged(const QString& value);
     void onBackupStatusChanged(const QString& value);

@@ -57,6 +57,7 @@ UpdateModel::UpdateModel(QObject* parent)
     , m_backingUpListModel(new UpdateListModel(this))
     , m_backupFailedListModel(new UpdateListModel(this))
     , m_downloadWaiting(false)
+    , m_upgradeWaiting(false)
     , m_downloadProgress(0.0)
     , m_distUpgradeProgress(0.0)
     , m_backupProgress(0.0)
@@ -245,7 +246,7 @@ void UpdateModel::setCheckBtnText(const QString &newCheckBtnText)
 
 void UpdateModel::setLastCheckUpdateTime(const QString& lastTime)
 {
-    qCDebug(DCC_UPDATE_MODEL) << "Last check time:" << lastTime;
+    qCInfo(DCC_UPDATE_MODEL) << "Last check time:" << lastTime;
     m_lastCheckUpdateTime = lastTime.left(QString("0000-00-00 00:00:00").size());
     emit lastCheckUpdateTimeChanged();
 }
@@ -353,6 +354,15 @@ void UpdateModel::setDownloadWaiting(bool waiting)
     Q_EMIT downloadWaitingChanged(waiting);
 }
 
+void UpdateModel::setUpgradeWaiting(bool waiting)
+{
+    if (m_upgradeWaiting == waiting)
+        return;
+
+    m_upgradeWaiting = waiting;
+    Q_EMIT upgradeWaitingChanged(waiting);
+}
+
 void UpdateModel::setDownloadProgress(double downloadProgress)
 {
     if (qFuzzyCompare(downloadProgress, m_downloadProgress))
@@ -429,7 +439,7 @@ void UpdateModel::addUpdateInfo(UpdateItemInfo* info)
         m_allUpdateInfos.remove(updateType);
     }
 
-    qCDebug(DCC_UPDATE_MODEL) << "Add update info:" << info->updateType() << info->updateStatus();
+    qCInfo(DCC_UPDATE_MODEL) << "Add update info:" << info->updateType() << info->updateStatus();
     m_allUpdateInfos.insert(updateType, info);
 
     if (!info->isUpdateAvailable()) {
@@ -593,7 +603,11 @@ void UpdateModel::refreshUpdateStatus()
         if (updateStatus >= Downloading && updateStatus <= DownloadFailed) {
             setDownloadWaiting(false);
         }
-     }
+
+        if (updateStatus >= BackingUp && updateStatus <= UpgradeComplete) {
+            setUpgradeWaiting(false);
+        }
+    }
 
     // 清理m_controlStatusMap中无用的control
     for (auto key : m_controlStatusMap.keys()) {
@@ -654,7 +668,7 @@ void UpdateModel::refreshUpdateUiModel()
     }
 
     for (auto item : m_allUpdateInfos.values()) {
-        qCDebug(DCC_UPDATE_MODEL) << "refresh Update Ui:" << item->updateType() << item->updateStatus();
+        qCInfo(DCC_UPDATE_MODEL) << "refresh Update Ui:" << item->updateType() << item->updateStatus();
         switch (item->updateStatus()) {
         case Updated:
             m_installCompleteListModel->addUpdateData(item);
@@ -686,6 +700,7 @@ void UpdateModel::refreshUpdateUiModel()
             m_installCompleteListModel->addUpdateData(item);
             break;
         case BackingUp:
+        case BackupSuccess:
             m_backingUpListModel->addUpdateData(item);
             break;
         case BackupFailed:

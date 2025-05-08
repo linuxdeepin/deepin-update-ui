@@ -58,6 +58,7 @@ DccObject {
             updateTitle: qsTr("Installing updates...")
             processTitle: qsTr("Installing")
             processValue: dccData.model().distUpgradeProgress
+            processState: true
             updateListEnable: false
         }
     }
@@ -76,6 +77,7 @@ DccObject {
             updateTitle: qsTr("Backing up in progress...")
             processTitle: qsTr("Backing up in progress")
             processValue: dccData.model().backupProgress
+            processState: true
             updateListEnable: false
         }
     }
@@ -95,6 +97,7 @@ DccObject {
             updateTips: qsTr("Update size: ") + dccData.model().downloadinglistModel.downloadSize
             processTitle: qsTr("Downloading")
             processValue: dccData.model().downloadProgress
+            processState: true
             updateListEnable: false
 
             onDownloadJobCtrl: function(updateCtrlType) {
@@ -136,6 +139,7 @@ DccObject {
         backgroundType: DccObject.Normal
         weight: 70
         visible: !dccData.model().showCheckUpdate && dccData.model().installFailedListModel.anyVisible
+        enabled: !dccData.model().backingUpListModel.anyVisible && !dccData.model().installinglistModel.anyVisible
         pageType: DccObject.Item
 
         page: UpdateControl {
@@ -175,7 +179,7 @@ DccObject {
                 }
             }
         }
-    }   
+    }
 
     // 下载完成列表
     DccObject {
@@ -184,6 +188,7 @@ DccObject {
         backgroundType: DccObject.Normal
         weight: 90
         visible: !dccData.model().showCheckUpdate && dccData.model().preInstallListModel.anyVisible
+        enabled: !dccData.model().backingUpListModel.anyVisible && !dccData.model().installinglistModel.anyVisible
         pageType: DccObject.Item
 
         page: UpdateControl {
@@ -191,6 +196,8 @@ DccObject {
             updateTitle: qsTr("Update download completed")
             btnActions: [ qsTr("Install updates") ]
             updateTips: qsTr("Update size: ") + dccData.model().preInstallListModel.downloadSize
+            busyState: dccData.model().upgradeWaiting
+            updateListEnable: !dccData.model().upgradeWaiting
 
             onBtnClicked: function(index, updateType) {
                 dccData.work().doUpgrade(updateType, true)
@@ -205,6 +212,7 @@ DccObject {
         backgroundType: DccObject.Normal
         weight: 100
         visible: !dccData.model().showCheckUpdate && dccData.model().downloadFailedListModel.anyVisible
+        enabled: !dccData.model().downloadinglistModel.anyVisible
         pageType: DccObject.Item
 
         page: UpdateControl {
@@ -212,6 +220,8 @@ DccObject {
             updateTitle: qsTr("Update download failed")
             btnActions: [ qsTr("Retry") ]
             updateTips: dccData.model().installFailedTips
+            busyState: dccData.model().upgradeWaiting
+            updateListEnable: !dccData.model().upgradeWaiting
 
             onBtnClicked: function(index, updateType) {
                 dccData.work().onRequestRetry(Common.CPT_DownloadFailed, updateType)
@@ -251,7 +261,7 @@ DccObject {
         description: qsTr("Configure Update settings、Security Updates、Auto Download Updates and Updates Notification")
         icon: "update_set"
         weight: 120
-        visible: false //dccData.model().systemActivation
+        visible: dccData.model().systemActivation
 
         UpdateSetting {}
     }

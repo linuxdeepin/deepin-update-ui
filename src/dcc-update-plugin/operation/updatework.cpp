@@ -411,17 +411,18 @@ void UpdateWorker::checkForUpdates()
 
     QDBusPendingCall call = m_updateInter->UpdateSource();
     QDBusPendingCallWatcher* watcher = new QDBusPendingCallWatcher(call, this);
-    connect(watcher, &QDBusPendingCallWatcher::finished, [this, call, watcher] {
-        watcher->deleteLater();
-        if (!call.isError()) {
-            QDBusReply<QDBusObjectPath> reply = call.reply();
-            const QString jobPath = reply.value().path();
-            setCheckUpdatesJob(jobPath);
-        } else {
-            qCWarning(DCC_UPDATE_WORKER) << "Check update failed, error: " << call.error().message();
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, watcher] {
+        QDBusPendingReply<QDBusObjectPath> reply = *watcher;
+        if (reply.isError()) {
+            qCWarning(DCC_UPDATE_WORKER) << "Check update failed, error: " << reply.error().message();
             m_model->setLastStatus(UpdatesStatus::CheckingFailed, __LINE__);
             cleanLaStoreJob(m_checkUpdateJob);
+        } else {
+            const QString jobPath = reply.value().path();
+            qCInfo(DCC_UPDATE_WORKER) << "jobpath:" << jobPath;
+            setCheckUpdatesJob(jobPath);
         }
+        watcher->deleteLater();
     });
 }
 
@@ -535,16 +536,16 @@ void UpdateWorker::setUpdateItemDownloadSize(UpdateItemInfo* updateItem)
 
     QDBusPendingCall call = m_updateInter->QueryAllSizeWithSource(updateItem->updateType());
     QDBusPendingCallWatcher* watcher = new QDBusPendingCallWatcher(call, this);
-    connect(watcher, &QDBusPendingCallWatcher::finished, updateItem, [updateItem, call, watcher] {
-        watcher->deleteLater();
-        if (!call.isError()) {
-            QDBusReply<qlonglong> reply = call.reply();
+    connect(watcher, &QDBusPendingCallWatcher::finished, updateItem, [updateItem, watcher] {
+        QDBusPendingReply<qlonglong> reply = *watcher;
+        if (reply.isError()) {
+            qCWarning(DCC_UPDATE_WORKER) << "Get packages size error:" << reply.error().message();
+        } else {
             qlonglong value = reply.value();
             qCInfo(DCC_UPDATE_WORKER) << "Packages' size:" << value << ", name:" << updateItem->name();
             updateItem->setDownloadSize(value);
-        } else {
-            qCWarning(DCC_UPDATE_WORKER) << "Get packages size error:" << call.error().message();
         }
+        watcher->deleteLater();
     });
 }
 
@@ -569,10 +570,7 @@ void UpdateWorker::startDownload(int updateTypes)
             cleanLaStoreJob(m_downloadJob);
         } else {
             const QString jobPath = reply.value().path();
-            if (jobPath.isEmpty()) {
-                qCWarning(DCC_UPDATE_WORKER) << "Download job path is empty, error:" << reply.error().message();
-                return;
-            }
+            qCInfo(DCC_UPDATE_WORKER) << "jobpath:" << jobPath;
             setDownloadJob(jobPath);
         }
         watcher->deleteLater();
@@ -635,24 +633,25 @@ void UpdateWorker::doUpgrade(int updateTypes, bool doBackup)
     cleanLaStoreJob(m_distUpgradeJob);
     cleanLaStoreJob(m_backupJob);
 
-    qCInfo(DCC_UPDATE_WORKER) << "Update types:" << updateTypes << ", do backup:" << doBackup;
     QDBusPendingCall call = m_updateInter->DistUpgradePartly(updateTypes, doBackup);
     QDBusPendingCallWatcher* watcher = new QDBusPendingCallWatcher(call, this);
-    connect(watcher, &QDBusPendingCallWatcher::finished, [this, updateTypes, call, watcher, doBackup] {
-        watcher->deleteLater();
-        if (!call.isError()) {
-            m_model->setLastStatus(UpgradeWaiting, __LINE__, updateTypes);
-            QList<QVariant> outArgs = call.reply().arguments();
-            if (outArgs.count() > 0) {
-                if (doBackup) {
-                    setBackupJob(outArgs.at(0).toString());
-                } else {
-                    setDistUpgradeJob(outArgs.at(0).toString());
-                }
-            }
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, updateTypes, watcher, doBackup] {
+        QDBusPendingReply<QDBusObjectPath> reply = *watcher;
+        if (reply.isError()) {
+            qCWarning(DCC_UPDATE_WORKER) << "Call `DistUpgradePartly` failed, error:" << reply.error().message();
         } else {
-            qCInfo(DCC_UPDATE_WORKER) << "Call `DistUpgradePartly` failed, error:" << call.error().message();
+            m_model->setLastStatus(UpgradeWaiting, __LINE__, updateTypes);
+            m_model->setUpgradeWaiting(true);
+
+            const QString jobPath = reply.value().path();
+            qCInfo(DCC_UPDATE_WORKER) << "jobpath:" << jobPath;
+            if (doBackup) {
+                setBackupJob(jobPath);
+            } else {
+                setDistUpgradeJob(jobPath);
+            }
         }
+        watcher->deleteLater();
     });
 }
 
@@ -773,11 +772,11 @@ void UpdateWorker::setDownloadSpeedLimitConfig(const QString& config)
 {
     QDBusPendingCall call = m_updateInter->SetDownloadSpeedLimit(config);
     QDBusPendingCallWatcher* watcher = new QDBusPendingCallWatcher(call, this);
-    connect(watcher, &QDBusPendingCallWatcher::finished, [call, watcher] {
-        watcher->deleteLater();
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, [call, watcher] {
         if (call.isError()) {
             qCWarning(DCC_UPDATE_WORKER) << "Set download speed limit config error: " << call.error().message();
         }
+        watcher->deleteLater();
     });
 }
 
@@ -816,11 +815,11 @@ void UpdateWorker::setIdleDownloadConfig(const IdleDownloadConfig& config)
 {
     QDBusPendingCall call = m_updateInter->SetIdleDownloadConfig(QString(config.toJson()));
     QDBusPendingCallWatcher* watcher = new QDBusPendingCallWatcher(call, this);
-    connect(watcher, &QDBusPendingCallWatcher::finished, [call, watcher] {
-        watcher->deleteLater();
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, [call, watcher] {
         if (call.isError()) {
             qCWarning(DCC_UPDATE_WORKER) << "Set idle download config error:" << call.error().message();
         }
+        watcher->deleteLater();
     });
 }
 
@@ -1236,6 +1235,14 @@ void UpdateWorker::onRequestRetry(int type, int updateTypes)
     }
 }
 
+void UpdateWorker::setCheckUpdateMode(int type, bool isChecked)
+{
+    const int currentMode = m_model->checkUpdateMode();
+    const int outMode = isChecked ? (currentMode | type) : (currentMode & ~type);
+
+    m_updateInter->setCheckUpdateMode(outMode);
+}
+
 void UpdateWorker::onLicenseStateChange()
 {
     QFutureWatcher<void>* watcher = new QFutureWatcher<void>(this);
@@ -1308,14 +1315,6 @@ void UpdateWorker::onUpdateStatusChanged(const QString &value)
 void UpdateWorker::onClassifiedUpdatablePackagesChanged(const QMap<QString, QStringList>& packages)
 {
     m_model->updatePackages(packages);
-}
-
-void UpdateWorker::onRequestCheckUpdateModeChanged(int type, bool isChecked)
-{
-    const int currentMode = m_model->checkUpdateMode();
-    const int outMode = isChecked ? (currentMode | type) : (currentMode & ~type);
-
-    m_updateInter->setCheckUpdateMode(outMode);
 }
 
 void UpdateWorker::onCheckUpdateStatusChanged(const QString& value)

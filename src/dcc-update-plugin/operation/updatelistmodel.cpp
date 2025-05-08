@@ -128,6 +128,14 @@ QString UpdateListModel::downloadSize() const
     return m_downloadSize;
 }
 
+UpdateType UpdateListModel::getUpdateType(int index) const
+{
+    if (index >= 0 && index < m_updateLists.count()) {
+        return m_updateLists[index]->updateType();
+    }
+    return Invalid;
+}
+
 void UpdateListModel::clearAllData()
 {
     beginResetModel();

@@ -21,6 +21,7 @@ ColumnLayout {
     property bool processState: false
     property bool busyState: false
     property bool updateListEnable: true
+    property bool isPauseOrNot: false
 
     signal btnClicked(int index, int updateType)
     signal downloadJobCtrl(int updateCtrlType)
@@ -94,7 +95,7 @@ ColumnLayout {
         }
 
         ColumnLayout {
-            visible: processValue !== 0 && processValue !== 1
+            visible: processState
             Layout.rightMargin: 12
             Layout.alignment: Qt.AlignRight
 
@@ -120,8 +121,8 @@ ColumnLayout {
                 //     height: 12
 
                 //     onClicked: {
-                //         processState = !processState
-                //         rootLayout.downloadJobCtrl(processState)
+                //         isPauseOrNot = !isPauseOrNot
+                //         rootLayout.downloadJobCtrl(isPauseOrNot)
                 //     }
                 // }
 

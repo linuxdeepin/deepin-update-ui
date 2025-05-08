@@ -45,6 +45,7 @@ class UpdateModel : public QObject
     Q_PROPERTY(UpdateListModel *backupFailedListModel READ backupFailedListModel NOTIFY backupFailedListModelChanged FINAL)    
 
     Q_PROPERTY(bool downloadWaiting READ downloadWaiting NOTIFY downloadWaitingChanged FINAL)
+    Q_PROPERTY(bool upgradeWaiting READ upgradeWaiting NOTIFY upgradeWaitingChanged FINAL)
 
     Q_PROPERTY(double downloadProgress READ downloadProgress NOTIFY downloadProgressChanged FINAL)
     Q_PROPERTY(double backupProgress READ backupProgress NOTIFY backupProgressChanged FINAL)
@@ -152,6 +153,9 @@ public:
 
     bool downloadWaiting() const { return m_downloadWaiting; }
     void setDownloadWaiting(bool waiting);
+
+    bool upgradeWaiting() const { return m_upgradeWaiting; }
+    void setUpgradeWaiting(bool waiting);
 
     double downloadProgress() const { return m_downloadProgress; }
     void setDownloadProgress(double downloadProgress);
@@ -314,6 +318,7 @@ Q_SIGNALS:
     void backupFailedListModelChanged();
 
     void downloadWaitingChanged(bool waiting);
+    void upgradeWaitingChanged(bool waiting);
 
     void downloadProgressChanged(const double &progress);
     void backupProgressChanged(double progress);
@@ -379,6 +384,7 @@ private:
     UpdateListModel *m_backingUpListModel; // backing up qml data
     UpdateListModel *m_backupFailedListModel; // backup failed qml data
     bool m_downloadWaiting;
+    bool m_upgradeWaiting;
     double m_downloadProgress;
     double m_distUpgradeProgress;
     double m_backupProgress;

@@ -4,6 +4,7 @@
 #define UPDATELISTMODEL_H
 
 #include "updateiteminfo.h"
+#include "common.h"
 
 #include <QAbstractListModel>
 
@@ -59,6 +60,8 @@ public:
     bool anyVisible() const;
     bool isUpdateEnable() const;
     QString downloadSize() const;
+
+    Q_INVOKABLE UpdateType getUpdateType(int index) const;
 
 public Q_SLOTS:
     void refreshDownloadSize();
