@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="nl">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="nl">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -34,19 +32,19 @@
     <name>UpdateHistoryDialog</name>
     <message>
         <source>Save the display settings?</source>
-        <translation type="unfinished">Wil je de beeldscherminstellingen opslaan?</translation>
+        <translation>Wil je de beeldscherminstellingen opslaan?</translation>
     </message>
     <message>
         <source>Settings will be reverted in %1s.</source>
-        <translation type="unfinished">De instellingen worden over %1 sec. teruggezet.</translation>
+        <translation>De instellingen worden over %1 sec. teruggezet.</translation>
     </message>
     <message>
         <source>Revert</source>
-        <translation type="unfinished">Herstellen</translation>
+        <translation>Herstellen</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished">Opslaan</translation>
+        <translation>Opslaan</translation>
     </message>
 </context>
 <context>
@@ -202,11 +200,11 @@
     </message>
     <message>
         <source>Privacy Policy</source>
-        <translation type="unfinished"></translation>
+        <translation>Privacybeleid</translation>
     </message>
     <message>
         <source>To use this software, you must accept the %1 that accompanies software updates.</source>
-        <translation type="unfinished"></translation>
+        <translation>Om deze software te kunnen gebruiken, dien je akkoord te gaan met het %1 omtrent software-updates.</translation>
     </message>
 </context>
 <context>
@@ -305,7 +303,7 @@
     </message>
     <message>
         <source>Expand</source>
-        <translation type="unfinished"></translation>
+        <translation>Uitklappen</translation>
     </message>
 </context>
 <context>
@@ -426,15 +424,15 @@
     </message>
     <message>
         <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation type="unfinished">Als je doorgaat met de installatie, dan kun je je systeem niet meer herstellen naar een oudere versie.</translation>
+        <translation>Als je doorgaat met de installatie, dan kun je je systeem niet meer herstellen naar een oudere versie.</translation>
     </message>
     <message>
         <source>Try Again</source>
-        <translation type="unfinished"></translation>
+        <translation>Opnieuw proberen</translation>
     </message>
     <message>
         <source>Proceed to Update</source>
-        <translation type="unfinished"></translation>
+        <translation>Doorgaan met bijwerken</translation>
     </message>
 </context>
 </TS>
