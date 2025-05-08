@@ -18,15 +18,15 @@
     </message>
     <message>
         <source>Updates failed.</source>
-        <translation>Actualización fallida.</translation>
+        <translation>La actualización falló.</translation>
     </message>
     <message>
         <source>Updates failed: it was interrupted.</source>
-        <translation>Actualizacion fallida: se interrumpió.</translation>
+        <translation>La actualizacion falló: se interrumpió.</translation>
     </message>
     <message>
         <source>Updates failed: DPKG error.</source>
-        <translation>Actualizaciones fallidas: error DPKG.</translation>
+        <translation>La actualización falló: error DPKG.</translation>
     </message>
     <message>
         <source>Updates failed: insufficient disk space.</source>
