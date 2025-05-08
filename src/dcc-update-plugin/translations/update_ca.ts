@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="ca">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ca">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -34,19 +32,19 @@
     <name>UpdateHistoryDialog</name>
     <message>
         <source>Save the display settings?</source>
-        <translation type="unfinished">Voleu desar els paràmetres de la pantalla?</translation>
+        <translation>Voleu desar els paràmetres de la pantalla?</translation>
     </message>
     <message>
         <source>Settings will be reverted in %1s.</source>
-        <translation type="unfinished">La configuració es revertirà d&apos;aquí a %1 s.</translation>
+        <translation>La configuració es revertirà d&apos;aquí a %1 s.</translation>
     </message>
     <message>
         <source>Revert</source>
-        <translation type="unfinished">Reveteix</translation>
+        <translation>Reveteix</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished">Desa</translation>
+        <translation>Desa</translation>
     </message>
 </context>
 <context>
@@ -202,11 +200,11 @@
     </message>
     <message>
         <source>Privacy Policy</source>
-        <translation type="unfinished"></translation>
+        <translation>Política de privadesa</translation>
     </message>
     <message>
         <source>To use this software, you must accept the %1 that accompanies software updates.</source>
-        <translation type="unfinished"></translation>
+        <translation>Per usar aquest programari, cal que accepteu la %1 que acompanya les actualitzacions del programari.</translation>
     </message>
 </context>
 <context>
@@ -305,7 +303,7 @@
     </message>
     <message>
         <source>Expand</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -426,15 +424,15 @@
     </message>
     <message>
         <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation type="unfinished">Si continueu les actualitzacions, no podreu tornar al sistema anterior més tard.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Try Again</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Proceed to Update</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>
