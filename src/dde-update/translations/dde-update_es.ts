@@ -44,11 +44,11 @@
     </message>
     <message>
         <source>Your computer will reboot soon %1</source>
-        <translation>Su computadora se reiniciará pronto %1</translation>
+        <translation>Su equipo se reiniciará pronto %1</translation>
     </message>
     <message>
         <source>Your computer will be turned off soon %1</source>
-        <translation>Su computadora se apagará pronto %1</translation>
+        <translation>Su equipo se apagará pronto %1</translation>
     </message>
     <message>
         <source>The automatic reboot process has failed. Please try to manually reboot your device.</source>
@@ -70,7 +70,7 @@
     <name>UpdateModel</name>
     <message>
         <source>Update failed</source>
-        <translation>Actualización fallida</translation>
+        <translation>La actualización falló</translation>
     </message>
     <message>
         <source>Unknown error</source>
@@ -78,7 +78,7 @@
     </message>
     <message>
         <source>Backup failed</source>
-        <translation>Copia de seguridad fallida</translation>
+        <translation>La copia de seguridad falló</translation>
     </message>
     <message>
         <source>Unable to perform system backup. If you continue the updates, you cannot roll back to the old system later.</source>
@@ -86,7 +86,7 @@
     </message>
     <message>
         <source>Insufficient disk space. Please clean up your disk and try again.</source>
-        <translation>Espacio en disco insuficiente. Limpia tu disco e inténtalo de nuevo.</translation>
+        <translation>Espacio en disco insuficiente. Limpie el disco e inténtelo de nuevo.</translation>
     </message>
     <message>
         <source>Failed to connect to backup services. Please check and retry again.</source>
@@ -106,7 +106,7 @@
     </message>
     <message>
         <source>Back Up Again</source>
-        <translation>Respaldar datos nuevamente</translation>
+        <translation>Respaldar nuevamente</translation>
     </message>
     <message>
         <source>Abort</source>
