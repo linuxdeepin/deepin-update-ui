@@ -303,7 +303,7 @@
     </message>
     <message>
         <source>Expand</source>
-        <translation type="unfinished"/>
+        <translation>Laajenna</translation>
     </message>
 </context>
 <context>
@@ -424,15 +424,15 @@
     </message>
     <message>
         <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation type="unfinished"/>
+        <translation>Jos jatkat päivityksiä, et voi palata takaisin vanhaan järjestelmään.</translation>
     </message>
     <message>
         <source>Try Again</source>
-        <translation type="unfinished"/>
+        <translation>Yritä uudelleen</translation>
     </message>
     <message>
         <source>Proceed to Update</source>
-        <translation type="unfinished"/>
+        <translation>Suorita päivitys</translation>
     </message>
 </context>
 </TS>
