@@ -19,6 +19,7 @@ ColumnLayout {
     property string processTitle: ""
     property double processValue: 0
     property bool processState: false
+    property bool busyState: false
     property bool updateListEnable: true
 
     signal btnClicked(int index, int updateType)
@@ -76,7 +77,7 @@ ColumnLayout {
                 Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
                 text: modelData
                 font: D.DTK.fontManager.t6
-                visible: modelData.length !== 0
+                visible: modelData.length !== 0 && !initAnimation.visible
                 enabled: updatelistModel.model.isUpdateEnable
                 onClicked: {
                     rootLayout.btnClicked(index, updateListModels.getAllUpdateType())
@@ -84,13 +85,13 @@ ColumnLayout {
             }
         }
 
-        // BusyIndicator {
-        //     id: initAnimation
-        //     running: true
-        //     visible: true
-        //     implicitWidth: 32
-        //     implicitHeight: 32
-        // }
+        BusyIndicator {
+            id: initAnimation
+            running: true
+            visible: busyState
+            implicitWidth: 32
+            implicitHeight: 32
+        }
 
         ColumnLayout {
             visible: processValue !== 0 && processValue !== 1
@@ -120,10 +121,9 @@ ColumnLayout {
 
                 //     onClicked: {
                 //         processState = !processState
-                //         root.downloadJobCtrl(processState)
+                //         rootLayout.downloadJobCtrl(processState)
                 //     }
                 // }
-
 
                 // D.ToolButton {
                 //     id: stopIcon
@@ -132,7 +132,7 @@ ColumnLayout {
                 //     height: 12
 
                 //     onClicked: {
-                //         root.closeDownload()
+                //         rootLayout.closeDownload()
                 //     }
                 // }
             }

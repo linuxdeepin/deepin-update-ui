@@ -28,7 +28,7 @@ class UpdateModel : public QObject
     Q_PROPERTY(bool needDoCheck READ needDoCheck NOTIFY needDoCheckChanged FINAL)
     Q_PROPERTY(QString checkUpdateIcon READ checkUpdateIcon NOTIFY checkUpdateIconChanged FINAL)
     Q_PROPERTY(double checkUpdateProgress READ checkUpdateProgress NOTIFY checkUpdateProgressChanged FINAL)
-    Q_PROPERTY(int checkUpdateStatus READ checkUpdateStatus NOTIFY checkUpdateStatusChanged FINAL)
+    Q_PROPERTY(UpdatesStatus checkUpdateStatus READ checkUpdateStatus NOTIFY checkUpdateStatusChanged FINAL)
     Q_PROPERTY(QString checkUpdateErrTips READ checkUpdateErrTips NOTIFY checkUpdateErrTipsChanged FINAL)
     Q_PROPERTY(QString checkBtnText READ checkBtnText NOTIFY checkBtnTextChanged FINAL)
     Q_PROPERTY(QString lastCheckUpdateTime READ lastCheckUpdateTime NOTIFY lastCheckUpdateTimeChanged FINAL)
@@ -43,6 +43,8 @@ class UpdateModel : public QObject
     Q_PROPERTY(UpdateListModel *installFailedListModel READ installFailedListModel NOTIFY installFailedListModelChanged FINAL)
     Q_PROPERTY(UpdateListModel *backingUpListModel READ backingUpListModel NOTIFY backingUpListModelChanged FINAL)
     Q_PROPERTY(UpdateListModel *backupFailedListModel READ backupFailedListModel NOTIFY backupFailedListModelChanged FINAL)    
+
+    Q_PROPERTY(bool downloadWaiting READ downloadWaiting NOTIFY downloadWaitingChanged FINAL)
 
     Q_PROPERTY(double downloadProgress READ downloadProgress NOTIFY downloadProgressChanged FINAL)
     Q_PROPERTY(double backupProgress READ backupProgress NOTIFY backupProgressChanged FINAL)
@@ -88,7 +90,7 @@ public:
     void setBatterIsOK(bool ok);
 
     int lastStatus() const { return m_lastStatus; }
-    void setLastStatus(const UpdatesStatus &status, int line, int types = 0);    
+    void setLastStatus(const UpdatesStatus &status, int line, int types = 0);
 
     // ---------------检查更新页面数据---------------
     bool showCheckUpdate() const { return m_showCheckUpdate; }
@@ -103,8 +105,8 @@ public:
     double checkUpdateProgress() const { return m_checkUpdateProgress; }
     void setCheckUpdateProgress(double updateProgress);
 
-    int checkUpdateStatus() const { return m_checkUpdateStatus; }
-    void setCheckUpdateStatus(int newCheckUpdateStatus);
+    UpdatesStatus checkUpdateStatus() const { return m_checkUpdateStatus; }
+    void setCheckUpdateStatus(UpdatesStatus newCheckUpdateStatus);
     void updateCheckUpdateUi();
 
     QString checkUpdateErrTips() const { return m_checkUpdateErrTips; }
@@ -147,6 +149,9 @@ public:
 
     UpdateListModel *backupFailedListModel() const { return m_backupFailedListModel; }
     void setBackupFailedListModel(UpdateListModel *newBackupFailedListModel);
+
+    bool downloadWaiting() const { return m_downloadWaiting; }
+    void setDownloadWaiting(bool waiting);
 
     double downloadProgress() const { return m_downloadProgress; }
     void setDownloadProgress(double downloadProgress);
@@ -308,6 +313,8 @@ Q_SIGNALS:
     void backingUpListModelChanged();
     void backupFailedListModelChanged();
 
+    void downloadWaitingChanged(bool waiting);
+
     void downloadProgressChanged(const double &progress);
     void backupProgressChanged(double progress);
     void distUpgradeProgressChanged(double progress);
@@ -355,7 +362,7 @@ private:
     bool m_needDoCheck;
     QString m_checkUpdateIcon;
     double m_checkUpdateProgress;
-    int m_checkUpdateStatus;
+    UpdatesStatus m_checkUpdateStatus;
     QString m_checkUpdateErrTips;
     QString m_checkBtnText;
     QString m_lastCheckUpdateTime;
@@ -371,6 +378,7 @@ private:
     UpdateListModel *m_installFailedListModel; // installFailedList qml data
     UpdateListModel *m_backingUpListModel; // backing up qml data
     UpdateListModel *m_backupFailedListModel; // backup failed qml data
+    bool m_downloadWaiting;
     double m_downloadProgress;
     double m_distUpgradeProgress;
     double m_backupProgress;

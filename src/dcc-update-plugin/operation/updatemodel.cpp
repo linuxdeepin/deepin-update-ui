@@ -56,6 +56,7 @@ UpdateModel::UpdateModel(QObject* parent)
     , m_installFailedListModel(new UpdateListModel(this))
     , m_backingUpListModel(new UpdateListModel(this))
     , m_backupFailedListModel(new UpdateListModel(this))
+    , m_downloadWaiting(false)
     , m_downloadProgress(0.0)
     , m_distUpgradeProgress(0.0)
     , m_backupProgress(0.0)
@@ -80,6 +81,7 @@ UpdateModel::UpdateModel(QObject* parent)
     , m_baseline("")
     , m_p2pUpdateEnabled(false)
 {
+    qRegisterMetaType<UpdatesStatus>("UpdatesStatus");
     qRegisterMetaType<TestingChannelStatus>("TestingChannelStatus");
     qRegisterMetaType<UpdateType>("UpdateType");
 
@@ -186,10 +188,11 @@ void UpdateModel::setCheckUpdateProgress(double updateProgress)
     }
 }
 
-void UpdateModel::setCheckUpdateStatus(int newCheckUpdateStatus)
+void UpdateModel::setCheckUpdateStatus(UpdatesStatus newCheckUpdateStatus)
 {
     if (m_checkUpdateStatus == newCheckUpdateStatus)
         return;
+
     m_checkUpdateStatus = newCheckUpdateStatus;
     emit checkUpdateStatusChanged();
 
@@ -339,6 +342,15 @@ void UpdateModel::setBackupFailedListModel(UpdateListModel *newBackupFailedListM
 
     m_backupFailedListModel = newBackupFailedListModel;
     emit backupFailedListModelChanged();
+}
+
+void UpdateModel::setDownloadWaiting(bool waiting)
+{
+    if (m_downloadWaiting == waiting)
+        return;
+
+    m_downloadWaiting = waiting;
+    Q_EMIT downloadWaitingChanged(waiting);
 }
 
 void UpdateModel::setDownloadProgress(double downloadProgress)
@@ -577,6 +589,10 @@ void UpdateModel::refreshUpdateStatus()
         }
 
         updateWaitingStatus(updateType, updateStatus);
+
+        if (updateStatus >= Downloading && updateStatus <= DownloadFailed) {
+            setDownloadWaiting(false);
+        }
      }
 
     // 清理m_controlStatusMap中无用的control
@@ -1074,10 +1090,6 @@ void UpdateModel::onUpdatePropertiesChanged(const QString& interfaceName, const 
     Q_UNUSED(invalidatedProperties)
 
     if (interfaceName == "org.deepin.dde.Lastore1.Manager") {
-        if (changedProperties.contains("UpdateStatus")) {
-            setUpdateStatus(changedProperties.value("UpdateStatus").toByteArray());
-        }
-
         if (changedProperties.contains("CheckUpdateMode")) {
             // 用户A、B都打开控制中心，用户A多次修改CheckUpdateMode后切换到用户B，控制中心会立刻收到多个改变信号
             // 增加一个100ms的防抖，只取最后一次的数值

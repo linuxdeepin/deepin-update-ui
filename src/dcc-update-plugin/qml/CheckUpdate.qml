@@ -7,6 +7,7 @@ import QtQuick.Layouts 1.15
 
 import org.deepin.dtk 1.0 as D
 import org.deepin.dcc 1.0
+import org.deepin.dcc.update 1.0
 
 ColumnLayout {
     id: root
@@ -35,7 +36,7 @@ ColumnLayout {
                 value: dccData.model().checkUpdateProgress
                 implicitHeight: 8
                 implicitWidth: 160
-                visible: dccData.model().checkUpdateStatus == 1
+                visible: dccData.model().checkUpdateStatus === Common.Checking
             }
 
             D.Label {
@@ -57,7 +58,7 @@ ColumnLayout {
             }
 
             D.Label {
-                visible: dccData.model().checkUpdateStatus == 4
+                visible: dccData.model().checkUpdateStatus === Common.Updated
                 Layout.alignment: Qt.AlignHCenter
                 text: qsTr("Last check: ") + dccData.model().lastCheckUpdateTime
                 font.pixelSize: 10

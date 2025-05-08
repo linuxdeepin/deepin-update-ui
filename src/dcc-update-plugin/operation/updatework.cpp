@@ -555,6 +555,7 @@ void UpdateWorker::startDownload(int updateTypes)
 
     // 直接设置为正在下载状态, 否则切换下载界面等待时间稍长,体验不好
     m_model->setLastStatus(UpdatesStatus::DownloadWaiting, __LINE__, updateTypes);
+    m_model->setDownloadWaiting(true);
 
     // 开始下载
     QDBusPendingCallWatcher* watcher = new QDBusPendingCallWatcher(m_updateInter->PrepareDistUpgradePartly(updateTypes), this);
@@ -1348,7 +1349,7 @@ void UpdateWorker::onCheckUpdateStatusChanged(const QString& value)
         m_model->setShowCheckUpdate(!m_model->isUpdatable());
     } else if (value == "end") {
         refreshLastTimeAndCheckCircle();
-        m_model->setCheckUpdateStatus(m_model->lastStatus());
+        m_model->setCheckUpdateStatus(UpdatesStatus(m_model->lastStatus()));
         m_model->updateCheckUpdateUi();
         deleteJob(m_checkUpdateJob);
     }

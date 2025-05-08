@@ -226,6 +226,7 @@ DccObject {
         backgroundType: DccObject.Normal
         weight: 110
         visible: !dccData.model().showCheckUpdate && dccData.model().preUpdatelistModel.anyVisible
+        enabled: !dccData.model().downloadinglistModel.anyVisible
         pageType: DccObject.Item
 
         page: UpdateControl {
@@ -233,6 +234,8 @@ DccObject {
             updateTitle: qsTr("Updates Available")
             btnActions: [ qsTr("Download") ]
             updateTips: qsTr("Update size: ") + dccData.model().preUpdatelistModel.downloadSize
+            busyState: dccData.model().downloadWaiting
+            updateListEnable: !dccData.model().downloadWaiting
 
             onBtnClicked: function(index, updateType) {
                 dccData.work().startDownload(updateType)
