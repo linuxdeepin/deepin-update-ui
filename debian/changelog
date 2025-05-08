@@ -1,3 +1,18 @@
+deepin-update-ui (1.0.7) unstable; urgency=medium
+
+  * fix: installation status optimization
+  * fix: Not displaying the version and time of the last backup
+  * fix: download status optimization
+  * i18n: Updates for project Deepin Desktop Environment (#45)
+  * feat: support continuous updates when backup fails
+  * style: adjust the code structure
+  * fix: Advanced settings default expansion
+  * fix: improve DConfigWatcher thread safety and connection
+  * feat: update translations
+  * feat: add update module with privacy agreement and UI improvements
+
+ -- YeShanShan <yeshanshan@uniontech.com>  Thu, 08 May 2025 21:43:04 +0800
+
 deepin-update-ui (1.0.6) unstable; urgency=medium
 
   * [dde-update-ui] Updates for project Deepin Desktop Environment (#32)
