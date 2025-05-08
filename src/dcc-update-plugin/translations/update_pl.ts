@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="pl">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="pl">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -27,26 +25,26 @@
     </message>
     <message>
         <source>Exit</source>
-        <translation type="unfinished">Wyjdź</translation>
+        <translation>Wyjdź</translation>
     </message>
 </context>
 <context>
     <name>UpdateHistoryDialog</name>
     <message>
         <source>Save the display settings?</source>
-        <translation type="unfinished">Zapisać ustawienia wyświetlania?</translation>
+        <translation>Zapisać ustawienia wyświetlania?</translation>
     </message>
     <message>
         <source>Settings will be reverted in %1s.</source>
-        <translation type="unfinished">Ustawienia zostaną przywrócone za %1s.</translation>
+        <translation>Ustawienia zostaną przywrócone za %1s.</translation>
     </message>
     <message>
         <source>Revert</source>
-        <translation type="unfinished">Przywróć</translation>
+        <translation>Przywróć</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished">Zapisz</translation>
+        <translation>Zapisz</translation>
     </message>
 </context>
 <context>
@@ -202,11 +200,11 @@
     </message>
     <message>
         <source>Privacy Policy</source>
-        <translation type="unfinished"></translation>
+        <translation>Polityka prywatności</translation>
     </message>
     <message>
         <source>To use this software, you must accept the %1 that accompanies software updates.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aby korzystać z tego oprogramowania, musisz zaakceptować %1, dołączone do aktualizacji.</translation>
     </message>
 </context>
 <context>
@@ -305,7 +303,7 @@
     </message>
     <message>
         <source>Expand</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozwiń</translation>
     </message>
 </context>
 <context>
@@ -426,15 +424,15 @@
     </message>
     <message>
         <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation type="unfinished">Jeśli kontynuujesz aktualizacje, nie będziesz mógł przywrócić starego systemu.</translation>
+        <translation>Jeśli kontynuujesz aktualizacje, nie będziesz mógł przywrócić starego systemu.</translation>
     </message>
     <message>
         <source>Try Again</source>
-        <translation type="unfinished"></translation>
+        <translation>Spróbuj ponownie</translation>
     </message>
     <message>
         <source>Proceed to Update</source>
-        <translation type="unfinished"></translation>
+        <translation>Przejdź do aktualizacji</translation>
     </message>
 </context>
 </TS>
