@@ -1,140 +1,138 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="zh_HK">
 <context>
     <name>CheckUpdate</name>
     <message>
         <source>Last check: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>NoActive</name>
     <message>
         <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation type="unfinished"></translation>
+        <translation>當前系統未激活，無法啓動更新服務</translation>
     </message>
 </context>
 <context>
     <name>QuitTestingChannelDialog</name>
     <message>
         <source>If you exit the beta program, you will no longer receive beta updates.</source>
-        <translation type="unfinished"></translation>
+        <translation>退出內測您將無法獲取內測更新</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>取 消</translation>
     </message>
     <message>
         <source>Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>退 出</translation>
     </message>
 </context>
 <context>
     <name>UpdateHistoryDialog</name>
     <message>
         <source>Save the display settings?</source>
-        <translation type="unfinished"></translation>
+        <translation>是否要保存顯示設置？</translation>
     </message>
     <message>
         <source>Settings will be reverted in %1s.</source>
-        <translation type="unfinished"></translation>
+        <translation>如無任何操作將在%1秒後還原。</translation>
     </message>
     <message>
         <source>Revert</source>
-        <translation type="unfinished"></translation>
+        <translation>還原</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>保存</translation>
     </message>
 </context>
 <context>
     <name>UpdateList</name>
     <message>
         <source>View Details</source>
-        <translation type="unfinished"></translation>
+        <translation>查看詳細信息</translation>
     </message>
     <message>
         <source>Updates:</source>
-        <translation type="unfinished"></translation>
+        <translation>更新：</translation>
     </message>
     <message>
         <source>Release time:</source>
-        <translation type="unfinished"></translation>
+        <translation>發佈時間：</translation>
     </message>
     <message>
         <source>Collapse</source>
-        <translation type="unfinished"></translation>
+        <translation>收起</translation>
     </message>
 </context>
 <context>
     <name>UpdateLogHelper</name>
     <message>
         <source>NONE</source>
-        <translation type="unfinished"></translation>
+        <translation>未知</translation>
     </message>
     <message>
         <source>LOW</source>
-        <translation type="unfinished"></translation>
+        <translation>低危</translation>
     </message>
     <message>
         <source>MEDIUM</source>
-        <translation type="unfinished"></translation>
+        <translation>中危</translation>
     </message>
     <message>
         <source>HIGH</source>
-        <translation type="unfinished"></translation>
+        <translation>高危</translation>
     </message>
     <message>
         <source>CRITICAL</source>
-        <translation type="unfinished"></translation>
+        <translation>嚴重</translation>
     </message>
     <message>
         <source>critical-risk</source>
-        <translation type="unfinished"></translation>
+        <translation>嚴重</translation>
     </message>
     <message>
         <source>high-risk</source>
-        <translation type="unfinished"></translation>
+        <translation>高危</translation>
     </message>
     <message>
         <source>medium-risk</source>
-        <translation type="unfinished"></translation>
+        <translation>中危</translation>
     </message>
     <message>
         <source>low-risk</source>
-        <translation type="unfinished"></translation>
+        <translation>低危</translation>
     </message>
     <message>
         <source>unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>未知</translation>
     </message>
     <message>
         <source>This update fixes</source>
-        <translation type="unfinished"></translation>
+        <translation>本次更新修復</translation>
     </message>
     <message>
         <source>vulnerabilities</source>
-        <translation type="unfinished"></translation>
+        <translation>漏洞</translation>
     </message>
     <message>
         <source>vulnerability</source>
-        <translation type="unfinished"></translation>
+        <translation>漏洞</translation>
     </message>
     <message>
         <source>%1 of %2 %3</source>
-        <translation type="unfinished"></translation>
+        <translation>%1個%2%3</translation>
         <extra-content_explain>`数字+%`会在代码中替换为字符串，例如：3 of high-risk vulnerabilities；各语言需要根据实际情况增加空格(例如：中文没有空格，英文有空格)</extra-content_explain>
     </message>
     <message>
         <source>, </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
         <extra-content_explain>中文逗号不需要空格，英文逗号需要空格For more details, please visit</extra-content_explain>
     </message>
     <message>
         <source>for more details, please visit </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
         <extra-content_explain>这句话后面会带上一个超链接，各语言自行决定末尾需不需要加空格</extra-content_explain>
     </message>
 </context>
@@ -142,299 +140,299 @@
     <name>UpdateModel</name>
     <message>
         <source>Checking for updates, please wait…</source>
-        <translation type="unfinished"></translation>
+        <translation>正在檢查更新，請等待…</translation>
     </message>
     <message>
         <source>Your system is up to date</source>
-        <translation type="unfinished"></translation>
+        <translation>您的系統已更新</translation>
     </message>
     <message>
         <source>Unknown error</source>
-        <translation type="unfinished"></translation>
+        <translation>未知錯誤</translation>
     </message>
     <message>
         <source>Downloading updates failed. Please free up %1 disk space first.</source>
-        <translation type="unfinished"></translation>
+        <translation>更新包下載失敗，請釋放%1空間</translation>
     </message>
     <message>
         <source>Dependency error, failed to detect the updates</source>
-        <translation type="unfinished"></translation>
+        <translation>依賴錯誤，檢測更新失敗</translation>
     </message>
     <message>
         <source>Please check your network and try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>請檢查網絡後重試</translation>
     </message>
     <message>
         <source>Downloading updates failed. Please check your network and try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>更新包下載失敗，請檢查網絡後重試</translation>
     </message>
     <message>
         <source>Unable to perform system backup. If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation type="unfinished"></translation>
+        <translation>系統無法備份，繼續升級，系統將無法回退</translation>
     </message>
     <message>
         <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation type="unfinished"></translation>
+        <translation>繼續更新，系統將無法回退</translation>
     </message>
     <message>
         <source>Insufficient disk space</source>
-        <translation type="unfinished"></translation>
+        <translation>磁盤空間不足</translation>
     </message>
     <message>
         <source>DPKG error</source>
-        <translation type="unfinished"></translation>
+        <translation>dpkg錯誤</translation>
     </message>
     <message>
         <source>File missing</source>
-        <translation type="unfinished"></translation>
+        <translation>部分文件缺失</translation>
     </message>
     <message>
         <source>Service connection is abnormal, please check the network and try again</source>
-        <translation type="unfinished"></translation>
+        <translation>服務連接異常，請檢查網絡後重試</translation>
     </message>
     <message>
         <source>The repository source configuration is not valid, please check and try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>倉庫源配置錯誤，請檢查後再試。</translation>
     </message>
     <message>
         <source>Check Again</source>
-        <translation type="unfinished"></translation>
+        <translation>重新檢查更新</translation>
     </message>
     <message>
         <source>Privacy Policy</source>
-        <translation type="unfinished"></translation>
+        <translation>《私隱政策》</translation>
     </message>
     <message>
         <source>To use this software, you must accept the %1 that accompanies software updates.</source>
-        <translation type="unfinished"></translation>
+        <translation>使用此軟件需要接受軟件更新時附帶的%1</translation>
     </message>
 </context>
 <context>
     <name>UpdateSetting</name>
     <message>
         <source>Smart Mirror Switch</source>
-        <translation type="unfinished"></translation>
+        <translation>智能鏡像源</translation>
     </message>
     <message>
         <source>Update Type</source>
-        <translation type="unfinished"></translation>
+        <translation>更新類型</translation>
     </message>
     <message>
         <source>Function Updates</source>
-        <translation type="unfinished"></translation>
+        <translation>功能更新</translation>
     </message>
     <message>
         <source>Delivers a cumulative update including new features, quality updates, and  security updates</source>
-        <translation type="unfinished"></translation>
+        <translation>提供新功能、質量補丁、安全漏洞修復登全量更新內容</translation>
     </message>
     <message>
         <source>Security Updates</source>
-        <translation type="unfinished"></translation>
+        <translation>安全更新</translation>
     </message>
     <message>
         <source>Delivers security updates</source>
-        <translation type="unfinished"></translation>
+        <translation>提供安全漏洞修復</translation>
     </message>
     <message>
         <source>Third-party Updates</source>
-        <translation type="unfinished"></translation>
+        <translation>第三方來源更新</translation>
     </message>
     <message>
         <source>Delivers  updates for additional repository sources</source>
-        <translation type="unfinished"></translation>
+        <translation>提供額外添加的倉庫源更新內容</translation>
     </message>
     <message>
         <source>Limit Speed</source>
-        <translation type="unfinished"></translation>
+        <translation>下載限速</translation>
     </message>
     <message>
         <source>Limit Setting</source>
-        <translation type="unfinished"></translation>
+        <translation>限速設置</translation>
     </message>
     <message>
         <source>Auto Download</source>
-        <translation type="unfinished"></translation>
+        <translation>自動下載</translation>
     </message>
     <message>
         <source>Enabling &quot;Auto Download Updates&quot; will automatically download updates when connected to the internet</source>
-        <translation type="unfinished"></translation>
+        <translation>開啓「自動下載」，會在聯網的情況下自動下載更新包</translation>
     </message>
     <message>
         <source>Download when Inactive</source>
-        <translation type="unfinished"></translation>
+        <translation>閒時下載</translation>
     </message>
     <message>
         <source>Start at</source>
-        <translation type="unfinished"></translation>
+        <translation>開始時間</translation>
     </message>
     <message>
         <source>End at</source>
-        <translation type="unfinished"></translation>
+        <translation>結束時間</translation>
     </message>
     <message>
         <source>Advanced Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>高級設置</translation>
     </message>
     <message>
         <source>Updates Notification</source>
-        <translation type="unfinished"></translation>
+        <translation>更新提醒</translation>
     </message>
     <message>
         <source>Clear Package Cache</source>
-        <translation type="unfinished"></translation>
+        <translation>清除軟件包緩存</translation>
     </message>
     <message>
         <source>Update History</source>
-        <translation type="unfinished"></translation>
+        <translation>歷史更新內容</translation>
     </message>
     <message>
         <source>View</source>
-        <translation type="unfinished"></translation>
+        <translation>查看</translation>
     </message>
     <message>
         <source>Join Internal Testing Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>內測通道</translation>
     </message>
     <message>
         <source>Join the internal testing channel to get deepin latest updates</source>
-        <translation type="unfinished"></translation>
+        <translation>加入deepin內測通道，以獲取deepin最新更新內容</translation>
     </message>
     <message>
         <source>Click here to complete the application</source>
-        <translation type="unfinished"></translation>
+        <translation>點擊此處完成內測申請</translation>
     </message>
     <message>
         <source>Expand</source>
-        <translation type="unfinished"></translation>
+        <translation>展開</translation>
     </message>
 </context>
 <context>
     <name>UpdateWorker</name>
     <message>
         <source>System Updates</source>
-        <translation type="unfinished"></translation>
+        <translation>系統更新</translation>
     </message>
     <message>
         <source>Fixed some known bugs and security vulnerabilities</source>
-        <translation type="unfinished"></translation>
+        <translation>修復部分已知缺陷和安全漏洞</translation>
     </message>
     <message>
         <source>Security Updates</source>
-        <translation type="unfinished"></translation>
+        <translation>安全更新</translation>
     </message>
     <message>
         <source>Third-party Repositories</source>
-        <translation type="unfinished"></translation>
+        <translation>第三方倉庫</translation>
     </message>
 </context>
 <context>
     <name>update</name>
     <message>
         <source>System Update</source>
-        <translation type="unfinished"></translation>
+        <translation>系統更新</translation>
     </message>
     <message>
         <source>System update and upgrade</source>
-        <translation type="unfinished"></translation>
+        <translation>系統更新升級</translation>
     </message>
 </context>
 <context>
     <name>updateMain</name>
     <message>
         <source>Update Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>更新設置</translation>
     </message>
     <message>
         <source>Installing</source>
-        <translation type="unfinished"></translation>
+        <translation>正在安裝</translation>
     </message>
     <message>
         <source>Update download completed</source>
-        <translation type="unfinished"></translation>
+        <translation>更新下載完成</translation>
     </message>
     <message>
         <source>Install updates</source>
-        <translation type="unfinished"></translation>
+        <translation>安裝更新</translation>
     </message>
     <message>
         <source>Update size: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update download failed</source>
-        <translation type="unfinished"></translation>
+        <translation>更新下載失敗</translation>
     </message>
     <message>
         <source>Downloading updates...</source>
-        <translation type="unfinished"></translation>
+        <translation>下載更新中...</translation>
     </message>
     <message>
         <source>Downloading</source>
-        <translation type="unfinished"></translation>
+        <translation>下載中</translation>
     </message>
     <message>
         <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
-        <translation type="unfinished"></translation>
+        <translation>可設置系統更新、安全更折、閒時更新、更新提醒等</translation>
     </message>
     <message>
         <source>Reboot now</source>
-        <translation type="unfinished"></translation>
+        <translation>立即重啓</translation>
     </message>
     <message>
         <source>Download</source>
-        <translation type="unfinished"></translation>
+        <translation>下 載</translation>
     </message>
     <message>
         <source>Installing updates...</source>
-        <translation type="unfinished"></translation>
+        <translation>正在安裝更新...</translation>
     </message>
     <message>
         <source>Retry</source>
-        <translation type="unfinished"></translation>
+        <translation>重 試</translation>
     </message>
     <message>
         <source>Continue Update</source>
-        <translation type="unfinished"></translation>
+        <translation>繼續更新</translation>
     </message>
     <message>
         <source>Updates Available</source>
-        <translation type="unfinished"></translation>
+        <translation>檢測到有可用的更新</translation>
     </message>
     <message>
         <source>Installation update failed</source>
-        <translation type="unfinished"></translation>
+        <translation>安裝更新失敗</translation>
     </message>
     <message>
         <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
-        <translation type="unfinished"></translation>
+        <translation>為了您能夠正常使用系統和應用，更新後請重啓電腦</translation>
     </message>
     <message>
         <source>Backing up in progress...</source>
-        <translation type="unfinished"></translation>
+        <translation>正在備份...</translation>
     </message>
     <message>
         <source>Backing up in progress</source>
-        <translation type="unfinished"></translation>
+        <translation>正在備份</translation>
     </message>
     <message>
         <source>Backup failed</source>
-        <translation type="unfinished"></translation>
+        <translation>備份失敗</translation>
     </message>
     <message>
         <source>Update installation successful</source>
-        <translation type="unfinished"></translation>
+        <translation>更新安裝成功</translation>
     </message>
     <message>
         <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation type="unfinished"></translation>
+        <translation>繼續更新，系統將無法回退</translation>
     </message>
     <message>
         <source>Try Again</source>
-        <translation type="unfinished"></translation>
+        <translation>重試</translation>
     </message>
     <message>
         <source>Proceed to Update</source>
-        <translation type="unfinished"></translation>
+        <translation>繼續更新</translation>
     </message>
 </context>
 </TS>
