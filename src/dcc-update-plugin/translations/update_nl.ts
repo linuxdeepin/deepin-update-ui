@@ -25,11 +25,11 @@
     <name>UpdateDisable</name>
     <message>
         <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation type="unfinished"/>
+        <translation>Systeemupdates zijn uitgeschakeld. Neem contact op met je systeembeheerder.</translation>
     </message>
     <message>
         <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation type="unfinished"/>
+        <translation>Er kan geen verbinding worden gemaakt, omdat je systeem niet is geactiveerd.</translation>
     </message>
 </context>
 <context>
