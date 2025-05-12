@@ -1,16 +1,11 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="fi">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="fi">
 <context>
     <name>CheckUpdate</name>
     <message>
         <source>Last check: </source>
         <translation>Tarkistettu: </translation>
-    </message>
-</context>
-<context>
-    <name>NoActive</name>
-    <message>
-        <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation>Tietokonetta ei ole aktivoitu, eikä se onnistu saamaan yhteyttä päivityspalveluihin.</translation>
     </message>
 </context>
 <context>
@@ -26,6 +21,17 @@
     <message>
         <source>Exit</source>
         <translation>Poistu</translation>
+    </message>
+</context>
+<context>
+    <name>UpdateDisable</name>
+    <message>
+        <source>The system updates are disabled. Please contact your administrator for help</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your system is not activated, and it failed to connect to update services</source>
+        <translation type="unfinished">Tietokonetta ei ole aktivoitu, eikä se onnistu saamaan yhteyttä päivityspalveluihin.</translation>
     </message>
 </context>
 <context>

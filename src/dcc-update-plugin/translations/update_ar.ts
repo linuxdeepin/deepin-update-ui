@@ -9,13 +9,6 @@
     </message>
 </context>
 <context>
-    <name>NoActive</name>
-    <message>
-        <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>QuitTestingChannelDialog</name>
     <message>
         <source>If you exit the beta program, you will no longer receive beta updates.</source>
@@ -27,6 +20,17 @@
     </message>
     <message>
         <source>Exit</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UpdateDisable</name>
+    <message>
+        <source>The system updates are disabled. Please contact your administrator for help</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your system is not activated, and it failed to connect to update services</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

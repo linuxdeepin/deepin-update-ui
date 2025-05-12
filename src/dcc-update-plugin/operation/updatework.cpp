@@ -101,6 +101,7 @@ static int TestMirrorSpeedInternal(const QString& url, QPointer<QObject> baseObj
 
 UpdateWorker::UpdateWorker(UpdateModel* model, QObject* parent)
     : QObject(parent)
+    , m_lastoreDConfig(DConfig::create("org.deepin.dde.lastore", "org.deepin.dde.lastore", "", this))
     , m_model(model)
     , m_updateInter(new UpdateDBusProxy(this))
     , m_lastoreHeartBeatTimer(new QTimer)
@@ -195,6 +196,7 @@ void UpdateWorker::activate()
 {
     qCInfo(DCC_UPDATE_WORKER) << "Active update worker";
 
+    initConfig();
     onLicenseStateChange();
     onPowerChange();
     updateSystemVersion();
@@ -221,9 +223,7 @@ void UpdateWorker::activate()
 
     m_model->setUpdateStatus(m_updateInter->updateStatus().toUtf8());
 
-    if (LastoreDaemonDConfigStatusHelper::isUpdateDisabled(m_model->lastoreDaemonStatus())) {
-        m_model->setLastStatus(UpdatesStatus::UpdateIsDisabled, __LINE__);
-    } else {
+    if (!m_model->isUpdateDisabled()) {
         // 获取当前的job
         const QList<QDBusObjectPath> jobs = m_updateInter->jobList();
         if (jobs.count() > 0) {
@@ -247,6 +247,28 @@ void UpdateWorker::activate()
                 });
             }
         }
+    }
+}
+
+void UpdateWorker::initConfig()
+{
+    if (m_lastoreDConfig && m_lastoreDConfig->isValid()) {
+        m_model->setLastoreDaemonStatus(m_lastoreDConfig->value("lastore-daemon-status").toInt());
+        connect(m_lastoreDConfig, &DConfig::valueChanged, this, [this](const QString& key) {
+            if ("lastore-daemon-status" == key) {
+                bool ok;
+                int value = m_lastoreDConfig->value(key).toInt(&ok);
+                if (ok) {
+                    m_model->setLastoreDaemonStatus(value);
+
+                    if (!m_model->isUpdateDisabled()) {
+                        checkNeedDoUpdates();
+                    }
+                }
+            }
+        });
+    } else {
+        qCWarning(DCC_UPDATE_WORKER) << "Lastore dconfig is nullptr or invalid";
     }
 }
 
@@ -347,17 +369,20 @@ UpdateErrorType UpdateWorker::analyzeJobErrorMessage(const QString& jobDescripti
     return UnKnown;
 }
 
-void UpdateWorker::updateNeedDoCheck()
+void UpdateWorker::checkNeedDoUpdates()
 {
-    if (!m_model->systemActivation())
+    if (m_model->isUpdateDisabled() || !m_model->systemActivation()) {
+        qCDebug(DCC_UPDATE_WORKER) << "update disabled:" << m_model->isUpdateDisabled() << " system activation:" << m_model->systemActivation();
+        m_model->setShowCheckUpdate(false);
         return;
+    }
 
     // 如果打开控制中心后第一次进入检查更新界面,则显示页面并进行检查
     static bool doCheckFirst = true;
     if (doCheckFirst) {
         doCheckFirst = false;
         m_model->setShowCheckUpdate(true);
-        m_model->setNeedDoCheck(true);
+        doCheckUpdates();
         return;
     }
 
@@ -368,25 +393,13 @@ void UpdateWorker::updateNeedDoCheck()
     qCDebug(DCC_UPDATE_WORKER) << "check time interval:" << checkTimeInterval << " need to check:" << bEnter;
     if (bEnter) {
         m_model->setShowCheckUpdate(true);
-        m_model->setNeedDoCheck(true);
-    } else {
-        m_model->setNeedDoCheck(false);
+        doCheckUpdates();
     }
 }
 
-void UpdateWorker::checkForUpdates()
+void UpdateWorker::doCheckUpdates()
 {
-    qCInfo(DCC_UPDATE_WORKER) << "Check for updates";
-    if (LastoreDaemonDConfigStatusHelper::isUpdateDisabled(m_model->lastoreDaemonStatus())) {
-        qCWarning(DCC_UPDATE_WORKER) << "Update is disabled";
-        return;
-    }
-
-    if (!m_model->systemActivation()) {
-        qCWarning(DCC_UPDATE_WORKER) << "System activation is invalid: " << m_model->systemActivation();
-        return;
-    }
-
+    qCInfo(DCC_UPDATE_WORKER) << "do check updates";
     if (checkDbusIsValid()) {
         qCWarning(DCC_UPDATE_WORKER) << "Check Dbus's validation failed do nothing";
         return;
@@ -1225,13 +1238,13 @@ void UpdateWorker::onRequestRetry(int type, int updateTypes)
     }
 
     if (updateStatus == CheckingFailed) {
-        checkForUpdates();
+        doCheckUpdates();
         return;
     }
 
     if (lastError == UnKnown || lastError == NoError) {
         qCWarning(DCC_UPDATE_WORKER) << "Unknown error, recheck update";
-        checkForUpdates();
+        doCheckUpdates();
     }
 }
 

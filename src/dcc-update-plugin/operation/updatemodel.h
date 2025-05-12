@@ -20,12 +20,12 @@ class UpdateModel : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(bool isUpdateDisabled READ isUpdateDisabled NOTIFY isUpdateDisabledChanged FINAL)
     Q_PROPERTY(bool systemActivation READ systemActivation WRITE setSystemActivation NOTIFY systemActivationChanged FINAL)
     Q_PROPERTY(int lastStatus READ lastStatus  NOTIFY lastStatusChanged FINAL)
 
     // ---------------检查更新页面数据---------------
     Q_PROPERTY(bool showCheckUpdate READ showCheckUpdate NOTIFY showCheckUpdateChanged FINAL)
-    Q_PROPERTY(bool needDoCheck READ needDoCheck NOTIFY needDoCheckChanged FINAL)
     Q_PROPERTY(QString checkUpdateIcon READ checkUpdateIcon NOTIFY checkUpdateIconChanged FINAL)
     Q_PROPERTY(double checkUpdateProgress READ checkUpdateProgress NOTIFY checkUpdateProgressChanged FINAL)
     Q_PROPERTY(UpdatesStatus checkUpdateStatus READ checkUpdateStatus NOTIFY checkUpdateStatusChanged FINAL)
@@ -79,13 +79,13 @@ public:
     ~UpdateModel();
 
 public:
-    void initConfig();
+    int lastoreDaemonStatus() const { return m_lastoreDaemonStatus; }
+    void setLastoreDaemonStatus(int status);
+
+    bool isUpdateDisabled() const;
 
     bool systemActivation() const { return m_systemActivation; }
     void setSystemActivation(bool systemActivation);
-
-    int lastoreDaemonStatus() const { return m_lastoreDeamonStatus; }
-    void setLastoreDaemonStatus(int status);
 
     bool batterIsOK() const { return m_batterIsOK; }
     void setBatterIsOK(bool ok);
@@ -96,9 +96,6 @@ public:
     // ---------------检查更新页面数据---------------
     bool showCheckUpdate() const { return m_showCheckUpdate; }
     void setShowCheckUpdate(bool value);
-
-    bool needDoCheck() const { return m_needDoCheck; }
-    void setNeedDoCheck(bool value);
 
     QString checkUpdateIcon() const { return m_checkUpdateIcon; }
     void setCheckUpdateIcon(const QString &newCheckUpdateIcon);
@@ -290,14 +287,14 @@ public slots:
                                    const QStringList &invalidatedProperties);
 
 Q_SIGNALS:
+    void isUpdateDisabledChanged(bool isDisabled);
     void systemActivationChanged(bool systemActivation);
-    void lastoreDaemonStatusChanged(int status);
+
     void batterStatusChanged(bool isOK);
     void lastStatusChanged(int status);
 
     // 检查更新页面数据
     void showCheckUpdateChanged();
-    void needDoCheckChanged();
     void checkUpdateIconChanged();
     void checkUpdateProgressChanged();
     void checkUpdateStatusChanged();
@@ -356,15 +353,13 @@ Q_SIGNALS:
     void p2pUpdateEnableStateChanged(bool enabled);
 
 private:
-    Dtk::Core::DConfig *lastoreDConfig;
+    int m_lastoreDaemonStatus; // 比较重要的数值，每个位标识不同的含义，使用 LastoreDaemonDConfigStatusHelper 对它进行解析
     bool m_systemActivation;
-    int m_lastoreDeamonStatus; // 比较重要的数值，每个位标识不同的含义，使用 LastoreDaemonDConfigStatusHelper 对它进行解析
     bool m_batterIsOK;
     int m_lastStatus;
 
     // 检查更新页面数据
     bool m_showCheckUpdate;
-    bool m_needDoCheck;
     QString m_checkUpdateIcon;
     double m_checkUpdateProgress;
     UpdatesStatus m_checkUpdateStatus;

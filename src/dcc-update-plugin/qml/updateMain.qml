@@ -16,22 +16,20 @@ DccObject {
         target: DccApp
         function onActiveObjectChanged(obj) {
             if (obj === dccModule) {
-                dccData.work().updateNeedDoCheck()
-                if (dccData.model().needDoCheck) {
-                    dccData.work().checkForUpdates();
-                }                
+                dccData.work().checkNeedDoUpdates()
             }
         }
     }
 
     DccObject {
-        name: "noActive"
+        id: updateDisable
+        name: "updateDisable"
         parentName: "update"
         pageType: DccObject.Item
         backgroundType: DccObject.AutoBg
         weight: 10
-        visible: !dccData.model().systemActivation
-        page: NoActive {}
+        visible: !dccData.model().systemActivation || dccData.model().isUpdateDisabled
+        page: UpdateDisable {}
     }
 
     DccObject {
@@ -261,7 +259,7 @@ DccObject {
         description: qsTr("Configure Update settings、Security Updates、Auto Download Updates and Updates Notification")
         icon: "update_set"
         weight: 120
-        visible: dccData.model().systemActivation
+        visible: !updateDisable.visible
 
         UpdateSetting {}
     }
@@ -272,7 +270,7 @@ DccObject {
         parentName: "update"
         weight: 1000
         backgroundType: DccObject.Normal
-        visible: !dccData.model().showCheckUpdate
+        visible: !dccData.model().showCheckUpdate && !updateDisable.visible
         pageType: DccObject.Item
 
         page: RowLayout {

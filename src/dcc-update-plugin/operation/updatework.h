@@ -24,6 +24,7 @@ public:
 
     void initConnect();
     void activate();
+    void initConfig();
     void getLicenseState();
 
     bool checkDbusIsValid();
@@ -33,8 +34,8 @@ public:
     UpdateErrorType analyzeJobErrorMessage(const QString& jobDescription, UpdatesStatus status = Default);
 
     // 检查更新
-    Q_INVOKABLE void updateNeedDoCheck();
-    Q_INVOKABLE void checkForUpdates();
+    Q_INVOKABLE void checkNeedDoUpdates();
+    Q_INVOKABLE void doCheckUpdates();
     void setCheckUpdatesJob(const QString& jobPath);
     void createCheckUpdateJob(const QString& jobPath);
     void refreshLastTimeAndCheckCircle();
@@ -122,6 +123,7 @@ Q_SIGNALS:
     void requestCloseTestingChannel();
 
 private:
+    Dtk::Core::DConfig *m_lastoreDConfig;
     UpdateModel* m_model;
     UpdateDBusProxy *m_updateInter;
     QTimer *m_lastoreHeartBeatTimer; // lastore-daemon 心跳信号，防止lastore-daemon自动退出

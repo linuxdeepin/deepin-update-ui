@@ -23,7 +23,7 @@ ColumnLayout {
 
             Image {
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                source: "update_no_active"
+                source: dccData.model().isUpdateDisabled ? "update_prohibit" : "update_no_active"     
                 height: 140
             }
 
@@ -31,7 +31,8 @@ ColumnLayout {
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 width: implicitWidth
                 height: 30
-                text: qsTr("Your system is not activated, and it failed to connect to update services")
+                text: dccData.model().isUpdateDisabled ? qsTr("The system updates are disabled. Please contact your administrator for help")
+                                                       : qsTr("Your system is not activated, and it failed to connect to update services")
                 font.pixelSize: 12
             }
         }

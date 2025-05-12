@@ -1,16 +1,11 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="sq">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="sq">
 <context>
     <name>CheckUpdate</name>
     <message>
         <source>Last check: </source>
         <translation>Kontrolli i fundit më: </translation>
-    </message>
-</context>
-<context>
-    <name>NoActive</name>
-    <message>
-        <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation>Sistemi juaj s’është aktivizuar dhe s’u arrit të lidhej me shërbime përditësimesh</translation>
     </message>
 </context>
 <context>
@@ -26,6 +21,17 @@
     <message>
         <source>Exit</source>
         <translation>Dilni</translation>
+    </message>
+</context>
+<context>
+    <name>UpdateDisable</name>
+    <message>
+        <source>The system updates are disabled. Please contact your administrator for help</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your system is not activated, and it failed to connect to update services</source>
+        <translation type="unfinished">Sistemi juaj s’është aktivizuar dhe s’u arrit të lidhej me shërbime përditësimesh</translation>
     </message>
 </context>
 <context>

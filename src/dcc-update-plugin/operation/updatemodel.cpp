@@ -33,13 +33,11 @@ static const QMap<UpdatesStatus, ControlPanelType> ControlPanelTypeMapping = {
 
 UpdateModel::UpdateModel(QObject* parent)
     : QObject(parent)
-    , lastoreDConfig(DConfig::create("org.deepin.dde.lastore", "org.deepin.dde.lastore", "", this))
+    , m_lastoreDaemonStatus(0)
     , m_systemActivation(false)
-    , m_lastoreDeamonStatus(0)
     , m_batterIsOK(false)
     , m_lastStatus(Default)
     , m_showCheckUpdate(false)
-    , m_needDoCheck(false)
     , m_checkUpdateIcon("")
     , m_checkUpdateProgress(0.0)
     , m_checkUpdateStatus(UpdatesStatus::Default)
@@ -85,8 +83,6 @@ UpdateModel::UpdateModel(QObject* parent)
     qRegisterMetaType<UpdatesStatus>("UpdatesStatus");
     qRegisterMetaType<TestingChannelStatus>("TestingChannelStatus");
     qRegisterMetaType<UpdateType>("UpdateType");
-
-    initConfig();
 }
 
 UpdateModel::~UpdateModel()
@@ -94,23 +90,19 @@ UpdateModel::~UpdateModel()
     qDeleteAll(m_allUpdateInfos.values());
 }
 
-void UpdateModel::initConfig()
+void UpdateModel::setLastoreDaemonStatus(int status)
 {
-    if (lastoreDConfig && lastoreDConfig->isValid()) {
-        setLastoreDaemonStatus(lastoreDConfig->value("lastore-daemon-status").toInt());
-        connect(lastoreDConfig, &DConfig::valueChanged, this, [this](const QString& key) {
-            if ("lastore-daemon-status" == key) {
-                bool ok;
-                int value = lastoreDConfig->value(key).toInt(&ok);
-                if (!ok || m_lastoreDeamonStatus == value)
-                    return;
+    qCDebug(DCC_UPDATE_MODEL) << "lastore daemon status:" << status;
+    if (m_lastoreDaemonStatus == status)
+        return;
 
-                setLastoreDaemonStatus(value);
-            }
-        });
-    } else {
-        qCWarning(DCC_UPDATE_MODEL) << "Lastore dconfig is nullptr or invalid";
-    }
+    m_lastoreDaemonStatus = status;
+    Q_EMIT isUpdateDisabledChanged(isUpdateDisabled());
+}
+
+bool UpdateModel::isUpdateDisabled() const
+{
+    return LastoreDaemonDConfigStatusHelper::isUpdateDisabled(m_lastoreDaemonStatus);
 }
 
 void UpdateModel::setSystemActivation(bool systemActivation)
@@ -121,15 +113,6 @@ void UpdateModel::setSystemActivation(bool systemActivation)
     }
     m_systemActivation = systemActivation;
     Q_EMIT systemActivationChanged(systemActivation);
-}
-
-void UpdateModel::setLastoreDaemonStatus(int status)
-{
-    if (m_lastoreDeamonStatus == status)
-        return;
-
-    m_lastoreDeamonStatus = status;
-    Q_EMIT lastoreDaemonStatusChanged(status);
 }
 
 void UpdateModel::setBatterIsOK(bool ok)
@@ -162,15 +145,6 @@ void UpdateModel::setShowCheckUpdate(bool value)
 
     m_showCheckUpdate = value;
     emit showCheckUpdateChanged();
-}
-
-void UpdateModel::setNeedDoCheck(bool value)
-{
-    if (m_needDoCheck == value)
-        return;
-
-    m_needDoCheck = value;
-    emit needDoCheckChanged();
 }
 
 void UpdateModel::setCheckUpdateIcon(const QString &newCheckUpdateIcon)

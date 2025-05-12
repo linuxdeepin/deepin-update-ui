@@ -53,7 +53,7 @@ ColumnLayout {
                 visible: text.length !== 0
                 text: dccData.model().checkBtnText
                 onClicked: {
-                    dccData.work().checkForUpdates();
+                    dccData.work().doCheckUpdates();
                 }
             }
 
