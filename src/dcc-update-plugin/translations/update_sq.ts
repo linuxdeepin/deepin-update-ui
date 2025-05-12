@@ -25,11 +25,11 @@
     <name>UpdateDisable</name>
     <message>
         <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation type="unfinished"/>
+        <translation>Përditësimet e sistemit janë të çaktivizuara. Ju lutemi, për ndihmë, lidhuni me përgjegjësin tuaj</translation>
     </message>
     <message>
         <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation type="unfinished"/>
+        <translation>Sistemi juaj s’është aktivizuar dhe s’u arrit të lidhej me shërbime përditësimesh</translation>
     </message>
 </context>
 <context>
