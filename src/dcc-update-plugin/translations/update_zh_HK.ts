@@ -1,11 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="zh_HK">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="zh_HK">
 <context>
     <name>CheckUpdate</name>
     <message>
         <source>Last check: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -27,11 +25,11 @@
     <name>UpdateDisable</name>
     <message>
         <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation type="unfinished">當前系統未激活，無法啓動更新服務</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -133,12 +131,12 @@
     </message>
     <message>
         <source>, </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
         <extra-content_explain>中文逗号不需要空格，英文逗号需要空格For more details, please visit</extra-content_explain>
     </message>
     <message>
         <source>for more details, please visit </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
         <extra-content_explain>这句话后面会带上一个超链接，各语言自行决定末尾需不需要加空格</extra-content_explain>
     </message>
 </context>
@@ -362,7 +360,7 @@
     </message>
     <message>
         <source>Update size: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update download failed</source>
