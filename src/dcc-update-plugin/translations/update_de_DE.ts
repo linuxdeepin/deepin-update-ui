@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="de_DE">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="de_DE">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -27,11 +25,11 @@
     <name>UpdateDisable</name>
     <message>
         <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation type="unfinished">Ihr System ist nicht aktiviert, und es konnte nicht mit einem Aktualisierungs-Server verbunden werden.</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -206,11 +204,11 @@
     </message>
     <message>
         <source>Privacy Policy</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>To use this software, you must accept the %1 that accompanies software updates.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -309,7 +307,7 @@
     </message>
     <message>
         <source>Expand</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -430,15 +428,15 @@
     </message>
     <message>
         <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation type="unfinished">Falls Sie mit den Aktualisierungen fortfahren, können Sie nicht wieder zurück zum alten System.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Try Again</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Proceed to Update</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>
