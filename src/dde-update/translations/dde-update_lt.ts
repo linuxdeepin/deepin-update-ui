@@ -86,7 +86,7 @@
     </message>
     <message>
         <source>Insufficient disk space. Please clean up your disk and try again.</source>
-        <translation type="unfinished"/>
+        <translation>Nepakanka vietos diske. Išvalykite diską ir bandykite dar kartą.</translation>
     </message>
     <message>
         <source>Failed to connect to backup services. Please check and retry again.</source>
