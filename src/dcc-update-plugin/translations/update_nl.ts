@@ -452,7 +452,7 @@
     </message>
     <message>
         <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation type="unfinished"/>
+        <translation>Het accuniveau is lager dan 60%. Sluit de stroomkabel aan om de updates te installeren.</translation>
     </message>
 </context>
 </TS>
