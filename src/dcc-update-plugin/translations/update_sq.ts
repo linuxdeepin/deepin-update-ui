@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="sq">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="sq">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -27,42 +25,42 @@
     <name>UpdateDisable</name>
     <message>
         <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation type="unfinished"></translation>
+        <translation>Përditësimet e sistemit janë të çaktivizuara. Ju lutemi, për ndihmë, lidhuni me përgjegjësin tuaj</translation>
     </message>
     <message>
         <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistemi juaj s’është aktivizuar dhe s’u arrit të lidhej me shërbime përditësimesh</translation>
     </message>
 </context>
 <context>
     <name>UpdateHistoryDialog</name>
     <message>
         <source>Update History</source>
-        <translation type="unfinished">Historik Përditësimesh</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>No update history</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>System Updates</source>
-        <translation type="unfinished">Përditësime Sistemi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Security Updates</source>
-        <translation type="unfinished">Përditësime Sigurie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Delivers security updates</source>
-        <translation type="unfinished">Sjell përditësime sigurie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Installation date:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
