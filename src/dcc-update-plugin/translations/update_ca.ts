@@ -25,42 +25,42 @@
     <name>UpdateDisable</name>
     <message>
         <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation type="unfinished"/>
+        <translation>Les actualitzacions del sistema estan desactivades. Poseu-vos en contacte amb l&apos;administrador per obtenir ajuda.</translation>
     </message>
     <message>
         <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation type="unfinished"/>
+        <translation>El sistema no està activat i no s&apos;ha pogut connectar per actualitzar-ne els serveis.</translation>
     </message>
 </context>
 <context>
     <name>UpdateHistoryDialog</name>
     <message>
         <source>Update History</source>
-        <translation type="unfinished"/>
+        <translation>Historial d&apos;actualitzacions</translation>
     </message>
     <message>
         <source>No update history</source>
-        <translation type="unfinished"/>
+        <translation>No hi ha historial d&apos;actualitzacions.</translation>
     </message>
     <message>
         <source>System Updates</source>
-        <translation type="unfinished"/>
+        <translation>Actualitzacions del sistema</translation>
     </message>
     <message>
         <source>Security Updates</source>
-        <translation type="unfinished"/>
+        <translation>Actualitzacions de seguretat</translation>
     </message>
     <message>
         <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
-        <translation type="unfinished"/>
+        <translation>Ofereix una actualització acumulativa que inclou funcions noves, actualitzacions de qualitat i de seguretat.</translation>
     </message>
     <message>
         <source>Delivers security updates</source>
-        <translation type="unfinished"/>
+        <translation>Ofereix actualitzacions de seguretat.</translation>
     </message>
     <message>
         <source>Installation date:</source>
-        <translation type="unfinished"/>
+        <translation>Data de la instal·lació:</translation>
     </message>
 </context>
 <context>
