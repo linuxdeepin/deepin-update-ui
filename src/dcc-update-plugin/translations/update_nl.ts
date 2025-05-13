@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="nl">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="nl">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -27,42 +25,42 @@
     <name>UpdateDisable</name>
     <message>
         <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation type="unfinished"></translation>
+        <translation>Systeemupdates zijn uitgeschakeld. Neem contact op met je systeembeheerder.</translation>
     </message>
     <message>
         <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation type="unfinished"></translation>
+        <translation>Er kan geen verbinding worden gemaakt, omdat je systeem niet is geactiveerd.</translation>
     </message>
 </context>
 <context>
     <name>UpdateHistoryDialog</name>
     <message>
         <source>Update History</source>
-        <translation type="unfinished">Updategeschiedenis</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>No update history</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>System Updates</source>
-        <translation type="unfinished">Systeemupdates</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Security Updates</source>
-        <translation type="unfinished">Beveiligingsupdates</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Delivers security updates</source>
-        <translation type="unfinished">Bevat oplossingen voor beveiligingsproblemen.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Installation date:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
