@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="es">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="es">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -38,31 +36,31 @@
     <name>UpdateHistoryDialog</name>
     <message>
         <source>Update History</source>
-        <translation>Historial de actualizaciones</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>No update history</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>System Updates</source>
-        <translation>Actualizaciones del sistema</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Security Updates</source>
-        <translation>Actualizaciones de seguridad</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Delivers security updates</source>
-        <translation>Ofrece actualizaciones de seguridad</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Installation date:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -454,7 +452,7 @@
     </message>
     <message>
         <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>
