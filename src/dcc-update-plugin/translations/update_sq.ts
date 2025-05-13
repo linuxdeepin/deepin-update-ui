@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="sq">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="sq">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -36,31 +38,31 @@
     <name>UpdateHistoryDialog</name>
     <message>
         <source>Update History</source>
-        <translation type="unfinished"/>
+        <translation>Historik Përditësimesh</translation>
     </message>
     <message>
         <source>No update history</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>System Updates</source>
-        <translation type="unfinished"/>
+        <translation>Përditësime Sistemi</translation>
     </message>
     <message>
         <source>Security Updates</source>
-        <translation type="unfinished"/>
+        <translation>Përditësime Sigurie</translation>
     </message>
     <message>
         <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Delivers security updates</source>
-        <translation type="unfinished"/>
+        <translation>Sjell përditësime sigurie</translation>
     </message>
     <message>
         <source>Installation date:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -449,6 +451,10 @@
     <message>
         <source>Proceed to Update</source>
         <translation>Vazhdo ta Përditësosh</translation>
+    </message>
+    <message>
+        <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

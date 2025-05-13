@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="nl">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="nl">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -36,31 +38,31 @@
     <name>UpdateHistoryDialog</name>
     <message>
         <source>Update History</source>
-        <translation type="unfinished"/>
+        <translation>Updategeschiedenis</translation>
     </message>
     <message>
         <source>No update history</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>System Updates</source>
-        <translation type="unfinished"/>
+        <translation>Systeemupdates</translation>
     </message>
     <message>
         <source>Security Updates</source>
-        <translation type="unfinished"/>
+        <translation>Beveiligingsupdates</translation>
     </message>
     <message>
         <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Delivers security updates</source>
-        <translation type="unfinished"/>
+        <translation>Bevat oplossingen voor beveiligingsproblemen.</translation>
     </message>
     <message>
         <source>Installation date:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -449,6 +451,10 @@
     <message>
         <source>Proceed to Update</source>
         <translation>Doorgaan met bijwerken</translation>
+    </message>
+    <message>
+        <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

@@ -104,7 +104,7 @@ UpdateWorker::UpdateWorker(UpdateModel* model, QObject* parent)
     , m_lastoreDConfig(DConfig::create("org.deepin.dde.lastore", "org.deepin.dde.lastore", "", this))
     , m_model(model)
     , m_updateInter(new UpdateDBusProxy(this))
-    , m_lastoreHeartBeatTimer(new QTimer)
+    , m_lastoreHeartBeatTimer(new QTimer(this))
     , m_machineid(std::nullopt)
     , m_testingChannelUrl(std::nullopt)
     , m_checkUpdateJob(nullptr)
@@ -1289,7 +1289,7 @@ void UpdateWorker::onUpdateModeChanged(qulonglong value)
 {
     m_model->setUpdateMode(value);
 }
- 
+
 void UpdateWorker::onJobListChanged(const QList<QDBusObjectPath>& jobs)
 {
     qCInfo(DCC_UPDATE_WORKER) << "Job list changed, size:" << jobs.size();

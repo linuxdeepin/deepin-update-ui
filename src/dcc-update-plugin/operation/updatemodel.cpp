@@ -124,7 +124,7 @@ void UpdateModel::setBatterIsOK(bool ok)
     }
 
     m_batterIsOK = ok;
-    Q_EMIT batterStatusChanged(ok);
+    Q_EMIT batterIsOKChanged(ok);
 }
 
 void UpdateModel::setLastStatus(const UpdatesStatus& status, int line, int types)

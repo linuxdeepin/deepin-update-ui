@@ -186,14 +186,19 @@ DccObject {
         backgroundType: DccObject.Normal
         weight: 90
         visible: !dccData.model().showCheckUpdate && dccData.model().preInstallListModel.anyVisible
-        enabled: !dccData.model().backingUpListModel.anyVisible && !dccData.model().installinglistModel.anyVisible
+        enabled: !dccData.model().backingUpListModel.anyVisible && !dccData.model().installinglistModel.anyVisible && dccData.model().batterIsOK
         pageType: DccObject.Item
 
         page: UpdateControl {
             updateListModels: dccData.model().preInstallListModel
             updateTitle: qsTr("Update download completed")
             btnActions: [ qsTr("Install updates") ]
-            updateTips: qsTr("Update size: ") + dccData.model().preInstallListModel.downloadSize
+            updateTips: {
+                if (!dccData.model().batterIsOK) {
+                    return qsTr("The battery capacity is lower than 60%. To get successful updates, please plug in.")
+                }
+                return qsTr("Update size: ") + dccData.model().preInstallListModel.downloadSize
+            }
             busyState: dccData.model().upgradeWaiting
             updateListEnable: !dccData.model().upgradeWaiting
 

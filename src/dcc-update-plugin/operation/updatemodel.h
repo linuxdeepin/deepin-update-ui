@@ -23,6 +23,7 @@ class UpdateModel : public QObject
 
     Q_PROPERTY(bool isUpdateDisabled READ isUpdateDisabled NOTIFY isUpdateDisabledChanged FINAL)
     Q_PROPERTY(bool systemActivation READ systemActivation WRITE setSystemActivation NOTIFY systemActivationChanged FINAL)
+    Q_PROPERTY(bool batterIsOK READ batterIsOK NOTIFY batterIsOKChanged FINAL)
     Q_PROPERTY(int lastStatus READ lastStatus  NOTIFY lastStatusChanged FINAL)
 
     // ---------------检查更新页面数据---------------
@@ -294,7 +295,7 @@ Q_SIGNALS:
     void isUpdateDisabledChanged(bool isDisabled);
     void systemActivationChanged(bool systemActivation);
 
-    void batterStatusChanged(bool isOK);
+    void batterIsOKChanged(bool isOK);
     void lastStatusChanged(int status);
 
     // 检查更新页面数据

@@ -453,5 +453,9 @@
         <source>Proceed to Update</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>
