@@ -1,3 +1,30 @@
+deepin-update-ui (1.0.8) unstable; urgency=medium
+
+  * fix: no message when the battery is less than 60% charged
+  * i18n: Translate update_en.ts in ca
+  * i18n: Translate update_en.ts in zh_CN
+  * i18n: Translate update_en.ts in zh_HK
+  * i18n: Translate update_en.ts in zh_TW
+  * i18n: Translate update_en.ts in uk
+  * i18n: Translate update_en.ts in zh_CN
+  * i18n: Translate update_en.ts in zh_TW
+  * i18n: Translate update_en.ts in sq
+  * i18n: Translate update_en.ts in de_DE
+  * i18n: Translate update_en.ts in pl
+  * i18n: Translate update_en.ts in nl
+  * i18n: Translate update_en.ts in es
+  * i18n: Translate update_en.ts in zh_HK
+  * i18n: Translate update_en.ts in pt_BR
+  * i18n: Translate update_en.ts in fi
+  * i18n: Translate update_en.ts in ca
+  * fix: No history update viewing functionality
+  * i18n: Translate update_en.ts in es
+  * [dde-update-ui] Updates for project Deepin Desktop Environment (#52)
+  * fix: disable system updates by reading the lastore configuration
+  * i18n: Updates for project Deepin Desktop Environment (#47)
+
+ -- YeShanShan <yeshanshan@uniontech.com>  Tue, 13 May 2025 20:53:56 +0800
+
 deepin-update-ui (1.0.7) unstable; urgency=medium
 
   * fix: installation status optimization
