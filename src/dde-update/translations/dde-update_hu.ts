@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="hu">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="hu">
 <context>
     <name>CheckProgressWidget</name>
     <message>
@@ -86,7 +88,7 @@
     </message>
     <message>
         <source>Insufficient disk space. Please clean up your disk and try again.</source>
-        <translation>Nincs elegendő lemezterület. Kérjük tisztítsa meg a lemezt, és próbálja újra. </translation>
+        <translation>Nincs elegendő lemezterület. Kérjük tisztítsa meg a lemezt, és próbálja újra.&#xa0;</translation>
     </message>
     <message>
         <source>Failed to connect to backup services. Please check and retry again.</source>

@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ca">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="ca">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -25,30 +27,42 @@
     <name>UpdateDisable</name>
     <message>
         <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>UpdateHistoryDialog</name>
     <message>
-        <source>Save the display settings?</source>
-        <translation>Voleu desar els paràmetres de la pantalla?</translation>
+        <source>Update History</source>
+        <translation type="unfinished">Historial d&apos;actualitzacions</translation>
     </message>
     <message>
-        <source>Settings will be reverted in %1s.</source>
-        <translation>La configuració es revertirà d&apos;aquí a %1 s.</translation>
+        <source>No update history</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Revert</source>
-        <translation>Reveteix</translation>
+        <source>System Updates</source>
+        <translation type="unfinished">Actualitzacions del sistema</translation>
     </message>
     <message>
-        <source>Save</source>
-        <translation>Desa</translation>
+        <source>Security Updates</source>
+        <translation type="unfinished">Actualitzacions de seguretat</translation>
+    </message>
+    <message>
+        <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delivers security updates</source>
+        <translation type="unfinished">Ofereix actualitzacions de seguretat.</translation>
+    </message>
+    <message>
+        <source>Installation date:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

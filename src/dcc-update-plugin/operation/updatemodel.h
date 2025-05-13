@@ -16,6 +16,7 @@
 #include <QObject>
 #include <DConfig>
 
+class UpdateHistoryModel;
 class UpdateModel : public QObject
 {
     Q_OBJECT
@@ -72,6 +73,8 @@ class UpdateModel : public QObject
     Q_PROPERTY(bool autoCleanCache READ autoCleanCache WRITE setAutoCleanCache NOTIFY autoCleanCacheChanged FINAL)
     Q_PROPERTY(bool smartMirrorSwitch READ smartMirrorSwitch WRITE setSmartMirrorSwitch NOTIFY smartMirrorSwitchChanged FINAL)
     Q_PROPERTY(TestingChannelStatus testingChannelStatus READ testingChannelStatus WRITE setTestingChannelStatus NOTIFY testingChannelStatusChanged FINAL)
+
+    Q_PROPERTY(UpdateHistoryModel *historyModel READ historyModel NOTIFY historyModelChanged FINAL)
 
 
 public:
@@ -280,6 +283,7 @@ public:
     Q_INVOKABLE bool isCommunitySystem() const;
     Q_INVOKABLE QString privacyAgreementText() const;
 
+    UpdateHistoryModel *historyModel() const;
 
 public slots:
     void onUpdatePropertiesChanged(const QString &interfaceName,
@@ -351,6 +355,7 @@ Q_SIGNALS:
     void showVersionChanged(QString version);
     void baselineChanged(const QString &baseline);
     void p2pUpdateEnableStateChanged(bool enabled);
+    void historyModelChanged();
 
 private:
     int m_lastoreDaemonStatus; // 比较重要的数值，每个位标识不同的含义，使用 LastoreDaemonDConfigStatusHelper 对它进行解析
@@ -418,6 +423,8 @@ private:
     QString m_baseline;
     bool m_p2pUpdateEnabled;
 
+    // update history qml data
+    UpdateHistoryModel *m_historyModel;
 };
 
 #endif // UPDATEMODEL_H

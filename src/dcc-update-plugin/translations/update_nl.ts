@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="nl">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="nl">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -25,30 +27,42 @@
     <name>UpdateDisable</name>
     <message>
         <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation>Systeemupdates zijn uitgeschakeld. Neem contact op met je systeembeheerder.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation>Er kan geen verbinding worden gemaakt, omdat je systeem niet is geactiveerd.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>UpdateHistoryDialog</name>
     <message>
-        <source>Save the display settings?</source>
-        <translation>Wil je de beeldscherminstellingen opslaan?</translation>
+        <source>Update History</source>
+        <translation type="unfinished">Updategeschiedenis</translation>
     </message>
     <message>
-        <source>Settings will be reverted in %1s.</source>
-        <translation>De instellingen worden over %1 sec. teruggezet.</translation>
+        <source>No update history</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Revert</source>
-        <translation>Herstellen</translation>
+        <source>System Updates</source>
+        <translation type="unfinished">Systeemupdates</translation>
     </message>
     <message>
-        <source>Save</source>
-        <translation>Opslaan</translation>
+        <source>Security Updates</source>
+        <translation type="unfinished">Beveiligingsupdates</translation>
+    </message>
+    <message>
+        <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delivers security updates</source>
+        <translation type="unfinished">Bevat oplossingen voor beveiligingsproblemen.</translation>
+    </message>
+    <message>
+        <source>Installation date:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

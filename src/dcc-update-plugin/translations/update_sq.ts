@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="sq">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="sq">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -25,30 +27,42 @@
     <name>UpdateDisable</name>
     <message>
         <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation>Përditësimet e sistemit janë të çaktivizuara. Ju lutemi, për ndihmë, lidhuni me përgjegjësin tuaj</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation>Sistemi juaj s’është aktivizuar dhe s’u arrit të lidhej me shërbime përditësimesh</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>UpdateHistoryDialog</name>
     <message>
-        <source>Save the display settings?</source>
-        <translation>Të ruhen rregullimet e ekranit?</translation>
+        <source>Update History</source>
+        <translation type="unfinished">Historik Përditësimesh</translation>
     </message>
     <message>
-        <source>Settings will be reverted in %1s.</source>
-        <translation>Rregullimet do të prapakthehen te %1s.</translation>
+        <source>No update history</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Revert</source>
-        <translation>Prapaktheji</translation>
+        <source>System Updates</source>
+        <translation type="unfinished">Përditësime Sistemi</translation>
     </message>
     <message>
-        <source>Save</source>
-        <translation>Ruaje</translation>
+        <source>Security Updates</source>
+        <translation type="unfinished">Përditësime Sigurie</translation>
+    </message>
+    <message>
+        <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delivers security updates</source>
+        <translation type="unfinished">Sjell përditësime sigurie</translation>
+    </message>
+    <message>
+        <source>Installation date:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

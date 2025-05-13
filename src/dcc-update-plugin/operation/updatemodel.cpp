@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
 #include "updatemodel.h"
+#include "updatehistorymodel.h"
 #include "operation/common.h"
 #include "utils.h"
 
@@ -79,6 +80,7 @@ UpdateModel::UpdateModel(QObject* parent)
     , m_showVersion("")
     , m_baseline("")
     , m_p2pUpdateEnabled(false)
+    , m_historyModel(new UpdateHistoryModel(this))
 {
     qRegisterMetaType<UpdatesStatus>("UpdatesStatus");
     qRegisterMetaType<TestingChannelStatus>("TestingChannelStatus");
@@ -1112,4 +1114,9 @@ void UpdateModel::onUpdatePropertiesChanged(const QString& interfaceName, const 
             setP2PUpdateEnabled(changedProperties.value("P2PUpdateEnable").toBool());
         }
     }
+}
+
+UpdateHistoryModel *UpdateModel::historyModel() const
+{
+    return m_historyModel;
 }

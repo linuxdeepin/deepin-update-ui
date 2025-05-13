@@ -4,6 +4,7 @@ import QtQuick 2.0
 import QtQuick.Controls 2.0
 import Qt.labs.qmlmodels 1.2
 import QtQuick.Layouts 1.15
+import QtQuick
 
 import org.deepin.dtk 1.0 as D
 import org.deepin.dcc 1.0
@@ -11,7 +12,9 @@ import org.deepin.dcc 1.0
 import org.deepin.dcc.update 1.0
 
 DccObject {
-
+    FontMetrics {
+        id: fm
+    }
     DccTitleObject {
         name: "updateTypeGrpTitle"
         parentName: "updateSettingsPage"
@@ -322,15 +325,17 @@ DccObject {
         }
 
         DccObject {
-            visible: false
             name: "updateHistory"
             parentName: "advancedSettingGrp"
             displayName: qsTr("Update History")
             weight: 40
+            backgroundType: DccObject.Normal
             pageType: DccObject.Editor
             page: D.Button {
+                implicitWidth: fm.advanceWidth(text) + fm.averageCharacterWidth * 2
                 text: qsTr("View")
                 onClicked: {
+                    dccData.model().historyModel.refreshHistory()
                     uhloader.active = true
                 }
 

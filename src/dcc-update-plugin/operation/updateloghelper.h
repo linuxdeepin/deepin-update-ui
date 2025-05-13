@@ -144,6 +144,12 @@ struct SecurityUpdateLog {
 
 struct HistoryItemDetail
 {
+    Q_GADGET
+    Q_PROPERTY(QString description MEMBER description)
+    Q_PROPERTY(QString name MEMBER name)
+    Q_PROPERTY(QString vulLevel MEMBER vulLevel)
+    Q_PROPERTY(QString displayVulLevel MEMBER displayVulLevel)
+public:
     QString description;
     QString name;
     QString vulLevel;
@@ -167,6 +173,7 @@ struct HistoryItemDetail
         return item;
     }
 };
+Q_DECLARE_METATYPE(HistoryItemDetail)
 
 struct HistoryItemInfo {
     QString upgradeTime; // 更新时间;

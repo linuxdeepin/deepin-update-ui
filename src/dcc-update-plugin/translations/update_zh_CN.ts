@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="zh_CN">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="zh_CN">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -25,30 +27,42 @@
     <name>UpdateDisable</name>
     <message>
         <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation type="unfinished"/>
+        <translation>系统已被禁止更新，请联系管理员！</translation>
     </message>
     <message>
         <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation type="unfinished"/>
+        <translation>当前系统未激活，无法启动更新服务</translation>
     </message>
 </context>
 <context>
     <name>UpdateHistoryDialog</name>
     <message>
-        <source>Save the display settings?</source>
-        <translation>是否要保存显示设置？</translation>
+        <source>Update History</source>
+        <translation>更新历史</translation>
     </message>
     <message>
-        <source>Settings will be reverted in %1s.</source>
-        <translation>如无任何操作将在%1秒后还原。</translation>
+        <source>No update history</source>
+        <translation>无历史更新</translation>
     </message>
     <message>
-        <source>Revert</source>
-        <translation>还原</translation>
+        <source>System Updates</source>
+        <translation>系统更新</translation>
     </message>
     <message>
-        <source>Save</source>
-        <translation>保存</translation>
+        <source>Security Updates</source>
+        <translation>安全更新</translation>
+    </message>
+    <message>
+        <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
+        <translation>提供新功能、质量补丁、安全漏洞等全量更新内容</translation>
+    </message>
+    <message>
+        <source>Delivers security updates</source>
+        <translation>提供安全漏洞修复</translation>
+    </message>
+    <message>
+        <source>Installation date:</source>
+        <translation>安装时间:</translation>
     </message>
 </context>
 <context>

@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="pl">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="pl">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -25,30 +27,42 @@
     <name>UpdateDisable</name>
     <message>
         <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation>Aktualizacje systemowe są wyłączone. Skontaktuj się z administratorem, aby uzyskać pomoc</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation>Twój system nie jest aktywowany i nie udało mu się połączyć z usługą aktualizacji</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>UpdateHistoryDialog</name>
     <message>
-        <source>Save the display settings?</source>
-        <translation>Zapisać ustawienia wyświetlania?</translation>
+        <source>Update History</source>
+        <translation type="unfinished">Historia aktualizacji</translation>
     </message>
     <message>
-        <source>Settings will be reverted in %1s.</source>
-        <translation>Ustawienia zostaną przywrócone za %1s.</translation>
+        <source>No update history</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Revert</source>
-        <translation>Przywróć</translation>
+        <source>System Updates</source>
+        <translation type="unfinished">Aktualizacje systemu</translation>
     </message>
     <message>
-        <source>Save</source>
-        <translation>Zapisz</translation>
+        <source>Security Updates</source>
+        <translation type="unfinished">Aktualizacje bezpieczeństwa</translation>
+    </message>
+    <message>
+        <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delivers security updates</source>
+        <translation type="unfinished">Zapewnia aktualizacje bezpieczeństwa</translation>
+    </message>
+    <message>
+        <source>Installation date:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

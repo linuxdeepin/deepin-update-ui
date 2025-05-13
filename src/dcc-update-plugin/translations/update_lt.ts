@@ -37,19 +37,31 @@
 <context>
     <name>UpdateHistoryDialog</name>
     <message>
-        <source>Save the display settings?</source>
+        <source>Update History</source>
+        <translation type="unfinished">Atnaujinimų istorija</translation>
+    </message>
+    <message>
+        <source>No update history</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Settings will be reverted in %1s.</source>
+        <source>System Updates</source>
+        <translation type="unfinished">Sistemos atnaujinimai</translation>
+    </message>
+    <message>
+        <source>Security Updates</source>
+        <translation type="unfinished">Saugumo atnaujinimai</translation>
+    </message>
+    <message>
+        <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Revert</source>
-        <translation type="unfinished"></translation>
+        <source>Delivers security updates</source>
+        <translation type="unfinished">Pristato saugumo atnaujinimus</translation>
     </message>
     <message>
-        <source>Save</source>
+        <source>Installation date:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -1,9 +1,11 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="zh_TW">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="zh_TW">
 <context>
     <name>CheckUpdate</name>
     <message>
         <source>Last check: </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -25,30 +27,42 @@
     <name>UpdateDisable</name>
     <message>
         <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>UpdateHistoryDialog</name>
     <message>
-        <source>Save the display settings?</source>
-        <translation>是否要儲存顯示設定？</translation>
+        <source>Update History</source>
+        <translation type="unfinished">歷史更新內容</translation>
     </message>
     <message>
-        <source>Settings will be reverted in %1s.</source>
-        <translation>如無任何操作將在%1秒後還原。</translation>
+        <source>No update history</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Revert</source>
-        <translation>還原</translation>
+        <source>System Updates</source>
+        <translation type="unfinished">系統更新</translation>
     </message>
     <message>
-        <source>Save</source>
-        <translation>儲存</translation>
+        <source>Security Updates</source>
+        <translation type="unfinished">安全更新</translation>
+    </message>
+    <message>
+        <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delivers security updates</source>
+        <translation type="unfinished">提供安全漏洞修復</translation>
+    </message>
+    <message>
+        <source>Installation date:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -131,12 +145,12 @@
     </message>
     <message>
         <source>, </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
         <extra-content_explain>中文逗号不需要空格，英文逗号需要空格For more details, please visit</extra-content_explain>
     </message>
     <message>
         <source>for more details, please visit </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
         <extra-content_explain>这句话后面会带上一个超链接，各语言自行决定末尾需不需要加空格</extra-content_explain>
     </message>
 </context>
@@ -360,7 +374,7 @@
     </message>
     <message>
         <source>Update size: </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Update download failed</source>
