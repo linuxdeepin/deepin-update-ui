@@ -36,31 +36,31 @@
     <name>UpdateHistoryDialog</name>
     <message>
         <source>Update History</source>
-        <translation type="unfinished"/>
+        <translation>Historik Përditësimesh</translation>
     </message>
     <message>
         <source>No update history</source>
-        <translation type="unfinished"/>
+        <translation>Pa historik përditësimesh</translation>
     </message>
     <message>
         <source>System Updates</source>
-        <translation type="unfinished"/>
+        <translation>Përditësime Sistemi</translation>
     </message>
     <message>
         <source>Security Updates</source>
-        <translation type="unfinished"/>
+        <translation>Përditësime Sigurie</translation>
     </message>
     <message>
         <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
-        <translation type="unfinished"/>
+        <translation>Sjell një përditësim përmbledhës që përfshin veçori të reja, përditësime cilësie dhe përditësime sigurie</translation>
     </message>
     <message>
         <source>Delivers security updates</source>
-        <translation type="unfinished"/>
+        <translation>Sjell përditësime sigurie</translation>
     </message>
     <message>
         <source>Installation date:</source>
-        <translation type="unfinished"/>
+        <translation>Datë instalimi:</translation>
     </message>
 </context>
 <context>
@@ -452,7 +452,7 @@
     </message>
     <message>
         <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation type="unfinished"/>
+        <translation>Kapaciteti i baterisë është më pak se 60%. Që të merren me sukses përditësime, ju lutemi, vëreni në prizë.</translation>
     </message>
 </context>
 </TS>
