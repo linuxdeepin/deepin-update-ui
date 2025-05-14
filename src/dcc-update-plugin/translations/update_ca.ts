@@ -452,7 +452,7 @@
     </message>
     <message>
         <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation type="unfinished"/>
+        <translation>La capacitat de la bateria és inferior al 60%. Per obtenir actualitzacions correctes, endolleu el dispositiu.</translation>
     </message>
 </context>
 </TS>
