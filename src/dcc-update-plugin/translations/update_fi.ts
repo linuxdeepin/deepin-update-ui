@@ -25,42 +25,42 @@
     <name>UpdateDisable</name>
     <message>
         <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation type="unfinished"/>
+        <translation>Päivitykset ovat poistettu käytöstä. Pyydä apua järjestelmänvalvojaltasi.</translation>
     </message>
     <message>
         <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation type="unfinished"/>
+        <translation>Tietokonetta ei ole aktivoitu, eikä se onnistu saamaan yhteyttä päivityspalveluihin.</translation>
     </message>
 </context>
 <context>
     <name>UpdateHistoryDialog</name>
     <message>
         <source>Update History</source>
-        <translation type="unfinished"/>
+        <translation>Päivityshistoria</translation>
     </message>
     <message>
         <source>No update history</source>
-        <translation type="unfinished"/>
+        <translation>Ei päivitys historiaa</translation>
     </message>
     <message>
         <source>System Updates</source>
-        <translation type="unfinished"/>
+        <translation>Tietokoneen päivitykset</translation>
     </message>
     <message>
         <source>Security Updates</source>
-        <translation type="unfinished"/>
+        <translation>Tietoturvapäivitykset</translation>
     </message>
     <message>
         <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
-        <translation type="unfinished"/>
+        <translation>Kumulatiivinen päivitys. Sisältää uusia ominaisuuksia, laatupäivityksiä ja tietoturvapäivityksiä</translation>
     </message>
     <message>
         <source>Delivers security updates</source>
-        <translation type="unfinished"/>
+        <translation>Toimittaa tietoturvapäivityksiä</translation>
     </message>
     <message>
         <source>Installation date:</source>
-        <translation type="unfinished"/>
+        <translation>Asennuspäivä:</translation>
     </message>
 </context>
 <context>
@@ -452,7 +452,7 @@
     </message>
     <message>
         <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation type="unfinished"/>
+        <translation>Akun kapasiteetti on alle 60%. Liitä kone sähköverkkoon päivityksen ajaksi.</translation>
     </message>
 </context>
 </TS>
