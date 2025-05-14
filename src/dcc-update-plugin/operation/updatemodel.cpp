@@ -182,20 +182,23 @@ void UpdateModel::updateCheckUpdateUi()
         case Checking:
             setCheckUpdateErrTips(tr("Checking for updates, please wait…"));
             setCheckUpdateIcon("updating");
-            setCheckBtnText(tr(""));
-            break;
-        case UpdatesAvailable:
-            break;
-        case Updated:
-            setCheckBtnText(tr("Check Again"));
-            setCheckUpdateErrTips(tr("Your system is up to date"));
-            setCheckUpdateIcon("update_abreast_of_time");
+            setCheckBtnText("");
             break;
         case CheckingFailed:
             setCheckUpdateErrTips(errorToText(lastError(CheckingFailed)));
             setCheckUpdateIcon("update_failure");
             setCheckBtnText(tr("Check Again"));
             break;
+        case Updated:
+            setCheckBtnText(tr("Check Again"));
+            setCheckUpdateErrTips(tr("Your system is up to date"));
+            setCheckUpdateIcon("update_abreast_of_time");
+            break;
+        case AllUpdateModeDisabled:
+            setCheckUpdateErrTips(tr("Turn on the switches under Update Content to get better experiences"));
+            setCheckUpdateIcon("update_nice_service");
+            setCheckBtnText("");
+            break;            
         default:
             setCheckBtnText(tr(""));
             return;
@@ -835,6 +838,11 @@ bool UpdateModel::securityUpdate() const
 bool UpdateModel::thirdPartyUpdate() const 
 { 
     return m_updateMode & UpdateType::UnknownUpdate; 
+}
+
+bool UpdateModel::updateModeDisabled() const
+{
+    return m_updateMode == UpdateType::Invalid;
 }
 
 void UpdateModel::setUpdateMode(quint64 updateMode)

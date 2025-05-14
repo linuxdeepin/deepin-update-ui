@@ -64,6 +64,7 @@ class UpdateModel : public QObject
     Q_PROPERTY(bool functionUpdate READ functionUpdate NOTIFY updateModeChanged FINAL)
     Q_PROPERTY(bool securityUpdate READ securityUpdate NOTIFY updateModeChanged FINAL)
     Q_PROPERTY(bool thirdPartyUpdate READ thirdPartyUpdate NOTIFY updateModeChanged FINAL)
+    Q_PROPERTY(bool updateModeDisabled READ updateModeDisabled NOTIFY updateModeChanged FINAL)
     Q_PROPERTY(bool downloadSpeedLimitEnabled READ downloadSpeedLimitEnabled NOTIFY downloadSpeedLimitConfigChanged FINAL)
     Q_PROPERTY(QString downloadSpeedLimitSize READ downloadSpeedLimitSize NOTIFY downloadSpeedLimitConfigChanged FINAL)
     Q_PROPERTY(bool autoDownloadUpdates READ autoDownloadUpdates WRITE setAutoDownloadUpdates NOTIFY autoDownloadUpdatesChanged FINAL)
@@ -223,6 +224,7 @@ public:
     bool functionUpdate() const;
     bool securityUpdate() const;
     bool thirdPartyUpdate() const;
+    bool updateModeDisabled() const;
     quint64 updateMode() const { return m_updateMode; }
     void setUpdateMode(quint64 updateMode);
     void setUpdateItemEnabled();

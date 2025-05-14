@@ -371,6 +371,12 @@ UpdateErrorType UpdateWorker::analyzeJobErrorMessage(const QString& jobDescripti
 
 void UpdateWorker::checkNeedDoUpdates()
 {
+    if (m_model->updateModeDisabled()) {
+        m_model->setShowCheckUpdate(true);
+        m_model->setCheckUpdateStatus(UpdatesStatus::AllUpdateModeDisabled);
+        return;
+    }
+
     if (m_model->isUpdateDisabled() || !m_model->systemActivation()) {
         qCDebug(DCC_UPDATE_WORKER) << "update disabled:" << m_model->isUpdateDisabled() << " system activation:" << m_model->systemActivation();
         m_model->setShowCheckUpdate(false);
@@ -1288,6 +1294,13 @@ void UpdateWorker::onPowerChange()
 void UpdateWorker::onUpdateModeChanged(qulonglong value)
 {
     m_model->setUpdateMode(value);
+
+    if (m_model->updateModeDisabled()) {
+        m_model->setShowCheckUpdate(true);
+        m_model->setCheckUpdateStatus(UpdatesStatus::AllUpdateModeDisabled);
+    } else {
+        m_model->setShowCheckUpdate(false);
+    }
 }
 
 void UpdateWorker::onJobListChanged(const QList<QDBusObjectPath>& jobs)
