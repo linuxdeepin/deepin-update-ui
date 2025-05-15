@@ -87,7 +87,8 @@ public:
     int lastoreDaemonStatus() const { return m_lastoreDaemonStatus; }
     void setLastoreDaemonStatus(int status);
 
-    bool isUpdateDisabled() const;
+    bool isUpdateDisabled() const { return m_isUpdateDisabled; }
+    void setIsUpdateDisabled(bool disabled);
 
     bool systemActivation() const { return m_systemActivation; }
     void setSystemActivation(bool systemActivation);
@@ -362,6 +363,7 @@ Q_SIGNALS:
 
 private:
     int m_lastoreDaemonStatus; // 比较重要的数值，每个位标识不同的含义，使用 LastoreDaemonDConfigStatusHelper 对它进行解析
+    bool m_isUpdateDisabled;
     bool m_systemActivation;
     bool m_batterIsOK;
     int m_lastStatus;

@@ -260,10 +260,6 @@ void UpdateWorker::initConfig()
                 int value = m_lastoreDConfig->value(key).toInt(&ok);
                 if (ok) {
                     m_model->setLastoreDaemonStatus(value);
-
-                    if (!m_model->isUpdateDisabled()) {
-                        checkNeedDoUpdates();
-                    }
                 }
             }
         });
@@ -371,6 +367,8 @@ UpdateErrorType UpdateWorker::analyzeJobErrorMessage(const QString& jobDescripti
 
 void UpdateWorker::checkNeedDoUpdates()
 {
+    qCInfo(DCC_UPDATE_WORKER) << "check need do updates";
+
     if (m_model->updateModeDisabled()) {
         m_model->setShowCheckUpdate(true);
         m_model->setCheckUpdateStatus(UpdatesStatus::AllUpdateModeDisabled);
@@ -400,6 +398,12 @@ void UpdateWorker::checkNeedDoUpdates()
     if (bEnter) {
         m_model->setShowCheckUpdate(true);
         doCheckUpdates();
+        return;
+    }
+
+    m_model->setShowCheckUpdate(!m_model->isUpdatable());
+    if (!m_model->isUpdatable()) {
+        m_model->setCheckUpdateStatus(UpdatesStatus::Updated);
     }
 }
 
@@ -1294,13 +1298,6 @@ void UpdateWorker::onPowerChange()
 void UpdateWorker::onUpdateModeChanged(qulonglong value)
 {
     m_model->setUpdateMode(value);
-
-    if (m_model->updateModeDisabled()) {
-        m_model->setShowCheckUpdate(true);
-        m_model->setCheckUpdateStatus(UpdatesStatus::AllUpdateModeDisabled);
-    } else {
-        m_model->setShowCheckUpdate(false);
-    }
 }
 
 void UpdateWorker::onJobListChanged(const QList<QDBusObjectPath>& jobs)

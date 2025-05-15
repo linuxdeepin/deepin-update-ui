@@ -32,6 +32,13 @@ DccObject {
             spacing: 0
         }
 
+        // 下载、备份和安装过程中，按钮置灰不可用
+        enabled: !dccData.model().downloadWaiting && 
+                 !dccData.model().upgradeWaiting && 
+                 !dccData.model().installinglistModel.anyVisible && 
+                 !dccData.model().backingUpListModel.anyVisible && 
+                 !dccData.model().downloadinglistModel.anyVisible
+
         DccObject {
             name: "functionUpdate"
             parentName: "updateTypeGrp"

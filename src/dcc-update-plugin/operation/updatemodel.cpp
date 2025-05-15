@@ -35,6 +35,7 @@ static const QMap<UpdatesStatus, ControlPanelType> ControlPanelTypeMapping = {
 UpdateModel::UpdateModel(QObject* parent)
     : QObject(parent)
     , m_lastoreDaemonStatus(0)
+    , m_isUpdateDisabled(false)
     , m_systemActivation(false)
     , m_batterIsOK(false)
     , m_lastStatus(Default)
@@ -95,16 +96,22 @@ UpdateModel::~UpdateModel()
 void UpdateModel::setLastoreDaemonStatus(int status)
 {
     qCDebug(DCC_UPDATE_MODEL) << "lastore daemon status:" << status;
-    if (m_lastoreDaemonStatus == status)
-        return;
-
     m_lastoreDaemonStatus = status;
-    Q_EMIT isUpdateDisabledChanged(isUpdateDisabled());
+
+    if (LastoreDaemonDConfigStatusHelper::isUpdateDisabled(m_lastoreDaemonStatus)) {
+        setIsUpdateDisabled(true);
+    } else {
+        setIsUpdateDisabled(false);
+    }
 }
 
-bool UpdateModel::isUpdateDisabled() const
+void UpdateModel::setIsUpdateDisabled(bool disabled)
 {
-    return LastoreDaemonDConfigStatusHelper::isUpdateDisabled(m_lastoreDaemonStatus);
+    if (m_isUpdateDisabled == disabled)
+        return;
+
+    m_isUpdateDisabled = disabled;
+    Q_EMIT isUpdateDisabledChanged(disabled);
 }
 
 void UpdateModel::setSystemActivation(bool systemActivation)
@@ -198,7 +205,7 @@ void UpdateModel::updateCheckUpdateUi()
             setCheckUpdateErrTips(tr("Turn on the switches under Update Content to get better experiences"));
             setCheckUpdateIcon("update_nice_service");
             setCheckBtnText("");
-            break;            
+            break;
         default:
             setCheckBtnText(tr(""));
             return;
@@ -647,7 +654,10 @@ void UpdateModel::refreshUpdateUiModel()
     }
 
     for (auto item : m_allUpdateInfos.values()) {
-        qCInfo(DCC_UPDATE_MODEL) << "refresh Update Ui:" << item->updateType() << item->updateStatus();
+        qCDebug(DCC_UPDATE_MODEL) << "refresh Update Ui:" << item->updateType() << item->updateStatus() << item->isUpdateModeEnabled();
+        if (!item->isUpdateModeEnabled())
+            continue;
+
         switch (item->updateStatus()) {
         case Updated:
             m_installCompleteListModel->addUpdateData(item);
