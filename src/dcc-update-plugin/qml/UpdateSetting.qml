@@ -194,10 +194,10 @@ DccObject {
         weight: 50
         pageType: DccObject.Item
         visible: advancedSetting.showDetails
+        enabled: !dccData.model().updateModeDisabled
         page: DccGroupView {
             height: implicitHeight + 10
             spacing: 0
-
         }
         DccObject {
             name: "autoDownload"
@@ -315,6 +315,7 @@ DccObject {
             displayName: qsTr("Updates Notification")
             weight: 10
             pageType: DccObject.Editor
+            enabled: !dccData.model().updateModeDisabled
             page: D.Switch {
                 checked: dccData.model().updateNotify
                 onCheckedChanged: {

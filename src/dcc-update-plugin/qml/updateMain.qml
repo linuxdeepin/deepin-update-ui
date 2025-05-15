@@ -155,13 +155,19 @@ DccObject {
         backgroundType: DccObject.Normal
         weight: 70
         visible: (updateDisable && !updateDisable.visible) && !dccData.model().showCheckUpdate && dccData.model().installFailedListModel.anyVisible
-        enabled: !dccData.model().backingUpListModel.anyVisible && !dccData.model().installinglistModel.anyVisible
+        enabled: !dccData.model().backingUpListModel.anyVisible && !dccData.model().installinglistModel.anyVisible && dccData.model().batterIsOK
         pageType: DccObject.Item
 
         page: UpdateControl {
             updateListModels: dccData.model().installFailedListModel
             updateStateIcon: "qrc:/icons/deepin/builtin/icons/warning.svg"
-            updateTitle: qsTr("Installation update failed")
+            updateTitle: {
+                if (!dccData.model().batterIsOK) {
+                    return qsTr("The battery capacity is lower than 60%. To get successful updates, please plug in.")
+                }
+                return qsTr("Installation update failed")
+            }
+
             updateTips: dccData.model().downloadFailedTips
             btnActions: [ qsTr("Continue Update") ]
 
@@ -178,13 +184,20 @@ DccObject {
         backgroundType: DccObject.Normal
         weight: 80
         visible: (updateDisable && !updateDisable.visible) && !dccData.model().showCheckUpdate && dccData.model().backupFailedListModel.anyVisible
+        enabled: !dccData.model().backingUpListModel.anyVisible && !dccData.model().installinglistModel.anyVisible && dccData.model().batterIsOK
         pageType: DccObject.Item
 
         page: UpdateControl {
             updateListModels: dccData.model().backupFailedListModel
             processTitle: qsTr("Backup failed")
             updateTitle: qsTr("Backup failed")
-            updateTips: qsTr("If you continue the updates, you cannot roll back to the old system later.")
+            updateTips: {
+                if (!dccData.model().batterIsOK) {
+                    return qsTr("The battery capacity is lower than 60%. To get successful updates, please plug in.")
+                }
+                return qsTr("If you continue the updates, you cannot roll back to the old system later.")
+            }
+
             btnActions: [ qsTr("Try Again"), qsTr("Proceed to Update") ]
             onBtnClicked: function(index, updateType) {
                 console.log("index: " + index, " updateType: " + updateType)
