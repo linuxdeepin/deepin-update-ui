@@ -224,7 +224,7 @@
     </message>
     <message>
         <source>Turn on the switches under Update Content to get better experiences</source>
-        <translation type="unfinished"/>
+        <translation>Për të pasur punim më të mirë, hapni çelësat që gjenden nën Lëndë Përditësimi</translation>
     </message>
 </context>
 <context>
