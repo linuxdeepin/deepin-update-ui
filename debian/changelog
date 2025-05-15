@@ -1,3 +1,12 @@
+deepin-update-ui (1.0.9) unstable; urgency=medium
+
+  * fix: updates cannot be detected When all update models are disabled
+  * fix: optimize the logic of disable and enable system updates
+  * fix: fixed the issue with ui font display
+  * fix: update control improvements for battery and disabled states
+
+ -- xionglinlin <xionglinlin@uniontech.com>  Thu, 15 May 2025 21:41:12 +0800
+
 deepin-update-ui (1.0.8) unstable; urgency=medium
 
   * fix: no message when the battery is less than 60% charged
