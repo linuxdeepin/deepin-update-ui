@@ -224,7 +224,7 @@
     </message>
     <message>
         <source>Turn on the switches under Update Content to get better experiences</source>
-        <translation type="unfinished"/>
+        <translation>Activeu els interruptors a Actualitza el contingut per obtenir-ne una experiència millor.</translation>
     </message>
 </context>
 <context>
