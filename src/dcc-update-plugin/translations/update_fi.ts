@@ -222,6 +222,10 @@
         <source>To use this software, you must accept the %1 that accompanies software updates.</source>
         <translation>Jotta voit käyttää tätä ohjelmistoa, sinun on hyväksyttävä ohjelmistopäivitysten mukana tuleva %1.</translation>
     </message>
+    <message>
+        <source>Turn on the switches under Update Content to get better experiences</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>UpdateSetting</name>
