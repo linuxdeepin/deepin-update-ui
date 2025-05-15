@@ -55,7 +55,7 @@ DccObject {
         parentName: "update"
         pageType: DccObject.Item
         backgroundType: DccObject.Normal
-        visible: !updateDisable.visible && dccData.model().showCheckUpdate
+        visible: (updateDisable && !updateDisable.visible) && dccData.model().showCheckUpdate
         weight: 20
         page: CheckUpdate {}
     }
@@ -66,7 +66,7 @@ DccObject {
         parentName: "update"
         backgroundType: DccObject.Normal
         weight: 30
-        visible: !updateDisable.visible && !dccData.model().showCheckUpdate && dccData.model().installinglistModel.anyVisible
+        visible: (updateDisable && !updateDisable.visible)  && !dccData.model().showCheckUpdate && dccData.model().installinglistModel.anyVisible
         pageType: DccObject.Item
 
         page: UpdateControl {
@@ -85,7 +85,7 @@ DccObject {
         parentName: "update"
         backgroundType: DccObject.Normal
         weight: 40
-        visible: !updateDisable.visible && !dccData.model().showCheckUpdate && dccData.model().backingUpListModel.anyVisible
+        visible: (updateDisable && !updateDisable.visible) && !dccData.model().showCheckUpdate && dccData.model().backingUpListModel.anyVisible
         pageType: DccObject.Item
 
         page: UpdateControl {
@@ -104,7 +104,7 @@ DccObject {
         parentName: "update"
         backgroundType: DccObject.Normal
         weight: 50
-        visible: !updateDisable.visible && !dccData.model().showCheckUpdate && dccData.model().downloadinglistModel.anyVisible
+        visible: (updateDisable && !updateDisable.visible) && !dccData.model().showCheckUpdate && dccData.model().downloadinglistModel.anyVisible
         pageType: DccObject.Item
 
         page: UpdateControl {
@@ -132,7 +132,7 @@ DccObject {
         parentName: "update"
         backgroundType: DccObject.Normal
         weight: 60
-        visible: !updateDisable.visible && !dccData.model().showCheckUpdate && dccData.model().installCompleteListModel.anyVisible
+        visible: (updateDisable && !updateDisable.visible) && !dccData.model().showCheckUpdate && dccData.model().installCompleteListModel.anyVisible
         pageType: DccObject.Item
 
         page: UpdateControl {
@@ -154,7 +154,7 @@ DccObject {
         parentName: "update"
         backgroundType: DccObject.Normal
         weight: 70
-        visible: !updateDisable.visible && !dccData.model().showCheckUpdate && dccData.model().installFailedListModel.anyVisible
+        visible: (updateDisable && !updateDisable.visible) && !dccData.model().showCheckUpdate && dccData.model().installFailedListModel.anyVisible
         enabled: !dccData.model().backingUpListModel.anyVisible && !dccData.model().installinglistModel.anyVisible
         pageType: DccObject.Item
 
@@ -177,7 +177,7 @@ DccObject {
         parentName: "update"
         backgroundType: DccObject.Normal
         weight: 80
-        visible: !updateDisable.visible && !dccData.model().showCheckUpdate && dccData.model().backupFailedListModel.anyVisible
+        visible: (updateDisable && !updateDisable.visible) && !dccData.model().showCheckUpdate && dccData.model().backupFailedListModel.anyVisible
         pageType: DccObject.Item
 
         page: UpdateControl {
@@ -203,7 +203,7 @@ DccObject {
         parentName: "update"
         backgroundType: DccObject.Normal
         weight: 90
-        visible: !updateDisable.visible && !dccData.model().showCheckUpdate && dccData.model().preInstallListModel.anyVisible
+        visible: (updateDisable && !updateDisable.visible) && !dccData.model().showCheckUpdate && dccData.model().preInstallListModel.anyVisible
         enabled: !dccData.model().backingUpListModel.anyVisible && !dccData.model().installinglistModel.anyVisible && dccData.model().batterIsOK
         pageType: DccObject.Item
 
@@ -232,7 +232,7 @@ DccObject {
         parentName: "update"
         backgroundType: DccObject.Normal
         weight: 100
-        visible: !updateDisable.visible && !dccData.model().showCheckUpdate && dccData.model().downloadFailedListModel.anyVisible
+        visible: (updateDisable && !updateDisable.visible) && !dccData.model().showCheckUpdate && dccData.model().downloadFailedListModel.anyVisible
         enabled: !dccData.model().downloadinglistModel.anyVisible
         pageType: DccObject.Item
 
@@ -256,7 +256,7 @@ DccObject {
         parentName: "update"
         backgroundType: DccObject.Normal
         weight: 110
-        visible: !updateDisable.visible && !dccData.model().showCheckUpdate && dccData.model().preUpdatelistModel.anyVisible
+        visible: (updateDisable && !updateDisable.visible) && !dccData.model().showCheckUpdate && dccData.model().preUpdatelistModel.anyVisible
         enabled: !dccData.model().downloadinglistModel.anyVisible
         pageType: DccObject.Item
 
@@ -282,7 +282,7 @@ DccObject {
         description: qsTr("Configure Update settings、Security Updates、Auto Download Updates and Updates Notification")
         icon: "update_set"
         weight: 120
-        visible: !updateDisable.visible
+        visible: updateDisable && !updateDisable.visible
 
         UpdateSetting {}
     }
@@ -293,7 +293,7 @@ DccObject {
         parentName: "update"
         weight: 1000
         backgroundType: DccObject.Normal
-        visible: !updateDisable.visible && !dccData.model().showCheckUpdate
+        visible: (updateDisable && !updateDisable.visible) && !dccData.model().showCheckUpdate
         pageType: DccObject.Item
 
         page: RowLayout {
@@ -305,7 +305,8 @@ DccObject {
                     anchors.left: parent.left
                     anchors.leftMargin: 10
                     anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: 12
+                    font: D.DTK.fontManager.t10
+                    opacity: 0.7
                     textFormat: Text.RichText
                     text: dccData.model().privacyAgreementText()
                     onLinkActivated: (link)=> {

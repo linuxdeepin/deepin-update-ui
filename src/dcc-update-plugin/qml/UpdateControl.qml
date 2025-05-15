@@ -46,8 +46,11 @@ ColumnLayout {
                 }
 
                 D.Label {
-                    font.pixelSize: D.DTK.fontManager.t5
-                    font.bold: true
+                    font {
+                        pixelSize: D.DTK.fontManager.t5.pixelSize
+                        family: D.DTK.fontManager.t5.family
+                        bold: true
+                    }
                     text: updateTitle
                 }
             }
@@ -55,7 +58,7 @@ ColumnLayout {
             D.Label {
                 visible: updateTips.length !== 0
                 text: updateTips
-                font.pixelSize: D.DTK.fontManager.t8
+                font: D.DTK.fontManager.t8
                 Layout.fillWidth: true
                 elide: Text.ElideRight
                 ToolTip.delay: 1000
@@ -143,7 +146,7 @@ ColumnLayout {
                 // Layout.rightMargin: startIcon.width + stopIcon.width + progressCtl.spacing * 2
                 width: parent.width
                 text: processTitle + Math.floor(process.value * 100) + "%"
-                font.pixelSize: D.DTK.fontManager.t8
+                font: D.DTK.fontManager.t8
             }
         }
     }

@@ -129,6 +129,12 @@ DccObject {
                 background: Item {}
             }
         }
+
+        onParentItemChanged: {
+            if (parentItem) {
+                parentItem.leftPadding = 10
+            }
+        }
     }
 
     DccObject {
