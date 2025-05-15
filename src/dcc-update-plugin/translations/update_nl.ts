@@ -224,7 +224,7 @@
     </message>
     <message>
         <source>Turn on the switches under Update Content to get better experiences</source>
-        <translation type="unfinished"/>
+        <translation>Schakel de opties onder ‘Update-inhoud’ in om de gebruikservaring te verbeteren</translation>
     </message>
 </context>
 <context>
