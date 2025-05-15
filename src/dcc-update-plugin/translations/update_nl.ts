@@ -222,6 +222,10 @@
         <source>To use this software, you must accept the %1 that accompanies software updates.</source>
         <translation>Om deze software te kunnen gebruiken, dien je akkoord te gaan met het %1 omtrent software-updates.</translation>
     </message>
+    <message>
+        <source>Turn on the switches under Update Content to get better experiences</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>UpdateSetting</name>
