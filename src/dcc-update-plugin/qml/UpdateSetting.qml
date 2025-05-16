@@ -59,7 +59,7 @@ DccObject {
             displayName: qsTr("Security Updates")
             description: qsTr("Delivers security updates")
             weight: 20
-            visible: dccData.model().securityUpdateEnabled
+            visible: dccData.model().securityUpdateEnabled && !dccData.model().isCommunitySystem()
             pageType: DccObject.Editor
             page: D.Switch {
                 checked: dccData.model().securityUpdate
