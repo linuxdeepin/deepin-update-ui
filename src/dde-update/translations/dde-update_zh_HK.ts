@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="zh_HK">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="zh_HK">
 <context>
     <name>CheckProgressWidget</name>
     <message>
@@ -54,11 +52,11 @@
     </message>
     <message>
         <source>The automatic reboot process has failed. Please try to manually reboot your device.</source>
-        <translation type="unfinished"></translation>
+        <translation>未能自動完成重啓操作，請嘗試手動重啓您的設備。</translation>
     </message>
     <message>
         <source>The automatic shutdown process has failed. Please try to manually shut down your device.</source>
-        <translation type="unfinished"></translation>
+        <translation>未能自動完成關機操作，請嘗試手動關閉您的設備。</translation>
     </message>
 </context>
 <context>
