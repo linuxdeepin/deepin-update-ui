@@ -1,3 +1,10 @@
+deepin-update-ui (1.0.11) unstable; urgency=medium
+
+  * fix: security updates toggle for community systems is avaliable
+  * fix: The switch updated by third-party sources has been reset
+
+ -- lvpeilong <lvpeilong@uniontech.com>  Fri, 16 May 2025 16:51:49 +0800
+
 deepin-update-ui (1.0.10) unstable; urgency=medium
 
   * Release 1.0.10
