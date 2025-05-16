@@ -181,7 +181,7 @@ void UpdateWorker::initConnect()
         }
 
         if (configName == "updateThirdPartySource") {
-            m_model->setThirdPartyUpdateEnabled(IsCommunitySystem ? true : DConfigWatcher::instance()->getValue(DConfigWatcher::update, "updateThirdPartySource").toString() != "Hidden");
+            m_model->setThirdPartyUpdateEnabled(DConfigWatcher::instance()->getValue(DConfigWatcher::update, configName).toString() != "Hidden");
         } else if (configName == "updateSafety") {
             m_model->setSecurityUpdateEnabled(DConfigWatcher::instance()->getValue(DConfigWatcher::update, configName).toString() != "Hidden");
         } else if (configName == "updateHistoryEnabled") {
@@ -206,7 +206,7 @@ void UpdateWorker::activate()
     m_model->setUpdateMode(m_updateInter->updateMode());
     m_model->setCheckUpdateMode(m_updateInter->checkUpdateMode());
     m_model->setSecurityUpdateEnabled(DConfigWatcher::instance()->getValue(DConfigWatcher::update, "updateSafety").toString() != "Hidden");
-    m_model->setThirdPartyUpdateEnabled(IsCommunitySystem ? true : DConfigWatcher::instance()->getValue(DConfigWatcher::update, "updateThirdPartySource").toString() != "Hidden");
+    m_model->setThirdPartyUpdateEnabled(DConfigWatcher::instance()->getValue(DConfigWatcher::update, "updateThirdPartySource").toString() != "Hidden");
     m_model->setSpeedLimitConfig(m_updateInter->downloadSpeedLimitConfig().toUtf8());
     m_model->setAutoDownloadUpdates(m_updateInter->autoDownloadUpdates());
     QString config = m_updateInter->idleDownloadConfig();
