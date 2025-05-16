@@ -224,7 +224,7 @@
     </message>
     <message>
         <source>Turn on the switches under Update Content to get better experiences</source>
-        <translation type="unfinished"/>
+        <translation>Sprawdź ustawienia, aby usprawnić proces aktualizacji</translation>
     </message>
 </context>
 <context>
@@ -456,7 +456,7 @@
     </message>
     <message>
         <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation>Poziom naładowania spadł poniżej 60%. Aby uniknąć problemów podczas aktualizacji, podłącz zasilanie.</translation>
+        <translation>Poziom naładowania spadł poniżej 60%. Podłącz zasilanie, aby uniknąć problemów podczas aktualizacji.</translation>
     </message>
 </context>
 </TS>
