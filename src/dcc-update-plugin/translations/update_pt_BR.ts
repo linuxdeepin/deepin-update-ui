@@ -456,7 +456,7 @@
     </message>
     <message>
         <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation type="unfinished"/>
+        <translation>A capacidade da bateria está abaixo de 60%. Para atualizar sem riscos de problemas, conecte o carregador.</translation>
     </message>
 </context>
 </TS>
