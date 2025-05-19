@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="pt_BR">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="pt_BR">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -27,11 +25,11 @@
     <name>UpdateDisable</name>
     <message>
         <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation type="unfinished"></translation>
+        <translation>As atualizações do sistema estão desativadas. Por favor, entre em contato com o administrador para obter ajuda.</translation>
     </message>
     <message>
         <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation type="unfinished"></translation>
+        <translation>Seu sistema não está ativado e não conseguiu conectar aos serviços de atualização.</translation>
     </message>
 </context>
 <context>
@@ -42,7 +40,7 @@
     </message>
     <message>
         <source>No update history</source>
-        <translation type="unfinished"></translation>
+        <translation>Nenhum histórico de atualizações</translation>
     </message>
     <message>
         <source>System Updates</source>
@@ -50,19 +48,19 @@
     </message>
     <message>
         <source>Security Updates</source>
-        <translation>Atualizações de Segurança</translation>
+        <translation>Atualizações de segurança</translation>
     </message>
     <message>
         <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Delivers security updates</source>
-        <translation>Fornece atualizações de segurança</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Installation date:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -218,15 +216,15 @@
     </message>
     <message>
         <source>Privacy Policy</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>To use this software, you must accept the %1 that accompanies software updates.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Turn on the switches under Update Content to get better experiences</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -325,7 +323,7 @@
     </message>
     <message>
         <source>Expand</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -446,19 +444,19 @@
     </message>
     <message>
         <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation>Se você continuar com as atualizações, não poderá reverter o sistema para uma versão anterior.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Try Again</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Proceed to Update</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>
