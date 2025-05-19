@@ -52,15 +52,15 @@
     </message>
     <message>
         <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
-        <translation type="unfinished"/>
+        <translation>Inclui novos recursos, atualizações de qualidade e de segurança em um pacote cumulativo.</translation>
     </message>
     <message>
         <source>Delivers security updates</source>
-        <translation type="unfinished"/>
+        <translation>Fornece atualizações de segurança</translation>
     </message>
     <message>
         <source>Installation date:</source>
-        <translation type="unfinished"/>
+        <translation>Data de Instalação</translation>
     </message>
 </context>
 <context>
@@ -216,15 +216,15 @@
     </message>
     <message>
         <source>Privacy Policy</source>
-        <translation type="unfinished"/>
+        <translation>Política de Privacidade</translation>
     </message>
     <message>
         <source>To use this software, you must accept the %1 that accompanies software updates.</source>
-        <translation type="unfinished"/>
+        <translation>Para usar este software, você deve aceitar o %1 que acompanha as atualizações.</translation>
     </message>
     <message>
         <source>Turn on the switches under Update Content to get better experiences</source>
-        <translation type="unfinished"/>
+        <translation>Ative os interruptores em Conteúdo da Atualização para obter uma melhor experiência</translation>
     </message>
 </context>
 <context>
