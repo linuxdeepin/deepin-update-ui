@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="pl">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="pl">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -42,7 +40,7 @@
     </message>
     <message>
         <source>No update history</source>
-        <translation type="unfinished"></translation>
+        <translation>Brak historii aktualizacji</translation>
     </message>
     <message>
         <source>System Updates</source>
@@ -54,7 +52,7 @@
     </message>
     <message>
         <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapewnia cały pakiet aktualizacji, w tym nowe funkcje, usprawnienia i aktualizacje bezpieczeństwa</translation>
     </message>
     <message>
         <source>Delivers security updates</source>
@@ -62,7 +60,7 @@
     </message>
     <message>
         <source>Installation date:</source>
-        <translation type="unfinished"></translation>
+        <translation>Data instalacji:</translation>
     </message>
 </context>
 <context>
@@ -226,7 +224,7 @@
     </message>
     <message>
         <source>Turn on the switches under Update Content to get better experiences</source>
-        <translation type="unfinished"></translation>
+        <translation>Sprawdź ustawienia, aby usprawnić proces aktualizacji</translation>
     </message>
 </context>
 <context>
@@ -316,16 +314,16 @@
         <translation>Dołącz do wewnętrznego kanału testowego</translation>
     </message>
     <message>
-        <source>Join the internal testing channel to get deepin latest updates</source>
-        <translation>Dołącz do wewnętrznego kanału testowego, aby uzyskać dostęp do najnowszych funkcji</translation>
-    </message>
-    <message>
         <source>Click here to complete the application</source>
         <translation>Kliknij tutaj, aby zakończyć aplikacje</translation>
     </message>
     <message>
         <source>Expand</source>
         <translation>Rozwiń</translation>
+    </message>
+    <message>
+        <source>Forum users at level 2 and above can join the beta test to receive the latest updates.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -458,7 +456,7 @@
     </message>
     <message>
         <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation type="unfinished"></translation>
+        <translation>Poziom naładowania spadł poniżej 60%. Podłącz zasilanie, aby uniknąć problemów podczas aktualizacji.</translation>
     </message>
 </context>
 </TS>
