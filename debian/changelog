@@ -1,3 +1,14 @@
+deepin-update-ui (1.0.12) unstable; urgency=medium
+
+  * feat: add deepin logo support for community edition
+  * i18n: Updates for project Deepin Desktop Environment (#74)
+  * fix: update translation
+  * fix: update privacy policy URL handling logic
+  * fix: improve update checking mechanism and activation state
+  * fix: modify the prompt text for the internal test channel
+
+ -- YeShanShan <yeshanshan@uniontech.com>  Tue, 20 May 2025 19:45:30 +0800
+
 deepin-update-ui (1.0.11) unstable; urgency=medium
 
   * fix: security updates toggle for community systems is avaliable
