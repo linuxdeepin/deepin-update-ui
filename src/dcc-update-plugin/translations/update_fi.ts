@@ -316,16 +316,16 @@
         <translation>Liity testauskanavaan</translation>
     </message>
     <message>
-        <source>Join the internal testing channel to get deepin latest updates</source>
-        <translation>Liity testauskanavaan ja saat viimeisimmät päivitykset</translation>
-    </message>
-    <message>
         <source>Click here to complete the application</source>
         <translation>Viimeistele sovellus painamalla</translation>
     </message>
     <message>
         <source>Expand</source>
         <translation>Laajenna</translation>
+    </message>
+    <message>
+        <source>Forum users at level 2 and above can join the beta test to receive the latest updates.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

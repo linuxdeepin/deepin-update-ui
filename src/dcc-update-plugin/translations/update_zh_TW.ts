@@ -1,9 +1,11 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="zh_TW">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="zh_TW">
 <context>
     <name>CheckUpdate</name>
     <message>
         <source>Last check: </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -143,12 +145,12 @@
     </message>
     <message>
         <source>, </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
         <extra-content_explain>中文逗号不需要空格，英文逗号需要空格For more details, please visit</extra-content_explain>
     </message>
     <message>
         <source>for more details, please visit </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
         <extra-content_explain>这句话后面会带上一个超链接，各语言自行决定末尾需不需要加空格</extra-content_explain>
     </message>
 </context>
@@ -314,16 +316,16 @@
         <translation>內測通道</translation>
     </message>
     <message>
-        <source>Join the internal testing channel to get deepin latest updates</source>
-        <translation>加入deepin內測通道，以獲取deepin最新更新內容</translation>
-    </message>
-    <message>
         <source>Click here to complete the application</source>
         <translation>點選此處完成內測申請</translation>
     </message>
     <message>
         <source>Expand</source>
         <translation>展開</translation>
+    </message>
+    <message>
+        <source>Forum users at level 2 and above can join the beta test to receive the latest updates.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -376,7 +378,7 @@
     </message>
     <message>
         <source>Update size: </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Update download failed</source>

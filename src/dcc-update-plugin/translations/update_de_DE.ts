@@ -316,15 +316,15 @@
         <translation>Dem Intern-Test-Kanal beitreten</translation>
     </message>
     <message>
-        <source>Join the internal testing channel to get deepin latest updates</source>
-        <translation>Dem Intern-Test-Kanal beitreten um Deepin-latest-Aktualisierungen zu erhalten</translation>
-    </message>
-    <message>
         <source>Click here to complete the application</source>
         <translation>Klicken Sie um die das Programm abzuschließen</translation>
     </message>
     <message>
         <source>Expand</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Forum users at level 2 and above can join the beta test to receive the latest updates.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

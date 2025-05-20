@@ -316,16 +316,16 @@
         <translation>Bëhuni Pjesë e Kanalit të Testimeve të Brendshme</translation>
     </message>
     <message>
-        <source>Join the internal testing channel to get deepin latest updates</source>
-        <translation>Që të merrni përditësimet më të reja të deepin-it, bëhuni pjesë e kanalit të brendshëm të testimeve</translation>
-    </message>
-    <message>
         <source>Click here to complete the application</source>
         <translation>Klikoni këtu që të plotësoni aplikimin</translation>
     </message>
     <message>
         <source>Expand</source>
         <translation>Zgjeroje</translation>
+    </message>
+    <message>
+        <source>Forum users at level 2 and above can join the beta test to receive the latest updates.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

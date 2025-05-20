@@ -316,16 +316,16 @@
         <translation>Dołącz do wewnętrznego kanału testowego</translation>
     </message>
     <message>
-        <source>Join the internal testing channel to get deepin latest updates</source>
-        <translation>Dołącz do wewnętrznego kanału testowego, aby uzyskać dostęp do najnowszych funkcji</translation>
-    </message>
-    <message>
         <source>Click here to complete the application</source>
         <translation>Kliknij tutaj, aby zakończyć aplikacje</translation>
     </message>
     <message>
         <source>Expand</source>
         <translation>Rozwiń</translation>
+    </message>
+    <message>
+        <source>Forum users at level 2 and above can join the beta test to receive the latest updates.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
