@@ -107,6 +107,7 @@ UpdateWorker::UpdateWorker(UpdateModel* model, QObject* parent)
     , m_lastoreHeartBeatTimer(new QTimer(this))
     , m_machineid(std::nullopt)
     , m_testingChannelUrl(std::nullopt)
+    , m_doCheckUpdates(false)
     , m_checkUpdateJob(nullptr)
     , m_fixErrorJob(nullptr)
     , m_downloadJob(nullptr)
@@ -381,6 +382,12 @@ void UpdateWorker::checkNeedDoUpdates()
         return;
     }
 
+    // 如果当前正在检查更新，则不再检查
+    if (m_doCheckUpdates) {
+        qCDebug(DCC_UPDATE_WORKER) << "Is doing check updates";
+        return;
+    }
+
     // 如果打开控制中心后第一次进入检查更新界面,则显示页面并进行检查
     static bool doCheckFirst = true;
     if (doCheckFirst) {
@@ -432,6 +439,7 @@ void UpdateWorker::doCheckUpdates()
 
     m_model->resetDownloadInfo(); // 在检查更新前重置数据，避免有上次检查的数据残留
 
+    m_doCheckUpdates = true;
     QDBusPendingCall call = m_updateInter->UpdateSource();
     QDBusPendingCallWatcher* watcher = new QDBusPendingCallWatcher(call, this);
     connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, watcher] {
@@ -440,6 +448,7 @@ void UpdateWorker::doCheckUpdates()
             qCWarning(DCC_UPDATE_WORKER) << "Check update failed, error: " << reply.error().message();
             m_model->setLastStatus(UpdatesStatus::CheckingFailed, __LINE__);
             cleanLaStoreJob(m_checkUpdateJob);
+            m_doCheckUpdates = false;
         } else {
             const QString jobPath = reply.value().path();
             qCInfo(DCC_UPDATE_WORKER) << "jobpath:" << jobPath;
@@ -1352,6 +1361,7 @@ void UpdateWorker::onCheckUpdateStatusChanged(const QString& value)
             m_model->setLastStatus(CheckingFailed, __LINE__);
             m_model->setCheckUpdateStatus(CheckingFailed);
             deleteJob(m_checkUpdateJob);
+            m_doCheckUpdates = false;
         }
     } else if (value == "success" || value == "succeed") {
         auto watcher = new QDBusPendingCallWatcher(m_updateInter->GetUpdateLogs(SystemUpdate | SecurityUpdate), this);
@@ -1374,6 +1384,7 @@ void UpdateWorker::onCheckUpdateStatusChanged(const QString& value)
         m_model->setCheckUpdateStatus(UpdatesStatus(m_model->lastStatus()));
         m_model->updateCheckUpdateUi();
         deleteJob(m_checkUpdateJob);
+        m_doCheckUpdates = false;
     }
 }
 

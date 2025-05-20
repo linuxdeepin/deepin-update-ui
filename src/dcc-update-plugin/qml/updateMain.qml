@@ -13,11 +13,9 @@ import org.deepin.dcc.update 1.0
 DccObject {
 
     Connections {
-        target: DccApp
-        function onActiveObjectChanged(obj) {
-            if (obj === dccModule) {
-                dccData.work().checkNeedDoUpdates()
-            }
+        target: dccModule
+        function onActiveUpdateModel() {
+            dccData.work().checkNeedDoUpdates()
         }
     }
 
