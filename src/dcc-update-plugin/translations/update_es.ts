@@ -36,7 +36,7 @@
     <name>UpdateHistoryDialog</name>
     <message>
         <source>Update History</source>
-        <translation type="unfinished"/>
+        <translation>Historial de actualizaciones</translation>
     </message>
     <message>
         <source>No update history</source>
@@ -44,11 +44,11 @@
     </message>
     <message>
         <source>System Updates</source>
-        <translation type="unfinished"/>
+        <translation>Actualizaciones del sistema</translation>
     </message>
     <message>
         <source>Security Updates</source>
-        <translation type="unfinished"/>
+        <translation>Actualizaciones de seguridad</translation>
     </message>
     <message>
         <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
@@ -56,7 +56,7 @@
     </message>
     <message>
         <source>Delivers security updates</source>
-        <translation type="unfinished"/>
+        <translation>Ofrece actualizaciones de seguridad</translation>
     </message>
     <message>
         <source>Installation date:</source>
