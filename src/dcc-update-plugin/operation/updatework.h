@@ -132,6 +132,7 @@ private:
     std::optional<QUrl> m_testingChannelUrl;
     QMutex m_downloadMutex;
 
+    bool m_doCheckUpdates;
     QPointer<UpdateJobDBusProxy> m_checkUpdateJob;
     QPointer<UpdateJobDBusProxy> m_fixErrorJob;
     QPointer<UpdateJobDBusProxy> m_downloadJob;
