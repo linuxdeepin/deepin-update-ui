@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="nl">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="nl">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -42,7 +40,7 @@
     </message>
     <message>
         <source>No update history</source>
-        <translation type="unfinished"></translation>
+        <translation>Er zijn geen updates geïnstalleerd</translation>
     </message>
     <message>
         <source>System Updates</source>
@@ -54,7 +52,7 @@
     </message>
     <message>
         <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Bevat nieuwe functies, verbeteringen en oplossingen voor beveiligingsproblemen.</translation>
     </message>
     <message>
         <source>Delivers security updates</source>
@@ -62,7 +60,7 @@
     </message>
     <message>
         <source>Installation date:</source>
-        <translation type="unfinished"></translation>
+        <translation>Installatiedatum:</translation>
     </message>
 </context>
 <context>
@@ -226,7 +224,7 @@
     </message>
     <message>
         <source>Turn on the switches under Update Content to get better experiences</source>
-        <translation type="unfinished"></translation>
+        <translation>Schakel de opties onder ‘Update-inhoud’ in om de gebruikservaring te verbeteren</translation>
     </message>
 </context>
 <context>
@@ -325,7 +323,7 @@
     </message>
     <message>
         <source>Forum users at level 2 and above can join the beta test to receive the latest updates.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -458,7 +456,7 @@
     </message>
     <message>
         <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation type="unfinished"></translation>
+        <translation>Het accuniveau is lager dan 60%. Sluit de stroomkabel aan om de updates te installeren.</translation>
     </message>
 </context>
 </TS>
