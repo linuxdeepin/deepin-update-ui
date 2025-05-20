@@ -1,11 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="tr">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="tr">
 <context>
     <name>CheckProgressWidget</name>
     <message>
         <source>The check is almost complete, thank you for your patience</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Preparing</source>
@@ -54,11 +52,11 @@
     </message>
     <message>
         <source>The automatic reboot process has failed. Please try to manually reboot your device.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>The automatic shutdown process has failed. Please try to manually shut down your device.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -128,7 +126,7 @@
     </message>
     <message>
         <source>Go to Desktop</source>
-        <translation type="unfinished">Masaüstüne git</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
