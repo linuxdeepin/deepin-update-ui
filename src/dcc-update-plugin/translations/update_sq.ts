@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="sq">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="sq">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -42,7 +40,7 @@
     </message>
     <message>
         <source>No update history</source>
-        <translation type="unfinished"></translation>
+        <translation>Pa historik përditësimesh</translation>
     </message>
     <message>
         <source>System Updates</source>
@@ -54,7 +52,7 @@
     </message>
     <message>
         <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Sjell një përditësim përmbledhës që përfshin veçori të reja, përditësime cilësie dhe përditësime sigurie</translation>
     </message>
     <message>
         <source>Delivers security updates</source>
@@ -62,7 +60,7 @@
     </message>
     <message>
         <source>Installation date:</source>
-        <translation type="unfinished"></translation>
+        <translation>Datë instalimi:</translation>
     </message>
 </context>
 <context>
@@ -226,7 +224,7 @@
     </message>
     <message>
         <source>Turn on the switches under Update Content to get better experiences</source>
-        <translation type="unfinished"></translation>
+        <translation>Për të pasur punim më të mirë, hapni çelësat që gjenden nën Lëndë Përditësimi</translation>
     </message>
 </context>
 <context>
@@ -316,16 +314,16 @@
         <translation>Bëhuni Pjesë e Kanalit të Testimeve të Brendshme</translation>
     </message>
     <message>
-        <source>Join the internal testing channel to get deepin latest updates</source>
-        <translation>Që të merrni përditësimet më të reja të deepin-it, bëhuni pjesë e kanalit të brendshëm të testimeve</translation>
-    </message>
-    <message>
         <source>Click here to complete the application</source>
         <translation>Klikoni këtu që të plotësoni aplikimin</translation>
     </message>
     <message>
         <source>Expand</source>
         <translation>Zgjeroje</translation>
+    </message>
+    <message>
+        <source>Forum users at level 2 and above can join the beta test to receive the latest updates.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -458,7 +456,7 @@
     </message>
     <message>
         <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kapaciteti i baterisë është më pak se 60%. Që të merren me sukses përditësime, ju lutemi, vëreni në prizë.</translation>
     </message>
 </context>
 </TS>
