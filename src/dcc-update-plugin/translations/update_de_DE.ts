@@ -36,7 +36,7 @@
     <name>UpdateHistoryDialog</name>
     <message>
         <source>Update History</source>
-        <translation type="unfinished"/>
+        <translation>Aktualisierungs-Chronik</translation>
     </message>
     <message>
         <source>No update history</source>
@@ -44,11 +44,11 @@
     </message>
     <message>
         <source>System Updates</source>
-        <translation type="unfinished"/>
+        <translation>System-Aktualisierungen</translation>
     </message>
     <message>
         <source>Security Updates</source>
-        <translation type="unfinished"/>
+        <translation>Sicherheits-Aktualisierungen</translation>
     </message>
     <message>
         <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
@@ -56,7 +56,7 @@
     </message>
     <message>
         <source>Delivers security updates</source>
-        <translation type="unfinished"/>
+        <translation>Liefert Sicherheits-Aktualisierungen</translation>
     </message>
     <message>
         <source>Installation date:</source>
@@ -444,7 +444,7 @@
     </message>
     <message>
         <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation type="unfinished"/>
+        <translation>Falls Sie mit den Aktualisierungen fortfahren, können Sie nicht wieder zurück zum alten System.</translation>
     </message>
     <message>
         <source>Try Again</source>
