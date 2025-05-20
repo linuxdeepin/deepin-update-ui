@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="ca">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ca">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -226,7 +224,7 @@
     </message>
     <message>
         <source>Turn on the switches under Update Content to get better experiences</source>
-        <translation type="unfinished"></translation>
+        <translation>Activeu els interruptors a Actualitza el contingut per obtenir-ne una experiència millor.</translation>
     </message>
 </context>
 <context>
@@ -325,7 +323,7 @@
     </message>
     <message>
         <source>Forum users at level 2 and above can join the beta test to receive the latest updates.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -458,7 +456,7 @@
     </message>
     <message>
         <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation type="unfinished"></translation>
+        <translation>La capacitat de la bateria és inferior al 60%. Per obtenir actualitzacions correctes, endolleu el dispositiu.</translation>
     </message>
 </context>
 </TS>
