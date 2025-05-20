@@ -314,16 +314,16 @@
         <translation>內測通道</translation>
     </message>
     <message>
-        <source>Join the internal testing channel to get deepin latest updates</source>
-        <translation>加入deepin內測通道，以獲取deepin最新更新內容</translation>
-    </message>
-    <message>
         <source>Click here to complete the application</source>
         <translation>點擊此處完成內測申請</translation>
     </message>
     <message>
         <source>Expand</source>
         <translation>展開</translation>
+    </message>
+    <message>
+        <source>Forum users at level 2 and above can join the beta test to receive the latest updates.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
