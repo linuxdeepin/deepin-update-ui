@@ -44,11 +44,11 @@
     </message>
     <message>
         <source>System Updates</source>
-        <translation type="unfinished"/>
+        <translation>Sistemos atnaujinimai</translation>
     </message>
     <message>
         <source>Security Updates</source>
-        <translation type="unfinished"/>
+        <translation>Saugumo atnaujinimai</translation>
     </message>
     <message>
         <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
@@ -56,7 +56,7 @@
     </message>
     <message>
         <source>Delivers security updates</source>
-        <translation type="unfinished"/>
+        <translation>Pristato saugumo atnaujinimus</translation>
     </message>
     <message>
         <source>Installation date:</source>

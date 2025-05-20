@@ -1073,24 +1073,29 @@ bool UpdateModel::isCommunitySystem() const
 
 QString UpdateModel::privacyAgreementText() const
 {
-    static QStringList supportedRegion = { "cn", "en", "tw", "hk", "ti", "uy" };
-    static QStringList communitySupportRegion = { "cn", "en" };
     const QString& systemLocaleName = QLocale::system().name();
     if (systemLocaleName.length() != QString("zh_CN").length()) {
-        qCWarning(DCC_UPDATE_MODEL) << "Get system locale name failed:" << systemLocaleName;
+        qCDebug(DCC_UPDATE_MODEL) << "Get system locale name failed:" << systemLocaleName;
     }
     QString region = systemLocaleName.right(2).toLower();
 
-    QString addr = "https://www.uniontech.com/agreement/privacy-";
+    QString addr;
     if (DCC_NAMESPACE::IsCommunitySystem) {
-        addr = "https://www.uniontech.com/agreement/deepin-privacy-";
-        if (!communitySupportRegion.contains(region))
+        QString communityRegion = "en";
+        QStringList chineseRegion = { "cn", "hk", "tw" };
+        if (chineseRegion.contains(region)) {
+            communityRegion = "zh";
+        }
+        addr = QString("https://www.deepin.org/%1/agreement/privacy/").arg(communityRegion);
+    } else {
+        QStringList supportedRegion = { "cn", "en", "tw", "hk", "ti", "uy" };
+        if (!supportedRegion.contains(region)) {
             region = "en";
-    } else if (!supportedRegion.contains(region)) {
-        region = "en";
+        }
+        addr = QString("https://www.uniontech.com/agreement/privacy-%1").arg(region);
     }
 
-    QString link = QString("<a style=\"text-decoration: none\" href=\"%1%2\">%3</a>").arg(addr).arg(region).arg(tr("Privacy Policy"));
+    QString link = QString("<a style=\"text-decoration: none\" href=\"%1\">%2</a>").arg(addr).arg(tr("Privacy Policy"));
     return tr("To use this software, you must accept the %1 that accompanies software updates.").arg(link);
 }
 
