@@ -36,7 +36,7 @@
     <name>UpdateHistoryDialog</name>
     <message>
         <source>Update History</source>
-        <translation type="unfinished"/>
+        <translation>Журнал оновлень</translation>
     </message>
     <message>
         <source>No update history</source>
@@ -44,7 +44,7 @@
     </message>
     <message>
         <source>System Updates</source>
-        <translation type="unfinished"/>
+        <translation>Оновлення системи</translation>
     </message>
     <message>
         <source>Security Updates</source>
@@ -56,7 +56,7 @@
     </message>
     <message>
         <source>Delivers security updates</source>
-        <translation type="unfinished"/>
+        <translation>Надає оновлення захисту</translation>
     </message>
     <message>
         <source>Installation date:</source>
