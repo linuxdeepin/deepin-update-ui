@@ -11,7 +11,9 @@ import org.deepin.dcc 1.0
 DccObject {
     id: root
 
-    property bool hasHandledChildrenChange: false
+    // 标识当前是否有更新模块视图显示
+    property bool hasView: false
+    // 激活更新模型的信号，用于触发更新检查
     signal activeUpdateModel()
 
     name: "update"
@@ -23,17 +25,14 @@ DccObject {
 
     page: DccRightView{
 
-        // 切换模块时候，控件会重新创建，从而触发检查更新
+        // 当组件创建完成时，设置hasView为true并触发更新检查
         Component.onCompleted: {
+            hasView = true
             activeUpdateModel();
         }
-    }
-
-    // 通过dbus接口直接进入更新模块时，onCompleted已经发送了信号，但其子控件可能还没创建好，需要使用该信号触发检查更新，但只需要触发一次即可
-    onChildrenChanged : {
-        if (!hasHandledChildrenChange) {
-            hasHandledChildrenChange = true
-            activeUpdateModel();
+        // 当组件销毁时，设置hasView为false
+        Component.onDestruction: {
+            hasView = false
         }
     }
 }

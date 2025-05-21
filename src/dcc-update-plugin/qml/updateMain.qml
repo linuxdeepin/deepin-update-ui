@@ -12,24 +12,36 @@ import org.deepin.dcc.update 1.0
 
 DccObject {
 
+    // 处理更新模块激活和子组件变化的连接
     Connections {
+        // 标识是否已经检查过更新
+        property bool hasCheckUpdate: false
+        
         target: dccModule
+        // 当更新模块被激活时，检查是否需要更新
         function onActiveUpdateModel() {
+            hasCheckUpdate = true
             dccData.work().checkNeedDoUpdates()
         }
-    }
-
-    Connections {
-        target: dccData.model()
-        function onSystemActivationChanged() {
-            if (dccData.model().systemActivation) {
+        // 当子组件发生变化时，如果视图存在且未检查过更新，则进行检查，这里主要适用于dbus直接调起更新模块的情况
+        function onChildrenChanged() {
+            if (dccModule.hasView && !hasCheckUpdate) {
+                hasCheckUpdate = true
                 dccData.work().checkNeedDoUpdates()
             }
         }
     }
 
+    // 处理系统激活状态和更新禁用状态变化的连接
     Connections {
         target: dccData.model()
+        // 当系统激活状态改变时，如果系统已激活则检查更新
+        function onSystemActivationChanged() {
+            if (dccData.model().systemActivation) {
+                dccData.work().checkNeedDoUpdates()
+            }
+        }
+        // 当更新禁用状态改变时，如果更新未被禁用则检查更新
         function onIsUpdateDisabledChanged() {
             if (!dccData.model().isUpdateDisabled) {
                 dccData.work().checkNeedDoUpdates()
