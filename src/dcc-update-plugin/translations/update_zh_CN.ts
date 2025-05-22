@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="zh_CN">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="zh_CN">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -19,17 +21,6 @@
     <message>
         <source>Exit</source>
         <translation>退 出</translation>
-    </message>
-</context>
-<context>
-    <name>UpdateDisable</name>
-    <message>
-        <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation>系统已被禁止更新，请联系管理员！</translation>
-    </message>
-    <message>
-        <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation>当前系统未激活，无法启动更新服务</translation>
     </message>
 </context>
 <context>
@@ -225,6 +216,14 @@
     <message>
         <source>Turn on the switches under Update Content to get better experiences</source>
         <translation>开启更新内容开关，可以获得更优质的功能体验哦</translation>
+    </message>
+    <message>
+        <source>Your system is not activated, and it failed to connect to update services</source>
+        <translation>当前系统未激活，无法启动更新服务</translation>
+    </message>
+    <message>
+        <source>The system updates are disabled. Please contact your administrator for help</source>
+        <translation>系统已被禁止更新，请联系管理员！</translation>
     </message>
 </context>
 <context>

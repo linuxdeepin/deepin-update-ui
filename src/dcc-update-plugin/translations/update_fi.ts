@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="fi">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="fi">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -19,17 +21,6 @@
     <message>
         <source>Exit</source>
         <translation>Poistu</translation>
-    </message>
-</context>
-<context>
-    <name>UpdateDisable</name>
-    <message>
-        <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation>Päivitykset ovat poistettu käytöstä. Pyydä apua järjestelmänvalvojaltasi.</translation>
-    </message>
-    <message>
-        <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation>Tietokonetta ei ole aktivoitu, eikä se onnistu saamaan yhteyttä päivityspalveluihin.</translation>
     </message>
 </context>
 <context>
@@ -226,6 +217,14 @@
         <source>Turn on the switches under Update Content to get better experiences</source>
         <translation>Ota käyttöön &quot;Päivitä sisältö&quot; kytkimet saadaksesi paremman kokemuksen</translation>
     </message>
+    <message>
+        <source>Your system is not activated, and it failed to connect to update services</source>
+        <translation>Tietokonetta ei ole aktivoitu, eikä se onnistu saamaan yhteyttä päivityspalveluihin.</translation>
+    </message>
+    <message>
+        <source>The system updates are disabled. Please contact your administrator for help</source>
+        <translation>Päivitykset ovat poistettu käytöstä. Pyydä apua järjestelmänvalvojaltasi.</translation>
+    </message>
 </context>
 <context>
     <name>UpdateSetting</name>
@@ -323,7 +322,7 @@
     </message>
     <message>
         <source>Forum users at level 2 and above can join the beta test to receive the latest updates.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

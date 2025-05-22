@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="nl">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="nl">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -19,17 +21,6 @@
     <message>
         <source>Exit</source>
         <translation>Afsluiten</translation>
-    </message>
-</context>
-<context>
-    <name>UpdateDisable</name>
-    <message>
-        <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation>Systeemupdates zijn uitgeschakeld. Neem contact op met je systeembeheerder.</translation>
-    </message>
-    <message>
-        <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation>Er kan geen verbinding worden gemaakt, omdat je systeem niet is geactiveerd.</translation>
     </message>
 </context>
 <context>
@@ -226,6 +217,14 @@
         <source>Turn on the switches under Update Content to get better experiences</source>
         <translation>Schakel de opties onder ‘Update-inhoud’ in om de gebruikservaring te verbeteren</translation>
     </message>
+    <message>
+        <source>Your system is not activated, and it failed to connect to update services</source>
+        <translation>Er kan geen verbinding worden gemaakt, omdat je systeem niet is geactiveerd.</translation>
+    </message>
+    <message>
+        <source>The system updates are disabled. Please contact your administrator for help</source>
+        <translation>Systeemupdates zijn uitgeschakeld. Neem contact op met je systeembeheerder.</translation>
+    </message>
 </context>
 <context>
     <name>UpdateSetting</name>
@@ -323,7 +322,7 @@
     </message>
     <message>
         <source>Forum users at level 2 and above can join the beta test to receive the latest updates.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

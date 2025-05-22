@@ -370,14 +370,7 @@ void UpdateWorker::checkNeedDoUpdates()
 {
     qCInfo(DCC_UPDATE_WORKER) << "check need do updates";
 
-    if (m_model->updateModeDisabled()) {
-        m_model->setShowCheckUpdate(true);
-        m_model->setCheckUpdateStatus(UpdatesStatus::AllUpdateModeDisabled);
-        return;
-    }
-
-    if (m_model->isUpdateDisabled() || !m_model->systemActivation()) {
-        qCDebug(DCC_UPDATE_WORKER) << "update disabled:" << m_model->isUpdateDisabled() << " system activation:" << m_model->systemActivation();
+    if (m_model->isUpdateDisabled()) {
         m_model->setShowCheckUpdate(false);
         return;
     }

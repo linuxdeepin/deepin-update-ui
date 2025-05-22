@@ -55,11 +55,6 @@ enum UpdatesStatus {
     UpgradeFailed,
     UpgradeSuccess,
     UpgradeComplete,
-
-    // 非真实更新状态，可随系统配置变化
-    SystemIsNotActive,
-    UpdateIsDisabled,
-    AllUpdateModeDisabled
 };
 Q_ENUM_NS(UpdatesStatus)
 

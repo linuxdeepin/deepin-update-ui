@@ -35,8 +35,11 @@ static const QMap<UpdatesStatus, ControlPanelType> ControlPanelTypeMapping = {
 UpdateModel::UpdateModel(QObject* parent)
     : QObject(parent)
     , m_lastoreDaemonStatus(0)
+    , m_updateProhibited(false)
+    , m_systemActivation(false)
     , m_isUpdateDisabled(false)
-    , m_systemActivation(true)
+    , m_updateDisabledIcon("")
+    , m_updateDisabledTips("")
     , m_batterIsOK(false)
     , m_lastStatus(Default)
     , m_showCheckUpdate(false)
@@ -99,9 +102,53 @@ void UpdateModel::setLastoreDaemonStatus(int status)
     m_lastoreDaemonStatus = status;
 
     if (LastoreDaemonDConfigStatusHelper::isUpdateDisabled(m_lastoreDaemonStatus)) {
+        setUpdateProhibited(true);
+    } else {
+        setUpdateProhibited(false);
+    }
+}
+
+void UpdateModel::setUpdateProhibited(bool prohibited)
+{
+    if (m_updateProhibited == prohibited) {
+        return;
+    }
+    m_updateProhibited = prohibited;
+    Q_EMIT updateProhibitedChanged(prohibited);
+
+    refreshIsUpdateDisabled();
+}
+
+void UpdateModel::setSystemActivation(bool systemActivation)
+{
+    qCInfo(DCC_UPDATE_MODEL) << "System activation:" << systemActivation;
+    if (m_systemActivation == systemActivation) {
+        return;
+    }
+    m_systemActivation = systemActivation;
+    Q_EMIT systemActivationChanged(systemActivation);
+
+    refreshIsUpdateDisabled();
+}
+
+void UpdateModel::refreshIsUpdateDisabled()
+{
+    if (!m_systemActivation) {
         setIsUpdateDisabled(true);
+        setUpdateDisabledIcon("update_no_active");
+        setUpdateDisabledTips(tr("Your system is not activated, and it failed to connect to update services"));
+    }else if (m_updateProhibited) {
+        setIsUpdateDisabled(true);
+        setUpdateDisabledIcon("update_prohibit");
+        setUpdateDisabledTips(tr("The system updates are disabled. Please contact your administrator for help"));
+    } else if (updateModeDisabled()) {
+        setIsUpdateDisabled(true);
+        setUpdateDisabledIcon("update_nice_service");
+        setUpdateDisabledTips(tr("Turn on the switches under Update Content to get better experiences"));
     } else {
         setIsUpdateDisabled(false);
+        setUpdateDisabledIcon("");
+        setUpdateDisabledTips("");
     }
 }
 
@@ -114,14 +161,22 @@ void UpdateModel::setIsUpdateDisabled(bool disabled)
     Q_EMIT isUpdateDisabledChanged(disabled);
 }
 
-void UpdateModel::setSystemActivation(bool systemActivation)
+void UpdateModel::setUpdateDisabledIcon(const QString &icon)
 {
-    qCInfo(DCC_UPDATE_MODEL) << "System activation:" << systemActivation;
-    if (m_systemActivation == systemActivation) {
+    if (m_updateDisabledIcon == icon)
         return;
-    }
-    m_systemActivation = systemActivation;
-    Q_EMIT systemActivationChanged(systemActivation);
+
+    m_updateDisabledIcon = icon;
+    Q_EMIT updateDisabledIconChanged();
+}
+
+void UpdateModel::setUpdateDisabledTips(const QString &tips)
+{
+    if (m_updateDisabledTips == tips)
+        return;
+
+    m_updateDisabledTips = tips;
+    Q_EMIT updateDisabledTipsChanged();
 }
 
 void UpdateModel::setBatterIsOK(bool ok)
@@ -200,11 +255,6 @@ void UpdateModel::updateCheckUpdateUi()
             setCheckBtnText(tr("Check Again"));
             setCheckUpdateErrTips(tr("Your system is up to date"));
             setCheckUpdateIcon("update_abreast_of_time");
-            break;
-        case AllUpdateModeDisabled:
-            setCheckUpdateErrTips(tr("Turn on the switches under Update Content to get better experiences"));
-            setCheckUpdateIcon("update_nice_service");
-            setCheckBtnText("");
             break;
         default:
             setCheckBtnText(tr(""));
@@ -863,6 +913,7 @@ void UpdateModel::setUpdateMode(quint64 updateMode)
 
     m_updateMode = updateMode;
 
+    refreshIsUpdateDisabled();
     setUpdateItemEnabled();
     refreshUpdateStatus();
     updateAvailableState();

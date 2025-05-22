@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ca">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="ca">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -19,17 +21,6 @@
     <message>
         <source>Exit</source>
         <translation>Surt</translation>
-    </message>
-</context>
-<context>
-    <name>UpdateDisable</name>
-    <message>
-        <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation>Les actualitzacions del sistema estan desactivades. Poseu-vos en contacte amb l&apos;administrador per obtenir ajuda.</translation>
-    </message>
-    <message>
-        <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation>El sistema no està activat i no s&apos;ha pogut connectar per actualitzar-ne els serveis.</translation>
     </message>
 </context>
 <context>
@@ -225,6 +216,14 @@
     <message>
         <source>Turn on the switches under Update Content to get better experiences</source>
         <translation>Activeu els interruptors a Actualitza el contingut per obtenir-ne una experiència millor.</translation>
+    </message>
+    <message>
+        <source>Your system is not activated, and it failed to connect to update services</source>
+        <translation>El sistema no està activat i no s&apos;ha pogut connectar per actualitzar-ne els serveis.</translation>
+    </message>
+    <message>
+        <source>The system updates are disabled. Please contact your administrator for help</source>
+        <translation>Les actualitzacions del sistema estan desactivades. Poseu-vos en contacte amb l&apos;administrador per obtenir ajuda.</translation>
     </message>
 </context>
 <context>

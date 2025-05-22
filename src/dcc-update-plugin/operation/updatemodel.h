@@ -21,8 +21,11 @@ class UpdateModel : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(bool updateProhibited READ updateProhibited NOTIFY updateProhibitedChanged FINAL)
+    Q_PROPERTY(bool systemActivation READ systemActivation NOTIFY systemActivationChanged FINAL)
     Q_PROPERTY(bool isUpdateDisabled READ isUpdateDisabled NOTIFY isUpdateDisabledChanged FINAL)
-    Q_PROPERTY(bool systemActivation READ systemActivation WRITE setSystemActivation NOTIFY systemActivationChanged FINAL)
+    Q_PROPERTY(QString updateDisabledIcon READ updateDisabledIcon NOTIFY updateDisabledIconChanged FINAL)
+    Q_PROPERTY(QString updateDisabledTips READ updateDisabledTips NOTIFY updateDisabledTipsChanged FINAL)
     Q_PROPERTY(bool batterIsOK READ batterIsOK NOTIFY batterIsOKChanged FINAL)
     Q_PROPERTY(int lastStatus READ lastStatus  NOTIFY lastStatusChanged FINAL)
 
@@ -87,11 +90,22 @@ public:
     int lastoreDaemonStatus() const { return m_lastoreDaemonStatus; }
     void setLastoreDaemonStatus(int status);
 
-    bool isUpdateDisabled() const { return m_isUpdateDisabled; }
-    void setIsUpdateDisabled(bool disabled);
+    bool updateProhibited() const { return m_updateProhibited; }
+    void setUpdateProhibited(bool prohibited);
 
     bool systemActivation() const { return m_systemActivation; }
     void setSystemActivation(bool systemActivation);
+    
+    void refreshIsUpdateDisabled();
+
+    bool isUpdateDisabled() const { return m_isUpdateDisabled; }
+    void setIsUpdateDisabled(bool disabled);
+
+    QString updateDisabledIcon() const { return m_updateDisabledIcon; }
+    void setUpdateDisabledIcon(const QString &icon);
+
+    QString updateDisabledTips() const { return m_updateDisabledTips; }
+    void setUpdateDisabledTips(const QString &tips);
 
     bool batterIsOK() const { return m_batterIsOK; }
     void setBatterIsOK(bool ok);
@@ -295,8 +309,11 @@ public slots:
                                    const QStringList &invalidatedProperties);
 
 Q_SIGNALS:
-    void isUpdateDisabledChanged(bool isDisabled);
+    void updateProhibitedChanged(bool prohibited);
     void systemActivationChanged(bool systemActivation);
+    void isUpdateDisabledChanged(bool isDisabled);
+    void updateDisabledIconChanged();
+    void updateDisabledTipsChanged();
 
     void batterIsOKChanged(bool isOK);
     void lastStatusChanged(int status);
@@ -363,8 +380,11 @@ Q_SIGNALS:
 
 private:
     int m_lastoreDaemonStatus; // 比较重要的数值，每个位标识不同的含义，使用 LastoreDaemonDConfigStatusHelper 对它进行解析
-    bool m_isUpdateDisabled;
+    bool m_updateProhibited;
     bool m_systemActivation;
+    bool m_isUpdateDisabled;
+    QString m_updateDisabledIcon;
+    QString m_updateDisabledTips;
     bool m_batterIsOK;
     int m_lastStatus;
 

@@ -23,6 +23,7 @@ DccObject {
     }
 
     DccObject {
+        id: updateTypeGrp
         name: "updateTypeGrp"
         parentName: "updateSettingsPage"
         weight: 20
@@ -33,11 +34,12 @@ DccObject {
         }
 
         // 下载、备份和安装过程中，按钮置灰不可用
-        enabled: !dccData.model().downloadWaiting && 
-                 !dccData.model().upgradeWaiting && 
-                 !dccData.model().installinglistModel.anyVisible && 
-                 !dccData.model().backingUpListModel.anyVisible && 
-                 !dccData.model().downloadinglistModel.anyVisible
+        property bool editorEnabled: !dccData.model().downloadWaiting && 
+                                     !dccData.model().upgradeWaiting && 
+                                     !dccData.model().installinglistModel.anyVisible && 
+                                     !dccData.model().backingUpListModel.anyVisible && 
+                                     !dccData.model().downloadinglistModel.anyVisible &&
+                                     !dccData.model().updateProhibited
 
         DccObject {
             name: "functionUpdate"
@@ -45,6 +47,7 @@ DccObject {
             displayName: qsTr("Function Updates")
             description: qsTr("Delivers a cumulative update including new features, quality updates, and  security updates")
             weight: 10
+            enabled: updateTypeGrp.editorEnabled
             pageType: DccObject.Editor
             page: D.Switch {
                 checked: dccData.model().functionUpdate
@@ -60,6 +63,7 @@ DccObject {
             description: qsTr("Delivers security updates")
             weight: 20
             visible: dccData.model().securityUpdateEnabled && !dccData.model().isCommunitySystem()
+            enabled: updateTypeGrp.editorEnabled
             pageType: DccObject.Editor
             page: D.Switch {
                 checked: dccData.model().securityUpdate
@@ -75,6 +79,7 @@ DccObject {
             description: qsTr("Delivers  updates for additional repository sources")
             weight: 30
             visible: dccData.model().thirdPartyUpdateEnabled
+            enabled: updateTypeGrp.editorEnabled
             pageType: DccObject.Editor
             page: D.Switch {
                 checked: dccData.model().thirdPartyUpdate
@@ -153,6 +158,7 @@ DccObject {
             parentName: "downloadLimitGrp"
             displayName: qsTr("Limit Speed")
             weight: 10
+            enabled: !dccData.model().updateProhibited
             pageType: DccObject.Editor
             page: D.Switch {
                 checked: dccData.model().downloadSpeedLimitEnabled
@@ -168,6 +174,7 @@ DccObject {
             displayName: qsTr("Limit Setting")
             visible: dccData.model().downloadSpeedLimitEnabled
             weight: 20
+            enabled: !dccData.model().updateProhibited
             pageType: DccObject.Editor
             page: RowLayout {
                 D.LineEdit {
@@ -194,7 +201,6 @@ DccObject {
         weight: 50
         pageType: DccObject.Item
         visible: advancedSetting.showDetails
-        enabled: !dccData.model().updateModeDisabled
         page: DccGroupView {
             height: implicitHeight + 10
             spacing: 0
@@ -205,6 +211,7 @@ DccObject {
             displayName: qsTr("Auto Download")
             description: qsTr("Enabling \"Auto Download Updates\" will automatically download updates when connected to the internet")
             weight: 10
+            enabled: !dccData.model().updateProhibited && !dccData.model().updateModeDisabled
             pageType: DccObject.Editor
             page: D.Switch {
                 checked: dccData.model().autoDownloadUpdates
@@ -220,6 +227,7 @@ DccObject {
             displayName: qsTr("Download when Inactive")
             visible: dccData.model().autoDownloadUpdates
             weight: 20
+            enabled: !dccData.model().updateProhibited && !dccData.model().updateModeDisabled
             pageType: DccObject.Item
             page: RowLayout {
                 D.CheckBox {
@@ -315,7 +323,7 @@ DccObject {
             displayName: qsTr("Updates Notification")
             weight: 10
             pageType: DccObject.Editor
-            enabled: !dccData.model().updateModeDisabled
+            enabled: !dccData.model().updateProhibited && !dccData.model().updateModeDisabled
             page: D.Switch {
                 checked: dccData.model().updateNotify
                 onCheckedChanged: {
@@ -385,6 +393,7 @@ DccObject {
             parentName: "mirrorSettingGrp"
             displayName: qsTr("Smart Mirror Switch")
             weight: 10
+            enabled: !dccData.model().updateProhibited
             pageType: DccObject.Editor
             page: D.Switch {
                 checked: dccData.model().smartMirrorSwitch
@@ -400,6 +409,7 @@ DccObject {
             parentName: "mirrorSettingGrp"
          //   displayName: qsTr("默认镜像源")
             weight: 20
+            enabled: !dccData.model().updateProhibited
             pageType: DccObject.Editor
             page: D.ComboBox {
                 model:["[SG]Ox.sg", "[AU]JAARNET", "[SE]Academic Computer Club", "[CN]阿里云"]
@@ -442,7 +452,7 @@ DccObject {
 
             Connections {
                 target: dccData.work()
-                onRequestCloseTestingChannel: {
+                function onRequestCloseTestingChannel() {
                     ctcloader.active = true
                 }
             }

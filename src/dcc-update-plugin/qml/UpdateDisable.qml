@@ -12,7 +12,7 @@ ColumnLayout {
 
     Rectangle {
         Layout.fillWidth: true
-        Layout.preferredHeight: 500
+        Layout.preferredHeight: dccData.model().systemActivation ? 338 : 500
 
         color: "transparent"
         clip: true
@@ -23,7 +23,7 @@ ColumnLayout {
 
             Image {
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                source: dccData.model().isUpdateDisabled ? "update_prohibit" : "update_no_active"     
+                source: dccData.model().updateDisabledIcon
                 height: 140
             }
 
@@ -31,8 +31,7 @@ ColumnLayout {
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 width: implicitWidth
                 height: 30
-                text: dccData.model().isUpdateDisabled ? qsTr("The system updates are disabled. Please contact your administrator for help")
-                                                       : qsTr("Your system is not activated, and it failed to connect to update services")
+                text: dccData.model().updateDisabledTips
                 font.pixelSize: 12
             }
         }

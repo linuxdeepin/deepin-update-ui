@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="pt_BR">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="pt_BR">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -19,17 +21,6 @@
     <message>
         <source>Exit</source>
         <translation>Sair</translation>
-    </message>
-</context>
-<context>
-    <name>UpdateDisable</name>
-    <message>
-        <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation>As atualizações do sistema estão desativadas. Por favor, entre em contato com o administrador para obter ajuda.</translation>
-    </message>
-    <message>
-        <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation>Seu sistema não está ativado e não conseguiu conectar aos serviços de atualização.</translation>
     </message>
 </context>
 <context>
@@ -225,6 +216,14 @@
     <message>
         <source>Turn on the switches under Update Content to get better experiences</source>
         <translation>Ative os interruptores em Conteúdo da Atualização para obter uma melhor experiência</translation>
+    </message>
+    <message>
+        <source>Your system is not activated, and it failed to connect to update services</source>
+        <translation>Seu sistema não está ativado e não conseguiu conectar aos serviços de atualização.</translation>
+    </message>
+    <message>
+        <source>The system updates are disabled. Please contact your administrator for help</source>
+        <translation>As atualizações do sistema estão desativadas. Por favor, entre em contato com o administrador para obter ajuda.</translation>
     </message>
 </context>
 <context>
