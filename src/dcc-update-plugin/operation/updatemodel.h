@@ -72,8 +72,8 @@ class UpdateModel : public QObject
     Q_PROPERTY(QString downloadSpeedLimitSize READ downloadSpeedLimitSize NOTIFY downloadSpeedLimitConfigChanged FINAL)
     Q_PROPERTY(bool autoDownloadUpdates READ autoDownloadUpdates WRITE setAutoDownloadUpdates NOTIFY autoDownloadUpdatesChanged FINAL)
     Q_PROPERTY(bool idleDownloadEnabled READ idleDownloadEnabled NOTIFY idleDownloadConfigChanged FINAL)
-    Q_PROPERTY(int beginTime READ beginTime NOTIFY idleDownloadConfigChanged FINAL)
-    Q_PROPERTY(int endTime READ endTime NOTIFY idleDownloadConfigChanged FINAL)
+    Q_PROPERTY(QString beginTime READ beginTime NOTIFY idleDownloadConfigChanged FINAL)
+    Q_PROPERTY(QString endTime READ endTime NOTIFY idleDownloadConfigChanged FINAL)
     Q_PROPERTY(bool updateNotify READ updateNotify WRITE setUpdateNotify NOTIFY updateNotifyChanged FINAL)
     Q_PROPERTY(bool autoCleanCache READ autoCleanCache WRITE setAutoCleanCache NOTIFY autoCleanCacheChanged FINAL)
     Q_PROPERTY(bool smartMirrorSwitch READ smartMirrorSwitch WRITE setSmartMirrorSwitch NOTIFY smartMirrorSwitchChanged FINAL)
@@ -253,8 +253,8 @@ public:
     void setAutoDownloadUpdates(bool autoDownloadUpdates);
 
     bool idleDownloadEnabled() const;
-    int beginTime() const;
-    int endTime() const;
+    QString beginTime() const;
+    QString endTime() const;
     IdleDownloadConfig idleDownloadConfig() const { return m_idleDownloadConfig; }
     void setIdleDownloadConfig(const IdleDownloadConfig &config);
 

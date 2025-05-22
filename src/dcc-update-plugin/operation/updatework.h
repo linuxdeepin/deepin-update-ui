@@ -67,10 +67,9 @@ public:
     void setDownloadSpeedLimitConfig(const QString& config);
     Q_INVOKABLE void setAutoDownloadUpdates(const bool& autoDownload);
     Q_INVOKABLE void setIdleDownloadEnabled(bool enable);
-    Q_INVOKABLE void setIdleDownloadBeginTime(int time);
-    Q_INVOKABLE void setIdleDownloadEndTime(int time);
+    Q_INVOKABLE void setIdleDownloadBeginTime(QString time);
+    Q_INVOKABLE void setIdleDownloadEndTime(QString time);
     void setIdleDownloadConfig(const IdleDownloadConfig& config);
-    QString timeToString(int value);
     QString adjustTimeFunc(const QString& start, const QString& end, bool returnEndTime);
 
     // 更新设置-更新提醒

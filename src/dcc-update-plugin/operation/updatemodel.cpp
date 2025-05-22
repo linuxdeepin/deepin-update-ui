@@ -968,16 +968,14 @@ bool UpdateModel::idleDownloadEnabled() const
     return m_idleDownloadConfig.idleDownloadEnabled;
 }
 
-int UpdateModel::beginTime() const
+QString UpdateModel::beginTime() const
 {
-    QTime time = QTime::fromString(m_idleDownloadConfig.beginTime);
-    return time.hour() * 60 + time.minute();
+    return m_idleDownloadConfig.beginTime;
 }
 
-int UpdateModel::endTime() const
+QString UpdateModel::endTime() const
 {
-    QTime time = QTime::fromString(m_idleDownloadConfig.endTime);
-    return time.hour() * 60 + time.minute();
+    return m_idleDownloadConfig.endTime;
 }
 
 void UpdateModel::setIdleDownloadConfig(const IdleDownloadConfig& config)

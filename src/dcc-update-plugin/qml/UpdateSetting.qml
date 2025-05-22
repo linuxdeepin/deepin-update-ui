@@ -258,22 +258,13 @@ DccObject {
                        enabled: inactiveDownloadCheckBox.checked
                     }
 
-                    D.SpinBox {
-                        value: dccData.model().beginTime
-                        from: 0
-                        to: 1440
-                        implicitWidth: 80
-                        font.pixelSize: 14
+                    DccTimeRange {
+                        id: beginTimeRange
                         enabled: inactiveDownloadCheckBox.checked
-                        textFromValue: function (value, locale) {
-                            var time = Math.floor(value / 60)
-                            var timeStr = time < 10 ? ("0" + time.toString()) : time.toString()
-                            var minute =  value % 60
-                            var minuteStr = minute < 10 ? ("0" + minute.toString()) : minute.toString()
-                            return timeStr + ":"+ minuteStr
-                        }
-                        onValueChanged: function() {
-                            dccData.work().setIdleDownloadBeginTime(value)
+                        hour: dccData.model().beginTime.split(':')[0]
+                        minute: dccData.model().beginTime.split(':')[1]
+                        onTimeChanged: {
+                            dccData.work().setIdleDownloadBeginTime(beginTimeRange.timeString)
                         }
                     }
 
@@ -283,22 +274,13 @@ DccObject {
                         enabled: inactiveDownloadCheckBox.checked
                     }
 
-                    D.SpinBox {
-                        value: dccData.model().endTime
-                        implicitWidth: 80
-                        from: 0
-                        to: 1439
-                        font.pixelSize: 14
+                    DccTimeRange {
+                        id: endTimeRange
                         enabled: inactiveDownloadCheckBox.checked
-                        textFromValue: function (value, locale) {
-                            var time = Math.floor(value / 60)
-                            var timeStr = time < 10 ? ("0" + time.toString()) : time.toString()
-                            var minute =  value % 60
-                            var minuteStr = minute < 10 ? ("0" + minute.toString()) : minute.toString()
-                            return timeStr + ":"+ minuteStr
-                        }
-                        onValueChanged: function() {
-                            dccData.work().setIdleDownloadEndTime(value)
+                        hour: dccData.model().endTime.split(':')[0]
+                        minute: dccData.model().endTime.split(':')[1]
+                        onTimeChanged: {
+                            dccData.work().setIdleDownloadEndTime(endTimeRange.timeString)
                         }
                     }
                 }

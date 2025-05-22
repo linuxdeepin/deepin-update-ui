@@ -820,24 +820,26 @@ void UpdateWorker::setIdleDownloadEnabled(bool enable)
     setIdleDownloadConfig(config);
 }
 
-void UpdateWorker::setIdleDownloadBeginTime(int time)
+void UpdateWorker::setIdleDownloadBeginTime(QString time)
 {
     auto config = m_model->idleDownloadConfig();
-    config.beginTime = timeToString(time);
+    config.beginTime = time;
     config.endTime = adjustTimeFunc(config.beginTime, config.endTime, true);
     setIdleDownloadConfig(config);
 }
 
-void UpdateWorker::setIdleDownloadEndTime(int time)
+void UpdateWorker::setIdleDownloadEndTime(QString time)
 {
     auto config = m_model->idleDownloadConfig();
-    config.endTime = timeToString(time);
+    config.endTime = time;
     config.beginTime = adjustTimeFunc(config.beginTime, config.endTime, false);
     setIdleDownloadConfig(config);
 }
 
 void UpdateWorker::setIdleDownloadConfig(const IdleDownloadConfig& config)
 {
+    // 避免dbus延时返回，导致界面更新慢，这里直接先更新model
+    m_model->setIdleDownloadConfig(config);
     QDBusPendingCall call = m_updateInter->SetIdleDownloadConfig(QString(config.toJson()));
     QDBusPendingCallWatcher* watcher = new QDBusPendingCallWatcher(call, this);
     connect(watcher, &QDBusPendingCallWatcher::finished, this, [call, watcher] {
@@ -846,15 +848,6 @@ void UpdateWorker::setIdleDownloadConfig(const IdleDownloadConfig& config)
         }
         watcher->deleteLater();
     });
-}
-
-QString UpdateWorker::timeToString(int value)
-{
-    int time = value / 60;
-    QString timeStr = time < 10 ? ("0" + QString::number(time)) : QString::number(time);
-    int minute = value % 60;
-    QString minuteStr = minute < 10 ? ("0" + QString::number(minute)) : QString::number(minute);
-    return timeStr + ":" + minuteStr;
 }
 
 // 规则：开始时间和结束时间不能相等，否则默认按相隔五分钟处理
