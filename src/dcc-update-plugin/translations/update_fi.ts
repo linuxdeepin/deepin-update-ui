@@ -323,7 +323,7 @@
     </message>
     <message>
         <source>Forum users at level 2 and above can join the beta test to receive the latest updates.</source>
-        <translation type="unfinished"/>
+        <translation>Foorumin käyttäjät tasolla 2 ja sitä korkeammalla voivat liittyä beta-testiin viimeisillä päivityksillä.</translation>
     </message>
 </context>
 <context>
