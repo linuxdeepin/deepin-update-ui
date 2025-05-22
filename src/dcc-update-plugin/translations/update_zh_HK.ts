@@ -22,17 +22,6 @@
     </message>
 </context>
 <context>
-    <name>UpdateDisable</name>
-    <message>
-        <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation>系統已被禁止更新，請聯繫管理員！</translation>
-    </message>
-    <message>
-        <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation>當前系統未激活，無法啓動更新服務</translation>
-    </message>
-</context>
-<context>
     <name>UpdateHistoryDialog</name>
     <message>
         <source>Update History</source>
@@ -225,6 +214,14 @@
     <message>
         <source>Turn on the switches under Update Content to get better experiences</source>
         <translation>開啓更新內容開關，可以獲得更優質的功能體驗哦</translation>
+    </message>
+    <message>
+        <source>Your system is not activated, and it failed to connect to update services</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The system updates are disabled. Please contact your administrator for help</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
