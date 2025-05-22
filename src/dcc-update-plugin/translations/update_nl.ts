@@ -22,17 +22,6 @@
     </message>
 </context>
 <context>
-    <name>UpdateDisable</name>
-    <message>
-        <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation>Systeemupdates zijn uitgeschakeld. Neem contact op met je systeembeheerder.</translation>
-    </message>
-    <message>
-        <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation>Er kan geen verbinding worden gemaakt, omdat je systeem niet is geactiveerd.</translation>
-    </message>
-</context>
-<context>
     <name>UpdateHistoryDialog</name>
     <message>
         <source>Update History</source>
@@ -225,6 +214,14 @@
     <message>
         <source>Turn on the switches under Update Content to get better experiences</source>
         <translation>Schakel de opties onder ‘Update-inhoud’ in om de gebruikservaring te verbeteren</translation>
+    </message>
+    <message>
+        <source>Your system is not activated, and it failed to connect to update services</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The system updates are disabled. Please contact your administrator for help</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
