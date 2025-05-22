@@ -22,17 +22,6 @@
     </message>
 </context>
 <context>
-    <name>UpdateDisable</name>
-    <message>
-        <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation>Aktualizacje systemowe są wyłączone. Skontaktuj się z administratorem, aby uzyskać pomoc</translation>
-    </message>
-    <message>
-        <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation>Twój system nie jest aktywowany i nie udało mu się połączyć z usługą aktualizacji</translation>
-    </message>
-</context>
-<context>
     <name>UpdateHistoryDialog</name>
     <message>
         <source>Update History</source>
@@ -225,6 +214,14 @@
     <message>
         <source>Turn on the switches under Update Content to get better experiences</source>
         <translation>Sprawdź ustawienia, aby usprawnić proces aktualizacji</translation>
+    </message>
+    <message>
+        <source>Your system is not activated, and it failed to connect to update services</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The system updates are disabled. Please contact your administrator for help</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
