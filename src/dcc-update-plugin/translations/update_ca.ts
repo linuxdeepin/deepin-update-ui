@@ -22,17 +22,6 @@
     </message>
 </context>
 <context>
-    <name>UpdateDisable</name>
-    <message>
-        <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation>Les actualitzacions del sistema estan desactivades. Poseu-vos en contacte amb l&apos;administrador per obtenir ajuda.</translation>
-    </message>
-    <message>
-        <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation>El sistema no està activat i no s&apos;ha pogut connectar per actualitzar-ne els serveis.</translation>
-    </message>
-</context>
-<context>
     <name>UpdateHistoryDialog</name>
     <message>
         <source>Update History</source>
@@ -225,6 +214,14 @@
     <message>
         <source>Turn on the switches under Update Content to get better experiences</source>
         <translation>Activeu els interruptors a Actualitza el contingut per obtenir-ne una experiència millor.</translation>
+    </message>
+    <message>
+        <source>Your system is not activated, and it failed to connect to update services</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The system updates are disabled. Please contact your administrator for help</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
