@@ -116,7 +116,6 @@ DccObject {
                 Layout.fillWidth: true
             }
             D.ToolButton {
-                visible: !advancedSetting.showDetails
                 textColor: D.Palette {
                     normal {
                         common: D.DTK.makeColor(D.Color.Highlight)
@@ -127,9 +126,9 @@ DccObject {
                     }
                     hoveredDark: hovered
                 }
-                text: qsTr("Expand")
+                text: advancedSetting.showDetails ? qsTr("Collapse") : qsTr("Expand")
                 onClicked: {
-                    advancedSetting.showDetails = true
+                    advancedSetting.showDetails = !advancedSetting.showDetails
                 }
                 background: Item {}
             }
@@ -178,12 +177,38 @@ DccObject {
             pageType: DccObject.Editor
             page: RowLayout {
                 D.LineEdit {
-                    width: Math.max(implicitWidth, editInputMinWidth)
-                    text: dccData.model().downloadSpeedLimitSize
+                    id: lineEdit
                     font.pixelSize: 14
+                    maximumLength: 5
+                    validator: RegularExpressionValidator { regularExpression: /^\d*$/ }
+                    alertText: qsTr("Only numbers between 1-99999 are allowed")
+                    alertDuration: 3000
 
+                    text: dccData.model().downloadSpeedLimitSize
+
+                    onTextChanged: {
+                        // 如果输入不为空且数字为0的情况，需要弹出提示且阻止继续输入
+                        if (lineEdit.text.length !== 0 && lineEdit.text[0] === "0") {
+                            lineEdit.text = ""
+                            lineEdit.showAlert = true
+                        } else if (lineEdit.showAlert) {
+                            lineEdit.showAlert = false
+                        }
+                    }
                     onEditingFinished: {
-                        dccData.work().setDownloadSpeedLimitSize(text)
+                        if (lineEdit.showAlert) {
+                            return
+                        }
+                        if (lineEdit.text.length === 0) {
+                            lineEdit.text = dccData.model().downloadSpeedLimitSize
+                            return
+                        }
+                        dccData.work().setDownloadSpeedLimitSize(lineEdit.text)
+                    }
+                    Keys.onPressed: {
+                        if (event.key === Qt.Key_Return) {
+                            lineEdit.forceActiveFocus(false);
+                        }
                     }
                 }
 

@@ -783,11 +783,14 @@ void UpdateWorker::setDownloadSpeedLimitEnabled(bool enable)
 {
     auto config = m_model->speedLimitConfig();
     config.downloadSpeedLimitEnabled = enable;
+    // dbus返回需要1s，导致界面更新慢，这里直接先更新model
+    m_model->setSpeedLimitConfig(config.toJson().toUtf8());
     setDownloadSpeedLimitConfig(config.toJson());
 }
 
 void UpdateWorker::setDownloadSpeedLimitSize(const QString& size)
 {
+    qCDebug(DCC_UPDATE_WORKER) << "set download speed limit size" << size;
     auto config = m_model->speedLimitConfig();
     config.limitSpeed = size;
     setDownloadSpeedLimitConfig(config.toJson());
