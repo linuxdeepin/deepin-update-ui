@@ -217,11 +217,11 @@
     </message>
     <message>
         <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation type="unfinished"/>
+        <translation>El sistema no està activat i no s&apos;ha pogut connectar per actualitzar-ne els serveis.</translation>
     </message>
     <message>
         <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation type="unfinished"/>
+        <translation>Les actualitzacions del sistema estan desactivades. Poseu-vos en contacte amb l&apos;administrador per obtenir ajuda.</translation>
     </message>
 </context>
 <context>
