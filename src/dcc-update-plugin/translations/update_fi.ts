@@ -217,11 +217,11 @@
     </message>
     <message>
         <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation type="unfinished"/>
+        <translation>Tietokonetta ei ole aktivoitu, eikä se onnistu saamaan yhteyttä päivityspalveluihin.</translation>
     </message>
     <message>
         <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation type="unfinished"/>
+        <translation>Päivitykset ovat poistettu käytöstä. Pyydä apua järjestelmänvalvojaltasi.</translation>
     </message>
 </context>
 <context>
