@@ -183,7 +183,7 @@ DccObject {
                     validator: RegularExpressionValidator { regularExpression: /^\d*$/ }
                     alertText: qsTr("Only numbers between 1-99999 are allowed")
                     alertDuration: 3000
-
+                    clearButton.active: lineEdit.activeFocus && (text.length !== 0)
                     text: dccData.model().downloadSpeedLimitSize
 
                     onTextChanged: {
