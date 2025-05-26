@@ -217,11 +217,11 @@
     </message>
     <message>
         <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation type="unfinished"/>
+        <translation>Twój system nie jest aktywowany i nie udało mu się połączyć z usługą aktualizacji</translation>
     </message>
     <message>
         <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation type="unfinished"/>
+        <translation>Aktualizacje systemu są wyłączone. Skontaktuj się z administratorem, aby uzyskać pomoc</translation>
     </message>
 </context>
 <context>
@@ -320,7 +320,7 @@
     </message>
     <message>
         <source>Forum users at level 2 and above can join the beta test to receive the latest updates.</source>
-        <translation type="unfinished"/>
+        <translation>Użytkownicy forum na poziomie 2 lub wyższym mogą dołączyć do testów Beta i uzyskać najnowsze aktualizacje.</translation>
     </message>
 </context>
 <context>
