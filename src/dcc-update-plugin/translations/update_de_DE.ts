@@ -29,7 +29,7 @@
     </message>
     <message>
         <source>No update history</source>
-        <translation type="unfinished"/>
+        <translation>Keine Aktualisierungs-Historie</translation>
     </message>
     <message>
         <source>System Updates</source>
@@ -41,7 +41,7 @@
     </message>
     <message>
         <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
-        <translation type="unfinished"/>
+        <translation>Liefert eine kumulative Aktualisierung mit neuen Möglichkeiten, Qualitäts- und Sicherheitsverbesserungen</translation>
     </message>
     <message>
         <source>Delivers security updates</source>
@@ -49,7 +49,7 @@
     </message>
     <message>
         <source>Installation date:</source>
-        <translation type="unfinished"/>
+        <translation>Installationsdatum:</translation>
     </message>
 </context>
 <context>
@@ -205,11 +205,11 @@
     </message>
     <message>
         <source>Privacy Policy</source>
-        <translation type="unfinished"/>
+        <translation>Datenschutzerklärung</translation>
     </message>
     <message>
         <source>To use this software, you must accept the %1 that accompanies software updates.</source>
-        <translation type="unfinished"/>
+        <translation>Um diese Software zu benutzen, müssen die %1 akzeptieren, die den Software-Aktualisieren beigefügt ist.</translation>
     </message>
     <message>
         <source>Turn on the switches under Update Content to get better experiences</source>
@@ -316,7 +316,7 @@
     </message>
     <message>
         <source>Expand</source>
-        <translation type="unfinished"/>
+        <translation>Aufklappen</translation>
     </message>
     <message>
         <source>Forum users at level 2 and above can join the beta test to receive the latest updates.</source>
