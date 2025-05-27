@@ -29,7 +29,7 @@
     </message>
     <message>
         <source>No update history</source>
-        <translation>Keine Aktualisierungs-Historie</translation>
+        <translation>Keine Aktualisierungs-Chronik</translation>
     </message>
     <message>
         <source>System Updates</source>
@@ -445,15 +445,15 @@
     </message>
     <message>
         <source>Try Again</source>
-        <translation type="unfinished"/>
+        <translation>Nochmals probieren</translation>
     </message>
     <message>
         <source>Proceed to Update</source>
-        <translation type="unfinished"/>
+        <translation>Mit der Aktualisierung fortfahren</translation>
     </message>
     <message>
         <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation type="unfinished"/>
+        <translation>Der Akku ist unter 60%. Um die Aktualisierung erfolgreich durchführen zu können schließen Sie bitte den Rechner ans Stromnetz an.</translation>
     </message>
 </context>
 </TS>
