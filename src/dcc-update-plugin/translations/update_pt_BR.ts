@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="pt_BR">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="pt_BR">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -219,11 +217,11 @@
     </message>
     <message>
         <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation>Seu sistema não está ativado e não conseguiu conectar aos serviços de atualização.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation>As atualizações do sistema estão desativadas. Por favor, entre em contato com o administrador para obter ajuda.</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -314,7 +312,7 @@
     </message>
     <message>
         <source>Click here to complete the application</source>
-        <translation>Clique aqui para completar a aplicação</translation>
+        <translation>Clique aqui para concluir a participação</translation>
     </message>
     <message>
         <source>Expand</source>
