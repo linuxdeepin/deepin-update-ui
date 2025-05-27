@@ -312,7 +312,7 @@
     </message>
     <message>
         <source>Click here to complete the application</source>
-        <translation>Clique aqui para completar a aplicação</translation>
+        <translation>Clique aqui para concluir a participação</translation>
     </message>
     <message>
         <source>Expand</source>
