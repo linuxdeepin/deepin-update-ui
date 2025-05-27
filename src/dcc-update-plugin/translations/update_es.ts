@@ -29,7 +29,7 @@
     </message>
     <message>
         <source>No update history</source>
-        <translation type="unfinished"/>
+        <translation>Sin historial de actualizaciones</translation>
     </message>
     <message>
         <source>System Updates</source>
@@ -41,7 +41,7 @@
     </message>
     <message>
         <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
-        <translation type="unfinished"/>
+        <translation>Ofrece una actualización acumulativa que incluye nuevas funciones, actualizaciones de calidad y seguridad</translation>
     </message>
     <message>
         <source>Delivers security updates</source>
@@ -49,7 +49,7 @@
     </message>
     <message>
         <source>Installation date:</source>
-        <translation type="unfinished"/>
+        <translation>Fecha de instalación:</translation>
     </message>
 </context>
 <context>
@@ -213,15 +213,15 @@
     </message>
     <message>
         <source>Turn on the switches under Update Content to get better experiences</source>
-        <translation type="unfinished"/>
+        <translation>Activa los interruptores en Actualizar contenido para obtener mejores experiencias</translation>
     </message>
     <message>
         <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation type="unfinished"/>
+        <translation>Su sistema no está activado y no ha podido conectarse a los servicios de actualización</translation>
     </message>
     <message>
         <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation type="unfinished"/>
+        <translation>Las actualizaciones del sistema están desactivadas. Póngase en contacto con su administrador para obtener ayuda.</translation>
     </message>
 </context>
 <context>
@@ -320,7 +320,7 @@
     </message>
     <message>
         <source>Forum users at level 2 and above can join the beta test to receive the latest updates.</source>
-        <translation type="unfinished"/>
+        <translation>Los usuarios del foro de nivel 2 o superior pueden unirse a la prueba beta para recibir las últimas actualizaciones.</translation>
     </message>
 </context>
 <context>
@@ -453,7 +453,7 @@
     </message>
     <message>
         <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation type="unfinished"/>
+        <translation>La capacidad de la batería es inferior al 60%. Para obtener actualizaciones exitosas, conéctese.</translation>
     </message>
 </context>
 </TS>
