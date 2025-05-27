@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="pl">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="pl">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -223,7 +221,7 @@
     </message>
     <message>
         <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation>Aktualizacje systemowe są wyłączone. Skontaktuj się z administratorem, aby uzyskać pomoc</translation>
+        <translation>Aktualizacje systemu są wyłączone. Skontaktuj się z administratorem, aby uzyskać pomoc</translation>
     </message>
 </context>
 <context>
@@ -322,7 +320,7 @@
     </message>
     <message>
         <source>Forum users at level 2 and above can join the beta test to receive the latest updates.</source>
-        <translation type="unfinished"></translation>
+        <translation>Użytkownicy forum na poziomie 2 lub wyższym mogą dołączyć do testów Beta i uzyskać najnowsze aktualizacje.</translation>
     </message>
 </context>
 <context>
