@@ -29,7 +29,7 @@
     </message>
     <message>
         <source>No update history</source>
-        <translation type="unfinished"/>
+        <translation>Немає журналу оновлень</translation>
     </message>
     <message>
         <source>System Updates</source>
@@ -37,11 +37,11 @@
     </message>
     <message>
         <source>Security Updates</source>
-        <translation type="unfinished"/>
+        <translation>Оновлення захисту</translation>
     </message>
     <message>
         <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
-        <translation type="unfinished"/>
+        <translation>Накопичувальне оновлення драйверів із включенням нових можливостей, оновленнями якості та оновленнями захисту</translation>
     </message>
     <message>
         <source>Delivers security updates</source>
@@ -49,7 +49,7 @@
     </message>
     <message>
         <source>Installation date:</source>
-        <translation type="unfinished"/>
+        <translation>Дата встановлення:</translation>
     </message>
 </context>
 <context>
@@ -213,15 +213,15 @@
     </message>
     <message>
         <source>Turn on the switches under Update Content to get better experiences</source>
-        <translation type="unfinished"/>
+        <translation>Увімкніть пункти у розділі «Оновлення даних», щоб оптимізувати роботу</translation>
     </message>
     <message>
         <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation type="unfinished"/>
+        <translation>Вашу систему не активовано, і вона не змогла встановити з&apos;єднання зі службами оновлення</translation>
     </message>
     <message>
         <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation type="unfinished"/>
+        <translation>Оновлення системи вимкнено. Будь ласка, зв&apos;яжіться із адміністратором для довідки.</translation>
     </message>
 </context>
 <context>
@@ -320,7 +320,7 @@
     </message>
     <message>
         <source>Forum users at level 2 and above can join the beta test to receive the latest updates.</source>
-        <translation type="unfinished"/>
+        <translation>Користувачі форуму рівня 2 та вищих рівнів можуть долучатися до тестування для отримання найсвіжіших оновлень.</translation>
     </message>
 </context>
 <context>
@@ -453,7 +453,7 @@
     </message>
     <message>
         <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation type="unfinished"/>
+        <translation>Батарею заряджено менше ніж на 60%. Для успішного оновлення, будь ласка, з&apos;єднайте пристрій із джерелом струму.</translation>
     </message>
 </context>
 </TS>
