@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="zh_CN">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="zh_CN">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -219,11 +217,11 @@
     </message>
     <message>
         <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation>当前系统未激活，无法启动更新服务</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation>系统已被禁止更新，请联系管理员！</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
