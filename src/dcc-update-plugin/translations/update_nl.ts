@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="nl">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="nl">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -322,7 +320,7 @@
     </message>
     <message>
         <source>Forum users at level 2 and above can join the beta test to receive the latest updates.</source>
-        <translation type="unfinished"></translation>
+        <translation>Forumgebruikers met niveau 2 of hoger kunnen deelnemen aan de bètatest.</translation>
     </message>
 </context>
 <context>
