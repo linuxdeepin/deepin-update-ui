@@ -217,11 +217,11 @@
     </message>
     <message>
         <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation type="unfinished"/>
+        <translation>当前系统未激活，无法启动更新服务</translation>
     </message>
     <message>
         <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation type="unfinished"/>
+        <translation>系统已被禁止更新，请联系管理员！</translation>
     </message>
 </context>
 <context>
