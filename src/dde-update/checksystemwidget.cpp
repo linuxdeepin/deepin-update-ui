@@ -222,7 +222,7 @@ ErrorFrame::ErrorFrame(QWidget *parent)
 
     m_buttonSpacer->changeSize(0, 0);
     m_titleSpacer->changeSize(0, 0);
-    m_iconLabel->setPixmap(DHiDPIHelper::loadNxPixmap(":img/failed.svg"));
+    m_iconLabel->setPixmap(DIcon::loadNxPixmap(":img/failed.svg"));
     const QList<UpdateModel::UpdateAction> actions = {{UpdateModel::Reboot, UpdateModel::EnterDesktop}};
     m_title->setText(tr("Checked for some errors"));
 

@@ -30,7 +30,6 @@ int main(int argc, char *argv[])
 
     // qt默认当最后一个窗口析构后，会自动退出程序，这里设置成false，防止插拔时，没有屏幕，导致进程退出
     QApplication::setQuitOnLastWindowClosed(false);
-    QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 
     DApplication *app = nullptr;
 #if (DTK_VERSION < DTK_VERSION_CHECK(5, 4, 0, 0))
@@ -41,8 +40,6 @@ int main(int argc, char *argv[])
 
     // qt默认当最后一个窗口析构后，会自动退出程序，这里设置成false，防止插拔时，没有屏幕，导致进程退出
     QApplication::setQuitOnLastWindowClosed(false);
-    //解决Qt在Retina屏幕上图片模糊问题
-    QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
     app->setOrganizationName("deepin");
     app->setApplicationName("dde-update");
     app->setApplicationVersion("2015.1.0");
@@ -84,7 +81,10 @@ int main(int argc, char *argv[])
     DGuiApplicationHelper::instance()->setApplicationPalette(pa);
 
     QTranslator translatorLanguage;
-    translatorLanguage.load("/usr/share/deepin-update-ui/translations/dde-update_" + getCurrentLocale());
+    if (!translatorLanguage.load("/usr/share/deepin-update-ui/translations/dde-update_" + getCurrentLocale())) {
+        qWarning() << "Failed to load translation file for locale" << getCurrentLocale();
+    }
+
     app->installTranslator(&translatorLanguage);
 
     UpdateWorker::instance()->init();

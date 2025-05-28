@@ -22,7 +22,10 @@ int main(int argc, char *argv[])
     a.setQuitOnLastWindowClosed(false);
 
     QTranslator translator;
-    translator.load("/usr/share/deepin-update-ui/translations/dde-rollback_" + getCurrentLocale());
+    if (!translator.load("/usr/share/deepin-update-ui/translations/dde-rollback_" + getCurrentLocale())) {
+        qWarning() << "Failed to load translation file for locale" << getCurrentLocale();
+    }
+
     a.installTranslator(&translator);
 
     DLogManager::registerConsoleAppender();
