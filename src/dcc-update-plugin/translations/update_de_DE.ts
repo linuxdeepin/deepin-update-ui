@@ -228,19 +228,19 @@
     <name>UpdateSelectDialog</name>
     <message>
         <source>The updates have been already downloaded. What do you want to do?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Silent Installation</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update and Reboot</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update and Shut Down</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -343,11 +343,11 @@
     </message>
     <message>
         <source>Collapse</source>
-        <translation type="unfinished">Einfahren</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Only numbers between 1-99999 are allowed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
