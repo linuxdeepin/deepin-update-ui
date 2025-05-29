@@ -287,7 +287,7 @@ void UpdateModel::setLastCheckUpdateTime(const QString& lastTime)
     emit lastCheckUpdateTimeChanged();
 }
 
-void UpdateModel::setCheckUpdateMode(int value)
+void UpdateModel::setCheckUpdateMode(quint64 value)
 {
     qCInfo(DCC_UPDATE_MODEL) << "Set check update mode: " << value;
     if (m_checkUpdateMode == value)
@@ -297,7 +297,15 @@ void UpdateModel::setCheckUpdateMode(int value)
     Q_EMIT checkUpdateModeChanged(value);
 
     // 升级时切换用户，再切回来的时候收到的信号时乱序，可能会先收到updateStatusChanged再收到checkUpdateModeChanged
+    refreshUpdateItemsChecked();
     refreshUpdateStatus();
+}
+
+void UpdateModel::refreshUpdateItemsChecked()
+{
+    for (const auto item : m_allUpdateInfos.values()) {
+        item->setIsChecked(m_checkUpdateMode & item->updateType());
+    }
 }
 
 void UpdateModel::setPreUpdatelistModel(UpdateListModel *newPreUpdatelistModel)
@@ -1156,9 +1164,9 @@ void UpdateModel::onUpdatePropertiesChanged(const QString& interfaceName, const 
         if (changedProperties.contains("CheckUpdateMode")) {
             // 用户A、B都打开控制中心，用户A多次修改CheckUpdateMode后切换到用户B，控制中心会立刻收到多个改变信号
             // 增加一个100ms的防抖，只取最后一次的数值
-            static int tmpValue = 0;
+            static quint64 tmpValue = 0;
             static QTimer* timer = nullptr;
-            tmpValue = changedProperties.value("CheckUpdateMode").toInt();
+            tmpValue = changedProperties.value("CheckUpdateMode").toULongLong();
             if (!timer) {
                 timer = new QTimer(this);
                 timer->setInterval(100);

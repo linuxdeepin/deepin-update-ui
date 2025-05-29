@@ -58,8 +58,8 @@ public:
     bool autoClean();
 
     Q_PROPERTY(qulonglong UpdateMode READ updateMode WRITE setUpdateMode NOTIFY UpdateModeChanged)
-    uint updateMode();
-    void setUpdateMode(qulonglong value);
+    quint64 updateMode();
+    void setUpdateMode(quint64 value);
 
     Q_PROPERTY(QList<QDBusObjectPath> JobList READ jobList NOTIFY JobListChanged)
     QList<QDBusObjectPath> jobList();
@@ -69,8 +69,8 @@ public:
 
     QString hardwareId();
 
-    int checkUpdateMode();
-    void setCheckUpdateMode(int value);
+    quint64 checkUpdateMode();
+    void setCheckUpdateMode(quint64 value);
 
     QString idleDownloadConfig();
     QString downloadSpeedLimitConfig();

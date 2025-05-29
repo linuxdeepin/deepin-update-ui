@@ -500,6 +500,7 @@ void UpdateWorker::setUpdateInfo()
             isUpdated = false;
         }
     }
+    m_model->refreshUpdateItemsChecked();
     m_model->refreshUpdateStatus();
     m_model->updateAvailableState();
     m_model->setLastStatus(isUpdated ? Updated : UpdatesAvailable, __LINE__);
@@ -1264,8 +1265,8 @@ void UpdateWorker::onRequestRetry(int type, int updateTypes)
 
 void UpdateWorker::setCheckUpdateMode(int type, bool isChecked)
 {
-    const int currentMode = m_model->checkUpdateMode();
-    const int outMode = isChecked ? (currentMode | type) : (currentMode & ~type);
+    quint64 currentMode = m_model->checkUpdateMode();
+    quint64 outMode = isChecked ? (currentMode | type) : (currentMode & ~type);
 
     m_updateInter->setCheckUpdateMode(outMode);
 }

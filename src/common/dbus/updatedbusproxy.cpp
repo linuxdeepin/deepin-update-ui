@@ -166,12 +166,12 @@ bool UpdateDBusProxy::autoClean()
     return qvariant_cast<bool>(m_managerInter->property("AutoClean"));
 }
 
-uint UpdateDBusProxy::updateMode()
+quint64 UpdateDBusProxy::updateMode()
 {
-    return qvariant_cast<uint>(m_managerInter->property("UpdateMode"));
+    return qvariant_cast<quint64>(m_managerInter->property("UpdateMode"));
 }
 
-void UpdateDBusProxy::setUpdateMode(qulonglong value)
+void UpdateDBusProxy::setUpdateMode(quint64 value)
 {
     m_managerInter->setProperty("UpdateMode", QVariant::fromValue(value));
 }
@@ -191,12 +191,12 @@ QString UpdateDBusProxy::hardwareId()
     return qvariant_cast<QString>(m_managerInter->property("HardwareId"));
 }
 
-int UpdateDBusProxy::checkUpdateMode()
+quint64 UpdateDBusProxy::checkUpdateMode()
 {
-    return qvariant_cast<int>(m_managerInter->property("CheckUpdateMode"));
+    return qvariant_cast<quint64>(m_managerInter->property("CheckUpdateMode"));
 }
 
-void UpdateDBusProxy::setCheckUpdateMode(int value)
+void UpdateDBusProxy::setCheckUpdateMode(quint64 value)
 {
     m_managerInter->setProperty("CheckUpdateMode", QVariant::fromValue(value));
 }

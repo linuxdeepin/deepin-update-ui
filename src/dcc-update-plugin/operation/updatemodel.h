@@ -136,9 +136,9 @@ public:
     QString lastCheckUpdateTime() const { return m_lastCheckUpdateTime; }
     void setLastCheckUpdateTime(const QString &lastTime);
 
-    int checkUpdateMode() const { return m_checkUpdateMode; }
-    void setCheckUpdateMode(int value);
-
+    quint64 checkUpdateMode() const { return m_checkUpdateMode; }
+    void setCheckUpdateMode(quint64 value);
+    void refreshUpdateItemsChecked();
 
     // ---------------下载、备份、安装列表数据---------------
     UpdateListModel *preUpdatelistModel() const { return m_preUpdatelistModel; }
@@ -326,7 +326,7 @@ Q_SIGNALS:
     void checkUpdateErrTipsChanged();
     void checkBtnTextChanged();
     void lastCheckUpdateTimeChanged();
-    void checkUpdateModeChanged(int);
+    void checkUpdateModeChanged(quint64);
 
     // 下载、备份、安装列表数据
     void preUpdatelistModelChanged();
@@ -396,7 +396,7 @@ private:
     QString m_checkUpdateErrTips;
     QString m_checkBtnText;
     QString m_lastCheckUpdateTime;
-    int m_checkUpdateMode;
+    quint64 m_checkUpdateMode;
 
     // 下载、备份、安装列表数据
     UpdateListModel *m_preUpdatelistModel; // preUpdateList qml data
