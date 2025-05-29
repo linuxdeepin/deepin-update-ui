@@ -542,7 +542,7 @@ void UpdateWorker::checkStatusAfterSessionActive()
             return;
         }
     }
-    const int lastoreDaemonStatus = DConfigHelper::instance()->getConfig("org.deepin.lastore", "org.deepin.lastore", "","lastore-daemon-status", 0).toInt();
+    const int lastoreDaemonStatus = DConfigHelper::instance()->getConfig("org.deepin.dde.lastore", "org.deepin.dde.lastore", "","lastore-daemon-status", 0).toInt();
     qInfo() << "Lastore daemon status: " << lastoreDaemonStatus;
     static const int IS_UPDATE_READY = 1; // 第一位表示更新是否可用
     const bool isUpdateReady = lastoreDaemonStatus & IS_UPDATE_READY;

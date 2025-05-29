@@ -263,18 +263,18 @@ void RecoveryWidget::initUI()
     reasonLabel->setContentsMargins(QMargins(10, 0, 10, 0));
     QString reasonMsg;
     DFontSizeManager::instance()->bind(reasonLabel, DFontSizeManager::T4, QFont::DemiBold);
-    const QString upgradeStatus = DConfigHelper::instance()->getConfig("org.deepin.lastore", "org.deepin.lastore", "","upgrade-status", 0).toString();
+    const QString upgradeStatus = DConfigHelper::instance()->getConfig("org.deepin.dde.lastore", "org.deepin.dde.lastore", "","upgrade-status", 0).toString();
     QJsonParseError json_err;
     QJsonDocument upgradeStatusMessage = QJsonDocument::fromJson(upgradeStatus.toUtf8(), &json_err);
     if (json_err.error != QJsonParseError::NoError) {
-        qWarning() << "org.deepin.lastore upgrade-status, json parse error: " << json_err.errorString();
+        qWarning() << "org.deepin.dde.lastore upgrade-status, json parse error: " << json_err.errorString();
         reasonMsg = tr("Updates failed.");
     } else {
         const QJsonObject &object = upgradeStatusMessage.object();
         const QString status = object.value("Status").toString();
         const QString reasonCode = object.value("ReasonCode").toString();
 
-        qInfo() << "org.deepin.lastore, upgrade-status: " << status << ", reason code: " << reasonCode;
+        qInfo() << "org.deepin.dde.lastore, upgrade-status: " << status << ", reason code: " << reasonCode;
 
         // running, 代表在更新过程中被中断
         if (status == "running") {
