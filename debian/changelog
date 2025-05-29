@@ -1,3 +1,24 @@
+deepin-update-ui (1.0.13) unstable; urgency=medium
+
+* i18n: Translate update_en.ts in de_DE
+* fix: change update mode types from int to quint64
+* fix: update lastore config paths to new dde namespace
+* i18n: Updates for project Deepin Desktop Environment (#92)
+* i18n: Translate update_en.ts in zh_CN (#91)
+* [dde-update-ui] Updates for project Deepin Desktop Environment (#89)
+* chore: fix compilation warnings
+* feat: add modal update
+* [dde-update-ui] Updates for project Deepin Desktop Environment (#88)
+* [dde-update-ui] Updates for project Deepin Desktop Environment (#86)
+* fix: enable clear button in download speed limit input
+* fix: update system update icon and speed limit input
+* fix: use DccTimeRange component instead of SpinBox
+* fix: improve update status handling and UI logic
+* i18n: Translate update_en.ts in pt_BR
+* fix: improve update module state management
+
+ -- xionglinlin <xionglinlin@uniontech.com>  Thu, 29 May 2025 16:59:19 +0800
+
 deepin-update-ui (1.0.12) unstable; urgency=medium
 
   * feat: add deepin logo support for community edition
