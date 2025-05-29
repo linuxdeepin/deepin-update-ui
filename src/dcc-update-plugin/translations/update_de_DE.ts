@@ -213,15 +213,15 @@
     </message>
     <message>
         <source>Turn on the switches under Update Content to get better experiences</source>
-        <translation type="unfinished"/>
+        <translation>Schalten Sie die Schalter bei Inhalt aktualisieren ein für bessere Ergebnisse</translation>
     </message>
     <message>
         <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation type="unfinished"/>
+        <translation>Ihr System ist nicht aktiviert, und konnte sich nicht mit den Aktualisierungsdiensten verbinden</translation>
     </message>
     <message>
         <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation type="unfinished"/>
+        <translation>Die System-Aktualisierungen sind ausgeschaltet. Bitte kontaktieren Sie Ihren Administrator.</translation>
     </message>
 </context>
 <context>
@@ -339,7 +339,7 @@
     </message>
     <message>
         <source>Forum users at level 2 and above can join the beta test to receive the latest updates.</source>
-        <translation type="unfinished"/>
+        <translation>Forumsteilnehmer auf Stufe 2 und höher können dem Betatest beitreten um die neuesten Aktualisierungen zu erhalten.</translation>
     </message>
     <message>
         <source>Collapse</source>
