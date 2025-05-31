@@ -82,7 +82,7 @@
     </message>
     <message>
         <source>Unable to perform system backup. If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation>Nie udało się utworzyć kopii zapasowej. Jeśli kontynuujesz aktualizacje, nie będziesz mógł przywrócić starego systemu.</translation>
+        <translation>Nie udało się utworzyć kopii zapasowej. Kontynuując, nie będzie można przywrócić starego systemu.</translation>
     </message>
     <message>
         <source>Insufficient disk space. Please clean up your disk and try again.</source>
