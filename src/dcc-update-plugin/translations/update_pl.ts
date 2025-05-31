@@ -173,11 +173,11 @@
     </message>
     <message>
         <source>Unable to perform system backup. If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation>Nie udało się utworzyć kopii zapasowej. Jeśli kontynuujesz aktualizacje, nie będziesz mógł przywrócić starego systemu.</translation>
+        <translation>Nie udało się utworzyć kopii zapasowej. Kontynuując, nie będzie można przywrócić starego systemu.</translation>
     </message>
     <message>
         <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation>Jeśli kontynuujesz aktualizacje, nie będziesz mógł przywrócić starego systemu.</translation>
+        <translation>Kontynuując, nie będzie można przywrócić starego systemu.</translation>
     </message>
     <message>
         <source>Insufficient disk space</source>
@@ -205,11 +205,11 @@
     </message>
     <message>
         <source>Privacy Policy</source>
-        <translation>Polityka prywatności</translation>
+        <translation>Politykę prywatności</translation>
     </message>
     <message>
         <source>To use this software, you must accept the %1 that accompanies software updates.</source>
-        <translation>Aby korzystać z tego oprogramowania, musisz zaakceptować %1, dołączone do aktualizacji.</translation>
+        <translation>Aby korzystać z tego oprogramowania, musisz zaakceptować %1, dołączoną do aktualizacji.</translation>
     </message>
     <message>
         <source>Turn on the switches under Update Content to get better experiences</source>
@@ -468,7 +468,7 @@
     </message>
     <message>
         <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation>Jeśli kontynuujesz aktualizacje, nie będziesz mógł przywrócić starego systemu.</translation>
+        <translation>Kontynuując, nie będzie można przywrócić starego systemu.</translation>
     </message>
     <message>
         <source>Try Again</source>
