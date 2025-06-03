@@ -224,29 +224,27 @@ void UpdateWorker::activate()
 
     m_model->setUpdateStatus(m_updateInter->updateStatus().toUtf8());
 
-    if (!m_model->isUpdateDisabled()) {
-        // 获取当前的job
-        const QList<QDBusObjectPath> jobs = m_updateInter->jobList();
-        if (jobs.count() > 0) {
-            onJobListChanged(jobs);
-            // 如果处于下载中或者安装中的时候直接显示更新内容，不检查更新
-            const bool isDownloading = m_downloadJob && m_downloadJob->status() != "failed";
-            const bool isUpgrading = m_distUpgradeJob && m_distUpgradeJob->status() != "failed";
-            if (isUpgrading || isDownloading) {
-                auto watcher = new QDBusPendingCallWatcher(m_updateInter->GetUpdateLogs(SystemUpdate | SecurityUpdate), this);
-                connect(watcher, &QDBusPendingCallWatcher::finished, [this, watcher] {
-                    watcher->deleteLater();
-                    if (!watcher->isError()) {
-                        QDBusPendingReply<QString> reply = watcher->reply();
-                        UpdateLogHelper::ref().handleUpdateLog(reply.value());
-                    } else {
-                        qCWarning(DCC_UPDATE_WORKER) << "Get update log failed";
-                    }
-                    // 日志处理完了再显示更新内容界面
-                    m_model->setLastStatus(CheckingSucceed, __LINE__);
-                    setUpdateInfo();
-                });
-            }
+    // 获取当前的job
+    const QList<QDBusObjectPath> jobs = m_updateInter->jobList();
+    if (jobs.count() > 0) {
+        onJobListChanged(jobs);
+        // 如果处于下载中或者安装中的时候直接显示更新内容，不检查更新
+        const bool isDownloading = m_downloadJob && m_downloadJob->status() != "failed";
+        const bool isUpgrading = m_distUpgradeJob && m_distUpgradeJob->status() != "failed";
+        if (isUpgrading || isDownloading) {
+            auto watcher = new QDBusPendingCallWatcher(m_updateInter->GetUpdateLogs(SystemUpdate | SecurityUpdate), this);
+            connect(watcher, &QDBusPendingCallWatcher::finished, [this, watcher] {
+                if (!watcher->isError()) {
+                    QDBusPendingReply<QString> reply = watcher->reply();
+                    UpdateLogHelper::ref().handleUpdateLog(reply.value());
+                } else {
+                    qCWarning(DCC_UPDATE_WORKER) << "Get update log failed";
+                }
+                // 日志处理完了再显示更新内容界面
+                m_model->setLastStatus(CheckingSucceed, __LINE__);
+                setUpdateInfo();
+                watcher->deleteLater();
+            });
         }
     }
 }
@@ -613,14 +611,14 @@ void UpdateWorker::stopDownload()
     cleanLaStoreJob(m_downloadJob);
 }
 
-void UpdateWorker::onDownloadJobCtrl(int updateCtrlType)
+void UpdateWorker::downloadJobCtrl(UpdateCtrlType type)
 {
     if (m_downloadJob == nullptr) {
         qCWarning(DCC_UPDATE_WORKER) << "Download job is nullptr";
         return;
     }
 
-    switch (updateCtrlType) {
+    switch (type) {
     case UpdateCtrlType::Start:
         qCInfo(DCC_UPDATE_WORKER) << "Start download job";
         m_updateInter->StartJob(m_downloadJob->id());
@@ -1399,6 +1397,10 @@ void UpdateWorker::onDownloadStatusChanged(const QString& value)
             return;
         }
         deleteJob(m_downloadJob);
+    } else if (value == "paused") {
+        m_model->setDownloadPaused(true);
+    } else if (value == "running") {
+        m_model->setDownloadPaused(false);
     }
 }
 

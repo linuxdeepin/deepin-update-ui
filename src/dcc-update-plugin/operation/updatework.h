@@ -46,7 +46,7 @@ public:
     // 下载更新
     Q_INVOKABLE void startDownload(int updateTypes);
     Q_INVOKABLE void stopDownload();
-    Q_INVOKABLE void onDownloadJobCtrl(int updateCtrlType);
+    Q_INVOKABLE void downloadJobCtrl(UpdateCtrlType type);
     void setDownloadJob(const QString& jobPath);
 
     // 备份并安装更新

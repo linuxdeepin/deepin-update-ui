@@ -90,6 +90,7 @@ enum UpdateCtrlType {
     Start = 0,
     Pause
 };
+Q_ENUM_NS(UpdateCtrlType)
 
 enum UiActiveState {
     Unknown = -1,     // 未知

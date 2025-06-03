@@ -119,9 +119,15 @@ DccObject {
             processValue: dccData.model().downloadProgress
             processState: true
             updateListEnable: false
+            isDownloading: true
+            isPauseOrNot: dccData.model().downloadPaused
 
-            onDownloadJobCtrl: function(updateCtrlType) {
-                dccData.work().onDownloadJobCtrl(updateCtrlType)
+            onStartDownload: {
+                dccData.work().downloadJobCtrl(Common.Start)
+            }
+
+            onPauseDownload: {
+                dccData.work().downloadJobCtrl(Common.Pause)
             }
 
             onCloseDownload: {

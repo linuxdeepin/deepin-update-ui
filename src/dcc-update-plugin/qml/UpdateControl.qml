@@ -21,10 +21,12 @@ ColumnLayout {
     property bool processState: false
     property bool busyState: false
     property bool updateListEnable: true
+    property bool isDownloading: false
     property bool isPauseOrNot: false
 
     signal btnClicked(int index, int updateType)
-    signal downloadJobCtrl(int updateCtrlType)
+    signal startDownload()
+    signal pauseDownload()
     signal closeDownload()
 
     RowLayout {
@@ -99,8 +101,6 @@ ColumnLayout {
 
         ColumnLayout {
             visible: processState
-            Layout.rightMargin: 12
-            Layout.alignment: Qt.AlignRight
 
             RowLayout {
                 id: progressCtl
@@ -116,34 +116,42 @@ ColumnLayout {
                     implicitWidth: 240
                 }
 
-                // TODO: 暂时屏蔽暂停和停止按钮
-                // D.ToolButton {
-                //     id: startIcon
-                //     icon.name: "qrc:/icons/deepin/builtin/icons/update_stop.png"
-                //     width: 12
-                //     height: 12
+                D.ActionButton {
+                    id: pauseIcon
+                    icon.name: isPauseOrNot ? "dcc_start" : "dcc_pause"
+                    icon.width: 24
+                    icon.height: 24
+                    implicitWidth: 24
+                    implicitHeight: 24
+                    visible: isDownloading
 
-                //     onClicked: {
-                //         isPauseOrNot = !isPauseOrNot
-                //         rootLayout.downloadJobCtrl(isPauseOrNot)
-                //     }
-                // }
+                    onClicked: {
+                        if (isPauseOrNot) {
+                            rootLayout.startDownload()
+                        } else {
+                            rootLayout.pauseDownload()
+                        }
+                    }
+                }
 
-                // D.ToolButton {
-                //     id: stopIcon
-                //     icon.name: "qrc:/icons/deepin/builtin/icons/update_close.png"
-                //     width: 12
-                //     height: 12
+                D.ActionButton {
+                    id: stopIcon
+                    icon.name: "dcc_stop"
+                    icon.width: 24
+                    icon.height: 24
+                    implicitWidth: 24
+                    implicitHeight: 24
+                    visible: isDownloading
 
-                //     onClicked: {
-                //         rootLayout.closeDownload()
-                //     }
-                // }
+                    onClicked: {
+                        rootLayout.closeDownload()
+                    }
+                }
             }
 
             Label {
                 Layout.alignment: Qt.AlignRight
-                // Layout.rightMargin: startIcon.width + stopIcon.width + progressCtl.spacing * 2
+                Layout.rightMargin: isDownloading ? pauseIcon.width + stopIcon.width + progressCtl.spacing * 2 : 0
                 width: parent.width
                 text: processTitle + Math.floor(process.value * 100) + "%"
                 font: D.DTK.fontManager.t8

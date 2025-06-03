@@ -60,6 +60,7 @@ UpdateModel::UpdateModel(QObject* parent)
     , m_backingUpListModel(new UpdateListModel(this))
     , m_backupFailedListModel(new UpdateListModel(this))
     , m_downloadWaiting(false)
+    , m_downloadPaused(false)
     , m_upgradeWaiting(false)
     , m_downloadProgress(0.0)
     , m_distUpgradeProgress(0.0)
@@ -396,6 +397,15 @@ void UpdateModel::setDownloadWaiting(bool waiting)
 
     m_downloadWaiting = waiting;
     Q_EMIT downloadWaitingChanged(waiting);
+}
+
+void UpdateModel::setDownloadPaused(bool paused)
+{
+    if (m_downloadPaused == paused)
+        return;
+
+    m_downloadPaused = paused;
+    Q_EMIT downloadPausedChanged(paused);
 }
 
 void UpdateModel::setUpgradeWaiting(bool waiting)
