@@ -3,7 +3,7 @@
     <name>CheckUpdate</name>
     <message>
         <source>Last check: </source>
-        <translation>最終確認:</translation>
+        <translation>最終確認: </translation>
     </message>
 </context>
 <context>
@@ -137,7 +137,7 @@
     </message>
     <message>
         <source>for more details, please visit </source>
-        <translation>詳細情報はこちら</translation>
+        <translation>詳細情報はこちら </translation>
         <extra-content_explain>这句话后面会带上一个超链接，各语言自行决定末尾需不需要加空格</extra-content_explain>
     </message>
 </context>
@@ -193,7 +193,7 @@
     </message>
     <message>
         <source>Service connection is abnormal, please check the network and try again</source>
-        <translation>アップデートサービスへの接続が異常です。ネットワークをご確認のうえ、もう一度お試しください。</translation>
+        <translation>アップデートサービスへの接続が異常です。ネットワークをご確認のうえ、もう一度お試しください</translation>
     </message>
     <message>
         <source>The repository source configuration is not valid, please check and try again.</source>
@@ -217,11 +217,11 @@
     </message>
     <message>
         <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation>システムがアクティベートされていないため、アップデートサービスに接続できませんでした。</translation>
+        <translation>システムがアクティベートされていないため、アップデートサービスに接続できませんでした</translation>
     </message>
     <message>
         <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation>システムアップデートが無効化されています。詳細はシステム管理者にお問い合わせください。</translation>
+        <translation>システムアップデートが無効化されています。詳細はシステム管理者にお問い合わせください</translation>
     </message>
 </context>
 <context>
