@@ -1,3 +1,11 @@
+deepin-update-ui (1.0.14) unstable; urgency=medium
+
+  * feat: add download control
+  * i18n: Updates for project Deepin Desktop Environment (#98)
+  * i18n: Updates for project Deepin Desktop Environment (#97)
+
+ -- zhangkun <zhangkun2@uniontech.com>  Fri, 06 Jun 2025 11:01:25 +0800
+
 deepin-update-ui (1.0.13) unstable; urgency=medium
 
 * i18n: Translate update_en.ts in de_DE
