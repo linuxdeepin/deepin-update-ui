@@ -228,19 +228,19 @@
     <name>UpdateSelectDialog</name>
     <message>
         <source>The updates have been already downloaded. What do you want to do?</source>
-        <translation type="unfinished"/>
+        <translation>Përditësimet janë shkarkuar tashmë. Ç’doni të bëhet?</translation>
     </message>
     <message>
         <source>Silent Installation</source>
-        <translation type="unfinished"/>
+        <translation>Instalim Heshtazi</translation>
     </message>
     <message>
         <source>Update and Reboot</source>
-        <translation type="unfinished"/>
+        <translation>Përditësoje dhe Rinisu</translation>
     </message>
     <message>
         <source>Update and Shut Down</source>
-        <translation type="unfinished"/>
+        <translation>Përditësoje dhe Fiku</translation>
     </message>
 </context>
 <context>
@@ -343,11 +343,11 @@
     </message>
     <message>
         <source>Collapse</source>
-        <translation type="unfinished"/>
+        <translation>Palose</translation>
     </message>
     <message>
         <source>Only numbers between 1-99999 are allowed</source>
-        <translation type="unfinished"/>
+        <translation>Lejohen vetëm numra mes 1-99999</translation>
     </message>
 </context>
 <context>
