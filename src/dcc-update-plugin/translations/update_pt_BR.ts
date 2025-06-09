@@ -217,30 +217,30 @@
     </message>
     <message>
         <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation type="unfinished"/>
+        <translation>Seu sistema não está ativado e por isso não conseguiu se conectar aos serviços de atualização</translation>
     </message>
     <message>
         <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation type="unfinished"/>
+        <translation>As atualizações do sistema estão desabilitadas. Entre em contato com o administrador para obter ajuda.</translation>
     </message>
 </context>
 <context>
     <name>UpdateSelectDialog</name>
     <message>
         <source>The updates have been already downloaded. What do you want to do?</source>
-        <translation type="unfinished"/>
+        <translation>As atualizações já foram baixadas. O que você quer fazer?</translation>
     </message>
     <message>
         <source>Silent Installation</source>
-        <translation type="unfinished"/>
+        <translation>Instalação silenciosa</translation>
     </message>
     <message>
         <source>Update and Reboot</source>
-        <translation type="unfinished"/>
+        <translation>Atualizar e reiniciar</translation>
     </message>
     <message>
         <source>Update and Shut Down</source>
-        <translation type="unfinished"/>
+        <translation>Atualizar e desligar</translation>
     </message>
 </context>
 <context>
@@ -343,11 +343,11 @@
     </message>
     <message>
         <source>Collapse</source>
-        <translation type="unfinished"/>
+        <translation>Colapso</translation>
     </message>
     <message>
         <source>Only numbers between 1-99999 are allowed</source>
-        <translation type="unfinished"/>
+        <translation>Somente números entre 1-99999 são permitidos</translation>
     </message>
 </context>
 <context>
