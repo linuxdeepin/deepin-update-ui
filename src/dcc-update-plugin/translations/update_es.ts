@@ -228,11 +228,11 @@
     <name>UpdateSelectDialog</name>
     <message>
         <source>The updates have been already downloaded. What do you want to do?</source>
-        <translation type="unfinished"/>
+        <translation>Ya se han descargado las actualizaciones. ¿Qué quiere hacer?</translation>
     </message>
     <message>
         <source>Silent Installation</source>
-        <translation type="unfinished"/>
+        <translation>Instalación silenciosa</translation>
     </message>
     <message>
         <source>Update and Reboot</source>
