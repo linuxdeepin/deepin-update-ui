@@ -103,7 +103,6 @@ void UpdateWorker::doDistUpgrade(bool doBackup)
         watcher->deleteLater();
         if (reply.isValid()) {
             if (doBackup) {
-                UpdateModel::instance()->setUpdateStatus(UpdateModel::UpdateStatus::BackingUp);
                 createBackupJob(reply.value().path());
             } else {
                 UpdateModel::instance()->setUpdateStatus(UpdateModel::UpdateStatus::Installing);
@@ -294,9 +293,22 @@ void UpdateWorker::onBackupStatusChanged(const QString &value)
     qCInfo(DDE_UPDATE_WORKER) << "backup status changed: " << value;
     if (value == "failed") {
         const auto& description = m_backupJob->description();
+
+        auto error = analyzeJobErrorMessage(description);
+        if (error == UpdateModel::UpdateError::InstallNoSpace) {
+            UpdateModel::instance()->setUpdateError(UpdateModel::UpdateError::BackupNoSpace);
+        } else if (error == UpdateModel::UpdateError::UnKnown) {
+            UpdateModel::instance()->setUpdateError(UpdateModel::UpdateError::BackupFailedUnknownReason);
+        } else {
+            UpdateModel::instance()->setUpdateError(error);
+        }
+
         UpdateModel::instance()->setLastErrorLog(description);
+        UpdateModel::instance()->setUpdateStatus(UpdateModel::UpdateStatus::BackupFailed);
     } else if (value == "end") {
         cleanLaStoreJob(m_backupJob);
+    } else if (value == "running") {
+        UpdateModel::instance()->setUpdateStatus(UpdateModel::UpdateStatus::BackingUp);
     }
 }
 
