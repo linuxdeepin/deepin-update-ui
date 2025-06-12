@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="zh_CN">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="zh_CN">
 <context>
     <name>CheckProgressWidget</name>
     <message>
@@ -58,26 +56,26 @@
     </message>
     <message>
         <source>View update logs</source>
-        <translation type="unfinished"></translation>
+        <translation>查看更新日志</translation>
     </message>
     <message>
         <source>Collapse update logs</source>
-        <translation type="unfinished"></translation>
+        <translation>收起更新日志</translation>
     </message>
 </context>
 <context>
     <name>UpdateLogWidget</name>
     <message>
         <source>Export</source>
-        <translation type="unfinished"></translation>
+        <translation>导出</translation>
     </message>
     <message>
         <source>The log has been exported to the desktop</source>
-        <translation type="unfinished"></translation>
+        <translation>日志已导出至桌面</translation>
     </message>
     <message>
         <source>Log export failed, please try again</source>
-        <translation type="unfinished"></translation>
+        <translation>日志导出失败, 请重试尝试</translation>
     </message>
 </context>
 <context>
@@ -158,18 +156,18 @@
     </message>
     <message>
         <source>View update logs</source>
-        <translation type="unfinished"></translation>
+        <translation>查看更新日志</translation>
     </message>
     <message>
         <source>Collapse update logs</source>
-        <translation type="unfinished"></translation>
+        <translation>收起更新日志</translation>
     </message>
 </context>
 <context>
     <name>UpdateWorker</name>
     <message>
         <source>updatelog</source>
-        <translation type="unfinished"></translation>
+        <translation>更新日志</translation>
     </message>
 </context>
 </TS>
