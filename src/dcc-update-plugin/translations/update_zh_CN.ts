@@ -416,7 +416,7 @@
     </message>
     <message>
         <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
-        <translation>可设置系統更新、安全更折、闲时更新、更新提醒等</translation>
+        <translation>可设置系統更新、安全更新、闲时更新、更新提醒等</translation>
     </message>
     <message>
         <source>Reboot now</source>
