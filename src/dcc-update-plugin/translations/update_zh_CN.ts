@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="zh_CN">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="zh_CN">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -27,7 +25,7 @@
     <name>UpdateControl</name>
     <message>
         <source>View Update Log</source>
-        <translation type="unfinished"></translation>
+        <translation>查看更新日志</translation>
     </message>
 </context>
 <context>
@@ -84,15 +82,15 @@
     <name>UpdateLogDialog</name>
     <message>
         <source>Update Log</source>
-        <translation type="unfinished"></translation>
+        <translation>更新日志</translation>
     </message>
     <message>
         <source>Export logs and save them automatically to the desktop</source>
-        <translation type="unfinished"></translation>
+        <translation>导出日志自动保存至桌面</translation>
     </message>
     <message>
         <source>Export</source>
-        <translation type="unfinished"></translation>
+        <translation>导出</translation>
     </message>
 </context>
 <context>
@@ -394,15 +392,15 @@
     </message>
     <message>
         <source>updatelog</source>
-        <translation type="unfinished"></translation>
+        <translation>更新日志</translation>
     </message>
     <message>
         <source>Log export failed, please try again</source>
-        <translation type="unfinished"></translation>
+        <translation>日志导出失败，请重试尝试</translation>
     </message>
     <message>
         <source>The log has been exported to the desktop</source>
-        <translation type="unfinished"></translation>
+        <translation>日志已导出至桌面</translation>
     </message>
 </context>
 <context>
@@ -452,7 +450,7 @@
     </message>
     <message>
         <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
-        <translation>可设置系統更新、安全更折、闲时更新、更新提醒等</translation>
+        <translation>可设置系統更新、安全更新、闲时更新、更新提醒等</translation>
     </message>
     <message>
         <source>Reboot now</source>
