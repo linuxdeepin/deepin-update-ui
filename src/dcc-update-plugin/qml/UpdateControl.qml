@@ -23,22 +23,26 @@ ColumnLayout {
     property bool updateListEnable: true
     property bool isDownloading: false
     property bool isPauseOrNot: false
+    property bool showLogButton: false
 
     signal btnClicked(int index, int updateType)
     signal startDownload()
     signal pauseDownload()
     signal closeDownload()
+    signal viewLogClicked()
 
     RowLayout {
         Layout.rightMargin: 12
         Layout.leftMargin: 12
         Layout.topMargin: 10
-        Layout.bottomMargin: 10
+        Layout.bottomMargin: showLogButton ? 6 : 10
+
         ColumnLayout {
-            spacing: 5
+            spacing: 0
+
             RowLayout {
                 spacing: 5
-                Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+                Layout.alignment: Qt.AlignLeft | Qt.AlignTop
 
                 Image {
                     visible: updateStateIcon.length !== 0
@@ -58,6 +62,8 @@ ColumnLayout {
             }
 
             D.Label {
+                Layout.topMargin: 6
+                Layout.alignment: Qt.AlignLeft | Qt.AlignTop
                 visible: updateTips.length !== 0
                 text: updateTips
                 font: D.DTK.fontManager.t8
@@ -69,6 +75,27 @@ ColumnLayout {
                 ToolTip.visible: desLabelHover.hovered && implicitWidth > width
                 HoverHandler {
                     id: desLabelHover
+                }
+            }
+
+            D.Button {
+                Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+                visible: showLogButton
+                text: qsTr("View Update Log")
+                leftPadding: 0
+                textColor: D.Palette {
+                    normal {
+                        common: D.DTK.makeColor(D.Color.Highlight)
+                    }
+                    normalDark: normal
+                    hovered {
+                        common: D.DTK.makeColor(D.Color.Highlight).lightness(+30)
+                    }
+                    hoveredDark: hovered
+                }
+                background: null
+                onClicked: {
+                    rootLayout.viewLogClicked()
                 }
             }
         }

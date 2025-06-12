@@ -104,6 +104,7 @@ public:
     QDBusPendingReply<QDBusObjectPath> PrepareDistUpgradePartly(int updateMode);
     QDBusPendingReply<QDBusObjectPath> fixError(const QString &errorType);
     QDBusPendingCall CheckUpgrade(int checkMode, int checkOrder);
+    QDBusPendingReply<void> ExportUpdateDetails(const QString &filename);
 
 
     // Power

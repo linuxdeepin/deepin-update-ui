@@ -370,6 +370,13 @@ QDBusPendingCall UpdateDBusProxy::CheckUpgrade(int checkMode, int checkOrder)
     return m_managerInter->asyncCallWithArgumentList(QStringLiteral("CheckUpgrade"), argumentList);
 }
 
+QDBusPendingReply<void> UpdateDBusProxy::ExportUpdateDetails(const QString &filename)
+{
+    QList<QVariant> argumentList;
+    argumentList << QVariant::fromValue(filename);
+    return m_managerInter->asyncCallWithArgumentList(QStringLiteral("ExportUpdateDetails"), argumentList);
+}
+
 bool UpdateDBusProxy::onBattery()
 {
     return qvariant_cast<bool>(m_powerInter->property("OnBattery"));

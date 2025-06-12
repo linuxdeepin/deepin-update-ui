@@ -43,6 +43,23 @@ DccObject {
         }
     }
 
+    Loader {
+        id: dialogloader
+        active: false
+        sourceComponent: UpdateLogDialog {
+            logContent: dccData.model().updateInstallLog
+            onClosing: {
+                dialogloader.active = false
+            }
+            onExportBtnClicked: {
+                dccData.work().exportLogToDesktop()
+            }
+        }
+        onLoaded: {
+            item.show()
+        }
+    }
+
     DccObject {
         id: updateDisable
         name: "updateDisable"
@@ -80,6 +97,11 @@ DccObject {
             processValue: dccData.model().distUpgradeProgress
             processState: true
             updateListEnable: false
+
+            showLogButton: true
+            onViewLogClicked: {
+                dialogloader.active = true
+            }
         }
     }
 
@@ -99,6 +121,11 @@ DccObject {
             processValue: dccData.model().backupProgress
             processState: true
             updateListEnable: false
+
+            showLogButton: true
+            onViewLogClicked: {
+                dialogloader.active = true
+            }
         }
     }
     
@@ -178,6 +205,11 @@ DccObject {
                 return qsTr("Installation update failed")
             }
 
+            showLogButton: true
+            onViewLogClicked: {
+                dialogloader.active = true
+            }
+
             updateTips: dccData.model().downloadFailedTips
             btnActions: [ qsTr("Continue Update") ]
 
@@ -206,6 +238,11 @@ DccObject {
                     return qsTr("The battery capacity is lower than 60%. To get successful updates, please plug in.")
                 }
                 return qsTr("If you continue the updates, you cannot roll back to the old system later.")
+            }
+
+            showLogButton: true
+            onViewLogClicked: {
+                dialogloader.active = true
             }
 
             btnActions: [ qsTr("Try Again"), qsTr("Proceed to Update") ]

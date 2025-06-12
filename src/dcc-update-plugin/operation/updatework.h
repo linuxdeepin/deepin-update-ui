@@ -7,6 +7,7 @@
 
 #include "common.h"
 #include "updatemodel.h"
+#include "common/common/logwatcherhelper.h"
 #include "common/dbus/updatedbusproxy.h"
 #include "common/dbus/updatejobdbusproxy.h"
 
@@ -103,6 +104,9 @@ public:
 
     Q_INVOKABLE void setCheckUpdateMode(int type, bool isChecked);
 
+    // 导出日志
+    Q_INVOKABLE void exportLogToDesktop();
+
 public Q_SLOTS:
     void onLicenseStateChange();
     void onPowerChange();
@@ -127,6 +131,7 @@ private:
     UpdateModel* m_model;
     UpdateDBusProxy *m_updateInter;
     QTimer *m_lastoreHeartBeatTimer; // lastore-daemon 心跳信号，防止lastore-daemon自动退出
+    LogWatcherHelper *m_logWatcherHelper;
 
     std::optional<QString> m_machineid;
     std::optional<QUrl> m_testingChannelUrl;

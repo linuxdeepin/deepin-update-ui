@@ -69,6 +69,7 @@ UpdateModel::UpdateModel(QObject* parent)
     , m_downloadFailedTips("")
     , m_installFailedTips("")
     , m_backupFailedTips("")
+    , m_installLog("")
     , m_isUpdatable(false)
     , m_securityUpdateEnabled(false)
     , m_thirdPartyUpdateEnabled(false)
@@ -478,6 +479,18 @@ void UpdateModel::setBackupFailedTips(const QString &newBackupFailedTips)
 
     m_backupFailedTips = newBackupFailedTips;
     emit backupFailedTipsChanged();
+}
+
+void UpdateModel::setUpdateLog(const QString &log)
+{
+    m_installLog = log;
+    emit updateInstallLogChanged(m_installLog);
+}
+
+void UpdateModel::appendUpdateLog(const QString &log)
+{
+    m_installLog += log;
+    emit updateInstallLogChanged(m_installLog);
 }
 
 void UpdateModel::addUpdateInfo(UpdateItemInfo* info)

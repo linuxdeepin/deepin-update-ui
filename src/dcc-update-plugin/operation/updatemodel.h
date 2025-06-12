@@ -61,6 +61,7 @@ class UpdateModel : public QObject
     Q_PROPERTY(QString downloadFailedTips READ downloadFailedTips NOTIFY downloadFailedTipsChanged FINAL)
     Q_PROPERTY(QString installFailedTips READ installFailedTips NOTIFY installFailedTipsChanged FINAL)
     Q_PROPERTY(QString backUpFailedTips READ backupFailedTips NOTIFY backupFailedTipsChanged FINAL)
+    Q_PROPERTY(QString updateInstallLog READ updateInstallLog NOTIFY updateInstallLogChanged FINAL)
 
     // ---------------更新设置页面数据---------------
     Q_PROPERTY(bool securityUpdateEnabled READ securityUpdateEnabled WRITE setSecurityUpdateEnabled NOTIFY securityUpdateEnabledChanged FINAL)
@@ -198,6 +199,10 @@ public:
 
     QString backupFailedTips() const { return m_backupFailedTips; }
     void setBackupFailedTips(const QString &newBackupFailedTips);
+
+    QString updateInstallLog() const { return m_installLog; }
+    void setUpdateLog(const QString &log);
+    void appendUpdateLog(const QString &log);
 
     QMap<UpdateType, UpdateItemInfo *> getAllUpdateInfos() const { return m_allUpdateInfos; }
     UpdateItemInfo *updateItemInfo(UpdateType type) const { return m_allUpdateInfos.value(type); }
@@ -355,6 +360,7 @@ Q_SIGNALS:
     void downloadFailedTipsChanged();
     void installFailedTipsChanged();
     void backupFailedTipsChanged();
+    void updateInstallLogChanged(const QString &log);
 
     void updateInfoChanged(UpdateType);
     void isUpdatableChanged(const bool isUpdatablePackages);
@@ -423,6 +429,7 @@ private:
     QString m_downloadFailedTips;
     QString m_installFailedTips;
     QString m_backupFailedTips;
+    QString m_installLog;
 
     QMap<UpdateType, UpdateItemInfo *> m_allUpdateInfos;
     QMap<UpdatesStatus, UpdateErrorType> m_errorMap;

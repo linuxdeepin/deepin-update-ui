@@ -40,7 +40,7 @@ static const QStringList DCC_CONFIG_FILES {
     "/usr/share/dde-control-center/dde-control-center.conf"
 };
 
-void notifyError(const QString &summary, const QString &body)
+void notifyInfo(const QString &summary, const QString &body)
 {
     DUtil::DNotifySender(summary)
             .appIcon("")
@@ -50,7 +50,7 @@ void notifyError(const QString &summary, const QString &body)
             .call();
 }
 
-void notifyErrorWithoutBody(const QString &summary)
+void notifyInfoWithoutBody(const QString &summary)
 {
     DUtil::DNotifySender(summary)
             .appIcon("")
@@ -105,6 +105,7 @@ UpdateWorker::UpdateWorker(UpdateModel* model, QObject* parent)
     , m_model(model)
     , m_updateInter(new UpdateDBusProxy(this))
     , m_lastoreHeartBeatTimer(new QTimer(this))
+    , m_logWatcherHelper(new LogWatcherHelper(this))
     , m_machineid(std::nullopt)
     , m_testingChannelUrl(std::nullopt)
     , m_doCheckUpdates(false)
@@ -173,6 +174,8 @@ void UpdateWorker::initConnect()
     m_lastoreHeartBeatTimer->setInterval(60000);
     m_lastoreHeartBeatTimer->start();
     connect(m_lastoreHeartBeatTimer, &QTimer::timeout, this, &UpdateWorker::refreshLastTimeAndCheckCircle);
+
+    connect(m_logWatcherHelper, &LogWatcherHelper::incrementalDataChanged, m_model, &UpdateModel::appendUpdateLog);
 
     connect(DConfigWatcher::instance(), &DConfigWatcher::notifyDConfigChanged, [this](const QString &moduleName, const QString &configName) {
         qCDebug(DCC_UPDATE_WORKER) << "Config changed:" << moduleName << configName;
@@ -247,6 +250,10 @@ void UpdateWorker::activate()
             });
         }
     }
+    
+    QTimer::singleShot(0, this, [this]() {
+        m_logWatcherHelper->startWatchFile();
+    });
 }
 
 void UpdateWorker::initConfig()
@@ -1267,6 +1274,34 @@ void UpdateWorker::setCheckUpdateMode(int type, bool isChecked)
     quint64 outMode = isChecked ? (currentMode | type) : (currentMode & ~type);
 
     m_updateInter->setCheckUpdateMode(outMode);
+}
+
+void UpdateWorker::exportLogToDesktop()
+{
+    // 获取桌面路径
+    QString desktopPath = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
+    if (desktopPath.isEmpty()) {
+        // 如果无法获取桌面路径，使用主目录
+        desktopPath = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
+    }
+
+    // 生成文件名：更新日志_yyyy_mm_dd_HH.MM.SS.txt
+    QString timestamp = QDateTime::currentDateTime().toString("yyyy_MM_dd_HH.mm.ss");
+    QString fileName = tr("updatelog") + QString("_%1.txt").arg(timestamp);
+    QString filePath = QDir(desktopPath).absoluteFilePath(fileName);
+
+    QDBusPendingCall call = m_updateInter->ExportUpdateDetails(filePath);
+    QDBusPendingCallWatcher* watcher = new QDBusPendingCallWatcher(call, this);
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, [watcher] {
+        QDBusPendingReply<void> reply = *watcher;
+        if (reply.isError()) {
+            qCWarning(DCC_UPDATE_WORKER) << "Export update details failed, error: " << reply.error().message();
+            notifyInfoWithoutBody(tr("Log export failed, please try again"));
+        } else {
+            notifyInfoWithoutBody(tr("The log has been exported to the desktop"));
+        }
+        watcher->deleteLater();
+    });
 }
 
 void UpdateWorker::onLicenseStateChange()
