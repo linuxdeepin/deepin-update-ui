@@ -167,7 +167,7 @@
     <name>UpdateWorker</name>
     <message>
         <source>updatelog</source>
-        <translation type="unfinished"/>
+        <translation>registroactualizaciones</translation>
     </message>
 </context>
 </TS>
