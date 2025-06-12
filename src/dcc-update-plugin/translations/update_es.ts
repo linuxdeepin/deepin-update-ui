@@ -25,7 +25,7 @@
     <name>UpdateControl</name>
     <message>
         <source>View Update Log</source>
-        <translation type="unfinished"/>
+        <translation>Ver registro de actualizaciones</translation>
     </message>
 </context>
 <context>
