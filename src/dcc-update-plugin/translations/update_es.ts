@@ -400,7 +400,7 @@
     </message>
     <message>
         <source>The log has been exported to the desktop</source>
-        <translation type="unfinished"/>
+        <translation>El registro se exportó al escritorio</translation>
     </message>
 </context>
 <context>
