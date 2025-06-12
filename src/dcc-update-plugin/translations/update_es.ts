@@ -82,15 +82,15 @@
     <name>UpdateLogDialog</name>
     <message>
         <source>Update Log</source>
-        <translation type="unfinished"/>
+        <translation>Registro de actualizaciones</translation>
     </message>
     <message>
         <source>Export logs and save them automatically to the desktop</source>
-        <translation type="unfinished"/>
+        <translation>Exportar registros y guardarlos automáticamente en el escritorio</translation>
     </message>
     <message>
         <source>Export</source>
-        <translation type="unfinished"/>
+        <translation>Exportar</translation>
     </message>
 </context>
 <context>
@@ -392,11 +392,11 @@
     </message>
     <message>
         <source>updatelog</source>
-        <translation type="unfinished"/>
+        <translation>registroactualizaciones</translation>
     </message>
     <message>
         <source>Log export failed, please try again</source>
-        <translation type="unfinished"/>
+        <translation>Error al exportar el registro, intentelo de nuevo</translation>
     </message>
     <message>
         <source>The log has been exported to the desktop</source>
