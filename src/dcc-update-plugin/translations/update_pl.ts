@@ -25,7 +25,7 @@
     <name>UpdateControl</name>
     <message>
         <source>View Update Log</source>
-        <translation type="unfinished"/>
+        <translation>Pokaż dziennik aktualizacji</translation>
     </message>
 </context>
 <context>
@@ -82,15 +82,15 @@
     <name>UpdateLogDialog</name>
     <message>
         <source>Update Log</source>
-        <translation type="unfinished"/>
+        <translation>Dziennik aktualizacji</translation>
     </message>
     <message>
         <source>Export logs and save them automatically to the desktop</source>
-        <translation type="unfinished"/>
+        <translation>Eksportuj dzienniki i zapisz je automatycznie na pulpicie</translation>
     </message>
     <message>
         <source>Export</source>
-        <translation type="unfinished"/>
+        <translation>Eksportuj</translation>
     </message>
 </context>
 <context>
@@ -392,15 +392,15 @@
     </message>
     <message>
         <source>updatelog</source>
-        <translation type="unfinished"/>
+        <translation>Dziennik aktualizacji</translation>
     </message>
     <message>
         <source>Log export failed, please try again</source>
-        <translation type="unfinished"/>
+        <translation>Błąd eksportowania dzienników, spróbuj ponownie</translation>
     </message>
     <message>
         <source>The log has been exported to the desktop</source>
-        <translation type="unfinished"/>
+        <translation>Wysłano dzienniki na pulpit</translation>
     </message>
 </context>
 <context>
