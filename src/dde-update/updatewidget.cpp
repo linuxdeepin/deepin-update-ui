@@ -94,7 +94,7 @@ UpdateLogWidget::UpdateLogWidget(QWidget *parent)
         if (success) {
             showNotify(QIcon::fromTheme("sp_ok"), tr("The log has been exported to the desktop"));
         } else {
-            showNotify(QIcon::fromTheme("sp_warning"), tr("Export failed"));
+            showNotify(QIcon::fromTheme("sp_warning"), tr("Log export failed, please try again"));
         }
     });
 

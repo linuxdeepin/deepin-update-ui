@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="hu">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="hu">
 <context>
     <name>CheckProgressWidget</name>
     <message>
@@ -35,10 +37,6 @@
 <context>
     <name>UpdateCompleteWidget</name>
     <message>
-        <source>View Logs</source>
-        <translation>Naplók megtekintése</translation>
-    </message>
-    <message>
         <source>Updates successful</source>
         <translation>A frissítés sikeres</translation>
     </message>
@@ -58,12 +56,28 @@
         <source>The automatic shutdown process has failed. Please try to manually shut down your device.</source>
         <translation>Az automatikus leállítási folyamat meghiúsult. Kérjük próbálja meg manuálisan újraindítani az eszközt.</translation>
     </message>
+    <message>
+        <source>View update logs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Collapse update logs</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UpdateLogWidget</name>
     <message>
-        <source>Hide Logs</source>
-        <translation>Naplók elrejtése</translation>
+        <source>Export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The log has been exported to the desktop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Log export failed, please try again</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -86,7 +100,7 @@
     </message>
     <message>
         <source>Insufficient disk space. Please clean up your disk and try again.</source>
-        <translation>Nincs elegendő lemezterület. Kérjük tisztítsa meg a lemezt, és próbálja újra. </translation>
+        <translation>Nincs elegendő lemezterület. Kérjük tisztítsa meg a lemezt, és próbálja újra.&#xa0;</translation>
     </message>
     <message>
         <source>Failed to connect to backup services. Please check and retry again.</source>
@@ -141,6 +155,21 @@
     <message>
         <source>Do not force a shutdown or power off when installing updates. Otherwise, your system may be damaged.</source>
         <translation>A frissítések telepítésekor ne erőltesse a leállítást vagy a kikapcsolást. Ellenkező esetben a rendszer megsérülhet.</translation>
+    </message>
+    <message>
+        <source>View update logs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Collapse update logs</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UpdateWorker</name>
+    <message>
+        <source>updatelog</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

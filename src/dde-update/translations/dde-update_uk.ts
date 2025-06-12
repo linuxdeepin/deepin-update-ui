@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="uk">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="uk">
 <context>
     <name>CheckProgressWidget</name>
     <message>
@@ -35,10 +37,6 @@
 <context>
     <name>UpdateCompleteWidget</name>
     <message>
-        <source>View Logs</source>
-        <translation>Переглянути журнал</translation>
-    </message>
-    <message>
         <source>Updates successful</source>
         <translation>Успішно оновлено</translation>
     </message>
@@ -58,12 +56,28 @@
         <source>The automatic shutdown process has failed. Please try to manually shut down your device.</source>
         <translation>Помилка під час спроби автоматичного вимикання. Будь ласка, вимкніть ваш пристрій вручну.</translation>
     </message>
+    <message>
+        <source>View update logs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Collapse update logs</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UpdateLogWidget</name>
     <message>
-        <source>Hide Logs</source>
-        <translation>Приховати журнал</translation>
+        <source>Export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The log has been exported to the desktop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Log export failed, please try again</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -141,6 +155,21 @@
     <message>
         <source>Do not force a shutdown or power off when installing updates. Otherwise, your system may be damaged.</source>
         <translation>Не виконуйте примусового вимикання або знеструмлення комп&apos;ютера при встановленні оновлень. Якщо ви так зробите, системі може бути завдано шкоди.</translation>
+    </message>
+    <message>
+        <source>View update logs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Collapse update logs</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UpdateWorker</name>
+    <message>
+        <source>updatelog</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

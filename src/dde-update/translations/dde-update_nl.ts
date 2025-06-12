@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="nl">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="nl">
 <context>
     <name>CheckProgressWidget</name>
     <message>
@@ -35,10 +37,6 @@
 <context>
     <name>UpdateCompleteWidget</name>
     <message>
-        <source>View Logs</source>
-        <translation>Logboeken bekijken</translation>
-    </message>
-    <message>
         <source>Updates successful</source>
         <translation>Je systeem is bijgewerkt</translation>
     </message>
@@ -58,12 +56,28 @@
         <source>The automatic shutdown process has failed. Please try to manually shut down your device.</source>
         <translation>Het automatisch afsluiten is mislukt - sluit zelf je apparaat af.</translation>
     </message>
+    <message>
+        <source>View update logs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Collapse update logs</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UpdateLogWidget</name>
     <message>
-        <source>Hide Logs</source>
-        <translation>Logboeken verbergen</translation>
+        <source>Export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The log has been exported to the desktop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Log export failed, please try again</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -141,6 +155,21 @@
     <message>
         <source>Do not force a shutdown or power off when installing updates. Otherwise, your system may be damaged.</source>
         <translation>Let op: schakel de computer niet uit tijdens het installeren van de updates, anders kan het systeem beschadigd raken!</translation>
+    </message>
+    <message>
+        <source>View update logs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Collapse update logs</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UpdateWorker</name>
+    <message>
+        <source>updatelog</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

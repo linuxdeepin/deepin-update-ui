@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ug">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="ug">
 <context>
     <name>CheckProgressWidget</name>
     <message>
@@ -35,10 +37,6 @@
 <context>
     <name>UpdateCompleteWidget</name>
     <message>
-        <source>View Logs</source>
-        <translation>كۈندىلىك خاتىرىنى كۆرۈش</translation>
-    </message>
-    <message>
         <source>Updates successful</source>
         <translation>يېڭىلاندى</translation>
     </message>
@@ -52,18 +50,34 @@
     </message>
     <message>
         <source>The automatic reboot process has failed. Please try to manually reboot your device.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The automatic shutdown process has failed. Please try to manually shut down your device.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View update logs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Collapse update logs</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>UpdateLogWidget</name>
     <message>
-        <source>Hide Logs</source>
-        <translation>كۈندىلىك خاتىرىنى يىغىش</translation>
+        <source>Export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The log has been exported to the desktop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Log export failed, please try again</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -141,6 +155,21 @@
     <message>
         <source>Do not force a shutdown or power off when installing updates. Otherwise, your system may be damaged.</source>
         <translation>يېڭىلىغاندا كومپيۇتېرنى مەجبۇرىي تاقىۋەتمەڭ ياكى توكتىن ئۈزۈۋەتمەڭ، بولمىسا سىستېما بۇزۇلۇپ كېتىدۇ</translation>
+    </message>
+    <message>
+        <source>View update logs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Collapse update logs</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UpdateWorker</name>
+    <message>
+        <source>updatelog</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

@@ -24,6 +24,13 @@
     </message>
 </context>
 <context>
+    <name>UpdateControl</name>
+    <message>
+        <source>View Update Log</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>UpdateHistoryDialog</name>
     <message>
         <source>Update History</source>
@@ -70,6 +77,21 @@
     </message>
     <message>
         <source>Collapse</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UpdateLogDialog</name>
+    <message>
+        <source>Update Log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export logs and save them automatically to the desktop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -368,6 +390,18 @@
     </message>
     <message>
         <source>Third-party Repositories</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>updatelog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Log export failed, please try again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The log has been exported to the desktop</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

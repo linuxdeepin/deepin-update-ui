@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="de_DE">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="de_DE">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -19,6 +21,13 @@
     <message>
         <source>Exit</source>
         <translation>Verlassen</translation>
+    </message>
+</context>
+<context>
+    <name>UpdateControl</name>
+    <message>
+        <source>View Update Log</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -69,6 +78,21 @@
     <message>
         <source>Collapse</source>
         <translation>Einfahren</translation>
+    </message>
+</context>
+<context>
+    <name>UpdateLogDialog</name>
+    <message>
+        <source>Update Log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export logs and save them automatically to the desktop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -228,19 +252,19 @@
     <name>UpdateSelectDialog</name>
     <message>
         <source>The updates have been already downloaded. What do you want to do?</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Silent Installation</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Update and Reboot</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Update and Shut Down</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -343,11 +367,11 @@
     </message>
     <message>
         <source>Collapse</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Einfahren</translation>
     </message>
     <message>
         <source>Only numbers between 1-99999 are allowed</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -367,6 +391,18 @@
     <message>
         <source>Third-party Repositories</source>
         <translation>Drittparteien-Repositorien</translation>
+    </message>
+    <message>
+        <source>updatelog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Log export failed, please try again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The log has been exported to the desktop</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
