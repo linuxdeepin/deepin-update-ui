@@ -3,7 +3,7 @@
     <name>CheckProgressWidget</name>
     <message>
         <source>The check is almost complete, thank you for your patience</source>
-        <translation type="unfinished"/>
+        <translation>Kontrol neredeyse tamamlandı, sabrınız için teşekkür ederiz</translation>
     </message>
     <message>
         <source>Preparing</source>
@@ -48,11 +48,11 @@
     </message>
     <message>
         <source>The automatic reboot process has failed. Please try to manually reboot your device.</source>
-        <translation type="unfinished"/>
+        <translation>Otomatik yeniden başlatma işlemi başarısız oldu. Lütfen cihazınızı manuel olarak yeniden başlatmayı deneyin.</translation>
     </message>
     <message>
         <source>The automatic shutdown process has failed. Please try to manually shut down your device.</source>
-        <translation type="unfinished"/>
+        <translation>Otomatik kapatma işlemi başarısız oldu. Lütfen cihazınızı manuel olarak kapatmayı deneyin.</translation>
     </message>
     <message>
         <source>View update logs</source>
@@ -138,7 +138,7 @@
     </message>
     <message>
         <source>Go to Desktop</source>
-        <translation type="unfinished"/>
+        <translation>Masaüstüne git</translation>
     </message>
 </context>
 <context>
