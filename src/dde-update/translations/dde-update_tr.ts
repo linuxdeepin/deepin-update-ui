@@ -56,26 +56,26 @@
     </message>
     <message>
         <source>View update logs</source>
-        <translation type="unfinished"/>
+        <translation>Güncelleme günlüklerini görüntüle</translation>
     </message>
     <message>
         <source>Collapse update logs</source>
-        <translation type="unfinished"/>
+        <translation>Güncelleme günlüklerini daralt</translation>
     </message>
 </context>
 <context>
     <name>UpdateLogWidget</name>
     <message>
         <source>Export</source>
-        <translation type="unfinished"/>
+        <translation>Dışarı aktar</translation>
     </message>
     <message>
         <source>The log has been exported to the desktop</source>
-        <translation type="unfinished"/>
+        <translation>Günlük masaüstüne aktarıldı</translation>
     </message>
     <message>
         <source>Log export failed, please try again</source>
-        <translation type="unfinished"/>
+        <translation>Günlük aktarımı başarısız oldu, lütfen tekrar deneyin</translation>
     </message>
 </context>
 <context>
@@ -156,11 +156,11 @@
     </message>
     <message>
         <source>View update logs</source>
-        <translation type="unfinished"/>
+        <translation>Güncelleme günlüklerini görüntüle</translation>
     </message>
     <message>
         <source>Collapse update logs</source>
-        <translation type="unfinished"/>
+        <translation>Güncelleme günlüklerini daralt</translation>
     </message>
 </context>
 <context>
