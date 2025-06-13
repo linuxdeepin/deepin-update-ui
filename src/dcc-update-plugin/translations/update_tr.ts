@@ -365,7 +365,7 @@
     </message>
     <message>
         <source>Collapse</source>
-        <translation>Çöküş</translation>
+        <translation>Daralt</translation>
     </message>
     <message>
         <source>Only numbers between 1-99999 are allowed</source>
