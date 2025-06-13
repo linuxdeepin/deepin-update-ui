@@ -90,46 +90,46 @@
     </message>
     <message>
         <source>Export</source>
-        <translation type="unfinished"/>
+        <translation>Dışarı aktar</translation>
     </message>
 </context>
 <context>
     <name>UpdateLogHelper</name>
     <message>
         <source>NONE</source>
-        <translation type="unfinished"/>
+        <translation>HİÇBİRİ</translation>
     </message>
     <message>
         <source>LOW</source>
-        <translation type="unfinished"/>
+        <translation>DÜŞÜK</translation>
     </message>
     <message>
         <source>MEDIUM</source>
-        <translation type="unfinished"/>
+        <translation>ORTA</translation>
     </message>
     <message>
         <source>HIGH</source>
-        <translation type="unfinished"/>
+        <translation>YÜKSEK</translation>
     </message>
     <message>
         <source>CRITICAL</source>
-        <translation type="unfinished"/>
+        <translation>KRİTİK</translation>
     </message>
     <message>
         <source>critical-risk</source>
-        <translation type="unfinished"/>
+        <translation>kritik risk</translation>
     </message>
     <message>
         <source>high-risk</source>
-        <translation type="unfinished"/>
+        <translation>yüksek riskli</translation>
     </message>
     <message>
         <source>medium-risk</source>
-        <translation type="unfinished"/>
+        <translation>orta riskli</translation>
     </message>
     <message>
         <source>low-risk</source>
-        <translation type="unfinished"/>
+        <translation>düşük riskli</translation>
     </message>
     <message>
         <source>unknown</source>
@@ -137,19 +137,19 @@
     </message>
     <message>
         <source>This update fixes</source>
-        <translation type="unfinished"/>
+        <translation>Bu güncelleme şunları düzeltir</translation>
     </message>
     <message>
         <source>vulnerabilities</source>
-        <translation type="unfinished"/>
+        <translation>güvenlik açıkları</translation>
     </message>
     <message>
         <source>vulnerability</source>
-        <translation type="unfinished"/>
+        <translation>güvenlik açığı</translation>
     </message>
     <message>
         <source>%1 of %2 %3</source>
-        <translation type="unfinished"/>
+        <translation>%2 %3 de %1</translation>
         <extra-content_explain>`数字+%`会在代码中替换为字符串，例如：3 of high-risk vulnerabilities；各语言需要根据实际情况增加空格(例如：中文没有空格，英文有空格)</extra-content_explain>
     </message>
     <message>
@@ -211,7 +211,7 @@
     </message>
     <message>
         <source>File missing</source>
-        <translation type="unfinished"/>
+        <translation>Dosya eksik</translation>
     </message>
     <message>
         <source>Service connection is abnormal, please check the network and try again</source>
@@ -345,7 +345,7 @@
     </message>
     <message>
         <source>View</source>
-        <translation type="unfinished"/>
+        <translation>Görüntüle</translation>
     </message>
     <message>
         <source>Join Internal Testing Channel</source>
@@ -353,7 +353,7 @@
     </message>
     <message>
         <source>Click here to complete the application</source>
-        <translation type="unfinished"/>
+        <translation>Başvuruyu tamamlamak için buraya tıklayın</translation>
     </message>
     <message>
         <source>Expand</source>
@@ -365,7 +365,7 @@
     </message>
     <message>
         <source>Collapse</source>
-        <translation type="unfinished"/>
+        <translation>Çöküş</translation>
     </message>
     <message>
         <source>Only numbers between 1-99999 are allowed</source>
@@ -392,11 +392,11 @@
     </message>
     <message>
         <source>updatelog</source>
-        <translation type="unfinished"/>
+        <translation>güncelleme günlüğü</translation>
     </message>
     <message>
         <source>Log export failed, please try again</source>
-        <translation type="unfinished"/>
+        <translation>Günlük aktarımı başarısız oldu, lütfen tekrar deneyin</translation>
     </message>
     <message>
         <source>The log has been exported to the desktop</source>
