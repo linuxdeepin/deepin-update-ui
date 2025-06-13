@@ -154,7 +154,7 @@
     </message>
     <message>
         <source>, </source>
-        <translation type="unfinished"/>
+        <translation>, </translation>
         <extra-content_explain>中文逗号不需要空格，英文逗号需要空格For more details, please visit</extra-content_explain>
     </message>
     <message>
@@ -262,7 +262,7 @@
     </message>
     <message>
         <source>Update and Shut Down</source>
-        <translation type="unfinished"/>
+        <translation>Güncelle ve Kapat</translation>
     </message>
 </context>
 <context>
@@ -273,11 +273,11 @@
     </message>
     <message>
         <source>Update Type</source>
-        <translation type="unfinished"/>
+        <translation>Güncelleme Türü</translation>
     </message>
     <message>
         <source>Function Updates</source>
-        <translation type="unfinished"/>
+        <translation>Fonksiyon Güncellemeleri</translation>
     </message>
     <message>
         <source>Delivers a cumulative update including new features, quality updates, and  security updates</source>
@@ -317,7 +317,7 @@
     </message>
     <message>
         <source>Download when Inactive</source>
-        <translation type="unfinished"/>
+        <translation>Etkin Değilken İndir</translation>
     </message>
     <message>
         <source>Start at</source>
@@ -329,11 +329,11 @@
     </message>
     <message>
         <source>Advanced Settings</source>
-        <translation type="unfinished"/>
+        <translation>Gelişmiş Ayarlar</translation>
     </message>
     <message>
         <source>Updates Notification</source>
-        <translation type="unfinished"/>
+        <translation>Güncelleme Bildirimi</translation>
     </message>
     <message>
         <source>Clear Package Cache</source>
@@ -341,7 +341,7 @@
     </message>
     <message>
         <source>Update History</source>
-        <translation type="unfinished"/>
+        <translation>Güncelleme Geçmişi</translation>
     </message>
     <message>
         <source>View</source>
@@ -357,7 +357,7 @@
     </message>
     <message>
         <source>Expand</source>
-        <translation type="unfinished"/>
+        <translation>Genişlet</translation>
     </message>
     <message>
         <source>Forum users at level 2 and above can join the beta test to receive the latest updates.</source>
