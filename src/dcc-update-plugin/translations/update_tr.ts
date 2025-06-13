@@ -133,7 +133,7 @@
     </message>
     <message>
         <source>unknown</source>
-        <translation type="unfinished"/>
+        <translation>bilinmeyen</translation>
     </message>
     <message>
         <source>This update fixes</source>
@@ -203,7 +203,7 @@
     </message>
     <message>
         <source>Insufficient disk space</source>
-        <translation type="unfinished"/>
+        <translation>Yetersiz disk alanı</translation>
     </message>
     <message>
         <source>DPKG error</source>
@@ -231,19 +231,19 @@
     </message>
     <message>
         <source>To use this software, you must accept the %1 that accompanies software updates.</source>
-        <translation type="unfinished"/>
+        <translation>Bu yazılımı kullanabilmeniz için yazılım güncellemelerine eşlik eden %1&apos;i kabul etmeniz gerekmektedir.</translation>
     </message>
     <message>
         <source>Turn on the switches under Update Content to get better experiences</source>
-        <translation type="unfinished"/>
+        <translation>Daha iyi deneyimler elde etmek için İçeriği Güncelle altındaki anahtarları açın</translation>
     </message>
     <message>
         <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation type="unfinished"/>
+        <translation>Sisteminiz etkinleştirilmedi ve güncelleme hizmetlerine bağlanamadı</translation>
     </message>
     <message>
         <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation type="unfinished"/>
+        <translation>Sistem güncellemeleri devre dışı bırakıldı. Lütfen yardım için yöneticinizle iletişime geçin</translation>
     </message>
 </context>
 <context>
@@ -301,15 +301,15 @@
     </message>
     <message>
         <source>Limit Speed</source>
-        <translation type="unfinished"/>
+        <translation>Hızı Sınırla</translation>
     </message>
     <message>
         <source>Limit Setting</source>
-        <translation type="unfinished"/>
+        <translation>Sınır Ayarı</translation>
     </message>
     <message>
         <source>Auto Download</source>
-        <translation type="unfinished"/>
+        <translation>Otomatik İndirme</translation>
     </message>
     <message>
         <source>Enabling &quot;Auto Download Updates&quot; will automatically download updates when connected to the internet</source>
@@ -321,11 +321,11 @@
     </message>
     <message>
         <source>Start at</source>
-        <translation type="unfinished"/>
+        <translation>Başlama</translation>
     </message>
     <message>
         <source>End at</source>
-        <translation type="unfinished"/>
+        <translation>Bitiş</translation>
     </message>
     <message>
         <source>Advanced Settings</source>
@@ -349,7 +349,7 @@
     </message>
     <message>
         <source>Join Internal Testing Channel</source>
-        <translation type="unfinished"/>
+        <translation>Dahili Test Kanalına Katılın</translation>
     </message>
     <message>
         <source>Click here to complete the application</source>
