@@ -25,7 +25,7 @@
     <name>UpdateControl</name>
     <message>
         <source>View Update Log</source>
-        <translation type="unfinished"/>
+        <translation>Shihni Regjistra Përditësimesh</translation>
     </message>
 </context>
 <context>
@@ -82,15 +82,15 @@
     <name>UpdateLogDialog</name>
     <message>
         <source>Update Log</source>
-        <translation type="unfinished"/>
+        <translation>Regjistër Përditësimesh</translation>
     </message>
     <message>
         <source>Export logs and save them automatically to the desktop</source>
-        <translation type="unfinished"/>
+        <translation>Eksportoni regjistra dhe ruajini automatikisht te desktopi</translation>
     </message>
     <message>
         <source>Export</source>
-        <translation type="unfinished"/>
+        <translation>Eksportoje</translation>
     </message>
 </context>
 <context>
@@ -396,11 +396,11 @@
     </message>
     <message>
         <source>Log export failed, please try again</source>
-        <translation type="unfinished"/>
+        <translation>Eksportimi i regjistrit dështoi, ju lutemi, riprovoni</translation>
     </message>
     <message>
         <source>The log has been exported to the desktop</source>
-        <translation type="unfinished"/>
+        <translation>Regjistri u eksportua te desktopi</translation>
     </message>
 </context>
 <context>

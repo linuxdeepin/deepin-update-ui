@@ -3,7 +3,7 @@
     <name>CheckProgressWidget</name>
     <message>
         <source>The check is almost complete, thank you for your patience</source>
-        <translation type="unfinished"/>
+        <translation>Kontrol neredeyse tamamlandı, sabrınız için teşekkür ederiz</translation>
     </message>
     <message>
         <source>Preparing</source>
@@ -48,34 +48,34 @@
     </message>
     <message>
         <source>The automatic reboot process has failed. Please try to manually reboot your device.</source>
-        <translation type="unfinished"/>
+        <translation>Otomatik yeniden başlatma işlemi başarısız oldu. Lütfen cihazınızı manuel olarak yeniden başlatmayı deneyin.</translation>
     </message>
     <message>
         <source>The automatic shutdown process has failed. Please try to manually shut down your device.</source>
-        <translation type="unfinished"/>
+        <translation>Otomatik kapatma işlemi başarısız oldu. Lütfen cihazınızı manuel olarak kapatmayı deneyin.</translation>
     </message>
     <message>
         <source>View update logs</source>
-        <translation type="unfinished"/>
+        <translation>Güncelleme günlüklerini görüntüle</translation>
     </message>
     <message>
         <source>Collapse update logs</source>
-        <translation type="unfinished"/>
+        <translation>Güncelleme günlüklerini daralt</translation>
     </message>
 </context>
 <context>
     <name>UpdateLogWidget</name>
     <message>
         <source>Export</source>
-        <translation type="unfinished"/>
+        <translation>Dışarı aktar</translation>
     </message>
     <message>
         <source>The log has been exported to the desktop</source>
-        <translation type="unfinished"/>
+        <translation>Günlük masaüstüne aktarıldı</translation>
     </message>
     <message>
         <source>Log export failed, please try again</source>
-        <translation type="unfinished"/>
+        <translation>Günlük aktarımı başarısız oldu, lütfen tekrar deneyin</translation>
     </message>
 </context>
 <context>
@@ -138,7 +138,7 @@
     </message>
     <message>
         <source>Go to Desktop</source>
-        <translation type="unfinished"/>
+        <translation>Masaüstüne git</translation>
     </message>
 </context>
 <context>
@@ -156,18 +156,18 @@
     </message>
     <message>
         <source>View update logs</source>
-        <translation type="unfinished"/>
+        <translation>Güncelleme günlüklerini görüntüle</translation>
     </message>
     <message>
         <source>Collapse update logs</source>
-        <translation type="unfinished"/>
+        <translation>Güncelleme günlüklerini daralt</translation>
     </message>
 </context>
 <context>
     <name>UpdateWorker</name>
     <message>
         <source>updatelog</source>
-        <translation type="unfinished"/>
+        <translation>güncelleme günlüğü</translation>
     </message>
 </context>
 </TS>
