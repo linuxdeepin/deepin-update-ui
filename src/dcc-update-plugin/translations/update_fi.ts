@@ -25,7 +25,7 @@
     <name>UpdateControl</name>
     <message>
         <source>View Update Log</source>
-        <translation type="unfinished"/>
+        <translation>Näytä päivitysloki</translation>
     </message>
 </context>
 <context>
@@ -82,15 +82,15 @@
     <name>UpdateLogDialog</name>
     <message>
         <source>Update Log</source>
-        <translation type="unfinished"/>
+        <translation>Päivitysloki</translation>
     </message>
     <message>
         <source>Export logs and save them automatically to the desktop</source>
-        <translation type="unfinished"/>
+        <translation>Vie lokeja ja tallenna ne automaattisesti työpöydälle</translation>
     </message>
     <message>
         <source>Export</source>
-        <translation type="unfinished"/>
+        <translation>Vie</translation>
     </message>
 </context>
 <context>
@@ -392,15 +392,15 @@
     </message>
     <message>
         <source>updatelog</source>
-        <translation type="unfinished"/>
+        <translation>päivitysloki</translation>
     </message>
     <message>
         <source>Log export failed, please try again</source>
-        <translation type="unfinished"/>
+        <translation>Lokin vienti epäonnistui, yritä uudelleen</translation>
     </message>
     <message>
         <source>The log has been exported to the desktop</source>
-        <translation type="unfinished"/>
+        <translation>Loki on viety työpöydälle</translation>
     </message>
 </context>
 <context>
