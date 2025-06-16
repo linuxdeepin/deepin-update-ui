@@ -79,7 +79,7 @@
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished"/>
+        <translation>Versie:</translation>
     </message>
 </context>
 <context>
