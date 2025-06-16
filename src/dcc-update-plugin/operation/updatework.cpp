@@ -240,6 +240,10 @@ void UpdateWorker::activate()
                 if (!watcher->isError()) {
                     QDBusPendingReply<QString> reply = watcher->reply();
                     UpdateLogHelper::ref().handleUpdateLog(reply.value());
+                    auto resultMap = m_model->getAllUpdateInfos();
+                    for (UpdateType type : resultMap.keys()) {
+                        UpdateLogHelper::ref().updateItemInfo(resultMap.value(type));
+                    }
                 } else {
                     qCWarning(DCC_UPDATE_WORKER) << "Get update log failed";
                 }
@@ -1399,6 +1403,10 @@ void UpdateWorker::onCheckUpdateStatusChanged(const QString& value)
             if (!watcher->isError()) {
                 QDBusPendingReply<QString> reply = watcher->reply();
                 UpdateLogHelper::ref().handleUpdateLog(reply.value());
+                auto resultMap = m_model->getAllUpdateInfos();
+                for (UpdateType type : resultMap.keys()) {
+                    UpdateLogHelper::ref().updateItemInfo(resultMap.value(type));
+                }
             } else {
                 qCWarning(DCC_UPDATE_WORKER) << "Get update log failed";
             }

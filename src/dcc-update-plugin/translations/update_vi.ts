@@ -79,6 +79,10 @@
         <source>Collapse</source>
         <translation>Thu gọn</translation>
     </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UpdateLogDialog</name>

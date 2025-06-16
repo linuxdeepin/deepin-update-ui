@@ -19,6 +19,7 @@ class UpdateListModel : public QAbstractListModel
 public:
     enum updateRoles {
         Title = Qt::UserRole + 1,
+        Version,
         TitleDescription,
         UpdateLog,
         ReleaseTime,
@@ -48,6 +49,7 @@ public:
     {
         QHash<int, QByteArray> roles;
         roles[Title] = "title";
+        roles[Version] = "version";
         roles[TitleDescription] = "titleDescription";
         roles[UpdateLog] = "updateLog";
         roles[ReleaseTime] = "releaseTime";

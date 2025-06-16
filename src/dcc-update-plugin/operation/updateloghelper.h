@@ -68,8 +68,8 @@ struct SystemUpdateLog {
     QString showVersion;
     QString cnLog = "";
     QString enLog = "";
+    QString systemVersion;
     QString publishTime;
-    QString upgradeTime; // 更新时间
     int isUnstable=0;
     int logType = 1;
 
@@ -81,8 +81,9 @@ struct SystemUpdateLog {
         item.showVersion = obj.value("showVersion").toString();
         item.cnLog = obj.value("cnLog").toString();
         item.enLog = obj.value("enLog").toString();
-        item.isUnstable = obj.value("isUnstable").toInt();
+        item.systemVersion = obj.value("systemVersion").toString();
         item.publishTime = DCC_NAMESPACE::utcDateTime2LocalDate(obj.value("publishTime").toString());
+        item.isUnstable = obj.value("isUnstable").toInt();
         if (obj.contains("logType")) {
             item.logType = obj.value("logType").toInt();
         }

@@ -25,6 +25,8 @@ QVariant UpdateListModel::data(const QModelIndex &index, int role) const
     switch (role) {
     case Title:
         return data->name();
+    case Version:
+        return data->currentVersion();
     case TitleDescription:
         return data->explain();
     case UpdateLog:

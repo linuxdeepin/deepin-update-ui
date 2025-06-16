@@ -14,7 +14,6 @@ Rectangle {
     id: root
 
     property alias model: repeater.model
-    signal clicked(int index, bool checked)
 
     color: "transparent"
     implicitHeight: layoutView.height
@@ -53,13 +52,14 @@ Rectangle {
 
                     ColumnLayout {
                         Layout.alignment: Qt.AlignRight
-                        spacing: 10
+                        spacing: 6
 
                         RowLayout {
                             Label {
                                 Layout.alignment: Qt.AlignLeft
                                 text: model.title
-                                font.pixelSize: 14
+                                font: D.DTK.fontManager.t6
+                                color: D.DTK.themeType == D.ApplicationHelper.LightType ? Qt.rgba(0, 0, 0, 1) : Qt.rgba(1, 1, 1, 1)
                                 width: 100
                                 Layout.fillWidth: true
                             }
@@ -80,26 +80,22 @@ Rectangle {
                             Layout.alignment: Qt.AlignLeft
                             horizontalAlignment: Text.AlignLeft
                             Layout.fillWidth: true
-                            font.pixelSize: 12
-                            text: model.titleDescription
-                            wrapMode: Text.WordWrap
-                        }
-
-                        Rectangle {
-                            visible: false
-                            height: 1
-                            color: parent.palette.window
-                            Layout.topMargin: 10
-                            Layout.bottomMargin: 10
-                            Layout.fillWidth: true
+                            font: D.DTK.fontManager.t8
+                            color: D.DTK.themeType == D.ApplicationHelper.LightType ? Qt.rgba(0, 0, 0, 1) : Qt.rgba(1, 1, 1, 1)
+                            visible: model.version.length !== 0
+                            text: qsTr("Version:") + model.version
                         }
 
                         D.Label {
-                            visible: false
                             Layout.alignment: Qt.AlignLeft
                             horizontalAlignment: Text.AlignLeft
-                            font.pixelSize: 12
-                            text: qsTr("Updates:")
+                            Layout.fillWidth: true
+                            font: D.DTK.fontManager.t8
+                            text: model.titleDescription
+                            wrapMode: Text.WordWrap
+                            onLinkActivated: (link)=> {
+                                dccData.work().openUrl(link)
+                            }  
                         }
 
                         D.Label {
@@ -107,9 +103,8 @@ Rectangle {
                             Layout.alignment: Qt.AlignLeft
                             horizontalAlignment: Text.AlignLeft
                             text: model.updateLog
-                            font.pixelSize: 12
+                            font: D.DTK.fontManager.t8
                             Layout.fillWidth: true
-                            opacity: 0.7
                             wrapMode: Text.WordWrap
                             visible: false
                         }
@@ -120,33 +115,19 @@ Rectangle {
                             Layout.alignment: Qt.AlignLeft
                             horizontalAlignment: Text.AlignLeft
                             text: ""
-                            font.pixelSize: 12
+                            font: D.DTK.fontManager.t8
                             Layout.fillWidth: true
-                            opacity: 0.7
                             wrapMode: Text.WordWrap
                         }
 
                         RowLayout {
-                            RowLayout {
-                                visible: releaseContent.text.length !== 0
+                            D.Label {
+                                id: releaseTitle
                                 Layout.alignment: Qt.AlignLeft
-                                D.Label {
-                                    id: releaseTitle
-                                    Layout.alignment: Qt.AlignLeft
-                                    horizontalAlignment: Text.AlignLeft
-                                    font.pixelSize: 12
-                                    text: qsTr("Release time:")
-                                    opacity: 0.7
-                                }
-
-                                D.Label {
-                                    id: releaseContent
-                                    Layout.alignment: Qt.AlignLeft
-                                    horizontalAlignment: Text.AlignLeft
-                                    font.pixelSize: 12
-                                    text: model.releaseTime
-                                    opacity: 0.7
-                                }
+                                horizontalAlignment: Text.AlignLeft
+                                visible: model.releaseTime.length !== 0
+                                font: D.DTK.fontManager.t8
+                                text: qsTr("Release time:") + model.releaseTime
                             }
 
                             Item {
@@ -170,14 +151,8 @@ Rectangle {
 
                 background: DccItemBackground {
                     separatorVisible: true
-                    //highlightEnable: false
-                }
-
-                onClicked: {
-                    root.clicked(index, !model.checked)
                 }
             }
         }
     }
 }
-

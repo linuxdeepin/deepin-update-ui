@@ -55,8 +55,9 @@ ColumnLayout {
                     font {
                         pixelSize: D.DTK.fontManager.t5.pixelSize
                         family: D.DTK.fontManager.t5.family
-                        bold: true
+                        weight: Font.Medium
                     }
+                    color: D.DTK.themeType == D.ApplicationHelper.LightType ? Qt.rgba(0, 0, 0, 1) : Qt.rgba(1, 1, 1, 1)
                     text: updateTitle
                 }
             }

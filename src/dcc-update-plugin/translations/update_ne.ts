@@ -79,6 +79,10 @@
         <source>Collapse</source>
         <translation>कुप्लेस</translation>
     </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UpdateLogDialog</name>

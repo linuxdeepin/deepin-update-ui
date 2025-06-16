@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ja">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="ja">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -25,7 +27,7 @@
     <name>UpdateControl</name>
     <message>
         <source>View Update Log</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -77,20 +79,24 @@
         <source>Collapse</source>
         <translation>折りたたむ</translation>
     </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UpdateLogDialog</name>
     <message>
         <source>Update Log</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Export logs and save them automatically to the desktop</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Export</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -392,15 +398,15 @@
     </message>
     <message>
         <source>updatelog</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Log export failed, please try again</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The log has been exported to the desktop</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
