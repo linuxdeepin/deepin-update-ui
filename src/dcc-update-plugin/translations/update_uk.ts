@@ -25,7 +25,7 @@
     <name>UpdateControl</name>
     <message>
         <source>View Update Log</source>
-        <translation type="unfinished"/>
+        <translation>Переглянути журнал оновлення</translation>
     </message>
 </context>
 <context>
@@ -75,22 +75,22 @@
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished"/>
+        <translation>Версія:</translation>
     </message>
 </context>
 <context>
     <name>UpdateLogDialog</name>
     <message>
         <source>Update Log</source>
-        <translation type="unfinished"/>
+        <translation>Журнал оновлення</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"/>
+        <translation>Закрити</translation>
     </message>
     <message>
         <source>Export to desktop</source>
-        <translation type="unfinished"/>
+        <translation>Експортувати до стільниці</translation>
     </message>
 </context>
 <context>
@@ -392,15 +392,15 @@
     </message>
     <message>
         <source>updatelog</source>
-        <translation type="unfinished"/>
+        <translation>журнал_оновлення</translation>
     </message>
     <message>
         <source>Log export failed, please try again</source>
-        <translation type="unfinished"/>
+        <translation>Не вдалося експортувати журнал. Будь ласка, повторіть спробу</translation>
     </message>
     <message>
         <source>The log has been exported to the desktop</source>
-        <translation type="unfinished"/>
+        <translation>Журнал було експортовано до стільниці</translation>
     </message>
     <message>
         <source>Update</source>
