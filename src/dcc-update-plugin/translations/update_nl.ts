@@ -86,11 +86,11 @@
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"/>
+        <translation>Sluiten</translation>
     </message>
     <message>
         <source>Export to desktop</source>
-        <translation type="unfinished"/>
+        <translation>Exporteren naar bureaublad</translation>
     </message>
 </context>
 <context>
