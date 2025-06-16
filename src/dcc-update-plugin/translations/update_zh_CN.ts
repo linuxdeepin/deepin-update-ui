@@ -75,7 +75,7 @@
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished"/>
+        <translation>版本：</translation>
     </message>
 </context>
 <context>
@@ -86,11 +86,11 @@
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"/>
+        <translation>关闭</translation>
     </message>
     <message>
         <source>Export to desktop</source>
-        <translation type="unfinished"/>
+        <translation>导出至桌面</translation>
     </message>
 </context>
 <context>
