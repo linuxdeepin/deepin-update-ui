@@ -21,11 +21,20 @@ D.DialogWindow {
 
     ColumnLayout {
         anchors.fill: parent
+        spacing: 10
+
+        D.Label {
+            Layout.alignment: Qt.AlignHCenter
+            text: title
+            font: D.DTK.fontManager.t6
+            color: D.DTK.themeType == D.ApplicationHelper.LightType ? Qt.rgba(0, 0, 0, 1) : Qt.rgba(1, 1, 1, 1)
+            wrapMode: Text.WordWrap
+        }
 
         ScrollView {
             id: scrollView
             Layout.fillWidth: true
-            Layout.preferredHeight: 290
+            Layout.preferredHeight: 240
 
             // 滚动条策略
             ScrollBar.vertical.policy: ScrollBar.AsNeeded
@@ -47,29 +56,17 @@ D.DialogWindow {
 
         // 按钮行
         RowLayout {
-
-            Label {
-                text: qsTr("Export logs and save them automatically to the desktop")
-            }
-
-            Item {
+            Button {
                 Layout.fillWidth: true
+                text: qsTr("Close")
+                onClicked: {
+                    root.close()
+                }
             }
 
-            D.Button {
-                Layout.alignment: Qt.AlignRight
-                text: qsTr("Export")
-                textColor: D.Palette {
-                    normal {
-                        common: D.DTK.makeColor(D.Color.Highlight)
-                    }
-                    normalDark: normal
-                    hovered {
-                        common: D.DTK.makeColor(D.Color.Highlight).lightness(+30)
-                    }
-                    hoveredDark: hovered
-                }
-                background: null
+            D.RecommandButton {
+                Layout.fillWidth: true
+                text: qsTr("Export to desktop")
                 onClicked: {
                     root.exportBtnClicked()
                 }

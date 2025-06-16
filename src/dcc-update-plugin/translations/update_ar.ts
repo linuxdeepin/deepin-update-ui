@@ -68,10 +68,6 @@
         <translation>=fopen细节</translation>
     </message>
     <message>
-        <source>Updates:</source>
-        <translation>تحديثات:</translation>
-    </message>
-    <message>
         <source>Release time:</source>
         <translation>تاريخ الإصدار:</translation>
     </message>
@@ -91,11 +87,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Export logs and save them automatically to the desktop</source>
+        <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Export</source>
+        <source>Export to desktop</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -406,6 +402,10 @@
     </message>
     <message>
         <source>The log has been exported to the desktop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

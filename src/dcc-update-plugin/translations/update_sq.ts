@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="sq">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="sq">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -66,10 +68,6 @@
         <translation>Shihni Hollësitë</translation>
     </message>
     <message>
-        <source>Updates:</source>
-        <translation>Përditësime:</translation>
-    </message>
-    <message>
         <source>Release time:</source>
         <translation>Kohë hedhjeje në qarkullim:</translation>
     </message>
@@ -79,7 +77,7 @@
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -89,12 +87,12 @@
         <translation>Regjistër Përditësimesh</translation>
     </message>
     <message>
-        <source>Export logs and save them automatically to the desktop</source>
-        <translation>Eksportoni regjistra dhe ruajini automatikisht te desktopi</translation>
+        <source>Close</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Export</source>
-        <translation>Eksportoje</translation>
+        <source>Export to desktop</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -396,7 +394,7 @@
     </message>
     <message>
         <source>updatelog</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Log export failed, please try again</source>
@@ -405,6 +403,10 @@
     <message>
         <source>The log has been exported to the desktop</source>
         <translation>Regjistri u eksportua te desktopi</translation>
+    </message>
+    <message>
+        <source>Update</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="nl">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="nl">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -66,10 +68,6 @@
         <translation>Details bekijken</translation>
     </message>
     <message>
-        <source>Updates:</source>
-        <translation>Updates:</translation>
-    </message>
-    <message>
         <source>Release time:</source>
         <translation>Uitgebracht op:</translation>
     </message>
@@ -89,12 +87,12 @@
         <translation>Updatelogboek</translation>
     </message>
     <message>
-        <source>Export logs and save them automatically to the desktop</source>
-        <translation>Exporteer het logboek en bewaar het op het bureaublad</translation>
+        <source>Close</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Export</source>
-        <translation>Exporteren</translation>
+        <source>Export to desktop</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -405,6 +403,10 @@
     <message>
         <source>The log has been exported to the desktop</source>
         <translation>Het logboek is opgeslagen op het bureaublad</translation>
+    </message>
+    <message>
+        <source>Update</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

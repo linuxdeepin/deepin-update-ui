@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="zh_CN">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="zh_CN">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -66,10 +68,6 @@
         <translation>查看详细信息</translation>
     </message>
     <message>
-        <source>Updates:</source>
-        <translation>更新：</translation>
-    </message>
-    <message>
         <source>Release time:</source>
         <translation>发布时间：</translation>
     </message>
@@ -79,7 +77,7 @@
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -89,12 +87,12 @@
         <translation>更新日志</translation>
     </message>
     <message>
-        <source>Export logs and save them automatically to the desktop</source>
-        <translation>导出日志自动保存至桌面</translation>
+        <source>Close</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Export</source>
-        <translation>导出</translation>
+        <source>Export to desktop</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -405,6 +403,10 @@
     <message>
         <source>The log has been exported to the desktop</source>
         <translation>日志已导出至桌面</translation>
+    </message>
+    <message>
+        <source>Update</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

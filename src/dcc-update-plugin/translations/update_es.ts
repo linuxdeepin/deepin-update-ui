@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="es">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="es">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -66,10 +68,6 @@
         <translation>Ver detalles</translation>
     </message>
     <message>
-        <source>Updates:</source>
-        <translation>Actualizaciones:</translation>
-    </message>
-    <message>
         <source>Release time:</source>
         <translation>Hora de lanzamiento:</translation>
     </message>
@@ -79,7 +77,7 @@
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -89,12 +87,12 @@
         <translation>Registro de actualizaciones</translation>
     </message>
     <message>
-        <source>Export logs and save them automatically to the desktop</source>
-        <translation>Exportar registros y guardarlos automáticamente en el escritorio</translation>
+        <source>Close</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Export</source>
-        <translation>Exportar</translation>
+        <source>Export to desktop</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -405,6 +403,10 @@
     <message>
         <source>The log has been exported to the desktop</source>
         <translation>El registro se exportó al escritorio</translation>
+    </message>
+    <message>
+        <source>Update</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

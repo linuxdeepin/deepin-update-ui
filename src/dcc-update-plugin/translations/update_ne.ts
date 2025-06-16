@@ -68,10 +68,6 @@
         <translation>विस्तार गर्नुहोस्</translation>
     </message>
     <message>
-        <source>Updates:</source>
-        <translation>अपडेटहरू:</translation>
-    </message>
-    <message>
         <source>Release time:</source>
         <translation>ला�UNCH समय:</translation>
     </message>
@@ -91,11 +87,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Export logs and save them automatically to the desktop</source>
+        <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Export</source>
+        <source>Export to desktop</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -406,6 +402,10 @@
     </message>
     <message>
         <source>The log has been exported to the desktop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

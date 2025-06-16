@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ca">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="ca">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -66,10 +68,6 @@
         <translation>Mostra&apos;n els detalls</translation>
     </message>
     <message>
-        <source>Updates:</source>
-        <translation>Actualitzacions:</translation>
-    </message>
-    <message>
         <source>Release time:</source>
         <translation>Data de publicació:</translation>
     </message>
@@ -89,12 +87,12 @@
         <translation>Registre d&apos;actualització</translation>
     </message>
     <message>
-        <source>Export logs and save them automatically to the desktop</source>
-        <translation>Exporta els registres i desa&apos;ls automàticament a l&apos;escriptori</translation>
+        <source>Close</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Export</source>
-        <translation>Exporta</translation>
+        <source>Export to desktop</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -405,6 +403,10 @@
     <message>
         <source>The log has been exported to the desktop</source>
         <translation>El registre s&apos;ha exportat a l&apos;escriptori.</translation>
+    </message>
+    <message>
+        <source>Update</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

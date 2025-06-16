@@ -1300,9 +1300,9 @@ void UpdateWorker::exportLogToDesktop()
         QDBusPendingReply<void> reply = *watcher;
         if (reply.isError()) {
             qCWarning(DCC_UPDATE_WORKER) << "Export update details failed, error: " << reply.error().message();
-            notifyInfoWithoutBody(tr("Log export failed, please try again"));
+            notifyInfo(tr("Update"), tr("Log export failed, please try again"));
         } else {
-            notifyInfoWithoutBody(tr("The log has been exported to the desktop"));
+            notifyInfo(tr("Update"), tr("The log has been exported to the desktop"));
         }
         watcher->deleteLater();
     });

@@ -26,9 +26,8 @@ D.DialogWindow {
             Layout.alignment: Qt.AlignHCenter
             Layout.bottomMargin: 12
             text: title
-            font.family: D.DTK.fontManager.t6.family
-            font.bold: true
-            font.pixelSize: D.DTK.fontManager.t6.pixelSize
+            font: D.DTK.fontManager.t6
+            color: D.DTK.themeType == D.ApplicationHelper.LightType ? Qt.rgba(0, 0, 0, 1) : Qt.rgba(1, 1, 1, 1)
             wrapMode: Text.WordWrap
         }
 
@@ -129,9 +128,8 @@ D.DialogWindow {
                                 default: return ""
                                 }
                             }
-                            font.family: D.DTK.fontManager.t6.family
-                            font.bold: true
-                            font.pixelSize: D.DTK.fontManager.t6.pixelSize
+                            font: D.DTK.fontManager.t6
+                            color: D.DTK.themeType == D.ApplicationHelper.LightType ? Qt.rgba(0, 0, 0, 1) : Qt.rgba(1, 1, 1, 1)
                             wrapMode: Text.WordWrap
                             Layout.fillWidth: true
                         }
@@ -152,8 +150,7 @@ D.DialogWindow {
                                     return Summary
                                 }
                             }
-                            font.family: D.DTK.fontManager.t8.family
-                            font.pixelSize: D.DTK.fontManager.t8.pixelSize
+                            font: D.DTK.fontManager.t8
                             wrapMode: Text.WordWrap
                             Layout.fillWidth: true
                             onLinkActivated: (link)=> {
@@ -177,24 +174,21 @@ D.DialogWindow {
 
                                 Label {
                                     text: modelData.name
-                                    font.family: D.DTK.fontManager.t8.family
-                                    font.bold: true
-                                    font.pixelSize: D.DTK.fontManager.t8.pixelSize
+                                    font: D.DTK.fontManager.t8
+                                    color: D.DTK.themeType == D.ApplicationHelper.LightType ? Qt.rgba(0, 0, 0, 1) : Qt.rgba(1, 1, 1, 1)
                                     wrapMode: Text.WordWrap
                                     Layout.fillWidth: true
                                 }
                                 Label {
                                     text: modelData.displayVulLevel
-                                    font.family: D.DTK.fontManager.t8.family
-                                    font.bold: true
-                                    font.pixelSize: D.DTK.fontManager.t8.pixelSize
+                                    font: D.DTK.fontManager.t8
+                                    color: D.DTK.themeType == D.ApplicationHelper.LightType ? Qt.rgba(0, 0, 0, 1) : Qt.rgba(1, 1, 1, 1)
                                     wrapMode: Text.WordWrap
                                     Layout.fillWidth: true
                                 }
                                 Label {
                                     text: modelData.description
-                                    font.family: D.DTK.fontManager.t8.family
-                                    font.pixelSize: D.DTK.fontManager.t8.pixelSize
+                                    font: D.DTK.fontManager.t8
                                     wrapMode: Text.WordWrap
                                     Layout.fillWidth: true
                                 }
@@ -205,8 +199,7 @@ D.DialogWindow {
                         Label {
                             Layout.fillWidth: true
                             text: qsTr("Installation date:") + UpgradeTime
-                            font.family: D.DTK.fontManager.t8.family
-                            font.pixelSize: D.DTK.fontManager.t8.pixelSize
+                            font: D.DTK.fontManager.t8
                             wrapMode: Text.WordWrap
                         }
                     }
