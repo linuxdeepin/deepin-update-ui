@@ -56,26 +56,26 @@
     </message>
     <message>
         <source>View update logs</source>
-        <translation type="unfinished"/>
+        <translation>Переглянути журнал оновлення</translation>
     </message>
     <message>
         <source>Collapse update logs</source>
-        <translation type="unfinished"/>
+        <translation>Згорнути журнали оновлення</translation>
     </message>
 </context>
 <context>
     <name>UpdateLogWidget</name>
     <message>
         <source>Export</source>
-        <translation type="unfinished"/>
+        <translation>Експортувати</translation>
     </message>
     <message>
         <source>The log has been exported to the desktop</source>
-        <translation type="unfinished"/>
+        <translation>Журнал було експортовано до стільниці</translation>
     </message>
     <message>
         <source>Log export failed, please try again</source>
-        <translation type="unfinished"/>
+        <translation>Не вдалося експортувати журнал. Будь ласка, повторіть спробу</translation>
     </message>
 </context>
 <context>
@@ -156,18 +156,18 @@
     </message>
     <message>
         <source>View update logs</source>
-        <translation type="unfinished"/>
+        <translation>Переглянути журнал оновлення</translation>
     </message>
     <message>
         <source>Collapse update logs</source>
-        <translation type="unfinished"/>
+        <translation>Згорнути журнали оновлення</translation>
     </message>
 </context>
 <context>
     <name>UpdateWorker</name>
     <message>
         <source>updatelog</source>
-        <translation type="unfinished"/>
+        <translation>журнал_оновлення</translation>
     </message>
 </context>
 </TS>
