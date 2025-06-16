@@ -56,26 +56,26 @@
     </message>
     <message>
         <source>View update logs</source>
-        <translation type="unfinished"/>
+        <translation>Näytä päivityslokit</translation>
     </message>
     <message>
         <source>Collapse update logs</source>
-        <translation type="unfinished"/>
+        <translation>Kutista päivityslokit</translation>
     </message>
 </context>
 <context>
     <name>UpdateLogWidget</name>
     <message>
         <source>Export</source>
-        <translation type="unfinished"/>
+        <translation>Vie</translation>
     </message>
     <message>
         <source>The log has been exported to the desktop</source>
-        <translation type="unfinished"/>
+        <translation>Loki on viety työpöydälle</translation>
     </message>
     <message>
         <source>Log export failed, please try again</source>
-        <translation type="unfinished"/>
+        <translation>Lokin vienti epäonnistui, yritä uudelleen</translation>
     </message>
 </context>
 <context>
@@ -156,18 +156,18 @@
     </message>
     <message>
         <source>View update logs</source>
-        <translation type="unfinished"/>
+        <translation>Näytä päivityslokit</translation>
     </message>
     <message>
         <source>Collapse update logs</source>
-        <translation type="unfinished"/>
+        <translation>Kutista päivityslokit</translation>
     </message>
 </context>
 <context>
     <name>UpdateWorker</name>
     <message>
         <source>updatelog</source>
-        <translation type="unfinished"/>
+        <translation>päivitysloki</translation>
     </message>
 </context>
 </TS>
