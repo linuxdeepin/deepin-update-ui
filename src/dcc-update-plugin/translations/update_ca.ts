@@ -86,11 +86,11 @@
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"/>
+        <translation>Tanca</translation>
     </message>
     <message>
         <source>Export to desktop</source>
-        <translation type="unfinished"/>
+        <translation>Exporta a l&apos;escriptori</translation>
     </message>
 </context>
 <context>
