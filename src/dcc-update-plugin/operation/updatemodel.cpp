@@ -139,7 +139,11 @@ void UpdateModel::refreshIsUpdateDisabled()
         setIsUpdateDisabled(true);
         setUpdateDisabledIcon("update_no_active");
         setUpdateDisabledTips(tr("Your system is not activated, and it failed to connect to update services"));
-    }else if (m_updateProhibited) {
+    } else if (m_immutableAutoRecovery) {
+        setIsUpdateDisabled(true);
+        setUpdateDisabledIcon("update_prohibit");
+        setUpdateDisabledTips(tr("The system has enabled auto recovery function and does not support updates. If you have any questions, please contact the enterprise administrator"));
+    } else if (m_updateProhibited) {
         setIsUpdateDisabled(true);
         setUpdateDisabledIcon("update_prohibit");
         setUpdateDisabledTips(tr("The system updates are disabled. Please contact your administrator for help"));
@@ -202,6 +206,17 @@ void UpdateModel::setLastStatus(const UpdatesStatus& status, int line, int types
         m_lastStatus = status;
         Q_EMIT lastStatusChanged(m_lastStatus);
     }
+}
+
+void UpdateModel::setImmutableAutoRecovery(bool value)
+{
+    qCInfo(DCC_UPDATE_MODEL) << "Set immutable auto recovery: " << value;
+    if (m_immutableAutoRecovery == value)
+        return;
+
+    m_immutableAutoRecovery = value;
+    Q_EMIT immutableAutoRecoveryChanged(value);
+    refreshIsUpdateDisabled();
 }
 
 void UpdateModel::setShowCheckUpdate(bool value)

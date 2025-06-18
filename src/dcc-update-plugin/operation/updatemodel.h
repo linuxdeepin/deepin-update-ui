@@ -115,6 +115,9 @@ public:
     int lastStatus() const { return m_lastStatus; }
     void setLastStatus(const UpdatesStatus &status, int line, int types = 0);
 
+    bool immutableAutoRecovery() const { return m_immutableAutoRecovery; }
+    void setImmutableAutoRecovery(bool value);
+
     // ---------------检查更新页面数据---------------
     bool showCheckUpdate() const { return m_showCheckUpdate; }
     void setShowCheckUpdate(bool value);
@@ -326,6 +329,7 @@ Q_SIGNALS:
 
     void batterIsOKChanged(bool isOK);
     void lastStatusChanged(int status);
+    void immutableAutoRecoveryChanged(bool value);
 
     // 检查更新页面数据
     void showCheckUpdateChanged();
@@ -398,6 +402,7 @@ private:
     QString m_updateDisabledTips;
     bool m_batterIsOK;
     int m_lastStatus;
+    bool m_immutableAutoRecovery;
 
     // 检查更新页面数据
     bool m_showCheckUpdate;

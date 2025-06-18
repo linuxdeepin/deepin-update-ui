@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="tr">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="tr">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -244,6 +246,10 @@
     <message>
         <source>The system updates are disabled. Please contact your administrator for help</source>
         <translation>Sistem güncellemeleri devre dışı bırakıldı. Lütfen yardım için yöneticinizle iletişime geçin</translation>
+    </message>
+    <message>
+        <source>The system has enabled auto recovery function and does not support updates. If you have any questions, please contact the enterprise administrator</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

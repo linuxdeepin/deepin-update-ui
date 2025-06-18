@@ -186,6 +186,11 @@ QString UpdateDBusProxy::updateStatus()
     return qvariant_cast<QString>(m_managerInter->property("UpdateStatus"));
 }
 
+bool UpdateDBusProxy::immutableAutoRecovery()
+{
+    return qvariant_cast<bool>(m_managerInter->property("ImmutableAutoRecovery"));
+}
+
 QString UpdateDBusProxy::hardwareId()
 {
     return qvariant_cast<QString>(m_managerInter->property("HardwareId"));

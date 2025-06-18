@@ -18,21 +18,30 @@ ColumnLayout {
         clip: true
 
         ColumnLayout {
-            anchors.centerIn: parent
+            anchors.fill: parent
             spacing: 0
 
+            Item {
+                Layout.fillHeight: true
+            }
+
             Image {
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                Layout.alignment: Qt.AlignHCenter
                 source: dccData.model().updateDisabledIcon
                 height: 140
             }
 
             D.Label {
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                width: implicitWidth
-                height: 30
+                Layout.fillWidth: true
                 text: dccData.model().updateDisabledTips
                 font.pixelSize: 12
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                wrapMode: Text.WordWrap
+            }
+
+            Item {
+                Layout.fillHeight: true
             }
         }
     }

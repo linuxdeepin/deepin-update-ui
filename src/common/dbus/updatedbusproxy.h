@@ -67,6 +67,9 @@ public:
     Q_PROPERTY(QString updateStatus  READ updateStatus NOTIFY UpdateStatusChanged)
     QString updateStatus();
 
+    Q_PROPERTY(bool ImmutableAutoRecovery READ immutableAutoRecovery NOTIFY ImmutableAutoRecoveryChanged)
+    bool immutableAutoRecovery();
+
     QString hardwareId();
 
     quint64 checkUpdateMode();
@@ -142,6 +145,7 @@ signals:
     void AutoCleanChanged(bool value) const;
     void UpdateModeChanged(qulonglong value) const;
     void UpdateStatusChanged(QString value) const;
+    void ImmutableAutoRecoveryChanged(bool value) const;
     void managerInterServiceValidChanged(bool value) const;
 
     // Power

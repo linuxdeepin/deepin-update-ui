@@ -158,6 +158,7 @@ void UpdateWorker::initConnect()
     connect(m_updateInter, &UpdateDBusProxy::JobListChanged, this, &UpdateWorker::onJobListChanged);
     connect(m_updateInter, &UpdateDBusProxy::UpdateStatusChanged, this, &UpdateWorker::onUpdateStatusChanged);
     connect(m_updateInter, &UpdateDBusProxy::ClassifiedUpdatablePackagesChanged, this, &UpdateWorker::onClassifiedUpdatablePackagesChanged);
+    connect(m_updateInter, &UpdateDBusProxy::ImmutableAutoRecoveryChanged, m_model, &UpdateModel::setImmutableAutoRecovery);
 
     QDBusConnection::systemBus().connect("org.deepin.dde.Lastore1",
                                          "/org/deepin/dde/Lastore1",
@@ -218,6 +219,7 @@ void UpdateWorker::activate()
     m_model->setUpdateNotify(m_updateInter->updateNotify());
     m_model->setAutoCleanCache(m_updateInter->autoClean());
     m_model->setP2PUpdateEnabled(m_updateInter->p2pUpdateEnable());
+    m_model->setImmutableAutoRecovery(m_updateInter->immutableAutoRecovery());
     if (IsCommunitySystem) {
         m_model->setSmartMirrorSwitch(m_updateInter->enable());
     }
