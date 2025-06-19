@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="sq">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="sq">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -77,7 +75,7 @@
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>Version:</translation>
     </message>
 </context>
 <context>
@@ -88,11 +86,11 @@
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Mbylle</translation>
     </message>
     <message>
         <source>Export to desktop</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksportoje në desktop</translation>
     </message>
 </context>
 <context>
@@ -249,7 +247,7 @@
     </message>
     <message>
         <source>The system has enabled auto recovery function and does not support updates. If you have any questions, please contact the enterprise administrator</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistemi ka të aktivizuar funksion rikthimi dhe s’mbulon përditësime. Nëse keni ndonjë pyetje, ju lutemi, lidhuni me përgjegjësin.</translation>
     </message>
 </context>
 <context>
@@ -398,7 +396,7 @@
     </message>
     <message>
         <source>updatelog</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Log export failed, please try again</source>
@@ -410,7 +408,7 @@
     </message>
     <message>
         <source>Update</source>
-        <translation>Përditësoje</translation>
+        <translation>Përditësim</translation>
     </message>
 </context>
 <context>
