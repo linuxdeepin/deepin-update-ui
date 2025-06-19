@@ -75,7 +75,7 @@
     </message>
     <message>
         <source>Log export failed, please try again</source>
-        <translation>Error al exportar el registro, intentelo de nuevo</translation>
+        <translation>Error al exportar el registro, intente de nuevo</translation>
     </message>
 </context>
 <context>
