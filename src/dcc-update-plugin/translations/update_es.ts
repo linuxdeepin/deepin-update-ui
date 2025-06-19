@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="es">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="es">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -249,7 +247,7 @@
     </message>
     <message>
         <source>The system has enabled auto recovery function and does not support updates. If you have any questions, please contact the enterprise administrator</source>
-        <translation type="unfinished"></translation>
+        <translation>El sistema tiene activada la función de recuperación automática y no admite actualizaciones. Si tiene alguna pregunta, póngase en contacto con el administrador de la empresa.</translation>
     </message>
 </context>
 <context>
