@@ -247,7 +247,7 @@
     </message>
     <message>
         <source>The system has enabled auto recovery function and does not support updates. If you have any questions, please contact the enterprise administrator</source>
-        <translation type="unfinished"/>
+        <translation>Tietokoneeseen on määritetty automaattinen palautustoiminto, eikä se tue päivitysten asennusta. Jos sinulla on kysyttävää, ota yhteyttä yrityksen järjestelmänvalvojaan.</translation>
     </message>
 </context>
 <context>
