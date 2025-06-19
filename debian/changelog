@@ -1,3 +1,25 @@
+deepin-update-ui (1.0.16) unstable; urgency=medium
+
+  * i18n: Translate update_en.ts in pl
+  * i18n: Translate update_en.ts in zh_CN
+  * feat: Prohibit checking for updates when automatic restore is
+    enabled
+  * i18n: Translate update_en.ts in ca
+  * feat: adapt to automatic rollback
+  * [dde-update-ui] Updates for project Deepin Desktop Environment
+    (#118)
+  * feat: improve update log dialog and notifications
+  * [dde-update-ui] Updates for project Deepin Desktop Environment
+    (#116)
+  * fix: enhance update list display and version info
+  * [dde-update-ui] Updates for project Deepin Desktop Environment
+    (#115)
+  * [dde-update-ui] Updates for project Deepin Desktop Environment
+    (#113)
+  * i18n: Updates for project Deepin Desktop Environment (#112)
+
+ -- zhangkun <zhangkun2@uniontech.com>  Thu, 19 Jun 2025 09:51:05 +0800
+
 deepin-update-ui (1.0.15) unstable; urgency=medium
 
   * i18n: Translate dde-update_en.ts in es
