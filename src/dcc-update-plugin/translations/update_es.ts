@@ -396,7 +396,7 @@
     </message>
     <message>
         <source>updatelog</source>
-        <translation>registroactualizaciones</translation>
+        <translation>registro de actualizaciones</translation>
     </message>
     <message>
         <source>Log export failed, please try again</source>
