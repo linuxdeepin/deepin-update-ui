@@ -247,7 +247,7 @@
     </message>
     <message>
         <source>The system has enabled auto recovery function and does not support updates. If you have any questions, please contact the enterprise administrator</source>
-        <translation type="unfinished"/>
+        <translation>O sistema ativou a função de recuperação automática e não permite atualizações. Se tiver dúvidas, entre em contato com o administrador</translation>
     </message>
 </context>
 <context>
