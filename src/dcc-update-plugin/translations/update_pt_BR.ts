@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="pt_BR">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="pt_BR">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -27,7 +25,7 @@
     <name>UpdateControl</name>
     <message>
         <source>View Update Log</source>
-        <translation type="unfinished"></translation>
+        <translation>Exibir log de atualizações</translation>
     </message>
 </context>
 <context>
@@ -77,22 +75,22 @@
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>Versão:</translation>
     </message>
 </context>
 <context>
     <name>UpdateLogDialog</name>
     <message>
         <source>Update Log</source>
-        <translation type="unfinished"></translation>
+        <translation>Log de atualizações</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Fechar</translation>
     </message>
     <message>
         <source>Export to desktop</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar para a área de trabalho</translation>
     </message>
 </context>
 <context>
@@ -249,7 +247,7 @@
     </message>
     <message>
         <source>The system has enabled auto recovery function and does not support updates. If you have any questions, please contact the enterprise administrator</source>
-        <translation type="unfinished"></translation>
+        <translation>O sistema ativou a função de recuperação automática e não permite atualizações. Se tiver dúvidas, entre em contato com o administrador</translation>
     </message>
 </context>
 <context>
@@ -398,15 +396,15 @@
     </message>
     <message>
         <source>updatelog</source>
-        <translation type="unfinished"></translation>
+        <translation>updatelog</translation>
     </message>
     <message>
         <source>Log export failed, please try again</source>
-        <translation type="unfinished"></translation>
+        <translation>A exportação do log falhou, tente novamente</translation>
     </message>
     <message>
         <source>The log has been exported to the desktop</source>
-        <translation type="unfinished"></translation>
+        <translation>O log foi exportado para a área de trabalho</translation>
     </message>
     <message>
         <source>Update</source>
