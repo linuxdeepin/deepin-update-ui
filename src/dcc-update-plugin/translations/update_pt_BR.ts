@@ -82,7 +82,7 @@
     <name>UpdateLogDialog</name>
     <message>
         <source>Update Log</source>
-        <translation type="unfinished"/>
+        <translation>Log de atualizações</translation>
     </message>
     <message>
         <source>Close</source>
@@ -396,11 +396,11 @@
     </message>
     <message>
         <source>updatelog</source>
-        <translation type="unfinished"/>
+        <translation>updatelog</translation>
     </message>
     <message>
         <source>Log export failed, please try again</source>
-        <translation type="unfinished"/>
+        <translation>A exportação do log falhou, tente novamente</translation>
     </message>
     <message>
         <source>The log has been exported to the desktop</source>
