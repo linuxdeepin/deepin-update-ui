@@ -196,9 +196,6 @@ DccObject {
                         }
                     }
                     onEditingFinished: {
-                        if (lineEdit.showAlert) {
-                            return
-                        }
                         if (lineEdit.text.length === 0) {
                             lineEdit.text = dccData.model().downloadSpeedLimitSize
                             return

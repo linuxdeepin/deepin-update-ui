@@ -11,7 +11,7 @@ import org.deepin.dcc 1.0
 D.DialogWindow {
     id: root
     width: 360
-    height: 130
+    height: 150
     icon: "preferences-system"
     modality: Qt.WindowModal
 
@@ -20,9 +20,12 @@ D.DialogWindow {
     signal upgradeShutdownBtnClicked()
 
     ColumnLayout {
-        anchors.fill: parent
-        Label {
-            Layout.alignment: Qt.AlignHCenter
+        width: parent.width
+        height: 150 - DS.Style.dialogWindow.titleBarHeight
+
+        D.Label {
+            Layout.fillWidth: true
+            horizontalAlignment: Text.AlignHCenter
             wrapMode: Text.WordWrap
             text: qsTr("The updates have been already downloaded. What do you want to do?")
         }
@@ -33,10 +36,10 @@ D.DialogWindow {
 
         RowLayout {
             Layout.fillWidth: true
-            Layout.bottomMargin: 0
+            Layout.bottomMargin: 10
             spacing: 10
 
-            D.Button {
+            ButtonWithToolTip {
                 text: qsTr("Silent Installation")
                 Layout.fillWidth: true
                 onClicked: {
@@ -44,7 +47,7 @@ D.DialogWindow {
                 }
             }
 
-            D.Button {
+            ButtonWithToolTip {
                 text: qsTr("Update and Reboot")
                 Layout.fillWidth: true
                 onClicked: {
@@ -52,7 +55,7 @@ D.DialogWindow {
                 }
             }
 
-            D.Button {
+            ButtonWithToolTip {
                 text: qsTr("Update and Shut Down")
                 textColor: D.Palette {
                     normal {
@@ -63,6 +66,29 @@ D.DialogWindow {
                 Layout.fillWidth: true
                 onClicked: {
                     root.upgradeShutdownBtnClicked()
+                }
+            }
+
+            component ButtonWithToolTip: D.Button {
+                id: customButton
+
+                contentItem: Text {
+                    id: buttonText
+                    text: customButton.text
+                    font: customButton.font
+                    color: customButton.D.ColorSelector.textColor
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    elide: Text.ElideRight
+                    width: customButton.width
+                }
+
+                hoverEnabled: true
+
+                ToolTip {
+                    visible: customButton.hovered && buttonText.truncated
+                    delay: 500
+                    text: customButton.text
                 }
             }
         }

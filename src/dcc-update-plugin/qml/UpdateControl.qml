@@ -181,7 +181,7 @@ ColumnLayout {
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: isDownloading ? pauseIcon.width + stopIcon.width + progressCtl.spacing * 2 : 0
                 width: parent.width
-                text: processTitle + Math.floor(process.value * 100) + "%"
+                text: processTitle + " " + Math.floor(process.value * 100) + "%"
                 font: D.DTK.fontManager.t8
             }
         }
