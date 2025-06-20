@@ -67,7 +67,7 @@
     <name>UpdateLogWidget</name>
     <message>
         <source>Export</source>
-        <translation type="unfinished"/>
+        <translation>Exportar</translation>
     </message>
     <message>
         <source>The log has been exported to the desktop</source>
