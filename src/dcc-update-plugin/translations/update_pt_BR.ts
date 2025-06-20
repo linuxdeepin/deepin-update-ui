@@ -404,7 +404,7 @@
     </message>
     <message>
         <source>The log has been exported to the desktop</source>
-        <translation type="unfinished"/>
+        <translation>O log foi exportado para a área de trabalho</translation>
     </message>
     <message>
         <source>Update</source>
