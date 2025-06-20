@@ -56,11 +56,11 @@
     </message>
     <message>
         <source>View update logs</source>
-        <translation>Exibir logs de atualizações</translation>
+        <translation>Exibir logs de atualização</translation>
     </message>
     <message>
         <source>Collapse update logs</source>
-        <translation>Ocultar logs de atualizações</translation>
+        <translation>Ocultar logs de atualização</translation>
     </message>
 </context>
 <context>
