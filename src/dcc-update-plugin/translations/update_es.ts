@@ -498,7 +498,7 @@
     </message>
     <message>
         <source>Backing up in progress</source>
-        <translation>Copia de seguridad en progreso</translation>
+        <translation>Copia de seguridad en progreso </translation>
     </message>
     <message>
         <source>Backup failed</source>
