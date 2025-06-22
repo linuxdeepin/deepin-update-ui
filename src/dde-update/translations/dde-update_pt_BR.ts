@@ -60,7 +60,7 @@
     </message>
     <message>
         <source>Collapse update logs</source>
-        <translation>Ocultar logs de atualização</translation>
+        <translation>Recolher logs de atualização</translation>
     </message>
 </context>
 <context>
@@ -160,7 +160,7 @@
     </message>
     <message>
         <source>Collapse update logs</source>
-        <translation>Ocultar logs de atualização</translation>
+        <translation>Recolher logs de atualização</translation>
     </message>
 </context>
 <context>
