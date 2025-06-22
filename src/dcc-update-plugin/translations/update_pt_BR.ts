@@ -369,7 +369,7 @@
     </message>
     <message>
         <source>Collapse</source>
-        <translation>Colapso</translation>
+        <translation>Recolher</translation>
     </message>
     <message>
         <source>Only numbers between 1-99999 are allowed</source>
