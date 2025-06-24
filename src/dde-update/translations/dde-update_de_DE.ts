@@ -48,34 +48,34 @@
     </message>
     <message>
         <source>The automatic reboot process has failed. Please try to manually reboot your device.</source>
-        <translation type="unfinished"/>
+        <translation>Das automatische Hochfahren ist fehlgeschlagen. Bitte versuchen sie manuell ihr Gerät wieder hochzufahren</translation>
     </message>
     <message>
         <source>The automatic shutdown process has failed. Please try to manually shut down your device.</source>
-        <translation type="unfinished"/>
+        <translation>Das automatische Hoerunterfahren ist fehlgeschlagen. Bitte versuchen sie manuell ihr Gerät auszuschalten.</translation>
     </message>
     <message>
         <source>View update logs</source>
-        <translation type="unfinished"/>
+        <translation>Aktualisierungs-Protokoll ansehen</translation>
     </message>
     <message>
         <source>Collapse update logs</source>
-        <translation type="unfinished"/>
+        <translation>Aktualisierungs-Protokoll einklappen</translation>
     </message>
 </context>
 <context>
     <name>UpdateLogWidget</name>
     <message>
         <source>Export</source>
-        <translation type="unfinished"/>
+        <translation>Exportieren</translation>
     </message>
     <message>
         <source>The log has been exported to the desktop</source>
-        <translation type="unfinished"/>
+        <translation>Aktualisierungs-Protokoll wurde zum Schreibtisch exportiert</translation>
     </message>
     <message>
         <source>Log export failed, please try again</source>
-        <translation type="unfinished"/>
+        <translation>Protokoll exportieren fehgeschlagen, bitte erneut versuchen</translation>
     </message>
 </context>
 <context>
@@ -156,18 +156,18 @@
     </message>
     <message>
         <source>View update logs</source>
-        <translation type="unfinished"/>
+        <translation>Aktualisierungs-Protokoll ansehen</translation>
     </message>
     <message>
         <source>Collapse update logs</source>
-        <translation type="unfinished"/>
+        <translation>Aktualisierungs-Protokoll einklappen</translation>
     </message>
 </context>
 <context>
     <name>UpdateWorker</name>
     <message>
         <source>updatelog</source>
-        <translation type="unfinished"/>
+        <translation>Aktualisierungs-Protokoll</translation>
     </message>
 </context>
 </TS>
