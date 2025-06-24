@@ -56,7 +56,7 @@
     </message>
     <message>
         <source>Installation date:</source>
-        <translation>Data instalacji:</translation>
+        <translation>Data instalacji: </translation>
     </message>
 </context>
 <context>
@@ -317,7 +317,7 @@
     </message>
     <message>
         <source>Enabling &quot;Auto Download Updates&quot; will automatically download updates when connected to the internet</source>
-        <translation>Włączenie &quot;Automatyczne pobieranie aktualizacji&quot; zainstaluje automatycznie aktualizacje po wykryciu połączenia z Internetem</translation>
+        <translation>Włączenie &quot;Automatyczne pobieranie aktualizacji&quot; automatycznie zainstaluje aktualizacje po wykryciu połączenia z Internetem</translation>
     </message>
     <message>
         <source>Download when Inactive</source>
