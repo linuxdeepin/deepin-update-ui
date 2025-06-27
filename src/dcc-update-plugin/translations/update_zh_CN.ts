@@ -285,7 +285,7 @@
     </message>
     <message>
         <source>Delivers a cumulative update including new features, quality updates, and  security updates</source>
-        <translation>提供新功能、质量补丁、安全漏洞修复登全量更新内容</translation>
+        <translation>提供新功能、质量补丁、安全漏洞修复等全量更新内容</translation>
     </message>
     <message>
         <source>Security Updates</source>
