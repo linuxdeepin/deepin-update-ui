@@ -1,3 +1,10 @@
+deepin-update-ui (1.0.19) unstable; urgency=medium
+
+  * [dde-update-ui] Updates for project Deepin Desktop Environment
+    (#133)
+
+ -- xionglinlin <xionglinlin@uniontech.com>  Fri, 27 Jun 2025 10:34:38 +0800
+
 deepin-update-ui (1.0.18) unstable; urgency=medium
 
   * chore: remove unused Spanish (Mexico) translation files
