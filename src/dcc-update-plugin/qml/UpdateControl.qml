@@ -141,7 +141,7 @@ ColumnLayout {
                     to: 1
                     value: processValue
                     implicitHeight: 8
-                    implicitWidth: 240
+                    implicitWidth: 210
                 }
 
                 D.ActionButton {

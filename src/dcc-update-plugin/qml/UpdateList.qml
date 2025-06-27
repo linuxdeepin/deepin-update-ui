@@ -31,8 +31,8 @@ Rectangle {
             delegate: D.ItemDelegate {
                 id: itemCtl
                 Layout.fillWidth: true
-                leftPadding: 10
-                rightPadding: 10
+                leftPadding: 6
+                rightPadding: 12
                 topPadding: 10
                 cascadeSelected: true
                 contentFlow: true

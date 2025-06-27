@@ -36,7 +36,7 @@ include_directories(
 
 set(TRANSLATION_LANGUAGES
     af ak am_ET ar ar_EG ast az bg bn bo br ca cgg cs da de de_CH el en en_AU
-    en_GB en_US eo es es_MX et eu fa fi fil fr gl_ES he hi_IN hr hu hy id it
+    en_GB en_US eo es et eu fa fi fil fr gl_ES he hi_IN hr hu hy id it
     ja kab ka kk km_KH kn_IN ko ku ku_IQ ky ky@Arab la lo lt lv ml mn mr ms
     nb ne nl pa pam pl ps pt pt_BR ro ru sc si sk sl sq sr sv sw ta te th tr
     tzm ug uk ur uz vi zh_CN zh_HK zh_TW
