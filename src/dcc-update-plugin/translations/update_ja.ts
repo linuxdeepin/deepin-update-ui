@@ -223,7 +223,7 @@
     </message>
     <message>
         <source>Check Again</source>
-        <translation>再確認</translation>
+        <translation>もう一度確認する</translation>
     </message>
     <message>
         <source>Privacy Policy</source>
