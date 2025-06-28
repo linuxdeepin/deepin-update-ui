@@ -231,7 +231,7 @@
     </message>
     <message>
         <source>To use this software, you must accept the %1 that accompanies software updates.</source>
-        <translation>Aby korzystać z tego oprogramowania, musisz zaakceptować %1, dołączoną do aktualizacji.</translation>
+        <translation>Aby korzystać z tego oprogramowania, musisz zaakceptować %1 dołączoną do aktualizacji.</translation>
     </message>
     <message>
         <source>Turn on the switches under Update Content to get better experiences</source>
