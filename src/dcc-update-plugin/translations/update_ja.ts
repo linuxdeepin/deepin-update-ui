@@ -32,11 +32,11 @@
     <name>UpdateHistoryDialog</name>
     <message>
         <source>Update History</source>
-        <translation>アップデートログ</translation>
+        <translation>アップデート履歴</translation>
     </message>
     <message>
         <source>No update history</source>
-        <translation>アップデートログはありません</translation>
+        <translation>アップデートの履歴はありません</translation>
     </message>
     <message>
         <source>System Updates</source>
