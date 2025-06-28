@@ -7,7 +7,7 @@
     </message>
     <message>
         <source>Preparing</source>
-        <translation>準備中</translation>
+        <translation>準備しています</translation>
     </message>
 </context>
 <context>
@@ -56,26 +56,26 @@
     </message>
     <message>
         <source>View update logs</source>
-        <translation type="unfinished"/>
+        <translation>アップデートログを表示</translation>
     </message>
     <message>
         <source>Collapse update logs</source>
-        <translation type="unfinished"/>
+        <translation>アップデートログを折りたたむ</translation>
     </message>
 </context>
 <context>
     <name>UpdateLogWidget</name>
     <message>
         <source>Export</source>
-        <translation type="unfinished"/>
+        <translation>エクスポート</translation>
     </message>
     <message>
         <source>The log has been exported to the desktop</source>
-        <translation type="unfinished"/>
+        <translation>ログがデスクトップにエクスポートされました</translation>
     </message>
     <message>
         <source>Log export failed, please try again</source>
-        <translation type="unfinished"/>
+        <translation>ログをエクスポートできませんでした。もう一度お試しください</translation>
     </message>
 </context>
 <context>
@@ -156,11 +156,11 @@
     </message>
     <message>
         <source>View update logs</source>
-        <translation type="unfinished"/>
+        <translation>アップデートログを表示</translation>
     </message>
     <message>
         <source>Collapse update logs</source>
-        <translation type="unfinished"/>
+        <translation>アップデートログを折りたたむ</translation>
     </message>
 </context>
 <context>
