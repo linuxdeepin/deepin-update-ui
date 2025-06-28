@@ -25,18 +25,18 @@
     <name>UpdateControl</name>
     <message>
         <source>View Update Log</source>
-        <translation>アップデート履歴を表示</translation>
+        <translation>アップデートログを表示</translation>
     </message>
 </context>
 <context>
     <name>UpdateHistoryDialog</name>
     <message>
         <source>Update History</source>
-        <translation>アップデート履歴</translation>
+        <translation>アップデートログ</translation>
     </message>
     <message>
         <source>No update history</source>
-        <translation>アップデート履歴はありません</translation>
+        <translation>アップデートログはありません</translation>
     </message>
     <message>
         <source>System Updates</source>
@@ -82,7 +82,7 @@
     <name>UpdateLogDialog</name>
     <message>
         <source>Update Log</source>
-        <translation>更新履歴</translation>
+        <translation>アップデートログ</translation>
     </message>
     <message>
         <source>Close</source>
@@ -345,7 +345,7 @@
     </message>
     <message>
         <source>Update History</source>
-        <translation>アップデート履歴</translation>
+        <translation>アップデートログ</translation>
     </message>
     <message>
         <source>View</source>
@@ -396,7 +396,7 @@
     </message>
     <message>
         <source>updatelog</source>
-        <translation>アップデート履歴</translation>
+        <translation>アップデートログ</translation>
     </message>
     <message>
         <source>Log export failed, please try again</source>
