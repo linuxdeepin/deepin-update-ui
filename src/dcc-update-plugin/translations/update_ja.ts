@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="ja">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ja">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -27,7 +25,7 @@
     <name>UpdateControl</name>
     <message>
         <source>View Update Log</source>
-        <translation type="unfinished"></translation>
+        <translation>アップデート履歴を表示</translation>
     </message>
 </context>
 <context>
@@ -50,11 +48,11 @@
     </message>
     <message>
         <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
-        <translation>新しい機能、品質改善、セキュリティのアップデートが配信されます</translation>
+        <translation>新しい機能、品質改善、セキュリティのアップデートが含まれます</translation>
     </message>
     <message>
         <source>Delivers security updates</source>
-        <translation>セキュリティのアップデートが配信されます</translation>
+        <translation>セキュリティのアップデートが含まれます</translation>
     </message>
     <message>
         <source>Installation date:</source>
@@ -77,22 +75,22 @@
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>バージョン:</translation>
     </message>
 </context>
 <context>
     <name>UpdateLogDialog</name>
     <message>
         <source>Update Log</source>
-        <translation type="unfinished"></translation>
+        <translation>更新履歴</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>閉じる</translation>
     </message>
     <message>
         <source>Export to desktop</source>
-        <translation type="unfinished"></translation>
+        <translation>デスクトップにエクスポート</translation>
     </message>
 </context>
 <context>
@@ -249,7 +247,7 @@
     </message>
     <message>
         <source>The system has enabled auto recovery function and does not support updates. If you have any questions, please contact the enterprise administrator</source>
-        <translation type="unfinished"></translation>
+        <translation>自動リカバリ機能が有効になっているため、アップデートを利用できません。詳細はシステム管理者にお問い合わせください</translation>
     </message>
 </context>
 <context>
@@ -398,15 +396,15 @@
     </message>
     <message>
         <source>updatelog</source>
-        <translation type="unfinished"></translation>
+        <translation>アップデート履歴</translation>
     </message>
     <message>
         <source>Log export failed, please try again</source>
-        <translation type="unfinished"></translation>
+        <translation>ログをエクスポートできませんでした。もう一度お試しください</translation>
     </message>
     <message>
         <source>The log has been exported to the desktop</source>
-        <translation type="unfinished"></translation>
+        <translation>ログがデスクトップにエクスポートされました</translation>
     </message>
     <message>
         <source>Update</source>
