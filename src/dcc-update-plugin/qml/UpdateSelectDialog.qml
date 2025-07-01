@@ -11,7 +11,6 @@ import org.deepin.dcc 1.0
 D.DialogWindow {
     id: root
     width: 360
-    height: 150
     icon: "preferences-system"
     modality: Qt.WindowModal
 
@@ -21,7 +20,6 @@ D.DialogWindow {
 
     ColumnLayout {
         width: parent.width
-        height: 150 - DS.Style.dialogWindow.titleBarHeight
 
         D.Label {
             Layout.fillWidth: true
@@ -32,6 +30,7 @@ D.DialogWindow {
 
         Item {
             Layout.fillHeight: true
+            Layout.preferredHeight: 20
         }
 
         RowLayout {

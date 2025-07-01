@@ -147,7 +147,7 @@ ColumnLayout {
 
                 D.ActionButton {
                     id: pauseIcon
-                    icon.name: isPauseOrNot ? "dcc_start" : "dcc_pause"
+                    icon.name: isPauseOrNot ? "update_start" : "update_pause"
                     icon.width: 24
                     icon.height: 24
                     implicitWidth: 24
@@ -165,7 +165,7 @@ ColumnLayout {
 
                 D.ActionButton {
                     id: stopIcon
-                    icon.name: "dcc_stop"
+                    icon.name: "update_stop"
                     icon.width: 24
                     icon.height: 24
                     implicitWidth: 24

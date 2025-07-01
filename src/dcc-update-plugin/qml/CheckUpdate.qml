@@ -23,9 +23,16 @@ ColumnLayout {
             width: parent.width
             spacing: 10
 
-            Image {
+            D.DciIcon {
+                id: checkUpdateIcon
                 Layout.alignment: Qt.AlignHCenter
-                source: dccData.model().checkUpdateIcon
+                name: dccData.model().checkUpdateIcon
+                palette: D.DTK.makeIconPalette(checkUpdateIcon.palette)
+                theme: D.DTK.themeType
+                sourceSize {
+                    width: 134
+                    height: 134
+                }                
             }
 
             D.ProgressBar {
