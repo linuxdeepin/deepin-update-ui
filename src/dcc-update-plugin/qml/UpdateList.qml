@@ -14,6 +14,7 @@ Rectangle {
     id: root
 
     property alias model: repeater.model
+    property bool checkIconVisible: true
 
     color: "transparent"
     implicitHeight: layoutView.height
@@ -68,6 +69,7 @@ Rectangle {
                                 Layout.alignment: Qt.AlignRight
                                 checked: model.checked
                                 size: 18
+                                visible: checkIconVisible
 
                                 onClicked: {
                                     repeater.model.setChecked(index, !model.checked)

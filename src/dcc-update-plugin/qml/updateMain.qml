@@ -178,6 +178,7 @@ DccObject {
             updateTitle: qsTr("Update installation successful")
             updateTips: qsTr("To ensure proper functioning of your system and applications, please restart your computer after the update")
             btnActions: [ qsTr("Reboot now") ]
+            updateListcheck: false
 
             onBtnClicked: function(index, updateType) {
                 dccData.work().reStart()
@@ -340,7 +341,7 @@ DccObject {
 
         page: UpdateControl {
             updateListModels: dccData.model().preUpdatelistModel
-            updateTitle: qsTr("Updates Available")
+            updateTitle: !dccData.model().downloadWaiting ? qsTr("Updates Available") : qsTr("Downloading updates...")
             btnActions: [ qsTr("Download") ]
             updateTips: qsTr("Update size: ") + dccData.model().preUpdatelistModel.downloadSize
             busyState: dccData.model().downloadWaiting

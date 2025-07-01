@@ -21,6 +21,7 @@ ColumnLayout {
     property bool processState: false
     property bool busyState: false
     property bool updateListEnable: true
+    property bool updateListcheck: true
     property bool isDownloading: false
     property bool isPauseOrNot: false
     property bool showLogButton: false
@@ -123,8 +124,8 @@ ColumnLayout {
             id: initAnimation
             running: initAnimation.visible
             visible: busyState
-            implicitWidth: 32
-            implicitHeight: 32
+            implicitWidth: 24
+            implicitHeight: 24
         }
 
         ColumnLayout {
@@ -199,5 +200,6 @@ ColumnLayout {
     UpdateList {
         id: updatelistModel
         enabled: updateListEnable
+        checkIconVisible: updateListcheck
     }
 }
