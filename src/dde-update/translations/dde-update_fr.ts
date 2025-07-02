@@ -3,33 +3,33 @@
     <name>CheckProgressWidget</name>
     <message>
         <source>The check is almost complete, thank you for your patience</source>
-        <translation type="unfinished"/>
+        <translation>La vérification est presque terminée, merci de votre patience.</translation>
     </message>
     <message>
         <source>Preparing</source>
-        <translation type="unfinished"/>
+        <translation>Préparation</translation>
     </message>
 </context>
 <context>
     <name>ErrorFrame</name>
     <message>
         <source>Checked for some errors</source>
-        <translation type="unfinished"/>
+        <translation>Recherche d&apos;erreurs effectuée</translation>
     </message>
 </context>
 <context>
     <name>SuccessFrame</name>
     <message>
         <source>Go to Desktop</source>
-        <translation type="unfinished"/>
+        <translation>Vers le bureau</translation>
     </message>
     <message>
         <source>Welcome, system updated successfully</source>
-        <translation type="unfinished"/>
+        <translation>Bienvenue, mise à jour du système réussie.</translation>
     </message>
     <message>
         <source>Current Edition:</source>
-        <translation type="unfinished"/>
+        <translation>Édition actuelle :</translation>
     </message>
 </context>
 <context>
@@ -48,11 +48,11 @@
     </message>
     <message>
         <source>The automatic reboot process has failed. Please try to manually reboot your device.</source>
-        <translation type="unfinished"/>
+        <translation>Le processus de redémarrage automatique a échoué. Veuillez essayer de redémarrer manuellement votre appareil.</translation>
     </message>
     <message>
         <source>The automatic shutdown process has failed. Please try to manually shut down your device.</source>
-        <translation type="unfinished"/>
+        <translation>Le processus d&apos;arrêt automatique a échoué. Veuillez essayer d&apos;éteindre manuellement votre appareil.</translation>
     </message>
     <message>
         <source>View update logs</source>
@@ -138,7 +138,7 @@
     </message>
     <message>
         <source>Go to Desktop</source>
-        <translation type="unfinished"/>
+        <translation>Vers le bureau</translation>
     </message>
 </context>
 <context>
