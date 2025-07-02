@@ -1,50 +1,48 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="fr">
 <context>
     <name>BackgroundWidget</name>
     <message>
         <source>Rolling back the system, please wait...</source>
-        <translation type="unfinished"></translation>
+        <translation>Restauration du système, veuillez patienter...</translation>
     </message>
 </context>
 <context>
     <name>RecoveryWidget</name>
     <message>
         <source>Rollback failed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Échec de la restauration.</translation>
     </message>
     <message>
         <source>Reboot</source>
-        <translation type="unfinished"></translation>
+        <translation>Redémarrer</translation>
     </message>
     <message>
         <source>Updates failed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mise à jour échouée.</translation>
     </message>
     <message>
         <source>Updates failed: it was interrupted.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mise à jour échouée : opération interrompue.</translation>
     </message>
     <message>
         <source>Updates failed: DPKG error.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mises à jour échouées : erreur DPKG.</translation>
     </message>
     <message>
         <source>Updates failed: insufficient disk space.</source>
-        <translation type="unfinished"></translation>
+        <translation>Échec de la mise à jour : espace disque insuffisant.</translation>
     </message>
     <message>
         <source>Are you sure you want to roll back to %1 backed up on %2?</source>
-        <translation type="unfinished"></translation>
+        <translation>Êtes-vous sûr de vouloir revenir à la sauvegarde %1 effectuée le %2 ?</translation>
     </message>
     <message>
         <source>Cancel and Reboot</source>
-        <translation type="unfinished"></translation>
+        <translation>Annuler et redémarrer</translation>
     </message>
     <message>
         <source>Confirm</source>
-        <translation type="unfinished"></translation>
+        <translation>Confirmer</translation>
     </message>
 </context>
 </TS>
