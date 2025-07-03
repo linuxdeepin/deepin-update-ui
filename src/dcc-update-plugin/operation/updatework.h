@@ -125,6 +125,7 @@ public Q_SLOTS:
 Q_SIGNALS:
     void systemActivationChanged(bool systemActivation);
     void requestCloseTestingChannel();
+    void startDoUpgrade();
 
 private:
     Dtk::Core::DConfig *m_lastoreDConfig;

@@ -1,9 +1,11 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="zh_HK">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="zh_HK">
 <context>
     <name>CheckUpdate</name>
     <message>
         <source>Last check: </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -154,12 +156,12 @@
     </message>
     <message>
         <source>, </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
         <extra-content_explain>中文逗号不需要空格，英文逗号需要空格For more details, please visit</extra-content_explain>
     </message>
     <message>
         <source>for more details, please visit </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
         <extra-content_explain>这句话后面会带上一个超链接，各语言自行决定末尾需不需要加空格</extra-content_explain>
     </message>
 </context>
@@ -410,6 +412,10 @@
         <source>Update</source>
         <translation>更新</translation>
     </message>
+    <message>
+        <source>Please plug in and then install updates.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>update</name>
@@ -442,7 +448,7 @@
     </message>
     <message>
         <source>Update size: </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Update download failed</source>

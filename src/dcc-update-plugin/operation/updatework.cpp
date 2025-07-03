@@ -666,6 +666,13 @@ void UpdateWorker::setDownloadJob(const QString& jobPath)
 
 void UpdateWorker::doUpgrade(int updateTypes, bool doBackup)
 {
+    if (!m_model->batterIsOK()) {
+        notifyInfo(tr("Update"), tr("Please plug in and then install updates."));
+        return;
+    }
+
+    emit startDoUpgrade();
+
     qCInfo(DCC_UPDATE_WORKER) << "Do upgrade, update types:" << updateTypes << ", whether do backup:" << doBackup;
     cleanLaStoreJob(m_distUpgradeJob);
     cleanLaStoreJob(m_backupJob);
@@ -700,6 +707,11 @@ void UpdateWorker::reStart()
 
 void UpdateWorker::modalUpgrade(bool rebootAfterUpgrade)
 {
+    if (!m_model->batterIsOK()) {
+        notifyInfo(tr("Update"), tr("Please plug in and then install updates."));
+        return;
+    }
+
     qCInfo(DCC_UPDATE_WORKER) << "request modal upgrade, reboot after upgrade:" << rebootAfterUpgrade;
     if (rebootAfterUpgrade) {
         m_updateInter->UpdateAndReboot();

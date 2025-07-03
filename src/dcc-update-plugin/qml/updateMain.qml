@@ -293,13 +293,19 @@ DccObject {
                 visible: false
                 onSilentBtnClicked: {
                     dccData.work().doUpgrade(updateType, true)
-                    close()
                 }
                 onUpgradeRebootBtnClicked: {
                     dccData.work().modalUpgrade(true)
                 }
                 onUpgradeShutdownBtnClicked: {
                     dccData.work().modalUpgrade(false)
+                }
+            }
+
+            Connections {
+                target: dccData.work()
+                function onStartDoUpgrade() {
+                    updateSelectDialog.close()
                 }
             }
         }

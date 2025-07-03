@@ -413,6 +413,10 @@
         <source>Update</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Please plug in and then install updates.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>update</name>
