@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="ca">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ca">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -414,7 +412,7 @@
     </message>
     <message>
         <source>Please plug in and then install updates.</source>
-        <translation type="unfinished"></translation>
+        <translation>Si us plau, endolleu l&apos;ordinador i després instal·leu les actualitzacions.</translation>
     </message>
 </context>
 <context>

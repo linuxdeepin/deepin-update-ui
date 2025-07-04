@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="uk">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="uk">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -414,7 +412,7 @@
     </message>
     <message>
         <source>Please plug in and then install updates.</source>
-        <translation type="unfinished"></translation>
+        <translation>Будь ласка, з&apos;єднайте комп&apos;ютер з джерелом живлення, потім встановлюйте оновлення.</translation>
     </message>
 </context>
 <context>
