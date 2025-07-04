@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="zh_CN">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="zh_CN">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -414,7 +412,7 @@
     </message>
     <message>
         <source>Please plug in and then install updates.</source>
-        <translation type="unfinished"></translation>
+        <translation>请插入电源后再开始更新</translation>
     </message>
 </context>
 <context>
