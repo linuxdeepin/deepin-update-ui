@@ -56,26 +56,26 @@
     </message>
     <message>
         <source>View update logs</source>
-        <translation type="unfinished"/>
+        <translation>Afficher les journaux de mise à jour</translation>
     </message>
     <message>
         <source>Collapse update logs</source>
-        <translation type="unfinished"/>
+        <translation>Réduire les journaux de mise à jour</translation>
     </message>
 </context>
 <context>
     <name>UpdateLogWidget</name>
     <message>
         <source>Export</source>
-        <translation type="unfinished"/>
+        <translation>Exporter</translation>
     </message>
     <message>
         <source>The log has been exported to the desktop</source>
-        <translation type="unfinished"/>
+        <translation>Le journal a été exporté vers le bureau.</translation>
     </message>
     <message>
         <source>Log export failed, please try again</source>
-        <translation type="unfinished"/>
+        <translation>L&apos;exportation du journal a échoué, veuillez réessayer.</translation>
     </message>
 </context>
 <context>
@@ -156,18 +156,18 @@
     </message>
     <message>
         <source>View update logs</source>
-        <translation type="unfinished"/>
+        <translation>Afficher les journaux de mise à jour</translation>
     </message>
     <message>
         <source>Collapse update logs</source>
-        <translation type="unfinished"/>
+        <translation>Réduire les journaux de mise à jour</translation>
     </message>
 </context>
 <context>
     <name>UpdateWorker</name>
     <message>
         <source>updatelog</source>
-        <translation type="unfinished"/>
+        <translation>journal des mises à jour</translation>
     </message>
 </context>
 </TS>
