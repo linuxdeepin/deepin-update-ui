@@ -1,3 +1,11 @@
+deepin-update-ui (1.0.21) unstable; urgency=medium
+
+  * [dde-update-ui] Updates for project Deepin Desktop Environment
+    (#143)
+  * feat: add battery check before system updates
+
+ -- WuJiangYu <wujiangyu@uniontech.com>  Thu, 10 Jul 2025 20:15:41 +0800
+
 deepin-update-ui (1.0.20) unstable; urgency=medium
 
   * refactor: optimize build system security flags
