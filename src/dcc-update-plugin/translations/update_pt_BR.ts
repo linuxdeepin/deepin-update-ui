@@ -337,7 +337,7 @@
     </message>
     <message>
         <source>Updates Notification</source>
-        <translation>Notificação de Atualizações</translation>
+        <translation>Notificar quando houver atualizações disponíveis</translation>
     </message>
     <message>
         <source>Clear Package Cache</source>
@@ -462,7 +462,7 @@
     </message>
     <message>
         <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
-        <translation>Configurar as atualizações de segurança, download automático de atualizações e notificação de atualizações</translation>
+        <translation>Configure as configurações de atualização, atualizações de segurança, download automático de atualizações e notificações de atualização</translation>
     </message>
     <message>
         <source>Reboot now</source>
