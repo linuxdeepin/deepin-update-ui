@@ -1,3 +1,14 @@
+deepin-update-ui (1.0.22) unstable; urgency=medium
+
+  * refactor: migrate update log monitoring to DBus interface
+  * fix: improve update widget layout and button behavior
+  * fix: use DStandardPaths for home directory lookup
+  * refactor: improve button management and focus handling in recovery
+    dialog
+  * fix: set focus on upgrade button in UpdateSelectDialog
+
+ -- WuJiangYu <wujiangyu@uniontech.com>  Fri, 01 Aug 2025 10:25:25 +0800
+
 deepin-update-ui (1.0.21) unstable; urgency=medium
 
   * [dde-update-ui] Updates for project Deepin Desktop Environment
