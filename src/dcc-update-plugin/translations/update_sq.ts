@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="sq">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="sq">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -364,16 +366,16 @@
         <translation>Zgjeroje</translation>
     </message>
     <message>
-        <source>Forum users at level 2 and above can join the beta test to receive the latest updates.</source>
-        <translation>Përdorues forumi të nivelit 2 e më sipër mund të bëhen pjesë e testimeve beta, që të marrin përditësimet më të reja.</translation>
-    </message>
-    <message>
         <source>Collapse</source>
         <translation>Palose</translation>
     </message>
     <message>
         <source>Only numbers between 1-99999 are allowed</source>
         <translation>Lejohen vetëm numra mes 1-99999</translation>
+    </message>
+    <message>
+        <source>Join the internal testing channel to get deepin latest updates.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -396,7 +398,7 @@
     </message>
     <message>
         <source>updatelog</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Log export failed, please try again</source>

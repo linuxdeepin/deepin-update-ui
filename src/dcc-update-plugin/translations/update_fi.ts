@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="fi">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="fi">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -364,16 +366,16 @@
         <translation>Laajenna</translation>
     </message>
     <message>
-        <source>Forum users at level 2 and above can join the beta test to receive the latest updates.</source>
-        <translation>Foorumin käyttäjät tasolla 2 ja sitä korkeammalla voivat liittyä beta-testiin viimeisillä päivityksillä.</translation>
-    </message>
-    <message>
         <source>Collapse</source>
         <translation>Tiivistetty</translation>
     </message>
     <message>
         <source>Only numbers between 1-99999 are allowed</source>
         <translation>Numerot väliltä 1-99999 ovat sallittuja</translation>
+    </message>
+    <message>
+        <source>Join the internal testing channel to get deepin latest updates.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

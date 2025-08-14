@@ -366,15 +366,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Forum users at level 2 and above can join the beta test to receive the latest updates.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Collapse</source>
         <translation type="unfinished">Puske</translation>
     </message>
     <message>
         <source>Only numbers between 1-99999 are allowed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Join the internal testing channel to get deepin latest updates.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

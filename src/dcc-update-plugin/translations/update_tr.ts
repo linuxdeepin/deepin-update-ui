@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="tr">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="tr">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -90,7 +92,7 @@
     </message>
     <message>
         <source>Export to desktop</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -247,7 +249,7 @@
     </message>
     <message>
         <source>The system has enabled auto recovery function and does not support updates. If you have any questions, please contact the enterprise administrator</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -364,16 +366,16 @@
         <translation>Genişlet</translation>
     </message>
     <message>
-        <source>Forum users at level 2 and above can join the beta test to receive the latest updates.</source>
-        <translation>Seviye 2 ve üzeri forum kullanıcıları son güncellemeleri almak için beta testine katılabilir.</translation>
-    </message>
-    <message>
         <source>Collapse</source>
         <translation>Daralt</translation>
     </message>
     <message>
         <source>Only numbers between 1-99999 are allowed</source>
         <translation>Sadece 1-99999 arasındaki sayılara izin verilir</translation>
+    </message>
+    <message>
+        <source>Join the internal testing channel to get deepin latest updates.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

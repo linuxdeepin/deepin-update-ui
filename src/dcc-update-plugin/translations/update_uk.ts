@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="uk">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="uk">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -364,16 +366,16 @@
         <translation>Розгорнути</translation>
     </message>
     <message>
-        <source>Forum users at level 2 and above can join the beta test to receive the latest updates.</source>
-        <translation>Користувачі форуму рівня 2 та вищих рівнів можуть долучатися до тестування для отримання найсвіжіших оновлень.</translation>
-    </message>
-    <message>
         <source>Collapse</source>
         <translation>Згорнути</translation>
     </message>
     <message>
         <source>Only numbers between 1-99999 are allowed</source>
         <translation>Можна використовувати лише числа у діапазоні 1-99999</translation>
+    </message>
+    <message>
+        <source>Join the internal testing channel to get deepin latest updates.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

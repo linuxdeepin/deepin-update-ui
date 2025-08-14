@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="nl">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="nl">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -364,16 +366,16 @@
         <translation>Uitklappen</translation>
     </message>
     <message>
-        <source>Forum users at level 2 and above can join the beta test to receive the latest updates.</source>
-        <translation>Forumgebruikers met niveau 2 of hoger kunnen deelnemen aan de bètatest.</translation>
-    </message>
-    <message>
         <source>Collapse</source>
         <translation>Inklappen</translation>
     </message>
     <message>
         <source>Only numbers between 1-99999 are allowed</source>
         <translation>Alleen getallen tussen de 1 en 99999 zijn toegestaan</translation>
+    </message>
+    <message>
+        <source>Join the internal testing channel to get deepin latest updates.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ja">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="ja">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -364,16 +366,16 @@
         <translation>展開</translation>
     </message>
     <message>
-        <source>Forum users at level 2 and above can join the beta test to receive the latest updates.</source>
-        <translation>Level 2以上のフォーラムユーザーがベータテストに参加し最新のアップデートを受け取ることができます。</translation>
-    </message>
-    <message>
         <source>Collapse</source>
         <translation>折りたたむ</translation>
     </message>
     <message>
         <source>Only numbers between 1-99999 are allowed</source>
         <translation>1から99999の間で入力してください</translation>
+    </message>
+    <message>
+        <source>Join the internal testing channel to get deepin latest updates.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

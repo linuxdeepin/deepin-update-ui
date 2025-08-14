@@ -428,7 +428,7 @@ DccObject {
         name: "testingChannel"
         parentName: "updateSettingsPage"
         displayName: qsTr("Join Internal Testing Channel")
-        description: qsTr("Forum users at level 2 and above can join the beta test to receive the latest updates.")
+        description: qsTr("Join the internal testing channel to get deepin latest updates.")
         backgroundType: DccObject.Normal
         visible: advancedSetting.showDetails && dccData.model().isCommunitySystem()
         weight: 80

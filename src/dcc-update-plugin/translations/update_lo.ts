@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="lo">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="lo">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -364,16 +366,16 @@
         <translation>ພອງຕົວ</translation>
     </message>
     <message>
-        <source>Forum users at level 2 and above can join the beta test to receive the latest updates.</source>
-        <translation>ຜູ້ໃຊ້ເວທີປຶກສາຫາລືໃນລະດັບ 2 ແລະຂ້າງເທິງສາມາດເຂົ້າຮ່ວມທົດລອງເບຕ້າເພື່ອຮັບການອັບເດດຫຼ້າສຸດ.</translation>
-    </message>
-    <message>
         <source>Collapse</source>
         <translation>ຫຍໍ້</translation>
     </message>
     <message>
         <source>Only numbers between 1-99999 are allowed</source>
         <translation>ມີພຽງແຕ່ຕົວເລກລະຫວ່າງ 1-99999 ທີ່ຖືກອະນຸຍາດ</translation>
+    </message>
+    <message>
+        <source>Join the internal testing channel to get deepin latest updates.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -506,7 +508,7 @@
     </message>
     <message>
         <source>Backup failed</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Update installation successful</source>
