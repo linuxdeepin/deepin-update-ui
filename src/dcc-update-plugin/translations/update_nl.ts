@@ -373,7 +373,7 @@
     </message>
     <message>
         <source>Join the internal testing channel to get deepin latest updates.</source>
-        <translation type="unfinished"/>
+        <translation>Schakel het interne testkanaal in om de nieuwste Deepin-updates te ontvangen.</translation>
     </message>
 </context>
 <context>
