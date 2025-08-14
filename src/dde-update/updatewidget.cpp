@@ -437,6 +437,7 @@ void UpdateCompleteWidget::showSuccessFrame()
     });
 
     collapseLogWidget();
+    m_contentWidget->adjustSize();
 }
 
 void UpdateCompleteWidget::showErrorFrame(UpdateModel::UpdateError error)
