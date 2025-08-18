@@ -255,8 +255,12 @@ DccObject {
                 D.CheckBox {
                     id: inactiveDownloadCheckBox
                     Layout.leftMargin: 14
+                    Layout.fillWidth: true
+                    ToolTip {
+                        visible: inactiveDownloadCheckBox.width < inactiveDownloadCheckBox.implicitWidth && inactiveDownloadCheckBox.hovered
+                        text: inactiveDownloadCheckBox.text
+                    }
                     text: dccObj.displayName
-                    font.pixelSize: 12
                     checked: {
                         if (!dccData.model().autoDownloadUpdates)
                             return false
