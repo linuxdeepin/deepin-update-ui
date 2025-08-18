@@ -211,7 +211,7 @@ DccObject {
                 dialogloader.active = true
             }
 
-            updateTips: dccData.model().downloadFailedTips
+            updateTips: dccData.model().installFailedTips
             btnActions: [ qsTr("Continue Update") ]
 
             onBtnClicked: function(index, updateType) {
@@ -325,7 +325,7 @@ DccObject {
             updateListModels: dccData.model().downloadFailedListModel
             updateTitle: qsTr("Update download failed")
             btnActions: [ qsTr("Retry") ]
-            updateTips: dccData.model().installFailedTips
+            updateTips: dccData.model().downloadFailedTips
             busyState: dccData.model().upgradeWaiting
             updateListEnable: !dccData.model().upgradeWaiting
 

@@ -368,6 +368,10 @@ UpdateErrorType UpdateWorker::analyzeJobErrorMessage(const QString& jobDescripti
         return DpkgInterrupted;
     }
 
+    if (errorType.contains("dpkgError", Qt::CaseInsensitive)) {
+        return DpkgError;
+    }
+
     if (errorType.contains("platformUnreachable", Qt::CaseInsensitive)) {
         return PlatformUnreachable;
     }
@@ -488,7 +492,6 @@ void UpdateWorker::createCheckUpdateJob(const QString& jobPath)
 
     connect(m_checkUpdateJob, &UpdateJobDBusProxy::StatusChanged, this, &UpdateWorker::onCheckUpdateStatusChanged);
     connect(m_checkUpdateJob, &UpdateJobDBusProxy::ProgressChanged, m_model, &UpdateModel::setCheckUpdateProgress, Qt::QueuedConnection);
-
 
     m_checkUpdateJob->ProgressChanged(m_checkUpdateJob->progress());
     m_checkUpdateJob->StatusChanged(m_checkUpdateJob->status());
