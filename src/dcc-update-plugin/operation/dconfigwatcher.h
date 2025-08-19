@@ -8,7 +8,6 @@
 #include <QObject>
 #include <QHash>
 #include <QMap>
-#include <QLoggingCategory>
 
 #include <DConfig>
 

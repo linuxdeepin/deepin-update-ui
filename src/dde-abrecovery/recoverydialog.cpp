@@ -28,6 +28,9 @@
 #include <QPointer>
 #include <QDBusReply>
 #include <DIcon>
+#include <QLoggingCategory>
+
+Q_DECLARE_LOGGING_CATEGORY(logUpdateRecovery)
 
 DCORE_USE_NAMESPACE
 
@@ -36,13 +39,14 @@ Manage::Manage(QObject *parent)
     , m_updateDBusProxy(new UpdateDBusProxy(this))
     , m_recoveryWidget(nullptr)
 {
+    qCDebug(logUpdateRecovery) << "Initialize recovery manager";
     // 满足配置条件,再判断是否满足恢复的条件
     // TODO : 恢复条件判断
     if (true) {
-        qInfo() << "Recovery can restore, start recovery ...";
+        qCInfo(logUpdateRecovery) << "Recovery can restore, start recovery process";
         recoveryCanRestore();
     } else {
-        qInfo() << "No need to recovery, exit app";
+        qCInfo(logUpdateRecovery) << "No need to recovery, exit app";
         // 不满足配置条件,退出app
         exitApp(false);
     }
@@ -50,29 +54,34 @@ Manage::Manage(QObject *parent)
 
 void Manage::showDialog()
 {
-    if (m_recoveryWidget)
+    qCDebug(logUpdateRecovery) << "Show recovery dialog requested";
+    if (m_recoveryWidget) {
+        qCDebug(logUpdateRecovery) << "Recovery widget already exists, returning";
         return;
+    }
 
+    qCDebug(logUpdateRecovery) << "Creating new recovery widget";
     m_recoveryWidget = new RecoveryWidget();
     m_recoveryWidget->backupInfomation(DSysInfo::productVersion() , m_backupTime);
 
     connect(m_recoveryWidget, &RecoveryWidget::notifyButtonClicked, this, [ = ](bool state) {
         // 能够进入到弹框页面,说明是满足一切版本回退的条件
         // true: 确认 , 要恢复旧版本
-        qInfo() << "Notify button clicked, state: " << state;
+        qCInfo(logUpdateRecovery) << "Recovery widget button clicked, user choice:" << state;
         doConfirmRollback(state);
     });
 
 
     const QPointer<QScreen> primaryScreen = QGuiApplication::primaryScreen();
     if (primaryScreen) {
+        qCDebug(logUpdateRecovery) << "Primary screen found, setting up centering";
         auto moveRecoveryWidget2Center = [this, primaryScreen] {
-            qInfo() << "Move recovery widget to center of the primary screen";
+            qCDebug(logUpdateRecovery) << "Moving recovery widget to center of screen";
             if (!primaryScreen) {
-                qWarning() << "Primary screen is nulptr";
+                qCWarning(logUpdateRecovery) << "Primary screen is nullptr";
                 return;
             }
-            qInfo() << "Primary screen's geometry is " << primaryScreen->geometry();
+            qCDebug(logUpdateRecovery) << "Screen geometry:" << primaryScreen->geometry();
             QRect rect = m_recoveryWidget->geometry();
             rect.moveCenter(primaryScreen->geometry().center());
             m_recoveryWidget->move(rect.topLeft());
@@ -80,9 +89,10 @@ void Manage::showDialog()
         connect(primaryScreen, &QScreen::geometryChanged, this, moveRecoveryWidget2Center);
         moveRecoveryWidget2Center();
     } else {
-        qWarning() << "Primary screen is nullptr";
+        qCWarning(logUpdateRecovery) << "Primary screen is nullptr";
     }
 
+    qCDebug(logUpdateRecovery) << "Showing recovery widget";
     m_recoveryWidget->setVisible(true);
     m_recoveryWidget->activateWindow();
     m_recoveryWidget->show();
@@ -90,43 +100,50 @@ void Manage::showDialog()
 
 void Manage::recoveryCanRestore()
 {
+    qCDebug(logUpdateRecovery) << "Checking if recovery can restore";
     QDBusPendingCall call = m_updateDBusProxy->CanRollback();
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
     connect(watcher, &QDBusPendingCallWatcher::finished, [this, watcher] {
+        qCDebug(logUpdateRecovery) << "CanRollback DBus call finished";
         QDBusPendingReply<bool, QString> reply = *watcher;
         watcher->deleteLater();
         if (!reply.isError()) {
-            
+            qCDebug(logUpdateRecovery) << "CanRollback call successful";
             if (reply.count() >= 2) {
                 bool canRollback = reply.argumentAt<0>();
                 QString backupData = reply.argumentAt<1>();
                 
-                qInfo() << "Rollback status:" << canRollback << "Message:" << backupData;
+                qCInfo(logUpdateRecovery) << "Rollback status:" << canRollback << "backup data length:" << backupData.length();
                 
                 if (canRollback) {
+                    qCDebug(logUpdateRecovery) << "Parsing backup data JSON";
                     QJsonDocument doc = QJsonDocument::fromJson(backupData.toUtf8());
                     QJsonObject obj = doc.object();
                     qlonglong backupTime = obj["time"].toVariant().toLongLong();
                     bool noConfirm = obj["auto"].toBool();
                     
                     m_backupTime = QDateTime::fromSecsSinceEpoch(backupTime).toString("yyyy/MM/dd hh:mm:ss");
+                    qCDebug(logUpdateRecovery) << "Backup time:" << m_backupTime << "auto confirm:" << noConfirm << "show dialog";
+                    
                     showDialog();
 
                     // 存在auto=true,就不需要用户确认是否回退，直接执行回退流程
                     if (noConfirm) {
+                        qCInfo(logUpdateRecovery) << "Auto confirm enabled, starting rollback immediately" << "do confirm rollback";
                         doConfirmRollback(true);
                     }
 
                 } else {
+                    qCInfo(logUpdateRecovery) << "Cannot rollback, exiting application" << "exit app";
                     exitApp();
                 }
             } else {
                 // 不满足恢复条件,退出app
-                qInfo() << "If ab recovery interface can restore: false, exitApp...";
+                qCWarning(logUpdateRecovery) << "Invalid reply count:" << reply.count() << "expected >= 2" << "exit app";
                 exitApp();
             }
         } else {
-            qWarning() << "Call Recovery can restore error: " << reply.error().message();
+            qCWarning(logUpdateRecovery) << "CanRollback DBus call failed:" << reply.error().message() << "exit app";
             exitApp();
         }
     });
@@ -134,7 +151,9 @@ void Manage::recoveryCanRestore()
 
 void Manage::exitApp(bool isExec)
 {
+    qCDebug(logUpdateRecovery) << "Exit application requested, isExec:" << isExec;
     if (m_recoveryWidget) {
+        qCDebug(logUpdateRecovery) << "Cleaning up recovery widget";
         delete m_recoveryWidget;
         m_recoveryWidget = nullptr;
     }
@@ -148,13 +167,14 @@ void Manage::exitApp(bool isExec)
 
 void Manage::requestReboot()
 {
+    qCDebug(logUpdateRecovery) << "Requesting system reboot";
     QDBusPendingCall call = m_updateDBusProxy->Poweroff(false);
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
     connect(watcher, &QDBusPendingCallWatcher::finished, [this, call] {
         if (!call.isError()) {
-            qInfo() << "Login1 manager interface reboot success";
+            qCInfo(logUpdateRecovery) << "System reboot request successful";
         } else {
-            qWarning() << "Login1 mnager interface reboot error: " << call.error().message();
+            qCWarning(logUpdateRecovery) << "System reboot request failed:" << call.error().message();
         }
         exitApp();
     });
@@ -162,21 +182,24 @@ void Manage::requestReboot()
 
 void Manage::doConfirmRollback(bool confirm)
 {
+    qCDebug(logUpdateRecovery) << "Confirming rollback with user choice:" << confirm;
     if (confirm) {
+        qCDebug(logUpdateRecovery) << "User confirmed rollback, updating UI to waiting state";
         m_recoveryWidget->updateRestoringWaitUI();
         QDBusPendingCall call = m_updateDBusProxy->ConfirmRollback(true);
         QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
         connect(watcher, &QDBusPendingCallWatcher::finished, [this, watcher] {
             QDBusPendingReply<void> reply = *watcher;
             if (reply.isError()) {
-                qWarning() << "Confirm rollback error: " << reply.error().message();
+                qCWarning(logUpdateRecovery) << "Confirm rollback failed:" << reply.error().message();
             } else {
-                qInfo() << "Confirm rollback success";
+                qCInfo(logUpdateRecovery) << "Confirm rollback successful";
             }
             watcher->deleteLater();
             exitApp();
         });
     } else {
+        qCInfo(logUpdateRecovery) << "User declined rollback, requesting reboot";
         // false: 取消并重启
         m_updateDBusProxy->ConfirmRollback(false);
     }
@@ -190,6 +213,7 @@ RecoveryWidget::RecoveryWidget(QWidget *parent)
     , m_confirmBtn(nullptr)
     , m_rebootBtn(nullptr)
 {
+    qCDebug(logUpdateRecovery) << "Initialize RecoveryWidget dialog";
     this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
     this->setAttribute(Qt::WA_TranslucentBackground);
     this->setFixedSize(490, 220);
@@ -197,34 +221,44 @@ RecoveryWidget::RecoveryWidget(QWidget *parent)
 
 RecoveryWidget::~RecoveryWidget()
 {
-
+    qCDebug(logUpdateRecovery) << "Destroying RecoveryWidget";
 }
 
 void RecoveryWidget::backupInfomation(QString version, QString time)
 {
+    qCDebug(logUpdateRecovery) << "Setting backup information - version:" << version << "time:" << time;
     if (m_backupVersion != version) {
+        qCDebug(logUpdateRecovery) << "Backup version changed from" << m_backupVersion << "to" << version;
         m_backupVersion = version;
     }
 
     if (m_backupTime != time) {
+        qCDebug(logUpdateRecovery) << "Backup time changed from" << m_backupTime << "to" << time;
         m_backupTime = time;
     }
 
+    qCDebug(logUpdateRecovery) << "Initializing UI with backup information";
     initUI();
 }
 
 void RecoveryWidget::updateRestoringWaitUI()
 {
-    if (isVisible())
+    qCDebug(logUpdateRecovery) << "Updating to restoring wait UI";
+    if (isVisible()) {
+        qCDebug(logUpdateRecovery) << "Hiding current recovery widget";
         setVisible(false);
+    }
 
+    qCDebug(logUpdateRecovery) << "Creating and showing background wait widget";
     m_restoreWidget = new BackgroundWidget(true);
     m_restoreWidget->show();
 }
 
 void RecoveryWidget::destroyRestoringWaitUI()
 {
+    qCDebug(logUpdateRecovery) << "Destroying restoring wait UI";
     if (m_restoreWidget) {
+        qCDebug(logUpdateRecovery) << "Hiding and deleting restore widget";
         m_restoreWidget->hide();
         m_restoreWidget->deleteLater();
     }
@@ -232,10 +266,13 @@ void RecoveryWidget::destroyRestoringWaitUI()
 
 void RecoveryWidget::updateRestoringFailedUI()
 {
+    qCDebug(logUpdateRecovery) << "Updating to restoring failed UI";
     removeContent();
 
-    if (!isVisible())
+    if (!isVisible()) {
+        qCDebug(logUpdateRecovery) << "Making recovery widget visible for error display";
         setVisible(true);
+    }
 
     QVBoxLayout *mainLayout = new QVBoxLayout();
     mainLayout->setContentsMargins(QMargins(12, 12, 12, 12));
@@ -262,6 +299,7 @@ void RecoveryWidget::updateRestoringFailedUI()
     rebootBtn->setMinimumHeight(45);
     DFontSizeManager::instance()->bind(rebootBtn, DFontSizeManager::T4, QFont::Normal);
     connect(rebootBtn, &QPushButton::clicked, this, [ this ] {
+        qCDebug(logUpdateRecovery) << "Reboot button clicked in failed UI";
         Q_EMIT notifyButtonClicked(0);
     });
     btnLayout->addWidget(rebootBtn, Qt::AlignCenter);
@@ -274,6 +312,7 @@ void RecoveryWidget::updateRestoringFailedUI()
 
 void RecoveryWidget::initUI()
 {
+    qCDebug(logUpdateRecovery) << "Initializing recovery widget UI";
     QVBoxLayout *mainLayout = new QVBoxLayout();
     mainLayout->setContentsMargins(QMargins(12, 12, 12, 12));
 
@@ -292,14 +331,14 @@ void RecoveryWidget::initUI()
     QJsonParseError json_err;
     QJsonDocument upgradeStatusMessage = QJsonDocument::fromJson(upgradeStatus.toUtf8(), &json_err);
     if (json_err.error != QJsonParseError::NoError) {
-        qWarning() << "org.deepin.dde.lastore upgrade-status, json parse error: " << json_err.errorString();
+        qCWarning(logUpdateRecovery) << "org.deepin.dde.lastore upgrade-status, json parse error: " << json_err.errorString();
         reasonMsg = tr("Updates failed.");
     } else {
         const QJsonObject &object = upgradeStatusMessage.object();
         const QString status = object.value("Status").toString();
         const QString reasonCode = object.value("ReasonCode").toString();
 
-        qInfo() << "org.deepin.dde.lastore, upgrade-status: " << status << ", reason code: " << reasonCode;
+        qCInfo(logUpdateRecovery) << "org.deepin.dde.lastore, upgrade-status: " << status << ", reason code: " << reasonCode;
 
         // running, 代表在更新过程中被中断
         if (status == "running") {
@@ -357,6 +396,7 @@ void RecoveryWidget::initUI()
     DFontSizeManager::instance()->bind(m_confirmBtn, DFontSizeManager::T4, QFont::Normal);
     btnLayout->addWidget(m_confirmBtn, Qt::AlignCenter);
     connect(m_confirmBtn, &DSuggestButton::clicked, this, [ this ] {
+        qCDebug(logUpdateRecovery) << "Confirm button clicked in recovery dialog";
         Q_EMIT notifyButtonClicked(1);
     });
     
@@ -380,6 +420,7 @@ void RecoveryWidget::keyPressEvent(QKeyEvent *e)
 {
     switch (e->key()) {
     case Qt::Key_Escape:
+        qCDebug(logUpdateRecovery) << "Escape key pressed, ignoring";
         break;
     default:
         QWidget::keyPressEvent(e);
@@ -399,10 +440,12 @@ void RecoveryWidget::paintEvent(QPaintEvent *event)
 
 void RecoveryWidget::removeContent()
 {
+    qCDebug(logUpdateRecovery) << "Removing all content from recovery widget";
     // 删除所有控件和单层子布局
     QLayout *layout = this->layout();
 
     if (!layout) {
+        qCDebug(logUpdateRecovery) << "No layout to remove";
         return;
     }
 
@@ -419,6 +462,7 @@ void RecoveryWidget::removeContent()
         item = nullptr;
     }
 
+    qCDebug(logUpdateRecovery) << "Content removal completed, layout deleted";
     delete layout;
     layout = nullptr;
 }
@@ -428,6 +472,7 @@ void RecoveryWidget::focusInEvent(QFocusEvent *event)
     QWidget::focusInEvent(event);
     
     if (m_confirmBtn && event->reason() != Qt::TabFocusReason && event->reason() != Qt::BacktabFocusReason) {
+        qCDebug(logUpdateRecovery) << "Setting focus to confirm button";
         m_confirmBtn->setFocus();
     }
 }

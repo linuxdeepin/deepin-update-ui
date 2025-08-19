@@ -15,6 +15,9 @@
 #include <QEvent>
 #include <QApplication>
 #include <QKeyEvent>
+#include <QLoggingCategory>
+
+Q_DECLARE_LOGGING_CATEGORY(logUpdateModal)
 
 DWIDGET_USE_NAMESPACE
 DCORE_USE_NAMESPACE
@@ -28,6 +31,7 @@ CheckProgressWidget::CheckProgressWidget(QWidget *parent)
     , m_waterProgress(nullptr)
     , m_progressText(nullptr)
 {
+    qCDebug(logUpdateModal) << "Initialize CheckProgressWidget";
     auto palette = m_tip->palette();
     palette.setColor(QPalette::WindowText, Qt::white);
     m_tip->setPalette(palette);
@@ -125,7 +129,7 @@ void CheckProgressWidget::setValue(double value)
     if (iProgress > 100 || iProgress < 0 || iProgress <= (m_progressBar ? m_progressBar->value() : m_waterProgress->value()))
         return;
 
-    qInfo() << "Check system progress value: " << iProgress;
+    qCDebug(logUpdateModal) << "Setting progress value:" << value << "->" << iProgress;
     iProgress = qMin(iProgress, 99); // 进度条最大值设置为 99，避免进度条卡在 100，体验不好。而且 waterProgress 在 100 的时候不显示 “%”
     m_progressBar ?  m_progressBar->setValue(iProgress) : m_waterProgress->setValue(iProgress);
     if (m_progressText)
@@ -136,6 +140,7 @@ SuccessFrame::SuccessFrame(QWidget *parent)
     : QWidget(parent)
     , m_enterBtn(new BlurTransparentButton(tr("Go to Desktop"), this))
 {
+    qCDebug(logUpdateModal) << "Initialize SuccessFrame with desktop button";
     QLabel *successTip = new QLabel(tr("Welcome, system updated successfully"));
     DFontSizeManager::instance()->bind(successTip, DFontSizeManager::T1, QFont::Normal);
     QLabel *currentVersion = new QLabel(tr("Current Edition:") + " " + getSystemVersionAndEdition());
@@ -170,6 +175,7 @@ bool SuccessFrame::eventFilter(QObject *o, QEvent *e)
 
     if (auto keyEvent = dynamic_cast<QKeyEvent *>(e)) {
         if (keyEvent->key() == Qt::Key_Return || keyEvent->key() == Qt::Key_Enter) {
+            qCDebug(logUpdateModal) << "Enter key pressed, triggering button click";
             Q_EMIT m_enterBtn->clicked();
         }
     }
@@ -178,15 +184,20 @@ bool SuccessFrame::eventFilter(QObject *o, QEvent *e)
 
 QString SuccessFrame::getSystemVersionAndEdition()
 {
+    qCDebug(logUpdateModal) << "Getting system version and edition";
     QString minorVersion, editionName;
     if (DSysInfo::uosType() == DSysInfo::UosServer || DSysInfo::uosEditionType() == DSysInfo::UosEuler || DSysInfo::isDeepin()) {
+        qCDebug(logUpdateModal) << "Using UOS/Deepin version info";
         minorVersion = DSysInfo::minorVersion();
         editionName = DSysInfo::uosEditionName();
     } else {
+        qCDebug(logUpdateModal) << "Using product version info";
         minorVersion = DSysInfo::productVersion();
         editionName = DSysInfo::productTypeString();
     }
-    return QString(editionName + " " + minorVersion);
+    const auto result = QString(editionName + " " + minorVersion);
+    qCDebug(logUpdateModal) << "System version:" << result;
+    return result;
 }
 
 ErrorFrame::ErrorFrame(QWidget *parent)
@@ -198,6 +209,7 @@ ErrorFrame::ErrorFrame(QWidget *parent)
     , m_mainLayout(nullptr)
     , m_buttonSpacer(new QSpacerItem(0, 80))
 {
+    qCDebug(logUpdateModal) << "Initialize ErrorFrame with error dialog";
     QPalette palette = this->palette();
     palette.setColor(QPalette::WindowText, Qt::white);
     setPalette(palette);
@@ -235,11 +247,13 @@ ErrorFrame::ErrorFrame(QWidget *parent)
 
 void ErrorFrame::createButtons(const QList<UpdateModel::UpdateAction> &actions)
 {
+    qCDebug(logUpdateModal) << "Creating error dialog buttons, count:" << actions.size();
     qDeleteAll(m_actionButtons);
     m_actionButtons.clear();
 
     m_checkedButton = nullptr;
     for (auto action : actions) {
+        qCDebug(logUpdateModal) << "Creating button for action:" << action;
         auto button = new QPushButton(UpdateModel::updateActionText(action), this);
         button->setFixedSize(240, 48);
         m_mainLayout->addWidget(button, 0, Qt::AlignHCenter);
@@ -271,6 +285,7 @@ void ErrorFrame::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Up:
     case Qt::Key_Down:
     case Qt::Key_Tab: {
+        qCDebug(logUpdateModal) << "Navigation key pressed, switching button selection";
         if (m_actionButtons.size() > 1) {
             int index = 0;
             if (m_checkedButton) {
@@ -289,10 +304,12 @@ void ErrorFrame::keyPressEvent(QKeyEvent *event)
         break;
     }
     case Qt::Key_Return:
+        qCDebug(logUpdateModal) << "Return key pressed, clicking checked button";
         if(m_checkedButton)
             m_checkedButton->clicked();
         break;
     case Qt::Key_Enter:
+        qCDebug(logUpdateModal) << "Enter key pressed, clicking checked button";
         if (m_checkedButton)
             m_checkedButton->clicked();
         break;
@@ -305,19 +322,22 @@ CheckSystemWidget::CheckSystemWidget(QWidget *parent)
     : QWidget(parent)
     , m_checkProgressWidget(new CheckProgressWidget(this))
 {
+    qCDebug(logUpdateModal) << "Initialize CheckSystemWidget";
     initUI();
     initConnections();
 }
 
 CheckSystemWidget::~CheckSystemWidget()
 {
-
+    qCDebug(logUpdateModal) << "Destroying CheckSystemWidget";
 }
 
 CheckSystemWidget* CheckSystemWidget::instance()
 {
+    qCDebug(logUpdateModal) << "Getting CheckSystemWidget instance";
     static CheckSystemWidget* checkSystemWidget = nullptr;
     if (!checkSystemWidget) {
+        qCDebug(logUpdateModal) << "Creating new CheckSystemWidget instance";
         checkSystemWidget = new CheckSystemWidget(nullptr);
     }
     return checkSystemWidget;
@@ -325,6 +345,7 @@ CheckSystemWidget* CheckSystemWidget::instance()
 
 void CheckSystemWidget::initUI()
 {
+    qCDebug(logUpdateModal) << "Initializing CheckSystemWidget UI";
     auto mainLayout = new  QVBoxLayout(this);
     mainLayout->setSpacing(0);
     mainLayout->addWidget(m_checkProgressWidget);
@@ -333,6 +354,7 @@ void CheckSystemWidget::initUI()
 
 void CheckSystemWidget::initConnections()
 {
+    qCDebug(logUpdateModal) << "Initializing CheckSystemWidget connections";
     connect(UpdateModel::instance(), &UpdateModel::checkStatusChanged, this, [this](UpdateModel::CheckStatus status) {
         if (UpdateModel::CheckFailed == status) {
             m_checkProgressWidget->setVisible(false);

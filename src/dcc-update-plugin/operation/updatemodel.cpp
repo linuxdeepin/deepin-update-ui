@@ -8,10 +8,11 @@
 #include "utils.h"
 
 #include <DSysInfo>
+#include <QLoggingCategory>
 
 using namespace dcc::update::common;
 
-Q_LOGGING_CATEGORY(DCC_UPDATE_MODEL, "dcc-update-model")
+Q_DECLARE_LOGGING_CATEGORY(logDccUpdatePlugin)
 
 DCORE_USE_NAMESPACE
 static const QMap<UpdatesStatus, ControlPanelType> ControlPanelTypeMapping = {
@@ -88,6 +89,7 @@ UpdateModel::UpdateModel(QObject* parent)
     , m_p2pUpdateEnabled(false)
     , m_historyModel(new UpdateHistoryModel(this))
 {
+    qCDebug(logDccUpdatePlugin) << "Initialize UpdateModel";
     qRegisterMetaType<UpdatesStatus>("UpdatesStatus");
     qRegisterMetaType<TestingChannelStatus>("TestingChannelStatus");
     qRegisterMetaType<UpdateType>("UpdateType");
@@ -95,12 +97,13 @@ UpdateModel::UpdateModel(QObject* parent)
 
 UpdateModel::~UpdateModel()
 {
+    qCDebug(logDccUpdatePlugin) << "Destroying UpdateModel, cleaning up update infos";
     qDeleteAll(m_allUpdateInfos.values());
 }
 
 void UpdateModel::setLastoreDaemonStatus(int status)
 {
-    qCDebug(DCC_UPDATE_MODEL) << "lastore daemon status:" << status;
+    qCDebug(logDccUpdatePlugin) << "lastore daemon status:" << status;
     m_lastoreDaemonStatus = status;
 
     if (LastoreDaemonDConfigStatusHelper::isUpdateDisabled(m_lastoreDaemonStatus)) {
@@ -112,6 +115,7 @@ void UpdateModel::setLastoreDaemonStatus(int status)
 
 void UpdateModel::setUpdateProhibited(bool prohibited)
 {
+    qCDebug(logDccUpdatePlugin) << "Set update prohibited:" << prohibited;
     if (m_updateProhibited == prohibited) {
         return;
     }
@@ -123,7 +127,7 @@ void UpdateModel::setUpdateProhibited(bool prohibited)
 
 void UpdateModel::setSystemActivation(bool systemActivation)
 {
-    qCInfo(DCC_UPDATE_MODEL) << "System activation:" << systemActivation;
+    qCInfo(logDccUpdatePlugin) << "System activation:" << systemActivation;
     if (m_systemActivation == systemActivation) {
         return;
     }
@@ -135,23 +139,32 @@ void UpdateModel::setSystemActivation(bool systemActivation)
 
 void UpdateModel::refreshIsUpdateDisabled()
 {
+    qCDebug(logDccUpdatePlugin) << "Refreshing update disabled state";
+    qCDebug(logDccUpdatePlugin) << "System activation:" << m_systemActivation
+                              << "Immutable recovery:" << m_immutableAutoRecovery
+                              << "Update prohibited:" << m_updateProhibited
+                              << "Mode disabled:" << updateModeDisabled();
     if (!m_systemActivation) {
         setIsUpdateDisabled(true);
         setUpdateDisabledIcon("update_no_active");
         setUpdateDisabledTips(tr("Your system is not activated, and it failed to connect to update services"));
     } else if (m_immutableAutoRecovery) {
+        qCDebug(logDccUpdatePlugin) << "Update disabled due to immutable auto recovery";
         setIsUpdateDisabled(true);
         setUpdateDisabledIcon("update_prohibit");
         setUpdateDisabledTips(tr("The system has enabled auto recovery function and does not support updates. If you have any questions, please contact the enterprise administrator"));
     } else if (m_updateProhibited) {
+        qCDebug(logDccUpdatePlugin) << "Update disabled due to update prohibited";
         setIsUpdateDisabled(true);
         setUpdateDisabledIcon("update_prohibit");
         setUpdateDisabledTips(tr("The system updates are disabled. Please contact your administrator for help"));
     } else if (updateModeDisabled()) {
+        qCDebug(logDccUpdatePlugin) << "Update disabled due to update mode disabled";
         setIsUpdateDisabled(true);
         setUpdateDisabledIcon("update_nice_service");
         setUpdateDisabledTips(tr("Turn on the switches under Update Content to get better experiences"));
     } else {
+        qCDebug(logDccUpdatePlugin) << "Update enabled";
         setIsUpdateDisabled(false);
         setUpdateDisabledIcon("");
         setUpdateDisabledTips("");
@@ -160,6 +173,7 @@ void UpdateModel::refreshIsUpdateDisabled()
 
 void UpdateModel::setIsUpdateDisabled(bool disabled)
 {
+    qCDebug(logDccUpdatePlugin) << "Set update disabled:" << disabled;
     if (m_isUpdateDisabled == disabled)
         return;
 
@@ -169,8 +183,10 @@ void UpdateModel::setIsUpdateDisabled(bool disabled)
 
 void UpdateModel::setUpdateDisabledIcon(const QString &icon)
 {
-    if (m_updateDisabledIcon == icon)
+    qCDebug(logDccUpdatePlugin) << "Set update disabled icon:" << icon;
+    if (m_updateDisabledIcon == icon) {
         return;
+    }
 
     m_updateDisabledIcon = icon;
     Q_EMIT updateDisabledIconChanged();
@@ -178,8 +194,10 @@ void UpdateModel::setUpdateDisabledIcon(const QString &icon)
 
 void UpdateModel::setUpdateDisabledTips(const QString &tips)
 {
-    if (m_updateDisabledTips == tips)
+    qCDebug(logDccUpdatePlugin) << "set update disabled tips:" << tips;
+    if (m_updateDisabledTips == tips) {
         return;
+    }
 
     m_updateDisabledTips = tips;
     Q_EMIT updateDisabledTipsChanged();
@@ -187,6 +205,7 @@ void UpdateModel::setUpdateDisabledTips(const QString &tips)
 
 void UpdateModel::setBatterIsOK(bool ok)
 {
+    qCDebug(logDccUpdatePlugin) << "Set battery OK:" << ok;
     if (m_batterIsOK == ok) {
         return;
     }
@@ -197,12 +216,14 @@ void UpdateModel::setBatterIsOK(bool ok)
 
 void UpdateModel::setLastStatus(const UpdatesStatus& status, int line, int types)
 {
-    qCInfo(DCC_UPDATE_MODEL) << "Status: ======== " << status << ", types:" << types << ", line:" << line;
+    qCInfo(logDccUpdatePlugin) << "Status: " << status << ", types:" << types << ", line:" << line;
     if (status == UpgradeWaiting || status == DownloadWaiting) {
+        qCDebug(logDccUpdatePlugin) << "Adding waiting status to map:" << status;
         m_waitingStatusMap.insert(status, types);
     }
 
     if (m_lastStatus != status) {
+        qCDebug(logDccUpdatePlugin) << "Status changed from" << m_lastStatus << "to" << status;
         m_lastStatus = status;
         Q_EMIT lastStatusChanged(m_lastStatus);
     }
@@ -210,9 +231,10 @@ void UpdateModel::setLastStatus(const UpdatesStatus& status, int line, int types
 
 void UpdateModel::setImmutableAutoRecovery(bool value)
 {
-    qCInfo(DCC_UPDATE_MODEL) << "Set immutable auto recovery: " << value;
-    if (m_immutableAutoRecovery == value)
+    qCInfo(logDccUpdatePlugin) << "Set immutable auto recovery: " << value;
+    if (m_immutableAutoRecovery == value) {
         return;
+    }
 
     m_immutableAutoRecovery = value;
     Q_EMIT immutableAutoRecoveryChanged(value);
@@ -221,8 +243,10 @@ void UpdateModel::setImmutableAutoRecovery(bool value)
 
 void UpdateModel::setShowCheckUpdate(bool value)
 {
-    if (m_showCheckUpdate == value)
+    qCDebug(logDccUpdatePlugin) << "Set show check update:" << value;
+    if (m_showCheckUpdate == value) {
         return;
+    }
 
     m_showCheckUpdate = value;
     emit showCheckUpdateChanged();
@@ -230,14 +254,17 @@ void UpdateModel::setShowCheckUpdate(bool value)
 
 void UpdateModel::setCheckUpdateIcon(const QString &newCheckUpdateIcon)
 {
-    if (m_checkUpdateIcon == newCheckUpdateIcon)
+    qCDebug(logDccUpdatePlugin) << "Set check update icon:" << newCheckUpdateIcon;
+    if (m_checkUpdateIcon == newCheckUpdateIcon) {
         return;
+    }
     m_checkUpdateIcon = newCheckUpdateIcon;
     emit checkUpdateIconChanged();
 }
 
 void UpdateModel::setCheckUpdateProgress(double updateProgress)
 {
+    qCDebug(logDccUpdatePlugin) << "Set check update progress:" << updateProgress;
     if (!qFuzzyCompare(m_checkUpdateProgress, updateProgress)) {
         m_checkUpdateProgress = updateProgress;
         Q_EMIT checkUpdateProgressChanged();
@@ -246,6 +273,7 @@ void UpdateModel::setCheckUpdateProgress(double updateProgress)
 
 void UpdateModel::setCheckUpdateStatus(UpdatesStatus newCheckUpdateStatus)
 {
+    qCDebug(logDccUpdatePlugin) << "Set check update status:" << newCheckUpdateStatus;
     if (m_checkUpdateStatus == newCheckUpdateStatus)
         return;
 
@@ -257,23 +285,28 @@ void UpdateModel::setCheckUpdateStatus(UpdatesStatus newCheckUpdateStatus)
 
 void UpdateModel::updateCheckUpdateUi()
 {
+    qCDebug(logDccUpdatePlugin) << "Updating check update UI for status:" << m_checkUpdateStatus;
     switch (m_checkUpdateStatus) {
         case Checking:
+            qCDebug(logDccUpdatePlugin) << "Setting UI for Checking status";
             setCheckUpdateErrTips(tr("Checking for updates, please wait…"));
             setCheckUpdateIcon("updating");
             setCheckBtnText("");
             break;
         case CheckingFailed:
+            qCDebug(logDccUpdatePlugin) << "Setting UI for CheckingFailed status";
             setCheckUpdateErrTips(errorToText(lastError(CheckingFailed)));
             setCheckUpdateIcon("update_failure");
             setCheckBtnText(tr("Check Again"));
             break;
         case Updated:
+            qCDebug(logDccUpdatePlugin) << "Setting UI for Updated status";
             setCheckBtnText(tr("Check Again"));
             setCheckUpdateErrTips(tr("Your system is up to date"));
             setCheckUpdateIcon("update_abreast_of_time");
             break;
         default:
+            qCDebug(logDccUpdatePlugin) << "Unknown status in switch, clearing text";
             setCheckBtnText(tr(""));
             return;
     }
@@ -281,8 +314,10 @@ void UpdateModel::updateCheckUpdateUi()
 
 void UpdateModel::setCheckUpdateErrTips(const QString &newCheckUpdateErrTips)
 {
-    if (m_checkUpdateErrTips == newCheckUpdateErrTips)
+    qCDebug(logDccUpdatePlugin) << "Setting check update error tips:" << newCheckUpdateErrTips;
+    if (m_checkUpdateErrTips == newCheckUpdateErrTips) {
         return;
+    }
 
     m_checkUpdateErrTips = newCheckUpdateErrTips;
     emit checkUpdateErrTipsChanged();
@@ -290,8 +325,10 @@ void UpdateModel::setCheckUpdateErrTips(const QString &newCheckUpdateErrTips)
 
 void UpdateModel::setCheckBtnText(const QString &newCheckBtnText)
 {
-    if (m_checkBtnText == newCheckBtnText)
+    qCDebug(logDccUpdatePlugin) << "Setting check button text:" << newCheckBtnText;
+    if (m_checkBtnText == newCheckBtnText) {
         return;
+    }
 
     m_checkBtnText = newCheckBtnText;
     emit checkBtnTextChanged();
@@ -299,16 +336,17 @@ void UpdateModel::setCheckBtnText(const QString &newCheckBtnText)
 
 void UpdateModel::setLastCheckUpdateTime(const QString& lastTime)
 {
-    qCInfo(DCC_UPDATE_MODEL) << "Last check time:" << lastTime;
+    qCInfo(logDccUpdatePlugin) << "Last check time:" << lastTime;
     m_lastCheckUpdateTime = lastTime.left(QString("0000-00-00 00:00:00").size());
     emit lastCheckUpdateTimeChanged();
 }
 
 void UpdateModel::setCheckUpdateMode(quint64 value)
 {
-    qCInfo(DCC_UPDATE_MODEL) << "Set check update mode: " << value;
-    if (m_checkUpdateMode == value)
+    qCInfo(logDccUpdatePlugin) << "Set check update mode: " << value;
+    if (m_checkUpdateMode == value) {
         return;
+    }
 
     m_checkUpdateMode = value;
     Q_EMIT checkUpdateModeChanged(value);
@@ -320,6 +358,7 @@ void UpdateModel::setCheckUpdateMode(quint64 value)
 
 void UpdateModel::refreshUpdateItemsChecked()
 {
+    qCDebug(logDccUpdatePlugin) << "Refreshing update items checked state, total items:" << m_allUpdateInfos.size();
     for (const auto item : m_allUpdateInfos.values()) {
         item->setIsChecked(m_checkUpdateMode & item->updateType());
     }
@@ -327,8 +366,10 @@ void UpdateModel::refreshUpdateItemsChecked()
 
 void UpdateModel::setPreUpdatelistModel(UpdateListModel *newPreUpdatelistModel)
 {
-    if (m_preUpdatelistModel == newPreUpdatelistModel)
+    qCDebug(logDccUpdatePlugin) << "Setting pre-update list model";
+    if (m_preUpdatelistModel == newPreUpdatelistModel) {
         return;
+    }
 
     m_preUpdatelistModel = newPreUpdatelistModel;
     emit preUpdatelistModelChanged();
@@ -336,8 +377,10 @@ void UpdateModel::setPreUpdatelistModel(UpdateListModel *newPreUpdatelistModel)
 
 void UpdateModel::setDownloadinglistModel(UpdateListModel *newDownloadinglistModel)
 {
-    if (m_downloadinglistModel == newDownloadinglistModel)
+    qCDebug(logDccUpdatePlugin) << "Setting downloading list model";
+    if (m_downloadinglistModel == newDownloadinglistModel) {
         return;
+    }
 
     m_downloadinglistModel = newDownloadinglistModel;
     emit downloadinglistModelChanged();
@@ -345,8 +388,10 @@ void UpdateModel::setDownloadinglistModel(UpdateListModel *newDownloadinglistMod
 
 void UpdateModel::setDownloadFailedListModel(UpdateListModel *newDownloadFailedListModel)
 {
-    if (m_downloadFailedListModel == newDownloadFailedListModel)
+    qCDebug(logDccUpdatePlugin) << "Setting download failed list model";
+    if (m_downloadFailedListModel == newDownloadFailedListModel) {
         return;
+    }
 
     m_downloadFailedListModel = newDownloadFailedListModel;
     emit downloadFailedListModelChanged();
@@ -354,8 +399,10 @@ void UpdateModel::setDownloadFailedListModel(UpdateListModel *newDownloadFailedL
 
 void UpdateModel::setPreInstallListModel(UpdateListModel *newPreInstallListModel)
 {
-    if (m_preInstallListModel == newPreInstallListModel)
+    qCDebug(logDccUpdatePlugin) << "Setting pre-install list model";
+    if (m_preInstallListModel == newPreInstallListModel) {
         return;
+    }
 
     m_preInstallListModel = newPreInstallListModel;
     emit preInstallListModelChanged();
@@ -363,8 +410,10 @@ void UpdateModel::setPreInstallListModel(UpdateListModel *newPreInstallListModel
 
 void UpdateModel::setInstallinglistModel(UpdateListModel *newInstallinglistModel)
 {
-    if (m_installinglistModel == newInstallinglistModel)
+    qCDebug(logDccUpdatePlugin) << "Setting installing list model";
+    if (m_installinglistModel == newInstallinglistModel) {
         return;
+    }
 
     m_installinglistModel = newInstallinglistModel;
     emit installinglistModelChanged();
@@ -372,8 +421,10 @@ void UpdateModel::setInstallinglistModel(UpdateListModel *newInstallinglistModel
 
 void UpdateModel::setInstallCompleteListModel(UpdateListModel *newInstallCompleteListModel)
 {
-    if (m_installCompleteListModel == newInstallCompleteListModel)
+    qCDebug(logDccUpdatePlugin) << "Setting install complete list model";
+    if (m_installCompleteListModel == newInstallCompleteListModel) {
         return;
+    }
 
     m_installCompleteListModel = newInstallCompleteListModel;
     emit installCompleteListModelChanged();
@@ -381,8 +432,10 @@ void UpdateModel::setInstallCompleteListModel(UpdateListModel *newInstallComplet
 
 void UpdateModel::setInstallFailedListModel(UpdateListModel *newInstallFailedListModel)
 {
-    if (m_installFailedListModel == newInstallFailedListModel)
+    qCDebug(logDccUpdatePlugin) << "Setting install failed list model";
+    if (m_installFailedListModel == newInstallFailedListModel) {
         return;
+    }
 
     m_installFailedListModel = newInstallFailedListModel;
     emit installFailedListModelChanged();
@@ -390,8 +443,10 @@ void UpdateModel::setInstallFailedListModel(UpdateListModel *newInstallFailedLis
 
 void UpdateModel::setBackingUpListModel(UpdateListModel *newBackingUpListModel)
 {
-    if (m_backingUpListModel == newBackingUpListModel)
+    qCDebug(logDccUpdatePlugin) << "Setting backing up list model";
+    if (m_backingUpListModel == newBackingUpListModel) {
         return;
+    }
 
     m_backingUpListModel = newBackingUpListModel;
     emit backingUpListModelChanged();
@@ -399,8 +454,10 @@ void UpdateModel::setBackingUpListModel(UpdateListModel *newBackingUpListModel)
 
 void UpdateModel::setBackupFailedListModel(UpdateListModel *newBackupFailedListModel)
 {
-    if (m_backupFailedListModel == newBackupFailedListModel)
+    qCDebug(logDccUpdatePlugin) << "Setting backup failed list model";
+    if (m_backupFailedListModel == newBackupFailedListModel) {
         return;
+    }
 
     m_backupFailedListModel = newBackupFailedListModel;
     emit backupFailedListModelChanged();
@@ -408,8 +465,10 @@ void UpdateModel::setBackupFailedListModel(UpdateListModel *newBackupFailedListM
 
 void UpdateModel::setDownloadWaiting(bool waiting)
 {
-    if (m_downloadWaiting == waiting)
+    qCDebug(logDccUpdatePlugin) << "Setting download waiting:" << waiting << "old value: " << m_downloadWaiting;
+    if (m_downloadWaiting == waiting) {
         return;
+    }
 
     m_downloadWaiting = waiting;
     Q_EMIT downloadWaitingChanged(waiting);
@@ -417,8 +476,10 @@ void UpdateModel::setDownloadWaiting(bool waiting)
 
 void UpdateModel::setDownloadPaused(bool paused)
 {
-    if (m_downloadPaused == paused)
+    qCDebug(logDccUpdatePlugin) << "Setting download paused:" << paused << "old value: " << m_downloadPaused;
+    if (m_downloadPaused == paused) {
         return;
+    }
 
     m_downloadPaused = paused;
     Q_EMIT downloadPausedChanged(paused);
@@ -426,8 +487,10 @@ void UpdateModel::setDownloadPaused(bool paused)
 
 void UpdateModel::setUpgradeWaiting(bool waiting)
 {
-    if (m_upgradeWaiting == waiting)
+    qCDebug(logDccUpdatePlugin) << "Setting upgrade waiting:" << waiting << "old value: " << m_upgradeWaiting;
+    if (m_upgradeWaiting == waiting) {
         return;
+    }
 
     m_upgradeWaiting = waiting;
     Q_EMIT upgradeWaitingChanged(waiting);
@@ -435,8 +498,10 @@ void UpdateModel::setUpgradeWaiting(bool waiting)
 
 void UpdateModel::setDownloadProgress(double downloadProgress)
 {
-    if (qFuzzyCompare(downloadProgress, m_downloadProgress))
+    qCDebug(logDccUpdatePlugin) << "Setting download progress:" << downloadProgress << "old value: " << m_downloadProgress;
+    if (qFuzzyCompare(downloadProgress, m_downloadProgress)) {
         return;
+    }
         
     m_downloadProgress = downloadProgress;
     Q_EMIT downloadProgressChanged(downloadProgress);
@@ -444,8 +509,10 @@ void UpdateModel::setDownloadProgress(double downloadProgress)
 
 void UpdateModel::setDistUpgradeProgress(double progress)
 {
-    if (qFuzzyCompare(progress, m_distUpgradeProgress))
+    qCDebug(logDccUpdatePlugin) << "Setting dist upgrade progress:" << progress << "old value: " << m_distUpgradeProgress;
+    if (qFuzzyCompare(progress, m_distUpgradeProgress)) {
         return;
+    }
 
     m_distUpgradeProgress = progress;
     Q_EMIT distUpgradeProgressChanged(m_distUpgradeProgress);
@@ -453,8 +520,10 @@ void UpdateModel::setDistUpgradeProgress(double progress)
 
 void UpdateModel::setBackupProgress(double progress)
 {
-    if (qFuzzyCompare(progress, m_backupProgress))
+    qCDebug(logDccUpdatePlugin) << "Setting backup progress:" << progress << "old value: " << m_backupProgress;
+    if (qFuzzyCompare(progress, m_backupProgress)) {
         return;
+    }
 
     m_backupProgress = progress;
     Q_EMIT backupProgressChanged(m_backupProgress);
@@ -462,8 +531,10 @@ void UpdateModel::setBackupProgress(double progress)
 
 void UpdateModel::setPreUpdateTips(const QString &newPreUpdateTips)
 {
-    if (m_preUpdateTips == newPreUpdateTips)
+    qCDebug(logDccUpdatePlugin) << "Setting pre-update tips:" << newPreUpdateTips << "old value: " << m_preUpdateTips;
+    if (m_preUpdateTips == newPreUpdateTips) {
         return;
+    }
 
     m_preUpdateTips = newPreUpdateTips;
     emit preUpdateTipsChanged();
@@ -471,8 +542,10 @@ void UpdateModel::setPreUpdateTips(const QString &newPreUpdateTips)
 
 void UpdateModel::setDownloadFailedTips(const QString &newDownloadFailedTips)
 {
-    if (m_downloadFailedTips == newDownloadFailedTips)
+    qCDebug(logDccUpdatePlugin) << "Setting download failed tips:" << newDownloadFailedTips << "old value: " << m_downloadFailedTips;
+    if (m_downloadFailedTips == newDownloadFailedTips) {
         return;
+    }
 
     m_downloadFailedTips = newDownloadFailedTips;
     emit downloadFailedTipsChanged();
@@ -480,8 +553,10 @@ void UpdateModel::setDownloadFailedTips(const QString &newDownloadFailedTips)
 
 void UpdateModel::setInstallFailedTips(const QString &newInstallFailedTips)
 {
-    if (m_installFailedTips == newInstallFailedTips)
+    qCDebug(logDccUpdatePlugin) << "Setting install failed tips:" << newInstallFailedTips << "old value: " << m_installFailedTips;
+    if (m_installFailedTips == newInstallFailedTips) {
         return;
+    }
 
     m_installFailedTips = newInstallFailedTips;
     emit installFailedTipsChanged();
@@ -489,8 +564,10 @@ void UpdateModel::setInstallFailedTips(const QString &newInstallFailedTips)
 
 void UpdateModel::setBackupFailedTips(const QString &newBackupFailedTips)
 {
-    if (m_backupFailedTips == newBackupFailedTips)
+    qCDebug(logDccUpdatePlugin) << "Setting backup failed tips:" << newBackupFailedTips << "old value: " << m_backupFailedTips;
+    if (m_backupFailedTips == newBackupFailedTips) {
         return;
+    }
 
     m_backupFailedTips = newBackupFailedTips;
     emit backupFailedTipsChanged();
@@ -498,12 +575,14 @@ void UpdateModel::setBackupFailedTips(const QString &newBackupFailedTips)
 
 void UpdateModel::setUpdateLog(const QString &log)
 {
+    qCDebug(logDccUpdatePlugin) << "Setting update log, size:" << log.size() << "chars";
     m_installLog = log;
     emit updateInstallLogChanged(m_installLog);
 }
 
 void UpdateModel::appendUpdateLog(const QString &log)
 {
+    qCDebug(logDccUpdatePlugin) << "Appending to update log, size:" << log.size() << "chars";
     m_installLog += log;
     emit updateInstallLogChanged(m_installLog);
 }
@@ -521,7 +600,7 @@ void UpdateModel::addUpdateInfo(UpdateItemInfo* info)
         m_allUpdateInfos.remove(updateType);
     }
 
-    qCInfo(DCC_UPDATE_MODEL) << "Add update info:" << info->updateType() << info->updateStatus();
+    qCInfo(logDccUpdatePlugin) << "Add update info:" << info->updateType() << info->updateStatus();
     m_allUpdateInfos.insert(updateType, info);
 
     if (!info->isUpdateAvailable()) {
@@ -535,14 +614,19 @@ void UpdateModel::addUpdateInfo(UpdateItemInfo* info)
 
 void UpdateModel::deleteUpdateInfo(UpdateItemInfo* updateItemInfo)
 {
+    qCDebug(logDccUpdatePlugin) << "Deleting update info";
     if (updateItemInfo != nullptr) {
+        qCDebug(logDccUpdatePlugin) << "Update info is valid, deleting";
         updateItemInfo->deleteLater();
         updateItemInfo = nullptr;
+    } else {
+        qCDebug(logDccUpdatePlugin) << "Update info is null, nothing to delete";
     }
 }
 
 void UpdateModel::resetDownloadInfo()
 {
+    qCDebug(logDccUpdatePlugin) << "Resetting download info for" << m_allUpdateInfos.size() << "items";
     for (const auto item : m_allUpdateInfos.values()) {
         item->reset();
     }
@@ -550,6 +634,7 @@ void UpdateModel::resetDownloadInfo()
 
 void UpdateModel::updatePackages(const QMap<QString, QStringList>& packages)
 {
+    qCDebug(logDccUpdatePlugin) << "Updating packages for" << packages.size() << "package groups";
     for (const auto item : m_allUpdateInfos.values()) {
         item->setPackages(packages.value(item->typeString()));
     }
@@ -557,6 +642,7 @@ void UpdateModel::updatePackages(const QMap<QString, QStringList>& packages)
 
 QString UpdateModel::errorToText(UpdateErrorType error)
 {
+    qCDebug(logDccUpdatePlugin) << "Converting error to text, type:" << error;
     static QMap<UpdateErrorType, QString> errorText = {
         { UnKnown, tr("Unknown error") },
         { DownloadingNoSpace, tr("Downloading updates failed. Please free up %1 disk space first.") },
@@ -578,7 +664,7 @@ QString UpdateModel::errorToText(UpdateErrorType error)
 
 void UpdateModel::setLastError(UpdatesStatus status, UpdateErrorType errorType)
 {
-    qCInfo(DCC_UPDATE_MODEL) << "Set last error: " << errorType;
+    qCInfo(logDccUpdatePlugin) << "Set last error: " << errorType;
     if (m_errorMap.value(status, NoError) == errorType) {
         return;
     }
@@ -589,6 +675,7 @@ void UpdateModel::setLastError(UpdatesStatus status, UpdateErrorType errorType)
 
 void UpdateModel::setLastErrorLog(UpdatesStatus status, const QString &description)
 {
+    qCDebug(logDccUpdatePlugin) << "Set error log for status" << status << ":" << description;
     m_descriptionMap.insert(status, description);
 }
 
@@ -599,6 +686,7 @@ ControlPanelType UpdateModel::getControlPanelType(UpdatesStatus status)
 
 QString UpdateModel::updateErrorToString(UpdateErrorType error)
 {
+    qCDebug(logDccUpdatePlugin) << "Convert error type to string:" << error;
     if (error == UpdateErrorType::DependenciesBrokenError)
         return "dependenciesBroken";
 
@@ -610,7 +698,7 @@ QString UpdateModel::updateErrorToString(UpdateErrorType error)
 
 void UpdateModel::setUpdateStatus(const QByteArray& status)
 {
-    qCInfo(DCC_UPDATE_MODEL) << "Lastore update status:" << status;
+    qCInfo(logDccUpdatePlugin) << "Lastore update status:" << status;
     if (m_updateStatus == status)
         return;
 
@@ -621,13 +709,16 @@ void UpdateModel::setUpdateStatus(const QByteArray& status)
 
 void UpdateModel::refreshUpdateStatus()
 {
+    qCDebug(logDccUpdatePlugin) << "Refreshing update status";
     if (m_updateStatus.isEmpty()) {
+        qCDebug(logDccUpdatePlugin) << "Update status is empty, skip refresh";
         return;
     }
 
     auto lastoreUpdateStatus = LastoreDaemonUpdateStatus::fromJson(m_updateStatus);
     modifyUpdateStatusByBackupStatus(lastoreUpdateStatus);
     if (lastoreUpdateStatus.backupStatus == BackupSuccess) {
+        qCDebug(logDccUpdatePlugin) << "Backup success, emitting signal";
         Q_EMIT notifyBackupSuccess();
     }
     for (auto info : m_allUpdateInfos.values()) {
@@ -641,11 +732,11 @@ void UpdateModel::refreshUpdateStatus()
         const auto controlType = getControlPanelType(updateStatus);
 
         if (it.value() == Default || (updateItemInfo(updateType) && !updateItemInfo(updateType)->isUpdateAvailable())) {
-            qCInfo(DCC_UPDATE_MODEL) << updateType << " is not available";
+            qCInfo(logDccUpdatePlugin) << updateType << " is not available";
             continue;
         }
         if (!m_controlStatusMap.contains(controlType)) {
-            qCInfo(DCC_UPDATE_MODEL) << "Insert control type:" << controlType;
+            qCInfo(logDccUpdatePlugin) << "Insert control type:" << controlType;
             m_controlStatusMap.insert( controlType, qMakePair<UpdatesStatus, QList<UpdateType>>(std::move(const_cast<UpdatesStatus&>(updateStatus)), { updateType }));
             Q_EMIT updateStatusChanged(controlType, updateStatus);
         }
@@ -657,17 +748,17 @@ void UpdateModel::refreshUpdateStatus()
             if (controlIt.key() == controlType) {
                 if (controlIt.value().second.contains(updateType)) {
                     if (controlIt.value().first != updateStatus) {
-                        qCInfo(DCC_UPDATE_MODEL) << controlType << " change status from " << controlIt.value().first << " to " << updateStatus;
+                        qCInfo(logDccUpdatePlugin) << controlType << " change status from " << controlIt.value().first << " to " << updateStatus;
                         controlIt.value().first = updateStatus;
                         Q_EMIT updateStatusChanged(controlIt.key(), updateStatus);
                     }
                 } else {
-                    qCInfo(DCC_UPDATE_MODEL) << "Append " << updateType << " to " << controlType;
+                    qCInfo(logDccUpdatePlugin) << "Append " << updateType << " to " << controlType;
                     controlIt.value().second.append(updateType);
                 }
             } else {
                 if (controlIt.value().second.contains(updateType)) {
-                    qCInfo(DCC_UPDATE_MODEL) << "Remove " << updateType << " from " <<controlIt.key();
+                    qCInfo(logDccUpdatePlugin) << "Remove " << updateType << " from " <<controlIt.key();
                     controlIt.value().second.removeOne(updateType);
                 }
 
@@ -702,7 +793,7 @@ void UpdateModel::refreshUpdateStatus()
         }
 
         if (!exist) {
-            qCInfo(DCC_UPDATE_MODEL) << "Remove control type:" << key;
+            qCInfo(logDccUpdatePlugin) << "Remove control type:" << key;
             m_controlStatusMap.remove(key);
         }
     }
@@ -713,6 +804,7 @@ void UpdateModel::refreshUpdateStatus()
 
 void UpdateModel::refreshUpdateUiModel()
 {
+    qCDebug(logDccUpdatePlugin) << "Refreshing update UI models";
     if (m_preUpdatelistModel) {
         m_preUpdatelistModel->clearAllData();
     }
@@ -750,7 +842,7 @@ void UpdateModel::refreshUpdateUiModel()
     }
 
     for (auto item : m_allUpdateInfos.values()) {
-        qCDebug(DCC_UPDATE_MODEL) << "refresh Update Ui:" << item->updateType() << item->updateStatus() << item->isUpdateModeEnabled();
+        qCDebug(logDccUpdatePlugin) << "refresh Update Ui:" << item->updateType() << item->updateStatus() << item->isUpdateModeEnabled();
         if (!item->isUpdateModeEnabled())
             continue;
 
@@ -798,15 +890,19 @@ void UpdateModel::refreshUpdateUiModel()
 
 void UpdateModel::updateAvailableState()
 {
+    qCDebug(logDccUpdatePlugin) << "Updating available state, control status map size:" << m_controlStatusMap.size();
     auto it = m_controlStatusMap.begin();
     for (; it != m_controlStatusMap.end(); it++) {
         auto pair = it.value();
+        qCDebug(logDccUpdatePlugin) << "Checking control type:" << it.key() << "status:" << pair.first;
         if ((pair.first >= UpdatesAvailable && pair.first <= UpgradeComplete && (m_updateMode & updateTypes(it.key())))) {
+            qCDebug(logDccUpdatePlugin) << "Found available update, setting updatable to true";
             setIsUpdatable(true);
             return;
         }
     }
 
+    qCDebug(logDccUpdatePlugin) << "No available updates found, setting updatable to false";
     setIsUpdatable(false);
 }
 
@@ -814,11 +910,14 @@ void UpdateModel::updateAvailableState()
 // lastore返回的update status没有将备份的状态匹配给具体的更新类型,需要根据备份状态修正一下更新状态
 void UpdateModel::modifyUpdateStatusByBackupStatus(LastoreDaemonUpdateStatus& lastoreUpdateStatus)
 {
+    qCDebug(logDccUpdatePlugin) << "Modifying update status by backup status";
     // Dirty work：当备份失败 & 当前类型的更新状态是已下载 & 是选中状态时，将此更新类型的更新状态改为备份失败
     auto const backupStatus = lastoreUpdateStatus.backupStatus;
+    qCDebug(logDccUpdatePlugin) << "Backup status:" << backupStatus;
     if (backupStatus != BackupFailed
         && backupStatus != BackingUp
         && backupStatus != BackupSuccess) {
+        qCDebug(logDccUpdatePlugin) << "Backup status not relevant, skipping modification";
         return;
     }
 
@@ -843,22 +942,28 @@ void UpdateModel::modifyUpdateStatusByBackupStatus(LastoreDaemonUpdateStatus& la
 
 void UpdateModel::updateWaitingStatus(UpdateType updateType, UpdatesStatus updateStatus)
 {
+    qCDebug(logDccUpdatePlugin) << "Updating waiting status for type:" << updateType << "status:" << updateStatus;
     int downloadWaitingTypes = m_waitingStatusMap.value(DownloadWaiting, 0);
     if (updateStatus > DownloadWaiting && updateStatus <= DownloadFailed && downloadWaitingTypes & updateType) {
+        qCDebug(logDccUpdatePlugin) << "Removing download waiting status";
         m_waitingStatusMap.remove(DownloadWaiting);
         return;
     }
 
     int upgradeWaitingTypes = m_waitingStatusMap.value(UpgradeWaiting, 0);
+    qCDebug(logDccUpdatePlugin) << "Upgrade waiting types:" << upgradeWaitingTypes;
     if (updateStatus > UpgradeWaiting && updateStatus <= UpgradeComplete && upgradeWaitingTypes & updateType) {
+        qCDebug(logDccUpdatePlugin) << "Removing upgrade waiting status";
         m_waitingStatusMap.remove(UpgradeWaiting);
     }
 }
 
 void UpdateModel::setIsUpdatable(bool isUpdatable)
 {
-    if (m_isUpdatable == isUpdatable)
+    qCDebug(logDccUpdatePlugin) << "Setting updatable state:" << isUpdatable;
+    if (m_isUpdatable == isUpdatable) {
         return;
+    }
 
     m_isUpdatable = isUpdatable;
     Q_EMIT isUpdatableChanged(isUpdatable);
@@ -866,7 +971,9 @@ void UpdateModel::setIsUpdatable(bool isUpdatable)
 
 UpdatesStatus UpdateModel::updateStatus(ControlPanelType type) const
 {
+    qCDebug(logDccUpdatePlugin) << "Getting update status for control panel type:" << type;
     if (!m_controlStatusMap.contains(type)) {
+        qCDebug(logDccUpdatePlugin) << "Control panel type not found, returning Default status";
         return UpdatesStatus::Default;
     }
 
@@ -875,18 +982,23 @@ UpdatesStatus UpdateModel::updateStatus(ControlPanelType type) const
 
 UpdatesStatus UpdateModel::updateStatus(UpdateType type) const
 {
+    qCDebug(logDccUpdatePlugin) << "Getting update status for update type:" << type;
     for (const auto& pair : m_controlStatusMap.values()) {
         if (pair.second.contains(type)) {
+            qCDebug(logDccUpdatePlugin) << "Found status:" << pair.first << "for update type";
             return pair.first;
         }
     }
 
+    qCDebug(logDccUpdatePlugin) << "Update type not found, returning Default status";
     return UpdatesStatus::Default;
 }
 
 QList<UpdateType> UpdateModel::updateTypesList(ControlPanelType type) const
 {
+    qCDebug(logDccUpdatePlugin) << "Getting update types list for control panel type:" << type;
     if (!m_controlStatusMap.contains(type)) {
+        qCDebug(logDccUpdatePlugin) << "Control panel type not found, returning empty list";
         return {};
     }
 
@@ -895,26 +1007,30 @@ QList<UpdateType> UpdateModel::updateTypesList(ControlPanelType type) const
 
 int UpdateModel::updateTypes(ControlPanelType type) const
 {
+    qCDebug(logDccUpdatePlugin) << "Getting update types bitmask for control panel type:" << type;
     QList<UpdateType> list = updateTypesList(type);
     int types = 0;
     for (const auto& item : list) {
         types |= item;
     }
+    qCDebug(logDccUpdatePlugin) << "Update types bitmask:" << types;
     return types;
 }
 
 QList<UpdatesStatus> UpdateModel::allUpdateStatus() const
 {
+    qCDebug(logDccUpdatePlugin) << "Getting all update status, control status map size:" << m_controlStatusMap.size();
     QList<UpdatesStatus> list;
     for (const auto& pair : m_controlStatusMap.values()) {
         list.append(pair.first);
     }
-
+    qCDebug(logDccUpdatePlugin) << "Collected" << list.size() << "update status values";
     return list;
 }
 
 void UpdateModel::setSecurityUpdateEnabled(bool enable)
 {
+    qCDebug(logDccUpdatePlugin) << "Set security update enabled:" << enable;
     if (m_securityUpdateEnabled == enable)
         return;
 
@@ -924,6 +1040,7 @@ void UpdateModel::setSecurityUpdateEnabled(bool enable)
 
 void UpdateModel::setThirdPartyUpdateEnabled(bool enable)
 {
+    qCDebug(logDccUpdatePlugin) << "Set third party update enabled:" << enable;
     if (m_thirdPartyUpdateEnabled == enable)
         return;
 
@@ -953,7 +1070,7 @@ bool UpdateModel::updateModeDisabled() const
 
 void UpdateModel::setUpdateMode(quint64 updateMode)
 {
-    qCInfo(DCC_UPDATE_MODEL) << "Set update mode:" << updateMode << ", current mode: " << m_updateMode;
+    qCInfo(logDccUpdatePlugin) << "Set update mode:" << updateMode << ", current mode: " << m_updateMode;
     if (m_updateMode == updateMode)
         return;
 
@@ -971,8 +1088,11 @@ void UpdateModel::setUpdateMode(quint64 updateMode)
 
 void UpdateModel::setUpdateItemEnabled()
 {
+    qCDebug(logDccUpdatePlugin) << "Set update items enabled based on mode:" << m_updateMode;
     for (const auto item : m_allUpdateInfos.values()) {
-        item->setUpdateModeEnabled(m_updateMode & item->updateType());
+        const auto enabled = m_updateMode & item->updateType();
+        qCDebug(logDccUpdatePlugin) << "Item" << item->name() << "enabled:" << enabled;
+        item->setUpdateModeEnabled(enabled);
     }
 }
 
@@ -993,6 +1113,7 @@ DownloadSpeedLimitConfig UpdateModel::speedLimitConfig() const
 
 void UpdateModel::setSpeedLimitConfig(const QByteArray& config)
 {
+    qCDebug(logDccUpdatePlugin) << "Set speed limit config:" << config;
     if (m_speedLimitConfig == config)
         return;
 
@@ -1002,6 +1123,7 @@ void UpdateModel::setSpeedLimitConfig(const QByteArray& config)
 
 void UpdateModel::setAutoDownloadUpdates(bool autoDownloadUpdates)
 {
+    qCDebug(logDccUpdatePlugin) << "Set auto download updates:" << autoDownloadUpdates;
     if (m_autoDownloadUpdates == autoDownloadUpdates) 
         return;
 
@@ -1026,8 +1148,10 @@ QString UpdateModel::endTime() const
 
 void UpdateModel::setIdleDownloadConfig(const IdleDownloadConfig& config)
 {
-    if (m_idleDownloadConfig == config)
+    qCDebug(logDccUpdatePlugin) << "setIdleDownloadConfig";
+    if (m_idleDownloadConfig == config) {
         return;
+    }
 
     m_idleDownloadConfig = config;
     Q_EMIT idleDownloadConfigChanged();
@@ -1035,6 +1159,7 @@ void UpdateModel::setIdleDownloadConfig(const IdleDownloadConfig& config)
 
 void UpdateModel::setUpdateNotify(const bool notify)
 {
+    qCDebug(logDccUpdatePlugin) << "Setting update notify:" << notify << "old value: " << m_updateNotify;
     if (m_updateNotify == notify) {
         return;
     }
@@ -1045,22 +1170,28 @@ void UpdateModel::setUpdateNotify(const bool notify)
 
 void UpdateModel::setAutoCleanCache(bool autoCleanCache)
 {
-    if (m_autoCleanCache == autoCleanCache)
+    qCDebug(logDccUpdatePlugin) << "Setting auto clean cache:" << autoCleanCache << "old value: " << m_autoCleanCache;
+    if (m_autoCleanCache == autoCleanCache) {
         return;
+    }   
 
     m_autoCleanCache = autoCleanCache;
+    qCDebug(logDccUpdatePlugin) << "Auto clean cache set, emitting signal";
     Q_EMIT autoCleanCacheChanged(autoCleanCache);
 }
 
 void UpdateModel::setHistoryAppInfos(const QList<AppUpdateInfo>& infos)
 {
+    qCDebug(logDccUpdatePlugin) << "Setting history app infos, count:" << infos.size();
     m_historyAppInfos = infos;
 }
 
 void UpdateModel::setSmartMirrorSwitch(bool smartMirrorSwitch)
 {
-    if (m_smartMirrorSwitch == smartMirrorSwitch)
+    qCDebug(logDccUpdatePlugin) << "Setting smart mirror switch:" << smartMirrorSwitch;
+    if (m_smartMirrorSwitch == smartMirrorSwitch) {
         return;
+    }
 
     m_smartMirrorSwitch = smartMirrorSwitch;
 
@@ -1069,23 +1200,28 @@ void UpdateModel::setSmartMirrorSwitch(bool smartMirrorSwitch)
 
 void UpdateModel::setMirrorInfos(const MirrorInfoList& list)
 {
+    qCDebug(logDccUpdatePlugin) << "Set mirror infos, count:" << list.size();
     m_mirrorList = list;
 }
 
 MirrorInfo UpdateModel::defaultMirror() const
 {
+    qCDebug(logDccUpdatePlugin) << "Get default mirror, mirror list size: " << m_mirrorList.size() << "mirror id: " << m_mirrorId;
     QList<MirrorInfo>::const_iterator it = m_mirrorList.begin();
     for (; it != m_mirrorList.end(); ++it) {
         if ((*it).m_id == m_mirrorId) {
+            qCDebug(logDccUpdatePlugin) << "Found default mirror:" << (*it).m_id;
             return *it;
         }
     }
 
+    qCDebug(logDccUpdatePlugin) << "Using first mirror as default";
     return m_mirrorList.at(0);
 }
 
 void UpdateModel::setDefaultMirror(const QString& mirrorId)
 {
+    qCDebug(logDccUpdatePlugin) << "Set default mirror:" << mirrorId << "old value: " << m_mirrorId;
     if (mirrorId == "")
         return;
 
@@ -1101,14 +1237,20 @@ void UpdateModel::setDefaultMirror(const QString& mirrorId)
 
 void UpdateModel::setMirrorSpeedInfo(const QMap<QString, int>& mirrorSpeedInfo)
 {
+    qCDebug(logDccUpdatePlugin) << "Setting mirror speed info, count:" << mirrorSpeedInfo.size() << "old value: " << m_mirrorSpeedInfo;
     m_mirrorSpeedInfo = mirrorSpeedInfo;
 
-    if (mirrorSpeedInfo.keys().length())
+    if (mirrorSpeedInfo.keys().length()) {
+        qCDebug(logDccUpdatePlugin) << "Emitting mirror speed info available signal" << mirrorSpeedInfo;
         Q_EMIT mirrorSpeedInfoAvailable(mirrorSpeedInfo);
+    } else {
+        qCDebug(logDccUpdatePlugin) << "No mirror speed info to emit";
+    }
 }
 
 void UpdateModel::setNetselectExist(bool netselectExist)
 {
+    qCDebug(logDccUpdatePlugin) << "Setting netselect exist:" << netselectExist << "old value: " << m_netselectExist;
     if (m_netselectExist == netselectExist) {
         return;
     }
@@ -1119,6 +1261,7 @@ void UpdateModel::setNetselectExist(bool netselectExist)
 
 void UpdateModel::setTestingChannelStatus(TestingChannelStatus status)
 {
+    qCDebug(logDccUpdatePlugin) << "Set testing channel status:" << status << "old value: " << m_testingChannelStatus;
     if (status == m_testingChannelStatus) 
         return;
 
@@ -1128,6 +1271,7 @@ void UpdateModel::setTestingChannelStatus(TestingChannelStatus status)
 
 void UpdateModel::setSystemVersionInfo(const QString& systemVersionInfo)
 {
+    qCDebug(logDccUpdatePlugin) << "Set system version info:" << systemVersionInfo << "old value: " << m_systemVersionInfo;
     if (m_systemVersionInfo == systemVersionInfo)
         return;
 
@@ -1137,6 +1281,7 @@ void UpdateModel::setSystemVersionInfo(const QString& systemVersionInfo)
 
 void UpdateModel::setShowVersion(const QString &showVersion)
 {
+    qCDebug(logDccUpdatePlugin) << "Set show version:" << showVersion << "old value: " << m_showVersion;
     if (m_showVersion == showVersion)
         return;
 
@@ -1146,6 +1291,7 @@ void UpdateModel::setShowVersion(const QString &showVersion)
 
 void UpdateModel::setBaseline(const QString &baseline)
 {
+    qCDebug(logDccUpdatePlugin) << "Set baseline:" << baseline << "old value: " << baseline;
     if (m_baseline == baseline)
         return;
 
@@ -1155,6 +1301,7 @@ void UpdateModel::setBaseline(const QString &baseline)
 
 void UpdateModel::setP2PUpdateEnabled(bool enabled)
 {
+    qCDebug(logDccUpdatePlugin) << "Set P2P update enabled:" << enabled << "old value: " << m_p2pUpdateEnabled;
     if (enabled != m_p2pUpdateEnabled) {
         m_p2pUpdateEnabled = enabled;
         Q_EMIT p2pUpdateEnableStateChanged(enabled);
@@ -1168,9 +1315,10 @@ bool UpdateModel::isCommunitySystem() const
 
 QString UpdateModel::privacyAgreementText() const
 {
+    qCDebug(logDccUpdatePlugin) << "Getting privacy agreement text";
     const QString& systemLocaleName = QLocale::system().name();
     if (systemLocaleName.length() != QString("zh_CN").length()) {
-        qCDebug(DCC_UPDATE_MODEL) << "Get system locale name failed:" << systemLocaleName;
+        qCDebug(logDccUpdatePlugin) << "Get system locale name failed:" << systemLocaleName;
     }
     QString region = systemLocaleName.right(2).toLower();
 
@@ -1196,10 +1344,13 @@ QString UpdateModel::privacyAgreementText() const
 
 void UpdateModel::onUpdatePropertiesChanged(const QString& interfaceName, const QVariantMap& changedProperties, const QStringList& invalidatedProperties)
 {
+    qCDebug(logDccUpdatePlugin) << "Update properties changed for interface:" << interfaceName << "properties count:" << changedProperties.size();
     Q_UNUSED(invalidatedProperties)
 
     if (interfaceName == "org.deepin.dde.Lastore1.Manager") {
+        qCDebug(logDccUpdatePlugin) << "Handling Lastore Manager property changes";
         if (changedProperties.contains("CheckUpdateMode")) {
+            qCDebug(logDccUpdatePlugin) << "CheckUpdateMode property changed";
             // 用户A、B都打开控制中心，用户A多次修改CheckUpdateMode后切换到用户B，控制中心会立刻收到多个改变信号
             // 增加一个100ms的防抖，只取最后一次的数值
             static quint64 tmpValue = 0;
@@ -1220,15 +1371,19 @@ void UpdateModel::onUpdatePropertiesChanged(const QString& interfaceName, const 
     }
 
     if (interfaceName == "org.deepin.dde.Lastore1.Updater") {
+        qCDebug(logDccUpdatePlugin) << "Handling Lastore Updater property changes";
         if (changedProperties.contains("IdleDownloadConfig")) {
+            qCDebug(logDccUpdatePlugin) << "IdleDownloadConfig property changed";
             setIdleDownloadConfig(IdleDownloadConfig::toConfig(changedProperties.value("IdleDownloadConfig").toByteArray()));
         }
 
         if (changedProperties.contains("DownloadSpeedLimitConfig")) {
+            qCDebug(logDccUpdatePlugin) << "DownloadSpeedLimitConfig property changed";
             setSpeedLimitConfig(changedProperties.value("DownloadSpeedLimitConfig").toByteArray());
         }
 
         if (changedProperties.contains("P2PUpdateEnable")) {
+            qCDebug(logDccUpdatePlugin) << "P2PUpdateEnable property changed";
             setP2PUpdateEnabled(changedProperties.value("P2PUpdateEnable").toBool());
         }
     }
@@ -1236,5 +1391,6 @@ void UpdateModel::onUpdatePropertiesChanged(const QString& interfaceName, const 
 
 UpdateHistoryModel *UpdateModel::historyModel() const
 {
+    qCDebug(logDccUpdatePlugin) << "Getting history model, size:" << m_historyModel->rowCount(QModelIndex());
     return m_historyModel;
 }

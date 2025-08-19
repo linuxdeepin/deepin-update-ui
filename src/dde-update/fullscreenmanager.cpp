@@ -8,12 +8,16 @@
 #include <QScreen>
 #include <QDebug>
 #include <QTimer>
+#include <QLoggingCategory>
+
+Q_DECLARE_LOGGING_CATEGORY(logUpdateModal)
 
 FullScreenManager::FullScreenManager(std::function<QWidget *(QScreen *)> function, QObject *parent)
     : QObject(parent)
     , m_registerFun(function)
     , m_copyModeFlag(false)
 {
+    qCDebug(logUpdateModal) << "Initialize FullScreenManager";
     Q_ASSERT(m_registerFun);
 
     connect(qApp, &QGuiApplication::screenAdded, this, &FullScreenManager::screenCountChanged);
@@ -29,12 +33,16 @@ FullScreenManager::FullScreenManager(std::function<QWidget *(QScreen *)> functio
  */
 bool FullScreenManager::isCopyMode() const
 {
+    qCDebug(logUpdateModal) << "Checking if display is in copy mode";
     QList<QScreen *> screens = qApp->screens();
-    if (screens.size() < 2)
+    if (screens.size() < 2) {
+        qCDebug(logUpdateModal) << "Less than 2 screens, not copy mode";
         return false;
+    }
 
     // 在多个屏幕的情况下，如果所有屏幕的位置的X和Y值都相等，则认为是复制模式
     QRect screenRect = screens[0]->availableGeometry();
+    qCDebug(logUpdateModal) << "Primary screen geometry:" << screenRect;
     for (int i = 1; i < screens.size(); i++) {
         QRect rect = screens[i]->availableGeometry();
         if (screenRect.x() != rect.x() || screenRect.y() != rect.y())
@@ -46,7 +54,10 @@ bool FullScreenManager::isCopyMode() const
 
 void FullScreenManager::checkCopyModeChanged()
 {
-    if (m_copyModeFlag != isCopyMode()) {
+    qCDebug(logUpdateModal) << "Checking copy mode change, current flag:" << m_copyModeFlag;
+    bool currentCopyMode = isCopyMode();
+    if (m_copyModeFlag != currentCopyMode) {
+        qCDebug(logUpdateModal) << "Copy mode changed from" << m_copyModeFlag << "to" << currentCopyMode;
         m_copyModeFlag = !m_copyModeFlag;
         handleCopyModeChanged(m_copyModeFlag);
 
@@ -57,7 +68,9 @@ void FullScreenManager::checkCopyModeChanged()
 // 主动检查是否复制模式，响应其变化，避免wayland下显示模式设置在应用启动后
 void FullScreenManager::handleCopyModeChanged(bool isCopyMode)
 {
+    qCDebug(logUpdateModal) << "Handling copy mode change to:" << isCopyMode;
     if(!isCopyMode) {
+        qCDebug(logUpdateModal) << "Not copy mode, calling screenCountChanged";
         screenCountChanged();
         return;
     }
@@ -83,6 +96,7 @@ void FullScreenManager::handleCopyModeChanged(bool isCopyMode)
 
 void FullScreenManager::screenCountChanged()
 {
+    qCDebug(logUpdateModal) << "Screen count changed, current app screens:" << qApp->screens().size();
     QList<ScreenPtr> screens = m_screenContents.values();
 
     // 找到过期的screen指针
@@ -98,6 +112,7 @@ void FullScreenManager::screenCountChanged()
     for (const auto &s : qApp->screens()) {
         // 复制模式，留下一个可用的屏
         if ((!m_copyModeFlag || screens_to_add.count() < 1) && !screens.contains(s)) {
+            qCDebug(logUpdateModal) << "Found new screen to add";
             screens_to_add.append(s);
         }
 
@@ -106,10 +121,12 @@ void FullScreenManager::screenCountChanged()
     }
 
     // 取消关联
+    qCDebug(logUpdateModal) << "Removing" << screens_to_remove.size() << "expired screens";
     for (auto &s : screens_to_remove) {
         disconnect(s);
         auto backgroundFrame = m_screenContents.key(s);
         if (backgroundFrame) {
+            qCDebug(logUpdateModal) << "Hiding background frame for removed screen";
             backgroundFrame->setVisible(false);
         }
         s = nullptr;
@@ -117,6 +134,7 @@ void FullScreenManager::screenCountChanged()
     }
 
     // 创建关联
+    qCDebug(logUpdateModal) << "Adding" << screens_to_add.size() << "new screens";
     for (const auto &s : screens_to_add) {
 
         // 显示器信息发生任何变化时，都应该重新刷新一次任务栏的显示位置
@@ -149,15 +167,17 @@ void FullScreenManager::screenCountChanged()
             content = m_registerFun(s);
         }
 
+        qCDebug(logUpdateModal) << "Making screen content visible and mapping to screen";
         content->setVisible(true);
 
         m_screenContents.insert(content, s);
     }
+    qCDebug(logUpdateModal) << "Screen management update completed";
 }
 
 void FullScreenManager::handleScreenChanged()
 {
-    qInfo() << Q_FUNC_INFO << "screen contents size :" << m_screenContents.count();
+    qCDebug(logUpdateModal) << "Handling screen changed event, Screen contents size:" << m_screenContents.count();
     for (QWidget *w : m_screenContents.keys()) {
         auto inter = dynamic_cast<AbstractFullBackgroundInterface *>(w);
         if (inter && m_screenContents.value(w)) {

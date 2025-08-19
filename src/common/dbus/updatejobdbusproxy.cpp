@@ -8,6 +8,9 @@
 #include <QDBusPendingReply>
 #include <QDBusReply>
 #include <QDebug>
+#include <QLoggingCategory>
+
+Q_DECLARE_LOGGING_CATEGORY(logCommon)
 
 // Updater Job
 const static QString UpdaterService = QStringLiteral("org.deepin.dde.Lastore1");
@@ -26,10 +29,12 @@ UpdateJobDBusProxy::UpdateJobDBusProxy(const QString &jobPath, QObject *parent)
               UpdaterService, jobPath, UpdaterJobInterface, QDBusConnection::systemBus(), this))
     , m_path(jobPath)
 {
+    qCDebug(logCommon) << "Initialize UpdateJobDBusProxy with path:" << jobPath;
 }
 
 UpdateJobDBusProxy::~UpdateJobDBusProxy()
 {
+    qCDebug(logCommon) << "Destroying UpdateJobDBusProxy for path:" << m_path;
     m_updateJobInter->deleteLater();
     m_updateJobInter = nullptr;
 }

@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
 #include "updatework.h"
+#include "common/common/logwatcherhelper.h"
 #include "utils.h"
 #include "dconfigwatcher.h"
 #include "updateloghelper.h"
@@ -18,13 +19,14 @@
 #include <QNetworkReply>
 #include <QVariant>
 #include <QtConcurrent>
+#include <QLoggingCategory>
 
 #include <memory>
 
 #include <DDBusSender>
 #include <DNotifySender>
 
-Q_LOGGING_CATEGORY(DCC_UPDATE_WORKER, "dcc-update-worker")
+Q_DECLARE_LOGGING_CATEGORY(logDccUpdatePlugin)
 
 using namespace DCC_NAMESPACE;
 
@@ -44,6 +46,7 @@ static const QStringList DCC_CONFIG_FILES {
 
 void notifyInfo(const QString &summary, const QString &body)
 {
+    qCDebug(logDccUpdatePlugin) << "Send notification:" << summary;
     DUtil::DNotifySender(summary)
             .appIcon("")
             .appName("org.deepin.dde.control-center")
@@ -54,6 +57,7 @@ void notifyInfo(const QString &summary, const QString &body)
 
 void notifyInfoWithoutBody(const QString &summary)
 {
+    qCDebug(logDccUpdatePlugin) << "Send simple notification:" << summary;
     DUtil::DNotifySender(summary)
             .appIcon("")
             .appName("org.deepin.dde.control-center")
@@ -63,7 +67,9 @@ void notifyInfoWithoutBody(const QString &summary)
 
 static int TestMirrorSpeedInternal(const QString& url, QPointer<QObject> baseObject)
 {
+    qCDebug(logDccUpdatePlugin) << "Testing mirror speed for:" << url;
     if (!baseObject || QCoreApplication::closingDown()) {
+        qCDebug(logDccUpdatePlugin) << "Object invalid or app closing, abort test";
         return -1;
     }
 
@@ -71,10 +77,12 @@ static int TestMirrorSpeedInternal(const QString& url, QPointer<QObject> baseObj
     args << url << "-s"
          << "1";
 
+    qCDebug(logDccUpdatePlugin) << "start process netselect";
     QProcess process;
     process.start("netselect", args);
 
     if (!process.waitForStarted()) {
+        qCWarning(logDccUpdatePlugin) << "Failed to start netselect process";
         return 10000;
     }
 
@@ -119,6 +127,7 @@ UpdateWorker::UpdateWorker(UpdateModel* model, QObject* parent)
     , m_installPackageJob(nullptr)
     , m_removePackageJob(nullptr)
 {
+    qCDebug(logDccUpdatePlugin) << "Initializing UpdateWorker";
     qRegisterMetaType<UpdatesStatus>("UpdatesStatus");
     qRegisterMetaType<UiActiveState>("UiActiveState");
     qRegisterMetaType<ControlPanelType>("ControlPanelType");
@@ -128,6 +137,7 @@ UpdateWorker::UpdateWorker(UpdateModel* model, QObject* parent)
 
 UpdateWorker::~UpdateWorker()
 {
+    qCDebug(logDccUpdatePlugin) << "Destroying UpdateWorker, cleaning up jobs";
     deleteJob(m_checkUpdateJob);
     deleteJob(m_fixErrorJob);
     deleteJob(m_downloadJob);
@@ -147,6 +157,7 @@ UpdateWorker::~UpdateWorker()
 
 void UpdateWorker::initConnect()
 {
+    qCDebug(logDccUpdatePlugin) << "Setting up DBus connections and signals";
     QDBusConnection::systemBus().connect("com.deepin.license", 
                                          "/com/deepin/license/Info", 
                                          "com.deepin.license.Info", 
@@ -181,7 +192,7 @@ void UpdateWorker::initConnect()
     connect(m_logWatcherHelper, &LogWatcherHelper::incrementalDataChanged, m_model, &UpdateModel::appendUpdateLog);
 
     connect(DConfigWatcher::instance(), &DConfigWatcher::notifyDConfigChanged, [this](const QString &moduleName, const QString &configName) {
-        qCDebug(DCC_UPDATE_WORKER) << "Config changed:" << moduleName << configName;
+        qCDebug(logDccUpdatePlugin) << "Config changed:" << moduleName << configName;
 
         if (moduleName != "update") {
             return;
@@ -201,7 +212,7 @@ void UpdateWorker::initConnect()
 
 void UpdateWorker::activate()
 {
-    qCInfo(DCC_UPDATE_WORKER) << "Active update worker";
+    qCInfo(logDccUpdatePlugin) << "Active update worker";
 
     initConfig();
     onLicenseStateChange();
@@ -223,6 +234,7 @@ void UpdateWorker::activate()
     m_model->setP2PUpdateEnabled(m_updateInter->p2pUpdateEnable());
     m_model->setImmutableAutoRecovery(m_updateInter->immutableAutoRecovery());
     if (IsCommunitySystem) {
+        qCDebug(logDccUpdatePlugin) << "community system, enable smarrt mirror switch";
         m_model->setSmartMirrorSwitch(m_updateInter->enable());
     }
 #ifndef DISABLE_SYS_UPDATE_MIRRORS
@@ -249,7 +261,7 @@ void UpdateWorker::activate()
                         UpdateLogHelper::ref().updateItemInfo(resultMap.value(type));
                     }
                 } else {
-                    qCWarning(DCC_UPDATE_WORKER) << "Get update log failed";
+                    qCWarning(logDccUpdatePlugin) << "Get update log failed";
                 }
                 // 日志处理完了再显示更新内容界面
                 m_model->setLastStatus(CheckingSucceed, __LINE__);
@@ -266,6 +278,7 @@ void UpdateWorker::activate()
 
 void UpdateWorker::initConfig()
 {
+    qCDebug(logDccUpdatePlugin) << "Initialize lastore daemon configuration";
     if (m_lastoreDConfig && m_lastoreDConfig->isValid()) {
         m_model->setLastoreDaemonStatus(m_lastoreDConfig->value("lastore-daemon-status").toInt());
         connect(m_lastoreDConfig, &DConfig::valueChanged, this, [this](const QString& key) {
@@ -273,18 +286,21 @@ void UpdateWorker::initConfig()
                 bool ok;
                 int value = m_lastoreDConfig->value(key).toInt(&ok);
                 if (ok) {
+                    qCDebug(logDccUpdatePlugin) << "Lastore daemon status changed:" << value;
                     m_model->setLastoreDaemonStatus(value);
                 }
             }
         });
     } else {
-        qCWarning(DCC_UPDATE_WORKER) << "Lastore dconfig is nullptr or invalid";
+        qCWarning(logDccUpdatePlugin) << "Lastore dconfig is nullptr or invalid";
     }
 }
 
 void UpdateWorker::getLicenseState()
 {
+    qCDebug(logDccUpdatePlugin) << "Getting system license activation state";
     if (IsCommunitySystem) {
+        qCDebug(logDccUpdatePlugin) << "Community system, activation always true";
         emit systemActivationChanged(true);
         return;
     }
@@ -294,27 +310,36 @@ void UpdateWorker::getLicenseState()
                                "com.deepin.license.Info",
                                QDBusConnection::systemBus());
     if (!licenseInfo.isValid()) {
-        qCWarning(DCC_UPDATE_WORKER) << "License info dbus is invalid.";
+        qCWarning(logDccUpdatePlugin) << "License info dbus is invalid.";
         return;
     }
     UiActiveState reply =
             static_cast<UiActiveState>(licenseInfo.property("AuthorizationState").toInt());
-    emit systemActivationChanged(reply == UiActiveState::Authorized || reply == UiActiveState::TrialAuthorized);
+    const auto isActivated = reply == UiActiveState::Authorized || reply == UiActiveState::TrialAuthorized;
+    qCDebug(logDccUpdatePlugin) << "System activation state:" << isActivated;
+    emit systemActivationChanged(isActivated);
 }
 
 bool UpdateWorker::checkDbusIsValid()
 {
-    return checkJobIsValid(m_checkUpdateJob) && checkJobIsValid(m_downloadJob);
+    const auto result = checkJobIsValid(m_checkUpdateJob) && checkJobIsValid(m_downloadJob);
+    qCDebug(logDccUpdatePlugin) << "DBus jobs validity check result:" << result;
+    return result;
 }
 
 bool UpdateWorker::checkJobIsValid(QPointer<UpdateJobDBusProxy> dbusJob)
 {
-    if (dbusJob.isNull())
+    if (dbusJob.isNull()) {
+        qCDebug(logDccUpdatePlugin) << "DBus job is null";
         return false;
+    }
 
-    if (dbusJob->isValid())
+    if (dbusJob->isValid()) {
+        qCDebug(logDccUpdatePlugin) << "DBus job is valid";
         return true;
+    }
 
+    qCDebug(logDccUpdatePlugin) << "DBus job invalid, deleting";
     dbusJob->deleteLater();
     return false;
 }
@@ -322,6 +347,7 @@ bool UpdateWorker::checkJobIsValid(QPointer<UpdateJobDBusProxy> dbusJob)
 void UpdateWorker::deleteJob(QPointer<UpdateJobDBusProxy> dbusJob)
 {
     if (!dbusJob.isNull()) {
+        qCDebug(logDccUpdatePlugin) << "Deleting job:" << dbusJob->id();
         dbusJob->deleteLater();
         dbusJob = nullptr;
     }
@@ -330,6 +356,7 @@ void UpdateWorker::deleteJob(QPointer<UpdateJobDBusProxy> dbusJob)
 void UpdateWorker::cleanLaStoreJob(QPointer<UpdateJobDBusProxy> dbusJob)
 {
     if (dbusJob != nullptr) {
+        qCDebug(logDccUpdatePlugin) << "Cleaning lastore job:" << dbusJob->id();
         m_updateInter->CleanJob(dbusJob->id());
         deleteJob(dbusJob);
     }
@@ -337,17 +364,18 @@ void UpdateWorker::cleanLaStoreJob(QPointer<UpdateJobDBusProxy> dbusJob)
 
 UpdateErrorType UpdateWorker::analyzeJobErrorMessage(const QString& jobDescription, UpdatesStatus status)
 {
-    qCWarning(DCC_UPDATE_WORKER) << "Job description:" << jobDescription;
+    qCWarning(logDccUpdatePlugin) << "Analyzing job error message, status:" << status;
 
     QJsonParseError err_rpt;
     QJsonDocument jobErrorMessage = QJsonDocument::fromJson(jobDescription.toUtf8(), &err_rpt);
 
     if (err_rpt.error != QJsonParseError::NoError) {
-        qCWarning(DCC_UPDATE_WORKER) << "Parse json failed";
+        qCWarning(logDccUpdatePlugin) << "Parse json failed, error:" << err_rpt.errorString();
         return UnKnown;
     }
     const QJsonObject& object = jobErrorMessage.object();
     QString errorType = object.value("ErrType").toString();
+    qCDebug(logDccUpdatePlugin) << "errorType:" << errorType;
     if (errorType.contains("fetchFailed", Qt::CaseInsensitive) || errorType.contains("IndexDownloadFailed", Qt::CaseInsensitive)) {
         if (status == DownloadFailed) {
             return DownloadingNoNetwork;
@@ -381,16 +409,17 @@ UpdateErrorType UpdateWorker::analyzeJobErrorMessage(const QString& jobDescripti
 
 void UpdateWorker::checkNeedDoUpdates()
 {
-    qCInfo(DCC_UPDATE_WORKER) << "check need do updates";
+    qCInfo(logDccUpdatePlugin) << "check need do updates";
 
     if (m_model->isUpdateDisabled()) {
+        qCWarning(logDccUpdatePlugin) << "update disabled";
         m_model->setShowCheckUpdate(false);
         return;
     }
 
     // 如果当前正在检查更新，则不再检查
     if (m_doCheckUpdates) {
-        qCDebug(DCC_UPDATE_WORKER) << "Is doing check updates";
+        qCDebug(logDccUpdatePlugin) << "Is doing check updates";
         return;
     }
 
@@ -407,7 +436,7 @@ void UpdateWorker::checkNeedDoUpdates()
     static const int AUTO_CHECK_UPDATE_CIRCLE = 3600 * 24;
     qint64 checkTimeInterval = QDateTime::fromString(m_model->lastCheckUpdateTime(), "yyyy-MM-dd hh:mm:ss").secsTo(QDateTime::currentDateTime());
     bool bEnter = checkTimeInterval > AUTO_CHECK_UPDATE_CIRCLE;
-    qCDebug(DCC_UPDATE_WORKER) << "check time interval:" << checkTimeInterval << " need to check:" << bEnter;
+    qCDebug(logDccUpdatePlugin) << "check time interval:" << checkTimeInterval << " need to check:" << bEnter;
     if (bEnter) {
         m_model->setShowCheckUpdate(true);
         doCheckUpdates();
@@ -422,14 +451,14 @@ void UpdateWorker::checkNeedDoUpdates()
 
 void UpdateWorker::doCheckUpdates()
 {
-    qCInfo(DCC_UPDATE_WORKER) << "do check updates";
+    qCInfo(logDccUpdatePlugin) << "do check updates";
     if (checkDbusIsValid()) {
-        qCWarning(DCC_UPDATE_WORKER) << "Check Dbus's validation failed do nothing";
+        qCWarning(logDccUpdatePlugin) << "Check Dbus's validation failed do nothing";
         return;
     }
 
     if (m_checkUpdateJob) {
-        qCWarning(DCC_UPDATE_WORKER) << "Is checking update, won't do it again";
+        qCWarning(logDccUpdatePlugin) << "Is checking update, won't do it again";
         return;
     }
 
@@ -438,7 +467,7 @@ void UpdateWorker::doCheckUpdates()
         || allUpdateStatuses.contains(Upgrading)
         || allUpdateStatuses.contains(Downloading)
         || allUpdateStatuses.contains(DownloadPaused)) {
-        qCInfo(DCC_UPDATE_WORKER) << "Lastore daemon is busy now, current statuses:" << allUpdateStatuses;
+        qCInfo(logDccUpdatePlugin) << "Lastore daemon is busy now, current statuses:" << allUpdateStatuses;
         m_model->setShowCheckUpdate(false);
         return;
     }
@@ -451,13 +480,13 @@ void UpdateWorker::doCheckUpdates()
     connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, watcher] {
         QDBusPendingReply<QDBusObjectPath> reply = *watcher;
         if (reply.isError()) {
-            qCWarning(DCC_UPDATE_WORKER) << "Check update failed, error: " << reply.error().message();
+            qCWarning(logDccUpdatePlugin) << "Check update failed, error: " << reply.error().message();
             m_model->setLastStatus(UpdatesStatus::CheckingFailed, __LINE__);
             cleanLaStoreJob(m_checkUpdateJob);
             m_doCheckUpdates = false;
         } else {
             const QString jobPath = reply.value().path();
-            qCInfo(DCC_UPDATE_WORKER) << "jobpath:" << jobPath;
+            qCInfo(logDccUpdatePlugin) << "jobpath:" << jobPath;
             setCheckUpdatesJob(jobPath);
         }
         watcher->deleteLater();
@@ -466,7 +495,7 @@ void UpdateWorker::doCheckUpdates()
 
 void UpdateWorker::setCheckUpdatesJob(const QString& jobPath)
 {
-    qCInfo(DCC_UPDATE_WORKER) << "Set check updates job";
+    qCInfo(logDccUpdatePlugin) << "Set check updates job";
     UpdatesStatus state = m_model->updateStatus(CPT_Downloading);
     if (UpdatesStatus::Downloading != state && UpdatesStatus::DownloadPaused != state) {
         m_model->setLastStatus(UpdatesStatus::Checking, __LINE__);
@@ -478,10 +507,10 @@ void UpdateWorker::setCheckUpdatesJob(const QString& jobPath)
 
 void UpdateWorker::createCheckUpdateJob(const QString& jobPath)
 {
-    qCInfo(DCC_UPDATE_WORKER) << "Create check update job: " << jobPath;
+    qCInfo(logDccUpdatePlugin) << "Create check update job: " << jobPath;
 
     if (m_checkUpdateJob != nullptr) {
-        qCInfo(DCC_UPDATE_WORKER) << "Check update job existed";
+        qCInfo(logDccUpdatePlugin) << "Check update job existed";
         return;
     }
     m_checkUpdateJob = new UpdateJobDBusProxy(jobPath, this);
@@ -496,6 +525,7 @@ void UpdateWorker::createCheckUpdateJob(const QString& jobPath)
 
 void UpdateWorker::refreshLastTimeAndCheckCircle()
 {
+    qCDebug(logDccUpdatePlugin) << "Refresh last check time and check circle";
     QString checkTime;
     m_updateInter->GetCheckIntervalAndTime(checkTime);
     m_model->setLastCheckUpdateTime(checkTime);
@@ -503,6 +533,7 @@ void UpdateWorker::refreshLastTimeAndCheckCircle()
 
 void UpdateWorker::setUpdateInfo()
 {
+    qCDebug(logDccUpdatePlugin) << "Setting update information from packages";
     const QMap<QString, QStringList>& updatePackages = m_updateInter->classifiedUpdatablePackages();
 
     QMap<UpdateType, UpdateItemInfo*> updateInfoMap = getAllUpdateInfo(updatePackages);
@@ -513,6 +544,7 @@ void UpdateWorker::setUpdateInfo()
             isUpdated = false;
         }
     }
+    qCDebug(logDccUpdatePlugin) << "All packages up to date:" << isUpdated;
     m_model->refreshUpdateItemsChecked();
     m_model->refreshUpdateStatus();
     m_model->updateAvailableState();
@@ -527,10 +559,14 @@ void UpdateWorker::setUpdateInfo()
  */
 QMap<UpdateType, UpdateItemInfo*> UpdateWorker::getAllUpdateInfo(const QMap<QString, QStringList>& updatePackages)
 {
+    qCDebug(logDccUpdatePlugin) << "Getting all update info from packages";
     const QStringList& systemPackages = updatePackages.value(SYSTEM_UPGRADE_TYPE_STRING);
     const QStringList& securityPackages = updatePackages.value(SECURITY_UPGRADE_TYPE_STRING);
     const QStringList& unknownPackages = updatePackages.value(UNKNOWN_UPGRADE_STRING);
     const quint64 updateMode = m_model->updateMode();
+    qCDebug(logDccUpdatePlugin) << "System packages count:" << systemPackages.size()
+                               << "Security packages count:" << securityPackages.size()
+                               << "Unknown packages count:" << unknownPackages.size();
     QMap<UpdateType, UpdateItemInfo*> resultMap;
 
     UpdateItemInfo* systemItemInfo = new UpdateItemInfo(SystemUpdate);
@@ -569,7 +605,9 @@ QMap<UpdateType, UpdateItemInfo*> UpdateWorker::getAllUpdateInfo(const QMap<QStr
 
 void UpdateWorker::setUpdateItemDownloadSize(UpdateItemInfo* updateItem)
 {
+    qCDebug(logDccUpdatePlugin) << "Query download size for:" << updateItem->name();
     if (updateItem->packages().isEmpty()) {
+        qCDebug(logDccUpdatePlugin) << "No packages to query size for";
         return;
     }
 
@@ -578,10 +616,10 @@ void UpdateWorker::setUpdateItemDownloadSize(UpdateItemInfo* updateItem)
     connect(watcher, &QDBusPendingCallWatcher::finished, updateItem, [updateItem, watcher] {
         QDBusPendingReply<qlonglong> reply = *watcher;
         if (reply.isError()) {
-            qCWarning(DCC_UPDATE_WORKER) << "Get packages size error:" << reply.error().message();
+            qCWarning(logDccUpdatePlugin) << "Get packages size error:" << reply.error().message();
         } else {
             qlonglong value = reply.value();
-            qCInfo(DCC_UPDATE_WORKER) << "Packages' size:" << value << ", name:" << updateItem->name();
+            qCInfo(logDccUpdatePlugin) << "Packages' size:" << value << ", name:" << updateItem->name();
             updateItem->setDownloadSize(value);
         }
         watcher->deleteLater();
@@ -590,7 +628,7 @@ void UpdateWorker::setUpdateItemDownloadSize(UpdateItemInfo* updateItem)
 
 void UpdateWorker::startDownload(int updateTypes)
 {
-    qCInfo(DCC_UPDATE_WORKER) << "Start download, update types: " << updateTypes;
+    qCInfo(logDccUpdatePlugin) << "Start download, update types: " << updateTypes;
     cleanLaStoreJob(m_downloadJob);
 
     // 直接设置为正在下载状态, 否则切换下载界面等待时间稍长,体验不好
@@ -603,13 +641,13 @@ void UpdateWorker::startDownload(int updateTypes)
         QDBusPendingReply<QDBusObjectPath> reply = *watcher;
         if (reply.isError()) {
             const QString& errorMessage = reply.error().message();
-            qCWarning(DCC_UPDATE_WORKER) << "Start download failed, error:" << errorMessage;
+            qCWarning(logDccUpdatePlugin) << "Start download failed, error:" << errorMessage;
             m_model->setLastErrorLog(DownloadFailed, errorMessage);
             m_model->setLastError(DownloadFailed, analyzeJobErrorMessage(errorMessage, DownloadFailed));
             cleanLaStoreJob(m_downloadJob);
         } else {
             const QString jobPath = reply.value().path();
-            qCInfo(DCC_UPDATE_WORKER) << "jobpath:" << jobPath;
+            qCInfo(logDccUpdatePlugin) << "jobpath:" << jobPath;
             setDownloadJob(jobPath);
         }
         watcher->deleteLater();
@@ -618,8 +656,9 @@ void UpdateWorker::startDownload(int updateTypes)
 
 void UpdateWorker::stopDownload()
 {
+    qCDebug(logDccUpdatePlugin) << "Stopping download operation";
     if (!m_downloadJob) {
-        qCWarning(DCC_UPDATE_WORKER) << "Download job is null";
+        qCWarning(logDccUpdatePlugin) << "Download job is null";
         return;
     }
 
@@ -628,18 +667,19 @@ void UpdateWorker::stopDownload()
 
 void UpdateWorker::downloadJobCtrl(UpdateCtrlType type)
 {
+    qCDebug(logDccUpdatePlugin) << "download job control, type: " << type;
     if (m_downloadJob == nullptr) {
-        qCWarning(DCC_UPDATE_WORKER) << "Download job is nullptr";
+        qCWarning(logDccUpdatePlugin) << "Download job is nullptr";
         return;
     }
 
     switch (type) {
     case UpdateCtrlType::Start:
-        qCInfo(DCC_UPDATE_WORKER) << "Start download job";
+        qCInfo(logDccUpdatePlugin) << "Start download job";
         m_updateInter->StartJob(m_downloadJob->id());
         break;
     case UpdateCtrlType::Pause:
-        qCInfo(DCC_UPDATE_WORKER) << "Pause download job";
+        qCInfo(logDccUpdatePlugin) << "Pause download job";
         m_updateInter->PauseJob(m_downloadJob->id());
         break;
     }
@@ -647,10 +687,10 @@ void UpdateWorker::downloadJobCtrl(UpdateCtrlType type)
 
 void UpdateWorker::setDownloadJob(const QString& jobPath)
 {
-    qCInfo(DCC_UPDATE_WORKER) << "Set download job: " << jobPath;
+    qCInfo(logDccUpdatePlugin) << "Set download job: " << jobPath;
     QMutexLocker locker(&m_downloadMutex);
     if (m_downloadJob) {
-        qCInfo(DCC_UPDATE_WORKER) << "Download job existed, do not create again";
+        qCInfo(logDccUpdatePlugin) << "Download job existed, do not create again";
         return;
     }
 
@@ -668,6 +708,7 @@ void UpdateWorker::setDownloadJob(const QString& jobPath)
 
 void UpdateWorker::doUpgrade(int updateTypes, bool doBackup)
 {
+    qCDebug(logDccUpdatePlugin) << "do upgrade, updateTypes:" << updateTypes << ", doBackup: " << doBackup;
     if (!m_model->batterIsOK()) {
         notifyInfo(tr("Update"), tr("Please plug in and then install updates."));
         return;
@@ -675,7 +716,7 @@ void UpdateWorker::doUpgrade(int updateTypes, bool doBackup)
 
     emit startDoUpgrade();
 
-    qCInfo(DCC_UPDATE_WORKER) << "Do upgrade, update types:" << updateTypes << ", whether do backup:" << doBackup;
+    qCInfo(logDccUpdatePlugin) << "Do upgrade, update types:" << updateTypes << ", whether do backup:" << doBackup;
     cleanLaStoreJob(m_distUpgradeJob);
     cleanLaStoreJob(m_backupJob);
 
@@ -684,13 +725,13 @@ void UpdateWorker::doUpgrade(int updateTypes, bool doBackup)
     connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, updateTypes, watcher, doBackup] {
         QDBusPendingReply<QDBusObjectPath> reply = *watcher;
         if (reply.isError()) {
-            qCWarning(DCC_UPDATE_WORKER) << "Call `DistUpgradePartly` failed, error:" << reply.error().message();
+            qCWarning(logDccUpdatePlugin) << "Call `DistUpgradePartly` failed, error:" << reply.error().message();
         } else {
             m_model->setLastStatus(UpgradeWaiting, __LINE__, updateTypes);
             m_model->setUpgradeWaiting(true);
 
             const QString jobPath = reply.value().path();
-            qCInfo(DCC_UPDATE_WORKER) << "jobpath:" << jobPath;
+            qCInfo(logDccUpdatePlugin) << "jobpath:" << jobPath;
             if (doBackup) {
                 setBackupJob(jobPath);
             } else {
@@ -703,18 +744,19 @@ void UpdateWorker::doUpgrade(int updateTypes, bool doBackup)
 
 void UpdateWorker::reStart()
 {
-    qCInfo(DCC_UPDATE_WORKER) << "request restart";
+    qCInfo(logDccUpdatePlugin) << "request restart";
     m_updateInter->Restart();
 }
 
 void UpdateWorker::modalUpgrade(bool rebootAfterUpgrade)
 {
+    qCInfo(logDccUpdatePlugin) << "request modal upgrade, reboot after upgrade:" << rebootAfterUpgrade;
     if (!m_model->batterIsOK()) {
         notifyInfo(tr("Update"), tr("Please plug in and then install updates."));
+        qCWarning(logDccUpdatePlugin) << "battery is not ok, don't upgrade.";
         return;
     }
 
-    qCInfo(DCC_UPDATE_WORKER) << "request modal upgrade, reboot after upgrade:" << rebootAfterUpgrade;
     if (rebootAfterUpgrade) {
         m_updateInter->UpdateAndReboot();
     } else {
@@ -724,9 +766,9 @@ void UpdateWorker::modalUpgrade(bool rebootAfterUpgrade)
 
 void UpdateWorker::setBackupJob(const QString& jobPath)
 {
-    qCInfo(DCC_UPDATE_WORKER) << "Create backup upgrade job, path:" << jobPath;
+    qCInfo(logDccUpdatePlugin) << "Create backup upgrade job, path:" << jobPath;
     if (m_backupJob || jobPath.isEmpty()) {
-        qCInfo(DCC_UPDATE_WORKER) << "Job is not null or job path is empty";
+        qCInfo(logDccUpdatePlugin) << "Job is not null or job path is empty";
         return;
     }
 
@@ -734,6 +776,7 @@ void UpdateWorker::setBackupJob(const QString& jobPath)
     connect(m_backupJob, &UpdateJobDBusProxy::ProgressChanged, m_model, &UpdateModel::setBackupProgress);
     connect(m_backupJob, &UpdateJobDBusProxy::StatusChanged, this, &UpdateWorker::onBackupStatusChanged);
     connect(m_backupJob, &UpdateJobDBusProxy::DescriptionChanged, this, [this](const QString &description) {
+        qCDebug(logDccUpdatePlugin) << "backupJob DescriptionChanged: " << description << ", status:" << m_backupJob->status();
         if (m_backupJob->status() == "failed") {
             m_model->setLastErrorLog(BackupFailed, description);
         }
@@ -744,9 +787,9 @@ void UpdateWorker::setBackupJob(const QString& jobPath)
 
 void UpdateWorker::setDistUpgradeJob(const QString& jobPath)
 {
-    qCInfo(DCC_UPDATE_WORKER) << "Create dist upgrade job, path:" << jobPath;
+    qCInfo(logDccUpdatePlugin) << "Create dist upgrade job, path:" << jobPath;
     if (m_distUpgradeJob || jobPath.isEmpty()) {
-        qCInfo(DCC_UPDATE_WORKER) << "Job is not null or job path is empty";
+        qCInfo(logDccUpdatePlugin) << "Job is not null or job path is empty";
         return;
     }
 
@@ -764,22 +807,29 @@ void UpdateWorker::setDistUpgradeJob(const QString& jobPath)
 
 void UpdateWorker::updateSystemVersion()
 {
+    qCDebug(logDccUpdatePlugin) << "Updating system version information";
     const DConfig* dconfig = DConfigWatcher::instance()->getModulesConfig(DConfigWatcher::update);
     if (dconfig && dconfig->isValid()) {
-        m_model->setShowVersion(dconfig->value("showVersion").toString());
+        const auto showVersion = dconfig->value("showVersion").toString();
+        qCDebug(logDccUpdatePlugin) << "Show version config:" << showVersion;
+        m_model->setShowVersion(showVersion);
     }
 
     QString sVersion = QString("%1 %2").arg(DSysInfo::uosProductTypeName()).arg(DSysInfo::majorVersion());
     if (!IsServerSystem)
         sVersion.append(" " + DSysInfo::uosEditionName());
+    qCDebug(logDccUpdatePlugin) << "System version:" << sVersion;
     m_model->setSystemVersionInfo(sVersion);
 
     QSettings settings("/etc/os-baseline", QSettings::IniFormat);
-    m_model->setBaseline(settings.value("Baseline").toString());
+    const auto baseline = settings.value("Baseline").toString();
+    qCDebug(logDccUpdatePlugin) << "System baseline:" << baseline;
+    m_model->setBaseline(baseline);
 }
 
 void UpdateWorker::setFunctionUpdate(bool update)
 {
+    qCDebug(logDccUpdatePlugin) << "Set function update enabled:" << update;
     quint64 updateMode = m_model->updateMode();
     if (update) {
         updateMode |= UpdateType::SystemUpdate;
@@ -791,6 +841,7 @@ void UpdateWorker::setFunctionUpdate(bool update)
 
 void UpdateWorker::setSecurityUpdate(bool update)
 {
+    qCDebug(logDccUpdatePlugin) << "Set security update enabled:" << update;
     quint64 updateMode = m_model->updateMode();
     if (update) {
         updateMode |= UpdateType::SecurityUpdate;
@@ -802,6 +853,7 @@ void UpdateWorker::setSecurityUpdate(bool update)
 
 void UpdateWorker::setThirdPartyUpdate(bool update)
 {
+    qCDebug(logDccUpdatePlugin) << "Set third party update enabled:" << update;
     quint64 updateMode = m_model->updateMode();
     if (update) {
         updateMode |= UpdateType::UnknownUpdate;
@@ -813,6 +865,7 @@ void UpdateWorker::setThirdPartyUpdate(bool update)
 
 void UpdateWorker::setDownloadSpeedLimitEnabled(bool enable)
 {
+    qCDebug(logDccUpdatePlugin) << "Set download speed limit enabled:" << enable;
     auto config = m_model->speedLimitConfig();
     config.downloadSpeedLimitEnabled = enable;
     // dbus返回需要1s，导致界面更新慢，这里直接先更新model
@@ -822,7 +875,7 @@ void UpdateWorker::setDownloadSpeedLimitEnabled(bool enable)
 
 void UpdateWorker::setDownloadSpeedLimitSize(const QString& size)
 {
-    qCDebug(DCC_UPDATE_WORKER) << "set download speed limit size" << size;
+    qCDebug(logDccUpdatePlugin) << "set download speed limit size" << size;
     auto config = m_model->speedLimitConfig();
     config.limitSpeed = size;
     setDownloadSpeedLimitConfig(config.toJson());
@@ -830,11 +883,12 @@ void UpdateWorker::setDownloadSpeedLimitSize(const QString& size)
 
 void UpdateWorker::setDownloadSpeedLimitConfig(const QString& config)
 {
+    qCDebug(logDccUpdatePlugin) << "set download speed limit config" << config;
     QDBusPendingCall call = m_updateInter->SetDownloadSpeedLimit(config);
     QDBusPendingCallWatcher* watcher = new QDBusPendingCallWatcher(call, this);
     connect(watcher, &QDBusPendingCallWatcher::finished, this, [call, watcher] {
         if (call.isError()) {
-            qCWarning(DCC_UPDATE_WORKER) << "Set download speed limit config error: " << call.error().message();
+            qCWarning(logDccUpdatePlugin) << "Set download speed limit config error: " << call.error().message();
         }
         watcher->deleteLater();
     });
@@ -842,14 +896,17 @@ void UpdateWorker::setDownloadSpeedLimitConfig(const QString& config)
 
 void UpdateWorker::setAutoDownloadUpdates(const bool& autoDownload)
 {
+    qCDebug(logDccUpdatePlugin) << "Set auto download updates:" << autoDownload;
     m_updateInter->SetAutoDownloadUpdates(autoDownload);
     if (autoDownload == false) {
+        qCDebug(logDccUpdatePlugin) << "Auto download disabled, disable auto install";
         m_updateInter->setAutoInstallUpdates(false);
     }
 }
 
 void UpdateWorker::setIdleDownloadEnabled(bool enable)
 {
+    qCDebug(logDccUpdatePlugin) << "Set idle download enabled:" << enable;
     auto config = m_model->idleDownloadConfig();
     config.idleDownloadEnabled = enable;
     setIdleDownloadConfig(config);
@@ -857,6 +914,7 @@ void UpdateWorker::setIdleDownloadEnabled(bool enable)
 
 void UpdateWorker::setIdleDownloadBeginTime(QString time)
 {
+    qCDebug(logDccUpdatePlugin) << "Set idle download begin time:" << time;
     auto config = m_model->idleDownloadConfig();
     config.beginTime = time;
     config.endTime = adjustTimeFunc(config.beginTime, config.endTime, true);
@@ -865,6 +923,7 @@ void UpdateWorker::setIdleDownloadBeginTime(QString time)
 
 void UpdateWorker::setIdleDownloadEndTime(QString time)
 {
+    qCDebug(logDccUpdatePlugin) << "Set idle download end time:" << time;
     auto config = m_model->idleDownloadConfig();
     config.endTime = time;
     config.beginTime = adjustTimeFunc(config.beginTime, config.endTime, false);
@@ -873,13 +932,14 @@ void UpdateWorker::setIdleDownloadEndTime(QString time)
 
 void UpdateWorker::setIdleDownloadConfig(const IdleDownloadConfig& config)
 {
+    qCDebug(logDccUpdatePlugin) << "set idleDownloadConfig";
     // 避免dbus延时返回，导致界面更新慢，这里直接先更新model
     m_model->setIdleDownloadConfig(config);
     QDBusPendingCall call = m_updateInter->SetIdleDownloadConfig(QString(config.toJson()));
     QDBusPendingCallWatcher* watcher = new QDBusPendingCallWatcher(call, this);
     connect(watcher, &QDBusPendingCallWatcher::finished, this, [call, watcher] {
         if (call.isError()) {
-            qCWarning(DCC_UPDATE_WORKER) << "Set idle download config error:" << call.error().message();
+            qCWarning(logDccUpdatePlugin) << "Set idle download config error:" << call.error().message();
         }
         watcher->deleteLater();
     });
@@ -890,8 +950,11 @@ void UpdateWorker::setIdleDownloadConfig(const IdleDownloadConfig& config)
 // 修改结束时间时，如果不满足规则，那么自动调整开始时间，开始时间=结束时间-5分钟
 QString UpdateWorker::adjustTimeFunc(const QString& start, const QString& end, bool returnEndTime)
 {
-    if (start != end)
+    qCDebug(logDccUpdatePlugin) << "Adjusting time - start:" << start << "end:" << end << "returnEndTime:" << returnEndTime;
+    if (start != end) {
+        qCDebug(logDccUpdatePlugin) << "Times are different, returning original";
         return returnEndTime ? end : start;
+    }
 
     static const int MIN_INTERVAL_SECS = 5 * 60;
     QDateTime dateTime(QDate::currentDate(), QTime::fromString(start));
@@ -901,26 +964,31 @@ QString UpdateWorker::adjustTimeFunc(const QString& start, const QString& end, b
 
 void UpdateWorker::setUpdateNotify(const bool notify)
 {
+    qCDebug(logDccUpdatePlugin) << "Set update notification enabled:" << notify;
     m_updateInter->SetUpdateNotify(notify);
 }
 
 void UpdateWorker::setAutoCleanCache(const bool autoCleanCache)
 {
+    qCDebug(logDccUpdatePlugin) << "Set auto clean cache enabled:" << autoCleanCache;
     m_updateInter->SetAutoClean(autoCleanCache);
 }
 
 void UpdateWorker::setSmartMirror(bool enable)
 {
+    qCDebug(logDccUpdatePlugin) << "Set smart mirror enabled:" << enable;
     m_updateInter->SetEnable(enable);
 }
 
 void UpdateWorker::setMirrorSource(const MirrorInfo& mirror)
 {
+    qCDebug(logDccUpdatePlugin) << "Set mirror source:" << mirror.m_id;
     m_updateInter->SetMirrorSource(mirror.m_id);
 }
 
 void UpdateWorker::testMirrorSpeed()
 {
+    qCDebug(logDccUpdatePlugin) << "Starting mirror speed test";
     QList<MirrorInfo> mirrors = m_model->mirrorInfos();
 
     QStringList urlList;
@@ -928,6 +996,7 @@ void UpdateWorker::testMirrorSpeed()
         urlList << info.m_url;
     }
 
+    qCDebug(logDccUpdatePlugin) << "Testing" << urlList.size() << "mirror URLs";
     // reset the data;
     m_model->setMirrorSpeedInfo(QMap<QString, int>());
 
@@ -949,18 +1018,21 @@ void UpdateWorker::testMirrorSpeed()
 
 void UpdateWorker::checkNetselect()
 {
+    qCDebug(logDccUpdatePlugin) << "Checking netselect tool availability";
     QProcess* process = new QProcess;
     process->start("netselect", QStringList() << "127.0.0.1");
     connect(process, &QProcess::errorOccurred, this, [this, process](QProcess::ProcessError error) {
         if ((error == QProcess::FailedToStart) || (error == QProcess::Crashed)) {
+            qCDebug(logDccUpdatePlugin) << "Netselect not available, error:" << error;
             m_model->setNetselectExist(false);
             process->deleteLater();
         }
     });
     connect(process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, [this, process](int result) {
         bool isNetselectExist = 0 == result;
+        qCDebug(logDccUpdatePlugin) << "Netselect availability check result:" << isNetselectExist;
         if (!isNetselectExist) {
-            qCDebug(DCC_UPDATE_WORKER) << "Netselect 127.0.0.1 :" << isNetselectExist;
+            qCDebug(logDccUpdatePlugin) << "Netselect 127.0.0.1 :" << isNetselectExist;
         }
         m_model->setNetselectExist(isNetselectExist);
         process->deleteLater();
@@ -970,10 +1042,10 @@ void UpdateWorker::checkNetselect()
 #ifndef DISABLE_SYS_UPDATE_MIRRORS
 void UpdateWorker::refreshMirrors()
 {
-    qCDebug(DCC_UPDATE_WORKER) << QDir::currentPath();
+    qCDebug(logDccUpdatePlugin) << QDir::currentPath();
     QFile file(":/update/themes/common/config/mirrors.json");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        qCDebug(DCC_UPDATE_WORKER) << file.errorString();
+        qCDebug(logDccUpdatePlugin) << file.errorString();
         return;
     }
     QJsonArray array = QJsonDocument::fromJson(file.readAll()).array();
@@ -997,7 +1069,7 @@ void UpdateWorker::refreshMirrors()
 
 void UpdateWorker::setTestingChannelEnable(const bool& enable)
 {
-    qCDebug(DCC_UPDATE_WORKER) << "Testing:" << "setTestingChannelEnable" << enable;
+    qCDebug(logDccUpdatePlugin) << "Testing:" << "setTestingChannelEnable" << enable;
     if (enable) {
         m_model->setTestingChannelStatus(TestingChannelStatus::WaitJoined);
     } else {
@@ -1008,7 +1080,7 @@ void UpdateWorker::setTestingChannelEnable(const bool& enable)
     if (!machineidopt.has_value()) {
         // INFO: 99lastore-token.conf is not generated, need wait for lastore to generating it, if
         // it is not generated for a long time, please post a issue to lastore
-        qCWarning(DCC_UPDATE_WORKER)
+        qCWarning(logDccUpdatePlugin)
                 << "machineid need to read /etc/apt/apt.conf.d/99lastore-token.conf, the file is "
                    "generated by lastore. Maybe you need wait for the file to be generated.";
         m_model->setTestingChannelStatus(TestingChannelStatus::NotJoined);
@@ -1022,6 +1094,7 @@ void UpdateWorker::setTestingChannelEnable(const bool& enable)
     request.setRawHeader("content-type", "application/json");
     QEventLoop loop;
     connect(http, &QNetworkAccessManager::finished, this, [http, &loop](QNetworkReply *reply) {
+        qCDebug(logDccUpdatePlugin) << "http request finished";
         reply->deleteLater();
         http->deleteLater();
         loop.quit();
@@ -1032,7 +1105,7 @@ void UpdateWorker::setTestingChannelEnable(const bool& enable)
     // Disable Testing Channel
     if (!enable) {
         if (m_updateInter->PackageExists(TestingChannelPackage)) {
-            qCDebug(DCC_UPDATE_WORKER) << "Testing:" << "Uninstall testing channel package";
+            qCDebug(logDccUpdatePlugin) << "Testing:" << "Uninstall testing channel package";
             emit requestCloseTestingChannel();
         } else {
             m_model->setTestingChannelStatus(TestingChannelStatus::NotJoined);
@@ -1049,25 +1122,29 @@ void UpdateWorker::setTestingChannelEnable(const bool& enable)
 
 bool UpdateWorker::openTestingChannelUrl()
 {
+    qCDebug(logDccUpdatePlugin) << "Opening testing channel URL";
     auto testChannelUrlOpt = getTestingChannelUrl();
     if (!testChannelUrlOpt.has_value()) {
+        qCWarning(logDccUpdatePlugin) << "Failed to get testing channel URL";
         m_model->setTestingChannelStatus(TestingChannelStatus::NotJoined);
         return false;
     }
     QUrl testChannelUrl = testChannelUrlOpt.value();
-    qCDebug(DCC_UPDATE_WORKER) << "Testing:" << "open join page" << testChannelUrl.toString();
+    qCDebug(logDccUpdatePlugin) << "Testing:" << "open join page" << testChannelUrl.toString();
     return openUrl(testChannelUrl.toString());
 }
 
 void UpdateWorker::exitTestingChannel(bool value)
 {
+    qCDebug(logDccUpdatePlugin) << "Exit testing channel confirmed:" << value;
     if (value) {
+        qCDebug(logDccUpdatePlugin) << "Removing testing channel package";
         QDBusPendingCall call = m_updateInter->RemovePackage(TestingChannel, TestingChannelPackage);
         QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
         connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, call, watcher] {
             watcher->deleteLater();
             if (call.isError()) {
-                qCWarning(DCC_UPDATE_WORKER) << "dbus call failed: " << call.error();
+                qCWarning(logDccUpdatePlugin) << "dbus call failed: " << call.error();
                 m_model->setTestingChannelStatus(TestingChannelStatus::Joined);
             } else {
                 QDBusReply<QDBusObjectPath> reply = call.reply();
@@ -1076,31 +1153,39 @@ void UpdateWorker::exitTestingChannel(bool value)
             }
         });
     } else {
+        qCDebug(logDccUpdatePlugin) << "User cancelled exit, stay in testing channel";
         m_model->setTestingChannelStatus(TestingChannelStatus::Joined);
     }
 }
 
 std::optional<QString> UpdateWorker::getMachineId()
 {
+    qCDebug(logDccUpdatePlugin) << "Getting machine ID";
     if (m_machineid.has_value()) {
+        qCDebug(logDccUpdatePlugin) << "Using cached machine ID";
         return m_machineid.value();
     }
     QString machineid = m_updateInter->hardwareId();
     if (!machineid.isEmpty()) {
+        qCDebug(logDccUpdatePlugin) << "Got machine ID from hardware";
         m_machineid = machineid;
         return machineid;
     }
+    qCWarning(logDccUpdatePlugin) << "Failed to get machine ID";
     return std::nullopt;
 }
 
 std::optional<QUrl> UpdateWorker::getTestingChannelUrl()
 {
+    qCDebug(logDccUpdatePlugin) << "Getting testing channel URL";
     if (!m_testingChannelUrl.has_value()) {
         QString hostname = m_updateInter->staticHostname();
         auto machineid = getMachineId();
         if (!machineid.has_value()) {
+            qCWarning(logDccUpdatePlugin) << "Cannot get machine ID for testing channel";
             return std::nullopt;
         }
+        qCDebug(logDccUpdatePlugin) << "Building testing URL with hostname:" << hostname;
         QUrl testingUrl = QUrl(ServiceLink + "/internal-testing");
         auto query = QUrlQuery(testingUrl.query());
         query.addQueryItem("h", hostname);
@@ -1114,18 +1199,25 @@ std::optional<QUrl> UpdateWorker::getTestingChannelUrl()
 
 void UpdateWorker::initTestingChannel()
 {
+    qCDebug(logDccUpdatePlugin) << "Initializing testing channel";
     if (!IsCommunitySystem) {
+        qCDebug(logDccUpdatePlugin) << "Not community system, testing channel deactive";
         m_model->setTestingChannelStatus(TestingChannelStatus::DeActive);
         return;
     }
+    qCDebug(logDccUpdatePlugin) << "Checking testing channel package existence";
     QDBusPendingCall call = m_updateInter->PackageExists(TestingChannelPackage);
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
     connect(watcher, &QDBusPendingCallWatcher::finished, this, [watcher, call, this] {
         if (!call.isError()) {
             QDBusPendingReply<bool> reply = call.reply();
-            if (reply.value()) {
+            const auto packageExists = reply.value();
+            qCDebug(logDccUpdatePlugin) << "Testing channel package exists:" << packageExists;
+            if (packageExists) {
                 m_model->setTestingChannelStatus(TestingChannelStatus::Joined);
             };
+        } else {
+            qCWarning(logDccUpdatePlugin) << "Failed to check testing channel package:" << call.error().message();
         }
         watcher->deleteLater();
     });
@@ -1141,7 +1233,7 @@ void UpdateWorker::checkTestingChannelStatus()
         return;
     }
 
-    qCDebug(DCC_UPDATE_WORKER) << "Testing:" << "check testing join status";
+    qCDebug(logDccUpdatePlugin) << "Testing:" << "check testing join status";
     QString machineid = m_machineid.value();
     auto http = new QNetworkAccessManager(this);
     QNetworkRequest request;
@@ -1152,11 +1244,11 @@ void UpdateWorker::checkTestingChannelStatus()
         http->deleteLater();
 
         if (reply->error() != QNetworkReply::NoError) {
-            qCDebug(DCC_UPDATE_WORKER) << "Testing:" << "Network Error" << reply->errorString();
+            qCDebug(logDccUpdatePlugin) << "Testing:" << "Network Error" << reply->errorString();
             return;
         }
         auto data = reply->readAll();
-        qCDebug(DCC_UPDATE_WORKER) << "Testing:" << "machine status body" << data;
+        qCDebug(logDccUpdatePlugin) << "Testing:" << "machine status body" << data;
         auto doc = QJsonDocument::fromJson(data);
         auto obj = doc.object();
         auto status = obj["data"].toObject()["status"].toString();
@@ -1166,13 +1258,13 @@ void UpdateWorker::checkTestingChannelStatus()
         }
         // If user has joined then install testing source package;
         if (status == "joined") {
-            qCDebug(DCC_UPDATE_WORKER) << "Testing:" << "Install testing channel package";
+            qCDebug(logDccUpdatePlugin) << "Testing:" << "Install testing channel package";
             QDBusPendingCall call = m_updateInter->InstallPackage(TestingChannel, TestingChannelPackage);
             QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
             connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, call, watcher] {
                 watcher->deleteLater();
                 if (call.isError()) {
-                    qCWarning(DCC_UPDATE_WORKER) << "dbus call failed: " << call.error();
+                    qCWarning(logDccUpdatePlugin) << "dbus call failed: " << call.error();
                     m_model->setTestingChannelStatus(TestingChannelStatus::NotJoined);
                 } else {
                     QDBusReply<QDBusObjectPath> reply = call.reply();
@@ -1190,9 +1282,9 @@ void UpdateWorker::checkTestingChannelStatus()
 
 void UpdateWorker::setInstallPackageJob(const QString& jobPath)
 {
-    qCInfo(DCC_UPDATE_WORKER) << "Create install package job, path:" << jobPath;
+    qCInfo(logDccUpdatePlugin) << "Create install package job, path:" << jobPath;
     if (m_installPackageJob || jobPath.isEmpty()) {
-        qCInfo(DCC_UPDATE_WORKER) << "Job is not null or job path is empty";
+        qCInfo(logDccUpdatePlugin) << "Job is not null or job path is empty";
         return;
     }
 
@@ -1203,9 +1295,9 @@ void UpdateWorker::setInstallPackageJob(const QString& jobPath)
 
 void UpdateWorker::setRemovePackageJob(const QString& jobPath)
 {
-    qCInfo(DCC_UPDATE_WORKER) << "Create remove package job, path:" << jobPath;
+    qCInfo(logDccUpdatePlugin) << "Create remove package job, path:" << jobPath;
     if (m_removePackageJob || jobPath.isEmpty()) {
-        qCInfo(DCC_UPDATE_WORKER) << "Job is not null or job path is empty";
+        qCInfo(logDccUpdatePlugin) << "Job is not null or job path is empty";
         return;
     }
 
@@ -1216,6 +1308,7 @@ void UpdateWorker::setRemovePackageJob(const QString& jobPath)
 
 bool UpdateWorker::openUrl(const QString& url)
 {
+    qCDebug(logDccUpdatePlugin) << "open url: " << url;
     return QDesktopServices::openUrl(QUrl(url));
 }
 
@@ -1225,13 +1318,13 @@ void UpdateWorker::onRequestRetry(int type, int updateTypes)
     const auto updateStatus = m_model->updateStatus(controlType);
     const auto lastError = m_model->lastError(m_model->updateStatus(controlType));
 
-    qCWarning(DCC_UPDATE_WORKER) << "Control type:" << controlType
+    qCWarning(logDccUpdatePlugin) << "Control type:" << controlType
                << ", update status:" << updateStatus
                << ", update types:" << updateTypes;
 
     if (updateStatus == UpgradeFailed && lastError == DpkgInterrupted) {
         if (m_fixErrorJob != nullptr) {
-            qCWarning(DCC_UPDATE_WORKER) << "Fix error job is nullptr";
+            qCWarning(logDccUpdatePlugin) << "Fix error job is nullptr";
             return;
         }
 
@@ -1240,18 +1333,18 @@ void UpdateWorker::onRequestRetry(int type, int updateTypes)
                               "org.deepin.dde.Lastore1.Manager",
                               QDBusConnection::systemBus());
         if (!lastoreManager.isValid()) {
-            qDebug() << "com.deepin.license error ," << lastoreManager.lastError().name();
+            qCDebug(logDccUpdatePlugin) << "com.deepin.license error ," << lastoreManager.lastError().name();
             return;
         }
 
         const QString& errorTypeString = UpdateModel::updateErrorToString(lastError);
-        qCInfo(DCC_UPDATE_WORKER) << "Call `FixError` function, error type:" << errorTypeString;
+        qCInfo(logDccUpdatePlugin) << "Call `FixError` function, error type:" << errorTypeString;
         QDBusReply<QDBusObjectPath> reply = lastoreManager.call("FixError", errorTypeString);
         if (reply.isValid()) {
             QString path = reply.value().path();
             m_fixErrorJob = new UpdateJobDBusProxy(path, this);
             connect(m_fixErrorJob, &UpdateJobDBusProxy::StatusChanged, this, [updateTypes, lastError, this](const QString status) {
-                qCInfo(DCC_UPDATE_WORKER) << "Fix error job status changed :" << status;
+                qCInfo(logDccUpdatePlugin) << "Fix error job status changed :" << status;
                 if (status == "succeed" || status == "failed" || status == "end") {
                     deleteJob(m_fixErrorJob);
                     if (status == "succeed") {
@@ -1262,7 +1355,7 @@ void UpdateWorker::onRequestRetry(int type, int updateTypes)
                 }
             });
         } else {
-            qCWarning(DCC_UPDATE_WORKER) << "Call `FixError` reply is invalid, error: " << reply.error().message();
+            qCWarning(logDccUpdatePlugin) << "Call `FixError` reply is invalid, error: " << reply.error().message();
         }
         return;
     }
@@ -1283,13 +1376,14 @@ void UpdateWorker::onRequestRetry(int type, int updateTypes)
     }
 
     if (lastError == UnKnown || lastError == NoError) {
-        qCWarning(DCC_UPDATE_WORKER) << "Unknown error, recheck update";
+        qCWarning(logDccUpdatePlugin) << "Unknown error, recheck update";
         doCheckUpdates();
     }
 }
 
 void UpdateWorker::setCheckUpdateMode(int type, bool isChecked)
 {
+    qCDebug(logDccUpdatePlugin) << "Set check update mode, type:" << type << "checked:" << isChecked;
     quint64 currentMode = m_model->checkUpdateMode();
     quint64 outMode = isChecked ? (currentMode | type) : (currentMode & ~type);
 
@@ -1298,10 +1392,12 @@ void UpdateWorker::setCheckUpdateMode(int type, bool isChecked)
 
 void UpdateWorker::exportLogToDesktop()
 {
+    qCDebug(logDccUpdatePlugin) << "Exporting update log to desktop";
     // 获取桌面路径
     QString desktopPath = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
     if (desktopPath.isEmpty()) {
         // 如果无法获取桌面路径，使用主目录
+        qCDebug(logDccUpdatePlugin) << "Desktop path empty, using home directory";
         desktopPath = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
     }
 
@@ -1309,18 +1405,19 @@ void UpdateWorker::exportLogToDesktop()
     QString timestamp = QDateTime::currentDateTime().toString("yyyy_MM_dd_HH.mm.ss");
     QString fileName = tr("updatelog") + QString("_%1.txt").arg(timestamp);
     QString filePath = QDir(desktopPath).absoluteFilePath(fileName);
+    qCDebug(logDccUpdatePlugin) << "Export log file path:" << filePath;
 
     // 直接创建桌面文件并获取文件描述符
     auto logFile = std::make_shared<QFile>(filePath);
     if (!logFile->open(QIODevice::WriteOnly | QIODevice::Text)) {
-        qCWarning(DCC_UPDATE_WORKER) << "Failed to create log file:" << filePath;
+        qCWarning(logDccUpdatePlugin) << "Failed to create log file:" << filePath;
         notifyInfo(tr("Update"), tr("Log export failed, please try again"));
         return;
     }
 
     int fd = logFile->handle();
     if (fd == -1) {
-        qCWarning(DCC_UPDATE_WORKER) << "Failed to get file descriptor for:" << filePath;
+        qCWarning(logDccUpdatePlugin) << "Failed to get file descriptor for:" << filePath;
         notifyInfo(tr("Update"), tr("Log export failed, please try again"));
         return;
     }
@@ -1330,7 +1427,7 @@ void UpdateWorker::exportLogToDesktop()
     connect(watcher, &QDBusPendingCallWatcher::finished, this, [watcher, logFile] {
         QDBusPendingReply<void> reply = *watcher;
         if (reply.isError()) {
-            qCWarning(DCC_UPDATE_WORKER) << "Export update details failed, error: " << reply.error().message();
+            qCWarning(logDccUpdatePlugin) << "Export update details failed, error: " << reply.error().message();
             notifyInfo(tr("Update"), tr("Log export failed, please try again"));
         } else {
             notifyInfo(tr("Update"), tr("The log has been exported to the desktop"));
@@ -1341,6 +1438,7 @@ void UpdateWorker::exportLogToDesktop()
 
 void UpdateWorker::onLicenseStateChange()
 {
+    qCDebug(logDccUpdatePlugin) << "License state changed, checking activation";
     QFutureWatcher<void>* watcher = new QFutureWatcher<void>(this);
     connect(watcher, &QFutureWatcher<void>::finished, watcher, &QFutureWatcher<void>::deleteLater);
 
@@ -1356,7 +1454,7 @@ void UpdateWorker::onLicenseStateChange()
  */
 void UpdateWorker::onPowerChange()
 {
-    qCInfo(DCC_UPDATE_WORKER) << "Check power";
+    qCInfo(logDccUpdatePlugin) << "Check power";
     bool onBattery = m_updateInter->onBattery();
     if (!onBattery) {
         m_model->setBatterIsOK(true);
@@ -1370,12 +1468,13 @@ void UpdateWorker::onPowerChange()
 
 void UpdateWorker::onUpdateModeChanged(qulonglong value)
 {
+    qCDebug(logDccUpdatePlugin) << "Update mode changed to:" << value;
     m_model->setUpdateMode(value);
 }
 
 void UpdateWorker::onJobListChanged(const QList<QDBusObjectPath>& jobs)
 {
-    qCInfo(DCC_UPDATE_WORKER) << "Job list changed, size:" << jobs.size();
+    qCInfo(logDccUpdatePlugin) << "Job list changed, size:" << jobs.size();
 
     for (const auto& job : jobs) {
         QString jobPath = job.path();
@@ -1386,7 +1485,7 @@ void UpdateWorker::onJobListChanged(const QList<QDBusObjectPath>& jobs)
         if (!jobInter.isValid() || id.isEmpty())
             continue;
 
-        qCInfo(DCC_UPDATE_WORKER) << "Job id: " << id << ", job path: " << jobPath;
+        qCInfo(logDccUpdatePlugin) << "Job id: " << id << ", job path: " << jobPath;
         if ((id == "update_source" || id == "custom_update") && m_checkUpdateJob == nullptr) {
             setCheckUpdatesJob(jobPath);
         } else if (id == "dist_upgrade" && m_distUpgradeJob == nullptr) {
@@ -1405,17 +1504,19 @@ void UpdateWorker::onJobListChanged(const QList<QDBusObjectPath>& jobs)
 
 void UpdateWorker::onUpdateStatusChanged(const QString &value)
 {
+    qCDebug(logDccUpdatePlugin) << "Update status changed to:" << value;
     m_model->setUpdateStatus(value.toUtf8());
 }
 
 void UpdateWorker::onClassifiedUpdatablePackagesChanged(const QMap<QString, QStringList>& packages)
 {
+    qCDebug(logDccUpdatePlugin) << "Classified updatable packages changed";
     m_model->updatePackages(packages);
 }
 
 void UpdateWorker::onCheckUpdateStatusChanged(const QString& value)
 {
-    qCInfo(DCC_UPDATE_WORKER) << "Check update status changed: " << value;
+    qCInfo(logDccUpdatePlugin) << "Check update status changed: " << value;
     if (value == "failed" || value.isEmpty()) {
         if (m_checkUpdateJob != nullptr) {
             m_updateInter->CleanJob(m_checkUpdateJob->id());
@@ -1439,7 +1540,7 @@ void UpdateWorker::onCheckUpdateStatusChanged(const QString& value)
                     UpdateLogHelper::ref().updateItemInfo(resultMap.value(type));
                 }
             } else {
-                qCWarning(DCC_UPDATE_WORKER) << "Get update log failed";
+                qCWarning(logDccUpdatePlugin) << "Get update log failed";
             }
             // 日志处理完了再显示更新内容界面
         });
@@ -1458,7 +1559,7 @@ void UpdateWorker::onCheckUpdateStatusChanged(const QString& value)
 
 void UpdateWorker::onDownloadStatusChanged(const QString& value)
 {
-    qCInfo(DCC_UPDATE_WORKER) << "Download status changed: " << value;
+    qCInfo(logDccUpdatePlugin) << "Download status changed: " << value;
     if (value == "failed") {
         const auto& description = m_downloadJob->description();
         m_model->setLastErrorLog(DownloadFailed, description);
@@ -1467,7 +1568,7 @@ void UpdateWorker::onDownloadStatusChanged(const QString& value)
     } else if (value == "end") {
         // 有多个下载项时,每下载完一个就会收到`end`,全部下载完毕后再析构job
         if (m_model->allUpdateStatus().contains(Downloading)) {
-            qCInfo(DCC_UPDATE_WORKER) << "Downloading, do not handle `end` status";
+            qCInfo(logDccUpdatePlugin) << "Downloading, do not handle `end` status";
             return;
         }
         deleteJob(m_downloadJob);
@@ -1480,7 +1581,7 @@ void UpdateWorker::onDownloadStatusChanged(const QString& value)
 
 void UpdateWorker::onBackupStatusChanged(const QString &value)
 {
-    qCInfo(DCC_UPDATE_WORKER) << "backup status changed: " << value;
+    qCInfo(logDccUpdatePlugin) << "backup status changed: " << value;
     if (value == "failed") {
         const auto& description = m_backupJob->description();
         m_model->setLastErrorLog(BackupFailed, description);
@@ -1493,6 +1594,7 @@ void UpdateWorker::onBackupStatusChanged(const QString &value)
 
 void UpdateWorker::onDistUpgradeStatusChanged(const QString& status)
 {
+    qCInfo(logDccUpdatePlugin) << "Dist upgrade status changed:" << status;
     // 无需处理ready状态
     static const QMap<QString, UpdatesStatus> DIST_UPGRADE_STATUS_MAP = {
         { "running", Upgrading },
@@ -1501,7 +1603,7 @@ void UpdateWorker::onDistUpgradeStatusChanged(const QString& status)
         { "end", UpgradeComplete }
     };
 
-    qCInfo(DCC_UPDATE_WORKER) << "Dist upgrade status changed:" << status;
+    qCInfo(logDccUpdatePlugin) << "Dist upgrade status changed:" << status;
     if (DIST_UPGRADE_STATUS_MAP.contains(status)) {
         const auto updateStatus = DIST_UPGRADE_STATUS_MAP.value(status);
         if (updateStatus == UpgradeComplete) {
@@ -1516,17 +1618,17 @@ void UpdateWorker::onDistUpgradeStatusChanged(const QString& status)
             }
         }
     } else {
-        qCWarning(DCC_UPDATE_WORKER) << "Unknown dist upgrade status";
+        qCWarning(logDccUpdatePlugin) << "Unknown dist upgrade status";
     }
 }
 
 void UpdateWorker::onInstallPackageStatusChanged(const QString& value)
 {
-    qCInfo(DCC_UPDATE_WORKER) << "Install package status changed: " << value;
+    qCInfo(logDccUpdatePlugin) << "Install package status changed: " << value;
     if (value == "failed") {
         if (m_installPackageJob != nullptr) {
             const auto& description = m_installPackageJob->description();
-            qCWarning(DCC_UPDATE_WORKER) << "Cannot install package" << TestingChannelPackage << ": " << description;
+            qCWarning(logDccUpdatePlugin) << "Cannot install package" << TestingChannelPackage << ": " << description;
             m_model->setTestingChannelStatus(TestingChannelStatus::NotJoined);
             cleanLaStoreJob(m_installPackageJob);            
         }
@@ -1539,11 +1641,11 @@ void UpdateWorker::onInstallPackageStatusChanged(const QString& value)
 
 void UpdateWorker::onRemovePackageStatusChanged(const QString& value)
 {
-    qCInfo(DCC_UPDATE_WORKER) << "Remove package status changed: " << value;
+    qCInfo(logDccUpdatePlugin) << "Remove package status changed: " << value;
     if (value == "failed") {
         if (m_removePackageJob != nullptr) {
             const auto& description = m_removePackageJob->description();
-            qCWarning(DCC_UPDATE_WORKER) << "Cannot uninstall package" << TestingChannelPackage << ": " << description;
+            qCWarning(logDccUpdatePlugin) << "Cannot uninstall package" << TestingChannelPackage << ": " << description;
             m_model->setTestingChannelStatus(TestingChannelStatus::Joined);
             cleanLaStoreJob(m_removePackageJob);
         }

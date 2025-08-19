@@ -24,6 +24,7 @@
 #include <QFileSystemWatcher>
 #include <QTextStream>
 #include <QStandardPaths>
+#include <QLoggingCategory>
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/stat.h>
@@ -32,7 +33,7 @@
 #include <DDBusSender>
 #include <DStandardPaths>
 
-Q_LOGGING_CATEGORY(DDE_UPDATE_WORKER, "dde-update-worker")
+Q_DECLARE_LOGGING_CATEGORY(logUpdateModal)
 
 static const QList<UpdateModel::UpdateError> CAN_BE_FIXED_ERRORS = { UpdateModel::DpkgInterrupted };
 
@@ -54,7 +55,7 @@ void UpdateWorker::init()
     connect(m_dbusProxy, &UpdateDBusProxy::managerInterServiceValidChanged, this, [this](bool valid) {
         if (!valid) {
             const auto status = UpdateModel::instance()->updateStatus();
-            qWarning() << "Lastore daemon manager service is invalid, curren status: " << status;
+            qCWarning(logUpdateModal) << "Lastore daemon manager service is invalid, curren status: " << status;
             if (m_distUpgradeJob) {
                 delete m_distUpgradeJob;
                 m_distUpgradeJob = nullptr;
@@ -96,14 +97,14 @@ void UpdateWorker::init()
  */
 void UpdateWorker::startUpdateProgress()
 {
-    qInfo() << "Start update progress";
+    qCInfo(logUpdateModal) << "Start update progress";
 
     doDistUpgradeIfCanBackup();
 }
 
 void UpdateWorker::doDistUpgrade(bool doBackup)
 {
-    qInfo() << "Do dist upgrade, do backup: " << doBackup;
+    qCInfo(logUpdateModal) << "Do dist upgrade, do backup: " << doBackup;
     if (!m_dbusProxy->managerInterIsValid()) {
         UpdateModel::instance()->setLastErrorLog("org.deepin.dde.Lastore1.Manager interface is invalid.");
         UpdateModel::instance()->setUpdateError(UpdateModel::UpdateError::UpdateInterfaceError);
@@ -112,7 +113,7 @@ void UpdateWorker::doDistUpgrade(bool doBackup)
     }
 
     if (UpdateModel::instance()->updateStatus() >= UpdateModel::Installing) {
-        qWarning() << "Installing, won't do it again";
+        qCWarning(logUpdateModal) << "Installing, won't do it again";
         return;
     }
 
@@ -133,7 +134,7 @@ void UpdateWorker::doDistUpgrade(bool doBackup)
             
         } else {
             const QString &errorMessage = watcher->error().message();
-            qWarning() << "Do dist upgrade failed:" << watcher->error().message();
+            qCWarning(logUpdateModal) << "Do dist upgrade failed:" << watcher->error().message();
             UpdateModel::instance()->setLastErrorLog(errorMessage);
             UpdateModel::instance()->setUpdateError(UpdateModel::UpdateError::UnKnown);
             UpdateModel::instance()->setUpdateStatus(UpdateModel::UpdateStatus::InstallFailed);
@@ -143,27 +144,27 @@ void UpdateWorker::doDistUpgrade(bool doBackup)
 
 void UpdateWorker::onJobListChanged(const QList<QDBusObjectPath> &jobs)
 {
-    qInfo() << "Job list changed";
+    qCInfo(logUpdateModal) << "Job list changed";
     for (const auto &job : jobs) {
         const QString &jobPath = job.path();
-        qInfo() << "Path : " << jobPath;
+        qCInfo(logUpdateModal) << "Path : " << jobPath;
         JobInter jobInter(jobPath, this);
         if (!jobInter.isValid()) {
-            qWarning() << "Job is invalid";
-            continue;
+            qCWarning(logUpdateModal) << "Job is invalid";
+            continue;   
         }
 
         // id maybe scrapped
         const QString &id = jobInter.id();
-        qInfo() << "Job id : " << id;
+        qCInfo(logUpdateModal) << "Job id : " << id;
         if (id == "dist_upgrade" && m_distUpgradeJob == nullptr) {
-            qInfo() << "Create dist upgrade job";
+            qCInfo(logUpdateModal) << "Create dist upgrade job";
             createDistUpgradeJob(jobPath);
         } else if (id == "check_system" && m_checkSystemJob == nullptr) {
-            qInfo() << "Create check system job";
+            qCInfo(logUpdateModal) << "Create check system job";
             createCheckSystemJob(jobPath);
         } else if (id == "backup" && m_backupJob == nullptr) {
-            qInfo() << "Create backup job";
+            qCInfo(logUpdateModal) << "Create backup job";
             createBackupJob(jobPath);
         }
     }
@@ -171,14 +172,14 @@ void UpdateWorker::onJobListChanged(const QList<QDBusObjectPath> &jobs)
 
 void UpdateWorker::createDistUpgradeJob(const QString& jobPath)
 {
-    qInfo() << "Job path:" << jobPath;
+    qCInfo(logUpdateModal) << "Job path:" << jobPath;
     if (m_distUpgradeJob) {
-        qWarning() << "Dist upgrade job is not null";
+        qCWarning(logUpdateModal) << "Dist upgrade job is not null";
         return;
     }
 
     if (jobPath.isEmpty()) {
-        qWarning() << "Dist upgrade job path is empty";
+        qCWarning(logUpdateModal) << "Dist upgrade job path is empty";
         return;
     }
 
@@ -191,21 +192,21 @@ void UpdateWorker::createDistUpgradeJob(const QString& jobPath)
 
 void UpdateWorker::createCheckSystemJob(const QString& jobPath)
 {
-    qInfo() << "Job path:" << jobPath;
+    qCInfo(logUpdateModal) << "Job path:" << jobPath;
     if (m_checkSystemJob) {
-        qWarning() << "Check system job is not null";
+        qCWarning(logUpdateModal) << "Check system job is not null";
         return;
     }
 
     if (jobPath.isEmpty()) {
-        qWarning() << "Check system job path is empty";
+        qCWarning(logUpdateModal) << "Check system job path is empty";
         return;
     }
 
     m_checkSystemJob = new JobInter(jobPath, this);
     // 低概率出现创建 job 时，系统检查已经完成的情况，此时直接退出进程即可。
     if (m_checkSystemJob->id().isEmpty()) {
-        qWarning() << "Check system job id is empty, exit application now";
+        qCWarning(logUpdateModal) << "Check system job id is empty, exit application now";
         qApp->exit();
     }
     connect(m_checkSystemJob, &UpdateJobDBusProxy::ProgressChanged, UpdateModel::instance(), &UpdateModel::setJobProgress);
@@ -216,9 +217,9 @@ void UpdateWorker::createCheckSystemJob(const QString& jobPath)
 
 void UpdateWorker::createBackupJob(const QString& jobPath)
 {
-    qCInfo(DDE_UPDATE_WORKER) << "Create backup upgrade job, path:" << jobPath;
+    qCInfo(logUpdateModal) << "Create backup upgrade job, path:" << jobPath;
     if (m_backupJob || jobPath.isEmpty()) {
-        qCInfo(DDE_UPDATE_WORKER) << "Job is not null or job path is empty";
+        qCInfo(logUpdateModal) << "Job is not null or job path is empty";
         return;
     }
 
@@ -244,7 +245,7 @@ void UpdateWorker::onDistUpgradeStatusChanged(const QString &status)
         {"end", UpdateModel::UpdateStatus::InstallComplete}
     };
 
-    qInfo() << "Dist upgrade status changed " << status;
+    qCInfo(logUpdateModal) << "Dist upgrade status changed " << status;
     if (DIST_UPGRADE_STATUS_MAP.contains(status)) {
         const UpdateModel::UpdateStatus updateStatus = DIST_UPGRADE_STATUS_MAP.value(status);
         if (updateStatus == UpdateModel::UpdateStatus::InstallComplete) {
@@ -264,7 +265,7 @@ void UpdateWorker::onDistUpgradeStatusChanged(const QString &status)
             UpdateModel::instance()->setUpdateStatus(updateStatus);
         }
     } else {
-        qWarning() << "Unknown dist upgrade status";
+        qCWarning(logUpdateModal) << "Unknown dist upgrade status";
     }
 }
 
@@ -278,11 +279,11 @@ void UpdateWorker::onCheckSystemStatusChanged(const QString &status)
         {"end", UpdateModel::CheckEnd}
     };
 
-    qInfo() << "Check system status changed " << status;
+    qCInfo(logUpdateModal) << "Check system status changed " << status;
     if (CHECK_UPGRADE_STATUS_MAP.contains(status)) {
         const auto updateStatus = CHECK_UPGRADE_STATUS_MAP.value(status);
         const auto stage = UpdateModel::instance()->checkSystemStage();
-        qInfo() << "Check system stage:" << stage << ", update status:" << updateStatus;
+        qCInfo(logUpdateModal) << "Check system stage:" << stage << ", update status:" << updateStatus;
         if (UpdateModel::CSS_AfterLogin == stage && updateStatus == UpdateModel::CheckEnd) {
             cleanLaStoreJob(m_checkSystemJob);
         } else {
@@ -294,10 +295,10 @@ void UpdateWorker::onCheckSystemStatusChanged(const QString &status)
                     doAction(UpdateModel::Reboot);
                 } else if (updateStatus == UpdateModel::CheckSuccess || updateStatus == UpdateModel::CheckEnd) {
                     cleanLaStoreJob(m_checkSystemJob);
-                    qInfo() << "Exit application";
+                    qCInfo(logUpdateModal) << "Exit application";
                     qApp->exit();
                     QTimer::singleShot(5000, qApp, [] {
-                        qWarning() << "Something abnormal, I'm still here";
+                        qCWarning(logUpdateModal) << "Something abnormal, I'm still here";
                         qApp->quit();
                     });
                 }
@@ -306,13 +307,13 @@ void UpdateWorker::onCheckSystemStatusChanged(const QString &status)
             }
         }
     } else {
-        qWarning() << "Unknown check system status";
+        qCWarning(logUpdateModal) << "Unknown check system status";
     }
 }
 
 void UpdateWorker::onBackupStatusChanged(const QString &value)
 {
-    qCInfo(DDE_UPDATE_WORKER) << "backup status changed: " << value;
+    qCInfo(logUpdateModal) << "backup status changed: " << value;
     if (value == "failed") {
         const auto& description = m_backupJob->description();
 
@@ -336,12 +337,12 @@ void UpdateWorker::onBackupStatusChanged(const QString &value)
 
 UpdateModel::UpdateError UpdateWorker::analyzeJobErrorMessage(QString jobDescription)
 {
-    qInfo() << "Analyze job error message: " << jobDescription;
+    qCInfo(logUpdateModal) << "Analyze job error message: " << jobDescription;
     QJsonParseError err_rpt;
     QJsonDocument jobErrorMessage = QJsonDocument::fromJson(jobDescription.toUtf8(), &err_rpt);
 
     if (err_rpt.error != QJsonParseError::NoError) {
-        qWarning() << "Json format error";
+        qCWarning(logUpdateModal) << "Json format error";
         return UpdateModel::UpdateError::UnKnown;
     }
     const QJsonObject &object = jobErrorMessage.object();
@@ -363,7 +364,7 @@ UpdateModel::UpdateError UpdateWorker::analyzeJobErrorMessage(QString jobDescrip
 void UpdateWorker::doDistUpgradeIfCanBackup()
 {
 // TODO 进入更新的接口
-    qInfo() << "Prepare to do backup";
+    qCInfo(logUpdateModal) << "Prepare to do backup";
     // TODO: 暂未支持选择是否备份，之后会在社区版支持，现在默认备份
     bool needBackup = true;
     // TODO: 磐石暂未实现当前能否备份的接口，当前默认支持
@@ -371,7 +372,7 @@ void UpdateWorker::doDistUpgradeIfCanBackup()
     if(canBackup) {
         doDistUpgrade(needBackup);
     } else {
-        qWarning() << "Can not backup";
+        qCWarning(logUpdateModal) << "Can not backup";
         UpdateModel::instance()->setLastErrorLog("");
         UpdateModel::instance()->setUpdateError(UpdateModel::UpdateError::CanNotBackup);
         UpdateModel::instance()->setUpdateStatus(UpdateModel::UpdateStatus::InstallFailed);
@@ -380,9 +381,9 @@ void UpdateWorker::doDistUpgradeIfCanBackup()
 
 void UpdateWorker::doCheckSystem(int updateMode, UpdateModel::CheckSystemStage stage)
 {
-    qInfo() << "Update mode:" << updateMode << ", check system stage:" << stage;
+    qCInfo(logUpdateModal) << "Update mode:" << updateMode << ", check system stage:" << stage;
     if (!m_dbusProxy->managerInterIsValid()) {
-        qWarning() << "Update mode is invalid";
+        qCWarning(logUpdateModal) << "Update mode is invalid";
         m_waitingToCheckSystem = true;
         return;
     }
@@ -396,7 +397,7 @@ void UpdateWorker::doCheckSystem(int updateMode, UpdateModel::CheckSystemStage s
             createCheckSystemJob(reply.value().path());
         } else {
             const QString &errorMessage = watcher->error().message();
-            qWarning() << "Call `CheckUpgrade` function failed, error:" << watcher->error().message();
+            qCWarning(logUpdateModal) << "Call `CheckUpgrade` function failed, error:" << watcher->error().message();
             UpdateModel::instance()->setLastErrorLog(errorMessage);
             UpdateModel::instance()->setCheckStatus(UpdateModel::CheckStatus::CheckFailed);
         }
@@ -405,7 +406,7 @@ void UpdateWorker::doCheckSystem(int updateMode, UpdateModel::CheckSystemStage s
 
 void UpdateWorker::doAction(UpdateModel::UpdateAction action)
 {
-    qInfo() << "Do action: " << action;
+    qCInfo(logUpdateModal) << "Do action: " << action;
     switch (action) {
         case UpdateModel::DoBackupAgain:
             startUpdateProgress();
@@ -432,16 +433,16 @@ void UpdateWorker::doAction(UpdateModel::UpdateAction action)
 
 bool UpdateWorker::checkPower()
 {
-    qInfo() << "Check power";
+    qCInfo(logUpdateModal) << "Check power";
     bool onBattery = m_dbusProxy->onBattery();
     if (!onBattery) {
-        qInfo() << "No battery";
+        qCInfo(logUpdateModal) << "No battery";
         return true;
     }
 
     double data = m_dbusProxy->batteryPercentage().value("Display", 0);
     int batteryPercentage = uint(qMin(100.0, qMax(0.0, data)));
-    qInfo() << "Battery percentage: " << batteryPercentage;
+    qCInfo(logUpdateModal) << "Battery percentage: " << batteryPercentage;
     return batteryPercentage >= 60;
 }
 
@@ -451,39 +452,39 @@ bool UpdateWorker::checkPower()
  */
 bool UpdateWorker::fixError(UpdateModel::UpdateError error, const QString &description, UpdateModel::UpdateStatus updateStatus)
 {
-    qInfo() << "Try to fix error:" << error;
+    qCInfo(logUpdateModal) << "Try to fix error:" << error;
     if (m_fixErrorJob) {
-        qWarning() << "Fix error job is not nullptr, won't fix error again";
+        qCWarning(logUpdateModal) << "Fix error job is not nullptr, won't fix error again";
         return false;
     }
 
     if(!CAN_BE_FIXED_ERRORS.contains(error)) {
-        qWarning() << "Not supported for fixing" << error;
+        qCWarning(logUpdateModal) << "Not supported for fixing" << error;
         return false;
     }
 
     const auto &errorString = UpdateModel::updateErrorToString(error);
     if (errorString.isEmpty()) {
-        qWarning() << "Error message is empty";
+        qCWarning(logUpdateModal) << "Error message is empty";
         return false;
     }
 
     QDBusReply<QDBusObjectPath> reply = m_dbusProxy->fixError(errorString);
     if (!reply.isValid()) {
-        qWarning() << "Call `FixError` reply is invalid, error: " << reply.error().message();
+        qCWarning(logUpdateModal) << "Call `FixError` reply is invalid, error: " << reply.error().message();
         return false;
     }
 
     m_fixErrorJob = new JobInter(reply.value().path(), this);
     if (!m_fixErrorJob->isValid()) {
-        qWarning() << "Fix error job is invalid";
+        qCWarning(logUpdateModal) << "Fix error job is invalid";
         delete m_fixErrorJob;
         m_fixErrorJob = nullptr;
         return false;
     }
 
     connect(m_fixErrorJob, &JobInter::StatusChanged, this, [this, error, description, updateStatus](const QString status) {
-        qInfo() << "Fix error job status changed :" << status;
+        qCInfo(logUpdateModal) << "Fix error job status changed :" << status;
         if (status == "succeed" || status == "failed" || status == "end") {
             if (m_fixErrorJob) {
                 cleanLaStoreJob(m_fixErrorJob);
@@ -506,20 +507,20 @@ bool UpdateWorker::fixError(UpdateModel::UpdateError error, const QString &descr
 
 void UpdateWorker::doPowerAction(bool reboot)
 {
-    qInfo() << "Update worker do power action, is reboot: " << reboot;
+    qCInfo(logUpdateModal) << "Update worker do power action, is reboot: " << reboot;
 
     auto powerActionReply = m_dbusProxy->Poweroff(reboot);
     powerActionReply.waitForFinished();
     if (powerActionReply.isError()) {
-        qWarning() << "Do power action failed: " << powerActionReply.error().message();
+        qCWarning(logUpdateModal) << "Do power action failed: " << powerActionReply.error().message();
     } else {
-        qInfo() << "Do power action successfully ";
+        qCInfo(logUpdateModal) << "Do power action successfully ";
     }
 }
 
 void UpdateWorker::enableShortcuts(bool enable)
 {
-    qInfo() << "Enable shortcuts: " << enable;
+    qCInfo(logUpdateModal) << "Enable shortcuts: " << enable;
     QDBusPendingCall reply = DDBusSender()
         .service("com.deepin.dde.osd")
         .path("/")
@@ -531,7 +532,7 @@ void UpdateWorker::enableShortcuts(bool enable)
     connect(watcher, &QDBusPendingCallWatcher::finished, this, [reply, watcher] {
         watcher->deleteLater();
         if (!reply.isValid()) {
-            qWarning() << "Set `OSDEnabled` property failed, error: " << reply.error().message();
+            qCWarning(logUpdateModal) << "Set `OSDEnabled` property failed, error: " << reply.error().message();
         }
     });
 }
@@ -548,10 +549,10 @@ bool UpdateWorker::syncStartService(const QString &serviceName)
     QDBusInterface inter("org.freedesktop.DBus", "/", "org.freedesktop.DBus", QDBusConnection::systemBus());
     QDBusReply<uint32_t> reply = inter.call("StartServiceByName", serviceName, quint32(0));
     if (reply.isValid()) {
-        qInfo() << QString("Start %1 service result: ").arg(serviceName) << reply.value();
+        qCInfo(logUpdateModal) << QString("Start %1 service result: ").arg(serviceName) << reply.value();
         return reply.value() == 1;
     } else {
-        qWarning() << QString("Start %1 service failed, error: ").arg(serviceName) << reply.error().message();
+        qCWarning(logUpdateModal) << QString("Start %1 service failed, error: ").arg(serviceName) << reply.error().message();
         return false;
     }
 }
@@ -563,7 +564,7 @@ bool UpdateWorker::syncStartService(const QString &serviceName)
  */
 void UpdateWorker::checkStatusAfterSessionActive()
 {
-    qInfo() << "Check installation status";
+    qCInfo(logUpdateModal) << "Check installation status";
     if (!m_dbusProxy->managerInterIsValid() && m_distUpgradeJob) {
         delete m_distUpgradeJob;
         m_distUpgradeJob = nullptr;
@@ -577,21 +578,21 @@ void UpdateWorker::checkStatusAfterSessionActive()
         }
     }
     const int lastoreDaemonStatus = DConfigHelper::instance()->getConfig("org.deepin.dde.lastore", "org.deepin.dde.lastore", "","lastore-daemon-status", 0).toInt();
-    qInfo() << "Lastore daemon status: " << lastoreDaemonStatus;
+    qCInfo(logUpdateModal) << "Lastore daemon status: " << lastoreDaemonStatus;
     static const int IS_UPDATE_READY = 1; // 第一位表示更新是否可用
     const bool isUpdateReady = lastoreDaemonStatus & IS_UPDATE_READY;
     if (!isUpdateReady) {
         // 更新成功
-        qInfo() << "Update successfully";
+        qCInfo(logUpdateModal) << "Update successfully";
         UpdateModel::instance()->setUpdateStatus(UpdateModel::InstallSuccess);
     }
 }
 
 void UpdateWorker::cleanLaStoreJob(QPointer<JobInter> dbusJob)
 {
-    qInfo() << "Clean job";
+    qCInfo(logUpdateModal) << "Clean job";
     if (dbusJob != nullptr) {
-        qInfo() << "Job path" << dbusJob->path();
+        qCInfo(logUpdateModal) << "Job path" << dbusJob->path();
         m_dbusProxy->CleanJob(dbusJob->id());
         delete dbusJob;
         dbusJob = nullptr;
@@ -610,50 +611,50 @@ void UpdateWorker::getUpdateOption()
         QJsonParseError parseErr;
         auto doc =  QJsonDocument::fromJson(data, &parseErr);
         if (parseErr.error != QJsonParseError::NoError || doc.isEmpty()) {
-            qWarning() << "Parse " << UPDATE_OPTION_FILE << " failed, use default power action:" << defaultPowerAction;
+            qCWarning(logUpdateModal) << "Parse " << UPDATE_OPTION_FILE << " failed, use default power action:" << defaultPowerAction;
             return;
         }
 
         auto obj = doc.object();
         if (obj.contains("IsPowerOff")) {
             const bool isReboot = !(obj.value("IsPowerOff").toBool(false));
-            qInfo() << "Power action:" << (isReboot ? "Reboot" : "Power off");
+            qCInfo(logUpdateModal) << "Power action:" << (isReboot ? "Reboot" : "Power off");
             UpdateModel::instance()->setIsReboot(isReboot);
         }
         if (obj.contains("DoUpgradeMode")) {
             const int upgradeMode = obj.value("DoUpgradeMode").toInt(5); // system:1 security:4
-            qInfo() << "Upgrade mode:" << upgradeMode;
+            qCInfo(logUpdateModal) << "Upgrade mode:" << upgradeMode;
             UpdateModel::instance()->setUpdateMode(upgradeMode);
         }
         if (obj.contains("DoUpgrade")) {
             const bool whetherDoUpgrade = obj.value("DoUpgrade").toBool(false); // system:1 security:4
-            qInfo() << "Whether do upgrade:" << whetherDoUpgrade;
+            qCInfo(logUpdateModal) << "Whether do upgrade:" << whetherDoUpgrade;
             UpdateModel::instance()->setDoUpgrade(whetherDoUpgrade);
             if (whetherDoUpgrade)
                 return;
         }
 
         if (obj.value("PreGreeterCheck").toBool(false)) {
-            qInfo() << "Do pre greeter check";
+            qCInfo(logUpdateModal) << "Do pre greeter check";
             UpdateModel::instance()->setCheckSystemStage(UpdateModel::CSS_BeforeLogin);
         } else if (obj.value("AfterGreeterCheck").toBool(false)) {
-            qInfo() << "Do after greeter check";
+            qCInfo(logUpdateModal) << "Do after greeter check";
             UpdateModel::instance()->setCheckSystemStage(UpdateModel::CSS_AfterLogin);
         }
     } else {
-        qWarning() << "Open " << UPDATE_OPTION_FILE << " failed, use default power action:" << defaultPowerAction;
+        qCWarning(logUpdateModal) << "Open " << UPDATE_OPTION_FILE << " failed, use default power action:" << defaultPowerAction;
     }
 }
 
 void UpdateWorker::forceReboot(bool reboot)
 {
-    qInfo() << "Force reboot:" << reboot;
+    qCInfo(logUpdateModal) << "Force reboot:" << reboot;
     QDBusPendingReply<void> reply = m_dbusProxy->Poweroff(reboot);
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, this);
     connect(watcher, &QDBusPendingCallWatcher::finished, this, [reply, watcher] {
         watcher->deleteLater();
         if (reply.isError()) {
-            qWarning() << "Power off failed:" << reply.error().message();
+            qCWarning(logUpdateModal) << "Power off failed:" << reply.error().message();
         }
     });
 }
@@ -662,14 +663,14 @@ bool UpdateWorker::exportUpdateLog()
 {
     const auto& [uid, name] = getCurrentUser();
     if (uid == 0) {
-        qWarning() << "Current user's uid is invalid";
+        qCWarning(logUpdateModal) << "Current user's uid is invalid";
         emit exportUpdateLogFinished(false);
         return false;
     }
 
     QString desktopPath = Dtk::Core::DStandardPaths::homePath(uid) + "/Desktop";
     if (desktopPath.isEmpty()) {
-        qWarning() << "Cannot get desktop path for user:" << name << "uid:" << uid;
+        qCWarning(logUpdateModal) << "Cannot get desktop path for user:" << name << "uid:" << uid;
         emit exportUpdateLogFinished(false);
         return false;
     }
@@ -679,7 +680,7 @@ bool UpdateWorker::exportUpdateLog()
     QDir tempDir;
     if (!tempDir.exists(tempDirPath)) {
         if (!tempDir.mkpath(tempDirPath)) {
-            qWarning() << "Failed to create temp directory:" << tempDirPath;
+            qCWarning(logUpdateModal) << "Failed to create temp directory:" << tempDirPath;
             emit exportUpdateLogFinished(false);
             return false;
         }
@@ -687,7 +688,7 @@ bool UpdateWorker::exportUpdateLog()
 
     // 只有lightdm用户和lightdm组可以访问
     if (chmod(tempDirPath.toUtf8().constData(), 0750) == -1) {
-        qWarning() << "Failed to set directory permissions:" << strerror(errno);
+        qCWarning(logUpdateModal) << "Failed to set directory permissions:" << strerror(errno);
         emit exportUpdateLogFinished(false);
         return false;
     }
@@ -697,12 +698,12 @@ bool UpdateWorker::exportUpdateLog()
         .arg(QDateTime::currentDateTime().toString("yyyy_MM_dd_HH.mm.ss"));
     const QString tempLogPath = tempDirPath + "/" + fileName;
 
-    qInfo() << "Export update log to temp file:" << tempLogPath;
-    qInfo() << "Target desktop path:" << desktopPath;
+    qCInfo(logUpdateModal) << "Export update log to temp file:" << tempLogPath;
+    qCInfo(logUpdateModal) << "Target desktop path:" << desktopPath;
 
     int fd = open(tempLogPath.toUtf8().constData(), O_WRONLY | O_CREAT | O_TRUNC, 0640);
     if (fd == -1) {
-        qWarning() << "Failed to create temp log file:" << tempLogPath << "error:" << strerror(errno);
+        qCWarning(logUpdateModal) << "Failed to create temp log file:" << tempLogPath << "error:" << strerror(errno);
         emit exportUpdateLogFinished(false);
         return false;
     }
@@ -715,12 +716,12 @@ bool UpdateWorker::exportUpdateLog()
 
         QDBusPendingReply<void> reply = *watcher;
         if (reply.isError()) {
-            qWarning() << "Export update details failed:" << reply.error().message();
+            qCWarning(logUpdateModal) << "Export update details failed:" << reply.error().message();
             // 清理失败的临时文件
             QFile::remove(tempLogPath);
             emit exportUpdateLogFinished(false);
         } else {
-            qInfo() << "Export update log successfully to temp file:" << tempLogPath;
+            qCInfo(logUpdateModal) << "Export update log successfully to temp file:" << tempLogPath;
 
             // 使用systemd模板服务传递十六进制编码的参数（避免特殊字符问题）
             QString pathsParam = tempLogPath + ":" + desktopPath;
@@ -728,7 +729,7 @@ bool UpdateWorker::exportUpdateLog()
             QString serviceName = QString("deepin-update-log-copy@%1.service").arg(QString::fromLatin1(encodedParam));
             
             QProcess::startDetached("systemctl", QStringList() << "start" << serviceName);
-            qInfo() << "Started copy service with hex encoded parameters:" << pathsParam;
+            qCInfo(logUpdateModal) << "Started copy service with hex encoded parameters:" << pathsParam;
             
             emit exportUpdateLogFinished(true);
         }

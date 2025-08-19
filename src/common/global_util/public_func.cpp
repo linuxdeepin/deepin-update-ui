@@ -8,32 +8,42 @@
 #include <QJsonDocument>
 #include <DDBusSender>
 #include <QDBusReply>
+#include <QLoggingCategory>
+
+Q_DECLARE_LOGGING_CATEGORY(logCommon)
 
 QPixmap loadPixmap(const QString &file)
 {
+    qCDebug(logCommon) << "Loading pixmap from file:" << file;
     qreal ratio = 1.0;
     qreal devicePixel = qApp->devicePixelRatio();
 
     QPixmap pixmap;
 
     if (!qFuzzyCompare(ratio, devicePixel)) {
+        qCDebug(logCommon) << "Loading scaled pixmap for device pixel ratio:" << devicePixel;
         QImageReader reader;
         reader.setFileName(qt_findAtNxFile(file, devicePixel, &ratio));
         if (reader.canRead()) {
             reader.setScaledSize(reader.size() * (devicePixel / ratio));
             pixmap = QPixmap::fromImage(reader.read());
             pixmap.setDevicePixelRatio(devicePixel);
+        } else {
+            qCWarning(logCommon) << "Cannot read scaled pixmap file";
         }
     } else {
+        qCDebug(logCommon) << "Loading standard pixmap";
         pixmap.load(file);
     }
 
+    qCDebug(logCommon) << "Pixmap loaded, size:" << pixmap.size();
     return pixmap;
 }
 
 // uid, name
 std::pair<int, QString> getCurrentUser()
 {
+    qCDebug(logCommon) << "Getting current user information";
     UpdateDBusProxy dbusProxy;
     const QString &currentUserJson = dbusProxy.CurrentUser();
     qInfo() << "Get current locale, current user:" << currentUserJson;
@@ -42,7 +52,7 @@ std::pair<int, QString> getCurrentUser()
     const auto& userDoc = QJsonDocument::fromJson(currentUserJson.toUtf8(), &jsonParseError);
 
     if (jsonParseError.error != QJsonParseError::NoError || userDoc.isEmpty()) {
-        qWarning("Failed to obtain current user information from lock service");
+        qCWarning(logCommon) << "Failed to parse user JSON, error:" << jsonParseError.errorString();
         return {};
     }
 
@@ -55,21 +65,22 @@ std::pair<int, QString> getCurrentUser()
 
 QString getCurrentLocale()
 {
+    qCDebug(logCommon) << "Getting current locale";
     static const QString DEFAULT_LOCALE = QStringLiteral("en_US");
 
     UpdateDBusProxy dbusProxy;
     const auto& [uid, _] = getCurrentUser();
 
     if (uid == 0) {
-        qWarning() << "Current user's uid is invalid";
+        qCWarning(logCommon) << "Current user's uid is invalid";
         return DEFAULT_LOCALE;
     }
 
     const auto path(QString("/org/deepin/dde/Accounts1/User%1").arg(uid));
-    qInfo() << "Current user account path: " << path;
+    qCInfo(logCommon) << "Current user account path: " << path;
     QDBusReply<QDBusVariant> reply = DDBusSender::system().interface("org.deepin.dde.Accounts1.User").path(path).service("org.deepin.dde.Accounts1").property("Locale").get();
     if (!reply.isValid()) {
-        qWarning() << "Failed to get current user locale, error: " << reply.error().message();
+        qCWarning(logCommon) << "Failed to get current user locale, error: " << reply.error().message();
         return DEFAULT_LOCALE;
     }
 

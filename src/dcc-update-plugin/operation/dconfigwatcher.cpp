@@ -12,6 +12,9 @@
 #include <QDebug>
 #include <QMetaEnum>
 #include <QCoreApplication>
+#include <QLoggingCategory>
+
+Q_DECLARE_LOGGING_CATEGORY(logDccUpdatePlugin)
 
 using namespace DTK_NAMESPACE::Core;
 
@@ -26,18 +29,23 @@ using namespace DTK_NAMESPACE::Core;
 DConfigWatcher::DConfigWatcher(QObject *parent)
     : QObject(parent)
 {
+    qCDebug(logDccUpdatePlugin) << "Initialize DConfigWatcher";
     //通过模块枚举加载所有的文件，并从文件中获取所有的dconfig对象
     QMetaEnum metaEnum = QMetaEnum::fromType<ModuleType>();
+    qCDebug(logDccUpdatePlugin) << "Loading" << metaEnum.keyCount() << "module configs";
     for (int i = 0; i <  metaEnum.keyCount(); i++) {
         const QString fileName = QString("org.deepin.dde.control-center.%1").arg(metaEnum.valueToKey(i));
+        qCDebug(logDccUpdatePlugin) << "Creating config for module:" << fileName;
         DConfig *config = DConfig::create("org.deepin.dde.control-center", fileName, "", this);
         if (!config->isValid()) {
-            qWarning() << QString("DConfig is invalide, name: [%1], subpath: [%2]").arg(config->name(), config->subpath());
+            qCWarning(logDccUpdatePlugin) << QString("DConfig is invalide, name: [%1], subpath: [%2]").arg(config->name(), config->subpath());
             continue;
         } else {
+            qCDebug(logDccUpdatePlugin) << "Successfully loaded config for module:" << metaEnum.valueToKey(i);
             m_mapModulesConfig.insert(metaEnum.valueToKey(i), config);
             connect(config, &DConfig::valueChanged, this, [this, config](QString key) {
                 auto moduleName = m_mapModulesConfig.key(config);
+                qCDebug(logDccUpdatePlugin) << "Config value changed for module:" << moduleName << "key:" << key;
                 int type = QMetaEnum::fromType<ModuleType>().keyToValue(moduleName.toStdString().c_str());
                 onStatusModeChanged(static_cast<ModuleType>(type), key);
             });
@@ -49,6 +57,7 @@ DConfigWatcher *DConfigWatcher::instance()
 {
     static DConfigWatcher *w = nullptr;
     if (w == nullptr) {
+        qCDebug(logDccUpdatePlugin) << "Creating DConfigWatcher singleton instance";
         w = new DConfigWatcher();
         w->moveToThread(qApp->thread());
         w->setParent(qApp);
@@ -64,9 +73,12 @@ DConfigWatcher *DConfigWatcher::instance()
  */
 void DConfigWatcher::bind(ModuleType moduleType, const QString &configName, QWidget *binder)
 {
+    qCDebug(logDccUpdatePlugin) << "Binding widget to config - module:" << moduleType << "key:" << configName;
     QString moduleName;
-    if (!existKey(moduleType, configName, moduleName))
+    if (!existKey(moduleType, configName, moduleName)) {
+        qCWarning(logDccUpdatePlugin) << "Config key does not exist, cannot bind widget";
         return;
+    }
 
     //添加key值到map中
     ModuleKey *key = new ModuleKey();
@@ -75,9 +87,11 @@ void DConfigWatcher::bind(ModuleType moduleType, const QString &configName, QWid
     //在包含的情况下去
     m_thirdMap.insert(key, binder);
     setStatus(moduleName, configName, binder);
+    qCDebug(logDccUpdatePlugin) << "Successfully bound widget to config";
 
     // 自动解绑
     connect(binder, &QObject::destroyed, this, [ = ] {
+        qCDebug(logDccUpdatePlugin) << "Widget destroyed, auto unbinding config";
         if (m_thirdMap.values().contains(binder))
             erase(m_thirdMap.key(binder)->type, m_thirdMap.key(binder)->key);
     });
@@ -92,9 +106,12 @@ void DConfigWatcher::bind(ModuleType moduleType, const QString &configName, QWid
  */
 void DConfigWatcher::bind(ModuleType moduleType, const QString &configName, QListView *viewer, QStandardItem *item)
 {
+    qCDebug(logDccUpdatePlugin) << "Binding ListView to config - module:" << moduleType << "key:" << configName;
     QString moduleName;
-    if (!existKey(moduleType, configName, moduleName))
+    if (!existKey(moduleType, configName, moduleName)) {
+        qCWarning(logDccUpdatePlugin) << "Config key does not exist for ListView binding";
         return;
+    }
 
     //添加key值到map中
     ModuleKey *key = new ModuleKey();
@@ -103,9 +120,11 @@ void DConfigWatcher::bind(ModuleType moduleType, const QString &configName, QLis
     //在包含的情况下去
     m_menuMap.insert(key, QPair<QListView *, QStandardItem *>(viewer, item));
     setStatus(moduleName, configName, viewer, item);
+    qCDebug(logDccUpdatePlugin) << "Successfully bound ListView to config";
 
     // 自动解绑
     connect(viewer, &QListView::destroyed, this, [ = ] {
+        qCDebug(logDccUpdatePlugin) << "ListView destroyed, auto erasing config binding";
         erase(moduleType, configName);
     });
 }
@@ -117,6 +136,7 @@ void DConfigWatcher::bind(ModuleType moduleType, const QString &configName, QLis
  */
 void DConfigWatcher::erase(ModuleType moduleType, const QString &configName)
 {
+    qCDebug(logDccUpdatePlugin) << "Erasing config bindings - module:" << moduleType << "key:" << configName;
     auto lst = m_thirdMap.keys();
     for (auto k : lst) {
         if (k->key == configName && k->type == moduleType) {
@@ -140,6 +160,7 @@ void DConfigWatcher::erase(ModuleType moduleType, const QString &configName)
  */
 void DConfigWatcher::erase(ModuleType moduleType, const QString &configName, QWidget *binder)
 {
+    qCDebug(logDccUpdatePlugin) << "Erasing specific widget binding - module:" << moduleType << "key:" << configName;
     auto lst = m_thirdMap.keys();
     for (auto k : lst) {
         if (k->key == configName && k->type == moduleType) {
@@ -155,9 +176,12 @@ void DConfigWatcher::erase(ModuleType moduleType, const QString &configName, QWi
  */
 void DConfigWatcher::insertState(ModuleType moduleType, const QString &key)
 {
+    qCDebug(logDccUpdatePlugin) << "Inserting menu state - module:" << moduleType << "key:" << key;
     QString moduleName;
-    if (!existKey(moduleType, key, moduleName))
+    if (!existKey(moduleType, key, moduleName)) {
+        qCWarning(logDccUpdatePlugin) << "Cannot insert state, key does not exist";
         return;
+    }
 
     ModuleKey *keys = new ModuleKey();
     keys->key = key;
@@ -173,10 +197,14 @@ void DConfigWatcher::insertState(ModuleType moduleType, const QString &key)
  */
 void DConfigWatcher::setStatus(QString &moduleName, const QString &configName, QWidget *binder)
 {
-    if (!binder)
+    qCDebug(logDccUpdatePlugin) << "Setting widget status - module:" << moduleName << "key:" << configName;
+    if (!binder) {
+        qCWarning(logDccUpdatePlugin) << "Cannot set status, binder is null";
         return;
+    }
 
     const QString setting = m_mapModulesConfig[moduleName]->value(configName).toString();
+    qCDebug(logDccUpdatePlugin) << "Widget setting value:" << setting;
 
     if ("Enabled" == setting) {
         binder->setEnabled(true);
@@ -198,6 +226,7 @@ void DConfigWatcher::setStatus(QString &moduleName, const QString &configName, Q
  */
 void DConfigWatcher::setStatus(QString &moduleName, const QString &configName, QListView *viewer, QStandardItem *item)
 {
+    qCDebug(logDccUpdatePlugin) << "Setting ListView status - module:" << moduleName << "key:" << configName;
     bool visible = m_mapModulesConfig[moduleName]->value(configName).toBool();
     viewer->setRowHidden(item->row(), !visible);
 
@@ -217,9 +246,12 @@ void DConfigWatcher::setStatus(QString &moduleName, const QString &configName, Q
  */
 const QString DConfigWatcher::getStatus(ModuleType moduleType, const QString &configName)
 {
+    qCDebug(logDccUpdatePlugin) << "Getting status - module:" << moduleType << "key:" << configName;
     QString moduleName;
-    if (!existKey(moduleType, configName, moduleName))
+    if (!existKey(moduleType, configName, moduleName)) {
+        qCWarning(logDccUpdatePlugin) << "Cannot get status, key does not exist";
         return "";
+    }
     return m_mapModulesConfig[QMetaEnum::fromType<ModuleType>().valueToKey(moduleType)]->value(configName).toString();
 }
 
@@ -231,9 +263,12 @@ const QString DConfigWatcher::getStatus(ModuleType moduleType, const QString &co
  */
 const QVariant DConfigWatcher::getValue(DConfigWatcher::ModuleType moduleType, const QString &configName)
 {
+    qCDebug(logDccUpdatePlugin) << "Getting value - module:" << moduleType << "key:" << configName;
     QString moduleName;
-    if (!existKey(moduleType, configName, moduleName))
+    if (!existKey(moduleType, configName, moduleName)) {
+        qCWarning(logDccUpdatePlugin) << "Cannot get value, key does not exist";
         return QVariant();
+    }
     return m_mapModulesConfig[QMetaEnum::fromType<ModuleType>().valueToKey(moduleType)]->value(configName);
 }
 
@@ -243,6 +278,7 @@ const QVariant DConfigWatcher::getValue(DConfigWatcher::ModuleType moduleType, c
  */
 QMap<DConfigWatcher::ModuleKey *, bool> DConfigWatcher::getMenuState()
 {
+    qCDebug(logDccUpdatePlugin) << "Getting menu state, count:" << m_menuState.size();
     return m_menuState;
 }
 
@@ -255,8 +291,10 @@ QMap<DConfigWatcher::ModuleKey *, bool> DConfigWatcher::getMenuState()
  */
 void DConfigWatcher::setValue(DConfigWatcher::ModuleType moduleType, const QString &configName, QVariant data)
 {
+    qCDebug(logDccUpdatePlugin) << "Setting value - module:" << moduleType << "key:" << configName << "value:" << data;
     QString moduleName;
     if (!existKey(moduleType, configName, moduleName)) {
+        qCWarning(logDccUpdatePlugin) << "Cannot set value, key does not exist";
         return;
     }
     m_mapModulesConfig[QMetaEnum::fromType<ModuleType>().valueToKey(moduleType)]->setValue(configName, data);
@@ -269,9 +307,12 @@ void DConfigWatcher::setValue(DConfigWatcher::ModuleType moduleType, const QStri
  */
 void DConfigWatcher::onStatusModeChanged(ModuleType moduleType, const QString &key)
 {
+    qCDebug(logDccUpdatePlugin) << "Status mode changed - module:" << moduleType << "key:" << key;
     QString moduleName;
-    if (!existKey(moduleType, key, moduleName))
+    if (!existKey(moduleType, key, moduleName)) {
+        qCWarning(logDccUpdatePlugin) << "Cannot handle status change, key does not exist";
         return;
+    }
 
     // 重新设置控件对应的显示类型
     for (auto mapUnit = m_thirdMap.begin(); mapUnit != m_thirdMap.end(); ++mapUnit) {
@@ -304,21 +345,30 @@ void DConfigWatcher::onStatusModeChanged(ModuleType moduleType, const QString &k
  */
 bool DConfigWatcher::existKey(ModuleType moduleType, const QString &key, QString &moduleName)
 {
+    qCDebug(logDccUpdatePlugin) << "Checking key existence - module:" << moduleType << "key:" << key << "module name: " << moduleName;
     moduleName = QMetaEnum::fromType<ModuleType>().valueToKey(moduleType);
     if (m_mapModulesConfig.keys().contains(moduleName)) {
         if (m_mapModulesConfig[moduleName]->keyList().contains(key)) {
             return true;
+        } else {
+            qCDebug(logDccUpdatePlugin) << "Key not found in module config";
         }
+    } else {
+        qCWarning(logDccUpdatePlugin) << "Module config not found in map";
     }
     return false;
 }
 
 DConfig *DConfigWatcher::getModulesConfig(ModuleType moduleType)
 {
+    qCDebug(logDccUpdatePlugin) << "Getting modules config for type:" << moduleType;
     QMetaEnum metaEnum = QMetaEnum::fromType<ModuleType>();
     QString key = metaEnum.key(moduleType);
+    qCDebug(logDccUpdatePlugin) << "Module key:" << key;
+    
     if (m_mapModulesConfig.contains(key)) {
         return m_mapModulesConfig.value(key);
     }
+    qCWarning(logDccUpdatePlugin) << "No config found for module:" << key;
     return nullptr;
 }

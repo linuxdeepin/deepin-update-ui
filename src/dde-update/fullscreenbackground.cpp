@@ -20,6 +20,9 @@
 #include <QDBusInterface>
 #include <QDBusReply>
 #include <QFile>
+#include <QLoggingCategory>
+
+Q_DECLARE_LOGGING_CATEGORY(logUpdateModal)
 
 DGUI_USE_NAMESPACE
 
@@ -40,16 +43,22 @@ static const QString DEFAULT_BACKGROUND = QStringLiteral("/usr/share/backgrounds
 
 void loadPixmap(const QString &fileName, QPixmap &pixmap)
 {
+    qCDebug(logUpdateModal) << "Loading pixmap from file:" << fileName;
     if (!pixmap.load(fileName)) {
+        qCDebug(logUpdateModal) << "Direct load failed, trying file stream";
         QFile file(fileName);
         if (file.open(QIODevice::ReadOnly)) {
             pixmap.loadFromData(file.readAll());
+            qCDebug(logUpdateModal) << "Loaded pixmap from file stream";
+        } else {
+            qCWarning(logUpdateModal) << "Failed to open file for reading";
         }
     }
 }
 
 bool checkPictureCanRead(const QString &fileName)
 {
+    qCDebug(logUpdateModal) << "Checking if picture can be read:" << fileName;
     QImageReader reader;
     reader.setDecideFormatFromContent(true);
     reader.setFileName(fileName);
@@ -62,10 +71,13 @@ FullScreenBackground::FullScreenBackground(QWidget *parent)
     , m_useSolidBackground(false)
     , m_getBlurImageSuccess(false)
 {
+    qCDebug(logUpdateModal) << "Initialize FullScreenBackground, Wayland display:" << IS_WAYLAND_DISPLAY;
 #ifndef QT_DEBUG
     if (!qgetenv("XDG_SESSION_TYPE").startsWith("wayland")) {
+        qCDebug(logUpdateModal) << "Setting X11 window flags for fullscreen background";
         setWindowFlags(Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
     } else {
+        qCDebug(logUpdateModal) << "Setting Wayland window flags for fullscreen background";
         setWindowFlags(windowFlags() | Qt::FramelessWindowHint | Qt::Window);
 
         setAttribute(Qt::WA_NativeWindow); // 创建窗口 handle
@@ -75,10 +87,12 @@ FullScreenBackground::FullScreenBackground(QWidget *parent)
     }
 #endif
     frameList.append(this);
+    qCDebug(logUpdateModal) << "Added to frame list, total frames:" << frameList.count();
 }
 
 FullScreenBackground::~FullScreenBackground()
 {
+    qCDebug(logUpdateModal) << "Destroying FullScreenBackground, removing from frame list";
     frameList.removeAll(this);
 }
 
@@ -93,8 +107,10 @@ void FullScreenBackground::updateBackground(const QString &path)
 
 void FullScreenBackground::updateBlurBackground(const QString &path)
 {
+    qCDebug(logUpdateModal) << "Updating blur background for path:" << path;
     auto updateBlurBackgroundFunc = [this](const QString &blurPath) {
         if (!blurPath.isEmpty() && blurBackgroundPath != blurPath) {
+            qCDebug(logUpdateModal) << "Blur background path changed from" << blurBackgroundPath << "to" << blurPath;
             blurBackgroundPath = blurPath;
         }
 
@@ -104,12 +120,14 @@ void FullScreenBackground::updateBlurBackground(const QString &path)
             loadPixmap(scaledPath, pixmap);
             addPixmap(pixmap, PIXMAP_TYPE_BLUR_BACKGROUND);
         } else {
+            qCDebug(logUpdateModal) << "No scaled image available, handling original background";
             handleBackground(blurBackgroundPath, PIXMAP_TYPE_BLUR_BACKGROUND);
         }
 
         update();
     };
 
+    qCDebug(logUpdateModal) << "Creating DBus message for ImageEffect service";
     QDBusMessage message = QDBusMessage::createMethodCall("org.deepin.dde.ImageEffect1", "/org/deepin/dde/ImageEffect1",
                                                           "org.deepin.dde.ImageEffect1", "Get");
     message << "" << path;
@@ -117,18 +135,21 @@ void FullScreenBackground::updateBlurBackground(const QString &path)
     QDBusPendingCall async = QDBusConnection::systemBus().asyncCall(message);
     auto *watcher = new QDBusPendingCallWatcher(async);
     QObject::connect(watcher, &QDBusPendingCallWatcher::finished, this, [watcher, updateBlurBackgroundFunc, this](QDBusPendingCallWatcher *callWatcher) {
+        qCDebug(logUpdateModal) << "DBus call finished, processing reply";
         // 获取模糊壁纸路径
         QDBusPendingReply<QString> reply = *callWatcher;
         QString blurPath;
         if (!reply.isError()) {
             blurPath = reply.value();
+            qCDebug(logUpdateModal) << "Received blur path from DBus:" << blurPath;
             bool isPicture = QFile::exists(blurPath) && QFile(blurPath).size() && checkPictureCanRead(blurPath);
             if (!isPicture) {
+                qCWarning(logUpdateModal) << "Blur path is not valid, using default background";
                 blurPath = "/usr/share/backgrounds/default_background.jpg";
             }
         } else {
             blurPath = "/usr/share/backgrounds/default_background.jpg";
-            qWarning() << "Get blur background path error:" << reply.error().message();
+            qCWarning(logUpdateModal) << "Get blur background path error:" << reply.error().message();
         }
 
         m_getBlurImageSuccess = true;
@@ -150,18 +171,21 @@ bool FullScreenBackground::contentVisible() const
 void FullScreenBackground::setScreen(QPointer<QScreen> screen, bool isVisible)
 {
     if (screen.isNull()) {
-        qWarning() << "Screen is nullptr";
+        qCWarning(logUpdateModal) << "Screen is nullptr";
         return;
     }
 
-    qInfo() << "Set screen:" << screen
+    qCInfo(logUpdateModal) << "Set screen:" << screen
             << ", screen geometry:" << screen->geometry()
-            << ", full screen background object:" << this;
+            << ", visible:" << isVisible;
+
     if (isVisible) {
         updateCurrentFrame(this);
     } else {
+        qCDebug(logUpdateModal) << "Screen not visible, setting up mouse tracking";
         // 如果有多个屏幕则根据鼠标所在的屏幕来显示
         QTimer::singleShot(1000, this, [this] {
+            qCDebug(logUpdateModal) << "Enabling mouse tracking";
             setMouseTracking(true);
         });
     }
@@ -175,13 +199,13 @@ void FullScreenBackground::setScreen(QPointer<QScreen> screen, bool isVisible)
 void FullScreenBackground::setContent(QWidget *const w)
 {
     if (!w) {
-        qWarning() << "Content is null";
+        qCWarning(logUpdateModal) << "Content is null";
         return;
     }
-    qInfo() << "Incoming  content:" << w << ", current content:" << currentContent;
+    qCInfo(logUpdateModal) << "Incoming  content:" << w << ", current content:" << currentContent;
     // 不重复设置content
     if (currentContent && currentContent->isVisible() && currentContent == w && currentFrame && w->parent() == currentFrame) {
-        qDebug() << "Parent is current frame";
+        qCDebug(logUpdateModal) << "Parent is current frame";
         return;
     }
 
@@ -191,11 +215,10 @@ void FullScreenBackground::setContent(QWidget *const w)
     }
     currentContent = w;
     if (!currentFrame) {
-        qWarning() << "Current frame is null";
+        qCWarning(logUpdateModal) << "Current frame is null";
         return;
     }
 
-    qInfo() << "Set current frame:" << currentFrame;
     currentContent->setParent(currentFrame);
     currentContent->move(0, 0);
     currentContent->resize(currentFrame->size());
@@ -250,11 +273,13 @@ void FullScreenBackground::leaveEvent(QEvent *event)
 void FullScreenBackground::resizeEvent(QResizeEvent *event)
 {
     if (!m_getBlurImageSuccess) {
+        qCDebug(logUpdateModal) << "Blur image not ready, waiting for it";
         // 避免页面显示出来，模糊壁纸还没返回导致先出现纯色背景的问题。
         QEventLoop loop;
         QTimer::singleShot(1*1000, &loop, &QEventLoop::quit);
         connect(this, &FullScreenBackground::blurImageReturned, &loop, &QEventLoop::quit);
         loop.exec();
+        qCDebug(logUpdateModal) << "Blur image wait completed";
     }
 
     if (!blurBackgroundCacheMap.isEmpty() && isPicture(blurBackgroundPath) && !contains(PIXMAP_TYPE_BLUR_BACKGROUND)) {
@@ -291,9 +316,10 @@ void FullScreenBackground::mouseMoveEvent(QMouseEvent *event)
 
 void FullScreenBackground::showEvent(QShowEvent *event)
 {
-    qDebug() << "Frame is already displayed:" << this;
+    qCDebug(logUpdateModal) << "Fullscreen background show event";
     if (IS_WAYLAND_DISPLAY) {
         if (geometry().contains(QCursor::pos())) {
+            qCDebug(logUpdateModal) << "Cursor in geometry, showing current content";
             currentContent->show();
             // 多屏情况下，此Frame晚于其它Frame显示出来时，可能处于未激活状态（特别是在wayland环境下比较明显）
             activateWindow();
@@ -312,20 +338,24 @@ void FullScreenBackground::showEvent(QShowEvent *event)
 
 void FullScreenBackground::hideEvent(QHideEvent *event)
 {
-    qInfo() << "Frame is hidden:" << this;
+    qCDebug(logUpdateModal) << "Fullscreen background hide event";
 
     QWidget::hideEvent(event);
 }
 
 void FullScreenBackground::updateScreen(QPointer<QScreen> screen)
 {
+    qCDebug(logUpdateModal) << "Updating screen from" << (m_screen.isNull() ? "null" : m_screen->name()) << "to" << (screen.isNull() ? "null" : screen->name());
     if (screen == m_screen)
         return;
 
-    if (!m_screen.isNull())
+    if (!m_screen.isNull()) {
+        qCDebug(logUpdateModal) << "Disconnecting old screen geometry signals";
         disconnect(m_screen, &QScreen::geometryChanged, this, &FullScreenBackground::updateGeometry);
+    }
 
     if (!screen.isNull()) {
+        qCDebug(logUpdateModal) << "Connecting new screen geometry signals";
         connect(screen, &QScreen::geometryChanged, this, &FullScreenBackground::updateGeometry);
     }
 
@@ -337,31 +367,34 @@ void FullScreenBackground::updateScreen(QPointer<QScreen> screen)
 void FullScreenBackground::updateGeometry()
 {
     if (m_screen.isNull()) {
+        qCWarning(logUpdateModal) << "Screen is null, cannot update geometry";
         return;
     }
 
-    qInfo() << "Set background screen:" << m_screen << ", geometry:" << m_screen->geometry();
+    qCDebug(logUpdateModal) << "Update geometry for screen:" << m_screen->name() << "geometry:" << m_screen->geometry();
     if (!m_screen.isNull()) {
         setGeometry(m_screen->geometry());
 
-        qInfo() << "Update geometry, screen:" << m_screen
-                << ", screen geometry:" << m_screen->geometry()
-                << ", lockFrame:" << this
-                << ", frame geometry:" << this->geometry();
+        qCDebug(logUpdateModal) << "Geometry updated - screen:" << m_screen->name()
+                << "screen geometry:" << m_screen->geometry()
+                << "frame geometry:" << this->geometry();
     } else {
-        qWarning() << "Screen is nullptr";
+        qCWarning(logUpdateModal) << "Screen is null after check";
     }
 }
 
 const QPixmap& FullScreenBackground::getPixmap(int type)
 {
+    qCDebug(logUpdateModal) << "Getting pixmap for type:" << type;
     static QPixmap nullPixmap;
 
     QString strSize = sizeToString(trueSize());
     if (PIXMAP_TYPE_BLUR_BACKGROUND == type && blurBackgroundCacheMap.contains(strSize)) {
+        qCDebug(logUpdateModal) << "Found cached blur background for size:" << strSize;
         return blurBackgroundCacheMap[strSize];
     }
 
+    qCDebug(logUpdateModal) << "No pixmap found, returning null pixmap";
     return nullPixmap;
 }
 
@@ -379,8 +412,10 @@ QSize FullScreenBackground::trueSize() const
 void FullScreenBackground::addPixmap(const QPixmap &pixmap, const int type)
 {
     QString strSize = sizeToString(trueSize());
+    qCDebug(logUpdateModal) << "Adding pixmap for type:" << type << "size:" << strSize;
     if (type == PIXMAP_TYPE_BLUR_BACKGROUND) {
         blurBackgroundCacheMap[strSize] = pixmap;
+        qCDebug(logUpdateModal) << "Blur background cached for size:" << strSize;
     }
 }
 
@@ -390,11 +425,12 @@ void FullScreenBackground::addPixmap(const QPixmap &pixmap, const int type)
  */
 void FullScreenBackground::updatePixmap()
 {
+    qCDebug(logUpdateModal) << "Updating pixmap cache, removing unused entries";
     auto removeNotUsedPixmap = [](QMap<QString, QPixmap> &cacheMap, const QStringList &frameSizeList) {
         QStringList cacheMapKeys = cacheMap.keys();
         for (auto &key : cacheMapKeys) {
             if (!frameSizeList.contains(key)) {
-                qInfo() << "Remove not used pixmap:" << key;
+                qCDebug(logUpdateModal) << "Removing unused pixmap:" << key;
                 cacheMap.remove(key);
             }
         }
@@ -411,6 +447,7 @@ void FullScreenBackground::updatePixmap()
 
 bool FullScreenBackground::contains(int type)
 {
+    qCDebug(logUpdateModal) << "Checking if contains pixmap for type:" << type;
     auto containPixmap = [](const QMap<QString, QPixmap> &cacheMap, const QString &strSize) {
         if (cacheMap.contains(strSize)) {
             const QPixmap &pixmap = cacheMap[strSize];
@@ -424,6 +461,7 @@ bool FullScreenBackground::contains(int type)
     if (PIXMAP_TYPE_BLUR_BACKGROUND == type) {
         return containPixmap(blurBackgroundCacheMap, strSize);
     }
+    qCDebug(logUpdateModal) << "Unknown type, returning false";
     return false;
 }
 
@@ -433,6 +471,7 @@ void FullScreenBackground::moveEvent(QMoveEvent *event)
     if (currentContent && !currentContent->isVisible()) {
         if (IS_WAYLAND_DISPLAY) {
             if (geometry().contains(QCursor::pos())) {
+                qCDebug(logUpdateModal) << "Cursor in moved geometry, showing content";
                 currentContent->show();
             }
         }
@@ -442,12 +481,12 @@ void FullScreenBackground::moveEvent(QMoveEvent *event)
 
 void FullScreenBackground::updateCurrentFrame(FullScreenBackground *frame) {
     if (!frame) {
-        qWarning() << "Update current frame failed, frame is null";
+        qCWarning(logUpdateModal) << "Update current frame failed, frame is null";
         return;
     }
 
     if (frame->m_screen)
-        qInfo() << "Update current frame:" << frame << ", screen:" << frame->m_screen->name();
+        qCInfo(logUpdateModal) << "Update current frame:" << frame << ", screen:" << frame->m_screen->name();
 
     currentFrame = frame;
     setContent(currentContent);
@@ -478,10 +517,11 @@ QString FullScreenBackground::sizeToString(const QSize &size)
 
 bool FullScreenBackground::getScaledBlurImage(const QString &originPath, QString &scaledPath)
 {
+    qCDebug(logUpdateModal) << "Getting scaled blur image for:" << originPath;
     // 为了兼容没有安装壁纸服务环境;Qt5.15高版本可以使用activatableServiceNames()遍历然后可判断系统有没有安装服务
     const QString wallpaperServicePath = "/lib/systemd/system/dde-wallpaper-cache.service";
     if (!QFile::exists(wallpaperServicePath)) {
-        qWarning() << "dde-wallpaper-cache service not existed";
+        qCWarning(logUpdateModal) << "dde-wallpaper-cache service not found";
         return false;
     }
 
@@ -498,9 +538,10 @@ bool FullScreenBackground::getScaledBlurImage(const QString &originPath, QString
     QString path = pathList.value().at(0);
     if (!path.isEmpty() &&  path != originPath) {
         scaledPath = path;
-        qDebug() << "get scaled path:" << path;
+        qCDebug(logUpdateModal) << "Got scaled blur image path:" << path;
         return true;
     }
 
+    qCDebug(logUpdateModal) << "No scaled blur image available";
     return false;
 }

@@ -7,21 +7,23 @@
 
 #include <QMap>
 #include <QPair>
+#include <QLoggingCategory>
 
-Q_LOGGING_CATEGORY(DCC_UPDATE_HELPER, "dcc-update-helper")
+Q_DECLARE_LOGGING_CATEGORY(logDccUpdatePlugin)
 
 UpdateLogHelper::UpdateLogHelper()
 {
-
+    qCDebug(logDccUpdatePlugin) << "Initialize UpdateLogHelper";
 }
 
 UpdateLogHelper::~UpdateLogHelper()
 {
-
+    qCDebug(logDccUpdatePlugin) << "Destroying UpdateLogHelper";
 }
 
 const QMap<QString, QPair<VulLevel, QString>>& UpdateLogHelper::vulLevelMap()
 {
+    qCDebug(logDccUpdatePlugin) << "Getting vulnerability level map";
     const static QMap<QString, QPair<VulLevel, QString>> VulLevelMap = {
         {"none", QPair<VulLevel, QString>(VulLevel_None, tr("NONE"))},
         {"low", QPair<VulLevel, QString>(VulLevel_Low, tr("LOW"))},
@@ -35,6 +37,7 @@ const QMap<QString, QPair<VulLevel, QString>>& UpdateLogHelper::vulLevelMap()
 
 QString UpdateLogHelper::sumCveLevelUp(const QMap<VulLevel, int>& vulCount)
 {
+    qCDebug(logDccUpdatePlugin) << "Summarizing CVE levels, vulnerability count:" << vulCount.size();
     // 拼接描述：本次更新修复n%个高危漏洞、n%个中危漏洞、n%个低危漏洞、n％个未知漏洞
     // 没有的漏洞则不显示
     const static QMap<VulLevel, QString> textMap = {
@@ -63,19 +66,22 @@ QString UpdateLogHelper::sumCveLevelUp(const QMap<VulLevel, int>& vulCount)
 
 void UpdateLogHelper::handleUpdateLog(const QString &log)
 {
+    qCDebug(logDccUpdatePlugin) << "Handling update log, length:" << log.length();
     const QJsonDocument& doc = QJsonDocument::fromJson(log.toLocal8Bit());
     const QJsonObject& rootObj = doc.object();
     if (rootObj.isEmpty()) {
-        qCWarning(DCC_UPDATE_HELPER) << "Update log json object is empty";
+        qCWarning(logDccUpdatePlugin) << "Update log json object is empty";
         return;
     }
 
+    qCDebug(logDccUpdatePlugin) << "Processing system and security update logs";
     handleSystem(rootObj.value(QString::number(static_cast<int>(SystemUpdate))).toArray());
     handleSecurity(rootObj.value(QString::number(static_cast<int>(SecurityUpdate))).toObject());
 }
 
 void UpdateLogHelper::handleSystem(const QJsonArray &log)
 {
+    qCDebug(logDccUpdatePlugin) << "Handling system log with" << log.size() << "entries";
     m_systemLog.clear();
     for (const QJsonValue& value : log) {
         QJsonObject obj = value.toObject();
@@ -98,6 +104,7 @@ void UpdateLogHelper::handleSystem(const QJsonArray &log)
 
 void UpdateLogHelper::handleSecurity(const QJsonObject &log)
 {
+    qCDebug(logDccUpdatePlugin) << "Handling security log with" << log.keys().size() << "entries";
     for (const auto& key : log.keys()) {
         const auto& obj = log.value(key).toObject();
         if (obj.isEmpty())
@@ -118,27 +125,38 @@ void UpdateLogHelper::handleSecurity(const QJsonObject &log)
 
 void UpdateLogHelper::updateItemInfo(UpdateItemInfo* itemInfo)
 {
+    qCDebug(logDccUpdatePlugin) << "Updating item info";
     if (!itemInfo) {
+        qCWarning(logDccUpdatePlugin) << "Item info is null";
         return;
     }
 
+    qCDebug(logDccUpdatePlugin) << "Item type:" << itemInfo->updateType();
     if (itemInfo->updateType() == SystemUpdate) {
+        qCDebug(logDccUpdatePlugin) << "Handling system item info";
         handleSystemItemInfo(itemInfo);
     } else if (itemInfo->updateType() == SecurityUpdate) {
+        qCDebug(logDccUpdatePlugin) << "Handling security item info";
         handleSecurityItemInfo(itemInfo);
+    } else {
+        qCDebug(logDccUpdatePlugin) << "Unknown update type, skipping";
     }
 }
 
 void UpdateLogHelper::handleSystemItemInfo(UpdateItemInfo *itemInfo) const
 {
-    if (m_systemLog.isEmpty())
+    qCDebug(logDccUpdatePlugin) << "Handling system item info with" << m_systemLog.size() << "system logs";
+    if (m_systemLog.isEmpty()) {
+        qCDebug(logDccUpdatePlugin) << "No system logs available";
         return;
+    }
 
     for (const auto &log : m_systemLog) {
         const QString& explain = getLanguageType() == "CN" ? log.cnLog : log.enLog;
         itemInfo->setBaseline(log.baseline);
         // 写入最近的更新
         if (itemInfo->currentVersion().isEmpty()) {
+            qCDebug(logDccUpdatePlugin) << "Setting current version info for:" << log.showVersion;
             itemInfo->setCurrentVersion(log.showVersion);
             itemInfo->setAvailableVersion(log.showVersion);
             itemInfo->setExplain(explain);
@@ -148,6 +166,7 @@ void UpdateLogHelper::handleSystemItemInfo(UpdateItemInfo *itemInfo) const
             const QString& systemVersion = log.showVersion;
             // 专业版不不在详细信息中显示维护线版本
             if (!systemVersion.isEmpty() && systemVersion.back() == '0') {
+                qCDebug(logDccUpdatePlugin) << "Adding detail info for version:" << log.showVersion;
                 detailInfo.name = log.showVersion;
                 detailInfo.updateTime = log.publishTime;
                 detailInfo.info = explain;
@@ -159,8 +178,11 @@ void UpdateLogHelper::handleSystemItemInfo(UpdateItemInfo *itemInfo) const
 
 void UpdateLogHelper::handleSecurityItemInfo(UpdateItemInfo *itemInfo) const
 {
-    if (m_securityLog.isEmpty())
+    qCDebug(logDccUpdatePlugin) << "Handling security item info with" << m_securityLog.size() << "security logs";
+    if (m_securityLog.isEmpty()) {
+        qCDebug(logDccUpdatePlugin) << "No security logs available";
         return;
+    }
 
     QMap<VulLevel, int> vulCount;
     for (const auto &log : m_securityLog) {
@@ -174,29 +196,31 @@ void UpdateLogHelper::handleSecurityItemInfo(UpdateItemInfo *itemInfo) const
         detailInfo.info = log.cveDescription;
         itemInfo->addDetailInfo(detailInfo);
     }
-
     itemInfo->setExplain(sumCveLevelUp(vulCount));
 }
 
 QList<HistoryItemInfo> UpdateLogHelper::handleHistoryUpdateLog(const QString &log)
 {
+    qCDebug(logDccUpdatePlugin) << "Handling history update log, length:" << log.length();
     QList<HistoryItemInfo> infos;
     QJsonParseError error;
     const QJsonDocument& doc = QJsonDocument::fromJson(log.toLocal8Bit(), &error);
     if (QJsonParseError::NoError != error.error) {
-        qWarning() << "Parse update history log failed, error:" << error.errorString();
+        qCWarning(logDccUpdatePlugin) << "Parse update history log failed:" << error.errorString();
         return infos;
     }
 
     const auto& rootArray = doc.array();
     if (rootArray.isEmpty()) {
-        qCWarning(DCC_UPDATE_HELPER) << "log json object is empty";
+        qCWarning(logDccUpdatePlugin) << "History log json array is empty";
         return infos;
     }
 
+    qCDebug(logDccUpdatePlugin) << "Processing" << rootArray.size() << "history items";
     for (const auto &obj : rootArray) {
         auto item = HistoryItemInfo::fromJsonObj(obj.toObject());
         if (item.type == UpdateType::SecurityUpdate) {
+            qCDebug(logDccUpdatePlugin) << "Processing security update history item";
             QMap<VulLevel, int> vulCount;
             for (auto &detail : item.details) {
                 const auto &pair = vulLevelMap().value(detail.vulLevel);

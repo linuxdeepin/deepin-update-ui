@@ -11,6 +11,9 @@
 #include <QMetaEnum>
 #include <QList>
 #include <QMap>
+#include <QLoggingCategory>
+
+Q_DECLARE_LOGGING_CATEGORY(logUpdateModal)
 
 UpdateModel::UpdateModel(QObject *parent)
     : QObject{parent}
@@ -25,13 +28,16 @@ UpdateModel::UpdateModel(QObject *parent)
     , m_checkStatus(ReadToCheck)
     , m_checkSystemStage(CSS_None)
 {
+    qCDebug(logUpdateModal) << "Initialize UpdateModel";
 }
 
 UpdateModel* UpdateModel::instance()
 {
+    qCDebug(logUpdateModal) << "Getting UpdateModel instance";
     static UpdateModel *updateModelInstance = nullptr;
     // 对于单线程来讲，安全性足够
     if (!updateModelInstance) {
+        qCDebug(logUpdateModal) << "Creating new UpdateModel instance";
         updateModelInstance = new UpdateModel();
     }
 
@@ -40,7 +46,7 @@ UpdateModel* UpdateModel::instance()
 
 void UpdateModel::setUpdateStatus(UpdateModel::UpdateStatus status)
 {
-    qInfo() << "Set update status: " << status << ", current: " << m_updateStatus;
+    qCInfo(logUpdateModal) << "Set update status:" << status << "current:" << m_updateStatus;
     if (m_updateStatus == status)
         return;
 
@@ -50,7 +56,7 @@ void UpdateModel::setUpdateStatus(UpdateModel::UpdateStatus status)
 
 void UpdateModel::setJobProgress(double progress)
 {
-    qDebug() << "Set job progress: " << progress << ", current: " << m_jobProgress;
+    qCDebug(logUpdateModal) << "Set job progress:" << progress << "current:" << m_jobProgress;
     if (qFuzzyCompare(progress, m_jobProgress))
         return;
 
@@ -60,7 +66,7 @@ void UpdateModel::setJobProgress(double progress)
 
 void UpdateModel::setUpdateError(UpdateError error)
 {
-    qWarning() << "Set update error: " << error << ", current: " << m_updateError;
+    qCWarning(logUpdateModal) << "Set update error:" << error << "current:" << m_updateError;
     if (m_updateError == error)
         return;
 
@@ -69,17 +75,20 @@ void UpdateModel::setUpdateError(UpdateError error)
 
 QString UpdateModel::updateErrorToString(UpdateError error)
 {
+    qCDebug(logUpdateModal) << "Converting error to string:" << error;
     if (error == UpdateError::DependenciesBrokenError)
         return "dependenciesBroken";
 
     if (error == UpdateError::DpkgInterrupted)
         return "dpkgInterrupted";
 
+    qCDebug(logUpdateModal) << "Unknown error, returning empty string";
     return "";
 }
 
 QPair<QString, QString> UpdateModel::updateErrorMessage(UpdateError error)
 {
+    qCDebug(logUpdateModal) << "Getting error message for error:" << error;
     static const QMap<UpdateError, QPair<QString, QString>> ErrorMessage = {
         {UpdateError::UnKnown, qMakePair(tr("Update failed"), tr("Unknown error"))},
         {UpdateError::CanNotBackup, qMakePair(tr("Backup failed"), tr("Unable to perform system backup. If you continue the updates, you cannot roll back to the old system later."))},
@@ -92,25 +101,31 @@ QPair<QString, QString> UpdateModel::updateErrorMessage(UpdateError error)
         {UpdateError::DpkgInterrupted, qMakePair(tr("Update failed"), tr("DPKG error"))}
     };
 
-    if (ErrorMessage.contains(error))
-        return ErrorMessage.value(error);
+    if (ErrorMessage.contains(error)) {
+        const auto& result = ErrorMessage.value(error);
+        qCDebug(logUpdateModal) << "Found error message:" << result.first;
+        return result;
+    }
 
+    qCWarning(logUpdateModal) << "Unknown error, returning empty pair";
     return qMakePair(QString(), QString());
 }
 
 void UpdateModel::setLastErrorLog(const QString &log)
 {
-    qWarning() << "Set last error log: " << log;
+    qCWarning(logUpdateModal) << "Set last error log, length:" << log.length();
     m_lastErrorLog = log;
 }
 
 void UpdateModel::setBackupConfigValidation(bool valid)
 {
+    qCDebug(logUpdateModal) << "Set backup config validation:" << valid;
     m_isBackupConfigValid = valid;
 }
 
 QString UpdateModel::updateActionText(UpdateAction action)
 {
+    qCDebug(logUpdateModal) << "Getting action text for:" << action;
     static const QMap<UpdateAction, QString> ActionsText = {
         {None, tr("")},
         {DoBackupAgain, tr("Back Up Again")},
@@ -126,7 +141,7 @@ QString UpdateModel::updateActionText(UpdateAction action)
 
 void UpdateModel::setCheckStatus(CheckStatus status)
 {
-    qInfo() << "CheckStatus:" << status;
+    qCDebug(logUpdateModal) << "Set check status:" << status;
     if (m_checkStatus != status) {
         m_checkStatus = status;
         Q_EMIT checkStatusChanged(m_checkStatus);
@@ -135,12 +150,14 @@ void UpdateModel::setCheckStatus(CheckStatus status)
 
 void UpdateModel::setUpdateLog(const QString &log)
 {
+    qCDebug(logUpdateModal) << "Set update log" << log;
     m_updateLog = log;
     Q_EMIT updateLogChanged(m_updateLog);
 }
 
 void UpdateModel::appendUpdateLog(const QString &log)
 {
+    qCDebug(logUpdateModal) << "Append update log:" << log;
     m_updateLog += log;
     Q_EMIT updateLogAppended(log);
 }

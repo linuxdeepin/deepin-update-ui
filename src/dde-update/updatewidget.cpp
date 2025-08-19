@@ -28,6 +28,9 @@
 #include <DSysInfo>
 #include <DToolButton>
 #include <DAnchors>
+#include <QLoggingCategory>
+
+Q_DECLARE_LOGGING_CATEGORY(logUpdateModal)
 
 DCORE_USE_NAMESPACE
 DWIDGET_USE_NAMESPACE
@@ -47,6 +50,7 @@ UpdateLogWidget::UpdateLogWidget(QWidget *parent)
     , m_notifyTextLabel(new QLabel(this))
     , m_notifyTimer(new QTimer(this))
 {
+    qCDebug(logUpdateModal) << "Initialize UpdateLogWidget";
     m_logTextEdit->setReadOnly(true);
     m_logTextEdit->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
     m_logTextEdit->setWordWrapMode(QTextOption::WordWrap);
@@ -105,12 +109,14 @@ UpdateLogWidget::UpdateLogWidget(QWidget *parent)
 
 void UpdateLogWidget::setLog(const QString &log)
 {
+    qCDebug(logUpdateModal) << "setLog" << log;
     m_logTextEdit->setPlainText(log);
     scrollToBottom();
 }
 
 void UpdateLogWidget::appendLog(const QString &log)
 {
+    qCDebug(logUpdateModal) << "append log: " << log;
     QString cleanLog = log;
     if (cleanLog.endsWith('\n')) {
         cleanLog.chop(1);  // 移除最后一个换行符，appendPlainText会自动换行
@@ -127,6 +133,7 @@ void UpdateLogWidget::scrollToBottom()
         // 检查当前是否已经在底部（允许小的误差范围）
         const int tolerance = 5; // 像素容差，处理可能的四舍五入误差
         bool isAtBottom = verticalScrollBar->value() >= (verticalScrollBar->maximum() - tolerance);
+        qCDebug(logUpdateModal) << "Scroll to bottom check, is at bottom:" << isAtBottom;
         
         // 只有当前在底部时才自动滚动到新的底部
         if (isAtBottom) {
@@ -134,6 +141,7 @@ void UpdateLogWidget::scrollToBottom()
             QTimer::singleShot(0, this, [this]() {
                 QScrollBar *verticalScrollBar = m_logTextEdit->verticalScrollBar();
                 verticalScrollBar->setValue(verticalScrollBar->maximum());
+                qCDebug(logUpdateModal) << "Scrolled to bottom";
             });
         }
     }
@@ -141,6 +149,7 @@ void UpdateLogWidget::scrollToBottom()
 
 void UpdateLogWidget::showNotify(const QIcon &icon, const QString &text)
 {
+    qCDebug(logUpdateModal) << "Show notification:" << text;
     m_notifyIconLabel->setPixmap(icon.pixmap(QSize(NOTIFY_ICON_SIZE, NOTIFY_ICON_SIZE)));
     m_notifyTextLabel->setText(text);
     m_exportButton->setVisible(false);
@@ -150,6 +159,7 @@ void UpdateLogWidget::showNotify(const QIcon &icon, const QString &text)
 
 void UpdateLogWidget::hideNotify()
 {
+    qCDebug(logUpdateModal) << "Hide notification";
     if (m_notifyTimer->isActive()) {
         m_notifyTimer->stop();
     }
@@ -159,6 +169,7 @@ void UpdateLogWidget::hideNotify()
 
 UpdatePrepareWidget::UpdatePrepareWidget(QWidget *parent) : QFrame(parent)
 {
+    qCDebug(logUpdateModal) << "Initialize UpdatePrepareWidget";
     m_tip = new QLabel(this);
     m_tip->setText(tr("Preparing for updates…"));
     DFontSizeManager::instance()->bind(m_tip, DFontSizeManager::T6);
@@ -177,6 +188,7 @@ UpdatePrepareWidget::UpdatePrepareWidget(QWidget *parent) : QFrame(parent)
 
 void UpdatePrepareWidget::showPrepare()
 {
+    qCDebug(logUpdateModal) << "Show prepare widget";
     m_spinner->setVisible(true);
     m_spinner->start();
     m_tip->setVisible(true);
@@ -195,10 +207,13 @@ UpdateProgressWidget::UpdateProgressWidget(QWidget *parent)
     , m_contentWidget(new QWidget(this))
 {
     m_logo->setFixedSize(286, 57);
-    if (DSysInfo::uosEditionType() == DSysInfo::UosCommunity)
+    if (DSysInfo::uosEditionType() == DSysInfo::UosCommunity) {
+        qCDebug(logUpdateModal) << "Using Deepin community logo";
         m_logo->setPixmap(DIcon::loadNxPixmap(":img/deepin_logo.svg"));
-    else
+    } else {
+        qCDebug(logUpdateModal) << "Using UOS logo";
         m_logo->setPixmap(DIcon::loadNxPixmap(":img/uos_logo.svg"));
+    }
 
     auto palette = m_tip->palette();
     palette.setColor(QPalette::WindowText, Qt::white);
@@ -266,6 +281,7 @@ UpdateProgressWidget::UpdateProgressWidget(QWidget *parent)
 
     connect(m_showLogButton, &DCommandLinkButton::clicked, this, [this] {
         bool toShow = !m_logWidget->isVisible();
+        qCDebug(logUpdateModal) << "Toggle log widget visibility to:" << toShow;
         m_logWidget->setVisible(toShow);
         m_showLogButton->setText(toShow ? tr("Collapse update logs") : tr("View update logs"));
         m_contentWidget->adjustSize();
@@ -284,6 +300,7 @@ bool UpdateProgressWidget::event(QEvent *e)
 
 void UpdateProgressWidget::setValue(int value)
 {
+    qCDebug(logUpdateModal) << "Setting progress value to:" << value;
     // 进度条不能大于100，不能小于0，不能回退
     if (value > 100 || value < 0 || value <= m_progressBar->value())
         return;
@@ -366,17 +383,19 @@ UpdateCompleteWidget::UpdateCompleteWidget(QWidget *parent)
 
 void UpdateCompleteWidget::showResult(bool success, UpdateModel::UpdateError error)
 {
+    qCDebug(logUpdateModal) << "Show update result - success:" << success << "error:" << error;
     if (success) {
-        qInfo() << "Update completed, result: " << success;
+        qCInfo(logUpdateModal) << "Update completed successfully";
         showSuccessFrame();
     } else {
-        qWarning() << "Update error: " << error;
+        qCWarning(logUpdateModal) << "Update failed with error:" << error;
         showErrorFrame(error);
     }
 }
 
 void UpdateCompleteWidget::showSuccessFrame()
 {
+    qCDebug(logUpdateModal) << "Showing success frame with countdown";
     qDeleteAll(m_actionButtons);
     m_actionButtons.clear();
     m_mainLayout->invalidate();
@@ -442,7 +461,7 @@ void UpdateCompleteWidget::showSuccessFrame()
 
 void UpdateCompleteWidget::showErrorFrame(UpdateModel::UpdateError error)
 {
-    qInfo() << "Update complete widget show error frame, error: " << error;
+    qCDebug(logUpdateModal) << "Showing error frame for error:" << error;
 
     static const QMap<UpdateModel::UpdateError, QList<UpdateModel::UpdateAction>> ErrorActions = {
         {UpdateModel::CanNotBackup, {UpdateModel::ContinueUpdating, UpdateModel::ExitUpdating}},
@@ -470,7 +489,7 @@ void UpdateCompleteWidget::showErrorFrame(UpdateModel::UpdateError error)
     // 安装失败后10分钟后自动关机
     if (error >= UpdateModel::UpdateInterfaceError) {
         QTimer::singleShot(1000*60*10, this, [] {
-            qInfo() << "User has not operated for a long time， do shut down action now";
+            qCInfo(logUpdateModal) << "User has not operated for a long time， do shut down action now";
             UpdateWorker::instance()->doPowerAction(false);
         });
     }
@@ -480,11 +499,13 @@ void UpdateCompleteWidget::showErrorFrame(UpdateModel::UpdateError error)
 
 void UpdateCompleteWidget::createButtons(const QList<UpdateModel::UpdateAction> &actions)
 {
+    qCDebug(logUpdateModal) << "Creating action buttons, count:" << actions.size();
     qDeleteAll(m_actionButtons);
     m_actionButtons.clear();
 
     m_checkedButton = nullptr;
     for (auto action : actions) {
+        qCDebug(logUpdateModal) << "Creating button for action:" << action;
         auto button = new QPushButton(UpdateModel::updateActionText(action), this);
         button->setFixedSize(240, 48);
         // 在 stretch 之前插入按钮（stretch 总是在最后一个位置）
@@ -514,6 +535,7 @@ void UpdateCompleteWidget::createButtons(const QList<UpdateModel::UpdateAction> 
 
 void UpdateCompleteWidget::expendLogWidget()
 {
+    qCDebug(logUpdateModal) << "Expanding log widget, hiding" << m_actionButtons.size() << "action buttons";
     m_logWidget->setVisible(true);
     for(auto button : m_actionButtons) {
         button->setVisible(false);
@@ -522,6 +544,7 @@ void UpdateCompleteWidget::expendLogWidget()
 
 void UpdateCompleteWidget::collapseLogWidget()
 {
+    qCDebug(logUpdateModal) << "Collapsing log widget, showing" << m_actionButtons.size() << "action buttons";
     m_logWidget->setVisible(false);
     for(auto button : m_actionButtons) {
         button->setVisible(true);
@@ -534,6 +557,7 @@ void UpdateCompleteWidget::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Up:
     case Qt::Key_Down:
     case Qt::Key_Tab: {
+        qCDebug(logUpdateModal) << "Navigation key pressed, switching button selection";
         if (m_actionButtons.size() > 1) {
             int index = 0;
             if (m_checkedButton) {
@@ -552,10 +576,12 @@ void UpdateCompleteWidget::keyPressEvent(QKeyEvent *event)
         break;
     }
     case Qt::Key_Return:
+        qCDebug(logUpdateModal) << "Return key pressed, clicking checked button";
         if(m_checkedButton)
             m_checkedButton->clicked();
         break;
     case Qt::Key_Enter:
+        qCDebug(logUpdateModal) << "Enter key pressed, clicking checked button";
         if (m_checkedButton)
             m_checkedButton->clicked();
         break;
@@ -566,14 +592,17 @@ void UpdateCompleteWidget::keyPressEvent(QKeyEvent *event)
 UpdateWidget::UpdateWidget(QWidget *parent)
     : QFrame(parent)
 {
+    qCDebug(logUpdateModal) << "Initialize UpdateWidget";
     initUi();
     initConnections();
 }
 
 UpdateWidget* UpdateWidget::instance()
 {
+    qCDebug(logUpdateModal) << "Getting UpdateWidget instance";
     static UpdateWidget* updateWidget = nullptr;
     if (!updateWidget) {
+        qCDebug(logUpdateModal) << "Creating new UpdateWidget instance";
         updateWidget = new UpdateWidget;
     }
     return updateWidget;
@@ -581,13 +610,14 @@ UpdateWidget* UpdateWidget::instance()
 
 void UpdateWidget::showUpdate()
 {
+    qCDebug(logUpdateModal) << "Show update widget, setting status to Ready";
     UpdateModel::instance()->setIsUpdating(true);
     UpdateModel::instance()->setUpdateStatus(UpdateModel::Ready);
 }
 
 void UpdateWidget::onUpdateStatusChanged(UpdateModel::UpdateStatus status)
 {
-    qInfo() << "Update status changed: " << status;
+    qCDebug(logUpdateModal) << "Update status changed to:" << status;
     switch (status) {
         case UpdateModel::UpdateStatus::Ready:
             showChecking();
@@ -620,6 +650,7 @@ void UpdateWidget::onUpdateStatusChanged(UpdateModel::UpdateStatus status)
 
 void UpdateWidget::initUi()
 {
+    qCDebug(logUpdateModal) << "Initializing UpdateWidget UI components";
     m_prepareWidget = new UpdatePrepareWidget(this);
     m_progressWidget = new UpdateProgressWidget(this);
     m_updateCompleteWidget = new UpdateCompleteWidget(this);
@@ -641,6 +672,7 @@ void UpdateWidget::initUi()
 
 void UpdateWidget::initConnections()
 {
+    qCDebug(logUpdateModal) << "Initializing UpdateWidget signal connections";
     connect(UpdateModel::instance(), &UpdateModel::JobProgressChanged, this, &UpdateWidget::onJobProgressChanged);
     connect(UpdateModel::instance(), &UpdateModel::updateStatusChanged, this, &UpdateWidget::onUpdateStatusChanged);
     connect(m_updateCompleteWidget, &UpdateCompleteWidget::requestShowLogWidget, this, &UpdateWidget::showLogWidget);
@@ -656,29 +688,33 @@ void UpdateWidget::initConnections()
 
 void UpdateWidget::showLogWidget()
 {
+    qCDebug(logUpdateModal) << "Showing log widget with error log";
     m_logWidget->setLog(UpdateModel::instance()->lastErrorLog());
     m_stackedWidget->setCurrentWidget(m_logWidget);
 }
 
 void UpdateWidget::hideLogWidget()
 {
+    qCDebug(logUpdateModal) << "Hiding log widget, returning to complete widget";
     m_stackedWidget->setCurrentWidget(m_updateCompleteWidget);
 }
 
 void UpdateWidget::showChecking()
 {
+    qCDebug(logUpdateModal) << "Showing checking/prepare widget";
     m_stackedWidget->setCurrentWidget(m_prepareWidget);
     m_prepareWidget->showPrepare();
 }
 
 void UpdateWidget::showProgress()
 {
+    qCDebug(logUpdateModal) << "Showing progress widget";
     m_stackedWidget->setCurrentWidget(m_progressWidget);
 }
 
 void UpdateWidget::setMouseCursorVisible( bool visible)
 {
-    qInfo() << "Set mouse cursor visible: " << visible;
+    qCDebug(logUpdateModal) << "Set mouse cursor visible:" << visible;
     static bool mouseVisible=true;
     if(mouseVisible == visible)
         return;
@@ -695,7 +731,7 @@ void UpdateWidget::keyPressEvent(QKeyEvent *e)
 
 void UpdateWidget::onJobProgressChanged(double value)
 {
-    qInfo() << "Job progress changed: " << value << "hasBackup: " << UpdateModel::instance()->hasBackup() << "updateStatus: " << UpdateModel::instance()->updateStatus();
+    qCDebug(logUpdateModal) << "Job progress changed:" << value << "hasBackup:" << UpdateModel::instance()->hasBackup() << "status:" << UpdateModel::instance()->updateStatus();
     int progress = 0;
     bool hasBackup = UpdateModel::instance()->hasBackup();
     if (hasBackup) {

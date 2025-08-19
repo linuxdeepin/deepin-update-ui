@@ -6,6 +6,9 @@
 
 #include <QDebug>
 #include <QMetaMethod>
+#include <QLoggingCategory>
+
+Q_LOGGING_CATEGORY(logCommon, "dde.update.common")
 
 DCORE_USE_NAMESPACE
 
@@ -14,7 +17,7 @@ Q_GLOBAL_STATIC(DConfigHelper, dConfigWatcher)
 DConfigHelper::DConfigHelper(QObject *parent)
     : QObject(parent)
 {
-
+    qCDebug(logCommon) << "Initialize DConfigHelper";
 }
 
 DConfigHelper *DConfigHelper::instance()
@@ -26,9 +29,11 @@ DConfig *DConfigHelper::initializeDConfig(const QString &appId,
                                           const QString &name,
                                           const QString &subpath)
 {
+    qCDebug(logCommon) << "Initialize DConfig - appId:" << appId 
+                            << "name:" << name << "subpath:" << subpath;
     DConfig *dConfig = DConfig::create(appId, name, subpath, this);
     if (!dConfig) {
-        qWarning() << "Create dconfig failed, appId: " << appId << ", name: " << name
+        qCWarning(logCommon) << "Create dconfig failed, appId: " << appId << ", name: " << name
                    << ", subpath: " << subpath;
         return nullptr;
     }
@@ -39,6 +44,7 @@ DConfig *DConfigHelper::initializeDConfig(const QString &appId,
     // 即时响应数据变化
     connect(dConfig, &DConfig::valueChanged, this, [this, dConfig](const QString &key) {
         const QVariant &value = dConfig->value(key);
+        qCDebug(logCommon) << "DConfig value changed - key:" << key << "value:" << value;
         auto it = m_bindInfos.find(dConfig);
         if (it == m_bindInfos.end())
             return;
@@ -63,18 +69,21 @@ void DConfigHelper::bind(const QString &appId,
                          const QString &key,
                          OnPropertyChangedCallback callback)
 {
-    if (!obj)
+    qCDebug(logCommon) << "Binding DConfig - appId:" << appId << "name:" << name << "key:" << key;
+    if (!obj) {
+        qCWarning(logCommon) << "Cannot bind, object is null";
         return;
+    }
 
     DConfig *dConfig = dConfigObject(appId, name, subpath);
     if (!dConfig) {
-        qWarning() << "DConfig is nullptr";
+        qCWarning(logCommon) << "DConfig object is null, cannot bind";
         return;
     }
 
     auto it = m_bindInfos.find(dConfig);
     if (it == m_bindInfos.end()) {
-        qWarning() << "Can not find bind info";
+        qCWarning(logCommon) << "Cannot find bind info for DConfig";
         return;
     }
 
@@ -91,13 +100,14 @@ void DConfigHelper::bind(const QString &appId,
     connect(obj, &QObject::destroyed, this, [this, obj] {
         unBind(obj);
     });
+    qCDebug(logCommon) << "Binding completed successfully";
 }
 
 void DConfigHelper::unBind(QObject *obj, const QString &key)
 {
-    qInfo() << "DConfig unbind, object: " << obj << ", key: " << key;
+    qCDebug(logCommon) << "DConfig unbind key:" << key;
     if (!obj) {
-        qWarning() << "Unbinding object is null";
+        qCWarning(logCommon) << "Unbinding object is null";
         return;
     }
 
@@ -130,14 +140,17 @@ QVariant DConfigHelper::getConfig(const QString &appId,
                                   const QString &key,
                                   const QVariant &defaultValue)
 {
+    qCDebug(logCommon) << "Getting config - appId:" << appId << "name:" << name << "key:" << key;
     DConfig *dConfig = dConfigObject(appId, name, subpath);
     if (!dConfig) {
-        qWarning() << "DConfig object is null";
+        qCWarning(logCommon) << "DConfig object is null, returning default";
         return defaultValue;
     }
 
-    if (!dConfig->keyList().contains(key))
+    if (!dConfig->keyList().contains(key)) {
+        qCDebug(logCommon) << "Key not found in config, returning default";
         return defaultValue;
+    }
 
     const QVariant &value = dConfig->value(key);
     return value;
@@ -149,14 +162,15 @@ void DConfigHelper::setConfig(const QString &appId,
                               const QString &key,
                               const QVariant &value)
 {
+    qCDebug(logCommon) << "Setting config - appId:" << appId << "name:" << name << "key:" << key << "value:" << value;
     DConfig *dConfig = dConfigObject(appId, name, subpath);
     if (!dConfig) {
-        qWarning() << "Set config, dconfig object is null";
+        qCWarning(logCommon) << "Cannot set config, DConfig object is null";
         return;
     }
 
     if (!dConfig->keyList().contains(key)) {
-        qWarning() << "Set config,DConfig does not contain key: " << key;
+        qCWarning(logCommon) << "Cannot set config, DConfig does not contain key:" << key;
         return;
     }
 
@@ -168,11 +182,15 @@ DConfig *DConfigHelper::dConfigObject(const QString &appId,
                                       const QString &subpath)
 {
     const QString &configPath = packageDConfigPath(appId, name, subpath);
+    qCDebug(logCommon) << "Getting DConfig object for path:" << configPath;
     DConfig *dConfig = nullptr;
-    if (m_dConfigs.contains(configPath))
+    if (m_dConfigs.contains(configPath)) {
+        qCDebug(logCommon) << "Found existing DConfig object";
         dConfig = m_dConfigs.value(configPath);
-    else
+    } else {
+        qCDebug(logCommon) << "Creating new DConfig object";
         dConfig = initializeDConfig(appId, name, subpath);
+    }
 
     return dConfig;
 }

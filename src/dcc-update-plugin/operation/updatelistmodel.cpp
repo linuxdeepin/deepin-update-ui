@@ -1,10 +1,14 @@
 // SPDX-FileCopyrightText: 2024 UnionTech Software Technology Co., Ltd.
 // SPDX-License-Identifier: GPL-3.0-or-later
 #include "updatelistmodel.h"
+#include <QLoggingCategory>
+
+Q_DECLARE_LOGGING_CATEGORY(logDccUpdatePlugin)
 
 UpdateListModel::UpdateListModel(QObject *parent)
     : QAbstractListModel(parent)
 {
+    qCDebug(logDccUpdatePlugin) << "Initialize UpdateListModel";
 }
 
 int UpdateListModel::rowCount(const QModelIndex &parent) const
@@ -17,10 +21,18 @@ int UpdateListModel::rowCount(const QModelIndex &parent) const
 
 QVariant UpdateListModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid())
+    if (!index.isValid()) {
+        qCDebug(logDccUpdatePlugin) << "Invalid index requested";
         return QVariant();
+    }
+
+    if (index.row() >= m_updateLists.size()) {
+        qCWarning(logDccUpdatePlugin) << "Index out of range:" << index.row() << "max:" << m_updateLists.size();
+        return QVariant();
+    }
 
     UpdateItemInfo* data = m_updateLists[index.row()];
+    qCDebug(logDccUpdatePlugin) << "Getting data for role:" << role << "item:" << data->name();
 
     switch (role) {
     case Title:
@@ -40,6 +52,7 @@ QVariant UpdateListModel::data(const QModelIndex &index, int role) const
     case IconName:
         return getIconName(data->updateType());
     default:
+        qCDebug(logDccUpdatePlugin) << "Unknown role requested:" << role;
         break;
     }
      return QVariant();
@@ -47,6 +60,7 @@ QVariant UpdateListModel::data(const QModelIndex &index, int role) const
 
 void UpdateListModel::addUpdateData(UpdateItemInfo* itemData)
 {
+    qCDebug(logDccUpdatePlugin) << "Adding update data:" << itemData->name() << "type:" << itemData->updateType();
     int row = rowCount();
     beginInsertRows(QModelIndex(), row, row);
     m_updateLists.append(itemData);
@@ -55,10 +69,12 @@ void UpdateListModel::addUpdateData(UpdateItemInfo* itemData)
 
     refreshDownloadSize();
     emit visibilityChanged();
+    qCDebug(logDccUpdatePlugin) << "Update data added, total items:" << m_updateLists.size();
 }
 
 QString UpdateListModel::getIconName(UpdateType type) const
 {
+    qCDebug(logDccUpdatePlugin) << "Getting icon name for type:" << type;
     QString path = "qrc:/icons/deepin/builtin/icons/";
     switch (type) {
     case Invalid:
@@ -78,6 +94,7 @@ QString UpdateListModel::getIconName(UpdateType type) const
 
 void UpdateListModel::refreshDownloadSize()
 {
+    qCDebug(logDccUpdatePlugin) << "Refreshing download size calculation";
     double downloadSize = 0;
     for (int i = 0; i < m_updateLists.size(); ++i) {
         if (!m_updateLists[i]->isChecked()) {
@@ -135,11 +152,13 @@ UpdateType UpdateListModel::getUpdateType(int index) const
     if (index >= 0 && index < m_updateLists.count()) {
         return m_updateLists[index]->updateType();
     }
+    qCWarning(logDccUpdatePlugin) << "Invalid index" << index << "max:" << m_updateLists.count();
     return Invalid;
 }
 
 void UpdateListModel::clearAllData()
 {
+    qCDebug(logDccUpdatePlugin) << "Clearing all data, current count:" << m_updateLists.size();
     beginResetModel();
     m_updateLists.clear();
     endResetModel();
@@ -149,19 +168,25 @@ void UpdateListModel::clearAllData()
 
 void UpdateListModel::setChecked(int index, bool checked)
 {
+    qCDebug(logDccUpdatePlugin) << "Setting checked state for index:" << index << "checked:" << checked;
     if (index >= 0 && index < m_updateLists.count()) {
+        const QString itemName = m_updateLists[index]->name();
         m_updateLists[index]->setIsChecked(checked);
+        qCDebug(logDccUpdatePlugin) << "Updated check state for item:" << itemName;
 
         QModelIndex changedIndex = this->index(index);
         emit dataChanged(changedIndex, changedIndex, { Checked });
 
         refreshDownloadSize();
         emit isUpdateEnableChanged();
+    } else {
+        qCWarning(logDccUpdatePlugin) << "Invalid index for setChecked:" << index;
     }
 }
 
 int UpdateListModel::getAllUpdateType() const
 {
+    qCDebug(logDccUpdatePlugin) << "Getting combined update type for all checked items";
     int updateType = 0;
     for (int i = 0; i < m_updateLists.count(); ++i) {
         if (m_updateLists[i]->isChecked()) {

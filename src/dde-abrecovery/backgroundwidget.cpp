@@ -10,6 +10,9 @@
 #include <QPainter>
 #include <QScreen>
 #include <QApplication>
+#include <QLoggingCategory>
+
+Q_DECLARE_LOGGING_CATEGORY(logUpdateRecovery)
 
 DWIDGET_USE_NAMESPACE
 
@@ -17,6 +20,7 @@ BackgroundWidget::BackgroundWidget(bool bRestoring, QWidget *parent)
     : QWidget(parent)
     , m_bIsRestoring(bRestoring)
 {
+    qCDebug(logUpdateRecovery) << "Initialize BackgroundWidget, restoring:" << bRestoring;
     setAttribute(Qt::WA_TranslucentBackground, true);
     setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
     QScreen *pScreen = qApp->primaryScreen();

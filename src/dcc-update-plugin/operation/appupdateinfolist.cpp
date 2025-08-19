@@ -2,10 +2,13 @@
 //
 //SPDX-License-Identifier: GPL-3.0-or-later
 #include "appupdateinfolist.h"
+#include <QLoggingCategory>
+
+Q_DECLARE_LOGGING_CATEGORY(logDccUpdatePlugin)
 
 AppUpdateInfo::AppUpdateInfo()
 {
-
+    qCDebug(logDccUpdatePlugin) << "Initialize AppUpdateInfo";
 }
 
 const QDBusArgument &operator>>(const QDBusArgument &argument, AppUpdateInfo &info)
@@ -47,8 +50,10 @@ QDebug operator<<(QDebug argument, const AppUpdateInfo &info)
 
 void registerAppUpdateInfoListMetaType()
 {
+    qCDebug(logDccUpdatePlugin) << "Registering AppUpdateInfo meta types for DBus";
     qRegisterMetaType<AppUpdateInfo>();
     qDBusRegisterMetaType<AppUpdateInfo>();
     qRegisterMetaType<AppUpdateInfoList>();
     qDBusRegisterMetaType<AppUpdateInfoList>();
+    qCDebug(logDccUpdatePlugin) << "AppUpdateInfo meta types registered successfully";
 }

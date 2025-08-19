@@ -12,6 +12,9 @@
 #include <QKeyEvent>
 #include <QApplication>
 #include <QStyleOption>
+#include <QLoggingCategory>
+
+Q_DECLARE_LOGGING_CATEGORY(logUpdateModal)
 
 const int penWidth = 2;
 
@@ -23,6 +26,7 @@ BlurTransparentButton::BlurTransparentButton(const QString &text, QWidget *paren
     , m_radius(10)
     , m_enableHighLightFocus(true)
 {
+    qCDebug(logUpdateModal) << "Initialize BlurTransparentButton with text:" << text;
     m_iconLabel->setFixedSize(64, 64);
     m_textLabel->setText(text);
 
@@ -43,15 +47,17 @@ BlurTransparentButton::BlurTransparentButton(const QString &text, QWidget *paren
     this->setPalette(palette);
 
     this->setLayout(layout);
+    qCDebug(logUpdateModal) << "BlurTransparentButton setup completed";
 }
 
 BlurTransparentButton::~BlurTransparentButton()
 {
-
+    qCDebug(logUpdateModal) << "Destroying BlurTransparentButton";
 }
 
 void BlurTransparentButton::setText(const QString &text)
 {
+    qCDebug(logUpdateModal) << "Setting button text:" << text;
     m_textLabel->setText(text);
 }
 
@@ -62,28 +68,33 @@ QString BlurTransparentButton::text()
 
 void BlurTransparentButton::setNormalPixmap(const QPixmap &normalPixmap)
 {
+    qCDebug(logUpdateModal) << "Setting normal pixmap, size:" << normalPixmap.size();
     m_normalPixmap = normalPixmap;
     m_iconLabel->setVisible(true);
 }
 
 void BlurTransparentButton::setHoverPixmap(const QPixmap &hoverPixmap)
 {
+    qCDebug(logUpdateModal) << "Setting hover pixmap, size:" << hoverPixmap.size();
     m_hoverPixmap = hoverPixmap;
     m_iconLabel->setVisible(true);
 }
 
 QPixmap BlurTransparentButton::hoverPixmap()
 {
+    qCDebug(logUpdateModal) << "Getting hover pixmap, size:" << m_hoverPixmap.size();
     return m_hoverPixmap;
 }
 
 QPixmap BlurTransparentButton::normalPixmap()
 {
+    qCDebug(logUpdateModal) << "Getting normal pixmap, size:" << m_normalPixmap.size();
     return m_normalPixmap;
 }
 
 void BlurTransparentButton::setRadius(int radius)
 {
+    qCDebug(logUpdateModal) << "Setting border radius:" << radius;
     m_radius = radius;
 }
 
@@ -162,6 +173,7 @@ void BlurTransparentButton::keyPressEvent(QKeyEvent *event)
     switch (event->key()) {
     case Qt::Key_Return:
     case Qt::Key_Enter:
+        qCDebug(logUpdateModal) << "Enter key pressed, emitting clicked signal";
         emit clicked();
         break;
     }
