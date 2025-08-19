@@ -34,7 +34,7 @@ ColumnLayout {
             D.Label {
                 Layout.fillWidth: true
                 text: dccData.model().updateDisabledTips
-                font.pixelSize: 12
+                font: D.DTK.fontManager.t8
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 wrapMode: Text.WordWrap

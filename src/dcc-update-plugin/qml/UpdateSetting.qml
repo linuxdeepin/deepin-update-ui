@@ -178,7 +178,6 @@ DccObject {
             page: RowLayout {
                 D.LineEdit {
                     id: lineEdit
-                    font.pixelSize: 14
                     maximumLength: 5
                     validator: RegularExpressionValidator { regularExpression: /^\d*$/ }
                     alertText: qsTr("Only numbers between 1-99999 are allowed")
@@ -211,7 +210,6 @@ DccObject {
 
                 D.Label {
                     text: "KB/S"
-                    font.pixelSize: 14
                 }
             }
         }

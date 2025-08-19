@@ -24,6 +24,7 @@ D.DialogWindow {
         spacing: 10
 
         D.Label {
+            id: titleLabel
             Layout.alignment: Qt.AlignHCenter
             text: title
             font: D.DTK.fontManager.t6
@@ -34,7 +35,7 @@ D.DialogWindow {
         ScrollView {
             id: scrollView
             Layout.fillWidth: true
-            Layout.preferredHeight: 240
+            Layout.preferredHeight: root.height - titleLabel.height - buttonRow.height - 80
 
             // 滚动条策略
             ScrollBar.vertical.policy: ScrollBar.AsNeeded
@@ -56,6 +57,9 @@ D.DialogWindow {
 
         // 按钮行
         RowLayout {
+            id: buttonRow
+            spacing: 10
+            
             Button {
                 Layout.fillWidth: true
                 text: qsTr("Close")

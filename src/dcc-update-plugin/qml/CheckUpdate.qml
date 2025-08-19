@@ -50,13 +50,12 @@ ColumnLayout {
                 Layout.alignment: Qt.AlignHCenter
                 width: implicitWidth
                 text: dccData.model().checkUpdateErrTips
-                font.pixelSize: 12
+                font: D.DTK.fontManager.t8
             }
 
             D.Button {
                 Layout.alignment: Qt.AlignHCenter
                 implicitWidth: 200
-                font.pixelSize: 14
                 visible: text.length !== 0
                 text: dccData.model().checkBtnText
                 onClicked: {
@@ -68,7 +67,7 @@ ColumnLayout {
                 visible: dccData.model().checkUpdateStatus === Common.Updated
                 Layout.alignment: Qt.AlignHCenter
                 text: qsTr("Last check: ") + dccData.model().lastCheckUpdateTime
-                font.pixelSize: 10
+                font: D.DTK.fontManager.t10
             }
         }
    }

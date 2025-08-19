@@ -145,7 +145,7 @@ ColumnLayout {
                     implicitWidth: 210
                 }
 
-                D.ActionButton {
+                D.ToolButton {
                     id: pauseIcon
                     icon.name: isPauseOrNot ? "update_start" : "update_pause"
                     icon.width: 24
@@ -163,7 +163,7 @@ ColumnLayout {
                     }
                 }
 
-                D.ActionButton {
+                D.ToolButton {
                     id: stopIcon
                     icon.name: "update_stop"
                     icon.width: 24
