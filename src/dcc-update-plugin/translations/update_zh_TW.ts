@@ -86,7 +86,7 @@
     </message>
     <message>
         <source>Close</source>
-        <translation>關閉</translation>
+        <translation>關 閉</translation>
     </message>
     <message>
         <source>Export to desktop</source>
