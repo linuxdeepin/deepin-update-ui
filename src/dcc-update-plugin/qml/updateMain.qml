@@ -12,6 +12,19 @@ import org.deepin.dcc.update 1.0
 
 DccObject {
 
+    // 更新通知小红点
+    function updateNotifyRedPoint() {
+        if (dccData.model().isUpdateDisabled || !dccData.model().updateNotify || !dccData.model().isUpdatable) {
+            dccModule.badge = 0
+            return
+        }
+        dccModule.badge = 1
+    }
+
+    Component.onCompleted: {
+        updateNotifyRedPoint()
+    }
+
     // 处理更新模块激活和子组件变化的连接
     Connections {
         // 标识是否已经检查过更新
@@ -40,6 +53,13 @@ DccObject {
             if (dccModule.hasView && !dccData.model().isUpdateDisabled) {
                 dccData.work().checkNeedDoUpdates()
             }
+            updateNotifyRedPoint()
+        }
+        function onUpdateNotifyChanged() {
+            updateNotifyRedPoint()
+        }
+        function onIsUpdatableChanged() {
+            updateNotifyRedPoint()
         }
     }
 

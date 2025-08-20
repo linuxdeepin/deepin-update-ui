@@ -28,6 +28,7 @@ class UpdateModel : public QObject
     Q_PROPERTY(QString updateDisabledTips READ updateDisabledTips NOTIFY updateDisabledTipsChanged FINAL)
     Q_PROPERTY(bool batterIsOK READ batterIsOK NOTIFY batterIsOKChanged FINAL)
     Q_PROPERTY(int lastStatus READ lastStatus  NOTIFY lastStatusChanged FINAL)
+    Q_PROPERTY(bool isUpdatable READ isUpdatable  NOTIFY isUpdatableChanged FINAL)
 
     // ---------------检查更新页面数据---------------
     Q_PROPERTY(bool showCheckUpdate READ showCheckUpdate NOTIFY showCheckUpdateChanged FINAL)
