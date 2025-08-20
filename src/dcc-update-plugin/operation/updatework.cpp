@@ -529,8 +529,11 @@ void UpdateWorker::createCheckUpdateJob(const QString& jobPath)
 void UpdateWorker::refreshLastTimeAndCheckCircle()
 {
     qCDebug(logDccUpdatePlugin) << "Refresh last check time and check circle";
-    QString checkTime;
-    m_updateInter->GetCheckIntervalAndTime(checkTime);
+    const QString checkTime = m_updateInter->GetCheckIntervalAndTime();
+    if (checkTime.isEmpty()) {
+        qCWarning(logDccUpdatePlugin) << "Get check time failed, return empty string";
+        return;
+    }
     m_model->setLastCheckUpdateTime(checkTime);
 }
 
@@ -889,9 +892,10 @@ void UpdateWorker::setDownloadSpeedLimitConfig(const QString& config)
     qCDebug(logDccUpdatePlugin) << "set download speed limit config" << config;
     QDBusPendingCall call = m_updateInter->SetDownloadSpeedLimit(config);
     QDBusPendingCallWatcher* watcher = new QDBusPendingCallWatcher(call, this);
-    connect(watcher, &QDBusPendingCallWatcher::finished, this, [call, watcher] {
-        if (call.isError()) {
-            qCWarning(logDccUpdatePlugin) << "Set download speed limit config error: " << call.error().message();
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, [watcher] {
+        QDBusPendingReply<QDBusObjectPath> reply = watcher->reply();
+        if (reply.isError()) {
+            qCWarning(logDccUpdatePlugin) << "Set download speed limit config error: " << reply.error().message();
         }
         watcher->deleteLater();
     });
@@ -940,9 +944,10 @@ void UpdateWorker::setIdleDownloadConfig(const IdleDownloadConfig& config)
     m_model->setIdleDownloadConfig(config);
     QDBusPendingCall call = m_updateInter->SetIdleDownloadConfig(QString(config.toJson()));
     QDBusPendingCallWatcher* watcher = new QDBusPendingCallWatcher(call, this);
-    connect(watcher, &QDBusPendingCallWatcher::finished, this, [call, watcher] {
-        if (call.isError()) {
-            qCWarning(logDccUpdatePlugin) << "Set idle download config error:" << call.error().message();
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, [watcher] {
+        QDBusPendingReply<QDBusObjectPath> reply = watcher->reply();
+        if (reply.isError()) {
+            qCWarning(logDccUpdatePlugin) << "Set idle download config error:" << reply.error().message();
         }
         watcher->deleteLater();
     });
@@ -1144,16 +1149,16 @@ void UpdateWorker::exitTestingChannel(bool value)
         qCDebug(logDccUpdatePlugin) << "Removing testing channel package";
         QDBusPendingCall call = m_updateInter->RemovePackage(TestingChannel, TestingChannelPackage);
         QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
-        connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, call, watcher] {
-            watcher->deleteLater();
-            if (call.isError()) {
-                qCWarning(logDccUpdatePlugin) << "dbus call failed: " << call.error();
+        connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, watcher] {
+            QDBusPendingReply<QDBusObjectPath> reply = watcher->reply();
+            if (reply.isError()) {
+                qCWarning(logDccUpdatePlugin) << "dbus call failed: " << reply.error();
                 m_model->setTestingChannelStatus(TestingChannelStatus::Joined);
             } else {
-                QDBusReply<QDBusObjectPath> reply = call.reply();
                 const QString jobPath = reply.value().path();
                 setRemovePackageJob(jobPath);                
             }
+            watcher->deleteLater();
         });
     } else {
         qCDebug(logDccUpdatePlugin) << "User cancelled exit, stay in testing channel";
@@ -1211,16 +1216,16 @@ void UpdateWorker::initTestingChannel()
     qCDebug(logDccUpdatePlugin) << "Checking testing channel package existence";
     QDBusPendingCall call = m_updateInter->PackageExists(TestingChannelPackage);
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
-    connect(watcher, &QDBusPendingCallWatcher::finished, this, [watcher, call, this] {
-        if (!call.isError()) {
-            QDBusPendingReply<bool> reply = call.reply();
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, [watcher, this] {
+        QDBusPendingReply<bool> reply = watcher->reply();
+        if (!reply.isError()) {
             const auto packageExists = reply.value();
             qCDebug(logDccUpdatePlugin) << "Testing channel package exists:" << packageExists;
             if (packageExists) {
                 m_model->setTestingChannelStatus(TestingChannelStatus::Joined);
             };
         } else {
-            qCWarning(logDccUpdatePlugin) << "Failed to check testing channel package:" << call.error().message();
+            qCWarning(logDccUpdatePlugin) << "Failed to check testing channel package:" << reply.error().message();
         }
         watcher->deleteLater();
     });
@@ -1264,16 +1269,16 @@ void UpdateWorker::checkTestingChannelStatus()
             qCDebug(logDccUpdatePlugin) << "Testing:" << "Install testing channel package";
             QDBusPendingCall call = m_updateInter->InstallPackage(TestingChannel, TestingChannelPackage);
             QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
-            connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, call, watcher] {
-                watcher->deleteLater();
-                if (call.isError()) {
-                    qCWarning(logDccUpdatePlugin) << "dbus call failed: " << call.error();
+            connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, watcher] {
+                QDBusPendingReply<QDBusObjectPath> reply = watcher->reply();
+                if (reply.isError()) {
+                    qCWarning(logDccUpdatePlugin) << "dbus call failed: " << reply.error();
                     m_model->setTestingChannelStatus(TestingChannelStatus::NotJoined);
                 } else {
-                    QDBusReply<QDBusObjectPath> reply = call.reply();
                     const QString jobPath = reply.value().path();
                     setInstallPackageJob(jobPath);
                 }
+                watcher->deleteLater();
             });
             return;
         }
@@ -1534,7 +1539,6 @@ void UpdateWorker::onCheckUpdateStatusChanged(const QString& value)
     } else if (value == "success" || value == "succeed") {
         auto watcher = new QDBusPendingCallWatcher(m_updateInter->GetUpdateLogs(SystemUpdate | SecurityUpdate), this);
         connect(watcher, &QDBusPendingCallWatcher::finished, [this, watcher] {
-            watcher->deleteLater();
             if (!watcher->isError()) {
                 QDBusPendingReply<QString> reply = watcher->reply();
                 UpdateLogHelper::ref().handleUpdateLog(reply.value());
@@ -1545,6 +1549,7 @@ void UpdateWorker::onCheckUpdateStatusChanged(const QString& value)
             } else {
                 qCWarning(logDccUpdatePlugin) << "Get update log failed";
             }
+            watcher->deleteLater();
             // 日志处理完了再显示更新内容界面
         });
         m_model->setLastStatus(CheckingSucceed, __LINE__);

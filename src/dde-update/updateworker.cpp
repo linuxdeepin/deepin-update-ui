@@ -122,16 +122,15 @@ void UpdateWorker::doDistUpgrade(bool doBackup)
     UpdateModel::instance()->setHasBackup(doBackup);
     QDBusPendingReply<QDBusObjectPath> reply = m_dbusProxy->DistUpgradePartly(UpdateModel::instance()->updateMode(), doBackup);
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, this);
-    connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, reply, watcher, doBackup] {
-        watcher->deleteLater();
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, watcher, doBackup] {
+        QDBusPendingReply<QDBusObjectPath> reply = watcher->reply();
         if (reply.isValid()) {
             if (doBackup) {
-                createBackupJob(reply.value().path());
+                createBackupJob(reply.value().path());   
             } else {
                 UpdateModel::instance()->setUpdateStatus(UpdateModel::UpdateStatus::Installing);
                 createDistUpgradeJob(reply.value().path());
             }
-            
         } else {
             const QString &errorMessage = watcher->error().message();
             qCWarning(logUpdateModal) << "Do dist upgrade failed:" << watcher->error().message();
@@ -139,6 +138,7 @@ void UpdateWorker::doDistUpgrade(bool doBackup)
             UpdateModel::instance()->setUpdateError(UpdateModel::UpdateError::UnKnown);
             UpdateModel::instance()->setUpdateStatus(UpdateModel::UpdateStatus::InstallFailed);
         }
+        watcher->deleteLater();
     });
 }
 
@@ -390,8 +390,8 @@ void UpdateWorker::doCheckSystem(int updateMode, UpdateModel::CheckSystemStage s
 
     QDBusPendingReply<QDBusObjectPath> reply = m_dbusProxy->CheckUpgrade(updateMode, static_cast<int>(stage));
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, this);
-    connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, reply, watcher] {
-        watcher->deleteLater();
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, watcher] {
+        QDBusPendingReply<QDBusObjectPath> reply = watcher->reply();
         if (reply.isValid()) {
             UpdateModel::instance()->setCheckStatus(UpdateModel::CheckStatus::ReadToCheck);
             createCheckSystemJob(reply.value().path());
@@ -401,6 +401,7 @@ void UpdateWorker::doCheckSystem(int updateMode, UpdateModel::CheckSystemStage s
             UpdateModel::instance()->setLastErrorLog(errorMessage);
             UpdateModel::instance()->setCheckStatus(UpdateModel::CheckStatus::CheckFailed);
         }
+        watcher->deleteLater();
     });
 }
 
@@ -529,11 +530,12 @@ void UpdateWorker::enableShortcuts(bool enable)
         .set(enable);
 
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, this);
-    connect(watcher, &QDBusPendingCallWatcher::finished, this, [reply, watcher] {
-        watcher->deleteLater();
-        if (!reply.isValid()) {
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, [watcher] {
+        QDBusPendingReply<void> reply = watcher->reply();
+        if (reply.isError()) {
             qCWarning(logUpdateModal) << "Set `OSDEnabled` property failed, error: " << reply.error().message();
         }
+        watcher->deleteLater();
     });
 }
 
@@ -651,11 +653,12 @@ void UpdateWorker::forceReboot(bool reboot)
     qCInfo(logUpdateModal) << "Force reboot:" << reboot;
     QDBusPendingReply<void> reply = m_dbusProxy->Poweroff(reboot);
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, this);
-    connect(watcher, &QDBusPendingCallWatcher::finished, this, [reply, watcher] {
-        watcher->deleteLater();
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, [watcher] {
+        QDBusPendingReply<void> reply = watcher->reply();
         if (reply.isError()) {
             qCWarning(logUpdateModal) << "Power off failed:" << reply.error().message();
         }
+        watcher->deleteLater();
     });
 }
 

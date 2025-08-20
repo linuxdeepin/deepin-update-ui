@@ -170,12 +170,14 @@ void Manage::requestReboot()
     qCDebug(logUpdateRecovery) << "Requesting system reboot";
     QDBusPendingCall call = m_updateDBusProxy->Poweroff(false);
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
-    connect(watcher, &QDBusPendingCallWatcher::finished, [this, call] {
-        if (!call.isError()) {
+    connect(watcher, &QDBusPendingCallWatcher::finished, [this, watcher] {
+        QDBusPendingReply<void> reply = watcher->reply();
+        if (!reply.isError()) {
             qCInfo(logUpdateRecovery) << "System reboot request successful";
         } else {
-            qCWarning(logUpdateRecovery) << "System reboot request failed:" << call.error().message();
+            qCWarning(logUpdateRecovery) << "System reboot request failed:" << reply.error().message();
         }
+        watcher->deleteLater();
         exitApp();
     });
 }

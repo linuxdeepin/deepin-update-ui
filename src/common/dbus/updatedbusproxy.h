@@ -35,7 +35,7 @@ public:
     bool updateNotify();
     void SetUpdateNotify(bool in0);
     LastoreUpdatePackagesInfo classifiedUpdatablePackages();
-    double GetCheckIntervalAndTime(QString &out1);
+    QString GetCheckIntervalAndTime();
 
     Q_PROPERTY(bool AutoDownloadUpdates READ autoDownloadUpdates NOTIFY AutoDownloadUpdatesChanged)
     bool autoDownloadUpdates();

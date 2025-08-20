@@ -112,7 +112,7 @@ LastoreUpdatePackagesInfo UpdateDBusProxy::classifiedUpdatablePackages()
     return packagesInfo;
 }
 
-double UpdateDBusProxy::GetCheckIntervalAndTime(QString &out1)
+QString UpdateDBusProxy::GetCheckIntervalAndTime()
 {
     qCDebug(logCommon) << "Getting check interval and time";
     QList<QVariant> argumentList;
@@ -121,12 +121,13 @@ double UpdateDBusProxy::GetCheckIntervalAndTime(QString &out1)
                                                 QStringLiteral("GetCheckIntervalAndTime"),
                                                 argumentList);
     if (reply.type() == QDBusMessage::ReplyMessage && reply.arguments().count() == 2) {
-        out1 = qdbus_cast<QString>(reply.arguments().at(1));
-        qCDebug(logCommon) << "Check time:" << out1;
+        QString checkTime = qdbus_cast<QString>(reply.arguments().at(1));
+        qCDebug(logCommon) << "Check time:" << checkTime;
+        return checkTime;
     } else if (reply.type() == QDBusMessage::ErrorMessage) {
         qCWarning(logCommon) << "GetCheckIntervalAndTime failed: " << reply.errorMessage();
     }
-    return qdbus_cast<double>(reply.arguments().at(0));
+    return {};
 }
 
 bool UpdateDBusProxy::autoDownloadUpdates()
