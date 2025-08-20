@@ -93,11 +93,12 @@ Rectangle {
                             horizontalAlignment: Text.AlignLeft
                             Layout.fillWidth: true
                             font: D.DTK.fontManager.t8
-                            text: model.titleDescription
+                            textFormat: Text.RichText
+                            text: model.titleDescription.replace(/<p>/g, "<p style='margin:0'>")
                             wrapMode: Text.WordWrap
                             onLinkActivated: (link)=> {
                                 dccData.work().openUrl(link)
-                            }  
+                            }
                         }
 
                         D.Label {
