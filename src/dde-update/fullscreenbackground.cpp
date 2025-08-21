@@ -202,7 +202,6 @@ void FullScreenBackground::setContent(QWidget *const w)
         qCWarning(logUpdateModal) << "Content is null";
         return;
     }
-    qCInfo(logUpdateModal) << "Incoming  content:" << w << ", current content:" << currentContent;
     // 不重复设置content
     if (currentContent && currentContent->isVisible() && currentContent == w && currentFrame && w->parent() == currentFrame) {
         qCDebug(logUpdateModal) << "Parent is current frame";

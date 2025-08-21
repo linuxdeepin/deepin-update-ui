@@ -68,8 +68,7 @@ UpdateLogWidget::UpdateLogWidget(QWidget *parent)
     font.setWeight(QFont::ExtraLight);
     m_logTextEdit->setFont(font);
 
-    QPalette palette = m_logTextEdit->palette();
-    palette.setColor(QPalette::Text, Qt::white);
+    QPalette palette = DGuiApplicationHelper::instance()->standardPalette(DGuiApplicationHelper::DarkType);
     palette.setColor(QPalette::Base, Qt::transparent);
     m_logTextEdit->setPalette(palette);
     m_logTextEdit->setAttribute(Qt::WA_TranslucentBackground);
@@ -90,6 +89,7 @@ UpdateLogWidget::UpdateLogWidget(QWidget *parent)
     mainLayout->addWidget(m_logTextEdit, 1);
     mainLayout->addStretch();
     mainLayout->addSpacing(10);
+    m_exportButton->setMinimumWidth(136);
     mainLayout->addWidget(m_exportButton, 0, Qt::AlignHCenter);
     mainLayout->addWidget(m_notifyWidget, 0, Qt::AlignHCenter);
 
@@ -483,6 +483,7 @@ void UpdateCompleteWidget::showErrorFrame(UpdateModel::UpdateError error)
     m_tips->setText(pair.second);
     m_showLogButton->setVisible(error >= UpdateModel::UpdateInterfaceError);
     createButtons(actions);
+    m_contentWidget->adjustSize();
 
     m_mainLayout->invalidate();
 
