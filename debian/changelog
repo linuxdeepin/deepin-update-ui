@@ -1,3 +1,16 @@
+deepin-update-ui (1.0.25) unstable; urgency=medium
+
+  * [dde-update-ui] Updates for project Deepin Desktop Environment
+  * fix: optimize UI elements and remove debug logs
+  * refactor: improve DBus call handling and return values
+  * [dde-update-ui] Updates for project Deepin Desktop Environment (#158)
+  * feat: Improve log coverage
+  * fix: improve UI consistency and layout in update module
+  * fix: add tooltip for truncated checkbox text
+  * fix: correct error message display for update failures
+
+ -- xionglinlin <xionglinlin@uniontech.com>  Thu, 21 Aug 2025 21:36:56 +0800
+
 deepin-update-ui (1.0.24) unstable; urgency=medium
 
   * i18n: Translate update_en.ts in nl
