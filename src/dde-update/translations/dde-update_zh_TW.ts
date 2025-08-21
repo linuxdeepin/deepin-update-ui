@@ -67,7 +67,7 @@
     <name>UpdateLogWidget</name>
     <message>
         <source>Export</source>
-        <translation>匯出</translation>
+        <translation>匯 出</translation>
     </message>
     <message>
         <source>The log has been exported to the desktop</source>
