@@ -1,3 +1,11 @@
+deepin-update-ui (1.0.26) unstable; urgency=medium
+
+  * fix: optimize system activation state refresh
+  * i18n: Updates for project Deepin Desktop Environment (#169)
+  * fix: add update notification red dot indicator
+
+ -- zhangkun <zhangkun2@uniontech.com>  Thu, 28 Aug 2025 14:32:42 +0200
+
 deepin-update-ui (1.0.25) unstable; urgency=medium
 
   * [dde-update-ui] Updates for project Deepin Desktop Environment
