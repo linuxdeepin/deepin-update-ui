@@ -123,7 +123,6 @@ public Q_SLOTS:
     void onRemovePackageStatusChanged(const QString& value);
 
 Q_SIGNALS:
-    void systemActivationChanged(bool systemActivation);
     void requestCloseTestingChannel();
     void startDoUpgrade();
 

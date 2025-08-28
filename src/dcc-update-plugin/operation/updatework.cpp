@@ -162,8 +162,6 @@ void UpdateWorker::initConnect()
                                          "/com/deepin/license/Info", 
                                          "com.deepin.license.Info", 
                                          "LicenseStateChange", this, SLOT(onLicenseStateChange()));
-    // systemActivationChanged是在线程中发出
-    connect(this, &UpdateWorker::systemActivationChanged, m_model, &UpdateModel::setSystemActivation, Qt::QueuedConnection);
 
     connect(m_updateInter, &UpdateDBusProxy::BatteryPercentageChanged, this, &UpdateWorker::onPowerChange);
     connect(m_updateInter, &UpdateDBusProxy::OnBatteryChanged, this, &UpdateWorker::onPowerChange);
@@ -215,7 +213,7 @@ void UpdateWorker::activate()
     qCInfo(logDccUpdatePlugin) << "Active update worker";
 
     initConfig();
-    onLicenseStateChange();
+    getLicenseState();
     onPowerChange();
     updateSystemVersion();
     refreshLastTimeAndCheckCircle();
@@ -301,7 +299,7 @@ void UpdateWorker::getLicenseState()
     qCDebug(logDccUpdatePlugin) << "Getting system license activation state";
     if (IsCommunitySystem) {
         qCDebug(logDccUpdatePlugin) << "Community system, activation always true";
-        emit systemActivationChanged(true);
+        m_model->setSystemActivation(true);
         return;
     }
 
@@ -313,11 +311,10 @@ void UpdateWorker::getLicenseState()
         qCWarning(logDccUpdatePlugin) << "License info dbus is invalid.";
         return;
     }
-    UiActiveState reply =
-            static_cast<UiActiveState>(licenseInfo.property("AuthorizationState").toInt());
+    UiActiveState reply = static_cast<UiActiveState>(licenseInfo.property("AuthorizationState").toInt());
     const auto isActivated = reply == UiActiveState::Authorized || reply == UiActiveState::TrialAuthorized;
     qCDebug(logDccUpdatePlugin) << "System activation state:" << isActivated;
-    emit systemActivationChanged(isActivated);
+    m_model->setSystemActivation(isActivated);
 }
 
 bool UpdateWorker::checkDbusIsValid()
@@ -1447,13 +1444,7 @@ void UpdateWorker::exportLogToDesktop()
 void UpdateWorker::onLicenseStateChange()
 {
     qCDebug(logDccUpdatePlugin) << "License state changed, checking activation";
-    QFutureWatcher<void>* watcher = new QFutureWatcher<void>(this);
-    connect(watcher, &QFutureWatcher<void>::finished, watcher, &QFutureWatcher<void>::deleteLater);
-
-    QFuture<void> future = QtConcurrent::run([this]() {
-        this->getLicenseState();  // 调用成员函数
-    });
-    watcher->setFuture(future);
+    getLicenseState();
 }
 
 /**
