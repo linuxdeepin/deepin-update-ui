@@ -1,3 +1,9 @@
+deepin-update-ui (1.0.27) unstable; urgency=medium
+
+  * fix: keep time inputs always enabled
+
+ -- zhangkun <zhangkun2@uniontech.com>  Fri, 05 Sep 2025 10:34:19 +0800
+
 deepin-update-ui (1.0.26) unstable; urgency=medium
 
   * fix: optimize system activation state refresh
