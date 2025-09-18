@@ -1,3 +1,9 @@
+deepin-update-ui (1.0.29) unstable; urgency=medium
+
+  * i18n: Translate dde-rollback_en.ts in ru (#176)
+
+ -- YeShanShan <yeshanshan@uniontech.com>  Thu, 18 Sep 2025 20:02:59 +0800
+
 deepin-update-ui (1.0.28) unstable; urgency=medium
 
   * i18n: Updates for project Deepin Desktop Environment (#172)
