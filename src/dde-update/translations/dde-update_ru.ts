@@ -152,7 +152,7 @@
     <name>UpdateProgressWidget</name>
     <message>
         <source>Do not force a shutdown or power off when installing updates. Otherwise, your system may be damaged.</source>
-        <translation>Не выключайте компьютер при установке обновлений. В противном случае Ваша система может быть повреждена.</translation>
+        <translation>Не выключайте компьютер при установке обновлений. В противном случае ваша система может быть повреждена.</translation>
     </message>
     <message>
         <source>View update logs</source>
