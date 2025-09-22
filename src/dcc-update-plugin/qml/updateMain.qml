@@ -405,15 +405,19 @@ DccObject {
             Rectangle {
                 color: 'transparent'
                 Layout.fillWidth: true
-                Layout.preferredHeight: 40
+                Layout.preferredHeight: privacyLabel.implicitHeight + 20
                 D.Label {
+                    id: privacyLabel
                     anchors.left: parent.left
                     anchors.leftMargin: 10
+                    anchors.right: parent.right
+                    anchors.rightMargin: 10
                     anchors.verticalCenter: parent.verticalCenter
                     font: D.DTK.fontManager.t10
                     opacity: 0.7
                     textFormat: Text.RichText
                     text: dccData.model().privacyAgreementText()
+                    wrapMode: Text.Wrap
                     onLinkActivated: (link)=> {
                         dccData.work().openUrl(link)
                     }
