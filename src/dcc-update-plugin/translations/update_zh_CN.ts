@@ -171,7 +171,7 @@
     </message>
     <message>
         <source>Your system is up to date</source>
-        <translation>您的系统已更新</translation>
+        <translation>您的系统已经是最新的</translation>
     </message>
     <message>
         <source>Unknown error</source>
