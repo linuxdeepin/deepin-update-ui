@@ -400,7 +400,7 @@
     </message>
     <message>
         <source>Log export failed, please try again</source>
-        <translation type="unfinished"/>
+        <translation>Ошибка при экспорте лога, пожалуйста, попробуйте снова</translation>
     </message>
     <message>
         <source>The log has been exported to the desktop</source>
@@ -423,66 +423,66 @@
     </message>
     <message>
         <source>System update and upgrade</source>
-        <translation type="unfinished"/>
+        <translation>Системное обновление</translation>
     </message>
 </context>
 <context>
     <name>updateMain</name>
     <message>
         <source>Update Settings</source>
-        <translation type="unfinished"/>
+        <translation>Настройки обновления</translation>
     </message>
     <message>
         <source>Installing</source>
-        <translation type="unfinished"/>
+        <translation>Установка</translation>
     </message>
     <message>
         <source>Update download completed</source>
-        <translation type="unfinished"/>
+        <translation>Загрузка обновления завершена</translation>
     </message>
     <message>
         <source>Install updates</source>
-        <translation type="unfinished"/>
+        <translation>Установить обновления</translation>
     </message>
     <message>
         <source>Update size: </source>
-        <translation type="unfinished"/>
+        <translation>Размер обновления:</translation>
     </message>
     <message>
         <source>Update download failed</source>
-        <translation type="unfinished"/>
+        <translation>Ошибка при загрузке обновления</translation>
     </message>
     <message>
         <source>Downloading updates...</source>
-        <translation type="unfinished"/>
+        <translation>Загрузка обновлений...</translation>
     </message>
     <message>
         <source>Downloading</source>
-        <translation type="unfinished"/>
+        <translation>Загрузка</translation>
     </message>
     <message>
         <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
-        <translation type="unfinished"/>
+        <translation>Настройки обновлений, обновлений безопасности, автоматической загрузки и уведомлений</translation>
     </message>
     <message>
         <source>Reboot now</source>
-        <translation type="unfinished"/>
+        <translation>Перезагрузить сейчас</translation>
     </message>
     <message>
         <source>Download</source>
-        <translation type="unfinished"/>
+        <translation>Загрузить</translation>
     </message>
     <message>
         <source>Installing updates...</source>
-        <translation type="unfinished"/>
+        <translation>Установка обновлений...</translation>
     </message>
     <message>
         <source>Retry</source>
-        <translation type="unfinished"/>
+        <translation>Повторить</translation>
     </message>
     <message>
         <source>Continue Update</source>
-        <translation type="unfinished"/>
+        <translation>Продолжить обновление</translation>
     </message>
     <message>
         <source>Updates Available</source>
