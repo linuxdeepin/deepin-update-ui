@@ -279,10 +279,12 @@ DccObject {
 
                     D.Label {
                        text: qsTr("Start at")
+                       enabled: inactiveDownloadCheckBox.checked
                     }
 
                     DccTimeRange {
                         id: beginTimeRange
+                        enabled: inactiveDownloadCheckBox.checked
                         hour: dccData.model().beginTime.split(':')[0]
                         minute: dccData.model().beginTime.split(':')[1]
                         onTimeChanged: {
@@ -293,10 +295,12 @@ DccObject {
                     D.Label {
                         Layout.leftMargin: 10
                         text: qsTr("End at")
+                        enabled: inactiveDownloadCheckBox.checked
                     }
 
                     DccTimeRange {
                         id: endTimeRange
+                        enabled: inactiveDownloadCheckBox.checked
                         hour: dccData.model().endTime.split(':')[0]
                         minute: dccData.model().endTime.split(':')[1]
                         onTimeChanged: {
