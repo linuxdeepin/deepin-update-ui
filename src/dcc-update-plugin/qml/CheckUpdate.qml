@@ -27,12 +27,11 @@ ColumnLayout {
                 id: checkUpdateIcon
                 Layout.alignment: Qt.AlignHCenter
                 name: dccData.model().checkUpdateIcon
-                palette: D.DTK.makeIconPalette(checkUpdateIcon.palette)
                 theme: D.DTK.themeType
                 sourceSize {
                     width: 134
                     height: 134
-                }                
+                }
             }
 
             D.ProgressBar {

@@ -444,10 +444,7 @@ void UpdateWorker::checkNeedDoUpdates()
         return;
     }
 
-    m_model->setShowCheckUpdate(!m_model->isUpdatable());
-    if (!m_model->isUpdatable()) {
-        m_model->setCheckUpdateStatus(UpdatesStatus::Updated);
-    }
+    m_model->setShowCheckUpdate(m_model->checkUpdateStatus() == UpdatesStatus::CheckingFailed || !m_model->isUpdatable());
 }
 
 void UpdateWorker::doCheckUpdates()
