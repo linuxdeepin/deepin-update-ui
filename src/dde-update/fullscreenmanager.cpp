@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 #include "fullscreenmanager.h"
 #include "abstractfullbackgroundinterface.h"
+#include "fullscreenbackground.h"
 
 #include <QApplication>
 #include <QScreen>
@@ -124,13 +125,14 @@ void FullScreenManager::screenCountChanged()
     qCDebug(logUpdateModal) << "Removing" << screens_to_remove.size() << "expired screens";
     for (auto &s : screens_to_remove) {
         disconnect(s);
-        auto backgroundFrame = m_screenContents.key(s);
+        auto backgroundFrame = qobject_cast<FullScreenBackground*>(m_screenContents.key(s));
         if (backgroundFrame) {
-            qCDebug(logUpdateModal) << "Hiding background frame for removed screen";
+            qCWarning(logUpdateModal) << "Hiding background frame for removed screen" << s;
             backgroundFrame->setVisible(false);
+            m_screenContents.remove(backgroundFrame);
+            backgroundFrame->unBindContent();
+            backgroundFrame->deleteLater();
         }
-        s = nullptr;
-        // 创建的界面并不释放，后面可以继续复用,如果为了内存考虑，也可以启动一个定时器，在一分钟后释放(释放后要从map中remove)
     }
 
     // 创建关联
@@ -168,10 +170,10 @@ void FullScreenManager::screenCountChanged()
         }
 
         qCDebug(logUpdateModal) << "Making screen content visible and mapping to screen";
-        content->setVisible(true);
-
         m_screenContents.insert(content, s);
+        content->setVisible(true);
     }
+    handleScreenChanged();
     qCDebug(logUpdateModal) << "Screen management update completed";
 }
 
