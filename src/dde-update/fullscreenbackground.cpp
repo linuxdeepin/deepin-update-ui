@@ -168,6 +168,14 @@ bool FullScreenBackground::contentVisible() const
     return currentContent && currentContent->isVisible() && currentContent->parent() == this;
 }
 
+void FullScreenBackground::unBindContent()
+{
+    if (currentContent && currentContent->parent() == this) {
+        currentContent->setParent(nullptr);
+        currentContent->hide();
+    }
+}
+
 void FullScreenBackground::setScreen(QPointer<QScreen> screen, bool isVisible)
 {
     if (screen.isNull()) {

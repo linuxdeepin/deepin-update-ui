@@ -25,6 +25,7 @@ public:
     ~FullScreenBackground() override;
 
     bool contentVisible() const;
+    void unBindContent();
     static void setContent(QWidget *const w);
 
 public slots:
