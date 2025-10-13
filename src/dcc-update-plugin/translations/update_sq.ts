@@ -373,7 +373,7 @@
     </message>
     <message>
         <source>Join the internal testing channel to get deepin latest updates.</source>
-        <translation type="unfinished"/>
+        <translation>Që të merrni përditësimet më të reja të deepin-it, bëhuni pjesë e kanalit të brendshëm të testimeve.</translation>
     </message>
 </context>
 <context>
@@ -396,7 +396,7 @@
     </message>
     <message>
         <source>updatelog</source>
-        <translation type="unfinished"/>
+        <translation>regjistër përditësimesh</translation>
     </message>
     <message>
         <source>Log export failed, please try again</source>
