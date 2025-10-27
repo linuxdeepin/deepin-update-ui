@@ -345,7 +345,7 @@
     </message>
     <message>
         <source>Update History</source>
-        <translation>アップデートログ</translation>
+        <translation>アップデートの履歴</translation>
     </message>
     <message>
         <source>View</source>
@@ -373,7 +373,7 @@
     </message>
     <message>
         <source>Join the internal testing channel to get deepin latest updates.</source>
-        <translation>内部テストチャンネルに参加して、deepinの最新のアップデートを入手します</translation>
+        <translation>内部テストチャンネルに参加して、deepinの最新のアップデートを入手しましょう。</translation>
     </message>
 </context>
 <context>
