@@ -1,3 +1,9 @@
+deepin-update-ui (1.0.32) unstable; urgency=medium
+
+  * [dde-update-ui] Updates for project Deepin Desktop Environment
+
+ -- lvpeilong <lvpeilong@uniontech.com>  Thu, 30 Oct 2025 20:17:28 +0800
+
 deepin-update-ui (1.0.31) unstable; urgency=medium
 
   * chore: update package license from LGPL to GPL
