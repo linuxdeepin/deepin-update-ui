@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/dsg">
+        <file alias="built-in-icons/status-installed-restart-pending.dci">status-installed-restart-pending.dci</file>
+        <file alias="built-in-icons/status-updates-available.dci">status-updates-available.dci</file>
+    </qresource>
+</RCC>

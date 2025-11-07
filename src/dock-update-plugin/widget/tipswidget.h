@@ -1,0 +1,39 @@
+// SPDX-FileCopyrightText: 2025 UnionTech Software Technology Co., Ltd.
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+#ifndef TIPSWIDGET_H
+#define TIPSWIDGET_H
+
+#include <QFrame>
+namespace DockUpdatePlugin {
+class TipsWidget : public QFrame
+{
+    Q_OBJECT
+    enum ShowType
+    {
+        SingleLine,
+        MultiLine
+    };
+public:
+    explicit TipsWidget(QWidget *parent = nullptr);
+
+    const QString& text(){return m_text;}
+    const QStringList &textList() { return  m_textList; }
+    void setText(const QString &text);
+    void setTextList(const QStringList &textList);
+
+protected:
+    void paintEvent(QPaintEvent *event) override;
+    bool event(QEvent *event) override;
+
+private:
+    QString m_text;
+    QStringList m_textList;
+    ShowType m_type;
+    int m_width;
+    int m_height;
+};
+}
+
+#endif // TIPSWIDGET_H
