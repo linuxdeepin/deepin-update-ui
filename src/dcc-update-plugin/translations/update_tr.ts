@@ -90,7 +90,7 @@
     </message>
     <message>
         <source>Export to desktop</source>
-        <translation type="unfinished"/>
+        <translation>Masaüstüne aktar</translation>
     </message>
 </context>
 <context>
@@ -247,7 +247,7 @@
     </message>
     <message>
         <source>The system has enabled auto recovery function and does not support updates. If you have any questions, please contact the enterprise administrator</source>
-        <translation type="unfinished"/>
+        <translation>Sistem otomatik kurtarma fonksiyonunu etkinleştirmiş olup güncellemeleri desteklemiyor. Herhangi bir sorunuz varsa lütfen kuruluş yöneticisiyle iletişime geçin</translation>
     </message>
 </context>
 <context>
@@ -373,7 +373,7 @@
     </message>
     <message>
         <source>Join the internal testing channel to get deepin latest updates.</source>
-        <translation type="unfinished"/>
+        <translation>En son güncellemeleri derinlemesine almak için dahili test kanalına katılın.</translation>
     </message>
 </context>
 <context>
