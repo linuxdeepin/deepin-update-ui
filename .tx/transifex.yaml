@@ -14,5 +14,10 @@ filters:
     file_format: QT
     source_language: en_US
     translation_files_expression: src/dde-update/translations/dde-update_<lang>.ts
+  - filter_type: file
+    source_file: src/dock-update-plugin/translations/dock-update-plugin_en.ts
+    file_format: QT
+    source_language: en_US
+    translation_files_expression: src/ddock-update-plugin/translations/dock-update-plugin_<lang>.ts
 settings:
     pr_branch_name: transifex_update_<br_unique_id>
