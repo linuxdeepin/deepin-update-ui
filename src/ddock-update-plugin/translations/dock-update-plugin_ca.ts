@@ -3,15 +3,15 @@
     <name>PluginUpdatePlugin</name>
     <message>
         <source>Restart to finish installing</source>
-        <translation>Reinicia per acabar la instal·lació</translation>
+        <translation>Reinicia per acabar-ne la instal·lació</translation>
     </message>
     <message>
         <source>Install updates to get the latest features and security improvements.</source>
-        <translation>Instal·leu actualitzacions per obtenir les darreres funcions i millores de seguretat.</translation>
+        <translation>Instal·leu les actualitzacions per obtenir les darreres funcions i millores de seguretat.</translation>
     </message>
     <message>
         <source>New updates are available, Restart to finish installing.</source>
-        <translation>Hi ha noves actualitzacions disponibles. Reinicieu per acabar la instal·lació.</translation>
+        <translation>Hi ha actualitzacions noves disponibles. Reinicieu per acabar-ne la instal·lació.</translation>
     </message>
     <message>
         <source>Open Update</source>
