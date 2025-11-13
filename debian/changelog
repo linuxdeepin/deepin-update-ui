@@ -1,3 +1,14 @@
+deepin-update-ui (1.0.33) unstable; urgency=medium
+
+  * i18n: Updates for project Deepin Desktop Environment (#193)
+  * feat: add dock update plugin translation config
+  * i18n: Updates for project Deepin Desktop Environment (#191)
+  * feat: add dock update status plugin
+  * i18n: Translate update_en.ts in ja
+  * i18n: Translate update_en.ts in ja
+
+ -- xionglinlin <xionglinlin@uniontech.com>  Thu, 13 Nov 2025 19:49:07 +0800
+
 deepin-update-ui (1.0.32) unstable; urgency=medium
 
   * [dde-update-ui] Updates for project Deepin Desktop Environment
