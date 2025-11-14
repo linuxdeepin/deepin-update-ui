@@ -12,6 +12,7 @@ Build-Depends:
  libdtk6core-dev,
  libdtk6gui-dev,
  libdtk6widget-dev,
+ dde-tray-loader-dev,
  dde-control-center-dev (>=6.1.20)
 Standards-Version: 4.5.0
 Homepage: http://www.deepin.org/
