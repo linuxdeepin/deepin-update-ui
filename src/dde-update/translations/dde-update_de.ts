@@ -60,22 +60,22 @@
     </message>
     <message>
         <source>Collapse update logs</source>
-        <translation type="unfinished"/>
+        <translation>Aktualisierungsprotokolle zuklappen</translation>
     </message>
 </context>
 <context>
     <name>UpdateLogWidget</name>
     <message>
         <source>Export</source>
-        <translation type="unfinished"/>
+        <translation>Exportieren</translation>
     </message>
     <message>
         <source>The log has been exported to the desktop</source>
-        <translation type="unfinished"/>
+        <translation>Das Protokoll wurde auf den Schreibtisch gespeichert</translation>
     </message>
     <message>
         <source>Log export failed, please try again</source>
-        <translation type="unfinished"/>
+        <translation>Exportieren des Protokolls schlug fehl, bitte erneut versuchen</translation>
     </message>
 </context>
 <context>
@@ -102,7 +102,7 @@
     </message>
     <message>
         <source>Failed to connect to backup services. Please check and retry again.</source>
-        <translation type="unfinished"/>
+        <translation>Datensicherungsdienste konnten nicht erreicht werden. Bitte überprüfen und erneut versuchen.</translation>
     </message>
     <message>
         <source>Failed to connect to update services. Please check and retry again.</source>
@@ -126,7 +126,7 @@
     </message>
     <message>
         <source>Proceed to Update</source>
-        <translation type="unfinished"/>
+        <translation>Aktualisierung fortsetzen</translation>
     </message>
     <message>
         <source>Reboot</source>
@@ -138,7 +138,7 @@
     </message>
     <message>
         <source>Go to Desktop</source>
-        <translation type="unfinished"/>
+        <translation>Zum Schreibtisch</translation>
     </message>
 </context>
 <context>
@@ -156,18 +156,18 @@
     </message>
     <message>
         <source>View update logs</source>
-        <translation type="unfinished"/>
+        <translation>Aktualisierungsprotokolle ansehen</translation>
     </message>
     <message>
         <source>Collapse update logs</source>
-        <translation type="unfinished"/>
+        <translation>Aktualisierungsprotokolle zuklappen</translation>
     </message>
 </context>
 <context>
     <name>UpdateWorker</name>
     <message>
         <source>updatelog</source>
-        <translation type="unfinished"/>
+        <translation>Aktualisierungsprotokoll</translation>
     </message>
 </context>
 </TS>
