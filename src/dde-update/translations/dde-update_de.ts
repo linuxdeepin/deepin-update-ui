@@ -106,7 +106,7 @@
     </message>
     <message>
         <source>Failed to connect to update services. Please check and retry again.</source>
-        <translation type="unfinished"/>
+        <translation>Aktualisierungsdienste konnten nicht erreicht werden. Bitte überprüfen und erneut versuchen.</translation>
     </message>
     <message>
         <source>Dependency error</source>
