@@ -21,7 +21,7 @@
     <name>SuccessFrame</name>
     <message>
         <source>Go to Desktop</source>
-        <translation>Zum Schreibtisch</translation>
+        <translation>Zum Schreibtisch wechseln</translation>
     </message>
     <message>
         <source>Welcome, system updated successfully</source>
@@ -138,7 +138,7 @@
     </message>
     <message>
         <source>Go to Desktop</source>
-        <translation>Zum Schreibtisch</translation>
+        <translation>Zum Schreibtisch wechseln</translation>
     </message>
 </context>
 <context>
