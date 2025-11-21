@@ -33,6 +33,7 @@ using namespace DCC_NAMESPACE;
 const QString TestingChannel = "testing Channel";
 const QString TestingChannelPackage = "deepin-unstable-source";
 const QString ServiceLink = QStringLiteral("https://insider.deepin.org");
+const QString ServiceLinkCN = QStringLiteral("https://insider.deepin.org.cn");
 const QString ChangeLogFile = "/usr/share/deepin/release-note/UpdateInfo.json";
 const QString ChangeLogDic = "/usr/share/deepin/";
 const QString UpdateLogTmpFile = "/tmp/deepin-update-log.json";
@@ -1072,6 +1073,7 @@ void UpdateWorker::refreshMirrors()
 void UpdateWorker::setTestingChannelEnable(const bool& enable)
 {
     qCDebug(logDccUpdatePlugin) << "Testing:" << "setTestingChannelEnable" << enable;
+    TestingChannelStatus oldModel = m_model->testingChannelStatus();
     if (enable) {
         m_model->setTestingChannelStatus(TestingChannelStatus::WaitJoined);
     } else {
@@ -1090,36 +1092,45 @@ void UpdateWorker::setTestingChannelEnable(const bool& enable)
     }
 
     // every time, clear the machineid in server
-    auto http = new QNetworkAccessManager(this);
     QNetworkRequest request;
-    request.setUrl(QUrl(ServiceLink + "/api/v2/public/testing/machine/" + machineidopt.value()));
+    request.setUrl(QUrl(getServiceUrlByRegion() + "/api/v2/public/testing/machine/" + machineidopt.value()));
     request.setRawHeader("content-type", "application/json");
+
+    QNetworkAccessManager manager;
     QEventLoop loop;
-    connect(http, &QNetworkAccessManager::finished, this, [http, &loop](QNetworkReply *reply) {
-        qCDebug(logDccUpdatePlugin) << "http request finished";
-        reply->deleteLater();
-        http->deleteLater();
-        loop.quit();
-    });
-    http->deleteResource(request);
-    loop.exec();
+    QTimer timer;
 
-    // Disable Testing Channel
-    if (!enable) {
-        if (m_updateInter->PackageExists(TestingChannelPackage)) {
-            qCDebug(logDccUpdatePlugin) << "Testing:" << "Uninstall testing channel package";
-            emit requestCloseTestingChannel();
+    QNetworkReply *pReply = manager.deleteResource(request);
+    connect(pReply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+    connect(&timer, &QTimer::timeout, &loop, &QEventLoop::quit);
+    if (pReply) {
+        timer.setSingleShot(true);
+        timer.start(30 * 1000); // 30s timeout
+        loop.exec();
+        if (QNetworkReply::NoError == pReply->error()) {
+            // Disable Testing Channel
+            if (!enable) {
+                if (m_updateInter->PackageExists(TestingChannelPackage)) {
+                    qCDebug(logDccUpdatePlugin) << "Testing:" << "Uninstall testing channel package";
+                    emit requestCloseTestingChannel();
+                } else {
+                    m_model->setTestingChannelStatus(TestingChannelStatus::NotJoined);
+                }
+                return;
+            }
+            if (!openTestingChannelUrl())
+                return;
+
+            // Loop to check if user hava joined
+            QTimer::singleShot(1000, this, &UpdateWorker::checkTestingChannelStatus);
         } else {
-            m_model->setTestingChannelStatus(TestingChannelStatus::NotJoined);
+            qCWarning(logDccUpdatePlugin) << "Failed to clear machine ID on server, error:" << pReply->errorString();
+            m_model->setTestingChannelStatus(oldModel);
         }
-        return;
+        pReply->close();
+        pReply->deleteLater();
+        pReply = nullptr;
     }
-
-    if (!openTestingChannelUrl()) 
-        return;
-
-    // Loop to check if user hava joined
-    QTimer::singleShot(1000, this, &UpdateWorker::checkTestingChannelStatus);
 }
 
 bool UpdateWorker::openTestingChannelUrl()
@@ -1132,7 +1143,6 @@ bool UpdateWorker::openTestingChannelUrl()
         return false;
     }
     QUrl testChannelUrl = testChannelUrlOpt.value();
-    qCDebug(logDccUpdatePlugin) << "Testing:" << "open join page" << testChannelUrl.toString();
     return openUrl(testChannelUrl.toString());
 }
 
@@ -1188,7 +1198,7 @@ std::optional<QUrl> UpdateWorker::getTestingChannelUrl()
             return std::nullopt;
         }
         qCDebug(logDccUpdatePlugin) << "Building testing URL with hostname:" << hostname;
-        QUrl testingUrl = QUrl(ServiceLink + "/internal-testing");
+        QUrl testingUrl = QUrl(getServiceUrlByRegion() + "/internal-testing");
         auto query = QUrlQuery(testingUrl.query());
         query.addQueryItem("h", hostname);
         query.addQueryItem("m", machineid.value());
@@ -1239,7 +1249,7 @@ void UpdateWorker::checkTestingChannelStatus()
     QString machineid = m_machineid.value();
     auto http = new QNetworkAccessManager(this);
     QNetworkRequest request;
-    request.setUrl(QUrl(ServiceLink + "/api/v2/public/testing/machine/status/" + machineid));
+    request.setUrl(QUrl(getServiceUrlByRegion() + "/api/v2/public/testing/machine/status/" + machineid));
     request.setRawHeader("content-type", "application/json");
     connect(http, &QNetworkAccessManager::finished, this, [=](QNetworkReply* reply) {
         reply->deleteLater();
@@ -1306,6 +1316,16 @@ void UpdateWorker::setRemovePackageJob(const QString& jobPath)
     m_removePackageJob = new UpdateJobDBusProxy(jobPath, this);
     connect(m_removePackageJob, &UpdateJobDBusProxy::StatusChanged, this, &UpdateWorker::onRemovePackageStatusChanged);
     onRemovePackageStatusChanged(m_removePackageJob->status());
+}
+
+QString UpdateWorker::getServiceUrlByRegion()
+{
+    QString country = QLocale::territoryToString(QLocale::system().territory());
+    DConfig *config = DConfig::createGeneric("org.deepin.region-format", QString(), this);
+    if (config && config->isValid()) {
+        country = config->value("country", country).toString();
+    }
+    return country == "China" ? ServiceLinkCN : ServiceLink;
 }
 
 bool UpdateWorker::openUrl(const QString& url)

@@ -98,6 +98,7 @@ public:
     void checkTestingChannelStatus();
     void setInstallPackageJob(const QString& jobPath);
     void setRemovePackageJob(const QString& jobPath);
+    QString getServiceUrlByRegion();
 
     Q_INVOKABLE bool openUrl(const QString& url);
     Q_INVOKABLE void onRequestRetry(int type, int updateTypes);
