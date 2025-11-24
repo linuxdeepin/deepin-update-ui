@@ -1,3 +1,11 @@
+deepin-update-ui (1.0.35) unstable; urgency=medium
+
+  * fix: fix testing channel network access issue
+  * refactor: remove hardcoded compiler flags
+  * feat: add reproducible build parameters
+
+ -- xionglinlin <xionglinlin@uniontech.com>  Mon, 24 Nov 2025 10:11:07 +0800
+
 deepin-update-ui (1.0.34) unstable; urgency=medium
 
   * add debian/control dependencies with tray-loader-dev
