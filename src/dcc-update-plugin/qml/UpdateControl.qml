@@ -60,6 +60,15 @@ ColumnLayout {
                     }
                     color: D.DTK.themeType == D.ApplicationHelper.LightType ? Qt.rgba(0, 0, 0, 1) : Qt.rgba(1, 1, 1, 1)
                     text: updateTitle
+                    Layout.fillWidth: true
+                    elide: Text.ElideRight
+                    ToolTip.delay: 1000
+                    ToolTip.timeout: 5000
+                    ToolTip.text: text
+                    ToolTip.visible: titleLabelHover.hovered && implicitWidth > width
+                    HoverHandler {
+                        id: titleLabelHover
+                    }
                 }
             }
 
@@ -84,6 +93,7 @@ ColumnLayout {
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
                 visible: showLogButton
                 text: qsTr("View Update Log")
+                font: D.DTK.fontManager.t8
                 leftPadding: 0
                 textColor: D.Palette {
                     normal {
