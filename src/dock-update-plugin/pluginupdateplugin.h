@@ -59,9 +59,10 @@ private:
     void refreshPluginItemsVisible();
     void updateIconState();
     void saveUpdateState(UpdateState state);
-    
+    void updateDockHiddenSurfaceIds(bool shouldHide);
+
     void onConfigChanged(const QString &key);
-    
+
     void updateStateFromUpdateStatus();
 
 private:
@@ -69,7 +70,8 @@ private:
     QScopedPointer<DockIconWidget> m_dockIcon;
     QScopedPointer<DockUpdatePlugin::TipsWidget> m_tipsLabel;
     QSharedPointer<DConfig> m_dconfig;
-    
+    QSharedPointer<DConfig> m_dockTrayConfig;
+
     UpdateState m_currentState;
     int m_updateMode;
     QVariant m_updateStatus;

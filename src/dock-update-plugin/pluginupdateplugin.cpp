@@ -36,6 +36,7 @@ PluginUpdatePlugin::PluginUpdatePlugin(QObject *parent)
     , m_dockIcon(nullptr)
     , m_tipsLabel(new TipsWidget)
     , m_dconfig(DConfig::create("org.deepin.dde.lastore", "org.deepin.dde.lastore", QString(), this))
+    , m_dockTrayConfig(DConfig::create("org.deepin.dde.shell", "org.deepin.ds.dock.tray", QString(), this))
     , m_currentState(UpdateState::UpdatesAvailable)
     , m_updateMode(0)
     , m_shouldShow(false)
@@ -94,10 +95,18 @@ void PluginUpdatePlugin::init(PluginProxyInterface *proxyInter)
         qCWarning(dockUpdatePlugin) << "Failed to create DConfig for org.deepin.dde.lastore";
         return;
     }
+    if (!m_dockTrayConfig) {
+        qCWarning(dockUpdatePlugin) << "Failed to create DConfig for org.deepin.ds.dock.tray";
+    }
+
     m_updateMode = m_dconfig->value("update-mode").toInt();
     m_updateStatus = m_dconfig->value("update-status");
 
     connect(m_dconfig.data(), &DConfig::valueChanged, this, &PluginUpdatePlugin::onConfigChanged);
+
+    // 初始化时隐藏插件，将 surfaceId 添加到 dockHiddenSurfaceIds
+    updateDockHiddenSurfaceIds(true);
+
     updateStateFromUpdateStatus();
     if (!pluginIsDisable()) {
         loadPlugin();
@@ -231,16 +240,18 @@ void PluginUpdatePlugin::loadPlugin()
 void PluginUpdatePlugin::refreshPluginItemsVisible()
 {
     bool shouldShow = !pluginIsDisable() && m_shouldShow;
-    
+
     if (!shouldShow) {
         if (m_pluginLoaded) {
-            m_proxyInter->itemRemoved(this, UPDATE_STATE_KEY);
+            updateDockHiddenSurfaceIds(true);
         }
     } else {
         if (!m_pluginLoaded) {
             loadPlugin();
             return;
         }
+        // m_shouldShow 为 true 时，从 dockHiddenSurfaceIds 移除插件 ID
+        updateDockHiddenSurfaceIds(false);
         m_proxyInter->itemAdded(this, UPDATE_STATE_KEY);
     }
 }
@@ -314,7 +325,7 @@ void PluginUpdatePlugin::updateStateFromUpdateStatus()
     
     qCInfo(dockUpdatePlugin) << "Parsing UpdateStatus - system_upgrade:" << systemUpgrade << "security_upgrade:" << securityUpgrade;
     
-    bool shouldShow = (m_updateMode == 1 || m_updateMode == 5 || m_updateMode == 9) &&
+    bool shouldShow = (m_updateMode == 1 || m_updateMode == 5 || m_updateMode == 9 || m_updateMode == 13 || m_updateMode == 4) &&
      (systemUpgrade == "needReboot" || securityUpgrade == "needReboot" || systemUpgrade == "notDownload" || securityUpgrade == "notDownload");
     
     m_shouldShow = shouldShow;
@@ -334,4 +345,31 @@ void PluginUpdatePlugin::updateStateFromUpdateStatus()
     
     qCInfo(dockUpdatePlugin) << "Plugin should show:" << shouldShow;
     return;
+}
+
+void PluginUpdatePlugin::updateDockHiddenSurfaceIds(bool shouldHide)
+{
+    if (!m_dockTrayConfig) {
+        qCWarning(dockUpdatePlugin) << "m_dockTrayConfig is null, cannot update dockHiddenSurfaceIds";
+        return;
+    }
+
+    const QString surfaceId = "plugin-update::update-state-key";
+    QStringList hiddenIds = m_dockTrayConfig->value("dockHiddenSurfaceIds").toStringList();
+
+    if (shouldHide) {
+        // 添加到隐藏列表
+        if (!hiddenIds.contains(surfaceId)) {
+            hiddenIds.append(surfaceId);
+            m_dockTrayConfig->setValue("dockHiddenSurfaceIds", hiddenIds);
+            qCInfo(dockUpdatePlugin) << "Added" << surfaceId << "to dockHiddenSurfaceIds";
+        }
+    } else {
+        // 从隐藏列表移除
+        if (hiddenIds.contains(surfaceId)) {
+            hiddenIds.removeAll(surfaceId);
+            m_dockTrayConfig->setValue("dockHiddenSurfaceIds", hiddenIds);
+            qCInfo(dockUpdatePlugin) << "Removed" << surfaceId << "from dockHiddenSurfaceIds";
+        }
+    }
 }
