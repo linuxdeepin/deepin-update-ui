@@ -1,3 +1,11 @@
+deepin-update-ui (1.0.36) unstable; urgency=medium
+
+  * feat: enhance dock update plugin visibility control
+  * refactor: optimize TipsWidget geometry handling
+  * fix: add tooltip and improve text display for update title
+
+ -- zhaoyingzhen <zhaoyingzhen@uniontech.com>  Thu, 27 Nov 2025 17:32:29 +0800
+
 deepin-update-ui (1.0.35) unstable; urgency=medium
 
   * fix: fix testing channel network access issue
