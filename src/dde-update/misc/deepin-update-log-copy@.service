@@ -7,3 +7,12 @@ ExecStart=/usr/libexec/deepin-update-ui/copy-update-log.sh %i
 User=root
 StandardOutput=journal
 StandardError=journal
+
+# Security hardening
+NoNewPrivileges=yes
+ProtectSystem=strict
+ReadWritePaths=/home  
+ReadWritePaths=/tmp/deepin-update-ui
+ReadWritePaths=%i
+ProtectKernelModules=yes
+RestrictRealtime=yes
