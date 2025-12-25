@@ -219,19 +219,19 @@ DccObject {
         page: UpdateControl {
             updateListModels: dccData.model().installFailedListModel
             updateStateIcon: "qrc:/icons/deepin/builtin/icons/warning.svg"
-            updateTitle: {
-                if (!dccData.model().batterIsOK) {
-                    return qsTr("The battery capacity is lower than 60%. To get successful updates, please plug in.")
-                }
-                return qsTr("Installation update failed")
-            }
+            updateTitle: qsTr("Installation update failed")
 
             showLogButton: true
             onViewLogClicked: {
                 dialogloader.active = true
             }
 
-            updateTips: dccData.model().installFailedTips
+            updateTips: {
+                if (!dccData.model().batterIsOK) {
+                    return qsTr("The battery capacity is lower than 60%. To get successful updates, please plug in.")
+                }                
+                return dccData.model().installFailedTips
+            }
             btnActions: [ qsTr("Continue Update") ]
 
             onBtnClicked: function(index, updateType) {
