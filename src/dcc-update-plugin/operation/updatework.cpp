@@ -259,6 +259,7 @@ void UpdateWorker::activate()
                     for (UpdateType type : resultMap.keys()) {
                         UpdateLogHelper::ref().updateItemInfo(resultMap.value(type));
                     }
+                    m_model->refreshUpdateUiModel();
                 } else {
                     qCWarning(logDccUpdatePlugin) << "Get update log failed";
                 }
@@ -1554,6 +1555,7 @@ void UpdateWorker::onCheckUpdateStatusChanged(const QString& value)
                 for (UpdateType type : resultMap.keys()) {
                     UpdateLogHelper::ref().updateItemInfo(resultMap.value(type));
                 }
+                m_model->refreshUpdateUiModel();
             } else {
                 qCWarning(logDccUpdatePlugin) << "Get update log failed";
             }
