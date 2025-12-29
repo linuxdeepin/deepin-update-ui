@@ -582,7 +582,6 @@ void UpdateModel::setUpdateLog(const QString &log)
 
 void UpdateModel::appendUpdateLog(const QString &log)
 {
-    qCDebug(logDccUpdatePlugin) << "Appending to update log, size:" << log.size() << "chars";
     m_installLog += log;
     emit updateInstallLogChanged(m_installLog);
 }
@@ -1088,7 +1087,7 @@ void UpdateModel::setUpdateMode(quint64 updateMode)
 
 void UpdateModel::setUpdateItemEnabled()
 {
-    qCDebug(logDccUpdatePlugin) << "Set update items enabled based on mode:" << m_updateMode;
+    qCDebug(logDccUpdatePlugin) << "Set update items enabled based on mode:" << m_updateMode << m_allUpdateInfos.size();
     for (const auto item : m_allUpdateInfos.values()) {
         const auto enabled = m_updateMode & item->updateType();
         qCDebug(logDccUpdatePlugin) << "Item" << item->name() << "enabled:" << enabled;

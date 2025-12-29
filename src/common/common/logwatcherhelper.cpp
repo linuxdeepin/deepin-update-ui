@@ -151,13 +151,11 @@ void LogWatcherHelper::startRealtimeLogAfterHistory()
 
 void LogWatcherHelper::onDataAvailable()
 {
-    qCDebug(logCommon) << "Data available on log pipe, reading...";
     readAvailableData();
 }
 
 void LogWatcherHelper::readAvailableData()
 {
-    qCDebug(logCommon) << "readAvailableData, readFd:" << m_readFd;
     if (m_readFd == -1) {
         qCDebug(logCommon) << "Read fd invalid, skipping data read";
         return;
@@ -173,7 +171,6 @@ void LogWatcherHelper::readAvailableData()
     
     if (!buffer.isEmpty()) {
         QString newContent = QString::fromUtf8(buffer);
-        qCDebug(logCommon) << "Read" << buffer.size() << "bytes from log pipe";
 
         m_data.append(newContent);
         emit incrementalDataChanged(newContent);

@@ -416,7 +416,6 @@ void UpdateWorker::checkNeedDoUpdates()
 
     if (m_model->isUpdateDisabled()) {
         qCWarning(logDccUpdatePlugin) << "update disabled";
-        m_model->setShowCheckUpdate(false);
         return;
     }
 

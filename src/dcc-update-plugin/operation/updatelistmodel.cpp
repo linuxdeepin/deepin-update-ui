@@ -32,7 +32,6 @@ QVariant UpdateListModel::data(const QModelIndex &index, int role) const
     }
 
     UpdateItemInfo* data = m_updateLists[index.row()];
-    qCDebug(logDccUpdatePlugin) << "Getting data for role:" << role << "item:" << data->name();
 
     switch (role) {
     case Title:
@@ -158,7 +157,6 @@ UpdateType UpdateListModel::getUpdateType(int index) const
 
 void UpdateListModel::clearAllData()
 {
-    qCDebug(logDccUpdatePlugin) << "Clearing all data, current count:" << m_updateLists.size();
     beginResetModel();
     m_updateLists.clear();
     endResetModel();
