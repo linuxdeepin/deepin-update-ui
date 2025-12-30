@@ -93,33 +93,11 @@ Rectangle {
                             horizontalAlignment: Text.AlignLeft
                             Layout.fillWidth: true
                             font: D.DTK.fontManager.t8
-                            text: model.titleDescription
+                            text: model.explain
                             wrapMode: Text.WordWrap
                             onLinkActivated: (link)=> {
                                 dccData.work().openUrl(link)
                             }  
-                        }
-
-                        D.Label {
-                            id: shortLog
-                            Layout.alignment: Qt.AlignLeft
-                            horizontalAlignment: Text.AlignLeft
-                            text: model.updateLog
-                            font: D.DTK.fontManager.t8
-                            Layout.fillWidth: true
-                            wrapMode: Text.WordWrap
-                            visible: false
-                        }
-
-                        D.Label {
-                            id: detailLog
-                            visible: false
-                            Layout.alignment: Qt.AlignLeft
-                            horizontalAlignment: Text.AlignLeft
-                            text: ""
-                            font: D.DTK.fontManager.t8
-                            Layout.fillWidth: true
-                            wrapMode: Text.WordWrap
                         }
 
                         RowLayout {
@@ -134,18 +112,6 @@ Rectangle {
 
                             Item {
                                 Layout.fillWidth: true
-                            }
-
-                            D.ToolButton {
-                                Layout.alignment: Qt.AlignRight
-                                visible: detailLog.visible
-                                text: shortLog.visible ? qsTr("View Details") : qsTr("Collapse")
-                                textColor: DS.Style.highlightedButton.text
-
-                                onClicked: {
-                                    shortLog.visible = !shortLog.visible
-                                    detailLog.visible = !detailLog.visible
-                                }
                             }
                         }
                     }

@@ -38,10 +38,8 @@ QVariant UpdateListModel::data(const QModelIndex &index, int role) const
         return data->name();
     case Version:
         return data->currentVersion();
-    case TitleDescription:
+    case Explain:
         return data->explain();
-    case UpdateLog:
-        return "";
     case ReleaseTime:
         return data->updateTime();
     case Checked:

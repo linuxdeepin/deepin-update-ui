@@ -204,7 +204,9 @@ struct HistoryItemInfo {
                 item.details.append(HistoryItemDetail::fromCveJsonObj(originChangLog.value(key).toObject()));
             }
         }
-
+        if (item.details.isEmpty()) {
+            item.summary = QObject::tr("Fixed some known bugs and security vulnerabilities");
+        }
         return item;
     }
 };
