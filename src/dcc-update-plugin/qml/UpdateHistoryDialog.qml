@@ -96,8 +96,6 @@ D.DialogWindow {
                     Layout.margins: 0
                     Layout.fillWidth: true
                     D.DciIcon {
-                        palette: D.DTK.makeIconPalette(logItem.palette)
-                        mode: logItem.D.ColorSelector.controlState
                         theme: logItem.D.ColorSelector.controlTheme
                         fallbackToQIcon: false
                         width: 22
@@ -136,44 +134,28 @@ D.DialogWindow {
 
                         // 摘要
                         Label {
-                            text: {
-                                if (Summary === "") {
-                                    switch(Type) {
-                                    case 1:
-                                        return qsTr("Delivers a cumulative update including new features, quality updates, and security updates")
-                                    case 4:
-                                        return qsTr("Delivers security updates")
-                                    default:
-                                        return ""
-                                    }
-                                } else {
-                                    return Summary
-                                }
-                            }
+                            text: Summary
+                            visible: Summary !== ""
                             font: D.DTK.fontManager.t8
                             wrapMode: Text.WordWrap
                             Layout.fillWidth: true
-                            onLinkActivated: (link)=> {
-                                if (link.startsWith("http")) {
-                                    Qt.openUrlExternally(link)
-                                }
-                            }
-                            MouseArea {
-                                anchors.fill: parent
-                                cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
-                                acceptedButtons: Qt.NoButton
-                            }
                         }
 
                         // 详情列表
                         Repeater {
                             model: Details
                             ColumnLayout {
-                                Layout.margins: 0
-                                Layout.fillWidth: true
+                                spacing: 6
 
                                 Label {
-                                    text: modelData.name
+                                    text: {
+                                        switch(Type) {
+                                        case 1: return qsTr("Version:") + modelData.name
+                                        case 4: return modelData.name
+                                        default: return ""
+                                        }
+                                    }
+                                    visible: modelData.name !== ""
                                     font: D.DTK.fontManager.t8
                                     color: D.DTK.themeType == D.ApplicationHelper.LightType ? Qt.rgba(0, 0, 0, 1) : Qt.rgba(1, 1, 1, 1)
                                     wrapMode: Text.WordWrap
@@ -181,16 +163,40 @@ D.DialogWindow {
                                 }
                                 Label {
                                     text: modelData.displayVulLevel
+                                    visible: modelData.displayVulLevel !== ""
                                     font: D.DTK.fontManager.t8
                                     color: D.DTK.themeType == D.ApplicationHelper.LightType ? Qt.rgba(0, 0, 0, 1) : Qt.rgba(1, 1, 1, 1)
                                     wrapMode: Text.WordWrap
                                     Layout.fillWidth: true
+
+                                    onLinkActivated: (link)=> {
+                                        if (link.startsWith("http")) {
+                                            Qt.openUrlExternally(link)
+                                        }
+                                    }
+                                    MouseArea {
+                                        anchors.fill: parent
+                                        cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
+                                        acceptedButtons: Qt.NoButton
+                                    }
                                 }
                                 Label {
                                     text: modelData.description
+                                    visible: modelData.description !== ""
                                     font: D.DTK.fontManager.t8
                                     wrapMode: Text.WordWrap
                                     Layout.fillWidth: true
+
+                                    onLinkActivated: (link)=> {
+                                        if (link.startsWith("http")) {
+                                            Qt.openUrlExternally(link)
+                                        }
+                                    }
+                                    MouseArea {
+                                        anchors.fill: parent
+                                        cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
+                                        acceptedButtons: Qt.NoButton
+                                    }
                                 }
                             }
                         }
