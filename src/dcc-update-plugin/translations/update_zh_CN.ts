@@ -56,7 +56,7 @@
     </message>
     <message>
         <source>Installation date:</source>
-        <translation>安装时间:</translation>
+        <translation>安装时间：</translation>
     </message>
 </context>
 <context>
