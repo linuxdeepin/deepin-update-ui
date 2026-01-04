@@ -1,9 +1,18 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="sq">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="sq">
 <context>
     <name>CheckUpdate</name>
     <message>
         <source>Last check: </source>
         <translation>Kontrolli i fundit më: </translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <source>Fixed some known bugs and security vulnerabilities</source>
+        <translation type="unfinished">U ndreqën disa të meta të ditura dhe cenueshmëri sigurie</translation>
     </message>
 </context>
 <context>
@@ -47,31 +56,19 @@
         <translation>Përditësime Sigurie</translation>
     </message>
     <message>
-        <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
-        <translation>Sjell një përditësim përmbledhës që përfshin veçori të reja, përditësime cilësie dhe përditësime sigurie</translation>
-    </message>
-    <message>
-        <source>Delivers security updates</source>
-        <translation>Sjell përditësime sigurie</translation>
-    </message>
-    <message>
         <source>Installation date:</source>
         <translation>Datë instalimi:</translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished">Version:</translation>
     </message>
 </context>
 <context>
     <name>UpdateList</name>
     <message>
-        <source>View Details</source>
-        <translation>Shihni Hollësitë</translation>
-    </message>
-    <message>
         <source>Release time:</source>
         <translation>Kohë hedhjeje në qarkullim:</translation>
-    </message>
-    <message>
-        <source>Collapse</source>
-        <translation>Palose</translation>
     </message>
     <message>
         <source>Version:</source>

@@ -1,9 +1,18 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="zh_TW">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="zh_TW">
 <context>
     <name>CheckUpdate</name>
     <message>
         <source>Last check: </source>
         <translation>上次檢查更新時間：</translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <source>Fixed some known bugs and security vulnerabilities</source>
+        <translation type="unfinished">修復部分已知缺陷和安全漏洞</translation>
     </message>
 </context>
 <context>
@@ -47,31 +56,19 @@
         <translation>安全更新</translation>
     </message>
     <message>
-        <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
-        <translation>提供新功能、質量補丁、安全漏洞等全量更新內容</translation>
-    </message>
-    <message>
-        <source>Delivers security updates</source>
-        <translation>提供安全漏洞修復</translation>
-    </message>
-    <message>
         <source>Installation date:</source>
         <translation>安裝時間:</translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished">版本：</translation>
     </message>
 </context>
 <context>
     <name>UpdateList</name>
     <message>
-        <source>View Details</source>
-        <translation>檢視詳細資訊</translation>
-    </message>
-    <message>
         <source>Release time:</source>
         <translation>釋出時間：</translation>
-    </message>
-    <message>
-        <source>Collapse</source>
-        <translation>收起</translation>
     </message>
     <message>
         <source>Version:</source>

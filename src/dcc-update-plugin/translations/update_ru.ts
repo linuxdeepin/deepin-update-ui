@@ -1,9 +1,18 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ru">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="ru">
 <context>
     <name>CheckUpdate</name>
     <message>
         <source>Last check: </source>
         <translation>Последняя проверка: </translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <source>Fixed some known bugs and security vulnerabilities</source>
+        <translation type="unfinished">Исправлены некоторые известные ошибки и уязвимости безопасности</translation>
     </message>
 </context>
 <context>
@@ -47,31 +56,19 @@
         <translation>Обновления безопасности</translation>
     </message>
     <message>
-        <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
-        <translation>Доставляет такие обновления, как: новые возможности, качественные обновления и обновления безопасности</translation>
-    </message>
-    <message>
-        <source>Delivers security updates</source>
-        <translation>Доставляет обновления безопасности</translation>
-    </message>
-    <message>
         <source>Installation date:</source>
         <translation>Дата установки:</translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished">Версия:</translation>
     </message>
 </context>
 <context>
     <name>UpdateList</name>
     <message>
-        <source>View Details</source>
-        <translation>Посмотреть детали</translation>
-    </message>
-    <message>
         <source>Release time:</source>
         <translation>Дата выхода:</translation>
-    </message>
-    <message>
-        <source>Collapse</source>
-        <translation>Свернуть</translation>
     </message>
     <message>
         <source>Version:</source>
@@ -90,50 +87,50 @@
     </message>
     <message>
         <source>Export to desktop</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>UpdateLogHelper</name>
     <message>
         <source>NONE</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>LOW</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>MEDIUM</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>HIGH</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>CRITICAL</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>critical-risk</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>high-risk</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>medium-risk</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>low-risk</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>unknown</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>This update fixes</source>
@@ -149,7 +146,7 @@
     </message>
     <message>
         <source>%1 of %2 %3</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
         <extra-content_explain>`数字+%`会在代码中替换为字符串，例如：3 of high-risk vulnerabilities；各语言需要根据实际情况增加空格(例如：中文没有空格，英文有空格)</extra-content_explain>
     </message>
     <message>
@@ -247,7 +244,7 @@
     </message>
     <message>
         <source>The system has enabled auto recovery function and does not support updates. If you have any questions, please contact the enterprise administrator</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -317,7 +314,7 @@
     </message>
     <message>
         <source>Enabling &quot;Auto Download Updates&quot; will automatically download updates when connected to the internet</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Download when Inactive</source>
@@ -396,7 +393,7 @@
     </message>
     <message>
         <source>updatelog</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Log export failed, please try again</source>
@@ -404,7 +401,7 @@
     </message>
     <message>
         <source>The log has been exported to the desktop</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Update</source>
@@ -494,7 +491,7 @@
     </message>
     <message>
         <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Backing up in progress...</source>

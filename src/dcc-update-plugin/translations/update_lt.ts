@@ -9,6 +9,13 @@
     </message>
 </context>
 <context>
+    <name>QObject</name>
+    <message>
+        <source>Fixed some known bugs and security vulnerabilities</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>QuitTestingChannelDialog</name>
     <message>
         <source>If you exit the beta program, you will no longer receive beta updates.</source>
@@ -49,31 +56,19 @@
         <translation>Saugumo atnaujinimai</translation>
     </message>
     <message>
-        <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
+        <source>Installation date:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Delivers security updates</source>
-        <translation>Pristato saugumo atnaujinimus</translation>
-    </message>
-    <message>
-        <source>Installation date:</source>
+        <source>Version:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>UpdateList</name>
     <message>
-        <source>View Details</source>
-        <translation>Rodyti išsamiau</translation>
-    </message>
-    <message>
         <source>Release time:</source>
         <translation>Išleidimo laikas:</translation>
-    </message>
-    <message>
-        <source>Collapse</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Version:</source>

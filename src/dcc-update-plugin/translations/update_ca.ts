@@ -1,9 +1,18 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ca">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="ca">
 <context>
     <name>CheckUpdate</name>
     <message>
         <source>Last check: </source>
         <translation>Darrera comprovació: </translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <source>Fixed some known bugs and security vulnerabilities</source>
+        <translation type="unfinished">S&apos;han corregit alguns errors coneguts i vulnerabilitats de seguretat.</translation>
     </message>
 </context>
 <context>
@@ -47,31 +56,19 @@
         <translation>Actualitzacions de seguretat</translation>
     </message>
     <message>
-        <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
-        <translation>Ofereix una actualització acumulativa que inclou funcions noves, actualitzacions de qualitat i de seguretat.</translation>
-    </message>
-    <message>
-        <source>Delivers security updates</source>
-        <translation>Ofereix actualitzacions de seguretat.</translation>
-    </message>
-    <message>
         <source>Installation date:</source>
         <translation>Data de la instal·lació:</translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished">Versió:</translation>
     </message>
 </context>
 <context>
     <name>UpdateList</name>
     <message>
-        <source>View Details</source>
-        <translation>Mostra&apos;n els detalls</translation>
-    </message>
-    <message>
         <source>Release time:</source>
         <translation>Data de publicació:</translation>
-    </message>
-    <message>
-        <source>Collapse</source>
-        <translation>Replega</translation>
     </message>
     <message>
         <source>Version:</source>

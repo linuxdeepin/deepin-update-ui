@@ -1,9 +1,18 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="pt_BR">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="pt_BR">
 <context>
     <name>CheckUpdate</name>
     <message>
         <source>Last check: </source>
         <translation>Última verificação:</translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <source>Fixed some known bugs and security vulnerabilities</source>
+        <translation type="unfinished">Correção de alguns bugs conhecidos e vulnerabilidades de segurança</translation>
     </message>
 </context>
 <context>
@@ -47,31 +56,19 @@
         <translation>Atualizações de segurança</translation>
     </message>
     <message>
-        <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
-        <translation>Inclui novos recursos, atualizações de qualidade e de segurança em um pacote cumulativo.</translation>
-    </message>
-    <message>
-        <source>Delivers security updates</source>
-        <translation>Fornece atualizações de segurança</translation>
-    </message>
-    <message>
         <source>Installation date:</source>
         <translation>Data de Instalação</translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished">Versão:</translation>
     </message>
 </context>
 <context>
     <name>UpdateList</name>
     <message>
-        <source>View Details</source>
-        <translation>Ver detalhes</translation>
-    </message>
-    <message>
         <source>Release time:</source>
         <translation>Data de lançamento:</translation>
-    </message>
-    <message>
-        <source>Collapse</source>
-        <translation>Recolher</translation>
     </message>
     <message>
         <source>Version:</source>

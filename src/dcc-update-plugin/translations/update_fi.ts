@@ -1,9 +1,18 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="fi">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="fi">
 <context>
     <name>CheckUpdate</name>
     <message>
         <source>Last check: </source>
         <translation>Tarkistettu: </translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <source>Fixed some known bugs and security vulnerabilities</source>
+        <translation type="unfinished">Korjattu tunnettuja bugeja ja tietoturva-aukkoja</translation>
     </message>
 </context>
 <context>
@@ -47,31 +56,19 @@
         <translation>Tietoturvapäivitykset</translation>
     </message>
     <message>
-        <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
-        <translation>Kumulatiivinen päivitys. Sisältää uusia ominaisuuksia, laatupäivityksiä ja tietoturvapäivityksiä</translation>
-    </message>
-    <message>
-        <source>Delivers security updates</source>
-        <translation>Toimittaa tietoturvapäivityksiä</translation>
-    </message>
-    <message>
         <source>Installation date:</source>
         <translation>Asennuspäivä:</translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished">Versio:</translation>
     </message>
 </context>
 <context>
     <name>UpdateList</name>
     <message>
-        <source>View Details</source>
-        <translation>Näytä tiedot</translation>
-    </message>
-    <message>
         <source>Release time:</source>
         <translation>Julkaisupäivä:</translation>
-    </message>
-    <message>
-        <source>Collapse</source>
-        <translation>Tiivistetty</translation>
     </message>
     <message>
         <source>Version:</source>

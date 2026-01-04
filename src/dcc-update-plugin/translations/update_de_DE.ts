@@ -1,9 +1,18 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="de_DE">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="de_DE">
 <context>
     <name>CheckUpdate</name>
     <message>
         <source>Last check: </source>
         <translation>Letzte Prüfung:</translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <source>Fixed some known bugs and security vulnerabilities</source>
+        <translation type="unfinished">Einige Fehler und Sicherheitsrisiken beseitigt</translation>
     </message>
 </context>
 <context>
@@ -47,31 +56,19 @@
         <translation>Sicherheits-Aktualisierungen</translation>
     </message>
     <message>
-        <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
-        <translation>Liefert eine kumulative Aktualisierung mit neuen Möglichkeiten, Qualitäts- und Sicherheitsverbesserungen</translation>
-    </message>
-    <message>
-        <source>Delivers security updates</source>
-        <translation>Liefert Sicherheits-Aktualisierungen</translation>
-    </message>
-    <message>
         <source>Installation date:</source>
         <translation>Installationsdatum:</translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished">Version:</translation>
     </message>
 </context>
 <context>
     <name>UpdateList</name>
     <message>
-        <source>View Details</source>
-        <translation>Details anzeigen</translation>
-    </message>
-    <message>
         <source>Release time:</source>
         <translation>Veröffentlichungsdatum:</translation>
-    </message>
-    <message>
-        <source>Collapse</source>
-        <translation>Einfahren</translation>
     </message>
     <message>
         <source>Version:</source>

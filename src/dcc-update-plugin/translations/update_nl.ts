@@ -1,9 +1,18 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="nl">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="nl">
 <context>
     <name>CheckUpdate</name>
     <message>
         <source>Last check: </source>
         <translation>Recentste controle:</translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <source>Fixed some known bugs and security vulnerabilities</source>
+        <translation type="unfinished">Er zijn enkele gemelde bugs en beveiligingsproblemen opgelost</translation>
     </message>
 </context>
 <context>
@@ -47,31 +56,19 @@
         <translation>Beveiligingsupdates</translation>
     </message>
     <message>
-        <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
-        <translation>Bevat nieuwe functies, verbeteringen en oplossingen voor beveiligingsproblemen.</translation>
-    </message>
-    <message>
-        <source>Delivers security updates</source>
-        <translation>Bevat oplossingen voor beveiligingsproblemen.</translation>
-    </message>
-    <message>
         <source>Installation date:</source>
         <translation>Installatiedatum:</translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished">Versie:</translation>
     </message>
 </context>
 <context>
     <name>UpdateList</name>
     <message>
-        <source>View Details</source>
-        <translation>Details bekijken</translation>
-    </message>
-    <message>
         <source>Release time:</source>
         <translation>Uitgebracht op:</translation>
-    </message>
-    <message>
-        <source>Collapse</source>
-        <translation>Inklappen</translation>
     </message>
     <message>
         <source>Version:</source>

@@ -1,9 +1,18 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="tr">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="tr">
 <context>
     <name>CheckUpdate</name>
     <message>
         <source>Last check: </source>
         <translation>Son kontrol:</translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <source>Fixed some known bugs and security vulnerabilities</source>
+        <translation type="unfinished">Bilinen bazı hatalar ve güvenlik açıkları düzeltildi</translation>
     </message>
 </context>
 <context>
@@ -47,31 +56,19 @@
         <translation>Güvenlik Güncellemeleri</translation>
     </message>
     <message>
-        <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
-        <translation>Yeni özellikler, kalite güncellemeleri ve güvenlik güncellemeleri de dahil olmak üzere toplu bir güncelleme sunar</translation>
-    </message>
-    <message>
-        <source>Delivers security updates</source>
-        <translation>Güvenlik güncellemeleri sunar</translation>
-    </message>
-    <message>
         <source>Installation date:</source>
         <translation>Kurulum tarihi:</translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished">Sürüm:</translation>
     </message>
 </context>
 <context>
     <name>UpdateList</name>
     <message>
-        <source>View Details</source>
-        <translation>Ayrıntıları Görüntüle</translation>
-    </message>
-    <message>
         <source>Release time:</source>
         <translation>Yayın zamanı:</translation>
-    </message>
-    <message>
-        <source>Collapse</source>
-        <translation>Daralt</translation>
     </message>
     <message>
         <source>Version:</source>

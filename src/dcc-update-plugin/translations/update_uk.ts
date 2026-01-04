@@ -1,9 +1,18 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="uk">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="uk">
 <context>
     <name>CheckUpdate</name>
     <message>
         <source>Last check: </source>
         <translation>Остання перевірка:</translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <source>Fixed some known bugs and security vulnerabilities</source>
+        <translation type="unfinished">Виправлено деякі відомі вади та недоліки захисту</translation>
     </message>
 </context>
 <context>
@@ -47,31 +56,19 @@
         <translation>Оновлення захисту</translation>
     </message>
     <message>
-        <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
-        <translation>Накопичувальне оновлення драйверів із включенням нових можливостей, оновленнями якості та оновленнями захисту</translation>
-    </message>
-    <message>
-        <source>Delivers security updates</source>
-        <translation>Надає оновлення захисту</translation>
-    </message>
-    <message>
         <source>Installation date:</source>
         <translation>Дата встановлення:</translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished">Версія:</translation>
     </message>
 </context>
 <context>
     <name>UpdateList</name>
     <message>
-        <source>View Details</source>
-        <translation>Переглянути подробиці</translation>
-    </message>
-    <message>
         <source>Release time:</source>
         <translation>Час випуску:</translation>
-    </message>
-    <message>
-        <source>Collapse</source>
-        <translation>Згорнути</translation>
     </message>
     <message>
         <source>Version:</source>

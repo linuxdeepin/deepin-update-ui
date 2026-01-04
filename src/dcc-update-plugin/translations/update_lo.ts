@@ -1,9 +1,18 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="lo">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="lo">
 <context>
     <name>CheckUpdate</name>
     <message>
         <source>Last check: </source>
         <translation>ການກວດສອບສຸດທ້າຍ:</translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <source>Fixed some known bugs and security vulnerabilities</source>
+        <translation type="unfinished">ແກ້ໄຂຂໍ້ບົກພ່ອງແລະຄວາມສ່ຽງດ້ານຄວາມປອດໄພທີ່ຮູ້ຈັກ</translation>
     </message>
 </context>
 <context>
@@ -47,31 +56,19 @@
         <translation>ການປັບປຸງຄວາມປອດໄພ</translation>
     </message>
     <message>
-        <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
-        <translation>ສະຫນອງການປັບປຸງສະສົມລວມທັງຄຸນລັກສະນະໃຫມ່, ການປັບປຸງຄຸນນະພາບ, ແລະການປັບປຸງຄວາມປອດໄພ</translation>
-    </message>
-    <message>
-        <source>Delivers security updates</source>
-        <translation>ສະເຫນີການປັບປຸງຄວາມປອດໄພ</translation>
-    </message>
-    <message>
         <source>Installation date:</source>
         <translation>ວັນທີຕິດຕັ້ງ:</translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished">ຮຸ່ນ:</translation>
     </message>
 </context>
 <context>
     <name>UpdateList</name>
     <message>
-        <source>View Details</source>
-        <translation>ເບິ່ງລາຍລະອຽດ</translation>
-    </message>
-    <message>
         <source>Release time:</source>
         <translation>ເວລາປົດປ່ອຍ:</translation>
-    </message>
-    <message>
-        <source>Collapse</source>
-        <translation>ຫຍໍ້</translation>
     </message>
     <message>
         <source>Version:</source>
@@ -373,7 +370,7 @@
     </message>
     <message>
         <source>Join the internal testing channel to get deepin latest updates.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -506,7 +503,7 @@
     </message>
     <message>
         <source>Backup failed</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Update installation successful</source>
