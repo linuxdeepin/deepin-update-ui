@@ -7,6 +7,13 @@
     </message>
 </context>
 <context>
+    <name>QObject</name>
+    <message>
+        <source>Fixed some known bugs and security vulnerabilities</source>
+        <translation>修复部分已知缺陷和安全漏洞</translation>
+    </message>
+</context>
+<context>
     <name>QuitTestingChannelDialog</name>
     <message>
         <source>If you exit the beta program, you will no longer receive beta updates.</source>
@@ -47,31 +54,19 @@
         <translation>安全更新</translation>
     </message>
     <message>
-        <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
-        <translation>提供新功能、质量补丁、安全漏洞等全量更新内容</translation>
-    </message>
-    <message>
-        <source>Delivers security updates</source>
-        <translation>提供安全漏洞修复</translation>
-    </message>
-    <message>
         <source>Installation date:</source>
         <translation>安装时间：</translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation>版本：</translation>
     </message>
 </context>
 <context>
     <name>UpdateList</name>
     <message>
-        <source>View Details</source>
-        <translation>查看详细信息</translation>
-    </message>
-    <message>
         <source>Release time:</source>
         <translation>发布时间：</translation>
-    </message>
-    <message>
-        <source>Collapse</source>
-        <translation>收起</translation>
     </message>
     <message>
         <source>Version:</source>
