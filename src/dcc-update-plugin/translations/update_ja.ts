@@ -7,6 +7,13 @@
     </message>
 </context>
 <context>
+    <name>QObject</name>
+    <message>
+        <source>Fixed some known bugs and security vulnerabilities</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>QuitTestingChannelDialog</name>
     <message>
         <source>If you exit the beta program, you will no longer receive beta updates.</source>
@@ -47,31 +54,19 @@
         <translation>セキュリティアップデート</translation>
     </message>
     <message>
-        <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
-        <translation>新しい機能、品質改善、セキュリティのアップデートが含まれます</translation>
-    </message>
-    <message>
-        <source>Delivers security updates</source>
-        <translation>セキュリティのアップデートが含まれます</translation>
-    </message>
-    <message>
         <source>Installation date:</source>
         <translation>インストール日:</translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>UpdateList</name>
     <message>
-        <source>View Details</source>
-        <translation>詳細を表示</translation>
-    </message>
-    <message>
         <source>Release time:</source>
         <translation>リリース時刻:</translation>
-    </message>
-    <message>
-        <source>Collapse</source>
-        <translation>折りたたむ</translation>
     </message>
     <message>
         <source>Version:</source>
