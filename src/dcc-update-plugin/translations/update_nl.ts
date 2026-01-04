@@ -7,6 +7,13 @@
     </message>
 </context>
 <context>
+    <name>QObject</name>
+    <message>
+        <source>Fixed some known bugs and security vulnerabilities</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>QuitTestingChannelDialog</name>
     <message>
         <source>If you exit the beta program, you will no longer receive beta updates.</source>
@@ -47,31 +54,19 @@
         <translation>Beveiligingsupdates</translation>
     </message>
     <message>
-        <source>Delivers a cumulative update including new features, quality updates, and security updates</source>
-        <translation>Bevat nieuwe functies, verbeteringen en oplossingen voor beveiligingsproblemen.</translation>
-    </message>
-    <message>
-        <source>Delivers security updates</source>
-        <translation>Bevat oplossingen voor beveiligingsproblemen.</translation>
-    </message>
-    <message>
         <source>Installation date:</source>
         <translation>Installatiedatum:</translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>UpdateList</name>
     <message>
-        <source>View Details</source>
-        <translation>Details bekijken</translation>
-    </message>
-    <message>
         <source>Release time:</source>
         <translation>Uitgebracht op:</translation>
-    </message>
-    <message>
-        <source>Collapse</source>
-        <translation>Inklappen</translation>
     </message>
     <message>
         <source>Version:</source>
