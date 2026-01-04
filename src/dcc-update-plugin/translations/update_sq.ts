@@ -10,7 +10,7 @@
     <name>QObject</name>
     <message>
         <source>Fixed some known bugs and security vulnerabilities</source>
-        <translation type="unfinished"/>
+        <translation>U ndreqën disa të meta të ditura dhe cenueshmëri sigurie</translation>
     </message>
 </context>
 <context>
@@ -59,7 +59,7 @@
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished"/>
+        <translation>Version:</translation>
     </message>
 </context>
 <context>
