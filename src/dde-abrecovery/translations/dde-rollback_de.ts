@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="de">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="de">
 <context>
     <name>BackgroundWidget</name>
     <message>
@@ -36,7 +34,7 @@
     </message>
     <message>
         <source>Are you sure you want to roll back to %1 backed up on %2?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Cancel and Reboot</source>
