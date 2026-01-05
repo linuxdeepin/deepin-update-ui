@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="fi">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="fi">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -12,7 +10,7 @@
     <name>QObject</name>
     <message>
         <source>Fixed some known bugs and security vulnerabilities</source>
-        <translation type="unfinished">Korjattu tunnettuja bugeja ja tietoturva-aukkoja</translation>
+        <translation>Korjattu tunnettuja bugeja ja tietoturva-aukkoja</translation>
     </message>
 </context>
 <context>
@@ -61,7 +59,7 @@
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished">Versio:</translation>
+        <translation>Versio:</translation>
     </message>
 </context>
 <context>
