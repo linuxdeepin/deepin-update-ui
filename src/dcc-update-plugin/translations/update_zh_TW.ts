@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="zh_TW">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="zh_TW">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -12,7 +10,7 @@
     <name>QObject</name>
     <message>
         <source>Fixed some known bugs and security vulnerabilities</source>
-        <translation type="unfinished">修復部分已知缺陷和安全漏洞</translation>
+        <translation>修復部分已知缺陷和安全漏洞</translation>
     </message>
 </context>
 <context>
@@ -57,11 +55,11 @@
     </message>
     <message>
         <source>Installation date:</source>
-        <translation>安裝時間:</translation>
+        <translation>安裝時間：</translation>
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished">版本：</translation>
+        <translation>版本：</translation>
     </message>
 </context>
 <context>
