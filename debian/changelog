@@ -1,3 +1,12 @@
+deepin-update-ui (1.0.39) unstable; urgency=medium
+
+  * i18n: Updates for project Deepin Desktop Environment (#214)
+  * fix: update translations
+  * fix: improve update history UI display
+  * fix: remove redundant debug logs and fix update UI state
+
+ -- zhangkun <zhangkun2@uniontech.com>  Tue, 06 Jan 2026 21:16:41 +0800
+
 deepin-update-ui (1.0.38) unstable; urgency=medium
 
   * fix: refresh UI model after updating log info
