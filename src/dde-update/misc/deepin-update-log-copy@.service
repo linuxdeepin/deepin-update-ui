@@ -7,3 +7,27 @@ ExecStart=/usr/libexec/deepin-update-ui/copy-update-log.sh %i
 User=root
 StandardOutput=journal
 StandardError=journal
+
+# Security hardening
+NoNewPrivileges=yes
+# ProtectSystem=true
+ProtectKernelModules=yes
+RestrictRealtime=yes
+
+# Phase 1: High priority security configurations (immediate implementation)
+ProtectKernelTunables=yes
+ProtectClock=yes
+MemoryDenyWriteExecute=yes
+RestrictSUIDSGID=yes
+
+# Phase 2: Medium priority security configurations (implement after testing)
+PrivateDevices=yes
+PrivateIPC=yes
+
+# Phase 3: Additional security configurations
+# PrivateTmp=yes  # 注释掉：服务需要访问 /tmp/deepin-update-ui
+ProtectControlGroups=yes
+ProtectHostname=yes
+LockPersonality=yes
+RestrictNamespaces=yes
+# RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6  # 注释掉：可能影响D-Bus通信
