@@ -121,8 +121,9 @@ void PluginUpdatePlugin::pluginStateSwitched()
 
 bool PluginUpdatePlugin::pluginIsDisable()
 {
+    const auto lastoreDisabled = m_dconfig->value("lastore-daemon-status", 0).toInt() == 2;
     bool defaultValue = true;
-    return !m_proxyInter->getValue(this, PLUGIN_STATE_KEY, defaultValue).toBool();
+    return lastoreDisabled || !m_proxyInter->getValue(this, PLUGIN_STATE_KEY, defaultValue).toBool();
 }
 
 const QString PluginUpdatePlugin::itemCommand(const QString &itemKey)
