@@ -86,10 +86,15 @@ D.DialogWindow {
                 height: children.height
                 checkable: false
                 cascadeSelected: !checked
-                background: DccItemBackground {
+                background: Rectangle {
                     x: 70
                     width: listView.width -140
-                    backgroundType: DccObject.Normal
+                    property D.Palette backgroundColor: D.Palette {
+                        normal: Qt.rgba(1, 1, 1, 1)
+                        normalDark: Qt.rgba(1, 1, 1, 0.05)
+                    }
+                    radius: 6
+                    color: D.ColorSelector.backgroundColor
                 }
 
                 contentItem: RowLayout {
