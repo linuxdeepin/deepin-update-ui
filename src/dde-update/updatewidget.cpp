@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2015 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -12,7 +12,6 @@
 #include <QScrollBar>
 #include <QWindow>
 #include <QTimer>
-#include <QPlainTextEdit>
 #include <QTextOption>
 #include <QStandardPaths>
 #include <QDateTime>
@@ -43,7 +42,7 @@ const int BACKUP_END_PROGRESS = 50;
 
 UpdateLogWidget::UpdateLogWidget(QWidget *parent)
     : QFrame(parent)
-    , m_logTextEdit(new QPlainTextEdit(this))
+    , m_logTextEdit(new StyledPlainTextEdit(this))
     , m_exportButton(new Dtk::Widget::DPushButton(tr("Export"), this))
     , m_notifyWidget(new QWidget(this))
     , m_notifyIconLabel(new QLabel(this))
@@ -600,7 +599,6 @@ UpdateWidget::UpdateWidget(QWidget *parent)
 
 UpdateWidget* UpdateWidget::instance()
 {
-    qCDebug(logUpdateModal) << "Getting UpdateWidget instance";
     static UpdateWidget* updateWidget = nullptr;
     if (!updateWidget) {
         qCDebug(logUpdateModal) << "Creating new UpdateWidget instance";

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2015 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -33,7 +33,6 @@ UpdateModel::UpdateModel(QObject *parent)
 
 UpdateModel* UpdateModel::instance()
 {
-    qCDebug(logUpdateModal) << "Getting UpdateModel instance";
     static UpdateModel *updateModelInstance = nullptr;
     // 对于单线程来讲，安全性足够
     if (!updateModelInstance) {

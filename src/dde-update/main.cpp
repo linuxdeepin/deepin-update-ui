@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2015 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2015 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
     app->setApplicationVersion("2015.1.0");
 
     qCDebug(logUpdateModal) << "Setting up DLog format and appenders";
-    DLogManager::setLogFormat("%{time}{yyyy-MM-dd, HH:mm:ss.zzz} [%{type:-7}] [ %{function:-35} %{line}] %{message}\n");
+    DLogManager::setLogFormat("%{time}{yyyy-MM-dd, HH:mm:ss.zzz} [%{type:-7}] [ %{function:-35} %{line}] %{message}");
     DLogManager::registerConsoleAppender();
     DLogManager::registerJournalAppender();
 
@@ -87,10 +87,11 @@ int main(int argc, char *argv[])
     DGuiApplicationHelper::generatePaletteColor(pa, DPalette::ButtonText, DGuiApplicationHelper::LightType);
     DGuiApplicationHelper::instance()->setApplicationPalette(pa);
 
-    qCDebug(logUpdateModal) << "Loading translation for locale:" << getCurrentLocale();
+    QString locale = getCurrentLocale();
+    qCDebug(logUpdateModal) << "Loading translation for locale:" << locale;
     QTranslator translatorLanguage;
-    if (!translatorLanguage.load("/usr/share/deepin-update-ui/translations/dde-update_" + getCurrentLocale())) {
-        qCWarning(logUpdateModal) << "Failed to load translation file for locale" << getCurrentLocale();
+    if (!translatorLanguage.load("/usr/share/deepin-update-ui/translations/dde-update_" + locale)) {
+        qCWarning(logUpdateModal) << "Failed to load translation file for locale" << locale;
     }
 
     app->installTranslator(&translatorLanguage);

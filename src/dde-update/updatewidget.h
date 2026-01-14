@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2015 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -18,6 +18,7 @@
 #include <QSpacerItem>
 #include <QPointer>
 #include <QScrollArea>
+#include <QPlainTextEdit>
 
 #include <DSpinner>
 #include <DLabel>
@@ -27,6 +28,33 @@
 #include <DPushButton>
 #include <DCommandLinkButton>
 #include <dpicturesequenceview.h>
+
+class StyledPlainTextEdit : public QPlainTextEdit
+{
+public:
+    explicit StyledPlainTextEdit(QWidget *parent = nullptr)
+        : QPlainTextEdit(parent)
+    {
+        setFrameStyle(QFrame::NoFrame);
+        setAttribute(Qt::WA_TranslucentBackground);
+        viewport()->setAttribute(Qt::WA_TranslucentBackground);
+        viewport()->setAutoFillBackground(false);
+    }
+
+protected:
+    void paintEvent(QPaintEvent *event) override
+    {
+        QPainter painter(viewport());
+        painter.setRenderHint(QPainter::Antialiasing);
+        QRect r = viewport()->rect();
+        QColor bg(0, 0, 0, 255 * 0.1);
+        painter.setBrush(bg);
+        painter.setPen(Qt::NoPen);
+        painter.drawRoundedRect(r.adjusted(0, 0, -1, -1), 6, 6);
+
+        QPlainTextEdit::paintEvent(event);
+    }
+};
 
 class UpdateLogWidget: public QFrame
 {
@@ -64,7 +92,6 @@ public:
     void showPrepare();
 
 private:
-    QLabel * m_title;
     QLabel * m_tip;
     Dtk::Widget::DSpinner *m_spinner;
 };
