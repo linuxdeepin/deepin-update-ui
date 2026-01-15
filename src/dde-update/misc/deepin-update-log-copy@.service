@@ -9,25 +9,20 @@ StandardOutput=journal
 StandardError=journal
 
 # Security hardening
+CapabilityBoundingSet=CAP_CHOWN CAP_DAC_OVERRIDE CAP_FOWNER CAP_SETUID CAP_SETGID
 NoNewPrivileges=yes
-# ProtectSystem=true
 ProtectKernelModules=yes
 RestrictRealtime=yes
-
-# Phase 1: High priority security configurations (immediate implementation)
+InaccessiblePaths=/etc/shadow /etc/pam.d /etc/security
+ProtectProc=invisible
 ProtectKernelTunables=yes
 ProtectClock=yes
 MemoryDenyWriteExecute=yes
 RestrictSUIDSGID=yes
-
-# Phase 2: Medium priority security configurations (implement after testing)
 PrivateDevices=yes
 PrivateIPC=yes
-
-# Phase 3: Additional security configurations
-# PrivateTmp=yes  # 注释掉：服务需要访问 /tmp/deepin-update-ui
 ProtectControlGroups=yes
 ProtectHostname=yes
 LockPersonality=yes
 RestrictNamespaces=yes
-# RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6  # 注释掉：可能影响D-Bus通信
+ExecPaths=/usr/bin /usr/libexec /bin
