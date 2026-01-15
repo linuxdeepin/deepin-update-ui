@@ -1,3 +1,13 @@
+deepin-update-ui (1.0.40) unstable; urgency=medium
+
+  * fix: enhance service security hardening (#220)
+  * feat: optimize update log display interface
+  * fix: enhance systemd service security hardening (#206)
+  * fix: adjust update history background radius
+  * fix: consider lastore daemon status in plugin disable check
+
+ -- zhangkun <zhangkun2@uniontech.com>  Thu, 15 Jan 2026 19:25:04 +0800
+
 deepin-update-ui (1.0.39) unstable; urgency=medium
 
   * i18n: Updates for project Deepin Desktop Environment (#214)
