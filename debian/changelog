@@ -1,3 +1,10 @@
+deepin-update-ui (1.0.41) unstable; urgency=medium
+
+  * chore: update "update" icon
+  * i18n: Translate update_en.ts in ca
+
+ -- zhangkun <zhangkun2@uniontech.com>  Fri, 23 Jan 2026 10:28:50 +0800
+
 deepin-update-ui (1.0.40) unstable; urgency=medium
 
   * fix: enhance service security hardening (#220)
