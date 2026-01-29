@@ -30,7 +30,7 @@ D.DialogWindow {
 
         Item {
             Layout.fillHeight: true
-            Layout.preferredHeight: 20
+            Layout.preferredHeight: 22
         }
 
         RowLayout {
