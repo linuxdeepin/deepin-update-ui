@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2025 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2026 UnionTech Software Technology Co., Ltd.
 // SPDX-License-Identifier: GPL-3.0-or-later
 import QtQuick 2.0
 import QtQuick.Controls 2.0
@@ -99,7 +99,7 @@ DccObject {
         weight: 30
         pageType: DccObject.Item
         page: RowLayout {
-            Component.onCompleted: {
+            Component.onDestruction:   {
                 advancedSetting.showDetails = false
             }
             DccLabel {
@@ -140,371 +140,382 @@ DccObject {
             }
         }
     }
-
     DccObject {
-        name: "downloadLimitGrp"
+        id: advancedSettingGroup
+        name: "advancedSettingGroup"
         parentName: "updateSettingsPage"
         weight: 40
-        visible: advancedSetting.showDetails
         pageType: DccObject.Item
         page: DccGroupView {
-            height: implicitHeight + 10
+            visible: advancedSetting.showDetails
             spacing: 0
         }
-
-        DccObject {
-            name: "downloadLimit"
-            parentName: "downloadLimitGrp"
-            displayName: qsTr("Limit Speed")
-            weight: 10
-            enabled: !dccData.model().updateProhibited
-            pageType: DccObject.Editor
-            page: D.Switch {
-                checked: dccData.model().downloadSpeedLimitEnabled
-                onCheckedChanged: {
-                    dccData.work().setDownloadSpeedLimitEnabled(checked)
+        Connections {
+            target: DccApp
+            function onTriggeredObjectsChanged(objs) {
+                if (objs.includes(advancedSettingGroup)) {
+                    advancedSetting.showDetails = true
                 }
             }
         }
 
         DccObject {
-            name: "limitSetting"
-            parentName: "downloadLimitGrp"
-            displayName: qsTr("Limit Setting")
-            visible: dccData.model().downloadSpeedLimitEnabled
-            weight: 20
-            enabled: !dccData.model().updateProhibited
-            pageType: DccObject.Editor
-            page: RowLayout {
-                D.LineEdit {
-                    id: lineEdit
-                    maximumLength: 5
-                    validator: RegularExpressionValidator { regularExpression: /^\d*$/ }
-                    alertText: qsTr("Only numbers between 1-99999 are allowed")
-                    alertDuration: 3000
-                    clearButton.active: lineEdit.activeFocus && (text.length !== 0)
-                    text: dccData.model().downloadSpeedLimitSize
-
-                    onTextChanged: {
-                        // 如果输入不为空且数字为0的情况，需要弹出提示且阻止继续输入
-                        if (lineEdit.text.length !== 0 && lineEdit.text[0] === "0") {
-                            lineEdit.text = ""
-                            lineEdit.showAlert = true
-                        } else if (lineEdit.showAlert) {
-                            lineEdit.showAlert = false
-                        }
-                    }
-                    onEditingFinished: {
-                        if (lineEdit.text.length === 0) {
-                            lineEdit.text = dccData.model().downloadSpeedLimitSize
-                            return
-                        }
-                        dccData.work().setDownloadSpeedLimitSize(lineEdit.text)
-                    }
-                    Keys.onPressed: {
-                        if (event.key === Qt.Key_Return) {
-                            lineEdit.forceActiveFocus(false);
-                        }
-                    }
-                }
-
-                D.Label {
-                    text: "KB/S"
-                }
-            }
-        }
-    }
-
-    DccObject {
-        name: "autoDownloadGrp"
-        parentName: "updateSettingsPage"
-        weight: 50
-        pageType: DccObject.Item
-        visible: advancedSetting.showDetails
-        page: DccGroupView {
-            height: implicitHeight + 10
-            spacing: 0
-        }
-        DccObject {
-            name: "autoDownload"
-            parentName: "autoDownloadGrp"
-            displayName: qsTr("Auto Download")
-            description: qsTr("Enabling \"Auto Download Updates\" will automatically download updates when connected to the internet")
-            weight: 10
-            enabled: !dccData.model().updateProhibited && !dccData.model().updateModeDisabled
-            pageType: DccObject.Editor
-            page: D.Switch {
-                checked: dccData.model().autoDownloadUpdates
-                onCheckedChanged: {
-                    dccData.work().setAutoDownloadUpdates(checked)
-                }
-            }
-        }
-
-        DccObject {
-            name: "limitSetting"
-            parentName: "autoDownloadGrp"
-            displayName: qsTr("Download when Inactive")
-            visible: dccData.model().autoDownloadUpdates
-            weight: 20
-            enabled: !dccData.model().updateProhibited && !dccData.model().updateModeDisabled
-            pageType: DccObject.Item
-            page: RowLayout {
-                D.CheckBox {
-                    id: inactiveDownloadCheckBox
-                    Layout.leftMargin: 14
-                    Layout.fillWidth: true
-                    ToolTip {
-                        visible: inactiveDownloadCheckBox.width < inactiveDownloadCheckBox.implicitWidth && inactiveDownloadCheckBox.hovered
-                        text: inactiveDownloadCheckBox.text
-                    }
-                    text: dccObj.displayName
-                    checked: {
-                        if (!dccData.model().autoDownloadUpdates)
-                            return false
-                        
-                        return dccData.model().idleDownloadEnabled
-                    }
-                    onCheckedChanged: {
-                        dccData.work().setIdleDownloadEnabled(checked)
-                    }
-                }
-
-                RowLayout {
-                    spacing: 10
-                    Layout.topMargin: 5
-                    Layout.bottomMargin: 5
-                    Layout.rightMargin: 10
-                    Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-
-                    D.Label {
-                       text: qsTr("Start at")
-                       enabled: inactiveDownloadCheckBox.checked
-                    }
-
-                    DccTimeRange {
-                        id: beginTimeRange
-                        enabled: inactiveDownloadCheckBox.checked
-                        hour: dccData.model().beginTime.split(':')[0]
-                        minute: dccData.model().beginTime.split(':')[1]
-                        onTimeChanged: {
-                            dccData.work().setIdleDownloadBeginTime(beginTimeRange.timeString)
-                        }
-                    }
-
-                    D.Label {
-                        Layout.leftMargin: 10
-                        text: qsTr("End at")
-                        enabled: inactiveDownloadCheckBox.checked
-                    }
-
-                    DccTimeRange {
-                        id: endTimeRange
-                        enabled: inactiveDownloadCheckBox.checked
-                        hour: dccData.model().endTime.split(':')[0]
-                        minute: dccData.model().endTime.split(':')[1]
-                        onTimeChanged: {
-                            dccData.work().setIdleDownloadEndTime(endTimeRange.timeString)
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    DccObject {
-        name: "advancedSettingGrp"
-        parentName: "updateSettingsPage"
-        weight: 60
-        visible: advancedSetting.showDetails
-        pageType: DccObject.Item
-        page: DccGroupView {
-            height: implicitHeight + 10
-            spacing: 0
-        }
-
-        DccObject {
-            name: "updateReminder"
-            parentName: "advancedSettingGrp"
-            displayName: qsTr("Updates Notification")
-            weight: 10
-            pageType: DccObject.Editor
-            enabled: !dccData.model().updateProhibited && !dccData.model().updateModeDisabled
-            page: D.Switch {
-                checked: dccData.model().updateNotify
-                onCheckedChanged: {
-                    dccData.work().setUpdateNotify(checked)
-                }
-            }
-        }
-
-        DccObject {
-            name: "cleanCache"
-            parentName: "advancedSettingGrp"
-            displayName: qsTr("Clear Package Cache")
-            weight: 20
-            pageType: DccObject.Editor
-            page: D.Switch {
-                checked: dccData.model().autoCleanCache
-                onCheckedChanged: {
-                    dccData.work().setAutoCleanCache(checked)
-                }
-            }
-        }
-
-        DccObject {
-            name: "updateHistory"
-            parentName: "advancedSettingGrp"
-            displayName: qsTr("Update History")
+            name: "downloadLimitGrp"
+            parentName: "advancedSettingGroup"
             weight: 40
+            pageType: DccObject.Item
+            page: DccGroupView {
+                height: implicitHeight + 10
+                spacing: 0
+            }
+
+            DccObject {
+                name: "downloadLimit"
+                parentName: "downloadLimitGrp"
+                displayName: qsTr("Limit Speed")
+                weight: 10
+                enabled: !dccData.model().updateProhibited
+                pageType: DccObject.Editor
+                page: D.Switch {
+                    checked: dccData.model().downloadSpeedLimitEnabled
+                    onCheckedChanged: {
+                        dccData.work().setDownloadSpeedLimitEnabled(checked)
+                    }
+                }
+            }
+
+            DccObject {
+                name: "limitSetting"
+                parentName: "downloadLimitGrp"
+                displayName: qsTr("Limit Setting")
+                visible: dccData.model().downloadSpeedLimitEnabled
+                weight: 20
+                enabled: !dccData.model().updateProhibited
+                pageType: DccObject.Editor
+                page: RowLayout {
+                    D.LineEdit {
+                        id: lineEdit
+                        maximumLength: 5
+                        validator: RegularExpressionValidator { regularExpression: /^\d*$/ }
+                        alertText: qsTr("Only numbers between 1-99999 are allowed")
+                        alertDuration: 3000
+                        clearButton.active: lineEdit.activeFocus && (text.length !== 0)
+                        text: dccData.model().downloadSpeedLimitSize
+
+                        onTextChanged: {
+                            // 如果输入不为空且数字为0的情况，需要弹出提示且阻止继续输入
+                            if (lineEdit.text.length !== 0 && lineEdit.text[0] === "0") {
+                                lineEdit.text = ""
+                                lineEdit.showAlert = true
+                            } else if (lineEdit.showAlert) {
+                                lineEdit.showAlert = false
+                            }
+                        }
+                        onEditingFinished: {
+                            if (lineEdit.text.length === 0) {
+                                lineEdit.text = dccData.model().downloadSpeedLimitSize
+                                return
+                            }
+                            dccData.work().setDownloadSpeedLimitSize(lineEdit.text)
+                        }
+                        Keys.onPressed: {
+                            if (event.key === Qt.Key_Return) {
+                                lineEdit.forceActiveFocus(false);
+                            }
+                        }
+                    }
+
+                    D.Label {
+                        text: "KB/S"
+                    }
+                }
+            }
+        }
+
+        DccObject {
+            name: "autoDownloadGrp"
+            parentName: "advancedSettingGroup"
+            weight: 50
+            pageType: DccObject.Item
+            page: DccGroupView {
+                height: implicitHeight + 10
+                spacing: 0
+            }
+            DccObject {
+                name: "autoDownload"
+                parentName: "autoDownloadGrp"
+                displayName: qsTr("Auto Download")
+                description: qsTr("Enabling \"Auto Download Updates\" will automatically download updates when connected to the internet")
+                weight: 10
+                enabled: !dccData.model().updateProhibited && !dccData.model().updateModeDisabled
+                pageType: DccObject.Editor
+                page: D.Switch {
+                    checked: dccData.model().autoDownloadUpdates
+                    onCheckedChanged: {
+                        dccData.work().setAutoDownloadUpdates(checked)
+                    }
+                }
+            }
+
+            DccObject {
+                name: "limitSetting"
+                parentName: "autoDownloadGrp"
+                displayName: qsTr("Download when Inactive")
+                visible: dccData.model().autoDownloadUpdates
+                weight: 20
+                enabled: !dccData.model().updateProhibited && !dccData.model().updateModeDisabled
+                pageType: DccObject.Item
+                page: RowLayout {
+                    D.CheckBox {
+                        id: inactiveDownloadCheckBox
+                        Layout.leftMargin: 14
+                        Layout.fillWidth: true
+                        ToolTip {
+                            visible: inactiveDownloadCheckBox.width < inactiveDownloadCheckBox.implicitWidth && inactiveDownloadCheckBox.hovered
+                            text: inactiveDownloadCheckBox.text
+                        }
+                        text: dccObj.displayName
+                        checked: {
+                            if (!dccData.model().autoDownloadUpdates)
+                                return false
+
+                            return dccData.model().idleDownloadEnabled
+                        }
+                        onCheckedChanged: {
+                            dccData.work().setIdleDownloadEnabled(checked)
+                        }
+                    }
+
+                    RowLayout {
+                        spacing: 10
+                        Layout.topMargin: 5
+                        Layout.bottomMargin: 5
+                        Layout.rightMargin: 10
+                        Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+
+                        D.Label {
+                           text: qsTr("Start at")
+                           enabled: inactiveDownloadCheckBox.checked
+                        }
+
+                        DccTimeRange {
+                            id: beginTimeRange
+                            enabled: inactiveDownloadCheckBox.checked
+                            hour: dccData.model().beginTime.split(':')[0]
+                            minute: dccData.model().beginTime.split(':')[1]
+                            onTimeChanged: {
+                                dccData.work().setIdleDownloadBeginTime(beginTimeRange.timeString)
+                            }
+                        }
+
+                        D.Label {
+                            Layout.leftMargin: 10
+                            text: qsTr("End at")
+                            enabled: inactiveDownloadCheckBox.checked
+                        }
+
+                        DccTimeRange {
+                            id: endTimeRange
+                            enabled: inactiveDownloadCheckBox.checked
+                            hour: dccData.model().endTime.split(':')[0]
+                            minute: dccData.model().endTime.split(':')[1]
+                            onTimeChanged: {
+                                dccData.work().setIdleDownloadEndTime(endTimeRange.timeString)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        DccObject {
+            name: "advancedSettingGrp"
+            parentName: "advancedSettingGroup"
+            weight: 60
+            pageType: DccObject.Item
+            page: DccGroupView {
+                height: implicitHeight + 10
+                spacing: 0
+            }
+
+            DccObject {
+                name: "updateReminder"
+                parentName: "advancedSettingGrp"
+                displayName: qsTr("Updates Notification")
+                weight: 10
+                pageType: DccObject.Editor
+                enabled: !dccData.model().updateProhibited && !dccData.model().updateModeDisabled
+                page: D.Switch {
+                    checked: dccData.model().updateNotify
+                    onCheckedChanged: {
+                        dccData.work().setUpdateNotify(checked)
+                    }
+                }
+            }
+
+            DccObject {
+                name: "cleanCache"
+                parentName: "advancedSettingGrp"
+                displayName: qsTr("Clear Package Cache")
+                weight: 20
+                pageType: DccObject.Editor
+                page: D.Switch {
+                    checked: dccData.model().autoCleanCache
+                    onCheckedChanged: {
+                        dccData.work().setAutoCleanCache(checked)
+                    }
+                }
+            }
+
+            DccObject {
+                name: "updateHistory"
+                parentName: "advancedSettingGrp"
+                displayName: qsTr("Update History")
+                weight: 40
+                backgroundType: DccObject.Normal
+                pageType: DccObject.Editor
+                page: D.Button {
+                    implicitWidth: fm.advanceWidth(text) + fm.averageCharacterWidth * 2
+                    text: qsTr("View")
+                    onClicked: {
+                        dccData.model().historyModel.refreshHistory()
+                        uhloader.active = true
+                    }
+
+                    Loader {
+                        id: uhloader
+                        active: false
+                        sourceComponent: UpdateHistoryDialog {
+                            onClosing: function (close) {
+                                uhloader.active = false
+                            }
+                        }
+                        onLoaded: function () {
+                            uhloader.item.show()
+                        }
+                    }
+                }
+            }
+        }
+
+        DccObject {
+            name: "mirrorSettingGrp"
+            parentName: "advancedSettingGroup"
+            visible: dccData.model().isCommunitySystem()
+            weight: 70
+            pageType: DccObject.Item
+            page: DccGroupView {
+                height: implicitHeight + 10
+                spacing: 0
+            }
+
+            DccObject {
+                name: "autoMirror"
+                parentName: "mirrorSettingGrp"
+                displayName: qsTr("Smart Mirror Switch")
+                weight: 10
+                enabled: !dccData.model().updateProhibited
+                pageType: DccObject.Editor
+                page: D.Switch {
+                    checked: dccData.model().smartMirrorSwitch
+                    onCheckedChanged: {
+                        dccData.work().setSmartMirror(checked)
+                    }
+                }
+            }
+
+            DccObject {
+                visible: false
+                name: "defautMirror"
+                parentName: "mirrorSettingGrp"
+             //   displayName: qsTr("默认镜像源")
+                weight: 20
+                enabled: !dccData.model().updateProhibited
+                pageType: DccObject.Editor
+                page: D.ComboBox {
+                    model:["[SG]Ox.sg", "[AU]JAARNET", "[SE]Academic Computer Club", "[CN]阿里云"]
+                    // checked: dccData.model().audioMono
+
+                    currentIndex: 0
+                }
+            }
+        }
+
+        DccObject {
+            name: "testingChannel"
+            parentName: "advancedSettingGroup"
+            displayName: qsTr("Join Internal Testing Channel")
+            description: qsTr("Join the internal testing channel to get deepin latest updates.")
             backgroundType: DccObject.Normal
+            visible: dccData.model().isCommunitySystem()
+            weight: 80
             pageType: DccObject.Editor
-            page: D.Button {
-                implicitWidth: fm.advanceWidth(text) + fm.averageCharacterWidth * 2
-                text: qsTr("View")
+            enabled: {
+                if (dccData.model().testingChannelStatus === Common.WaitJoined ||
+                    dccData.model().testingChannelStatus === Common.WaitToLeave)
+                    return false
+                else
+                    return true
+            }
+
+            page: D.Switch {
+                checked: {
+                    if (dccData.model().testingChannelStatus === Common.WaitToLeave ||
+                        dccData.model().testingChannelStatus === Common.Joined)
+                        return true
+                    else
+                        return false
+                }
+
                 onClicked: {
-                    dccData.model().historyModel.refreshHistory()
-                    uhloader.active = true
+                    dccData.work().setTestingChannelEnable(checked)
+                }
+
+                Connections {
+                    target: dccData.work()
+                    function onRequestCloseTestingChannel() {
+                        ctcloader.active = true
+                    }
                 }
 
                 Loader {
-                    id: uhloader
+                    id: ctcloader
                     active: false
-                    sourceComponent: UpdateHistoryDialog {
+                    sourceComponent: QuitTestingChannelDialog {
                         onClosing: function (close) {
-                            uhloader.active = false
+                            ctcloader.active = false
                         }
                     }
                     onLoaded: function () {
-                        uhloader.item.show()
+                        ctcloader.item.show()
                     }
-                }
-            }
-        }
-    }
-
-    DccObject {
-        name: "mirrorSettingGrp"
-        parentName: "updateSettingsPage"
-        visible: advancedSetting.showDetails && dccData.model().isCommunitySystem()
-        weight: 70
-        pageType: DccObject.Item
-        page: DccGroupView {
-            height: implicitHeight + 10
-            spacing: 0
-        }
-
-        DccObject {
-            name: "autoMirror"
-            parentName: "mirrorSettingGrp"
-            displayName: qsTr("Smart Mirror Switch")
-            weight: 10
-            enabled: !dccData.model().updateProhibited
-            pageType: DccObject.Editor
-            page: D.Switch {
-                checked: dccData.model().smartMirrorSwitch
-                onCheckedChanged: {
-                    dccData.work().setSmartMirror(checked)
                 }
             }
         }
 
         DccObject {
-            visible: false
-            name: "defautMirror"
-            parentName: "mirrorSettingGrp"
-         //   displayName: qsTr("默认镜像源")
-            weight: 20
-            enabled: !dccData.model().updateProhibited
+            name: "testingChannelUrl"
+            parentName: "advancedSettingGroup"
+            backgroundType: DccObject.AutoBg
+            weight: 90
+            visible: dccData.model().testingChannelStatus === Common.WaitJoined
             pageType: DccObject.Editor
-            page: D.ComboBox {
-                model:["[SG]Ox.sg", "[AU]JAARNET", "[SE]Academic Computer Club", "[CN]阿里云"]
-                // checked: dccData.model().audioMono
-
-                currentIndex: 0
-            }
-        }
-    }
-
-    DccObject {
-        name: "testingChannel"
-        parentName: "updateSettingsPage"
-        displayName: qsTr("Join Internal Testing Channel")
-        description: qsTr("Join the internal testing channel to get deepin latest updates.")
-        backgroundType: DccObject.Normal
-        visible: advancedSetting.showDetails && dccData.model().isCommunitySystem()
-        weight: 80
-        pageType: DccObject.Editor
-        enabled: {
-            if (dccData.model().testingChannelStatus === Common.WaitJoined || 
-                dccData.model().testingChannelStatus === Common.WaitToLeave)
-                return false
-            else
-                return true
-        }
-
-        page: D.Switch {
-            checked: {
-                if (dccData.model().testingChannelStatus === Common.WaitToLeave || 
-                    dccData.model().testingChannelStatus === Common.Joined)
-                    return true
-                else
-                    return false
-            }
-
-            onClicked: {
-                dccData.work().setTestingChannelEnable(checked)
-            }
-
-            Connections {
-                target: dccData.work()
-                function onRequestCloseTestingChannel() {
-                    ctcloader.active = true
-                }
-            }
-
-            Loader {
-                id: ctcloader
-                active: false
-                sourceComponent: QuitTestingChannelDialog {
-                    onClosing: function (close) {
-                        ctcloader.active = false
+            page: D.ToolButton {
+                text: qsTr("Click here to complete the application")
+                textColor: D.Palette {
+                    normal {
+                        common: D.DTK.makeColor(D.Color.Highlight)
                     }
+                    normalDark: normal
+                    hovered {
+                        common: D.DTK.makeColor(D.Color.Highlight).lightness(+30)
+                    }
+                    hoveredDark: hovered
                 }
-                onLoaded: function () {
-                    ctcloader.item.show()
+                background: Item {}
+                onClicked: {
+                    dccData.work().openTestingChannelUrl()
                 }
-            }
-        }
-    }
-
-    DccObject {
-        name: "testingChannelUrl"
-        parentName: "updateSettingsPage"
-        backgroundType: DccObject.AutoBg
-        weight: 90
-        visible: {
-            if (advancedSetting.showDetails && dccData.model().testingChannelStatus === Common.WaitJoined)
-                return true
-            else
-                return false
-        }
-        pageType: DccObject.Editor
-        page: D.ToolButton {
-            text: qsTr("Click here to complete the application")
-            textColor: D.Palette {
-                normal {
-                    common: D.DTK.makeColor(D.Color.Highlight)
-                }
-                normalDark: normal
-                hovered {
-                    common: D.DTK.makeColor(D.Color.Highlight).lightness(+30)
-                }
-                hoveredDark: hovered
-            }
-            background: Item {}
-            onClicked: {
-                dccData.work().openTestingChannelUrl()
             }
         }
     }
