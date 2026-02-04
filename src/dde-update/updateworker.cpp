@@ -45,12 +45,18 @@ UpdateWorker::UpdateWorker(QObject *parent)
     , m_dbusProxy(new UpdateDBusProxy(this))
     , m_waitingToCheckSystem(false)
     , m_logWatcherHelper(new LogWatcherHelper(m_dbusProxy, this))
+    , m_waitServiceTimer(new QTimer(this))
 {
 }
 
 void UpdateWorker::init()
 {
-    // m_managerInter->setSync(false);
+    m_waitServiceTimer->setInterval(25 * 1000);
+    m_waitServiceTimer->setSingleShot(true);
+    connect(m_waitServiceTimer, &QTimer::timeout, this, [this]() {
+        qWarning(logUpdateModal) << "org.deepin.dde.Lastore1 interface is still invalid, check error";
+        UpdateModel::instance()->setCheckStatus(UpdateModel::CheckFailed);
+    });
     connect(m_dbusProxy, &UpdateDBusProxy::JobListChanged, this, &UpdateWorker::onJobListChanged);
     connect(m_dbusProxy, &UpdateDBusProxy::managerInterServiceValidChanged, this, [this](bool valid) {
         if (!valid) {
@@ -383,8 +389,9 @@ void UpdateWorker::doCheckSystem(int updateMode, UpdateModel::CheckSystemStage s
 {
     qCInfo(logUpdateModal) << "Update mode:" << updateMode << ", check system stage:" << stage;
     if (!m_dbusProxy->managerInterIsValid()) {
-        qCWarning(logUpdateModal) << "Update mode is invalid";
+        qCWarning(logUpdateModal) << "org.deepin.dde.Lastore1 interface is invalid, wait for service to be valid";
         m_waitingToCheckSystem = true;
+        m_waitServiceTimer->start();
         return;
     }
 

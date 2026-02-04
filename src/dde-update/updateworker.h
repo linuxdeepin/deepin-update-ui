@@ -81,6 +81,7 @@ private:
     UpdateDBusProxy *m_dbusProxy;
     bool m_waitingToCheckSystem;
     LogWatcherHelper *m_logWatcherHelper;
+    QTimer *m_waitServiceTimer = nullptr;
 };
 
 #endif // UPDATECTRL_H
