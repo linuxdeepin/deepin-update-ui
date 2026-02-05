@@ -481,6 +481,7 @@ void UpdateWorker::doCheckUpdates()
         if (reply.isError()) {
             qCWarning(logDccUpdatePlugin) << "Check update failed, error: " << reply.error().message();
             m_model->setLastStatus(UpdatesStatus::CheckingFailed, __LINE__);
+            m_model->setCheckUpdateStatus(CheckingFailed);
             cleanLaStoreJob(m_checkUpdateJob);
             m_doCheckUpdates = false;
         } else {
@@ -1561,14 +1562,11 @@ void UpdateWorker::onCheckUpdateStatusChanged(const QString& value)
             watcher->deleteLater();
             // 日志处理完了再显示更新内容界面
         });
-        m_model->setLastStatus(CheckingSucceed, __LINE__);
-        m_model->setCheckUpdateStatus(CheckingSucceed);
         setUpdateInfo();
         m_model->setShowCheckUpdate(!m_model->isUpdatable());
     } else if (value == "end") {
         refreshLastTimeAndCheckCircle();
         m_model->setCheckUpdateStatus(UpdatesStatus(m_model->lastStatus()));
-        m_model->updateCheckUpdateUi();
         deleteJob(m_checkUpdateJob);
         m_doCheckUpdates = false;
     }

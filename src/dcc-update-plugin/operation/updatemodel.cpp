@@ -300,6 +300,7 @@ void UpdateModel::updateCheckUpdateUi()
             setCheckBtnText(tr("Check Again"));
             break;
         case Updated:
+        case UpdatesAvailable:
             qCDebug(logDccUpdatePlugin) << "Setting UI for Updated status";
             setCheckBtnText(tr("Check Again"));
             setCheckUpdateErrTips(tr("Your system is up to date"));
