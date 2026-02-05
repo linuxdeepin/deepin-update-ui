@@ -1,3 +1,13 @@
+deepin-update-ui (1.0.43) unstable; urgency=medium
+
+  * fix: Font styling issues in the Advanced Settings of Update Settings
+  * fix: update translations
+  * fix: add timeout handling for invalid Lastore1 interface
+  * i18n: Translate update_en.ts in fr
+  * feat: make hidden settings searchable
+
+ -- zhangkun <zhangkun2@uniontech.com>  Thu, 05 Feb 2026 19:23:59 +0800
+
 deepin-update-ui (1.0.42) unstable; urgency=medium
 
   * fix: 调整更新对话框间距
