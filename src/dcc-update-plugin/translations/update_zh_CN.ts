@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="zh_CN">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="zh_CN">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -26,6 +28,17 @@
     <message>
         <source>Exit</source>
         <translation>退 出</translation>
+    </message>
+</context>
+<context>
+    <name>Update</name>
+    <message>
+        <source>System Update</source>
+        <translation>系统更新</translation>
+    </message>
+    <message>
+        <source>System update and upgrade</source>
+        <translation>系统更新升级</translation>
     </message>
 </context>
 <context>
@@ -156,6 +169,109 @@
         <source>for more details, please visit </source>
         <translation>更多详情请访问</translation>
         <extra-content_explain>这句话后面会带上一个超链接，各语言自行决定末尾需不需要加空格</extra-content_explain>
+    </message>
+</context>
+<context>
+    <name>UpdateMain</name>
+    <message>
+        <source>Installing updates...</source>
+        <translation>正在安装更新...</translation>
+    </message>
+    <message>
+        <source>Installing</source>
+        <translation>正在安装</translation>
+    </message>
+    <message>
+        <source>Backing up in progress...</source>
+        <translation>正在备份...</translation>
+    </message>
+    <message>
+        <source>Backing up in progress</source>
+        <translation>正在备份</translation>
+    </message>
+    <message>
+        <source>Downloading updates...</source>
+        <translation>下载更新中...</translation>
+    </message>
+    <message>
+        <source>Update size: </source>
+        <translation>更新大小：</translation>
+    </message>
+    <message>
+        <source>Downloading</source>
+        <translation>下载中</translation>
+    </message>
+    <message>
+        <source>Update installation successful</source>
+        <translation>更新安装成功</translation>
+    </message>
+    <message>
+        <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
+        <translation>为了您能够正常使用系统和应用，更新后请重启电脑</translation>
+    </message>
+    <message>
+        <source>Reboot now</source>
+        <translation>立即重启</translation>
+    </message>
+    <message>
+        <source>Installation update failed</source>
+        <translation>安装更新失败</translation>
+    </message>
+    <message>
+        <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
+        <translation>电池电量低于60%，为保障更新成功，请及时接入电源</translation>
+    </message>
+    <message>
+        <source>Continue Update</source>
+        <translation>继续更新</translation>
+    </message>
+    <message>
+        <source>Backup failed</source>
+        <translation>备份失败</translation>
+    </message>
+    <message>
+        <source>If you continue the updates, you cannot roll back to the old system later.</source>
+        <translation>继续更新，系统将无法回退</translation>
+    </message>
+    <message>
+        <source>Back Up Again</source>
+        <translation>重新备份</translation>
+    </message>
+    <message>
+        <source>Proceed to Update</source>
+        <translation>继续更新</translation>
+    </message>
+    <message>
+        <source>Update download completed</source>
+        <translation>更新下载完成</translation>
+    </message>
+    <message>
+        <source>Install updates</source>
+        <translation>安装更新</translation>
+    </message>
+    <message>
+        <source>Update download failed</source>
+        <translation>更新下载失败</translation>
+    </message>
+    <message>
+        <source>Retry</source>
+        <translation>重 试</translation>
+    </message>
+    <message>
+        <source>Updates Available</source>
+        <translation>检测到有可用的更新</translation>
+    </message>
+    <message>
+        <source>Download</source>
+        <translation>下 载</translation>
+    </message>
+    <message>
+        <source>Update Settings</source>
+        <translation>更新设置</translation>
+    </message>
+    <message>
+        <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
+        <translation>可设置系統更新、安全更新、闲时更新、更新提醒等</translation>
     </message>
 </context>
 <context>
@@ -408,120 +524,6 @@
     <message>
         <source>Please plug in and then install updates.</source>
         <translation>请插入电源后再开始更新</translation>
-    </message>
-</context>
-<context>
-    <name>update</name>
-    <message>
-        <source>System Update</source>
-        <translation>系统更新</translation>
-    </message>
-    <message>
-        <source>System update and upgrade</source>
-        <translation>系统更新升级</translation>
-    </message>
-</context>
-<context>
-    <name>updateMain</name>
-    <message>
-        <source>Update Settings</source>
-        <translation>更新设置</translation>
-    </message>
-    <message>
-        <source>Installing</source>
-        <translation>正在安装</translation>
-    </message>
-    <message>
-        <source>Update download completed</source>
-        <translation>更新下载完成</translation>
-    </message>
-    <message>
-        <source>Install updates</source>
-        <translation>安装更新</translation>
-    </message>
-    <message>
-        <source>Update size: </source>
-        <translation>更新大小：</translation>
-    </message>
-    <message>
-        <source>Update download failed</source>
-        <translation>更新下载失败</translation>
-    </message>
-    <message>
-        <source>Downloading updates...</source>
-        <translation>下载更新中...</translation>
-    </message>
-    <message>
-        <source>Downloading</source>
-        <translation>下载中</translation>
-    </message>
-    <message>
-        <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
-        <translation>可设置系統更新、安全更新、闲时更新、更新提醒等</translation>
-    </message>
-    <message>
-        <source>Reboot now</source>
-        <translation>立即重启</translation>
-    </message>
-    <message>
-        <source>Download</source>
-        <translation>下 载</translation>
-    </message>
-    <message>
-        <source>Installing updates...</source>
-        <translation>正在安装更新...</translation>
-    </message>
-    <message>
-        <source>Retry</source>
-        <translation>重 试</translation>
-    </message>
-    <message>
-        <source>Continue Update</source>
-        <translation>继续更新</translation>
-    </message>
-    <message>
-        <source>Updates Available</source>
-        <translation>检测到有可用的更新</translation>
-    </message>
-    <message>
-        <source>Installation update failed</source>
-        <translation>安装更新失败</translation>
-    </message>
-    <message>
-        <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
-        <translation>为了您能够正常使用系统和应用，更新后请重启电脑</translation>
-    </message>
-    <message>
-        <source>Backing up in progress...</source>
-        <translation>正在备份...</translation>
-    </message>
-    <message>
-        <source>Backing up in progress</source>
-        <translation>正在备份</translation>
-    </message>
-    <message>
-        <source>Backup failed</source>
-        <translation>备份失败</translation>
-    </message>
-    <message>
-        <source>Update installation successful</source>
-        <translation>更新安装成功</translation>
-    </message>
-    <message>
-        <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation>继续更新，系统将无法回退</translation>
-    </message>
-    <message>
-        <source>Try Again</source>
-        <translation>重试</translation>
-    </message>
-    <message>
-        <source>Proceed to Update</source>
-        <translation>继续更新</translation>
-    </message>
-    <message>
-        <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation>电池电量低于60%，为保障更新成功，请及时接入电源</translation>
     </message>
 </context>
 </TS>

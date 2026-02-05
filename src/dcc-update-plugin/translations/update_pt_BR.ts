@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="pt_BR">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="pt_BR">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -10,7 +12,7 @@
     <name>QObject</name>
     <message>
         <source>Fixed some known bugs and security vulnerabilities</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Correção de alguns bugs conhecidos e vulnerabilidades de segurança</translation>
     </message>
 </context>
 <context>
@@ -26,6 +28,17 @@
     <message>
         <source>Exit</source>
         <translation>Sair</translation>
+    </message>
+</context>
+<context>
+    <name>Update</name>
+    <message>
+        <source>System Update</source>
+        <translation type="unfinished">Atualizações do Sistema</translation>
+    </message>
+    <message>
+        <source>System update and upgrade</source>
+        <translation type="unfinished">Atualização do sistema e melhorias</translation>
     </message>
 </context>
 <context>
@@ -59,7 +72,7 @@
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Versão:</translation>
     </message>
 </context>
 <context>
@@ -156,6 +169,109 @@
         <source>for more details, please visit </source>
         <translation>para maiores detalhes, visite:</translation>
         <extra-content_explain>这句话后面会带上一个超链接，各语言自行决定末尾需不需要加空格</extra-content_explain>
+    </message>
+</context>
+<context>
+    <name>UpdateMain</name>
+    <message>
+        <source>Installing updates...</source>
+        <translation type="unfinished">Instalando atualizações...</translation>
+    </message>
+    <message>
+        <source>Installing</source>
+        <translation type="unfinished">Instalando</translation>
+    </message>
+    <message>
+        <source>Backing up in progress...</source>
+        <translation type="unfinished">Fazendo backup, aguarde...</translation>
+    </message>
+    <message>
+        <source>Backing up in progress</source>
+        <translation type="unfinished">Fazendo backup, aguarde...</translation>
+    </message>
+    <message>
+        <source>Downloading updates...</source>
+        <translation type="unfinished">Baixando atualizações...</translation>
+    </message>
+    <message>
+        <source>Update size: </source>
+        <translation type="unfinished">Tamanho da atualização: </translation>
+    </message>
+    <message>
+        <source>Downloading</source>
+        <translation type="unfinished">Baixando</translation>
+    </message>
+    <message>
+        <source>Update installation successful</source>
+        <translation type="unfinished">Atualização instalada com sucesso</translation>
+    </message>
+    <message>
+        <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
+        <translation type="unfinished">Para garantir o funcionamento adequado do seu sistema e aplicativos, reinicie o computador após a atualização</translation>
+    </message>
+    <message>
+        <source>Reboot now</source>
+        <translation type="unfinished">Reiniciar agora</translation>
+    </message>
+    <message>
+        <source>Installation update failed</source>
+        <translation type="unfinished">Falha na Instalação</translation>
+    </message>
+    <message>
+        <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
+        <translation type="unfinished">A capacidade da bateria está abaixo de 60%. Para atualizar sem riscos de problemas, conecte o carregador.</translation>
+    </message>
+    <message>
+        <source>Continue Update</source>
+        <translation type="unfinished">Continuar a atualização</translation>
+    </message>
+    <message>
+        <source>Backup failed</source>
+        <translation type="unfinished">O backup falhou</translation>
+    </message>
+    <message>
+        <source>If you continue the updates, you cannot roll back to the old system later.</source>
+        <translation type="unfinished">Se você continuar com as atualizações, não poderá reverter o sistema para uma versão anterior.</translation>
+    </message>
+    <message>
+        <source>Back Up Again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Proceed to Update</source>
+        <translation type="unfinished">Prosseguir com a atualização</translation>
+    </message>
+    <message>
+        <source>Update download completed</source>
+        <translation type="unfinished">Download concluído</translation>
+    </message>
+    <message>
+        <source>Install updates</source>
+        <translation type="unfinished">Instalar atualizações</translation>
+    </message>
+    <message>
+        <source>Update download failed</source>
+        <translation type="unfinished">Download falhou</translation>
+    </message>
+    <message>
+        <source>Retry</source>
+        <translation type="unfinished">Tentar Novamente</translation>
+    </message>
+    <message>
+        <source>Updates Available</source>
+        <translation type="unfinished">Atualizações disponíveis</translation>
+    </message>
+    <message>
+        <source>Download</source>
+        <translation type="unfinished">Download</translation>
+    </message>
+    <message>
+        <source>Update Settings</source>
+        <translation type="unfinished">Configurações de atualização</translation>
+    </message>
+    <message>
+        <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
+        <translation type="unfinished">Configure as configurações de atualização, atualizações de segurança, download automático de atualizações e notificações de atualização</translation>
     </message>
 </context>
 <context>
@@ -408,120 +524,6 @@
     <message>
         <source>Please plug in and then install updates.</source>
         <translation>Conecte o carregador para instalar as atualizações.</translation>
-    </message>
-</context>
-<context>
-    <name>update</name>
-    <message>
-        <source>System Update</source>
-        <translation>Atualizações do Sistema</translation>
-    </message>
-    <message>
-        <source>System update and upgrade</source>
-        <translation>Atualização do sistema e melhorias</translation>
-    </message>
-</context>
-<context>
-    <name>updateMain</name>
-    <message>
-        <source>Update Settings</source>
-        <translation>Configurações de atualização</translation>
-    </message>
-    <message>
-        <source>Installing</source>
-        <translation>Instalando</translation>
-    </message>
-    <message>
-        <source>Update download completed</source>
-        <translation>Download concluído</translation>
-    </message>
-    <message>
-        <source>Install updates</source>
-        <translation>Instalar atualizações</translation>
-    </message>
-    <message>
-        <source>Update size: </source>
-        <translation>Tamanho da atualização: </translation>
-    </message>
-    <message>
-        <source>Update download failed</source>
-        <translation>Download falhou</translation>
-    </message>
-    <message>
-        <source>Downloading updates...</source>
-        <translation>Baixando atualizações...</translation>
-    </message>
-    <message>
-        <source>Downloading</source>
-        <translation>Baixando</translation>
-    </message>
-    <message>
-        <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
-        <translation>Configure as configurações de atualização, atualizações de segurança, download automático de atualizações e notificações de atualização</translation>
-    </message>
-    <message>
-        <source>Reboot now</source>
-        <translation>Reiniciar agora</translation>
-    </message>
-    <message>
-        <source>Download</source>
-        <translation>Download</translation>
-    </message>
-    <message>
-        <source>Installing updates...</source>
-        <translation>Instalando atualizações...</translation>
-    </message>
-    <message>
-        <source>Retry</source>
-        <translation>Tentar Novamente</translation>
-    </message>
-    <message>
-        <source>Continue Update</source>
-        <translation>Continuar a atualização</translation>
-    </message>
-    <message>
-        <source>Updates Available</source>
-        <translation>Atualizações disponíveis</translation>
-    </message>
-    <message>
-        <source>Installation update failed</source>
-        <translation>Falha na Instalação</translation>
-    </message>
-    <message>
-        <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
-        <translation>Para garantir o funcionamento adequado do seu sistema e aplicativos, reinicie o computador após a atualização</translation>
-    </message>
-    <message>
-        <source>Backing up in progress...</source>
-        <translation>Fazendo backup, aguarde...</translation>
-    </message>
-    <message>
-        <source>Backing up in progress</source>
-        <translation>Fazendo backup, aguarde...</translation>
-    </message>
-    <message>
-        <source>Backup failed</source>
-        <translation>O backup falhou</translation>
-    </message>
-    <message>
-        <source>Update installation successful</source>
-        <translation>Atualização instalada com sucesso</translation>
-    </message>
-    <message>
-        <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation>Se você continuar com as atualizações, não poderá reverter o sistema para uma versão anterior.</translation>
-    </message>
-    <message>
-        <source>Try Again</source>
-        <translation>Tentar novamente</translation>
-    </message>
-    <message>
-        <source>Proceed to Update</source>
-        <translation>Prosseguir com a atualização</translation>
-    </message>
-    <message>
-        <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation>A capacidade da bateria está abaixo de 60%. Para atualizar sem riscos de problemas, conecte o carregador.</translation>
     </message>
 </context>
 </TS>

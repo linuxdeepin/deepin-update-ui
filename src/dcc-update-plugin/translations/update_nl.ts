@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="nl">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="nl">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -26,6 +28,17 @@
     <message>
         <source>Exit</source>
         <translation>Afsluiten</translation>
+    </message>
+</context>
+<context>
+    <name>Update</name>
+    <message>
+        <source>System Update</source>
+        <translation type="unfinished">Systeemupdates</translation>
+    </message>
+    <message>
+        <source>System update and upgrade</source>
+        <translation type="unfinished">Systeemupdates en -upgrades</translation>
     </message>
 </context>
 <context>
@@ -156,6 +169,109 @@
         <source>for more details, please visit </source>
         <translation>Meer informatie:</translation>
         <extra-content_explain>这句话后面会带上一个超链接，各语言自行决定末尾需不需要加空格</extra-content_explain>
+    </message>
+</context>
+<context>
+    <name>UpdateMain</name>
+    <message>
+        <source>Installing updates...</source>
+        <translation type="unfinished">Bezig met installeren…</translation>
+    </message>
+    <message>
+        <source>Installing</source>
+        <translation type="unfinished">Bezig met installeren</translation>
+    </message>
+    <message>
+        <source>Backing up in progress...</source>
+        <translation type="unfinished">Bezig met maken van reserviekopie…</translation>
+    </message>
+    <message>
+        <source>Backing up in progress</source>
+        <translation type="unfinished">Bezig met maken van reserviekopie</translation>
+    </message>
+    <message>
+        <source>Downloading updates...</source>
+        <translation type="unfinished">Bezig met downloaden…</translation>
+    </message>
+    <message>
+        <source>Update size: </source>
+        <translation type="unfinished">Updategrootte:</translation>
+    </message>
+    <message>
+        <source>Downloading</source>
+        <translation type="unfinished">Bezig met downloaden</translation>
+    </message>
+    <message>
+        <source>Update installation successful</source>
+        <translation type="unfinished">De updates zijn geïnstalleerd</translation>
+    </message>
+    <message>
+        <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
+        <translation type="unfinished">Herstart nadien je computer om alle wijzigingen toe te passen.</translation>
+    </message>
+    <message>
+        <source>Reboot now</source>
+        <translation type="unfinished">Nu herstarten</translation>
+    </message>
+    <message>
+        <source>Installation update failed</source>
+        <translation type="unfinished">De installatie is mislukt</translation>
+    </message>
+    <message>
+        <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
+        <translation type="unfinished">Het accuniveau is lager dan 60%. Sluit de stroomkabel aan om de updates te installeren.</translation>
+    </message>
+    <message>
+        <source>Continue Update</source>
+        <translation type="unfinished">Doorgaan met updates</translation>
+    </message>
+    <message>
+        <source>Backup failed</source>
+        <translation type="unfinished">Reservekopie mislukt</translation>
+    </message>
+    <message>
+        <source>If you continue the updates, you cannot roll back to the old system later.</source>
+        <translation type="unfinished">Als je doorgaat met de installatie, dan kun je je systeem niet meer herstellen naar een oudere versie.</translation>
+    </message>
+    <message>
+        <source>Back Up Again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Proceed to Update</source>
+        <translation type="unfinished">Doorgaan met bijwerken</translation>
+    </message>
+    <message>
+        <source>Update download completed</source>
+        <translation type="unfinished">Het downloaden is voltooid</translation>
+    </message>
+    <message>
+        <source>Install updates</source>
+        <translation type="unfinished">Updates installeren</translation>
+    </message>
+    <message>
+        <source>Update download failed</source>
+        <translation type="unfinished">Het downloaden is mislukt</translation>
+    </message>
+    <message>
+        <source>Retry</source>
+        <translation type="unfinished">Opnieuw proberen</translation>
+    </message>
+    <message>
+        <source>Updates Available</source>
+        <translation type="unfinished">Updates beschikbaar</translation>
+    </message>
+    <message>
+        <source>Download</source>
+        <translation type="unfinished">Downloaden</translation>
+    </message>
+    <message>
+        <source>Update Settings</source>
+        <translation type="unfinished">Update-instellingen</translation>
+    </message>
+    <message>
+        <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
+        <translation type="unfinished">Stel de update-instellingen in, evenals beveiligingsupdates, automatisch downloaden en meldingen</translation>
     </message>
 </context>
 <context>
@@ -408,120 +524,6 @@
     <message>
         <source>Please plug in and then install updates.</source>
         <translation>Sluit de netstroomadapter aan alvorens de updates te installeren.</translation>
-    </message>
-</context>
-<context>
-    <name>update</name>
-    <message>
-        <source>System Update</source>
-        <translation>Systeemupdates</translation>
-    </message>
-    <message>
-        <source>System update and upgrade</source>
-        <translation>Systeemupdates en -upgrades</translation>
-    </message>
-</context>
-<context>
-    <name>updateMain</name>
-    <message>
-        <source>Update Settings</source>
-        <translation>Update-instellingen</translation>
-    </message>
-    <message>
-        <source>Installing</source>
-        <translation>Bezig met installeren</translation>
-    </message>
-    <message>
-        <source>Update download completed</source>
-        <translation>Het downloaden is voltooid</translation>
-    </message>
-    <message>
-        <source>Install updates</source>
-        <translation>Updates installeren</translation>
-    </message>
-    <message>
-        <source>Update size: </source>
-        <translation>Updategrootte:</translation>
-    </message>
-    <message>
-        <source>Update download failed</source>
-        <translation>Het downloaden is mislukt</translation>
-    </message>
-    <message>
-        <source>Downloading updates...</source>
-        <translation>Bezig met downloaden…</translation>
-    </message>
-    <message>
-        <source>Downloading</source>
-        <translation>Bezig met downloaden</translation>
-    </message>
-    <message>
-        <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
-        <translation>Stel de update-instellingen in, evenals beveiligingsupdates, automatisch downloaden en meldingen</translation>
-    </message>
-    <message>
-        <source>Reboot now</source>
-        <translation>Nu herstarten</translation>
-    </message>
-    <message>
-        <source>Download</source>
-        <translation>Downloaden</translation>
-    </message>
-    <message>
-        <source>Installing updates...</source>
-        <translation>Bezig met installeren…</translation>
-    </message>
-    <message>
-        <source>Retry</source>
-        <translation>Opnieuw proberen</translation>
-    </message>
-    <message>
-        <source>Continue Update</source>
-        <translation>Doorgaan met updates</translation>
-    </message>
-    <message>
-        <source>Updates Available</source>
-        <translation>Updates beschikbaar</translation>
-    </message>
-    <message>
-        <source>Installation update failed</source>
-        <translation>De installatie is mislukt</translation>
-    </message>
-    <message>
-        <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
-        <translation>Herstart nadien je computer om alle wijzigingen toe te passen.</translation>
-    </message>
-    <message>
-        <source>Backing up in progress...</source>
-        <translation>Bezig met maken van reserviekopie…</translation>
-    </message>
-    <message>
-        <source>Backing up in progress</source>
-        <translation>Bezig met maken van reserviekopie</translation>
-    </message>
-    <message>
-        <source>Backup failed</source>
-        <translation>Reservekopie mislukt</translation>
-    </message>
-    <message>
-        <source>Update installation successful</source>
-        <translation>De updates zijn geïnstalleerd</translation>
-    </message>
-    <message>
-        <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation>Als je doorgaat met de installatie, dan kun je je systeem niet meer herstellen naar een oudere versie.</translation>
-    </message>
-    <message>
-        <source>Try Again</source>
-        <translation>Opnieuw proberen</translation>
-    </message>
-    <message>
-        <source>Proceed to Update</source>
-        <translation>Doorgaan met bijwerken</translation>
-    </message>
-    <message>
-        <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation>Het accuniveau is lager dan 60%. Sluit de stroomkabel aan om de updates te installeren.</translation>
     </message>
 </context>
 </TS>

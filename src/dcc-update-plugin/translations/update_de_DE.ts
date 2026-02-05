@@ -31,6 +31,17 @@
     </message>
 </context>
 <context>
+    <name>Update</name>
+    <message>
+        <source>System Update</source>
+        <translation type="unfinished">System-Aktualisierungen</translation>
+    </message>
+    <message>
+        <source>System update and upgrade</source>
+        <translation type="unfinished">System-Aktuakisierung und -Hochstufung</translation>
+    </message>
+</context>
+<context>
     <name>UpdateControl</name>
     <message>
         <source>View Update Log</source>
@@ -158,6 +169,109 @@
         <source>for more details, please visit </source>
         <translation>für weitere Einzelheiten besuchen Sie bitte</translation>
         <extra-content_explain>这句话后面会带上一个超链接，各语言自行决定末尾需不需要加空格</extra-content_explain>
+    </message>
+</context>
+<context>
+    <name>UpdateMain</name>
+    <message>
+        <source>Installing updates...</source>
+        <translation type="unfinished">Aktualisierungen werden installiert…</translation>
+    </message>
+    <message>
+        <source>Installing</source>
+        <translation type="unfinished">Installieren</translation>
+    </message>
+    <message>
+        <source>Backing up in progress...</source>
+        <translation type="unfinished">Datensicherung in Arbeit …</translation>
+    </message>
+    <message>
+        <source>Backing up in progress</source>
+        <translation type="unfinished">Datensicherung in Arbeit</translation>
+    </message>
+    <message>
+        <source>Downloading updates...</source>
+        <translation type="unfinished">Aktualisierungen werden heruntergeladen…</translation>
+    </message>
+    <message>
+        <source>Update size: </source>
+        <translation type="unfinished">Größe der Aktualisierung:</translation>
+    </message>
+    <message>
+        <source>Downloading</source>
+        <translation type="unfinished">Am Herunterladen</translation>
+    </message>
+    <message>
+        <source>Update installation successful</source>
+        <translation type="unfinished">Einbau der Aktualisierung erfolgreich</translation>
+    </message>
+    <message>
+        <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
+        <translation type="unfinished">Um das korrekte Funktionieren ihres Systems und der Programme sicherzustellen, machen Sie bitte einen Neustart nach der Aktualisierung</translation>
+    </message>
+    <message>
+        <source>Reboot now</source>
+        <translation type="unfinished">Jetzt neustarten</translation>
+    </message>
+    <message>
+        <source>Installation update failed</source>
+        <translation type="unfinished">Einbau der Aktualisierung fehlgeschlagen</translation>
+    </message>
+    <message>
+        <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
+        <translation type="unfinished">Der Akku ist unter 60%. Um die Aktualisierung erfolgreich durchführen zu können schließen Sie bitte den Rechner ans Stromnetz an.</translation>
+    </message>
+    <message>
+        <source>Continue Update</source>
+        <translation type="unfinished">Aktualisierung fortsetzen</translation>
+    </message>
+    <message>
+        <source>Backup failed</source>
+        <translation type="unfinished">Datensicherung fehlgeschlagen</translation>
+    </message>
+    <message>
+        <source>If you continue the updates, you cannot roll back to the old system later.</source>
+        <translation type="unfinished">Falls Sie mit den Aktualisierungen fortfahren, können Sie nicht wieder zurück zum alten System.</translation>
+    </message>
+    <message>
+        <source>Back Up Again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Proceed to Update</source>
+        <translation type="unfinished">Mit der Aktualisierung fortfahren</translation>
+    </message>
+    <message>
+        <source>Update download completed</source>
+        <translation type="unfinished">Herunterladen abgeschlossen</translation>
+    </message>
+    <message>
+        <source>Install updates</source>
+        <translation type="unfinished">Aktualisierungen einbauen</translation>
+    </message>
+    <message>
+        <source>Update download failed</source>
+        <translation type="unfinished">Herunterladen der Aktualisierung fehlgeschlagen</translation>
+    </message>
+    <message>
+        <source>Retry</source>
+        <translation type="unfinished">Erneut versuchen</translation>
+    </message>
+    <message>
+        <source>Updates Available</source>
+        <translation type="unfinished">Aktualisierungen vorhanden</translation>
+    </message>
+    <message>
+        <source>Download</source>
+        <translation type="unfinished">Herunterladen</translation>
+    </message>
+    <message>
+        <source>Update Settings</source>
+        <translation type="unfinished">Aktualisierungs-Einstellungen</translation>
+    </message>
+    <message>
+        <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
+        <translation type="unfinished">Aktualisierungseinstellungen, Sicherheitsaktualisierungen, Aktualisierungen automatisch Herunterladen und Aktualisierungs-Benachrichtigung</translation>
     </message>
 </context>
 <context>
@@ -410,120 +524,6 @@
     <message>
         <source>Please plug in and then install updates.</source>
         <translation>Bitte ans Stromnetz anschließen und dann Aktualisierungen installieren</translation>
-    </message>
-</context>
-<context>
-    <name>update</name>
-    <message>
-        <source>System Update</source>
-        <translation>System-Aktualisierungen</translation>
-    </message>
-    <message>
-        <source>System update and upgrade</source>
-        <translation>System-Aktuakisierung und -Hochstufung</translation>
-    </message>
-</context>
-<context>
-    <name>updateMain</name>
-    <message>
-        <source>Update Settings</source>
-        <translation>Aktualisierungs-Einstellungen</translation>
-    </message>
-    <message>
-        <source>Installing</source>
-        <translation>Installieren</translation>
-    </message>
-    <message>
-        <source>Update download completed</source>
-        <translation>Herunterladen abgeschlossen</translation>
-    </message>
-    <message>
-        <source>Install updates</source>
-        <translation>Aktualisierungen einbauen</translation>
-    </message>
-    <message>
-        <source>Update size: </source>
-        <translation>Größe der Aktualisierung:</translation>
-    </message>
-    <message>
-        <source>Update download failed</source>
-        <translation>Herunterladen der Aktualisierung fehlgeschlagen</translation>
-    </message>
-    <message>
-        <source>Downloading updates...</source>
-        <translation>Aktualisierungen werden heruntergeladen…</translation>
-    </message>
-    <message>
-        <source>Downloading</source>
-        <translation>Am Herunterladen</translation>
-    </message>
-    <message>
-        <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
-        <translation>Aktualisierungseinstellungen, Sicherheitsaktualisierungen, Aktualisierungen automatisch Herunterladen und Aktualisierungs-Benachrichtigung</translation>
-    </message>
-    <message>
-        <source>Reboot now</source>
-        <translation>Jetzt neustarten</translation>
-    </message>
-    <message>
-        <source>Download</source>
-        <translation>Herunterladen</translation>
-    </message>
-    <message>
-        <source>Installing updates...</source>
-        <translation>Aktualisierungen werden installiert…</translation>
-    </message>
-    <message>
-        <source>Retry</source>
-        <translation>Erneut versuchen</translation>
-    </message>
-    <message>
-        <source>Continue Update</source>
-        <translation>Aktualisierung fortsetzen</translation>
-    </message>
-    <message>
-        <source>Updates Available</source>
-        <translation>Aktualisierungen vorhanden</translation>
-    </message>
-    <message>
-        <source>Installation update failed</source>
-        <translation>Einbau der Aktualisierung fehlgeschlagen</translation>
-    </message>
-    <message>
-        <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
-        <translation>Um das korrekte Funktionieren ihres Systems und der Programme sicherzustellen, machen Sie bitte einen Neustart nach der Aktualisierung</translation>
-    </message>
-    <message>
-        <source>Backing up in progress...</source>
-        <translation>Datensicherung in Arbeit …</translation>
-    </message>
-    <message>
-        <source>Backing up in progress</source>
-        <translation>Datensicherung in Arbeit</translation>
-    </message>
-    <message>
-        <source>Backup failed</source>
-        <translation>Datensicherung fehlgeschlagen</translation>
-    </message>
-    <message>
-        <source>Update installation successful</source>
-        <translation>Einbau der Aktualisierung erfolgreich</translation>
-    </message>
-    <message>
-        <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation>Falls Sie mit den Aktualisierungen fortfahren, können Sie nicht wieder zurück zum alten System.</translation>
-    </message>
-    <message>
-        <source>Try Again</source>
-        <translation>Nochmals probieren</translation>
-    </message>
-    <message>
-        <source>Proceed to Update</source>
-        <translation>Mit der Aktualisierung fortfahren</translation>
-    </message>
-    <message>
-        <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation>Der Akku ist unter 60%. Um die Aktualisierung erfolgreich durchführen zu können schließen Sie bitte den Rechner ans Stromnetz an.</translation>
     </message>
 </context>
 </TS>

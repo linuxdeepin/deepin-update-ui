@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ja">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="ja">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -10,7 +12,7 @@
     <name>QObject</name>
     <message>
         <source>Fixed some known bugs and security vulnerabilities</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">既知のバグとセキュリティ脆弱性の修正</translation>
     </message>
 </context>
 <context>
@@ -26,6 +28,17 @@
     <message>
         <source>Exit</source>
         <translation>退出</translation>
+    </message>
+</context>
+<context>
+    <name>Update</name>
+    <message>
+        <source>System Update</source>
+        <translation type="unfinished">システムアップデート</translation>
+    </message>
+    <message>
+        <source>System update and upgrade</source>
+        <translation type="unfinished">システムアップデートとアップグレード</translation>
     </message>
 </context>
 <context>
@@ -59,7 +72,7 @@
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">バージョン:</translation>
     </message>
 </context>
 <context>
@@ -156,6 +169,109 @@
         <source>for more details, please visit </source>
         <translation>詳細情報はこちら </translation>
         <extra-content_explain>这句话后面会带上一个超链接，各语言自行决定末尾需不需要加空格</extra-content_explain>
+    </message>
+</context>
+<context>
+    <name>UpdateMain</name>
+    <message>
+        <source>Installing updates...</source>
+        <translation type="unfinished">アップデートをインストールしています...</translation>
+    </message>
+    <message>
+        <source>Installing</source>
+        <translation type="unfinished">インストールしています</translation>
+    </message>
+    <message>
+        <source>Backing up in progress...</source>
+        <translation type="unfinished">バックアップしています…</translation>
+    </message>
+    <message>
+        <source>Backing up in progress</source>
+        <translation type="unfinished">バックアップしています</translation>
+    </message>
+    <message>
+        <source>Downloading updates...</source>
+        <translation type="unfinished">アップデートをダウンロードしています...</translation>
+    </message>
+    <message>
+        <source>Update size: </source>
+        <translation type="unfinished">アップデートサイズ:</translation>
+    </message>
+    <message>
+        <source>Downloading</source>
+        <translation type="unfinished">ダウンロードしています</translation>
+    </message>
+    <message>
+        <source>Update installation successful</source>
+        <translation type="unfinished">アップデートが正常にインストールされました</translation>
+    </message>
+    <message>
+        <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
+        <translation type="unfinished">システムとアプリケーションを十分に機能させるため、アップデート後はコンピューターを再起動してください</translation>
+    </message>
+    <message>
+        <source>Reboot now</source>
+        <translation type="unfinished">今すぐ再起動</translation>
+    </message>
+    <message>
+        <source>Installation update failed</source>
+        <translation type="unfinished">アップデートをインストールできませんでした</translation>
+    </message>
+    <message>
+        <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
+        <translation type="unfinished">バッテリー残量が60%以下です。正常にアップデートを実行するため、電源に接続してください。</translation>
+    </message>
+    <message>
+        <source>Continue Update</source>
+        <translation type="unfinished">アップデートを続行</translation>
+    </message>
+    <message>
+        <source>Backup failed</source>
+        <translation type="unfinished">バックアップできませんでした</translation>
+    </message>
+    <message>
+        <source>If you continue the updates, you cannot roll back to the old system later.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Back Up Again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Proceed to Update</source>
+        <translation type="unfinished">アップデートを続行</translation>
+    </message>
+    <message>
+        <source>Update download completed</source>
+        <translation type="unfinished">アップデートのダウンロードが完了しました</translation>
+    </message>
+    <message>
+        <source>Install updates</source>
+        <translation type="unfinished">アップデートをインストール</translation>
+    </message>
+    <message>
+        <source>Update download failed</source>
+        <translation type="unfinished">アップデートをダウンロードできませんでした</translation>
+    </message>
+    <message>
+        <source>Retry</source>
+        <translation type="unfinished">再試行</translation>
+    </message>
+    <message>
+        <source>Updates Available</source>
+        <translation type="unfinished">アップデート利用可能</translation>
+    </message>
+    <message>
+        <source>Download</source>
+        <translation type="unfinished">ダウンロード</translation>
+    </message>
+    <message>
+        <source>Update Settings</source>
+        <translation type="unfinished">アップデートの設定</translation>
+    </message>
+    <message>
+        <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
+        <translation type="unfinished">アップデートの設定、セキュリティアップデート、自動ダウンロードとアップデートの通知を設定できます</translation>
     </message>
 </context>
 <context>
@@ -408,120 +524,6 @@
     <message>
         <source>Please plug in and then install updates.</source>
         <translation>アップデートをインストールするには、電源に接続してください。</translation>
-    </message>
-</context>
-<context>
-    <name>update</name>
-    <message>
-        <source>System Update</source>
-        <translation>システムアップデート</translation>
-    </message>
-    <message>
-        <source>System update and upgrade</source>
-        <translation>システムアップデートとアップグレード</translation>
-    </message>
-</context>
-<context>
-    <name>updateMain</name>
-    <message>
-        <source>Update Settings</source>
-        <translation>アップデートの設定</translation>
-    </message>
-    <message>
-        <source>Installing</source>
-        <translation>インストールしています</translation>
-    </message>
-    <message>
-        <source>Update download completed</source>
-        <translation>アップデートのダウンロードが完了しました</translation>
-    </message>
-    <message>
-        <source>Install updates</source>
-        <translation>アップデートをインストール</translation>
-    </message>
-    <message>
-        <source>Update size: </source>
-        <translation>アップデートサイズ:</translation>
-    </message>
-    <message>
-        <source>Update download failed</source>
-        <translation>アップデートをダウンロードできませんでした</translation>
-    </message>
-    <message>
-        <source>Downloading updates...</source>
-        <translation>アップデートをダウンロードしています...</translation>
-    </message>
-    <message>
-        <source>Downloading</source>
-        <translation>ダウンロードしています</translation>
-    </message>
-    <message>
-        <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
-        <translation>アップデートの設定、セキュリティアップデート、自動ダウンロードとアップデートの通知を設定できます</translation>
-    </message>
-    <message>
-        <source>Reboot now</source>
-        <translation>今すぐ再起動</translation>
-    </message>
-    <message>
-        <source>Download</source>
-        <translation>ダウンロード</translation>
-    </message>
-    <message>
-        <source>Installing updates...</source>
-        <translation>アップデートをインストールしています...</translation>
-    </message>
-    <message>
-        <source>Retry</source>
-        <translation>再試行</translation>
-    </message>
-    <message>
-        <source>Continue Update</source>
-        <translation>アップデートを続行</translation>
-    </message>
-    <message>
-        <source>Updates Available</source>
-        <translation>アップデート利用可能</translation>
-    </message>
-    <message>
-        <source>Installation update failed</source>
-        <translation>アップデートをインストールできませんでした</translation>
-    </message>
-    <message>
-        <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
-        <translation>システムとアプリケーションを十分に機能させるため、アップデート後はコンピューターを再起動してください</translation>
-    </message>
-    <message>
-        <source>Backing up in progress...</source>
-        <translation>バックアップしています…</translation>
-    </message>
-    <message>
-        <source>Backing up in progress</source>
-        <translation>バックアップしています</translation>
-    </message>
-    <message>
-        <source>Backup failed</source>
-        <translation>バックアップできませんでした</translation>
-    </message>
-    <message>
-        <source>Update installation successful</source>
-        <translation>アップデートが正常にインストールされました</translation>
-    </message>
-    <message>
-        <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation>アップデートを続行すると、後で古いシステムにロールバックすることができなくなります。</translation>
-    </message>
-    <message>
-        <source>Try Again</source>
-        <translation>もう一度試す</translation>
-    </message>
-    <message>
-        <source>Proceed to Update</source>
-        <translation>アップデートを続行</translation>
-    </message>
-    <message>
-        <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation>バッテリー残量が60%以下です。正常にアップデートを実行するため、電源に接続してください。</translation>
     </message>
 </context>
 </TS>

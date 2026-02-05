@@ -266,7 +266,7 @@ DccObject {
                 dialogloader.active = true
             }
 
-            btnActions: [ qsTr("Try Again"), qsTr("Proceed to Update") ]
+            btnActions: [ qsTr("Back Up Again"), qsTr("Proceed to Update") ]
             onBtnClicked: function(index, updateType) {
                 console.log("index: " + index, " updateType: " + updateType)
                 if (index === 0) {

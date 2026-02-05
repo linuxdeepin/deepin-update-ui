@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="fr">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="fr">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -26,6 +28,17 @@
     <message>
         <source>Exit</source>
         <translation>Quitter</translation>
+    </message>
+</context>
+<context>
+    <name>Update</name>
+    <message>
+        <source>System Update</source>
+        <translation type="unfinished">Mises à jour du système</translation>
+    </message>
+    <message>
+        <source>System update and upgrade</source>
+        <translation type="unfinished">Mise à jour et mise à niveau du système</translation>
     </message>
 </context>
 <context>
@@ -156,6 +169,109 @@
         <source>for more details, please visit </source>
         <translation>Pour plus de détails, veuillez consulter</translation>
         <extra-content_explain>这句话后面会带上一个超链接，各语言自行决定末尾需不需要加空格</extra-content_explain>
+    </message>
+</context>
+<context>
+    <name>UpdateMain</name>
+    <message>
+        <source>Installing updates...</source>
+        <translation type="unfinished">Installation des mises à jour...</translation>
+    </message>
+    <message>
+        <source>Installing</source>
+        <translation type="unfinished">Installation</translation>
+    </message>
+    <message>
+        <source>Backing up in progress...</source>
+        <translation type="unfinished">Sauvegarde en cours...</translation>
+    </message>
+    <message>
+        <source>Backing up in progress</source>
+        <translation type="unfinished">Sauvegarde en cours</translation>
+    </message>
+    <message>
+        <source>Downloading updates...</source>
+        <translation type="unfinished">Téléchargement des mises à jour...</translation>
+    </message>
+    <message>
+        <source>Update size: </source>
+        <translation type="unfinished">Taille de la mise à jour :</translation>
+    </message>
+    <message>
+        <source>Downloading</source>
+        <translation type="unfinished">Téléchargement</translation>
+    </message>
+    <message>
+        <source>Update installation successful</source>
+        <translation type="unfinished">Mise à jour installée avec succès</translation>
+    </message>
+    <message>
+        <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
+        <translation type="unfinished">Pour garantir le bon fonctionnement de votre système et de vos applications, veuillez redémarrer votre ordinateur après la mise à jour.</translation>
+    </message>
+    <message>
+        <source>Reboot now</source>
+        <translation type="unfinished">Redémarrer maintenant</translation>
+    </message>
+    <message>
+        <source>Installation update failed</source>
+        <translation type="unfinished">Échec de l&apos;installation de la mise à jour</translation>
+    </message>
+    <message>
+        <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
+        <translation type="unfinished">La capacité de la batterie est inférieure à 60 %. Pour que la mise à jour s&apos;effectue correctement, veuillez brancher l&apos;appareil.</translation>
+    </message>
+    <message>
+        <source>Continue Update</source>
+        <translation type="unfinished">Continuer la mise à jour</translation>
+    </message>
+    <message>
+        <source>Backup failed</source>
+        <translation type="unfinished">Échec de la sauvegarde</translation>
+    </message>
+    <message>
+        <source>If you continue the updates, you cannot roll back to the old system later.</source>
+        <translation type="unfinished">Si vous poursuivez les mises à jour, vous ne pourrez plus revenir à l&apos;ancien système par la suite.</translation>
+    </message>
+    <message>
+        <source>Back Up Again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Proceed to Update</source>
+        <translation type="unfinished">Procéder à la mise à jour</translation>
+    </message>
+    <message>
+        <source>Update download completed</source>
+        <translation type="unfinished">Téléchargement de la mise à jour terminé</translation>
+    </message>
+    <message>
+        <source>Install updates</source>
+        <translation type="unfinished">Installer les mises à jour</translation>
+    </message>
+    <message>
+        <source>Update download failed</source>
+        <translation type="unfinished">Échec du téléchargement de la mise à jour</translation>
+    </message>
+    <message>
+        <source>Retry</source>
+        <translation type="unfinished">Réessayer</translation>
+    </message>
+    <message>
+        <source>Updates Available</source>
+        <translation type="unfinished">Mises à jour disponibles</translation>
+    </message>
+    <message>
+        <source>Download</source>
+        <translation type="unfinished">Télécharger</translation>
+    </message>
+    <message>
+        <source>Update Settings</source>
+        <translation type="unfinished">Paramètres des mises à jour</translation>
+    </message>
+    <message>
+        <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
+        <translation type="unfinished">Configurer les paramètres de mise à jour, les mises à jour de sécurité, le téléchargement automatique des mises à jour et les notifications de mise à jour.</translation>
     </message>
 </context>
 <context>
@@ -408,120 +524,6 @@
     <message>
         <source>Please plug in and then install updates.</source>
         <translation>Veuillez brancher l&apos;appareil, puis installer les mises à jour.</translation>
-    </message>
-</context>
-<context>
-    <name>update</name>
-    <message>
-        <source>System Update</source>
-        <translation>Mises à jour du système</translation>
-    </message>
-    <message>
-        <source>System update and upgrade</source>
-        <translation>Mise à jour et mise à niveau du système</translation>
-    </message>
-</context>
-<context>
-    <name>updateMain</name>
-    <message>
-        <source>Update Settings</source>
-        <translation>Paramètres des mises à jour</translation>
-    </message>
-    <message>
-        <source>Installing</source>
-        <translation>Installation</translation>
-    </message>
-    <message>
-        <source>Update download completed</source>
-        <translation>Téléchargement de la mise à jour terminé</translation>
-    </message>
-    <message>
-        <source>Install updates</source>
-        <translation>Installer les mises à jour</translation>
-    </message>
-    <message>
-        <source>Update size: </source>
-        <translation>Taille de la mise à jour :</translation>
-    </message>
-    <message>
-        <source>Update download failed</source>
-        <translation>Échec du téléchargement de la mise à jour</translation>
-    </message>
-    <message>
-        <source>Downloading updates...</source>
-        <translation>Téléchargement des mises à jour...</translation>
-    </message>
-    <message>
-        <source>Downloading</source>
-        <translation>Téléchargement</translation>
-    </message>
-    <message>
-        <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
-        <translation>Configurer les paramètres de mise à jour, les mises à jour de sécurité, le téléchargement automatique des mises à jour et les notifications de mise à jour.</translation>
-    </message>
-    <message>
-        <source>Reboot now</source>
-        <translation>Redémarrer maintenant</translation>
-    </message>
-    <message>
-        <source>Download</source>
-        <translation>Télécharger</translation>
-    </message>
-    <message>
-        <source>Installing updates...</source>
-        <translation>Installation des mises à jour...</translation>
-    </message>
-    <message>
-        <source>Retry</source>
-        <translation>Réessayer</translation>
-    </message>
-    <message>
-        <source>Continue Update</source>
-        <translation>Continuer la mise à jour</translation>
-    </message>
-    <message>
-        <source>Updates Available</source>
-        <translation>Mises à jour disponibles</translation>
-    </message>
-    <message>
-        <source>Installation update failed</source>
-        <translation>Échec de l&apos;installation de la mise à jour</translation>
-    </message>
-    <message>
-        <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
-        <translation>Pour garantir le bon fonctionnement de votre système et de vos applications, veuillez redémarrer votre ordinateur après la mise à jour.</translation>
-    </message>
-    <message>
-        <source>Backing up in progress...</source>
-        <translation>Sauvegarde en cours...</translation>
-    </message>
-    <message>
-        <source>Backing up in progress</source>
-        <translation>Sauvegarde en cours</translation>
-    </message>
-    <message>
-        <source>Backup failed</source>
-        <translation>Échec de la sauvegarde</translation>
-    </message>
-    <message>
-        <source>Update installation successful</source>
-        <translation>Mise à jour installée avec succès</translation>
-    </message>
-    <message>
-        <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation>Si vous poursuivez les mises à jour, vous ne pourrez plus revenir à l&apos;ancien système par la suite.</translation>
-    </message>
-    <message>
-        <source>Try Again</source>
-        <translation>Réessayer</translation>
-    </message>
-    <message>
-        <source>Proceed to Update</source>
-        <translation>Procéder à la mise à jour</translation>
-    </message>
-    <message>
-        <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation>La capacité de la batterie est inférieure à 60 %. Pour que la mise à jour s&apos;effectue correctement, veuillez brancher l&apos;appareil.</translation>
     </message>
 </context>
 </TS>

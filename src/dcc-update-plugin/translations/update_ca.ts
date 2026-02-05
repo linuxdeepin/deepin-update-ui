@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ca">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="ca">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -26,6 +28,17 @@
     <message>
         <source>Exit</source>
         <translation>Surt</translation>
+    </message>
+</context>
+<context>
+    <name>Update</name>
+    <message>
+        <source>System Update</source>
+        <translation type="unfinished">Actualització del sistema</translation>
+    </message>
+    <message>
+        <source>System update and upgrade</source>
+        <translation type="unfinished">Actualització i millora del sistema</translation>
     </message>
 </context>
 <context>
@@ -156,6 +169,109 @@
         <source>for more details, please visit </source>
         <translation>per a més detalls, visiteu</translation>
         <extra-content_explain>这句话后面会带上一个超链接，各语言自行决定末尾需不需要加空格</extra-content_explain>
+    </message>
+</context>
+<context>
+    <name>UpdateMain</name>
+    <message>
+        <source>Installing updates...</source>
+        <translation type="unfinished">S&apos;instal·len actualitzacions...</translation>
+    </message>
+    <message>
+        <source>Installing</source>
+        <translation type="unfinished">S&apos;instal·la</translation>
+    </message>
+    <message>
+        <source>Backing up in progress...</source>
+        <translation type="unfinished">Còpia de seguretat en curs...</translation>
+    </message>
+    <message>
+        <source>Backing up in progress</source>
+        <translation type="unfinished">Còpia de seguretat en curs</translation>
+    </message>
+    <message>
+        <source>Downloading updates...</source>
+        <translation type="unfinished">Es baixen les actualitzacions...</translation>
+    </message>
+    <message>
+        <source>Update size: </source>
+        <translation type="unfinished">Mida de l&apos;actualització:</translation>
+    </message>
+    <message>
+        <source>Downloading</source>
+        <translation type="unfinished">Es baixa</translation>
+    </message>
+    <message>
+        <source>Update installation successful</source>
+        <translation type="unfinished">Actualització instal·lada correctament</translation>
+    </message>
+    <message>
+        <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
+        <translation type="unfinished">Per assegurar el bon funcionament del sistema i les aplicacions, reinicieu l&apos;ordinador després de l&apos;actualització.</translation>
+    </message>
+    <message>
+        <source>Reboot now</source>
+        <translation type="unfinished">Reinicia ara</translation>
+    </message>
+    <message>
+        <source>Installation update failed</source>
+        <translation type="unfinished">Ha fallat la instal·lació de l&apos;actualització.</translation>
+    </message>
+    <message>
+        <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
+        <translation type="unfinished">La capacitat de la bateria és inferior al 60%. Per obtenir actualitzacions correctes, endolleu el dispositiu.</translation>
+    </message>
+    <message>
+        <source>Continue Update</source>
+        <translation type="unfinished">Continua l&apos;actualització</translation>
+    </message>
+    <message>
+        <source>Backup failed</source>
+        <translation type="unfinished">Ha fallat la còpia de seguretat.</translation>
+    </message>
+    <message>
+        <source>If you continue the updates, you cannot roll back to the old system later.</source>
+        <translation type="unfinished">Si continueu les actualitzacions, no podreu tornar al sistema anterior més tard.</translation>
+    </message>
+    <message>
+        <source>Back Up Again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Proceed to Update</source>
+        <translation type="unfinished">Procedeix a l&apos;actualització</translation>
+    </message>
+    <message>
+        <source>Update download completed</source>
+        <translation type="unfinished">S&apos;ha completat la baixada de l&apos;actualització.</translation>
+    </message>
+    <message>
+        <source>Install updates</source>
+        <translation type="unfinished">Instal·la les actualitzacions</translation>
+    </message>
+    <message>
+        <source>Update download failed</source>
+        <translation type="unfinished"> Ha fallat la baixada de l&apos;actualització.</translation>
+    </message>
+    <message>
+        <source>Retry</source>
+        <translation type="unfinished">Reintenta</translation>
+    </message>
+    <message>
+        <source>Updates Available</source>
+        <translation type="unfinished">Actualitzacions disponibles</translation>
+    </message>
+    <message>
+        <source>Download</source>
+        <translation type="unfinished">Baixa</translation>
+    </message>
+    <message>
+        <source>Update Settings</source>
+        <translation type="unfinished">Configuració de l&apos;actualització</translation>
+    </message>
+    <message>
+        <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
+        <translation type="unfinished">Estableix la configuració de l&apos;actualització, de les actualitzacions de seguretat, la baixada automàtica i la notificació de les actualitzacions.</translation>
     </message>
 </context>
 <context>
@@ -408,120 +524,6 @@
     <message>
         <source>Please plug in and then install updates.</source>
         <translation>Si us plau, endolleu l&apos;ordinador i després instal·leu les actualitzacions.</translation>
-    </message>
-</context>
-<context>
-    <name>update</name>
-    <message>
-        <source>System Update</source>
-        <translation>Actualització del sistema</translation>
-    </message>
-    <message>
-        <source>System update and upgrade</source>
-        <translation>Actualització i millora del sistema</translation>
-    </message>
-</context>
-<context>
-    <name>updateMain</name>
-    <message>
-        <source>Update Settings</source>
-        <translation>Configuració de l&apos;actualització</translation>
-    </message>
-    <message>
-        <source>Installing</source>
-        <translation>S&apos;instal·la</translation>
-    </message>
-    <message>
-        <source>Update download completed</source>
-        <translation>S&apos;ha completat la baixada de l&apos;actualització.</translation>
-    </message>
-    <message>
-        <source>Install updates</source>
-        <translation>Instal·la les actualitzacions</translation>
-    </message>
-    <message>
-        <source>Update size: </source>
-        <translation>Mida de l&apos;actualització:</translation>
-    </message>
-    <message>
-        <source>Update download failed</source>
-        <translation> Ha fallat la baixada de l&apos;actualització.</translation>
-    </message>
-    <message>
-        <source>Downloading updates...</source>
-        <translation>Es baixen les actualitzacions...</translation>
-    </message>
-    <message>
-        <source>Downloading</source>
-        <translation>Es baixa</translation>
-    </message>
-    <message>
-        <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
-        <translation>Estableix la configuració de l&apos;actualització, de les actualitzacions de seguretat, la baixada automàtica i la notificació de les actualitzacions.</translation>
-    </message>
-    <message>
-        <source>Reboot now</source>
-        <translation>Reinicia ara</translation>
-    </message>
-    <message>
-        <source>Download</source>
-        <translation>Baixa</translation>
-    </message>
-    <message>
-        <source>Installing updates...</source>
-        <translation>S&apos;instal·len actualitzacions...</translation>
-    </message>
-    <message>
-        <source>Retry</source>
-        <translation>Reintenta</translation>
-    </message>
-    <message>
-        <source>Continue Update</source>
-        <translation>Continua l&apos;actualització</translation>
-    </message>
-    <message>
-        <source>Updates Available</source>
-        <translation>Actualitzacions disponibles</translation>
-    </message>
-    <message>
-        <source>Installation update failed</source>
-        <translation>Ha fallat la instal·lació de l&apos;actualització.</translation>
-    </message>
-    <message>
-        <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
-        <translation>Per assegurar el bon funcionament del sistema i les aplicacions, reinicieu l&apos;ordinador després de l&apos;actualització.</translation>
-    </message>
-    <message>
-        <source>Backing up in progress...</source>
-        <translation>Còpia de seguretat en curs...</translation>
-    </message>
-    <message>
-        <source>Backing up in progress</source>
-        <translation>Còpia de seguretat en curs</translation>
-    </message>
-    <message>
-        <source>Backup failed</source>
-        <translation>Ha fallat la còpia de seguretat.</translation>
-    </message>
-    <message>
-        <source>Update installation successful</source>
-        <translation>Actualització instal·lada correctament</translation>
-    </message>
-    <message>
-        <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation>Si continueu les actualitzacions, no podreu tornar al sistema anterior més tard.</translation>
-    </message>
-    <message>
-        <source>Try Again</source>
-        <translation> Torneu-ho a provar</translation>
-    </message>
-    <message>
-        <source>Proceed to Update</source>
-        <translation>Procedeix a l&apos;actualització</translation>
-    </message>
-    <message>
-        <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation>La capacitat de la bateria és inferior al 60%. Per obtenir actualitzacions correctes, endolleu el dispositiu.</translation>
     </message>
 </context>
 </TS>

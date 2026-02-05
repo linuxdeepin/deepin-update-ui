@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ru">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="ru">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -10,7 +12,7 @@
     <name>QObject</name>
     <message>
         <source>Fixed some known bugs and security vulnerabilities</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Исправлены некоторые известные ошибки и уязвимости безопасности</translation>
     </message>
 </context>
 <context>
@@ -26,6 +28,17 @@
     <message>
         <source>Exit</source>
         <translation>Выйти</translation>
+    </message>
+</context>
+<context>
+    <name>Update</name>
+    <message>
+        <source>System Update</source>
+        <translation type="unfinished">Обновление системы</translation>
+    </message>
+    <message>
+        <source>System update and upgrade</source>
+        <translation type="unfinished">Системное обновление</translation>
     </message>
 </context>
 <context>
@@ -59,7 +72,7 @@
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Версия:</translation>
     </message>
 </context>
 <context>
@@ -85,50 +98,50 @@
     </message>
     <message>
         <source>Export to desktop</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>UpdateLogHelper</name>
     <message>
         <source>NONE</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>LOW</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>MEDIUM</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>HIGH</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>CRITICAL</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>critical-risk</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>high-risk</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>medium-risk</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>low-risk</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>unknown</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>This update fixes</source>
@@ -144,7 +157,7 @@
     </message>
     <message>
         <source>%1 of %2 %3</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
         <extra-content_explain>`数字+%`会在代码中替换为字符串，例如：3 of high-risk vulnerabilities；各语言需要根据实际情况增加空格(例如：中文没有空格，英文有空格)</extra-content_explain>
     </message>
     <message>
@@ -156,6 +169,109 @@
         <source>for more details, please visit </source>
         <translation>для более подробной информации, пожалуйста, посетите</translation>
         <extra-content_explain>这句话后面会带上一个超链接，各语言自行决定末尾需不需要加空格</extra-content_explain>
+    </message>
+</context>
+<context>
+    <name>UpdateMain</name>
+    <message>
+        <source>Installing updates...</source>
+        <translation type="unfinished">Установка обновлений...</translation>
+    </message>
+    <message>
+        <source>Installing</source>
+        <translation type="unfinished">Установка</translation>
+    </message>
+    <message>
+        <source>Backing up in progress...</source>
+        <translation type="unfinished">Резервное копирование, пожалуйста, подождите...</translation>
+    </message>
+    <message>
+        <source>Backing up in progress</source>
+        <translation type="unfinished">Резервное копирование, пожалуйста, подождите...</translation>
+    </message>
+    <message>
+        <source>Downloading updates...</source>
+        <translation type="unfinished">Загрузка обновлений...</translation>
+    </message>
+    <message>
+        <source>Update size: </source>
+        <translation type="unfinished">Размер обновления:</translation>
+    </message>
+    <message>
+        <source>Downloading</source>
+        <translation type="unfinished">Загрузка</translation>
+    </message>
+    <message>
+        <source>Update installation successful</source>
+        <translation type="unfinished">Обновления завершены успешно</translation>
+    </message>
+    <message>
+        <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reboot now</source>
+        <translation type="unfinished">Перезагрузить сейчас</translation>
+    </message>
+    <message>
+        <source>Installation update failed</source>
+        <translation type="unfinished">Установка не удалась</translation>
+    </message>
+    <message>
+        <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
+        <translation type="unfinished">Заряд аккумулятора менее 60%. Для успешного обновления, пожалуйста, подключите устройство к сети.</translation>
+    </message>
+    <message>
+        <source>Continue Update</source>
+        <translation type="unfinished">Продолжить обновление</translation>
+    </message>
+    <message>
+        <source>Backup failed</source>
+        <translation type="unfinished">Ошибка при резервном копировании</translation>
+    </message>
+    <message>
+        <source>If you continue the updates, you cannot roll back to the old system later.</source>
+        <translation type="unfinished">Если вы продолжите обновление, вы не сможете впоследствии вернуться к старой системе.</translation>
+    </message>
+    <message>
+        <source>Back Up Again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Proceed to Update</source>
+        <translation type="unfinished">Приступить к обновлению</translation>
+    </message>
+    <message>
+        <source>Update download completed</source>
+        <translation type="unfinished">Загрузка обновления завершена</translation>
+    </message>
+    <message>
+        <source>Install updates</source>
+        <translation type="unfinished">Установить обновления</translation>
+    </message>
+    <message>
+        <source>Update download failed</source>
+        <translation type="unfinished">Ошибка при загрузке обновления</translation>
+    </message>
+    <message>
+        <source>Retry</source>
+        <translation type="unfinished">Повторить</translation>
+    </message>
+    <message>
+        <source>Updates Available</source>
+        <translation type="unfinished">Доступны обновления</translation>
+    </message>
+    <message>
+        <source>Download</source>
+        <translation type="unfinished">Загрузить</translation>
+    </message>
+    <message>
+        <source>Update Settings</source>
+        <translation type="unfinished">Настройки обновления</translation>
+    </message>
+    <message>
+        <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
+        <translation type="unfinished">Настройки обновлений, обновлений безопасности, автоматической загрузки и уведомлений</translation>
     </message>
 </context>
 <context>
@@ -242,7 +358,7 @@
     </message>
     <message>
         <source>The system has enabled auto recovery function and does not support updates. If you have any questions, please contact the enterprise administrator</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -312,7 +428,7 @@
     </message>
     <message>
         <source>Enabling &quot;Auto Download Updates&quot; will automatically download updates when connected to the internet</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Download when Inactive</source>
@@ -391,7 +507,7 @@
     </message>
     <message>
         <source>updatelog</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Log export failed, please try again</source>
@@ -399,7 +515,7 @@
     </message>
     <message>
         <source>The log has been exported to the desktop</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Update</source>
@@ -408,120 +524,6 @@
     <message>
         <source>Please plug in and then install updates.</source>
         <translation>Пожалуйста, подключитесь, а затем установите обновления.</translation>
-    </message>
-</context>
-<context>
-    <name>update</name>
-    <message>
-        <source>System Update</source>
-        <translation>Обновление системы</translation>
-    </message>
-    <message>
-        <source>System update and upgrade</source>
-        <translation>Системное обновление</translation>
-    </message>
-</context>
-<context>
-    <name>updateMain</name>
-    <message>
-        <source>Update Settings</source>
-        <translation>Настройки обновления</translation>
-    </message>
-    <message>
-        <source>Installing</source>
-        <translation>Установка</translation>
-    </message>
-    <message>
-        <source>Update download completed</source>
-        <translation>Загрузка обновления завершена</translation>
-    </message>
-    <message>
-        <source>Install updates</source>
-        <translation>Установить обновления</translation>
-    </message>
-    <message>
-        <source>Update size: </source>
-        <translation>Размер обновления:</translation>
-    </message>
-    <message>
-        <source>Update download failed</source>
-        <translation>Ошибка при загрузке обновления</translation>
-    </message>
-    <message>
-        <source>Downloading updates...</source>
-        <translation>Загрузка обновлений...</translation>
-    </message>
-    <message>
-        <source>Downloading</source>
-        <translation>Загрузка</translation>
-    </message>
-    <message>
-        <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
-        <translation>Настройки обновлений, обновлений безопасности, автоматической загрузки и уведомлений</translation>
-    </message>
-    <message>
-        <source>Reboot now</source>
-        <translation>Перезагрузить сейчас</translation>
-    </message>
-    <message>
-        <source>Download</source>
-        <translation>Загрузить</translation>
-    </message>
-    <message>
-        <source>Installing updates...</source>
-        <translation>Установка обновлений...</translation>
-    </message>
-    <message>
-        <source>Retry</source>
-        <translation>Повторить</translation>
-    </message>
-    <message>
-        <source>Continue Update</source>
-        <translation>Продолжить обновление</translation>
-    </message>
-    <message>
-        <source>Updates Available</source>
-        <translation>Доступны обновления</translation>
-    </message>
-    <message>
-        <source>Installation update failed</source>
-        <translation>Установка не удалась</translation>
-    </message>
-    <message>
-        <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Backing up in progress...</source>
-        <translation>Резервное копирование, пожалуйста, подождите...</translation>
-    </message>
-    <message>
-        <source>Backing up in progress</source>
-        <translation>Резервное копирование, пожалуйста, подождите...</translation>
-    </message>
-    <message>
-        <source>Backup failed</source>
-        <translation>Ошибка при резервном копировании</translation>
-    </message>
-    <message>
-        <source>Update installation successful</source>
-        <translation>Обновления завершены успешно</translation>
-    </message>
-    <message>
-        <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation>Если вы продолжите обновление, вы не сможете впоследствии вернуться к старой системе.</translation>
-    </message>
-    <message>
-        <source>Try Again</source>
-        <translation>Попробовать снова</translation>
-    </message>
-    <message>
-        <source>Proceed to Update</source>
-        <translation>Приступить к обновлению</translation>
-    </message>
-    <message>
-        <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation>Заряд аккумулятора менее 60%. Для успешного обновления, пожалуйста, подключите устройство к сети.</translation>
     </message>
 </context>
 </TS>

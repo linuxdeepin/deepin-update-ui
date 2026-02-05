@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="uk">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="uk">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -10,7 +12,7 @@
     <name>QObject</name>
     <message>
         <source>Fixed some known bugs and security vulnerabilities</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Виправлено деякі відомі вади та недоліки захисту</translation>
     </message>
 </context>
 <context>
@@ -26,6 +28,17 @@
     <message>
         <source>Exit</source>
         <translation>Вийти</translation>
+    </message>
+</context>
+<context>
+    <name>Update</name>
+    <message>
+        <source>System Update</source>
+        <translation type="unfinished">Оновлення системи</translation>
+    </message>
+    <message>
+        <source>System update and upgrade</source>
+        <translation type="unfinished">Оновлення пакунків та самої системи</translation>
     </message>
 </context>
 <context>
@@ -59,7 +72,7 @@
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Версія:</translation>
     </message>
 </context>
 <context>
@@ -156,6 +169,109 @@
         <source>for more details, please visit </source>
         <translation>щоб дізнатися більше, будь ласка, відвідайте</translation>
         <extra-content_explain>这句话后面会带上一个超链接，各语言自行决定末尾需不需要加空格</extra-content_explain>
+    </message>
+</context>
+<context>
+    <name>UpdateMain</name>
+    <message>
+        <source>Installing updates...</source>
+        <translation type="unfinished">Встановлення оновлень…</translation>
+    </message>
+    <message>
+        <source>Installing</source>
+        <translation type="unfinished">Встановлення</translation>
+    </message>
+    <message>
+        <source>Backing up in progress...</source>
+        <translation type="unfinished">Створюємо резервну копію…</translation>
+    </message>
+    <message>
+        <source>Backing up in progress</source>
+        <translation type="unfinished">Виконуємо створення резервної копії</translation>
+    </message>
+    <message>
+        <source>Downloading updates...</source>
+        <translation type="unfinished">Отримуємо оновлення…</translation>
+    </message>
+    <message>
+        <source>Update size: </source>
+        <translation type="unfinished">Розмір оновлення:</translation>
+    </message>
+    <message>
+        <source>Downloading</source>
+        <translation type="unfinished">Отримання</translation>
+    </message>
+    <message>
+        <source>Update installation successful</source>
+        <translation type="unfinished">Успішне встановлення оновлень</translation>
+    </message>
+    <message>
+        <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
+        <translation type="unfinished">Для забезпечення належної роботи вашої системи і програм, будь ласка, перезавантажте систему після оновлення</translation>
+    </message>
+    <message>
+        <source>Reboot now</source>
+        <translation type="unfinished">Перезавантажити зараз</translation>
+    </message>
+    <message>
+        <source>Installation update failed</source>
+        <translation type="unfinished">Не вдалося встановити оновлення</translation>
+    </message>
+    <message>
+        <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
+        <translation type="unfinished">Батарею заряджено менше ніж на 60%. Для успішного оновлення, будь ласка, з&apos;єднайте пристрій із джерелом струму.</translation>
+    </message>
+    <message>
+        <source>Continue Update</source>
+        <translation type="unfinished">Продовжити оновлення</translation>
+    </message>
+    <message>
+        <source>Backup failed</source>
+        <translation type="unfinished">Не вдалося створити резервну копію</translation>
+    </message>
+    <message>
+        <source>If you continue the updates, you cannot roll back to the old system later.</source>
+        <translation type="unfinished">Якщо ви продовжите процедуру оновлення, ви не зможете повернутися до попередньої системи.</translation>
+    </message>
+    <message>
+        <source>Back Up Again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Proceed to Update</source>
+        <translation type="unfinished">Перейти до оновлення</translation>
+    </message>
+    <message>
+        <source>Update download completed</source>
+        <translation type="unfinished">Отримання оновлень завершено</translation>
+    </message>
+    <message>
+        <source>Install updates</source>
+        <translation type="unfinished">Встановити оновлення</translation>
+    </message>
+    <message>
+        <source>Update download failed</source>
+        <translation type="unfinished">Не вдалося отримати оновлення</translation>
+    </message>
+    <message>
+        <source>Retry</source>
+        <translation type="unfinished">Спробувати ще раз</translation>
+    </message>
+    <message>
+        <source>Updates Available</source>
+        <translation type="unfinished">Доступні оновлення</translation>
+    </message>
+    <message>
+        <source>Download</source>
+        <translation type="unfinished">Отримати</translation>
+    </message>
+    <message>
+        <source>Update Settings</source>
+        <translation type="unfinished">Налаштування Оновлення</translation>
+    </message>
+    <message>
+        <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
+        <translation type="unfinished">Налаштування параметрів оновлення. Оновлення захисту, Автоматичне отримання оновлень та сповіщення щодо оновлень</translation>
     </message>
 </context>
 <context>
@@ -408,120 +524,6 @@
     <message>
         <source>Please plug in and then install updates.</source>
         <translation>Будь ласка, з&apos;єднайте комп&apos;ютер з джерелом живлення, потім встановлюйте оновлення.</translation>
-    </message>
-</context>
-<context>
-    <name>update</name>
-    <message>
-        <source>System Update</source>
-        <translation>Оновлення системи</translation>
-    </message>
-    <message>
-        <source>System update and upgrade</source>
-        <translation>Оновлення пакунків та самої системи</translation>
-    </message>
-</context>
-<context>
-    <name>updateMain</name>
-    <message>
-        <source>Update Settings</source>
-        <translation>Налаштування Оновлення</translation>
-    </message>
-    <message>
-        <source>Installing</source>
-        <translation>Встановлення</translation>
-    </message>
-    <message>
-        <source>Update download completed</source>
-        <translation>Отримання оновлень завершено</translation>
-    </message>
-    <message>
-        <source>Install updates</source>
-        <translation>Встановити оновлення</translation>
-    </message>
-    <message>
-        <source>Update size: </source>
-        <translation>Розмір оновлення:</translation>
-    </message>
-    <message>
-        <source>Update download failed</source>
-        <translation>Не вдалося отримати оновлення</translation>
-    </message>
-    <message>
-        <source>Downloading updates...</source>
-        <translation>Отримуємо оновлення…</translation>
-    </message>
-    <message>
-        <source>Downloading</source>
-        <translation>Отримання</translation>
-    </message>
-    <message>
-        <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
-        <translation>Налаштування параметрів оновлення. Оновлення захисту, Автоматичне отримання оновлень та сповіщення щодо оновлень</translation>
-    </message>
-    <message>
-        <source>Reboot now</source>
-        <translation>Перезавантажити зараз</translation>
-    </message>
-    <message>
-        <source>Download</source>
-        <translation>Отримати</translation>
-    </message>
-    <message>
-        <source>Installing updates...</source>
-        <translation>Встановлення оновлень…</translation>
-    </message>
-    <message>
-        <source>Retry</source>
-        <translation>Спробувати ще раз</translation>
-    </message>
-    <message>
-        <source>Continue Update</source>
-        <translation>Продовжити оновлення</translation>
-    </message>
-    <message>
-        <source>Updates Available</source>
-        <translation>Доступні оновлення</translation>
-    </message>
-    <message>
-        <source>Installation update failed</source>
-        <translation>Не вдалося встановити оновлення</translation>
-    </message>
-    <message>
-        <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
-        <translation>Для забезпечення належної роботи вашої системи і програм, будь ласка, перезавантажте систему після оновлення</translation>
-    </message>
-    <message>
-        <source>Backing up in progress...</source>
-        <translation>Створюємо резервну копію…</translation>
-    </message>
-    <message>
-        <source>Backing up in progress</source>
-        <translation>Виконуємо створення резервної копії</translation>
-    </message>
-    <message>
-        <source>Backup failed</source>
-        <translation>Не вдалося створити резервну копію</translation>
-    </message>
-    <message>
-        <source>Update installation successful</source>
-        <translation>Успішне встановлення оновлень</translation>
-    </message>
-    <message>
-        <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation>Якщо ви продовжите процедуру оновлення, ви не зможете повернутися до попередньої системи.</translation>
-    </message>
-    <message>
-        <source>Try Again</source>
-        <translation>Повторити спробу</translation>
-    </message>
-    <message>
-        <source>Proceed to Update</source>
-        <translation>Перейти до оновлення</translation>
-    </message>
-    <message>
-        <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation>Батарею заряджено менше ніж на 60%. Для успішного оновлення, будь ласка, з&apos;єднайте пристрій із джерелом струму.</translation>
     </message>
 </context>
 </TS>

@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="fi">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="fi">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -26,6 +28,17 @@
     <message>
         <source>Exit</source>
         <translation>Poistu</translation>
+    </message>
+</context>
+<context>
+    <name>Update</name>
+    <message>
+        <source>System Update</source>
+        <translation type="unfinished">Päivitys</translation>
+    </message>
+    <message>
+        <source>System update and upgrade</source>
+        <translation type="unfinished">Päivitys ja versio päivitys</translation>
     </message>
 </context>
 <context>
@@ -156,6 +169,109 @@
         <source>for more details, please visit </source>
         <translation>lisätietoja osoitteessa</translation>
         <extra-content_explain>这句话后面会带上一个超链接，各语言自行决定末尾需不需要加空格</extra-content_explain>
+    </message>
+</context>
+<context>
+    <name>UpdateMain</name>
+    <message>
+        <source>Installing updates...</source>
+        <translation type="unfinished">Asentaa päivityksiä...</translation>
+    </message>
+    <message>
+        <source>Installing</source>
+        <translation type="unfinished">Asennetaan</translation>
+    </message>
+    <message>
+        <source>Backing up in progress...</source>
+        <translation type="unfinished">Varmuuskopiointi käynnissä...</translation>
+    </message>
+    <message>
+        <source>Backing up in progress</source>
+        <translation type="unfinished">Varmuuskopiointi käynnissä</translation>
+    </message>
+    <message>
+        <source>Downloading updates...</source>
+        <translation type="unfinished">Ladataan päivityksiä...</translation>
+    </message>
+    <message>
+        <source>Update size: </source>
+        <translation type="unfinished">Päivityksen koko:</translation>
+    </message>
+    <message>
+        <source>Downloading</source>
+        <translation type="unfinished">Ladataan</translation>
+    </message>
+    <message>
+        <source>Update installation successful</source>
+        <translation type="unfinished">Päivitys asennettu</translation>
+    </message>
+    <message>
+        <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
+        <translation type="unfinished">Varmista sovellusten moitteeton toiminta käynnistämällä tietokone uudelleen päivityksen jälkeen</translation>
+    </message>
+    <message>
+        <source>Reboot now</source>
+        <translation type="unfinished">Käynnistä</translation>
+    </message>
+    <message>
+        <source>Installation update failed</source>
+        <translation type="unfinished">Päivityksen asennus epäonnistui</translation>
+    </message>
+    <message>
+        <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
+        <translation type="unfinished">Akun kapasiteetti on alle 60%. Liitä kone sähköverkkoon päivityksen ajaksi.</translation>
+    </message>
+    <message>
+        <source>Continue Update</source>
+        <translation type="unfinished">Jatka päivitystä</translation>
+    </message>
+    <message>
+        <source>Backup failed</source>
+        <translation type="unfinished">Varmuuskopio epäonnistui</translation>
+    </message>
+    <message>
+        <source>If you continue the updates, you cannot roll back to the old system later.</source>
+        <translation type="unfinished">Jos jatkat päivityksiä, et voi palata takaisin vanhaan järjestelmään.</translation>
+    </message>
+    <message>
+        <source>Back Up Again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Proceed to Update</source>
+        <translation type="unfinished">Suorita päivitys</translation>
+    </message>
+    <message>
+        <source>Update download completed</source>
+        <translation type="unfinished">Päivitykset ladattiin</translation>
+    </message>
+    <message>
+        <source>Install updates</source>
+        <translation type="unfinished">Asenna päivitykset</translation>
+    </message>
+    <message>
+        <source>Update download failed</source>
+        <translation type="unfinished">Päivityksen lataus epäonnistui</translation>
+    </message>
+    <message>
+        <source>Retry</source>
+        <translation type="unfinished">Uudelleen</translation>
+    </message>
+    <message>
+        <source>Updates Available</source>
+        <translation type="unfinished">Päivityksiä saatavilla</translation>
+    </message>
+    <message>
+        <source>Download</source>
+        <translation type="unfinished">Lataa</translation>
+    </message>
+    <message>
+        <source>Update Settings</source>
+        <translation type="unfinished">Päivityksen asetukset</translation>
+    </message>
+    <message>
+        <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
+        <translation type="unfinished">Määritä päivitysasetukset, tietoturva, automaattinen lataaminen ja ilmoitukset</translation>
     </message>
 </context>
 <context>
@@ -408,120 +524,6 @@
     <message>
         <source>Please plug in and then install updates.</source>
         <translation>Kytke sähköverkkoon ja asenna sitten päivitykset.</translation>
-    </message>
-</context>
-<context>
-    <name>update</name>
-    <message>
-        <source>System Update</source>
-        <translation>Päivitys</translation>
-    </message>
-    <message>
-        <source>System update and upgrade</source>
-        <translation>Päivitys ja versio päivitys</translation>
-    </message>
-</context>
-<context>
-    <name>updateMain</name>
-    <message>
-        <source>Update Settings</source>
-        <translation>Päivityksen asetukset</translation>
-    </message>
-    <message>
-        <source>Installing</source>
-        <translation>Asennetaan</translation>
-    </message>
-    <message>
-        <source>Update download completed</source>
-        <translation>Päivitykset ladattiin</translation>
-    </message>
-    <message>
-        <source>Install updates</source>
-        <translation>Asenna päivitykset</translation>
-    </message>
-    <message>
-        <source>Update size: </source>
-        <translation>Päivityksen koko:</translation>
-    </message>
-    <message>
-        <source>Update download failed</source>
-        <translation>Päivityksen lataus epäonnistui</translation>
-    </message>
-    <message>
-        <source>Downloading updates...</source>
-        <translation>Ladataan päivityksiä...</translation>
-    </message>
-    <message>
-        <source>Downloading</source>
-        <translation>Ladataan</translation>
-    </message>
-    <message>
-        <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
-        <translation>Määritä päivitysasetukset, tietoturva, automaattinen lataaminen ja ilmoitukset</translation>
-    </message>
-    <message>
-        <source>Reboot now</source>
-        <translation>Käynnistä</translation>
-    </message>
-    <message>
-        <source>Download</source>
-        <translation>Lataa</translation>
-    </message>
-    <message>
-        <source>Installing updates...</source>
-        <translation>Asentaa päivityksiä...</translation>
-    </message>
-    <message>
-        <source>Retry</source>
-        <translation>Uudelleen</translation>
-    </message>
-    <message>
-        <source>Continue Update</source>
-        <translation>Jatka päivitystä</translation>
-    </message>
-    <message>
-        <source>Updates Available</source>
-        <translation>Päivityksiä saatavilla</translation>
-    </message>
-    <message>
-        <source>Installation update failed</source>
-        <translation>Päivityksen asennus epäonnistui</translation>
-    </message>
-    <message>
-        <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
-        <translation>Varmista sovellusten moitteeton toiminta käynnistämällä tietokone uudelleen päivityksen jälkeen</translation>
-    </message>
-    <message>
-        <source>Backing up in progress...</source>
-        <translation>Varmuuskopiointi käynnissä...</translation>
-    </message>
-    <message>
-        <source>Backing up in progress</source>
-        <translation>Varmuuskopiointi käynnissä</translation>
-    </message>
-    <message>
-        <source>Backup failed</source>
-        <translation>Varmuuskopio epäonnistui</translation>
-    </message>
-    <message>
-        <source>Update installation successful</source>
-        <translation>Päivitys asennettu</translation>
-    </message>
-    <message>
-        <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation>Jos jatkat päivityksiä, et voi palata takaisin vanhaan järjestelmään.</translation>
-    </message>
-    <message>
-        <source>Try Again</source>
-        <translation>Yritä uudelleen</translation>
-    </message>
-    <message>
-        <source>Proceed to Update</source>
-        <translation>Suorita päivitys</translation>
-    </message>
-    <message>
-        <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation>Akun kapasiteetti on alle 60%. Liitä kone sähköverkkoon päivityksen ajaksi.</translation>
     </message>
 </context>
 </TS>
