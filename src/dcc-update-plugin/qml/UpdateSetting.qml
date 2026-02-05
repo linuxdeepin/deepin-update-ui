@@ -107,8 +107,10 @@ DccObject {
                     normal: Qt.rgba(0, 0, 0, 0.9)
                     normalDark: Qt.rgba(1, 1, 1, 0.9)
                 }
+                color: D.ColorSelector.textColor
+                // Use the same font style as DccTitleObject (weight: 500)
                 font: DccUtils.copyFont(D.DTK.fontManager.t5, {
-                                            "weight": 700
+                                            "weight": 500
                                         })
                 text: dccObj.displayName
             }
