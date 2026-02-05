@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="tr">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="tr">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -12,7 +10,7 @@
     <name>QObject</name>
     <message>
         <source>Fixed some known bugs and security vulnerabilities</source>
-        <translation type="unfinished">Bilinen bazı hatalar ve güvenlik açıkları düzeltildi</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -34,11 +32,11 @@
     <name>Update</name>
     <message>
         <source>System Update</source>
-        <translation type="unfinished">Sistem Güncellemesi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>System update and upgrade</source>
-        <translation type="unfinished">Sistem güncelleme ve yükseltme</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -72,7 +70,7 @@
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished">Sürüm:</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -175,103 +173,103 @@
     <name>UpdateMain</name>
     <message>
         <source>Installing updates...</source>
-        <translation type="unfinished">Güncellemeler yükleniyor...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Installing</source>
-        <translation type="unfinished">Kuruluyor</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Backing up in progress...</source>
-        <translation type="unfinished">Yedekleme işlemi devam ediyor...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Backing up in progress</source>
-        <translation type="unfinished">Yedekleme devam ediyor</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Downloading updates...</source>
-        <translation type="unfinished">Güncellemeler indiriliyor...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update size: </source>
-        <translation type="unfinished">Güncelleme boyutu: </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Downloading</source>
-        <translation type="unfinished">İndiriliyor</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update installation successful</source>
-        <translation type="unfinished">Güncelleme kurulumu başarılı</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
-        <translation type="unfinished">Sisteminizin ve uygulamalarınızın düzgün çalışmasını sağlamak için lütfen güncellemeden sonra bilgisayarınızı yeniden başlatın</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Reboot now</source>
-        <translation type="unfinished">Şimdi yeniden başlat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Installation update failed</source>
-        <translation type="unfinished">Kurulum güncellemesi başarısız oldu</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation type="unfinished">Pil kapasitesi %60&apos;tan düşük. Başarılı güncellemeler almak için lütfen güç kablosunu takın.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Continue Update</source>
-        <translation type="unfinished">Güncellemeye Devam Et</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Backup failed</source>
-        <translation type="unfinished">Yedekleme başarısız oldu</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation type="unfinished">Güncellemeleri devam ettirirseniz daha sonra eski sisteme geri dönüş yapamazsınız.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Back Up Again</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Proceed to Update</source>
-        <translation type="unfinished">Güncellemeye Devam Et</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update download completed</source>
-        <translation type="unfinished">Güncelleme indirme işlemi tamamlandı</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Install updates</source>
-        <translation type="unfinished">Güncellemeleri yükle</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update download failed</source>
-        <translation type="unfinished">Güncelleme indirmesi başarısız oldu</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Retry</source>
-        <translation type="unfinished">Tekrar dene</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Updates Available</source>
-        <translation type="unfinished">Güncellemeler Mevcut</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Download</source>
-        <translation type="unfinished">İndir</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update Settings</source>
-        <translation type="unfinished">Güncelleme Ayarları</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
-        <translation type="unfinished">Güncelleme ayarlarını, Güvenlik Güncellemelerini, Otomatik İndirme Güncellemelerini ve Güncelleme Bildirimlerini yapılandırın</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
