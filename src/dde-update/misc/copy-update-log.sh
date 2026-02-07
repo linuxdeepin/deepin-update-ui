@@ -21,7 +21,7 @@ fi
 log "Received encoded parameter: $ENCODED_PARAM"
 
 # 解码十六进制参数
-PATHS_PARAM=$(echo "$ENCODED_PARAM" | xxd -r -p 2>/dev/null || echo "")
+PATHS_PARAM=$(printf '%b' "$(echo "$ENCODED_PARAM" | sed 's/../\\x&/g')" 2>/dev/null || echo "")
 
 if [ -z "$PATHS_PARAM" ]; then
     error_exit "Failed to decode hex parameter"
