@@ -35,6 +35,7 @@ D.DialogWindow {
             Layout.bottomMargin: 10
             spacing: 10
             D.Button {
+                D.ColorSelector.inactived: false
                 Layout.fillWidth: true
                 text: qsTr("Cancel")
                 onClicked: {
@@ -42,6 +43,7 @@ D.DialogWindow {
                 }
             }
             D.RecommandButton {
+                D.ColorSelector.inactived: false
                 Layout.fillWidth: true
                 text: qsTr("Exit")
                 onClicked: {

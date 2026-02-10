@@ -61,6 +61,7 @@ D.DialogWindow {
             spacing: 10
             
             Button {
+                D.ColorSelector.inactived: false
                 Layout.fillWidth: true
                 text: qsTr("Close")
                 onClicked: {
@@ -69,6 +70,7 @@ D.DialogWindow {
             }
 
             D.RecommandButton {
+                D.ColorSelector.inactived: false
                 Layout.fillWidth: true
                 text: qsTr("Export to desktop")
                 onClicked: {
