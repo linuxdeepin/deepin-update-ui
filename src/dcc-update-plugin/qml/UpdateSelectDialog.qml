@@ -71,7 +71,7 @@ D.DialogWindow {
 
             component ButtonWithToolTip: D.Button {
                 id: customButton
-
+                D.ColorSelector.inactived: false
                 contentItem: Text {
                     id: buttonText
                     text: customButton.text

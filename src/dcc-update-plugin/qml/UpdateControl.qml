@@ -90,6 +90,7 @@ ColumnLayout {
             }
 
             D.Button {
+                D.ColorSelector.inactived: false
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
                 visible: showLogButton
                 text: qsTr("View Update Log")
@@ -119,6 +120,7 @@ ColumnLayout {
         Repeater {
             model: btnActions
             delegate: D.Button {
+                D.ColorSelector.inactived: false
                 Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
                 text: modelData
                 font: D.DTK.fontManager.t6
@@ -157,6 +159,7 @@ ColumnLayout {
 
                 D.ToolButton {
                     id: pauseIcon
+                    D.ColorSelector.inactived: false
                     icon.name: isPauseOrNot ? "update_start" : "update_pause"
                     icon.width: 24
                     icon.height: 24
@@ -175,6 +178,7 @@ ColumnLayout {
 
                 D.ToolButton {
                     id: stopIcon
+                    D.ColorSelector.inactived: false
                     icon.name: "update_stop"
                     icon.width: 24
                     icon.height: 24

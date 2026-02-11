@@ -118,6 +118,7 @@ DccObject {
                 Layout.fillWidth: true
             }
             D.ToolButton {
+                D.ColorSelector.inactived: false
                 textColor: D.Palette {
                     normal {
                         common: D.DTK.makeColor(D.Color.Highlight)
@@ -197,6 +198,7 @@ DccObject {
                 page: RowLayout {
                     D.LineEdit {
                         id: lineEdit
+                        D.ColorSelector.inactived: false
                         maximumLength: 5
                         validator: RegularExpressionValidator { regularExpression: /^\d*$/ }
                         alertText: qsTr("Only numbers between 1-99999 are allowed")
@@ -378,6 +380,7 @@ DccObject {
                 pageType: DccObject.Editor
                 page: D.Button {
                     implicitWidth: fm.advanceWidth(text) + fm.averageCharacterWidth * 2
+                    D.ColorSelector.inactived: false
                     text: qsTr("View")
                     onClicked: {
                         dccData.model().historyModel.refreshHistory()
@@ -503,6 +506,7 @@ DccObject {
             visible: dccData.model().testingChannelStatus === Common.WaitJoined
             pageType: DccObject.Editor
             page: D.ToolButton {
+                D.ColorSelector.inactived: false
                 text: qsTr("Click here to complete the application")
                 textColor: D.Palette {
                     normal {

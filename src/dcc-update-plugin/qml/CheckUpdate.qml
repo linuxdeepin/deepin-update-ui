@@ -53,6 +53,7 @@ ColumnLayout {
             }
 
             D.Button {
+                D.ColorSelector.inactived: false
                 Layout.alignment: Qt.AlignHCenter
                 implicitWidth: 200
                 visible: text.length !== 0
