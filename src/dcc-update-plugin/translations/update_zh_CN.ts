@@ -36,7 +36,7 @@
     </message>
     <message>
         <source>System update and upgrade</source>
-        <translation type="unfinished"/>
+        <translation>系统更新与升级</translation>
     </message>
 </context>
 <context>
@@ -181,11 +181,11 @@
     </message>
     <message>
         <source>Backing up in progress...</source>
-        <translation type="unfinished"/>
+        <translation>正在备份...</translation>
     </message>
     <message>
         <source>Backing up in progress</source>
-        <translation type="unfinished"/>
+        <translation>正在备份</translation>
     </message>
     <message>
         <source>Downloading updates...</source>
@@ -269,7 +269,7 @@
     </message>
     <message>
         <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
-        <translation type="unfinished"/>
+        <translation>可设置系統更新、安全更新、闲时更新、更新提醒等</translation>
     </message>
 </context>
 <context>
