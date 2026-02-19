@@ -205,7 +205,7 @@
     </message>
     <message>
         <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
-        <translation type="unfinished"/>
+        <translation>为了您能够正常使用系统和应用，更新后请重启电脑</translation>
     </message>
     <message>
         <source>Reboot now</source>
