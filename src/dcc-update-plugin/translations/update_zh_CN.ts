@@ -217,7 +217,7 @@
     </message>
     <message>
         <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation type="unfinished"/>
+        <translation>电池电量低于60%，为保障更新成功，请及时接入电源。</translation>
     </message>
     <message>
         <source>Continue Update</source>
@@ -229,7 +229,7 @@
     </message>
     <message>
         <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation type="unfinished"/>
+        <translation>继续更新，系统将无法回退</translation>
     </message>
     <message>
         <source>Back Up Again</source>
