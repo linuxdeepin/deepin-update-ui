@@ -225,7 +225,7 @@
     </message>
     <message>
         <source>Backup failed</source>
-        <translation type="unfinished"/>
+        <translation>备份失败</translation>
     </message>
     <message>
         <source>If you continue the updates, you cannot roll back to the old system later.</source>
@@ -257,7 +257,7 @@
     </message>
     <message>
         <source>Updates Available</source>
-        <translation type="unfinished"/>
+        <translation>检测到有更新可用</translation>
     </message>
     <message>
         <source>Download</source>
