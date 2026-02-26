@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="ca">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ca">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -34,11 +32,11 @@
     <name>Update</name>
     <message>
         <source>System Update</source>
-        <translation type="unfinished">Actualització del sistema</translation>
+        <translation>Actualització del sistema</translation>
     </message>
     <message>
         <source>System update and upgrade</source>
-        <translation type="unfinished">Actualització i millora del sistema</translation>
+        <translation>Actualització i millora del sistema</translation>
     </message>
 </context>
 <context>
@@ -175,103 +173,103 @@
     <name>UpdateMain</name>
     <message>
         <source>Installing updates...</source>
-        <translation type="unfinished">S&apos;instal·len actualitzacions...</translation>
+        <translation>S&apos;instal·len actualitzacions...</translation>
     </message>
     <message>
         <source>Installing</source>
-        <translation type="unfinished">S&apos;instal·la</translation>
+        <translation>S&apos;instal·la</translation>
     </message>
     <message>
         <source>Backing up in progress...</source>
-        <translation type="unfinished">Còpia de seguretat en curs...</translation>
+        <translation>Còpia de seguretat en curs...</translation>
     </message>
     <message>
         <source>Backing up in progress</source>
-        <translation type="unfinished">Còpia de seguretat en curs</translation>
+        <translation>Còpia de seguretat en curs</translation>
     </message>
     <message>
         <source>Downloading updates...</source>
-        <translation type="unfinished">Es baixen les actualitzacions...</translation>
+        <translation>Es baixen les actualitzacions...</translation>
     </message>
     <message>
         <source>Update size: </source>
-        <translation type="unfinished">Mida de l&apos;actualització:</translation>
+        <translation>Mida de l&apos;actualització:</translation>
     </message>
     <message>
         <source>Downloading</source>
-        <translation type="unfinished">Es baixa</translation>
+        <translation>Es baixa</translation>
     </message>
     <message>
         <source>Update installation successful</source>
-        <translation type="unfinished">Actualització instal·lada correctament</translation>
+        <translation>Actualització instal·lada correctament</translation>
     </message>
     <message>
         <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
-        <translation type="unfinished">Per assegurar el bon funcionament del sistema i les aplicacions, reinicieu l&apos;ordinador després de l&apos;actualització.</translation>
+        <translation>Per assegurar el bon funcionament del sistema i les aplicacions, reinicieu l&apos;ordinador després de l&apos;actualització.</translation>
     </message>
     <message>
         <source>Reboot now</source>
-        <translation type="unfinished">Reinicia ara</translation>
+        <translation>Reinicia&apos;t ara</translation>
     </message>
     <message>
         <source>Installation update failed</source>
-        <translation type="unfinished">Ha fallat la instal·lació de l&apos;actualització.</translation>
+        <translation>Ha fallat la instal·lació de l&apos;actualització.</translation>
     </message>
     <message>
         <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation type="unfinished">La capacitat de la bateria és inferior al 60%. Per obtenir actualitzacions correctes, endolleu el dispositiu.</translation>
+        <translation>La capacitat de la bateria és inferior al 60%. Per obtenir actualitzacions correctes, endolleu el dispositiu.</translation>
     </message>
     <message>
         <source>Continue Update</source>
-        <translation type="unfinished">Continua l&apos;actualització</translation>
+        <translation>Continua l&apos;actualització</translation>
     </message>
     <message>
         <source>Backup failed</source>
-        <translation type="unfinished">Ha fallat la còpia de seguretat.</translation>
+        <translation>Ha fallat la còpia de seguretat.</translation>
     </message>
     <message>
         <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation type="unfinished">Si continueu les actualitzacions, no podreu tornar al sistema anterior més tard.</translation>
+        <translation>Si continueu les actualitzacions, no podreu tornar al sistema anterior més tard.</translation>
     </message>
     <message>
         <source>Back Up Again</source>
-        <translation type="unfinished"></translation>
+        <translation>Torna a fer una còpia de seguretat</translation>
     </message>
     <message>
         <source>Proceed to Update</source>
-        <translation type="unfinished">Procedeix a l&apos;actualització</translation>
+        <translation>Procedeix a l&apos;actualització</translation>
     </message>
     <message>
         <source>Update download completed</source>
-        <translation type="unfinished">S&apos;ha completat la baixada de l&apos;actualització.</translation>
+        <translation>S&apos;ha completat la baixada de l&apos;actualització.</translation>
     </message>
     <message>
         <source>Install updates</source>
-        <translation type="unfinished">Instal·la les actualitzacions</translation>
+        <translation>Instal·la les actualitzacions</translation>
     </message>
     <message>
         <source>Update download failed</source>
-        <translation type="unfinished"> Ha fallat la baixada de l&apos;actualització.</translation>
+        <translation> Ha fallat la baixada de l&apos;actualització.</translation>
     </message>
     <message>
         <source>Retry</source>
-        <translation type="unfinished">Reintenta</translation>
+        <translation>Torna-ho a provar</translation>
     </message>
     <message>
         <source>Updates Available</source>
-        <translation type="unfinished">Actualitzacions disponibles</translation>
+        <translation>Actualitzacions disponibles</translation>
     </message>
     <message>
         <source>Download</source>
-        <translation type="unfinished">Baixa</translation>
+        <translation>Baixa</translation>
     </message>
     <message>
         <source>Update Settings</source>
-        <translation type="unfinished">Configuració de l&apos;actualització</translation>
+        <translation>Configuració de l&apos;actualització</translation>
     </message>
     <message>
         <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
-        <translation type="unfinished">Estableix la configuració de l&apos;actualització, de les actualitzacions de seguretat, la baixada automàtica i la notificació de les actualitzacions.</translation>
+        <translation>Estableix la configuració de l&apos;actualització, de les actualitzacions de seguretat, la baixada automàtica i la notificació de les actualitzacions.</translation>
     </message>
 </context>
 <context>

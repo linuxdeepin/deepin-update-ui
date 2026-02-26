@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="lo">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="lo">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -12,7 +10,7 @@
     <name>QObject</name>
     <message>
         <source>Fixed some known bugs and security vulnerabilities</source>
-        <translation type="unfinished">ແກ້ໄຂຂໍ້ບົກພ່ອງແລະຄວາມສ່ຽງດ້ານຄວາມປອດໄພທີ່ຮູ້ຈັກ</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -34,11 +32,11 @@
     <name>Update</name>
     <message>
         <source>System Update</source>
-        <translation type="unfinished">ການປັບປຸງລະບົບ</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>System update and upgrade</source>
-        <translation type="unfinished">ການປັບປຸງລະບົບແລະຍົກລະດັບ</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -72,7 +70,7 @@
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished">ຮຸ່ນ:</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -175,103 +173,103 @@
     <name>UpdateMain</name>
     <message>
         <source>Installing updates...</source>
-        <translation type="unfinished">ການຕິດຕັ້ງການປັບປຸງ ...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Installing</source>
-        <translation type="unfinished">ການຕິດຕັ້ງ</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Backing up in progress...</source>
-        <translation type="unfinished">ການສໍາຮອງໃນຄວາມຄືບຫນ້າ ...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Backing up in progress</source>
-        <translation type="unfinished">ການສໍາຮອງໃນຄວາມຄືບຫນ້າ</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Downloading updates...</source>
-        <translation type="unfinished">ການດາວໂຫລດອັບເດດ ...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update size: </source>
-        <translation type="unfinished">ປັບປຸງຂະຫນາດ:</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Downloading</source>
-        <translation type="unfinished">ການດາວໂຫລດ</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update installation successful</source>
-        <translation type="unfinished">ປັບປຸງການຕິດຕັ້ງທີ່ປະສົບຜົນສໍາເລັດ</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
-        <translation type="unfinished">ເພື່ອຮັບປະກັນການເຮັດວຽກທີ່ເຫມາະສົມຂອງລະບົບແລະການນໍາໃຊ້ຂອງທ່ານ, ກະລຸນາເລີ່ມຕົ້ນຄອມພິວເຕີຂອງທ່ານຫຼັງຈາກອັບເດດ</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Reboot now</source>
-        <translation type="unfinished">reboot ດຽວນີ້</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Installation update failed</source>
-        <translation type="unfinished">ການປັບປຸງການຕິດຕັ້ງລົ້ມເຫລວ</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation type="unfinished">ຄວາມສາມາດຂອງແບັດເຕີຣີແມ່ນຕໍ່າກວ່າ 60%. ເພື່ອໃຫ້ໄດ້ຮັບການປັບປຸງທີ່ປະສົບຜົນສໍາເລັດ, ກະລຸນາສຽບ.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Continue Update</source>
-        <translation type="unfinished">ສືບຕໍ່ປັບປຸງໃຫ້ທັນ</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Backup failed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation type="unfinished">ຖ້າທ່ານສືບຕໍ່ປັບປຸງ, ທ່ານບໍ່ສາມາດເລື່ອນກັບລະບົບເກົ່າແກ່ຕໍ່ມາ.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Back Up Again</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Proceed to Update</source>
-        <translation type="unfinished">ດໍາເນີນການປັບປຸງ</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update download completed</source>
-        <translation type="unfinished">ການອັບເດດດາວໂຫລດສໍາເລັດແລ້ວ</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Install updates</source>
-        <translation type="unfinished">ຕິດຕັ້ງການປັບປຸງ</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update download failed</source>
-        <translation type="unfinished">ການດາວໂຫລດອັບເດດລົ້ມເຫລວ</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Retry</source>
-        <translation type="unfinished">ລອງໃຫມ່</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Updates Available</source>
-        <translation type="unfinished">ມີການປັບປຸງ</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Download</source>
-        <translation type="unfinished">ດາວໂຫລດ</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update Settings</source>
-        <translation type="unfinished">ປັບປຸງການຕັ້ງຄ່າ</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
-        <translation type="unfinished">ຕັ້ງຄ່າການຕັ້ງຄ່າການອັບເດດ, ການປັບປຸງຄວາມປອດໄພ, ການປັບປຸງອັດຕະໂນມັດດາວໂຫລດອັດຕະໂນມັດແລະການແຈ້ງເຕືອນການປັບປຸງ</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -484,7 +482,7 @@
     </message>
     <message>
         <source>Join the internal testing channel to get deepin latest updates.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
