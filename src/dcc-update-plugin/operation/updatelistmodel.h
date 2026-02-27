@@ -62,6 +62,7 @@ public:
     QString downloadSize() const;
 
     Q_INVOKABLE UpdateType getUpdateType(int index) const;
+    Q_INVOKABLE QVariantList getDetailInfos(int index) const;
 
 public Q_SLOTS:
     void refreshDownloadSize();

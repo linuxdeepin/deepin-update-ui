@@ -161,18 +161,15 @@ void UpdateLogHelper::handleSystemItemInfo(UpdateItemInfo *itemInfo) const
             itemInfo->setAvailableVersion(log.showVersion);
             itemInfo->setExplain(explain);
             itemInfo->setUpdateTime(log.publishTime);
-        } else {
-            DetailInfo detailInfo;
-            const QString& systemVersion = log.showVersion;
-            // 专业版不不在详细信息中显示维护线版本
-            if (!systemVersion.isEmpty() && systemVersion.back() == '0') {
-                qCDebug(logDccUpdatePlugin) << "Adding detail info for version:" << log.showVersion;
-                detailInfo.name = log.showVersion;
-                detailInfo.updateTime = log.publishTime;
-                detailInfo.info = explain;
-                itemInfo->addDetailInfo(detailInfo);
-            }
         }
+
+        // 将所有日志添加到详细信息中
+        DetailInfo detailInfo;
+        qCDebug(logDccUpdatePlugin) << "Adding detail info for version:" << log.showVersion;
+        detailInfo.name = log.showVersion;
+        detailInfo.updateTime = log.publishTime;
+        detailInfo.info = explain;
+        itemInfo->addDetailInfo(detailInfo);
     }
 }
 
