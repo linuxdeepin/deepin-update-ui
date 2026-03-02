@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2025 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2025-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -325,11 +325,14 @@ void PluginUpdatePlugin::updateStateFromUpdateStatus()
     QString securityUpgrade = updateStatusObj["security_upgrade"].toString();
     
     qCInfo(dockUpdatePlugin) << "Parsing UpdateStatus - system_upgrade:" << systemUpgrade << "security_upgrade:" << securityUpgrade;
-    
-    bool shouldShow = (m_updateMode == 1 || m_updateMode == 5 || m_updateMode == 9 || m_updateMode == 13 || m_updateMode == 4) &&
-     (systemUpgrade == "needReboot" || securityUpgrade == "needReboot" || systemUpgrade == "notDownload" || securityUpgrade == "notDownload");
-    
-    m_shouldShow = shouldShow;
+
+    const bool systemEnabled   = (m_updateMode == 1 || m_updateMode == 5 || m_updateMode == 9  || m_updateMode == 13);
+    const bool securityEnabled = (m_updateMode == 4 || m_updateMode == 5 || m_updateMode == 12 || m_updateMode == 13);
+
+    const bool systemHasUpdate   = systemEnabled   && (systemUpgrade   == "needReboot" || systemUpgrade   == "notDownload");
+    const bool securityHasUpdate = securityEnabled && (securityUpgrade == "needReboot" || securityUpgrade == "notDownload");
+
+    m_shouldShow = systemHasUpdate || securityHasUpdate;
 
     UpdateState newState = m_currentState;  
     if (systemUpgrade == "needReboot" || securityUpgrade == "needReboot") {
