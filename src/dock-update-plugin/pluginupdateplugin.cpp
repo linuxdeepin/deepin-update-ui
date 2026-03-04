@@ -91,6 +91,9 @@ QWidget *PluginUpdatePlugin::itemTipsWidget(const QString &itemKey)
 void PluginUpdatePlugin::init(PluginProxyInterface *proxyInter)
 {
     m_proxyInter = proxyInter;
+    if (!pluginIsDisable()) {
+        loadPlugin();
+     }
     if (!m_dconfig) {
         qCWarning(dockUpdatePlugin) << "Failed to create DConfig for org.deepin.dde.lastore";
         return;
@@ -108,9 +111,6 @@ void PluginUpdatePlugin::init(PluginProxyInterface *proxyInter)
     updateDockHiddenSurfaceIds(true);
 
     updateStateFromUpdateStatus();
-    if (!pluginIsDisable()) {
-        loadPlugin();
-     }
 }
 
 void PluginUpdatePlugin::pluginStateSwitched()
@@ -227,14 +227,13 @@ void PluginUpdatePlugin::loadPlugin()
     if (m_pluginLoaded) {
         return;
     }
-    
+    m_proxyInter->itemAdded(this, UPDATE_STATE_KEY);
     m_pluginLoaded = true;
     
     m_dockIcon.reset(new DockIconWidget);
     m_dockIcon->setFixedSize(Dock::DOCK_PLUGIN_ITEM_FIXED_SIZE);
     
     updateIconState();
-    m_proxyInter->itemAdded(this, UPDATE_STATE_KEY);
     displayModeChanged(displayMode());
 }
 
@@ -347,7 +346,7 @@ void PluginUpdatePlugin::updateStateFromUpdateStatus()
         updateIconState();
     }
     
-    qCInfo(dockUpdatePlugin) << "Plugin should show:" << shouldShow;
+    qCInfo(dockUpdatePlugin) << "Plugin should show:" << m_shouldShow;
     return;
 }
 
