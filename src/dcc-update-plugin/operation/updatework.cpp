@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2011 - 2023 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2011 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -646,6 +646,7 @@ void UpdateWorker::startDownload(int updateTypes)
             qCWarning(logDccUpdatePlugin) << "Start download failed, error:" << errorMessage;
             m_model->setLastErrorLog(DownloadFailed, errorMessage);
             m_model->setLastError(DownloadFailed, analyzeJobErrorMessage(errorMessage, DownloadFailed));
+            m_model->setDownloadFailedTips(m_model->errorToText(m_model->lastError(DownloadFailed)));
             cleanLaStoreJob(m_downloadJob);
         } else {
             const QString jobPath = reply.value().path();
