@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="es">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="es">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -12,7 +10,7 @@
     <name>QObject</name>
     <message>
         <source>Fixed some known bugs and security vulnerabilities</source>
-        <translation type="unfinished">Se corrigieron algunos errores conocidos y vulnerabilidades de seguridad.</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -34,11 +32,11 @@
     <name>Update</name>
     <message>
         <source>System Update</source>
-        <translation type="unfinished">Actualización del sistema</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>System update and upgrade</source>
-        <translation type="unfinished">Actualización y mejora del sistema</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -72,7 +70,7 @@
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished">Versión:</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -175,103 +173,103 @@
     <name>UpdateMain</name>
     <message>
         <source>Installing updates...</source>
-        <translation type="unfinished">Instalando actualizaciones...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Installing</source>
-        <translation type="unfinished">Instalando</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Backing up in progress...</source>
-        <translation type="unfinished">Copia de seguridad en progreso...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Backing up in progress</source>
-        <translation type="unfinished">Copia de seguridad en progreso </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Downloading updates...</source>
-        <translation type="unfinished">Descargando actualizaciones...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update size: </source>
-        <translation type="unfinished">Tamaño de la actualización: </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Downloading</source>
-        <translation type="unfinished">Descargando</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update installation successful</source>
-        <translation type="unfinished">Actualización exitosa</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
-        <translation type="unfinished">Para garantizar el correcto funcionamiento del sistema y las aplicaciones, reinicie el equipo después de la actualización</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Reboot now</source>
-        <translation type="unfinished">Reiniciar ahora</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Installation update failed</source>
-        <translation type="unfinished">La instalación de la actualización falló</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation type="unfinished">La capacidad de la batería es inferior al 60%. Para obtener actualizaciones exitosas, conéctese.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Continue Update</source>
-        <translation type="unfinished">Continuar actualización</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Backup failed</source>
-        <translation type="unfinished">La copia de seguridad falló</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation type="unfinished">Si continúa con las actualizaciones, no podrá volver al sistema anterior más adelante.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Back Up Again</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Proceed to Update</source>
-        <translation type="unfinished">Proceder a la actualización</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update download completed</source>
-        <translation type="unfinished">Descarga de actualización completada</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Install updates</source>
-        <translation type="unfinished">Instalar actualizaciones</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update download failed</source>
-        <translation type="unfinished">La descarga de la actualización falló</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Retry</source>
-        <translation type="unfinished">Reintentar</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Updates Available</source>
-        <translation type="unfinished">Actualizaciones disponibles</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Download</source>
-        <translation type="unfinished">Descargar</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update Settings</source>
-        <translation type="unfinished">Ajustes de actualización</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
-        <translation type="unfinished">Ajustes de actualizaciones, actualizaciones de seguridad, descarga automática y notificación</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
