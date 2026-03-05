@@ -53,7 +53,7 @@ Rectangle {
 
                     ColumnLayout {
                         Layout.alignment: Qt.AlignRight
-                        spacing: 6
+                        spacing: 10
 
                         RowLayout {
                             Label {
@@ -82,22 +82,13 @@ Rectangle {
                             Layout.alignment: Qt.AlignLeft
                             horizontalAlignment: Text.AlignLeft
                             Layout.fillWidth: true
-                            font: D.DTK.fontManager.t8
-                            color: D.DTK.themeType == D.ApplicationHelper.LightType ? Qt.rgba(0, 0, 0, 1) : Qt.rgba(1, 1, 1, 1)
-                            visible: model.version.length !== 0
-                            text: qsTr("Version:") + model.version
-                        }
-
-                        D.Label {
-                            Layout.alignment: Qt.AlignLeft
-                            horizontalAlignment: Text.AlignLeft
-                            Layout.fillWidth: true
+                            Layout.bottomMargin: -20
                             font: D.DTK.fontManager.t8
                             text: model.explain
                             wrapMode: Text.WordWrap
                             onLinkActivated: (link)=> {
                                 dccData.work().openUrl(link)
-                            }  
+                            }
                         }
 
                         RowLayout {
@@ -107,11 +98,44 @@ Rectangle {
                                 horizontalAlignment: Text.AlignLeft
                                 visible: model.releaseTime.length !== 0
                                 font: D.DTK.fontManager.t8
+                                color: D.DTK.themeType == D.ApplicationHelper.LightType ? Qt.rgba(0, 0, 0, 1) : Qt.rgba(1, 1, 1, 1)
                                 text: qsTr("Release time:") + model.releaseTime
                             }
 
                             Item {
                                 Layout.fillWidth: true
+                            }
+                        }
+
+                        // 详情列表
+                        Repeater {
+                            model: repeater.model.getDetailInfos(index)
+                            ColumnLayout {
+                                Layout.fillWidth: true
+
+                                D.Label {
+                                    Layout.alignment: Qt.AlignLeft
+                                    horizontalAlignment: Text.AlignLeft
+                                    Layout.fillWidth: true
+                                    Layout.bottomMargin: -12
+                                    font: D.DTK.fontManager.t8
+                                    visible: modelData.info !== ""
+                                    text: modelData.info
+                                    wrapMode: Text.WordWrap
+                                    onLinkActivated: (link)=> {
+                                        dccData.work().openUrl(link)
+                                    }
+                                }
+
+                                D.Label {
+                                    Layout.alignment: Qt.AlignLeft
+                                    horizontalAlignment: Text.AlignLeft
+                                    visible: modelData.updateTime !== ""
+                                    font: D.DTK.fontManager.t8
+                                    color: D.DTK.themeType == D.ApplicationHelper.LightType ? Qt.rgba(0, 0, 0, 1) : Qt.rgba(1, 1, 1, 1)
+                                    text: qsTr("Release time:") + modelData.updateTime
+                                    wrapMode: Text.WordWrap
+                                }
                             }
                         }
                     }
