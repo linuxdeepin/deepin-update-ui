@@ -1,10 +1,11 @@
-// SPDX-FileCopyrightText: 2019 - 2023 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2019 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
 #include "recoverydialog.h"
 #include "backgroundwidget.h"
 #include "dconfig_helper.h"
+#include "common/commondefine.h"
 
 #include <DLabel>
 #include <DFontSizeManager>
@@ -27,6 +28,7 @@
 #include <QJsonObject>
 #include <QPointer>
 #include <QDBusReply>
+#include <QDBusInterface>
 #include <DIcon>
 #include <QLoggingCategory>
 
@@ -188,7 +190,12 @@ void Manage::doConfirmRollback(bool confirm)
     if (confirm) {
         qCDebug(logUpdateRecovery) << "User confirmed rollback, updating UI to waiting state";
         m_recoveryWidget->updateRestoringWaitUI();
-        QDBusPendingCall call = m_updateDBusProxy->ConfirmRollback(true);
+        // ConfirmRollback can take ~30s+, bypass the proxy to set a 30-minute
+        // timeout and avoid the default ~25s DBus timeout.
+        QDBusInterface managerIface(ManagerService, ManagerPath, ManagerInterface,
+                                    QDBusConnection::systemBus());
+        managerIface.setTimeout(30 * 60 * 1000);
+        QDBusPendingCall call = managerIface.asyncCall(QStringLiteral("ConfirmRollback"), true);
         QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
         connect(watcher, &QDBusPendingCallWatcher::finished, [this, watcher] {
             QDBusPendingReply<void> reply = *watcher;
