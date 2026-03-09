@@ -193,7 +193,7 @@
     </message>
     <message>
         <source>Update size: </source>
-        <translation>Mida de l&apos;actualització:</translation>
+        <translation>Mida de l&apos;actualització: </translation>
     </message>
     <message>
         <source>Downloading</source>
