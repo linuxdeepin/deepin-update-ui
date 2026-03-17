@@ -20,6 +20,7 @@
 #include <QVariant>
 #include <QtConcurrent>
 #include <QLoggingCategory>
+#include <QStorageInfo>
 
 #include <memory>
 
@@ -628,6 +629,20 @@ void UpdateWorker::setUpdateItemDownloadSize(UpdateItemInfo* updateItem)
     });
 }
 
+QString UpdateWorker::calculateRequiredSpaceText(int updateTypes, const QString &originalText)
+{
+    qlonglong bytes = 0;
+    for (auto item : m_model->getAllUpdateInfos().values()) {
+        if (updateTypes & item->updateType()) {
+            bytes += item->downloadSize();
+        }
+    }
+
+    bytes -= QStorageInfo("/var").bytesAvailable();
+    bytes = bytes > 0 ? bytes : 10 * 1024 * 1024;
+    return QString(originalText).arg(dcc::update::common::formatCap(bytes));
+}
+
 void UpdateWorker::startDownload(int updateTypes)
 {
     qCInfo(logDccUpdatePlugin) << "Start download, update types: " << updateTypes;
@@ -639,14 +654,19 @@ void UpdateWorker::startDownload(int updateTypes)
 
     // 开始下载
     QDBusPendingCallWatcher* watcher = new QDBusPendingCallWatcher(m_updateInter->PrepareDistUpgradePartly(updateTypes), this);
-    connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, watcher] {
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, watcher, updateTypes] {
         QDBusPendingReply<QDBusObjectPath> reply = *watcher;
         if (reply.isError()) {
             const QString& errorMessage = reply.error().message();
             qCWarning(logDccUpdatePlugin) << "Start download failed, error:" << errorMessage;
             m_model->setLastErrorLog(DownloadFailed, errorMessage);
-            m_model->setLastError(DownloadFailed, analyzeJobErrorMessage(errorMessage, DownloadFailed));
-            m_model->setDownloadFailedTips(m_model->errorToText(m_model->lastError(DownloadFailed)));
+            UpdateErrorType errorType = analyzeJobErrorMessage(errorMessage, DownloadFailed);
+            m_model->setLastError(DownloadFailed, errorType);
+            QString tips = m_model->errorToText(errorType);
+            if (errorType == DownloadingNoSpace) {
+                tips = calculateRequiredSpaceText(updateTypes, tips);
+            }
+            m_model->setDownloadFailedTips(tips);
             cleanLaStoreJob(m_downloadJob);
         } else {
             const QString jobPath = reply.value().path();

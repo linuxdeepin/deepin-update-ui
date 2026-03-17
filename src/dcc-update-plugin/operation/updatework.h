@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2011 - 2023 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2011 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -137,6 +137,8 @@ private:
     std::optional<QString> m_machineid;
     std::optional<QUrl> m_testingChannelUrl;
     QMutex m_downloadMutex;
+
+    QString calculateRequiredSpaceText(int updateTypes, const QString &originalText);
 
     bool m_doCheckUpdates;
     QPointer<UpdateJobDBusProxy> m_checkUpdateJob;
