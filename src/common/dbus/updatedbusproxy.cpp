@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018 - 2023 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2018 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 #include "updatedbusproxy.h"
@@ -426,6 +426,14 @@ QDBusPendingReply<void> UpdateDBusProxy::GetUpdateDetails(int fd, bool realtime)
     argumentList << QVariant::fromValue(QDBusUnixFileDescriptor(fd));
     argumentList << QVariant::fromValue(realtime);
     return m_managerInter->asyncCallWithArgumentList(QStringLiteral("GetUpdateDetails"), argumentList);
+}
+
+QDBusPendingReply<void> UpdateDBusProxy::SetShutdownForceUpdate(bool isShutdownUpdate)
+{
+    qCDebug(logCommon) << "Setting shutdown force update , isShutdownUpdate:" << isShutdownUpdate;
+    QList<QVariant> argumentList;
+    argumentList << QVariant::fromValue(isShutdownUpdate);
+    return m_managerInter->asyncCallWithArgumentList(QStringLiteral("SetShutdownForceUpdate"), argumentList);
 }
 
 bool UpdateDBusProxy::onBattery()
