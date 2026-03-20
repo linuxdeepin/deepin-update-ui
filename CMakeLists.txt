@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2025 UnionTech Software Technology Co., Ltd.
+# SPDX-FileCopyrightText: 2025-2026 UnionTech Software Technology Co., Ltd.
 #
 # SPDX-License-Identifier: CC0-1.0
 
@@ -40,4 +40,5 @@ add_subdirectory("src/dde-update")
 add_subdirectory("src/dde-abrecovery")
 add_subdirectory("src/dcc-update-plugin")
 add_subdirectory("src/dock-update-plugin")
+add_subdirectory("src/private-lastore-tray")
 

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 - 2027 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2024-2026 UnionTech Software Technology Co., Ltd.
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 import QtQuick 2.15
@@ -291,7 +291,10 @@ DccObject {
         page: UpdateControl {
             updateListModels: dccData.model().preInstallListModel
             updateTitle: qsTr("Update download completed")
-            btnActions: [ qsTr("Install updates") ]
+            btnActions: dccData.model().isPrivateUpdate ? [ 
+                qsTr("Install updates"),
+                qsTr("Check Again")
+            ] : [qsTr("Install updates")]
             updateTips: {
                 if (!dccData.model().batterIsOK) {
                     return qsTr("The battery capacity is lower than 60%. To get successful updates, please plug in.")
@@ -302,8 +305,12 @@ DccObject {
             updateListEnable: !dccData.model().upgradeWaiting
 
             onBtnClicked: function(index, updateType) {
-                updateSelectDialog.updateType = updateType
-                updateSelectDialog.show()
+                if (index === 0) {
+                    updateSelectDialog.updateType = updateType
+                    updateSelectDialog.show()
+                } else if (index === 1) {
+                    dccData.work().reCheckWithUi();
+                }
             }
 
             UpdateSelectDialog {
@@ -367,7 +374,7 @@ DccObject {
 
         page: UpdateControl {
             updateListModels: dccData.model().preUpdatelistModel
-            updateTitle: !dccData.model().downloadWaiting ? qsTr("Updates Available") : qsTr("Downloading updates...")
+            updateTitle: !dccData.model().downloadWaiting || dccData.model().isPrivateUpdate ? qsTr("Updates Available") : qsTr("Downloading updates...")
             btnActions: [ qsTr("Download") ]
             updateTips: qsTr("Update size: ") + dccData.model().preUpdatelistModel.downloadSize
             busyState: dccData.model().downloadWaiting
@@ -375,6 +382,12 @@ DccObject {
 
             onBtnClicked: function(index, updateType) {
                 dccData.work().startDownload(updateType)
+            }
+
+            Component.onCompleted: {
+                if (dccData.model().isPrivateUpdate) {
+                    dccData.work().startDownload(1)
+                }
             }
         }
     }
@@ -387,7 +400,7 @@ DccObject {
         description: qsTr("Configure Update settings、Security Updates、Auto Download Updates and Updates Notification")
         icon: "update_set"
         weight: 120
-        visible: dccData.model().systemActivation
+        visible: dccData.model().systemActivation && !dccData.model().isPrivateUpdate
 
         UpdateSetting {}
     }
