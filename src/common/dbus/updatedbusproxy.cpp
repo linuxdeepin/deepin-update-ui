@@ -428,6 +428,14 @@ QDBusPendingReply<void> UpdateDBusProxy::GetUpdateDetails(int fd, bool realtime)
     return m_managerInter->asyncCallWithArgumentList(QStringLiteral("GetUpdateDetails"), argumentList);
 }
 
+QDBusPendingReply<void> UpdateDBusProxy::SetShutdownForceUpdate(bool isShutdownUpdate)
+{
+    qCDebug(logCommon) << "Setting shutdown force update , isShutdownUpdate:" << isShutdownUpdate;
+    QList<QVariant> argumentList;
+    argumentList << QVariant::fromValue(isShutdownUpdate);
+    return m_managerInter->asyncCallWithArgumentList(QStringLiteral("SetShutdownForceUpdate"), argumentList);
+}
+
 bool UpdateDBusProxy::onBattery()
 {
     return qvariant_cast<bool>(m_powerInter->property("OnBattery"));

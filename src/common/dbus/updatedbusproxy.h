@@ -108,7 +108,7 @@ public:
     QDBusPendingReply<QDBusObjectPath> fixError(const QString &errorType);
     QDBusPendingCall CheckUpgrade(int checkMode, int checkOrder);
     QDBusPendingReply<void> GetUpdateDetails(int fd, bool realtime);
-
+    QDBusPendingReply<void> SetShutdownForceUpdate(bool isShutdownUpdate);
 
     // Power
     bool onBattery();

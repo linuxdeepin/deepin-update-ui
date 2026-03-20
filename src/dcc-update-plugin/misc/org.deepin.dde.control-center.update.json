@@ -78,6 +78,17 @@
             "description": "",
             "permissions": "readwrite",
             "visibility": "private"
+        },
+        "isPrivateUpdate": {
+            "value": "False",
+            "serial": 0,
+            "flags": ["global"],
+            "name": "is private update",
+            "name[zh_CN]": "是否接入私有化更新",
+            "description[zh_CN]": "是否接入私有化更新",
+            "description": "",
+            "permissions": "readwrite",
+            "visibility": "private"
         }
     }
 }

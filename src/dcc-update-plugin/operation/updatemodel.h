@@ -29,6 +29,7 @@ class UpdateModel : public QObject
     Q_PROPERTY(bool batterIsOK READ batterIsOK NOTIFY batterIsOKChanged FINAL)
     Q_PROPERTY(int lastStatus READ lastStatus  NOTIFY lastStatusChanged FINAL)
     Q_PROPERTY(bool isUpdatable READ isUpdatable  NOTIFY isUpdatableChanged FINAL)
+    Q_PROPERTY(bool isPrivateUpdate READ isPrivateUpdate NOTIFY isPrivateUpdateChanged FINAL)
 
     // ---------------检查更新页面数据---------------
     Q_PROPERTY(bool showCheckUpdate READ showCheckUpdate NOTIFY showCheckUpdateChanged FINAL)
@@ -234,6 +235,9 @@ public:
     bool isUpdatable() const { return m_isUpdatable; }
     void setIsUpdatable(bool isUpdatable);
 
+    bool isPrivateUpdate() const { return m_isPrivateUpdate; }
+    void setIsPrivateUpdate(bool isPrivateUpdate);
+
     UpdatesStatus updateStatus(ControlPanelType type) const;
     UpdatesStatus updateStatus(UpdateType type) const;
     QList<UpdateType> updateTypesList(ControlPanelType type) const;
@@ -369,6 +373,7 @@ Q_SIGNALS:
 
     void updateInfoChanged(UpdateType);
     void isUpdatableChanged(const bool isUpdatablePackages);
+    void isPrivateUpdateChanged(const bool isPrivateUpdate);
     void updateStatusChanged(ControlPanelType, UpdatesStatus);
     void controlTypeChanged();
     void lastErrorChanged(UpdatesStatus, UpdateErrorType);
@@ -443,6 +448,7 @@ private:
     QByteArray m_updateStatus; // lastore daemon发上来的原始json数据
 
     bool m_isUpdatable; // 是否有包可更新
+    bool m_isPrivateUpdate; //当前是否接入私有化更新
     QMap<ControlPanelType, QPair<UpdatesStatus, QList<UpdateType>>> m_controlStatusMap;
     QMap<UpdatesStatus, int> m_waitingStatusMap;
 

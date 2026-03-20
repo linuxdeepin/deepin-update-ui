@@ -6,6 +6,7 @@
 #include "common/common/logwatcherhelper.h"
 #include "utils.h"
 #include "dconfigwatcher.h"
+#include "common/common/dconfig_helper.h"
 #include "updateloghelper.h"
 
 #include <QDBusError>
@@ -206,6 +207,8 @@ void UpdateWorker::initConnect()
             // m_model->setUpdateHistoryEnabled(DConfigWatcher::instance()->getValue(DConfigWatcher::update, configName).toBool());
         } else if (configName == "p2pUpdateEnabled") {
             // m_model->setP2PUpdateEnabled(DConfigWatcher::instance()->getValue(DConfigWatcher::update, configName).toBool());
+        } else if (configName == "isPrivateUpdate") {
+             m_model->setIsPrivateUpdate(DConfigHelper::instance()->getConfig("org.deepin.dde.lastore", "org.deepin.dde.lastore", "","intranet-update", false).toString() == "true");
         }
     });
 }
@@ -221,6 +224,7 @@ void UpdateWorker::activate()
     refreshLastTimeAndCheckCircle();
     initTestingChannel();
 
+    m_model->setIsPrivateUpdate(DConfigHelper::instance()->getConfig("org.deepin.dde.lastore", "org.deepin.dde.lastore", "","intranet-update", false).toString() == "true");
     m_model->setUpdateMode(m_updateInter->updateMode());
     m_model->setCheckUpdateMode(m_updateInter->checkUpdateMode());
     m_model->setSecurityUpdateEnabled(DConfigWatcher::instance()->getValue(DConfigWatcher::update, "updateSafety").toString() != "Hidden");
@@ -492,6 +496,12 @@ void UpdateWorker::doCheckUpdates()
         }
         watcher->deleteLater();
     });
+}
+
+void UpdateWorker::reCheckWithUi()
+{
+    m_model->setShowCheckUpdate(true);
+    doCheckUpdates();
 }
 
 void UpdateWorker::setCheckUpdatesJob(const QString& jobPath)
@@ -785,6 +795,12 @@ void UpdateWorker::modalUpgrade(bool rebootAfterUpgrade)
     } else {
         m_updateInter->UpdateAndShutdown();
     }
+}
+
+void UpdateWorker::setShutdownAndUpgrade(bool isShutdownUpdate)
+{
+    qCInfo(logDccUpdatePlugin) << "request shutdown upgrade, upgrade after shutdown:" << isShutdownUpdate;
+    m_updateInter->SetShutdownForceUpdate(isShutdownUpdate);
 }
 
 void UpdateWorker::setBackupJob(const QString& jobPath)

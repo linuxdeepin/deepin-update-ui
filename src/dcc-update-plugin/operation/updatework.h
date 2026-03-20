@@ -37,6 +37,7 @@ public:
     // 检查更新
     Q_INVOKABLE void checkNeedDoUpdates();
     Q_INVOKABLE void doCheckUpdates();
+    Q_INVOKABLE void reCheckWithUi();
     void setCheckUpdatesJob(const QString& jobPath);
     void createCheckUpdateJob(const QString& jobPath);
     void refreshLastTimeAndCheckCircle();
@@ -54,6 +55,7 @@ public:
     Q_INVOKABLE void doUpgrade(int updateTypes, bool doBackup);
     Q_INVOKABLE void reStart();
     Q_INVOKABLE void modalUpgrade(bool rebootAfterUpgrade = true);
+    Q_INVOKABLE void setShutdownAndUpgrade(bool isShutdownUpdate = false);
     void setBackupJob(const QString& jobPath);
     void setDistUpgradeJob(const QString& jobPath);
     void updateSystemVersion();

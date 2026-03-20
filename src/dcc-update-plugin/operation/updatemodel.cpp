@@ -72,6 +72,7 @@ UpdateModel::UpdateModel(QObject* parent)
     , m_backupFailedTips("")
     , m_installLog("")
     , m_isUpdatable(false)
+    , m_isPrivateUpdate(false)
     , m_securityUpdateEnabled(false)
     , m_thirdPartyUpdateEnabled(false)
     , m_updateMode(UpdateType::Invalid)
@@ -967,6 +968,17 @@ void UpdateModel::setIsUpdatable(bool isUpdatable)
 
     m_isUpdatable = isUpdatable;
     Q_EMIT isUpdatableChanged(isUpdatable);
+}
+
+void UpdateModel::setIsPrivateUpdate(bool isPrivateUpdate)
+{
+    qCDebug(logDccUpdatePlugin) << "Setting is private update: " << isPrivateUpdate;
+    if (m_isPrivateUpdate == isPrivateUpdate) {
+        return;
+    }
+
+    m_isPrivateUpdate = isPrivateUpdate;
+    Q_EMIT isPrivateUpdateChanged(isPrivateUpdate);
 }
 
 UpdatesStatus UpdateModel::updateStatus(ControlPanelType type) const

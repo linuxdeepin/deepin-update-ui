@@ -40,4 +40,5 @@ add_subdirectory("src/dde-update")
 add_subdirectory("src/dde-abrecovery")
 add_subdirectory("src/dcc-update-plugin")
 add_subdirectory("src/dock-update-plugin")
+add_subdirectory("src/private-lastore-tray")
 

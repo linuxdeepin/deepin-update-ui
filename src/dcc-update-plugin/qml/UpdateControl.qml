@@ -118,14 +118,115 @@ ColumnLayout {
 
         Repeater {
             model: btnActions
-            delegate: D.Button {
+            delegate: Loader {
+                id: buttonLoader
                 Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-                text: modelData
-                font: D.DTK.fontManager.t6
                 visible: modelData.length !== 0 && !initAnimation.visible
                 enabled: updatelistModel.model.isUpdateEnable
-                onClicked: {
-                    rootLayout.btnClicked(index, updateListModels.getAllUpdateType())
+
+                Connections {
+                    target: dccData.model()
+                    function onIsPrivateUpdateChanged() {
+                        updateButtonType()
+                    }
+                    function onIsUpdateDisabledChanged() {
+                        updateButtonType()
+                    }
+                    function onShowCheckUpdateChanged() {
+                        updateButtonType()
+                    }
+                }
+
+                Component.onCompleted: {
+                    updateButtonType()
+                }
+    
+                function updateButtonType() {
+                    var model = dccData.model()
+                    if (!model) {
+                        console.log("Model not ready yet")
+                        return
+                    }
+                    if (index === 1) {
+                        buttonLoader.sourceComponent = normalButtonComponent
+                    } else if (model.isPrivateUpdate && 
+                            !model.isUpdateDisabled && 
+                            !model.showCheckUpdate && 
+                            model.preInstallListModel.anyVisible) {
+                        buttonLoader.sourceComponent = dropdownButtonComponent
+                    } else {
+                        // 默认使用普通按钮
+                        buttonLoader.sourceComponent = normalButtonComponent
+                    }
+                }
+                
+                Component {
+                    id: normalButtonComponent
+                    D.Button {
+                        text: modelData
+                        font: D.DTK.fontManager.t6
+                        onClicked: {
+                            rootLayout.btnClicked(index, updateListModels.getAllUpdateType())
+                        }
+                    }
+                }
+                
+                Component {
+                    id: dropdownButtonComponent
+                    Item {
+                        implicitWidth: button.implicitWidth
+                        implicitHeight: button.implicitHeight
+                        
+                        enum InstallType {
+                            Now,
+                            Shutdown
+                        }
+                        
+                        property int curType: DropdownButton.InstallType.Now
+                        
+                        signal requestUpdateNow()
+                        signal requestUpdateShutdown()
+                        
+                        D.Button {
+                            id: button
+                            text: qsTr("Install")
+                            
+                            Menu {
+                                id: contextMenu
+                                
+                                MenuItem {
+                                    text: qsTr("Install Now")
+                                    onClicked: {
+                                        dccData.work().setShutdownAndUpgrade(false)
+                                        dccData.work().doUpgrade(updateListModels.getAllUpdateType(), true)
+                                    }
+                                }
+                                
+                                MenuItem {
+                                    text: qsTr("Install Shutdown")
+                                    onClicked: {
+                                        dccData.work().setShutdownAndUpgrade(true)
+                                    }
+                                }
+                            }
+                            
+                            // 点击按钮显示菜单
+                            onClicked: {
+                                contextMenu.open()
+                            }
+                        }
+                        
+                        // 连接内部信号到外部
+                        Connections {
+                            target: parent
+                            function onRequestUpdateNow() {                                 
+                                rootLayout.btnClicked(index, 0)
+                            }
+                            function onRequestUpdateShutdown() {
+                                rootLayout.btnClicked(index, 1)
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -180,7 +281,7 @@ ColumnLayout {
                     icon.height: 24
                     implicitWidth: 24
                     implicitHeight: 24
-                    visible: isDownloading
+                    visible: isDownloading && !dccData.model().isPrivateUpdate
 
                     onClicked: {
                         rootLayout.closeDownload()
