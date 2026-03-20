@@ -47,6 +47,18 @@
         <source>View Update Log</source>
         <translation>查看更新日誌</translation>
     </message>
+    <message>
+        <source>Install</source>
+        <translation>更新</translation>
+    </message>
+    <message>
+        <source>Install Now</source>
+        <translation>立即更新</translation>
+    </message>
+    <message>
+        <source>Install Shutdown</source>
+        <translation>關機後更新</translation>
+    </message>
 </context>
 <context>
     <name>UpdateHistoryDialog</name>
@@ -248,6 +260,10 @@
     <message>
         <source>Install updates</source>
         <translation>安裝更新</translation>
+    </message>
+    <message>
+        <source>Check Again</source>
+        <translation>重新檢查更新</translation>
     </message>
     <message>
         <source>Update download failed</source>

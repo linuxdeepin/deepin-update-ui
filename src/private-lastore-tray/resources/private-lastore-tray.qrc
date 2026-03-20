@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="resources/private-lastore-active_16px.svg">private-lastore-active_16px.svg</file>
+        <file alias="resources/private-lastore-sleep_16px.svg">private-lastore-sleep_16px.svg</file>
+    </qresource>
+</RCC>
