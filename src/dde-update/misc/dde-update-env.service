@@ -1,0 +1,10 @@
+[Unit]
+Description=DDE Update Environment Service
+After=display-manager.service
+
+[Service]
+Type=simple
+ExecStart=/usr/libexec/deepin-update-ui/dde-update-env.sh
+Restart=no
+
+
