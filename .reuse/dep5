@@ -34,7 +34,7 @@ Copyright: None
 License: CC0-1.0
 
 # configuration files for CI scripts/tools
-Files: .github/* .obs/* .tx/transifex.yaml .tx/deepin.conf src/dde-update/misc/deepin-update-log-copy@.service src/dde-update/misc/52-deepin-update-ui.rules
+Files: .github/* .obs/* .tx/transifex.yaml .tx/deepin.conf src/dde-update/misc/deepin-update-log-copy@.service src/dde-update/misc/52-deepin-update-ui.rules src/dde-update/misc/dde-update-env.service
 Copyright: None
 License: CC0-1.0
 

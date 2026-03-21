@@ -1,0 +1,11 @@
+[Unit]
+Description=DDE Update Environment Service
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/libexec/deepin-update-ui/dde-update-env.sh
+StandardOutput=journal
+StandardError=journal
+Restart=no
+
