@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="zh_TW">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="zh_TW">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -34,11 +32,11 @@
     <name>Update</name>
     <message>
         <source>System Update</source>
-        <translation>系統更新</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>System update and upgrade</source>
-        <translation>系統更新升級</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -175,103 +173,103 @@
     <name>UpdateMain</name>
     <message>
         <source>Installing updates...</source>
-        <translation>正在安裝更新...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Installing</source>
-        <translation>正在安裝</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Backing up in progress...</source>
-        <translation>正在備份...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Backing up in progress</source>
-        <translation>正在備份</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Downloading updates...</source>
-        <translation>下載更新中...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update size: </source>
-        <translation>更新大小：</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Downloading</source>
-        <translation>下載中</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update installation successful</source>
-        <translation>更新安裝成功</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
-        <translation>為了您能夠正常使用系統和應用，更新後請重啟電腦</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Reboot now</source>
-        <translation>立即重啟</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Installation update failed</source>
-        <translation>安裝更新失敗</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation>電池電量低於60%，為保障更新成功，請及時接入電源</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Continue Update</source>
-        <translation>繼續更新</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Backup failed</source>
-        <translation>備份失敗</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation>繼續更新，系統將無法回退</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Back Up Again</source>
-        <translation>重新備份</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Proceed to Update</source>
-        <translation>繼續更新</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update download completed</source>
-        <translation>更新下載完成</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Install updates</source>
-        <translation>安裝更新</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update download failed</source>
-        <translation>更新下載失敗</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Retry</source>
-        <translation>重 試</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Updates Available</source>
-        <translation>檢測到有可用的更新</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Download</source>
-        <translation>下 載</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update Settings</source>
-        <translation>更新設定</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
-        <translation>可設定系統更新、安全更折、閒時更新、更新提醒等</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
