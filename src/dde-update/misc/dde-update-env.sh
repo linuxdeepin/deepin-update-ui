@@ -1,0 +1,13 @@
+#!/bin/bash
+
+display_daemon="/usr/lib/deepin-daemon/greeter-display-daemon"
+if [ -x $display_daemon ]; then
+    $display_daemon 1>/tmp/greeter-display-daemon.log 2>&1 &
+fi
+
+xsettingsd_conf="/etc/lightdm/deepin/xsettingsd.conf"
+if [ -e $xsettingsd_conf ]; then
+    xsettingsd -c $xsettingsd_conf &
+fi
+
+wait
