@@ -58,7 +58,7 @@
     </message>
     <message>
         <source>System Updates</source>
-        <translation>Atualizações do Sistema</translation>
+        <translation>Atualização</translation>
     </message>
     <message>
         <source>Security Updates</source>
@@ -489,7 +489,7 @@
     <name>UpdateWorker</name>
     <message>
         <source>System Updates</source>
-        <translation>Atualizações do Sistema</translation>
+        <translation>Atualização</translation>
     </message>
     <message>
         <source>Fixed some known bugs and security vulnerabilities</source>
