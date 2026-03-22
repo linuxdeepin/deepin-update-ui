@@ -50,7 +50,7 @@
     <name>UpdateHistoryDialog</name>
     <message>
         <source>Update History</source>
-        <translation>Histórico de Atualizações</translation>
+        <translation>Histórico de atualizações</translation>
     </message>
     <message>
         <source>No update history</source>
@@ -382,7 +382,7 @@
     <name>UpdateSetting</name>
     <message>
         <source>Smart Mirror Switch</source>
-        <translation>Troca inteligente de espelho</translation>
+        <translation>Mirror inteligente</translation>
     </message>
     <message>
         <source>Update Type</source>
@@ -454,7 +454,7 @@
     </message>
     <message>
         <source>Update History</source>
-        <translation>Histórico de Atualizações</translation>
+        <translation>Histórico de atualizações</translation>
     </message>
     <message>
         <source>View</source>
