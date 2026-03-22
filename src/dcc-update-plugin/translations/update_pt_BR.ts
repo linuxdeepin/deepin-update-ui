@@ -418,7 +418,7 @@
     </message>
     <message>
         <source>Limit Setting</source>
-        <translation>Definição de limites</translation>
+        <translation>Definir limite</translation>
     </message>
     <message>
         <source>Auto Download</source>
@@ -426,7 +426,7 @@
     </message>
     <message>
         <source>Enabling &quot;Auto Download Updates&quot; will automatically download updates when connected to the internet</source>
-        <translation>Habilitar &quot;Download automático de atualizações&quot; fará o download automático das atualizações quando conectado à Internet</translation>
+        <translation>Baixa automaticamente as atualizações quando estiver conectado à internet</translation>
     </message>
     <message>
         <source>Download when Inactive</source>
@@ -458,7 +458,7 @@
     </message>
     <message>
         <source>View</source>
-        <translation>Visualizar</translation>
+        <translation>Exibir</translation>
     </message>
     <message>
         <source>Join Internal Testing Channel</source>
