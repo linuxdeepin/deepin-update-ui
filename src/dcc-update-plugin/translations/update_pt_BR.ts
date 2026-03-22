@@ -54,7 +54,7 @@
     </message>
     <message>
         <source>No update history</source>
-        <translation>Nenhum histórico de atualizações</translation>
+        <translation>Nenhum histórico encontrado</translation>
     </message>
     <message>
         <source>System Updates</source>
@@ -390,7 +390,7 @@
     </message>
     <message>
         <source>Function Updates</source>
-        <translation>Atualização de função</translation>
+        <translation>Atualizações do sistema</translation>
     </message>
     <message>
         <source>Delivers a cumulative update including new features, quality updates, and  security updates</source>
