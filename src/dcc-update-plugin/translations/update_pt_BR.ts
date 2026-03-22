@@ -414,7 +414,7 @@
     </message>
     <message>
         <source>Limit Speed</source>
-        <translation>Limite de velocidade</translation>
+        <translation>Limitar velocidade</translation>
     </message>
     <message>
         <source>Limit Setting</source>
