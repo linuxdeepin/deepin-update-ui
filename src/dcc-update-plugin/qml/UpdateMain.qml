@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 - 2027 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2024 - 2026 UnionTech Software Technology Co., Ltd.
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 import QtQuick 2.15
@@ -302,30 +302,40 @@ DccObject {
             updateListEnable: !dccData.model().upgradeWaiting
 
             onBtnClicked: function(index, updateType) {
-                updateSelectDialog.updateType = updateType
-                updateSelectDialog.show()
+                updateSelectLoader.updateType = updateType
+                updateSelectLoader.active = true
             }
 
-            UpdateSelectDialog {
-                id: updateSelectDialog
+            Loader {
+                id: updateSelectLoader
+                active: false
                 property var updateType: 0
-                palette: parent.palette
-                visible: false
-                onSilentBtnClicked: {
-                    dccData.work().doUpgrade(updateType, true)
+                sourceComponent: UpdateSelectDialog {
+                    palette: updateSelectLoader.parent ? updateSelectLoader.parent.palette : undefined
+                    onSilentBtnClicked: {
+                        dccData.work().doUpgrade(updateSelectLoader.updateType, true)
+                    }
+                    onUpgradeRebootBtnClicked: {
+                        dccData.work().modalUpgrade(true)
+                    }
+                    onUpgradeShutdownBtnClicked: {
+                        dccData.work().modalUpgrade(false)
+                    }
+                    onClosing: function (close) {
+                        updateSelectLoader.active = false
+                    }
                 }
-                onUpgradeRebootBtnClicked: {
-                    dccData.work().modalUpgrade(true)
-                }
-                onUpgradeShutdownBtnClicked: {
-                    dccData.work().modalUpgrade(false)
+                onLoaded: function () {
+                    updateSelectLoader.item.show()
                 }
             }
 
             Connections {
                 target: dccData.work()
                 function onStartDoUpgrade() {
-                    updateSelectDialog.close()
+                    if (updateSelectLoader.item) {
+                        updateSelectLoader.item.close()
+                    }
                 }
             }
         }
