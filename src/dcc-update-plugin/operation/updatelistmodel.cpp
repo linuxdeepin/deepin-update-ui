@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2024 - 2026 UnionTech Software Technology Co., Ltd.
 // SPDX-License-Identifier: GPL-3.0-or-later
 #include "updatelistmodel.h"
 #include <QLoggingCategory>
@@ -190,4 +190,24 @@ int UpdateListModel::getAllUpdateType() const
         }
     }
     return updateType;
+}
+
+QVariantList UpdateListModel::getDetailInfos(int index) const
+{
+    QVariantList result;
+    if (index >= 0 && index < m_updateLists.count()) {
+        const auto& detailInfos = m_updateLists[index]->detailInfos();
+        for (const auto& detail : detailInfos) {
+            QVariantMap map;
+            map["name"] = detail.name;
+            map["updateTime"] = detail.updateTime;
+            map["info"] = detail.info;
+            map["link"] = detail.link;
+            map["vulLevel"] = detail.vulLevel;
+            result.append(map);
+        }
+    } else {
+        qCWarning(logDccUpdatePlugin) << "Invalid index for getDetailInfos:" << index;
+    }
+    return result;
 }
