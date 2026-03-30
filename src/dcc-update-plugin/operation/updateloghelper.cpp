@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019 - 2023 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2019 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -163,15 +163,11 @@ void UpdateLogHelper::handleSystemItemInfo(UpdateItemInfo *itemInfo) const
             itemInfo->setUpdateTime(log.publishTime);
         } else {
             DetailInfo detailInfo;
-            const QString& systemVersion = log.showVersion;
-            // 专业版不不在详细信息中显示维护线版本
-            if (!systemVersion.isEmpty() && systemVersion.back() == '0') {
-                qCDebug(logDccUpdatePlugin) << "Adding detail info for version:" << log.showVersion;
-                detailInfo.name = log.showVersion;
-                detailInfo.updateTime = log.publishTime;
-                detailInfo.info = explain;
-                itemInfo->addDetailInfo(detailInfo);
-            }
+            qCDebug(logDccUpdatePlugin) << "Adding detail info for version:" << log.showVersion;
+            detailInfo.name = log.showVersion;
+            detailInfo.updateTime = log.publishTime;
+            detailInfo.info = explain;
+            itemInfo->addDetailInfo(detailInfo);
         }
     }
 }

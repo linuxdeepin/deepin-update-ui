@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ja">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="ja">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -82,6 +84,14 @@
     <message>
         <source>Version:</source>
         <translation>バージョン:</translation>
+    </message>
+    <message>
+        <source>View More</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Collapse</source>
+        <translation type="unfinished">折りたたむ</translation>
     </message>
 </context>
 <context>

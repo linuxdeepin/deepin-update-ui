@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2024 - 2026 UnionTech Software Technology Co., Ltd.
 // SPDX-License-Identifier: GPL-3.0-or-later
 #ifndef UPDATELISTMODEL_H
 #define UPDATELISTMODEL_H
@@ -62,6 +62,7 @@ public:
     QString downloadSize() const;
 
     Q_INVOKABLE UpdateType getUpdateType(int index) const;
+    Q_INVOKABLE QVariantList getDetailInfos(int index) const;
 
 public Q_SLOTS:
     void refreshDownloadSize();
