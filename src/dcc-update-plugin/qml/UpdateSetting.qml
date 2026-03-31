@@ -52,7 +52,9 @@ DccObject {
             page: D.Switch {
                 checked: dccData.model().functionUpdate
                 onCheckedChanged: {
-                    dccData.work().setFunctionUpdate(checked)
+                    if (checked !== dccData.model().functionUpdate) {
+                        dccData.work().setFunctionUpdate(checked)
+                    }
                 }
             }
         }
@@ -68,7 +70,9 @@ DccObject {
             page: D.Switch {
                 checked: dccData.model().securityUpdate
                 onCheckedChanged: {
-                    dccData.work().setSecurityUpdate(checked)
+                    if (checked !== dccData.model().securityUpdate) {
+                        dccData.work().setSecurityUpdate(checked)
+                    }
                 }
             }
         }
@@ -84,7 +88,9 @@ DccObject {
             page: D.Switch {
                 checked: dccData.model().thirdPartyUpdate
                 onCheckedChanged: {
-                    dccData.work().setThirdPartyUpdate(checked)
+                    if (checked !== dccData.model().thirdPartyUpdate) {
+                        dccData.work().setThirdPartyUpdate(checked)
+                    }
                 }
             }
         }
@@ -183,7 +189,9 @@ DccObject {
                 page: D.Switch {
                     checked: dccData.model().downloadSpeedLimitEnabled
                     onCheckedChanged: {
-                        dccData.work().setDownloadSpeedLimitEnabled(checked)
+                        if (checked !== dccData.model().downloadSpeedLimitEnabled) {
+                            dccData.work().setDownloadSpeedLimitEnabled(checked)
+                        }
                     }
                 }
             }
@@ -256,7 +264,9 @@ DccObject {
                 page: D.Switch {
                     checked: dccData.model().autoDownloadUpdates
                     onCheckedChanged: {
-                        dccData.work().setAutoDownloadUpdates(checked)
+                        if (checked !== dccData.model().autoDownloadUpdates) {
+                            dccData.work().setAutoDownloadUpdates(checked)
+                        }
                     }
                 }
             }
@@ -286,7 +296,9 @@ DccObject {
                             return dccData.model().idleDownloadEnabled
                         }
                         onCheckedChanged: {
-                            dccData.work().setIdleDownloadEnabled(checked)
+                            if (checked !== dccData.model().idleDownloadEnabled) {
+                                dccData.work().setIdleDownloadEnabled(checked)
+                            }
                         }
                     }
 
@@ -352,7 +364,9 @@ DccObject {
                 page: D.Switch {
                     checked: dccData.model().updateNotify
                     onCheckedChanged: {
-                        dccData.work().setUpdateNotify(checked)
+                        if (checked !== dccData.model().updateNotify) {
+                            dccData.work().setUpdateNotify(checked)
+                        }
                     }
                 }
             }
@@ -366,7 +380,9 @@ DccObject {
                 page: D.Switch {
                     checked: dccData.model().autoCleanCache
                     onCheckedChanged: {
-                        dccData.work().setAutoCleanCache(checked)
+                        if (checked !== dccData.model().autoCleanCache) {
+                            dccData.work().setAutoCleanCache(checked)
+                        }
                     }
                 }
             }
@@ -423,7 +439,9 @@ DccObject {
                 page: D.Switch {
                     checked: dccData.model().smartMirrorSwitch
                     onCheckedChanged: {
-                        dccData.work().setSmartMirror(checked)
+                        if (checked !== dccData.model().smartMirrorSwitch) {
+                            dccData.work().setSmartMirror(checked)
+                        }
                     }
                 }
             }
