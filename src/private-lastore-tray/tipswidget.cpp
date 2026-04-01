@@ -91,7 +91,6 @@ bool TipsWidget::checkRegularlyUpdate()
 void TipsWidget::onUpdatePropertiesChanged(const QString& interfaceName, const QVariantMap& changedProperties, const QStringList& invalidatedProperties)
 {
     Q_UNUSED(invalidatedProperties)
-    qCInfo(dockUpdatePlugin) << "xiongbo111 onUpdatePropertiesChanged " << interfaceName << " changedProperties " << changedProperties;
 
     if (interfaceName == "org.deepin.dde.Lastore1.Job") {
         if (changedProperties.contains("Speed")) {

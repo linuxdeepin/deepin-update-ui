@@ -1113,6 +1113,11 @@ bool UpdateModel::downloadSpeedLimitEnabled() const
     return DownloadSpeedLimitConfig::fromJson(m_speedLimitConfig).downloadSpeedLimitEnabled;
 }
 
+bool UpdateModel::downloadIsOnlineSpeedLimit() const
+{
+    return DownloadSpeedLimitConfig::fromJson(m_speedLimitConfig).isOnlineSpeedLimit;
+}
+
 QString UpdateModel::downloadSpeedLimitSize() const
 {
     return DownloadSpeedLimitConfig::fromJson(m_speedLimitConfig).limitSpeed;
@@ -1131,6 +1136,95 @@ void UpdateModel::setSpeedLimitConfig(const QByteArray& config)
 
     m_speedLimitConfig = config;
     Q_EMIT downloadSpeedLimitConfigChanged();
+}
+
+void UpdateModel::setUpgradeDownloadSpeedLimitConfig(const QByteArray& config)
+{
+    qCInfo(logDccUpdatePlugin) << "setUpgradeDownloadSpeedLimitConfig" << config;
+    // if (m_upgradeDownloadSpeedLimitConfig == config)
+    //     return;
+
+    m_upgradeDownloadSpeedLimitConfig = config;
+    Q_EMIT upgradeDownloadSpeedLimitConfigChanged();
+}
+
+QString UpdateModel::upgradeDownloadSpeedCurrentRate() const
+{
+    qCInfo(logDccUpdatePlugin) << "upgradeDownloadSpeedCurrentRate " << UpgradeSpeedLimitConfig::fromJson(m_upgradeDownloadSpeedLimitConfig).currentRate;
+    return QString::number(UpgradeSpeedLimitConfig::fromJson(m_upgradeDownloadSpeedLimitConfig).currentRate / 1024);
+}
+
+QString UpdateModel::upgradeDownloadSpeedLimitRate() const
+{
+    qCInfo(logDccUpdatePlugin) << "upgradeDownloadSpeedCurrentRate " << UpgradeSpeedLimitConfig::fromJson(m_upgradeDownloadSpeedLimitConfig).currentRate;
+    return QString::number(UpgradeSpeedLimitConfig::fromJson(m_upgradeDownloadSpeedLimitConfig).limitRate / 1024);
+}
+
+bool UpdateModel::upgradeDownloadSpeedEnable() const
+{
+    qCInfo(logDccUpdatePlugin) << "xiongbo111 upgradeDownloadSpeedCurrentRate " << m_upgradeDownloadSpeedLimitConfig;
+    return UpgradeSpeedLimitConfig::fromJson(m_upgradeDownloadSpeedLimitConfig).shouldLimitRate();
+}
+
+bool UpdateModel::upgradeDownloadSpeedIsOnline() const
+{
+    return UpgradeSpeedLimitConfig::fromJson(m_upgradeDownloadSpeedLimitConfig).ifInOnlineLimit();
+}
+
+UpgradeSpeedLimitConfig UpdateModel::upgradeDownloadSpeedLimitConfig() const
+{
+    return UpgradeSpeedLimitConfig::fromJson(m_upgradeDownloadSpeedLimitConfig);
+}
+
+void UpdateModel::setUpgradeUploadSpeedLimitConfig(const QByteArray& config)
+{
+    m_upgradeUploadSpeedLimitConfig = config;
+    Q_EMIT upgradeUploadSpeedLimitConfigChanged();
+}
+
+QString UpdateModel::upgradeUploadSpeedCurrentRate() const
+{
+    return QString::number(UpgradeSpeedLimitConfig::fromJson(m_upgradeUploadSpeedLimitConfig).currentRate / 1024);
+}
+
+QString UpdateModel::upgradeUploadSpeedLimitRate() const
+{
+    return QString::number(UpgradeSpeedLimitConfig::fromJson(m_upgradeUploadSpeedLimitConfig).limitRate / 1024);
+}
+
+bool UpdateModel::upgradeUploadSpeedEnable() const
+{
+    return UpgradeSpeedLimitConfig::fromJson(m_upgradeUploadSpeedLimitConfig).shouldLimitRate();
+}
+
+bool UpdateModel::upgradeUploadSpeedIsOnline() const
+{
+    return UpgradeSpeedLimitConfig::fromJson(m_upgradeUploadSpeedLimitConfig).ifInOnlineLimit();
+}
+
+UpgradeSpeedLimitConfig UpdateModel::upgradeUploadSpeedLimitConfig() const
+{
+    return UpgradeSpeedLimitConfig::fromJson(m_upgradeUploadSpeedLimitConfig);
+}
+
+bool UpdateModel::upgradeDeliveryEnable() const
+{
+    return m_isUpgradeDeliveryEnable;
+}
+
+void UpdateModel::setUpgradeDeliveryEnable(bool enable)
+{
+    m_isUpgradeDeliveryEnable = enable;
+    Q_EMIT upgradeDeliveryEnableChanged();
+}
+
+void UpdateModel::refreshUpgradeDeliveryEnable(bool enable)
+{
+    m_isUpgradeDeliveryEnable = enable;
+    if (enable) {
+        Q_EMIT upgradeDownloadSpeedLimitConfigChanged();
+        Q_EMIT upgradeUploadSpeedLimitConfigChanged();
+    }
 }
 
 void UpdateModel::setAutoDownloadUpdates(bool autoDownloadUpdates)

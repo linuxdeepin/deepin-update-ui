@@ -70,6 +70,12 @@ public:
     Q_PROPERTY(bool ImmutableAutoRecovery READ immutableAutoRecovery NOTIFY ImmutableAutoRecoveryChanged)
     bool immutableAutoRecovery();
 
+    Q_PROPERTY(bool P2PUpdateEnable READ p2PUpdateEnable NOTIFY P2PUpdateEnableChanged)
+    bool p2PUpdateEnable();
+
+    Q_PROPERTY(bool P2PUpdateSupport READ p2PUpdateSupport NOTIFY P2PUpdateSupportChanged)
+    bool p2PUpdateSupport();
+
     QString hardwareId();
 
     quint64 checkUpdateMode();
@@ -103,6 +109,10 @@ public:
     QDBusPendingReply<void> SetDownloadSpeedLimit(const QString &config);
     QDBusPendingReply<qlonglong> QueryAllSizeWithSource(int updateType);
     QDBusPendingReply<QString> GetUpdateLogs(int updateType);
+    QDBusPendingReply<void> SetUpgradeDeliveryEnable(bool enable);
+    QDBusPendingReply<void> SetUpgradeDeliveryDownloadSpeedLimit(const QString& downloadLimit);
+    QDBusPendingReply<void> SetUpgradeDeliveryUploadSpeedLimit(const QString& uploadLimit);
+    QDBusPendingReply<void> ClearUpgradeDeliveryCache();
     QDBusPendingReply<void> SetIdleDownloadConfig(const QString &config);
     QDBusPendingReply<QDBusObjectPath> PrepareDistUpgradePartly(int updateMode);
     QDBusPendingReply<QDBusObjectPath> fixError(const QString &errorType);
@@ -137,6 +147,7 @@ signals:
     void AutoInstallUpdatesChanged(bool value) const;
     void AutoInstallUpdateTypeChanged(qulonglong value) const;
     void MirrorSourceChanged(const QString &value) const;
+    void UpgradeDeliveryEnabledChanged(bool value) const;
     void AutoCheckUpdatesChanged(bool value) const;
     void ClassifiedUpdatablePackagesChanged(LastoreUpdatePackagesInfo value) const;
 
@@ -146,6 +157,8 @@ signals:
     void UpdateModeChanged(qulonglong value) const;
     void UpdateStatusChanged(QString value) const;
     void ImmutableAutoRecoveryChanged(bool value) const;
+    void P2PUpdateEnableChanged(bool value) const;
+    void P2PUpdateSupportChanged(bool value) const;
     void managerInterServiceValidChanged(bool value) const;
 
     // Power

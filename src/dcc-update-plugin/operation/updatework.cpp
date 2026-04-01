@@ -29,7 +29,6 @@
 #include <DNotifySender>
 
 Q_DECLARE_LOGGING_CATEGORY(logDccUpdatePlugin)
-
 using namespace DCC_NAMESPACE;
 
 const QString TestingChannel = "testing Channel";
@@ -129,6 +128,7 @@ UpdateWorker::UpdateWorker(UpdateModel* model, QObject* parent)
     , m_backupJob(nullptr)
     , m_installPackageJob(nullptr)
     , m_removePackageJob(nullptr)
+    , m_updateAssistant(nullptr)
 {
     qCDebug(logDccUpdatePlugin) << "Initializing UpdateWorker";
     qRegisterMetaType<UpdatesStatus>("UpdatesStatus");
@@ -209,6 +209,15 @@ void UpdateWorker::initConnect()
             // m_model->setP2PUpdateEnabled(DConfigWatcher::instance()->getValue(DConfigWatcher::update, configName).toBool());
         }
     });
+
+    m_updateAssistant = new UpdateAssistant("org.deepin.upgradedelivery", "/org/deepin/upgradedelivery", QDBusConnection::systemBus(), this);
+    connect(m_updateInter, &UpdateDBusProxy::AutoDownloadUpdatesChanged, m_model, &UpdateModel::setAutoDownloadUpdates);
+    connect(m_updateInter, &UpdateDBusProxy::MirrorSourceChanged, m_model, &UpdateModel::setDefaultMirror);
+    QDBusConnection::systemBus().connect("org.deepin.upgradedelivery",
+        "/org/deepin/upgradedelivery",
+        "org.freedesktop.DBus.Properties",
+        "PropertiesChanged",
+        m_model, SLOT(onUpdatePropertiesChanged(QString, QVariantMap, QStringList)));
 }
 
 void UpdateWorker::activate()
@@ -221,6 +230,7 @@ void UpdateWorker::activate()
     updateSystemVersion();
     refreshLastTimeAndCheckCircle();
     initTestingChannel();
+    refreshUpgradeDeliveryInfo();
 
     m_model->setIsPrivateUpdate(DConfigHelper::instance()->getConfig("org.deepin.dde.lastore", "org.deepin.dde.lastore", "","intranet-update", false).toString() == "true");
     m_model->setUpdateMode(m_updateInter->updateMode());
@@ -905,6 +915,7 @@ void UpdateWorker::setDownloadSpeedLimitEnabled(bool enable)
     qCDebug(logDccUpdatePlugin) << "Set download speed limit enabled:" << enable;
     auto config = m_model->speedLimitConfig();
     config.downloadSpeedLimitEnabled = enable;
+    config.isOnlineSpeedLimit = false;
     // dbus返回需要1s，导致界面更新慢，这里直接先更新model
     m_model->setSpeedLimitConfig(config.toJson().toUtf8());
     setDownloadSpeedLimitConfig(config.toJson());
@@ -915,6 +926,7 @@ void UpdateWorker::setDownloadSpeedLimitSize(const QString& size)
     qCDebug(logDccUpdatePlugin) << "set download speed limit size" << size;
     auto config = m_model->speedLimitConfig();
     config.limitSpeed = size;
+    config.isOnlineSpeedLimit = false;
     setDownloadSpeedLimitConfig(config.toJson());
 }
 
@@ -1269,6 +1281,14 @@ void UpdateWorker::initTestingChannel()
         }
         watcher->deleteLater();
     });
+}
+
+void UpdateWorker::refreshUpgradeDeliveryInfo()
+{
+    qCDebug(logDccUpdatePlugin) << "Refresh upgrade delivery info";
+    m_model->setUpgradeDownloadSpeedLimitConfig(m_updateAssistant->downloadLimitSpeed().toUtf8());
+    m_model->setUpgradeUploadSpeedLimitConfig(m_updateAssistant->uploadLimitSpeed().toUtf8());
+    m_model->setUpgradeDeliveryEnable(m_updateInter->p2pUpdateEnable());
 }
 
 void UpdateWorker::checkTestingChannelStatus()
@@ -1704,5 +1724,96 @@ void UpdateWorker::onRemovePackageStatusChanged(const QString& value)
     } else if (value == "end") {
         deleteJob(m_removePackageJob);
     }
+}
+
+//更新传递总开关
+void UpdateWorker::setUpgradeDeliveryEnabled(bool enabled)
+{
+    if (enabled == m_model->upgradeDeliveryEnable()) {
+        return;
+    }
+
+    qCDebug(logDccUpdatePlugin) << "Set update assistant service, enabled: " << enabled;
+    auto func_set_success = [=](bool enabled) {
+        qCDebug(logDccUpdatePlugin) << "Set update assistant service succeed, enabled " << enabled;
+        if (m_updateAssistant && m_model) {
+            m_model->setUpgradeDownloadSpeedLimitConfig(m_updateAssistant->downloadLimitSpeed().toUtf8());
+            m_model->setUpgradeUploadSpeedLimitConfig(m_updateAssistant->uploadLimitSpeed().toUtf8());
+            m_model->setUpgradeDeliveryEnable(enabled);
+        }
+    };
+    auto watcher = new QDBusPendingCallWatcher(m_updateInter->SetUpgradeDeliveryEnable(enabled), this);
+    connect(watcher, &QDBusPendingCallWatcher::finished, [this, watcher, enabled, func_set_success] {
+        watcher->deleteLater();
+        if (watcher->isError()) {
+            qCWarning(logDccUpdatePlugin) << "Set update assistant service failed, enabled " << enabled << " error: " << watcher->error().message();
+            m_model->setUpgradeDeliveryEnable(!enabled);
+            return;
+        }
+        func_set_success(enabled);
+    });
+}
+
+//设置更新传递下载限速
+void UpdateWorker::setUpgradeDeliveryDownloadLimitSpeed(const QString& speed, bool enable)
+{
+    LastoreUpgradeSpeedLimitConfig downloadSpeedLimitConfig;
+    downloadSpeedLimitConfig.isOnlineSpeedLimit = false;
+    downloadSpeedLimitConfig.speedLimitEnabled = enable;
+    downloadSpeedLimitConfig.limitSpeed = speed;
+    qCInfo(logDccUpdatePlugin) << "Set upgrade download speed limit: " << downloadSpeedLimitConfig.toJson();
+    auto watcher = new QDBusPendingCallWatcher(m_updateInter->SetUpgradeDeliveryDownloadSpeedLimit(downloadSpeedLimitConfig.toJson()), this);
+    connect(watcher, &QDBusPendingCallWatcher::finished, [watcher, this] {
+        watcher->deleteLater();
+        if (watcher->isError()) {
+            qCWarning(logDccUpdatePlugin) << "Set upgrade download speed limit config error: " << watcher->error().message();
+            getUpgradeDeliveryDownloadLimitSpeed();
+        }
+    });
+}
+
+//设置更新传递上传限速
+void UpdateWorker::setUpgradeDeliveryUploadLimitSpeed(const QString& speed, bool enable)
+{
+    LastoreUpgradeSpeedLimitConfig uploadSpeedLimitConfig;
+    uploadSpeedLimitConfig.isOnlineSpeedLimit = false;
+    uploadSpeedLimitConfig.speedLimitEnabled = enable;
+    uploadSpeedLimitConfig.limitSpeed = speed;
+    qCInfo(logDccUpdatePlugin) << "Set upgrade upload speed limit: " << uploadSpeedLimitConfig.toJson();
+    auto watcher = new QDBusPendingCallWatcher(m_updateInter->SetUpgradeDeliveryUploadSpeedLimit(uploadSpeedLimitConfig.toJson()), this);
+    connect(watcher, &QDBusPendingCallWatcher::finished, [watcher, this] {
+        watcher->deleteLater();
+        if (watcher->isError()) {
+            qCWarning(logDccUpdatePlugin) << "Set upgrade upload speed limit config error: " << watcher->error().message();
+            getUpgradeDeliveryUploadLimitSpeed();
+        }
+    });
+}
+
+void UpdateWorker::getUpgradeDeliveryDownloadLimitSpeed()
+{
+    if (m_updateAssistant && m_model) {
+        m_model->setUpgradeDownloadSpeedLimitConfig(m_updateAssistant->downloadLimitSpeed().toUtf8());
+    }
+}
+
+void UpdateWorker::getUpgradeDeliveryUploadLimitSpeed()
+{
+    if (m_updateAssistant && m_model) {
+        m_model->setUpgradeUploadSpeedLimitConfig(m_updateAssistant->uploadLimitSpeed().toUtf8());
+    }
+}
+
+void UpdateWorker::cleanUpgradeDeliveryCache()
+{
+    qCDebug(logDccUpdatePlugin) << "Clean update assistant cache succeed";
+    auto watcher = new QDBusPendingCallWatcher(m_updateInter->ClearUpgradeDeliveryCache(), this);
+    connect(watcher, &QDBusPendingCallWatcher::finished, [this, watcher] {
+        watcher->deleteLater();
+        if (watcher->isError()) {
+            qCWarning(logDccUpdatePlugin) << "Clean update assistant cache failed";
+            return;
+        }
+    });
 }
 
