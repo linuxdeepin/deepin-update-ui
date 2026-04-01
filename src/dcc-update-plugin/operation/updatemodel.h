@@ -73,6 +73,7 @@ class UpdateModel : public QObject
     Q_PROPERTY(bool thirdPartyUpdate READ thirdPartyUpdate NOTIFY updateModeChanged FINAL)
     Q_PROPERTY(bool updateModeDisabled READ updateModeDisabled NOTIFY updateModeChanged FINAL)
     Q_PROPERTY(bool downloadSpeedLimitEnabled READ downloadSpeedLimitEnabled NOTIFY downloadSpeedLimitConfigChanged FINAL)
+    Q_PROPERTY(bool downloadIsOnlineSpeedLimit READ downloadIsOnlineSpeedLimit NOTIFY downloadIsOnlineSpeedLimitChanged FINAL)
     Q_PROPERTY(QString downloadSpeedLimitSize READ downloadSpeedLimitSize NOTIFY downloadSpeedLimitConfigChanged FINAL)
     Q_PROPERTY(bool autoDownloadUpdates READ autoDownloadUpdates WRITE setAutoDownloadUpdates NOTIFY autoDownloadUpdatesChanged FINAL)
     Q_PROPERTY(bool idleDownloadEnabled READ idleDownloadEnabled NOTIFY idleDownloadConfigChanged FINAL)
@@ -82,7 +83,13 @@ class UpdateModel : public QObject
     Q_PROPERTY(bool autoCleanCache READ autoCleanCache WRITE setAutoCleanCache NOTIFY autoCleanCacheChanged FINAL)
     Q_PROPERTY(bool smartMirrorSwitch READ smartMirrorSwitch WRITE setSmartMirrorSwitch NOTIFY smartMirrorSwitchChanged FINAL)
     Q_PROPERTY(TestingChannelStatus testingChannelStatus READ testingChannelStatus WRITE setTestingChannelStatus NOTIFY testingChannelStatusChanged FINAL)
-
+    Q_PROPERTY(QString upgradeDownloadSpeedCurrentRate READ upgradeDownloadSpeedCurrentRate NOTIFY upgradeDownloadSpeedLimitConfigChanged FINAL)
+    Q_PROPERTY(QString upgradeDownloadSpeedLimitRate READ upgradeDownloadSpeedLimitRate NOTIFY upgradeDownloadSpeedLimitConfigChanged FINAL)
+    Q_PROPERTY(bool upgradeDownloadSpeedEnable READ upgradeDownloadSpeedEnable NOTIFY upgradeDownloadSpeedLimitConfigChanged FINAL)
+    Q_PROPERTY(QString upgradeUploadSpeedCurrentRate READ upgradeUploadSpeedCurrentRate NOTIFY upgradeUploadSpeedLimitConfigChanged FINAL)
+    Q_PROPERTY(QString upgradeUploadSpeedLimitRate READ upgradeUploadSpeedLimitRate NOTIFY upgradeUploadSpeedLimitConfigChanged FINAL)
+    Q_PROPERTY(bool upgradeUploadSpeedEnable READ upgradeUploadSpeedEnable NOTIFY upgradeUploadSpeedLimitConfigChanged FINAL)
+    Q_PROPERTY(bool upgradeDeliveryEnable READ upgradeDeliveryEnable NOTIFY upgradeDeliveryEnableChanged FINAL)
     Q_PROPERTY(UpdateHistoryModel *historyModel READ historyModel NOTIFY historyModelChanged FINAL)
 
 
@@ -262,9 +269,27 @@ public:
     void setUpdateItemEnabled();
 
     bool downloadSpeedLimitEnabled() const;
+    bool downloadIsOnlineSpeedLimit() const;
     QString downloadSpeedLimitSize() const;
     DownloadSpeedLimitConfig speedLimitConfig() const;
     void setSpeedLimitConfig(const QByteArray &config);
+
+    void setUpgradeDownloadSpeedLimitConfig(const QByteArray& config);
+    QString upgradeDownloadSpeedCurrentRate() const;
+    QString upgradeDownloadSpeedLimitRate() const;
+    bool upgradeDownloadSpeedEnable() const;
+    bool upgradeDownloadSpeedIsOnline() const;
+    UpgradeSpeedLimitConfig upgradeDownloadSpeedLimitConfig() const;
+    void setUpgradeUploadSpeedLimitConfig(const QByteArray& config);
+    QString upgradeUploadSpeedCurrentRate() const;
+    QString upgradeUploadSpeedLimitRate() const;
+    bool upgradeUploadSpeedEnable() const;
+    bool upgradeUploadSpeedIsOnline() const;
+    UpgradeSpeedLimitConfig upgradeUploadSpeedLimitConfig() const;
+    bool upgradeDeliveryEnable() const;
+
+    void setUpgradeDeliveryEnable(bool enable);
+    void refreshUpgradeDeliveryEnable(bool enable);
 
     bool autoDownloadUpdates() const { return m_autoDownloadUpdates; }
     void setAutoDownloadUpdates(bool autoDownloadUpdates);
@@ -383,7 +408,11 @@ Q_SIGNALS:
     void securityUpdateEnabledChanged(bool enable);
     void thirdPartyUpdateEnabledChanged(bool enable);
     void updateModeChanged(quint64 updateMode);
+    void upgradeDeliveryEnableChanged();
     void downloadSpeedLimitConfigChanged();
+    void downloadIsOnlineSpeedLimitChanged();
+    void upgradeDownloadSpeedLimitConfigChanged();
+    void upgradeUploadSpeedLimitConfigChanged();
     void autoDownloadUpdatesChanged(bool autoDownloadUpdates);
     void idleDownloadConfigChanged();
     void updateNotifyChanged(const bool notify);
@@ -457,6 +486,9 @@ private:
     bool m_thirdPartyUpdateEnabled;
     quint64 m_updateMode;
     QByteArray m_speedLimitConfig;
+    bool m_isUpgradeDeliveryEnable;
+    QByteArray m_upgradeDownloadSpeedLimitConfig;
+    QByteArray m_upgradeUploadSpeedLimitConfig;
     bool m_autoDownloadUpdates;
     IdleDownloadConfig m_idleDownloadConfig;
     bool m_updateNotify;

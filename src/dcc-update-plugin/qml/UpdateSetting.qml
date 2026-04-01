@@ -162,9 +162,220 @@ DccObject {
         }
 
         DccObject {
+            name: "upgradeDeliveryGrp"
+            parentName: "advancedSettingGroup"
+            weight: 40
+            pageType: DccObject.Item
+            page: DccGroupView {
+                height: implicitHeight + 10
+                spacing: 0
+            }
+
+            DccObject {
+                name: "upgradeDeliverySwitch"
+                parentName: "upgradeDeliveryGrp"
+                displayName: qsTr("Upgrade Delivery")
+                weight: 10
+                enabled: !dccData.model().updateProhibited
+                pageType: DccObject.Editor
+                page: D.Switch {
+                    id: upgradeDeliverySwitch
+                    checked: dccData.model().upgradeDeliveryEnable
+                    onCheckedChanged: {
+                        dccData.work().setUpgradeDeliveryEnabled(checked)
+                    }
+                    Connections {
+                        target: dccData.model()
+                        function onUpgradeDeliveryEnableChanged() {
+                            upgradeDeliverySwitch.checked = dccData.model().upgradeDeliveryEnable
+                        }
+                    }
+                }
+            }
+
+            DccObject {
+                name: "upgradeDeliveryDownloadLimitSetting"
+                parentName: "upgradeDeliveryGrp"
+                displayName: qsTr("Upgrade Delivery Download Limit Setting")
+                visible: dccData.model().upgradeDeliveryEnable
+                weight: 20
+                enabled: !dccData.model().upgradeDownloadSpeedIsOnline
+                pageType: DccObject.Item
+                property bool isInitializing: true
+                page: RowLayout {
+                    D.CheckBox {
+                        id: limitCheckBox
+                        Layout.leftMargin: 14
+                        Layout.fillWidth: true
+                        text: dccObj.displayName
+                        checked: dccData.model().upgradeDownloadSpeedEnable
+                        Connections {
+                            target: dccData.model()
+                            function onUpgradeDownloadSpeedLimitConfigChanged() {
+                                limitCheckBox.checked = dccData.model().upgradeDownloadSpeedEnable
+                            }
+                        }
+                        onCheckedChanged: {
+                            if (dccObj.isInitializing) {
+                                dccObj.isInitializing = false
+                                return
+                            }
+                            if (limitCheckBox.checked) {
+                                dccData.work().setUpgradeDeliveryDownloadLimitSpeed(lineEdit.text, limitCheckBox.checked)
+                            } else {
+                                dccData.work().setUpgradeDeliveryDownloadLimitSpeed("102400", limitCheckBox.checked)
+                            }
+                        }
+                    }
+
+                    RowLayout {
+                        spacing: 10
+                        Layout.topMargin: 5
+                        Layout.bottomMargin: 5
+                        Layout.rightMargin: 10
+                        Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+                        D.LineEdit {
+                            id: lineEdit
+                            maximumLength: 5
+                            validator: RegularExpressionValidator { regularExpression: /^\d*$/ }
+                            alertText: qsTr("Only numbers between 1-99999 are allowed")
+                            alertDuration: 3000
+                            clearButton.active: lineEdit.activeFocus && (text.length !== 0)
+                            text: dccData.model().upgradeDownloadSpeedCurrentRate
+
+                            onTextChanged: {
+                                // 如果输入不为空且数字为0的情况，需要弹出提示且阻止继续输入
+                                if (lineEdit.text.length !== 0 && lineEdit.text[0] === "0") {
+                                    lineEdit.text = ""
+                                    lineEdit.showAlert = true
+                                } else if (lineEdit.showAlert) {
+                                    lineEdit.showAlert = false
+                                }
+                            }
+                            onEditingFinished: {
+                                if (lineEdit.text.length === 0) {
+                                    lineEdit.text = dccData.model().upgradeDownloadSpeedLimitSize
+                                    return
+                                }
+                                dccData.work().setUpgradeDeliveryDownloadLimitSpeed(lineEdit.text, limitCheckBox.checked)
+                            }
+                            Keys.onPressed: {
+                                if (event.key === Qt.Key_Return) {
+                                    lineEdit.forceActiveFocus(false);
+                                }
+                            }
+                            Connections {
+                                target: dccData.model()
+                                function onUpgradeDownloadSpeedLimitConfigChanged() {
+                                    lineEdit.text = dccData.model().upgradeDownloadSpeedCurrentRate
+                                }
+                            }
+                        }
+
+                        D.Label {
+                            text: "KB/S"
+                        }
+                    }
+                }
+            }
+
+            DccObject {
+                name: "upgradeDeliveryUploadLimitSetting"
+                parentName: "upgradeDeliveryGrp"
+                displayName: qsTr("Upgrade Delivery Upload Limit Setting")
+                visible: dccData.model().upgradeDeliveryEnable
+                weight: 20
+                enabled: !dccData.model().upgradeUploadSpeedIsOnline
+                pageType: DccObject.Item
+                property bool isInitializing: true
+                page: RowLayout {
+                    D.CheckBox {
+                        id: limitCheckBox
+                        Layout.leftMargin: 14
+                        Layout.fillWidth: true
+                        text: dccObj.displayName
+                        checked: dccData.model().upgradeUploadSpeedEnable
+                        Connections {
+                            target: dccData.model()
+                            function onUpgradeUploadSpeedLimitConfigChanged() {
+                                limitCheckBox.checked = dccData.model().upgradeUploadSpeedEnable
+                            }
+                        }
+                        onCheckedChanged: {
+                            console.log("xiongbo111")
+                            if (dccObj.isInitializing) {
+                                console.log("xiongbo222")
+                                dccObj.isInitializing = false
+                                return
+                            }
+                            console.log("xiongbo333")
+                            if (limitCheckBox.checked) {
+                                console.log("xiongbo444")
+                                dccData.work().setUpgradeDeliveryUploadLimitSpeed(lineEdit.text, limitCheckBox.checked)
+                            } else {
+                                console.log("xiongbo555")
+                                dccData.work().setUpgradeDeliveryUploadLimitSpeed("102400", limitCheckBox.checked)
+                            }
+                        }
+                    }
+
+                    RowLayout {
+                        spacing: 10
+                        Layout.topMargin: 5
+                        Layout.bottomMargin: 5
+                        Layout.rightMargin: 10
+                        Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+                        D.LineEdit {
+                            id: lineEdit
+                            maximumLength: 5
+                            validator: RegularExpressionValidator { regularExpression: /^\d*$/ }
+                            alertText: qsTr("Only numbers between 1-99999 are allowed")
+                            alertDuration: 3000
+                            clearButton.active: lineEdit.activeFocus && (text.length !== 0)
+                            text: dccData.model().upgradeUploadSpeedCurrentRate
+
+                            onTextChanged: {
+                                // 如果输入不为空且数字为0的情况，需要弹出提示且阻止继续输入
+                                if (lineEdit.text.length !== 0 && lineEdit.text[0] === "0") {
+                                    lineEdit.text = ""
+                                    lineEdit.showAlert = true
+                                } else if (lineEdit.showAlert) {
+                                    lineEdit.showAlert = false
+                                }
+                            }
+                            onEditingFinished: {
+                                if (lineEdit.text.length === 0) {
+                                    lineEdit.text = dccData.model().upgradeUploadSpeedLimitSize
+                                    return
+                                }
+                                dccData.work().setUpgradeDeliveryUploadLimitSpeed(lineEdit.text, limitCheckBox.checked)
+                            }
+                            Keys.onPressed: {
+                                if (event.key === Qt.Key_Return) {
+                                    lineEdit.forceActiveFocus(false);
+                                }
+                            }
+                            Connections {
+                                target: dccData.model()
+                                function onUpgradeUploadSpeedLimitConfigChanged() {
+                                    lineEdit.text = dccData.model().upgradeUploadSpeedCurrentRate
+                                }
+                            }
+                        }
+
+                        D.Label {
+                            text: "KB/S"
+                        }
+                    }
+                }
+            }
+        }
+
+        DccObject {
             name: "downloadLimitGrp"
             parentName: "advancedSettingGroup"
             weight: 40
+            enabled: !dccData.model().downloadIsOnlineSpeedLimit
             pageType: DccObject.Item
             page: DccGroupView {
                 height: implicitHeight + 10
@@ -179,7 +390,7 @@ DccObject {
                 enabled: !dccData.model().updateProhibited
                 pageType: DccObject.Editor
                 page: D.Switch {
-                    checked: dccData.model().downloadSpeedLimitEnabled
+                    checked: dccData.model().downloadSpeedLimitEnabled || dccData.model().downloadIsOnlineSpeedLimit
                     onCheckedChanged: {
                         dccData.work().setDownloadSpeedLimitEnabled(checked)
                     }
@@ -238,6 +449,7 @@ DccObject {
             name: "autoDownloadGrp"
             parentName: "advancedSettingGroup"
             weight: 50
+            visible: !dccData.model().isPrivateUpdate
             pageType: DccObject.Item
             page: DccGroupView {
                 height: implicitHeight + 10
@@ -263,7 +475,7 @@ DccObject {
                 name: "limitSetting"
                 parentName: "autoDownloadGrp"
                 displayName: qsTr("Download when Inactive")
-                visible: dccData.model().autoDownloadUpdates
+                visible: dccData.model().autoDownloadUpdates && !dccData.model().isPrivateUpdate
                 weight: 20
                 enabled: !dccData.model().updateProhibited && !dccData.model().updateModeDisabled
                 pageType: DccObject.Item
@@ -346,6 +558,7 @@ DccObject {
                 displayName: qsTr("Updates Notification")
                 weight: 10
                 pageType: DccObject.Editor
+                visible: !dccData.model().isPrivateUpdate
                 enabled: !dccData.model().updateProhibited && !dccData.model().updateModeDisabled
                 page: D.Switch {
                     checked: dccData.model().updateNotify
@@ -360,6 +573,7 @@ DccObject {
                 parentName: "advancedSettingGrp"
                 displayName: qsTr("Clear Package Cache")
                 weight: 20
+                visible: !dccData.model().isPrivateUpdate
                 pageType: DccObject.Editor
                 page: D.Switch {
                     checked: dccData.model().autoCleanCache
@@ -374,6 +588,7 @@ DccObject {
                 parentName: "advancedSettingGrp"
                 displayName: qsTr("Update History")
                 weight: 40
+                visible: !dccData.model().isPrivateUpdate
                 backgroundType: DccObject.Normal
                 pageType: DccObject.Editor
                 page: D.Button {
@@ -403,7 +618,7 @@ DccObject {
         DccObject {
             name: "mirrorSettingGrp"
             parentName: "advancedSettingGroup"
-            visible: dccData.model().isCommunitySystem()
+            visible: dccData.model().isCommunitySystem() && !dccData.model().isPrivateUpdate
             weight: 70
             pageType: DccObject.Item
             page: DccGroupView {

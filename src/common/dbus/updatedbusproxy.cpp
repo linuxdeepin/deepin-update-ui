@@ -207,6 +207,16 @@ QString UpdateDBusProxy::updateStatus()
     return qvariant_cast<QString>(m_managerInter->property("UpdateStatus"));
 }
 
+bool UpdateDBusProxy::p2PUpdateEnable()
+{
+    return qvariant_cast<bool>(m_managerInter->property("P2PUpdateEnable"));
+}
+
+bool UpdateDBusProxy::p2PUpdateSupport()
+{
+    return qvariant_cast<bool>(m_managerInter->property("P2PUpdateSupport"));
+}
+
 bool UpdateDBusProxy::immutableAutoRecovery()
 {
     return qvariant_cast<bool>(m_managerInter->property("ImmutableAutoRecovery"));
@@ -385,6 +395,36 @@ QDBusPendingReply<QString> UpdateDBusProxy::GetUpdateLogs(int updateType)
     QList<QVariant> argumentList;
     argumentList << QVariant::fromValue(updateType);
     return m_managerInter->asyncCallWithArgumentList(QStringLiteral("GetUpdateLogs"), argumentList);
+}
+
+QDBusPendingReply<void> UpdateDBusProxy::SetUpgradeDeliveryEnable(bool enable)
+{
+    qCDebug(logCommon) << "Setting upgrade delivery enable :" << enable;
+    QList<QVariant> argumentList;
+    argumentList << QVariant::fromValue(enable);
+    return m_updateInter->asyncCallWithArgumentList(QStringLiteral("SetP2PUpdateEnable"), argumentList);
+}
+
+QDBusPendingReply<void> UpdateDBusProxy::SetUpgradeDeliveryDownloadSpeedLimit(const QString& downloadLimit)
+{
+    qCDebug(logCommon) << "Setting upgrade delivery download speed limit : " << downloadLimit;
+    QList<QVariant> argumentList;
+    argumentList << QVariant::fromValue(downloadLimit);
+    return m_updateInter->asyncCallWithArgumentList(QStringLiteral("SetDeliveryDownloadSpeedLimit"), argumentList);
+}
+
+QDBusPendingReply<void> UpdateDBusProxy::SetUpgradeDeliveryUploadSpeedLimit(const QString& uploadLimit)
+{
+    qCDebug(logCommon) << "Setting upgrade delivery upload speed limit : " << uploadLimit;
+    QList<QVariant> argumentList;
+    argumentList << QVariant::fromValue(uploadLimit);
+    return m_updateInter->asyncCallWithArgumentList(QStringLiteral("SetDeliveryUploadSpeedLimit"), argumentList);
+}
+
+QDBusPendingReply<void> UpdateDBusProxy::ClearUpgradeDeliveryCache()
+{
+    qCDebug(logCommon) << "Clearing upgrade delivery cache";
+    return m_updateInter->asyncCall(QStringLiteral("CleanTransmissionFiles"));
 }
 
 QDBusPendingReply<void> UpdateDBusProxy::SetIdleDownloadConfig(const QString& config)

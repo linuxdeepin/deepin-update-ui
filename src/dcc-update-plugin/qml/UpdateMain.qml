@@ -292,7 +292,7 @@ DccObject {
             updateListModels: dccData.model().preInstallListModel
             updateTitle: qsTr("Update download completed")
             btnActions: dccData.model().isPrivateUpdate ? [ 
-                qsTr("Install updates"),
+                qsTr("Install Now"),
                 qsTr("Check Again")
             ] : [qsTr("Install updates")]
             updateTips: {
@@ -306,8 +306,12 @@ DccObject {
 
             onBtnClicked: function(index, updateType) {
                 if (index === 0) {
-                    updateSelectDialog.updateType = updateType
-                    updateSelectDialog.show()
+                    if (dccData.model().isPrivateUpdate) {
+                        dccData.work().doUpgrade(updateListModels.getAllUpdateType(), true)
+                    } else {
+                        updateSelectDialog.updateType = updateType
+                        updateSelectDialog.show()
+                    }
                 } else if (index === 1) {
                     dccData.work().reCheckWithUi();
                 }
@@ -400,7 +404,7 @@ DccObject {
         description: qsTr("Configure Update settings、Security Updates、Auto Download Updates and Updates Notification")
         icon: "update_set"
         weight: 120
-        visible: dccData.model().systemActivation && !dccData.model().isPrivateUpdate
+        visible: dccData.model().systemActivation
 
         UpdateSetting {}
     }

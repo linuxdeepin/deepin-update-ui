@@ -47,18 +47,6 @@
         <source>View Update Log</source>
         <translation>查看更新日志</translation>
     </message>
-    <message>
-        <source>Install</source>
-        <translation>更新</translation>
-    </message>
-    <message>
-        <source>Install Now</source>
-        <translation>立即更新</translation>
-    </message>
-    <message>
-        <source>Install Shutdown</source>
-        <translation>关机后更新</translation>
-    </message>
 </context>
 <context>
     <name>UpdateHistoryDialog</name>
@@ -262,6 +250,10 @@
         <translation>安装更新</translation>
     </message>
     <message>
+        <source>Install Now</source>
+        <translation>立即更新</translation>
+    </message>
+    <message>
         <source>Check Again</source>
         <translation>重新检查更新</translation>
     </message>
@@ -429,6 +421,18 @@
     <message>
         <source>Delivers  updates for additional repository sources</source>
         <translation>提供额外添加的仓库源更新内容</translation>
+    </message>
+    <message>
+        <source>Upgrade Delivery</source>
+        <translation>更新传递</translation>
+    </message>
+    <message>
+        <source>Upgrade Delivery Download Limit Setting</source>
+        <translation>更新传递-下载限速</translation>
+    </message>
+    <message>
+        <source>Upgrade Delivery Upload Limit Setting</source>
+        <translation>更新传递-上传限速</translation>
     </message>
     <message>
         <source>Limit Speed</source>
