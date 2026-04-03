@@ -15,7 +15,9 @@ ColumnLayout {
     property string updateStateIcon: ""
     property string updateTitle : ""
     property string updateTips: ""
+    property string secondaryUpdateTips: ""
     property var btnActions: []
+    property bool showActionButtons: true
     property string processTitle: ""
     property double processValue: 0
     property bool processState: false
@@ -89,6 +91,14 @@ ColumnLayout {
                 }
             }
 
+            D.Label {
+                Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+                visible: secondaryUpdateTips.length !== 0
+                text: secondaryUpdateTips
+                font: D.DTK.fontManager.t8
+                Layout.fillWidth: true
+            }
+
             D.Button {
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
                 visible: showLogButton
@@ -122,7 +132,7 @@ ColumnLayout {
                 Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
                 text: modelData
                 font: D.DTK.fontManager.t6
-                visible: modelData.length !== 0 && !initAnimation.visible
+                visible: rootLayout.showActionButtons && modelData.length !== 0 && !initAnimation.visible
                 enabled: updatelistModel.model.isUpdateEnable
                 onClicked: {
                     rootLayout.btnClicked(index, updateListModels.getAllUpdateType())

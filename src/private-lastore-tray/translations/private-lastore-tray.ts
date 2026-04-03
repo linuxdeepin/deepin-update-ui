@@ -38,6 +38,14 @@
         <translation>下载限速配置切换中，切换完成后将会继续下载更新资源</translation>
     </message>
     <message>
+        <source>Upgrade conplete.Please reboot</source>
+        <translation>更新完成,请重启系统</translation>
+    </message>
+    <message>
+        <source>Upgrade failed.Please go to check.</source>
+        <translation>更新失败,点击查看</translation>
+    </message>
+    <message>
         <location filename="../tipswidget.cpp" line="145"/>
         <location filename="../tipswidget.cpp" line="205"/>
         <source>Has new version.Please go to check.</source>
