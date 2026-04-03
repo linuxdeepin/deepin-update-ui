@@ -294,6 +294,7 @@ void UpdateWorker::initConfig()
     qCDebug(logDccUpdatePlugin) << "Initialize lastore daemon configuration";
     if (m_lastoreDConfig && m_lastoreDConfig->isValid()) {
         m_model->setLastoreDaemonStatus(m_lastoreDConfig->value("lastore-daemon-status").toInt());
+        m_model->setScheduledUpgradeTime();
         connect(m_lastoreDConfig, &DConfig::valueChanged, this, [this](const QString& key) {
             if ("lastore-daemon-status" == key) {
                 bool ok;

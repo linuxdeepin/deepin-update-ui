@@ -36,6 +36,7 @@ class UpdateModel : public QObject
     Q_PROPERTY(QString checkUpdateIcon READ checkUpdateIcon NOTIFY checkUpdateIconChanged FINAL)
     Q_PROPERTY(double checkUpdateProgress READ checkUpdateProgress NOTIFY checkUpdateProgressChanged FINAL)
     Q_PROPERTY(UpdatesStatus checkUpdateStatus READ checkUpdateStatus NOTIFY checkUpdateStatusChanged FINAL)
+    Q_PROPERTY(QString versionInfo READ versionInfo NOTIFY versionInfoChanged FINAL)
     Q_PROPERTY(QString checkUpdateErrTips READ checkUpdateErrTips NOTIFY checkUpdateErrTipsChanged FINAL)
     Q_PROPERTY(QString checkBtnText READ checkBtnText NOTIFY checkBtnTextChanged FINAL)
     Q_PROPERTY(QString lastCheckUpdateTime READ lastCheckUpdateTime NOTIFY lastCheckUpdateTimeChanged FINAL)
@@ -54,6 +55,7 @@ class UpdateModel : public QObject
     Q_PROPERTY(bool downloadWaiting READ downloadWaiting NOTIFY downloadWaitingChanged FINAL)
     Q_PROPERTY(bool downloadPaused READ downloadPaused NOTIFY downloadPausedChanged FINAL)
     Q_PROPERTY(bool upgradeWaiting READ upgradeWaiting NOTIFY upgradeWaitingChanged FINAL)
+    Q_PROPERTY(QString scheduledUpgradeTime READ scheduledUpgradeTime NOTIFY scheduledUpgradeTimeChanged FINAL)
 
     Q_PROPERTY(double downloadProgress READ downloadProgress NOTIFY downloadProgressChanged FINAL)
     Q_PROPERTY(double backupProgress READ backupProgress NOTIFY backupProgressChanged FINAL)
@@ -141,6 +143,9 @@ public:
     void setCheckUpdateStatus(UpdatesStatus newCheckUpdateStatus);
     void updateCheckUpdateUi();
 
+    QString versionInfo() const { return m_versionInfo; }
+    void setVersionInfo(const QString &newCheckUpdateErrTips);
+
     QString checkUpdateErrTips() const { return m_checkUpdateErrTips; }
     void setCheckUpdateErrTips(const QString &newCheckUpdateErrTips);
 
@@ -190,6 +195,9 @@ public:
 
     bool upgradeWaiting() const { return m_upgradeWaiting; }
     void setUpgradeWaiting(bool waiting);
+
+    QString scheduledUpgradeTime() const { return m_scheduledUpgradeTime; }
+    void setScheduledUpgradeTime();
 
     double downloadProgress() const { return m_downloadProgress; }
     void setDownloadProgress(double downloadProgress);
@@ -366,6 +374,7 @@ Q_SIGNALS:
     void checkUpdateIconChanged();
     void checkUpdateProgressChanged();
     void checkUpdateStatusChanged();
+    void versionInfoChanged();
     void checkUpdateErrTipsChanged();
     void checkBtnTextChanged();
     void lastCheckUpdateTimeChanged();
@@ -385,6 +394,7 @@ Q_SIGNALS:
     void downloadWaitingChanged(bool waiting);
     void downloadPausedChanged(bool paused);
     void upgradeWaitingChanged(bool waiting);
+    void scheduledUpgradeTimeChanged();
 
     void downloadProgressChanged(const double &progress);
     void backupProgressChanged(double progress);
@@ -444,6 +454,7 @@ private:
     QString m_checkUpdateIcon;
     double m_checkUpdateProgress;
     UpdatesStatus m_checkUpdateStatus;
+    QString m_versionInfo;
     QString m_checkUpdateErrTips;
     QString m_checkBtnText;
     QString m_lastCheckUpdateTime;
@@ -462,6 +473,7 @@ private:
     bool m_downloadWaiting;
     bool m_downloadPaused;
     bool m_upgradeWaiting;
+    QString m_scheduledUpgradeTime;
     double m_downloadProgress;
     double m_distUpgradeProgress;
     double m_backupProgress;

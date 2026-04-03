@@ -233,7 +233,7 @@ DccObject {
                 return dccData.model().installFailedTips
             }
             btnActions: [ qsTr("Continue Update") ]
-
+            showActionButtons: !dccData.model().isPrivateUpdate
             onBtnClicked: function(index, updateType) {
                 dccData.work().onRequestRetry(Common.CPT_UpgradeFailed, updateType)
             }
@@ -301,6 +301,9 @@ DccObject {
                 }
                 return qsTr("Update size: ") + dccData.model().preInstallListModel.downloadSize
             }
+            secondaryUpdateTips: dccData.model().scheduledUpgradeTime.length !== 0
+                ? qsTr("will upgrade at %1").arg(dccData.model().scheduledUpgradeTime)
+                : ""
             busyState: dccData.model().upgradeWaiting
             updateListEnable: !dccData.model().upgradeWaiting
 

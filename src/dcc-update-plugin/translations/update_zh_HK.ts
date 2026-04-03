@@ -198,6 +198,10 @@
         <translation>更新大小：</translation>
     </message>
     <message>
+        <source>will upgrade at %1</source>
+        <translation>將於%1開始系統更新</translation>
+    </message>
+    <message>
         <source>Downloading</source>
         <translation>下載中</translation>
     </message>
@@ -284,6 +288,14 @@
 </context>
 <context>
     <name>UpdateModel</name>
+    <message>
+        <source>Current Edition</source>
+        <translation>私有化更新版本號</translation>
+    </message>
+    <message>
+        <source>Baseline</source>
+        <translation>補丁版本號</translation>
+    </message>
     <message>
         <source>Checking for updates, please wait…</source>
         <translation>正在檢查更新，請等待…</translation>

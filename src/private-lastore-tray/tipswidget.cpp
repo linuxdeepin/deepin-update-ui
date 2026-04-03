@@ -136,7 +136,13 @@ void TipsWidget::refreshContent()
             if (checkRegularlyUpdate()) return;
             //检查是否有可更新内容
             QString systemUpgradeStatus = checkHasSystemUpdate(m_managerInter->updateStatus());
-            if (systemUpgradeStatus == "downloaded") {
+            if (systemUpgradeStatus == "backupFailed" || systemUpgradeStatus == "upgradeFailed") {
+                m_textList.append(tr("Upgrade failed.Please go to check."));
+                return;
+            } else if (systemUpgradeStatus == "needReboot") {
+                m_textList.append(tr("Upgrade conplete.Please reboot"));
+                return;
+            } else if (systemUpgradeStatus == "downloaded") {
                 m_textList.append(tr("Download complete.Please go to control-center to check."));
             } else if (systemUpgradeStatus == "notDownload" || systemUpgradeStatus == "isDownloading"||
                 systemUpgradeStatus == "downloadPause" || systemUpgradeStatus == "upgradeReady"

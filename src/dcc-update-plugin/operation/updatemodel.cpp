@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
+#include "common/common/dconfig_helper.h"
 #include "updatemodel.h"
 #include "updatehistorymodel.h"
 #include "operation/common.h"
@@ -63,6 +64,7 @@ UpdateModel::UpdateModel(QObject* parent)
     , m_downloadWaiting(false)
     , m_downloadPaused(false)
     , m_upgradeWaiting(false)
+    , m_scheduledUpgradeTime("")
     , m_downloadProgress(0.0)
     , m_distUpgradeProgress(0.0)
     , m_backupProgress(0.0)
@@ -215,6 +217,24 @@ void UpdateModel::setBatterIsOK(bool ok)
     Q_EMIT batterIsOKChanged(ok);
 }
 
+void UpdateModel::setScheduledUpgradeTime()
+{
+    QString updateTime = DConfigHelper::instance()->getConfig("org.deepin.dde.lastore", "org.deepin.dde.lastore", "","update-time", "").toString();
+    if (!updateTime.isEmpty()) {
+        QDateTime dateTime = QDateTime::fromString(updateTime, Qt::ISODate);
+        if (dateTime.isValid()) {
+            QString formattedDateTime = dateTime.toString("HH:mm:ss");
+            qCDebug(logDccUpdatePlugin) << "Set scheduled upgrade time:" << formattedDateTime;
+            if (m_scheduledUpgradeTime == formattedDateTime) {
+                return;
+            }
+
+            m_scheduledUpgradeTime = formattedDateTime;
+            Q_EMIT scheduledUpgradeTimeChanged();
+        }
+    }
+}
+
 void UpdateModel::setLastStatus(const UpdatesStatus& status, int line, int types)
 {
     qCInfo(logDccUpdatePlugin) << "Status: " << status << ", types:" << types << ", line:" << line;
@@ -301,17 +321,34 @@ void UpdateModel::updateCheckUpdateUi()
             setCheckBtnText(tr("Check Again"));
             break;
         case Updated:
-        case UpdatesAvailable:
+        case UpdatesAvailable: {
             qCDebug(logDccUpdatePlugin) << "Setting UI for Updated status";
             setCheckBtnText(tr("Check Again"));
             setCheckUpdateErrTips(tr("Your system is up to date"));
             setCheckUpdateIcon("update_abreast_of_time");
+            QString versionInfo = tr("Current Edition") + ": " + m_systemVersionInfo;
+            if (!m_baseline.isEmpty()) {
+                versionInfo = versionInfo + "\n" + tr("Baseline") + ": " + m_baseline;
+            }
+            setVersionInfo(versionInfo);
             break;
+        }
         default:
             qCDebug(logDccUpdatePlugin) << "Unknown status in switch, clearing text";
             setCheckBtnText(tr(""));
             return;
     }
+}
+
+void UpdateModel::setVersionInfo(const QString &versionInfo) 
+{
+    qCDebug(logDccUpdatePlugin) << "Setting version info:" << versionInfo;
+    if (m_versionInfo == versionInfo) {
+        return;
+    }
+
+    m_versionInfo = versionInfo;
+    emit versionInfoChanged();
 }
 
 void UpdateModel::setCheckUpdateErrTips(const QString &newCheckUpdateErrTips)
