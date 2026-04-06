@@ -85,6 +85,14 @@
         <source>Version:</source>
         <translation>Versão:</translation>
     </message>
+    <message>
+        <source>View More</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Collapse</source>
+        <translation type="unfinished">Recolher</translation>
+    </message>
 </context>
 <context>
     <name>UpdateLogDialog</name>

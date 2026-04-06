@@ -85,6 +85,14 @@
         <source>Version:</source>
         <translation>Sürüm:</translation>
     </message>
+    <message>
+        <source>View More</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Collapse</source>
+        <translation type="unfinished">Daralt</translation>
+    </message>
 </context>
 <context>
     <name>UpdateLogDialog</name>

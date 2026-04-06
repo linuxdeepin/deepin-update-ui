@@ -191,3 +191,23 @@ int UpdateListModel::getAllUpdateType() const
     }
     return updateType;
 }
+
+QVariantList UpdateListModel::getDetailInfos(int index) const
+{
+    QVariantList result;
+    if (index >= 0 && index < m_updateLists.count()) {
+        const auto& detailInfos = m_updateLists[index]->detailInfos();
+        for (const auto& detail : detailInfos) {
+            QVariantMap map;
+            map["name"] = detail.name;
+            map["updateTime"] = detail.updateTime;
+            map["info"] = detail.info;
+            map["link"] = detail.link;
+            map["vulLevel"] = detail.vulLevel;
+            result.append(map);
+        }
+    } else {
+        qCWarning(logDccUpdatePlugin) << "Invalid index for getDetailInfos:" << index;
+    }
+    return result;
+}

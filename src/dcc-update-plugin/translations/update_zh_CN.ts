@@ -85,6 +85,14 @@
         <source>Version:</source>
         <translation>版本：</translation>
     </message>
+    <message>
+        <source>View More</source>
+        <translation>查看详细</translation>
+    </message>
+    <message>
+        <source>Collapse</source>
+        <translation>收起详细</translation>
+    </message>
 </context>
 <context>
     <name>UpdateLogDialog</name>
