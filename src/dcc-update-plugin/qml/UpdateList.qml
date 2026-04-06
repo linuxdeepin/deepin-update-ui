@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2024-2026 UnionTech Software Technology Co., Ltd.
 // SPDX-License-Identifier: GPL-3.0-or-later
 import QtQuick 2.0
 import QtQuick.Controls 2.0
@@ -38,6 +38,8 @@ Rectangle {
                 cascadeSelected: true
                 contentFlow: true
                 spacing: 0
+                
+                property bool showDetails: false
 
                 content: RowLayout {
                     spacing: 10
@@ -94,6 +96,7 @@ Rectangle {
                             Layout.fillWidth: true
                             font: D.DTK.fontManager.t8
                             text: model.explain
+                            textFormat: Text.RichText
                             wrapMode: Text.WordWrap
                             onLinkActivated: (link)=> {
                                 dccData.work().openUrl(link)
@@ -102,11 +105,13 @@ Rectangle {
 
                         RowLayout {
                             D.Label {
-                                id: releaseTitle
                                 Layout.alignment: Qt.AlignLeft
                                 horizontalAlignment: Text.AlignLeft
-                                visible: model.releaseTime.length !== 0
+                                verticalAlignment: Text.AlignVCenter
+                                Layout.fillWidth: true
+                                Layout.minimumHeight: 22
                                 font: D.DTK.fontManager.t8
+                                visible: model.releaseTime.length !== 0
                                 text: qsTr("Release time:") + model.releaseTime
                             }
 
@@ -117,8 +122,115 @@ Rectangle {
                     }
                 }
 
-                background: DccItemBackground {
-                    separatorVisible: true
+                D.ToolButton {
+                    textColor: D.Palette {
+                        normal {
+                            common: D.DTK.makeColor(D.Color.Highlight)
+                        }
+                        normalDark: normal
+                        hovered {
+                            common: D.DTK.makeColor(D.Color.Highlight).lightness(+30)
+                        }
+                        hoveredDark: hovered
+                    }
+                    visible: repeater.model.getDetailInfos(index).length !== 0 && !itemCtl.showDetails
+                    bottomPadding: 0
+                    font: D.DTK.fontManager.t8
+                    text: qsTr("View More")
+                    onClicked: {
+                        itemCtl.showDetails = true
+                    }
+                    background: Item {}
+                }
+
+                Component.onDestruction: {
+                    itemCtl.showDetails = false
+                }
+            }
+
+            Rectangle {
+                height: 1
+                color: D.DTK.themeType === D.ApplicationHelper.LightType ? 
+                            Qt.rgba(0, 0, 0, 0.05) : Qt.rgba(1, 1, 1, 0.05)
+                Layout.fillWidth: true
+                visible: itemCtl.showDetails
+            }
+
+            // 详情列表
+            Repeater {
+                id: innerRepeater
+                model: repeater.model.getDetailInfos(index)
+                ColumnLayout {
+                    spacing: 6
+
+                    D.Label {
+                        Layout.alignment: Qt.AlignLeft
+                        horizontalAlignment: Text.AlignLeft
+                        Layout.fillWidth: true
+                        font: D.DTK.fontManager.t8
+                        color: D.DTK.themeType == D.ApplicationHelper.LightType ? 
+                                    Qt.rgba(0, 0, 0, 1) : Qt.rgba(1, 1, 1, 1)
+                        visible: itemCtl.showDetails && modelData.name !== ""
+                        text: qsTr("Version:") + modelData.name
+                    }
+
+                    D.Label {
+                        Layout.alignment: Qt.AlignLeft
+                        horizontalAlignment: Text.AlignLeft
+                        Layout.fillWidth: true
+                        font: D.DTK.fontManager.t8
+                        visible: itemCtl.showDetails && modelData.info !== ""
+                        text: modelData.info
+                        textFormat: Text.RichText
+                        wrapMode: Text.WordWrap
+                        onLinkActivated: (link)=> {
+                            dccData.work().openUrl(link)
+                        }
+                    }
+
+                    RowLayout {
+                        D.Label {
+                            Layout.alignment: Qt.AlignLeft
+                            horizontalAlignment: Text.AlignLeft
+                            Layout.fillWidth: true
+                            font: D.DTK.fontManager.t8
+                            visible: itemCtl.showDetails && modelData.updateTime !== ""
+                            text: qsTr("Release time:") + modelData.updateTime
+                        }
+
+                        D.ToolButton {
+                            textColor: D.Palette {
+                                normal {
+                                    common: D.DTK.makeColor(D.Color.Highlight)
+                                }
+                                normalDark: normal
+                                hovered {
+                                    common: D.DTK.makeColor(D.Color.Highlight).lightness(+30)
+                                }
+                                hoveredDark: hovered
+                            }
+                            visible: itemCtl.showDetails && (index === innerRepeater.count - 1 )
+                            bottomPadding: 0
+                            font: D.DTK.fontManager.t8
+                            text: qsTr("Collapse")
+                            onClicked: {
+                                itemCtl.showDetails = false
+                            }
+                            background: Item {}
+                        }
+
+                        Component.onDestruction: {
+                            itemCtl.showDetails = false
+                        }
+                    }
+
+                    Rectangle {
+                        height: 1
+                        color: D.DTK.themeType === D.ApplicationHelper.LightType ? 
+                                        Qt.rgba(0, 0, 0, 0.05) : Qt.rgba(1, 1, 1, 0.05)
+                        Layout.fillWidth: true
+                        visible: itemCtl.showDetails && (index !== innerRepeater.count - 1 )
+                    }
                 }
             }
         }
