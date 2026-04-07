@@ -13,6 +13,20 @@
 #include "common/dbus/updatedbusproxy.h"
 #include "common/dbus/updatejobdbusproxy.h"
 
+#define UPDATE_STATUS_Default "noUpdate"
+#define UPDATE_STATUS_UpdatesAvailable "notDownload"
+#define UPDATE_STATUS_Downloading "isDownloading"
+#define UPDATE_STATUS_DownloadPaused "downloadPause"
+#define UPDATE_STATUS_DownloadFailed "downloadFailed"
+#define UPDATE_STATUS_Downloaded "downloaded"
+#define UPDATE_STATUS_BackingUp "backingUp"
+#define UPDATE_STATUS_BackupFailed "backupFailed"
+#define UPDATE_STATUS_BackupSuccess "hasBackedUp"
+#define UPDATE_STATUS_UpgradeReady "upgradeReady"
+#define UPDATE_STATUS_Upgrading "upgrading"
+#define UPDATE_STATUS_UpgradeFailed "upgradeFailed"
+#define UPDATE_STATUS_UpgradeSuccess "needReboot"
+
 inline QString checkHasSystemUpdate(const QString& updateStatus)
 {
     QJsonParseError parseError;

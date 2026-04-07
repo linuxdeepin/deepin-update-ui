@@ -3,10 +3,15 @@
 // SPDX-License-Identifier: LGPL-3.0-or-later
 #ifndef ICONBUTTON_H
 #define ICONBUTTON_H
+#include "tipswidget.h"
 
 #include <QIcon>
 #include <QWidget>
 #include <QMap>
+#include <QLabel>
+#include <QTimer>
+#include <QPropertyAnimation>
+#include <QGraphicsOpacityEffect>
 
 class CommonIconButton : public QWidget
 {
@@ -36,6 +41,8 @@ public:
 
     inline void setRotation(qreal rotation) { m_rotation = rotation; update(); }
     inline qreal rotation() const { return m_rotation;}
+    void startAnimation();
+    void stopAnimation();
 
 public Q_SLOTS:
     void setIcon(const QString &icon, const QString &fallback = "", const QString &suffix = ".svg");
@@ -56,6 +63,7 @@ protected:
 private:
     void refreshIcon();
     void updatePalette();
+    void switchIcon();
 
 private:
     QTimer *m_refreshTimer;
@@ -73,6 +81,15 @@ private:
     QSize m_iconSize;
     qreal m_rotation;
     QPalette m_defaultPalette;
+
+    QLabel *m_animLabel1;
+    QLabel *m_animLabel2;
+    QGraphicsOpacityEffect* m_effect1;
+    QGraphicsOpacityEffect* m_effect2;
+    QPropertyAnimation* m_fadeOutAnim;
+    QPropertyAnimation* m_fadeInAnim;
+    QTimer* m_animTimer;
+    bool m_showingFirst;
 };
 
 #endif // DOCKICONBUTTON_H

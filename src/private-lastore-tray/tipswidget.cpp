@@ -14,19 +14,6 @@
 Q_LOGGING_CATEGORY(dockUpdatePlugin, "org.deepin.dde.dock.update")
 #define PADDING 4
 #define SHUTDOWNUPDATESTATUS 5
-#define Default "noUpdate"
-#define UpdatesAvailable "notDownload"
-#define Downloading "isDownloading"
-#define DownloadPaused "downloadPause"
-#define DownloadFailed "downloadFailed"
-#define Downloaded "downloaded"
-#define BackingUp "backingUp"
-#define BackupFailed "backupFailed"
-#define BackupSuccess "hasBackedUp"
-#define UpgradeReady "upgradeReady"
-#define Upgrading "upgrading"
-#define UpgradeFailed "upgradeFailed"
-#define UpgradeSuccess "needReboot"
 static const int BACKUP_START_PROGRESS = 20;
 static const int BACKUP_SUCCESS_PROGRESS = 50;
 
@@ -74,7 +61,7 @@ void TipsWidget::setTextList(const QStringList &textList)
 bool TipsWidget::checkShutdownUpdate()
 {
     QString systemUpgradeStatus = checkHasSystemUpdate(m_managerInter->updateStatus());
-    if (systemUpgradeStatus != Downloaded) {
+    if (systemUpgradeStatus != UPDATE_STATUS_Downloaded) {
         return false;
     }
     int lastoreStatus = DConfigHelper::instance()->getConfig("org.deepin.dde.lastore", "org.deepin.dde.lastore", "","lastore-daemon-status", 0).toInt();
@@ -90,7 +77,7 @@ bool TipsWidget::checkShutdownUpdate()
 bool TipsWidget::checkRegularlyUpdate()
 {
     QString systemUpgradeStatus = checkHasSystemUpdate(m_managerInter->updateStatus());
-    if (systemUpgradeStatus != Downloaded) {
+    if (systemUpgradeStatus != UPDATE_STATUS_Downloaded) {
         return false;
     }
 
@@ -157,17 +144,17 @@ void TipsWidget::refreshContent()
             if (checkRegularlyUpdate()) return;
             //检查是否有可更新内容
             QString systemUpgradeStatus = checkHasSystemUpdate(m_managerInter->updateStatus());
-            if (systemUpgradeStatus == BackupFailed || systemUpgradeStatus == UpgradeFailed) {
+            if (systemUpgradeStatus == UPDATE_STATUS_BackupFailed || systemUpgradeStatus == UPDATE_STATUS_UpgradeFailed) {
                 m_textList.append(tr("Upgrade failed.Please go to check."));
                 return;
-            } else if (systemUpgradeStatus == UpgradeSuccess) {
+            } else if (systemUpgradeStatus == UPDATE_STATUS_UpgradeSuccess) {
                 m_textList.append(tr("Upgrade conplete.Please reboot"));
                 return;
-            } else if (systemUpgradeStatus == Downloaded) {
+            } else if (systemUpgradeStatus == UPDATE_STATUS_Downloaded) {
                 m_textList.append(tr("Download complete.Please go to control-center to check."));
-            } else if (systemUpgradeStatus == UpdatesAvailable || systemUpgradeStatus == Downloading||
-                systemUpgradeStatus == DownloadPaused || systemUpgradeStatus == UpgradeReady
-                || systemUpgradeStatus == Upgrading) {
+            } else if (systemUpgradeStatus == UPDATE_STATUS_UpdatesAvailable || systemUpgradeStatus == UPDATE_STATUS_Downloading||
+                systemUpgradeStatus == UPDATE_STATUS_DownloadPaused || systemUpgradeStatus == UPDATE_STATUS_UpgradeReady
+                || systemUpgradeStatus == UPDATE_STATUS_Upgrading) {
                 m_textList.append(tr("Has new version.Please go to check."));
                 return;
             }
@@ -215,9 +202,9 @@ void TipsWidget::refreshContent()
                                     .arg(QString::number(qRound(m_updateProgress / 0.01))));
                     } else if (curJobId == "update_source" && m_updateJobInter) {
                             QString systemUpgradeStatus = checkHasSystemUpdate(m_managerInter->updateStatus());
-                            if (systemUpgradeStatus == UpdatesAvailable || systemUpgradeStatus == Downloading||
-                                systemUpgradeStatus == DownloadPaused || systemUpgradeStatus == UpgradeReady
-                                || systemUpgradeStatus == Upgrading || systemUpgradeStatus == Downloaded) {
+                            if (systemUpgradeStatus == UPDATE_STATUS_UpdatesAvailable || systemUpgradeStatus == UPDATE_STATUS_Downloading||
+                                systemUpgradeStatus == UPDATE_STATUS_DownloadPaused || systemUpgradeStatus == UPDATE_STATUS_UpgradeReady
+                                || systemUpgradeStatus == UPDATE_STATUS_Upgrading || systemUpgradeStatus == UPDATE_STATUS_Downloaded) {
                         // 由于每次打开控制中心都会触发检查更新，此时有可能已经是downloaded状态且也有job
                             m_textList.append(tr("Has new version.Please go to check."));
                         }

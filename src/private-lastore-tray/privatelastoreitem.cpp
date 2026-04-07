@@ -36,7 +36,9 @@ PrivateLastoreItem::PrivateLastoreItem(QWidget* parent)
     m_icon->setFixedSize(Dock::DOCK_PLUGIN_ITEM_FIXED_SIZE);
     m_icon->setIcon(QIcon(":resources/private-lastore-sleep_16px.svg"));
     m_icon->setContentsMargins(0, 0, 0, 0);
+    onStartAnimation("");
     connect(m_managerInter, &UpdateDBusProxy::JobListChanged, this, &PrivateLastoreItem::onRefreshIcon);
+    connect(m_managerInter, &UpdateDBusProxy::UpdateStatusChanged, this, &PrivateLastoreItem::onStartAnimation);
 }
 
 QWidget* PrivateLastoreItem::tipsWidget()
@@ -61,11 +63,22 @@ void PrivateLastoreItem::onRefreshIcon(const QList<QDBusObjectPath> &jobs)
         const QString &id = jobInter.id();
         qInfo() << "Job id : " << id;
         if (id == "dist_upgrade" || id == "prepare_dist_upgrade") {
-            m_icon->setIcon(QIcon(":resources/private-lastore-active_16px.svg"));
+            m_icon->startAnimation();
             return;
         }
     }
     m_icon->setIcon(QIcon(":resources/private-lastore-sleep_16px.svg"));
+}
+
+void PrivateLastoreItem::onStartAnimation(const QString &updateStatus)
+{
+    QString systemUpgradeStatus = checkHasSystemUpdate(m_managerInter->updateStatus());
+    if (systemUpgradeStatus == UPDATE_STATUS_UpdatesAvailable || systemUpgradeStatus == UPDATE_STATUS_Downloading ||
+        systemUpgradeStatus == UPDATE_STATUS_DownloadPaused || systemUpgradeStatus == UPDATE_STATUS_UpgradeReady
+        || systemUpgradeStatus == UPDATE_STATUS_Upgrading || systemUpgradeStatus == UPDATE_STATUS_Downloaded)
+        m_icon->startAnimation();
+    else
+        m_icon->stopAnimation();
 }
 
 void PrivateLastoreItem::resizeEvent(QResizeEvent* e)

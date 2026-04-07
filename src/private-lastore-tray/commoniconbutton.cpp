@@ -24,6 +24,14 @@ CommonIconButton::CommonIconButton(QWidget *parent)
     , m_hoverEnable(true)
     , m_iconSize(QSize())
     , m_rotation(0)
+    , m_animLabel1(new QLabel(this))
+    , m_animLabel2(new QLabel(this))
+    , m_effect1(new QGraphicsOpacityEffect(this))
+    , m_effect2(new QGraphicsOpacityEffect(this))
+    , m_fadeOutAnim(new QPropertyAnimation)
+    , m_fadeInAnim(new QPropertyAnimation)
+    , m_animTimer(new QTimer(this))
+    , m_showingFirst(true)
 {
     setAccessibleName("IconButton");
     setFixedSize(Dock::DOCK_PLUGIN_ITEM_FIXED_SIZE);
@@ -32,12 +40,30 @@ CommonIconButton::CommonIconButton(QWidget *parent)
 
     m_defaultPalette = palette();
 
-    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &CommonIconButton::refreshIcon);
-}
+    m_animLabel1->setGraphicsEffect(m_effect1);
+    m_animLabel2->setGraphicsEffect(m_effect2);
+    m_animLabel1->setScaledContents(true);
+    m_animLabel2->setScaledContents(true);
+    m_animLabel1->setGeometry(this->rect());
+    m_animLabel2->setGeometry(this->rect());
+    m_animLabel1->setPixmap(QPixmap(":resources/private-lastore-sleep_16px.svg"));
+    m_animLabel2->setPixmap(QPixmap(":resources/private-lastore-active_16px.svg"));
+    m_animLabel1->setFixedSize(Dock::DOCK_PLUGIN_ITEM_FIXED_SIZE);
+    m_animLabel2->setFixedSize(Dock::DOCK_PLUGIN_ITEM_FIXED_SIZE);
 
-void CommonIconButton::setStateIconMapping(QMap<State, QPair<QString, QString>> mapping)
-{
-    m_fileMapping = mapping;
+    m_effect1->setOpacity(1.0);
+    m_effect2->setOpacity(0.0);
+
+    m_fadeOutAnim->setDuration(500);
+    m_fadeOutAnim->setPropertyName("opacity");
+    m_fadeInAnim->setDuration(500);
+    m_fadeInAnim->setPropertyName("opacity");
+
+    m_fadeOutAnim->setEasingCurve(QEasingCurve::InOutQuad);
+    m_fadeInAnim->setEasingCurve(QEasingCurve::InOutQuad);
+
+    connect(m_animTimer, &QTimer::timeout, this, &CommonIconButton::switchIcon);
+    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, &CommonIconButton::refreshIcon);
 }
 
 void CommonIconButton::setState(State state)
@@ -71,6 +97,22 @@ void CommonIconButton::stopRotate()
     update();
 }
 
+void CommonIconButton::startAnimation()
+{
+    m_animLabel1->setVisible(true);
+    m_animLabel2->setVisible(true);
+    if (!m_animTimer->isActive()) {
+        m_animTimer->start(2000);
+    }
+}
+
+void CommonIconButton::stopAnimation()
+{
+    m_animLabel1->setVisible(false);
+    m_animLabel2->setVisible(false);
+    m_animTimer->stop();
+}
+
 void CommonIconButton::setIcon(const QIcon &icon, QColor lightThemeColor, QColor darkThemeColor)
 {
     m_icon = icon;
@@ -95,9 +137,35 @@ void CommonIconButton::updatePalette()
         }
     } else {
         setPalette(m_defaultPalette);
-    }
+    } 
 
     update();
+}
+
+void CommonIconButton::switchIcon()
+{
+    if (m_showingFirst) {
+        m_fadeOutAnim->setTargetObject(m_effect1);
+        m_fadeOutAnim->setStartValue(1.0);
+        m_fadeOutAnim->setEndValue(0.0);
+
+        m_fadeInAnim->setTargetObject(m_effect2);
+        m_fadeInAnim->setStartValue(0.0);
+        m_fadeInAnim->setEndValue(1.0);
+    } else {
+        m_fadeOutAnim->setTargetObject(m_effect2);
+        m_fadeOutAnim->setStartValue(1.0);
+        m_fadeOutAnim->setEndValue(0.0);
+
+        m_fadeInAnim->setTargetObject(m_effect1);
+        m_fadeInAnim->setStartValue(0.0);
+        m_fadeInAnim->setEndValue(1.0);
+    }
+
+    m_fadeOutAnim->start();
+    m_fadeInAnim->start();
+
+    m_showingFirst = !m_showingFirst;
 }
 
 void CommonIconButton::setActiveState(bool state)

@@ -33,6 +33,7 @@ protected:
 
 private slots:
     void onRefreshIcon(const QList<QDBusObjectPath> &jobs);
+    void onStartAnimation(const QString &updateStatus);
 
 private:
     TipsWidget *m_tipsLabel;
