@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019 - 2023 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2019 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -282,7 +282,24 @@ void ErrorFrame::createButtons(const QList<UpdateModel::UpdateAction> &actions)
 void ErrorFrame::keyPressEvent(QKeyEvent *event)
 {
     switch (event->key()) {
-    case Qt::Key_Up:
+    case Qt::Key_Up: {
+        qCDebug(logUpdateModal) << "Up key pressed, switching to previous button";
+        if (m_actionButtons.size() > 1) {
+            int index = 0;
+            if (m_checkedButton) {
+                index = m_actionButtons.indexOf(m_checkedButton.data());
+                if (index <= 0)
+                    index = m_actionButtons.length() - 1;
+                else
+                    index--;
+
+                m_checkedButton->setChecked(false);
+            }
+            m_checkedButton = m_actionButtons.at(index);
+            m_checkedButton->setChecked(true);
+        }
+        break;
+    }
     case Qt::Key_Down:
     case Qt::Key_Tab: {
         qCDebug(logUpdateModal) << "Navigation key pressed, switching button selection";
