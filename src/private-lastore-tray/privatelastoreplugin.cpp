@@ -8,13 +8,11 @@
 #include "common/global_util/public_func.h"
 
 #include <DStandardPaths>
-#include <DGuiApplicationHelper>
 
 #define PRIVATE_LASTORE_KEY "private-lastore-key"
 #define STATE_KEY "enabled"
 
 DCORE_USE_NAMESPACE
-DGUI_USE_NAMESPACE
 Q_LOGGING_CATEGORY(dockPrivateUpdatePlugin, "org.deepin.dde.dock.update")
 
 PrivateLastorePlugin::PrivateLastorePlugin(QObject *parent)
@@ -22,7 +20,10 @@ PrivateLastorePlugin::PrivateLastorePlugin(QObject *parent)
     , m_item(new PrivateLastoreItem)
 {
     QTranslator *translator = new QTranslator(this);
-    translator->load(QLocale(), "private-lastore-tray", "_", "/usr/share/private-lastore-tray/translations");
+    const bool loaded = translator->load(QLocale(), "private-lastore-tray", "_", "/usr/share/private-lastore-tray/translations");
+    if (!loaded) {
+        qCWarning(dockPrivateUpdatePlugin) << "Failed to load private-lastore-tray translations";
+    }
     QCoreApplication::installTranslator(translator);
 }
 
@@ -32,12 +33,6 @@ PrivateLastorePlugin::~PrivateLastorePlugin()
         delete m_item;
         m_item = nullptr;
     }
-}
-
-void PrivateLastorePlugin::loadPlugin()
-{
-    m_proxyInter->itemAdded(this, PRIVATE_LASTORE_KEY);
-    displayModeChanged(displayMode());
 }
 
 const QString PrivateLastorePlugin::pluginName() const

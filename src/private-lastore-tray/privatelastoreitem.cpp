@@ -7,19 +7,11 @@
 #include "tipswidget.h"
 
 #include <DDBusSender>
-#include <DGuiApplicationHelper>
-#include <DIconTheme>
 
 #include <QDBusConnection>
-#include <QDBusReply>
 #include <QIcon>
-#include <QJsonDocument>
-#include <QPainter>
-#include <QPaintEvent>
 #include <QVBoxLayout>
 #include <QMouseEvent>
-
-DGUI_USE_NAMESPACE
 
 PrivateLastoreItem::PrivateLastoreItem(QWidget* parent)
     : QWidget(parent)
@@ -49,19 +41,20 @@ QWidget* PrivateLastoreItem::tipsWidget()
 
 void PrivateLastoreItem::onRefreshIcon(const QList<QDBusObjectPath> &jobs)
 {
-    qInfo() << "Job list changed";
+    qInfo() << "Update job list changed";
 
     for (const auto &job : jobs) {
         const QString &jobPath = job.path();
-        qInfo() << "Path : " << jobPath;
+        qInfo() << "Update job path:" << jobPath;
         UpdateJobDBusProxy jobInter(jobPath, this);
         if (!jobInter.isValid()) {
-            qWarning() << "Job is invalid";
+            qWarning() << "Invalid update job";
             continue;
         }
 
         const QString &id = jobInter.id();
-        qInfo() << "Job id : " << id;
+        qInfo() << "Update job id:" << id;
+        // 下载或安装任务存在时显示更新动画。
         if (id == "dist_upgrade" || id == "prepare_dist_upgrade") {
             m_icon->startAnimation();
             return;
@@ -72,6 +65,9 @@ void PrivateLastoreItem::onRefreshIcon(const QList<QDBusObjectPath> &jobs)
 
 void PrivateLastoreItem::onStartAnimation(const QString &updateStatus)
 {
+    Q_UNUSED(updateStatus)
+
+    // 从更新状态中提取 system_upgrade 状态控制动画。
     QString systemUpgradeStatus = checkHasSystemUpdate(m_managerInter->updateStatus());
     if (systemUpgradeStatus == UPDATE_STATUS_UpdatesAvailable || systemUpgradeStatus == UPDATE_STATUS_Downloading ||
         systemUpgradeStatus == UPDATE_STATUS_DownloadPaused || systemUpgradeStatus == UPDATE_STATUS_UpgradeReady
@@ -85,6 +81,7 @@ void PrivateLastoreItem::resizeEvent(QResizeEvent* e)
 {
     QWidget::resizeEvent(e);
 
+    // 按 dock 停靠方向将条目约束为正方形区域。
     const Dock::Position position = qApp->property(PROP_POSITION).value<Dock::Position>();
     if (position == Dock::Bottom || position == Dock::Top) {
         setMaximumWidth(height());
@@ -95,8 +92,10 @@ void PrivateLastoreItem::resizeEvent(QResizeEvent* e)
     }
 }
 
-void PrivateLastoreItem::mouseReleaseEvent(QMouseEvent *event) {
+void PrivateLastoreItem::mouseReleaseEvent(QMouseEvent *event)
+{
     if (event->button() == Qt::LeftButton && m_controlCenterInterface) {
+        // 左键点击后打开控制中心更新模块。
         DDBusSender()
             .service("org.deepin.dde.ControlCenter1")
             .interface("org.deepin.dde.ControlCenter1")
@@ -107,4 +106,3 @@ void PrivateLastoreItem::mouseReleaseEvent(QMouseEvent *event) {
     }
     QWidget::mouseReleaseEvent(event);
 }
-

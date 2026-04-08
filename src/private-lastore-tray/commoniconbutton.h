@@ -13,6 +13,7 @@
 #include <QPropertyAnimation>
 #include <QGraphicsOpacityEffect>
 
+// 托盘图标按钮，负责显示静态图标和更新动画。
 class CommonIconButton : public QWidget
 {
 public:
@@ -61,8 +62,11 @@ protected:
     void mouseReleaseEvent(QMouseEvent *event) override;
 
 private:
+    // 按当前状态重新加载图标资源。
     void refreshIcon();
+    // 按主题和激活状态更新图标颜色。
     void updatePalette();
+    // 在两张动画帧之间切换透明度。
     void switchIcon();
 
 private:

@@ -116,6 +116,7 @@ UpdateWorker::UpdateWorker(UpdateModel* model, QObject* parent)
     , m_lastoreDConfig(DConfig::create("org.deepin.dde.lastore", "org.deepin.dde.lastore", "", this))
     , m_model(model)
     , m_updateInter(new UpdateDBusProxy(this))
+    , m_updateAssistant(nullptr)
     , m_lastoreHeartBeatTimer(new QTimer(this))
     , m_logWatcherHelper(new LogWatcherHelper(m_updateInter, this))
     , m_machineid(std::nullopt)
@@ -128,7 +129,6 @@ UpdateWorker::UpdateWorker(UpdateModel* model, QObject* parent)
     , m_backupJob(nullptr)
     , m_installPackageJob(nullptr)
     , m_removePackageJob(nullptr)
-    , m_updateAssistant(nullptr)
 {
     qCDebug(logDccUpdatePlugin) << "Initializing UpdateWorker";
     qRegisterMetaType<UpdatesStatus>("UpdatesStatus");
@@ -1817,4 +1817,3 @@ void UpdateWorker::cleanUpgradeDeliveryCache()
         }
     });
 }
-

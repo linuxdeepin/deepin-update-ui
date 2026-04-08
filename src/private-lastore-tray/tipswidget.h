@@ -27,6 +27,7 @@
 #define UPDATE_STATUS_UpgradeFailed "upgradeFailed"
 #define UPDATE_STATUS_UpgradeSuccess "needReboot"
 
+// 从更新状态 JSON 中提取 system_upgrade 字段。
 inline QString checkHasSystemUpdate(const QString& updateStatus)
 {
     QJsonParseError parseError;
@@ -45,6 +46,7 @@ inline QString checkHasSystemUpdate(const QString& updateStatus)
     return systemUpgradeStatus;
 }
 
+// 托盘提示气泡，按任务状态生成显示文案。
 class TipsWidget : public QFrame
 {
     Q_OBJECT
@@ -65,16 +67,15 @@ protected:
     bool event(QEvent *event) override;
 
 private:
+    // 判断是否处于关机更新状态。
     bool checkShutdownUpdate();
+    // 判断是否已设置定时升级。
     bool checkRegularlyUpdate();
+    // 将下载速度格式化为展示文本。
     QString regulateSpeed();
 
 private slots:
-    void onDownloadLimitChanged(bool value);
     void onRefreshJobList(const QList<QDBusObjectPath> &jobs);
-    void onUpdatePropertiesChanged(const QString& interfaceName,
-                                   const QVariantMap& changedProperties,
-                                   const QStringList& invalidatedProperties);
     void onSetUpdateProgress(double progress);
     void onSetBackUpProgress(double progress);
 

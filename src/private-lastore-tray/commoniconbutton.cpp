@@ -50,6 +50,8 @@ CommonIconButton::CommonIconButton(QWidget *parent)
     m_animLabel2->setPixmap(QPixmap(":resources/private-lastore-active_16px.svg"));
     m_animLabel1->setFixedSize(Dock::DOCK_PLUGIN_ITEM_FIXED_SIZE);
     m_animLabel2->setFixedSize(Dock::DOCK_PLUGIN_ITEM_FIXED_SIZE);
+    m_animLabel1->hide();
+    m_animLabel2->hide();
 
     m_effect1->setOpacity(1.0);
     m_effect2->setOpacity(0.0);
@@ -83,6 +85,7 @@ void CommonIconButton::startRotate()
     if (!m_refreshTimer) {
         m_refreshTimer = new QTimer(this);
         m_refreshTimer->setInterval(70);
+        // 定时累加角度，驱动旋转绘制。
         connect(m_refreshTimer, &QTimer::timeout, this, &CommonIconButton::startRotate);
     }
     m_refreshTimer->start();
@@ -99,6 +102,10 @@ void CommonIconButton::stopRotate()
 
 void CommonIconButton::startAnimation()
 {
+    // 通过两张图标交替淡入淡出显示活动状态。
+    m_showingFirst = true;
+    m_effect1->setOpacity(1.0);
+    m_effect2->setOpacity(0.0);
     m_animLabel1->setVisible(true);
     m_animLabel2->setVisible(true);
     if (!m_animTimer->isActive()) {
@@ -144,6 +151,7 @@ void CommonIconButton::updatePalette()
 
 void CommonIconButton::switchIcon()
 {
+    // 切换当前显示的图标层并启动透明度动画。
     if (m_showingFirst) {
         m_fadeOutAnim->setTargetObject(m_effect1);
         m_fadeOutAnim->setStartValue(1.0);
@@ -192,6 +200,7 @@ void CommonIconButton::setIcon(const QString &icon, const QString &fallback, con
     QString tmp = icon;
     QString tmpFallback = fallback;
 
+    // 浅色主题下优先使用带 `-dark` 后缀的图标资源。
     static auto addDarkMark = [suffix] (QString &file) {
         if (file.contains(suffix)) {
             file.replace(suffix, "-dark" + suffix);
@@ -234,6 +243,11 @@ bool CommonIconButton::event(QEvent *e)
 void CommonIconButton::paintEvent(QPaintEvent *e)
 {
     QWidget::paintEvent(e);
+
+    if (m_animLabel1->isVisible() || m_animLabel2->isVisible()) {
+        return;
+    }
+
     QPainter painter(this);
     painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
 
@@ -264,6 +278,7 @@ void CommonIconButton::mousePressEvent(QMouseEvent *event)
 
 void CommonIconButton::mouseReleaseEvent(QMouseEvent *event)
 {
+    // 旋转期间不触发点击信号。
     if (m_clickable && rect().contains(m_pressPos) && rect().contains(event->pos()) && (!m_refreshTimer || !m_refreshTimer->isActive())) {
         Q_EMIT clicked();
         return;
