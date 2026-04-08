@@ -85,7 +85,7 @@
     </message>
     <message>
         <source>View More</source>
-        <translation type="unfinished"/>
+        <translation>Shihni Më Tepër</translation>
     </message>
     <message>
         <source>Collapse</source>
