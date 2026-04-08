@@ -17,7 +17,7 @@ namespace Dock {
 class TipsWidget;
 }
 
-class AirplaneModeApplet;
+// 托盘条目，负责图标显示和点击跳转。
 class PrivateLastoreItem : public QWidget
 {
     Q_OBJECT

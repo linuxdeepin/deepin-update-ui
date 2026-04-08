@@ -32,9 +32,6 @@ public:
     QWidget *itemTipsWidget(const QString &itemKey) Q_DECL_OVERRIDE;
 
 private:
-    void loadPlugin();
-
-private:
     PrivateLastoreItem *m_item;
 };
 

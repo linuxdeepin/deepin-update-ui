@@ -8,14 +8,10 @@
 
 #include <QPainter>
 #include <QAccessible>
-#include <QFile>
-#include <QTextDocument>
 
 Q_LOGGING_CATEGORY(dockUpdatePlugin, "org.deepin.dde.dock.update")
 #define PADDING 4
 #define SHUTDOWNUPDATESTATUS 5
-static const int BACKUP_START_PROGRESS = 20;
-static const int BACKUP_SUCCESS_PROGRESS = 50;
 
 TipsWidget::TipsWidget(QWidget *parent)
     : QFrame(parent)
@@ -67,7 +63,7 @@ bool TipsWidget::checkShutdownUpdate()
     int lastoreStatus = DConfigHelper::instance()->getConfig("org.deepin.dde.lastore", "org.deepin.dde.lastore", "","lastore-daemon-status", 0).toInt();
     if (lastoreStatus == SHUTDOWNUPDATESTATUS) {
         m_textList.append(tr("Download complete"));
-        m_textList.append(tr("shutdown update"));
+        m_textList.append(tr("Shutdown update"));
         return true;
     } else {
         return false;
@@ -87,30 +83,13 @@ bool TipsWidget::checkRegularlyUpdate()
         if (dateTime.isValid()) {
             QString formattedDateTime = dateTime.toString("HH:mm:ss");
             m_textList.append(tr("Download complete"));
-            QString info = tr("will upgrade at %1");
+            QString info = tr("Will upgrade at %1");
             m_textList.append(info.arg(formattedDateTime));
             return true;
         }
         return false;
     }
     return false;
-}
-
-void TipsWidget::onUpdatePropertiesChanged(const QString& interfaceName, const QVariantMap& changedProperties, const QStringList& invalidatedProperties)
-{
-    Q_UNUSED(invalidatedProperties)
-
-    if (interfaceName == "org.deepin.dde.Lastore1.Job") {
-        if (changedProperties.contains("Speed")) {
-            m_speed = changedProperties.value("Speed").toULongLong();
-        }
-
-        if (changedProperties.contains("Proto")) {
-            m_proto = changedProperties.value("Proto").toString();
-        }
-    }
-    refreshContent();
-    update();
 }
 
 void TipsWidget::onSetUpdateProgress(double progress)
@@ -131,59 +110,58 @@ void TipsWidget::refreshContent()
 {
     m_textList.clear();
     if (m_downloadLimitOnChanging) {
-        m_textList.append(tr("Is changing download speed limit. Please wait"));
+        m_textList.append(tr("Changing download speed limit. Please wait"));
         return;
     }
+
+    // 优先根据当前任务生成提示，没有任务时再根据总体状态生成提示。
     if (m_managerInter) {
         QList<QDBusObjectPath> jobList = m_managerInter->jobList();
         if (jobList.isEmpty()) {
-            //当前无任务，需检测是否为任务执行完成状态
-            //检查当前是否为关机更新状态
+            // 没有任务时优先显示下载完成后的后续状态。
             if (checkShutdownUpdate()) return;
-            //检查当前是否为定时更新状态
             if (checkRegularlyUpdate()) return;
-            //检查是否有可更新内容
             QString systemUpgradeStatus = checkHasSystemUpdate(m_managerInter->updateStatus());
             if (systemUpgradeStatus == UPDATE_STATUS_BackupFailed || systemUpgradeStatus == UPDATE_STATUS_UpgradeFailed) {
-                m_textList.append(tr("Upgrade failed.Please go to check."));
+                m_textList.append(tr("Upgrade failed. Please check."));
                 return;
             } else if (systemUpgradeStatus == UPDATE_STATUS_UpgradeSuccess) {
-                m_textList.append(tr("Upgrade conplete.Please reboot"));
+                m_textList.append(tr("Upgrade complete. Please reboot."));
                 return;
             } else if (systemUpgradeStatus == UPDATE_STATUS_Downloaded) {
-                m_textList.append(tr("Download complete.Please go to control-center to check."));
+                m_textList.append(tr("Download complete. Please open Control Center to check."));
             } else if (systemUpgradeStatus == UPDATE_STATUS_UpdatesAvailable || systemUpgradeStatus == UPDATE_STATUS_Downloading||
                 systemUpgradeStatus == UPDATE_STATUS_DownloadPaused || systemUpgradeStatus == UPDATE_STATUS_UpgradeReady
                 || systemUpgradeStatus == UPDATE_STATUS_Upgrading) {
-                m_textList.append(tr("Has new version.Please go to check."));
+                m_textList.append(tr("New version available. Please check."));
                 return;
             }
         } else {
             for (const auto &job : jobList) {
                 const QString &jobPath = job.path();
-                qInfo() << "Path : " << jobPath;
+                qInfo() << "Update job path:" << jobPath;
                 UpdateJobDBusProxy jobInter(jobPath, this);
                 if (!jobInter.isValid()) {
-                    qWarning() << "Job is invalid";
+                    qWarning() << "Invalid update job";
                     continue;
                 }
                 QString curJobStatus = jobInter.status();
                 QString curJobId = jobInter.id();
                 QString curStatus;
                 if (curJobStatus == "running" || curJobStatus == "ready") {
-                    //当前有任务在进行
+                    // 按任务类型生成当前提示内容。
                     if (curJobId == "backup" && m_backupJobInter) {
-                        QString curProgress = tr("current upgrade process");
-                        curStatus = tr("backing up");
+                        QString curProgress = tr("Current upgrade progress");
+                        curStatus = tr("Backing up");
                         m_textList.append(curStatus);
                         m_textList.append(QString("%1: %2%")
                             .arg(curProgress)
                             .arg(QString::number(qRound(m_backupProgress / 0.01))));
                     } else if (curJobId == "prepare_dist_upgrade" && m_updateJobInter) {
-                        //任务类型为下载任务，展示下载信息
-                        curStatus = tr("download");
-                        QString curProgress = tr("current download process");
-                        QString curSpeed = tr("current speed");
+                        // 下载阶段显示进度、速度和协议。
+                        curStatus = tr("Downloading");
+                        QString curProgress = tr("Current download progress");
+                        QString curSpeed = tr("Current speed");
                         m_textList.append(QString("%1, %2: %3%")
                                           .arg(curStatus)
                                           .arg(curProgress)
@@ -193,24 +171,24 @@ void TipsWidget::refreshContent()
                                 .arg(regulateSpeed())
                                 .arg(m_proto));
                     } else if (curJobId == "dist_upgrade" && m_updateJobInter) {
-                        //任务类型为更新任务，展示更新信息
-                        QString curProgress = tr("current upgrade process");
-                        curStatus = tr("install");
+                        // 安装阶段仅显示升级进度。
+                        QString curProgress = tr("Current upgrade progress");
+                        curStatus = tr("Installing");
                         m_textList.append(curStatus);
                         m_textList.append(QString("%1: %2%")
                                     .arg(curProgress)
                                     .arg(QString::number(qRound(m_updateProgress / 0.01))));
                     } else if (curJobId == "update_source" && m_updateJobInter) {
-                            QString systemUpgradeStatus = checkHasSystemUpdate(m_managerInter->updateStatus());
-                            if (systemUpgradeStatus == UPDATE_STATUS_UpdatesAvailable || systemUpgradeStatus == UPDATE_STATUS_Downloading||
-                                systemUpgradeStatus == UPDATE_STATUS_DownloadPaused || systemUpgradeStatus == UPDATE_STATUS_UpgradeReady
-                                || systemUpgradeStatus == UPDATE_STATUS_Upgrading || systemUpgradeStatus == UPDATE_STATUS_Downloaded) {
-                        // 由于每次打开控制中心都会触发检查更新，此时有可能已经是downloaded状态且也有job
-                            m_textList.append(tr("Has new version.Please go to check."));
+                        QString systemUpgradeStatus = checkHasSystemUpdate(m_managerInter->updateStatus());
+                        if (systemUpgradeStatus == UPDATE_STATUS_UpdatesAvailable || systemUpgradeStatus == UPDATE_STATUS_Downloading||
+                            systemUpgradeStatus == UPDATE_STATUS_DownloadPaused || systemUpgradeStatus == UPDATE_STATUS_UpgradeReady
+                            || systemUpgradeStatus == UPDATE_STATUS_Upgrading || systemUpgradeStatus == UPDATE_STATUS_Downloaded) {
+                            // 更新源检查任务存在时仍保持新版本提示。
+                            m_textList.append(tr("New version available. Please check."));
                         }
                     }
                 } else {
-                    //无running任务状态下没有监控任务状态的必要，展示标题文案，防止出现空白气泡
+                    // 非运行态任务不显示进度提示。
                     m_speed = 0.0;
                     if (m_textList.length() != 0)
                         m_textList.clear();
@@ -225,7 +203,7 @@ QString TipsWidget::regulateSpeed()
 {
     QString unitName;
     double regulatedProcess;
-    bool needDecimal = false; //是否需要保留一位小数
+    bool needDecimal = false; // 控制是否保留一位小数。
 
     if (m_speed >= 1024 * 1024) {
         regulatedProcess = static_cast<double>(m_speed) / (1024 * 1024);
@@ -243,19 +221,15 @@ QString TipsWidget::regulateSpeed()
     return QString("%1%2").arg(regulatedProcess, 0, 'f', needDecimal ? 1 : 0).arg(unitName);
 }
 
-void TipsWidget::onDownloadLimitChanged(bool value) {
-    m_downloadLimitOnChanging = value;
-}
-
 void TipsWidget::onRefreshJobList(const QList<QDBusObjectPath> &jobs)
 {
-    qInfo() << "Job list changed";
+    qInfo() << "Update job list changed";
 
     for (const auto &job : jobs) {
         const QString &jobPath = job.path();
         UpdateJobDBusProxy jobInter(jobPath, this);
 
-        //检测到有更新任务
+        // 记录任务代理并监听进度变化。
         const QString &id = jobInter.id();
         if (id == "dist_upgrade" || id == "prepare_dist_upgrade") {
             m_updateJobInter = new UpdateJobDBusProxy(jobPath, this);
@@ -266,16 +240,11 @@ void TipsWidget::onRefreshJobList(const QList<QDBusObjectPath> &jobs)
         }
     }
 }
-
-
-/**
- * @brief TipsWidget::paintEvent 任务栏插件提示信息绘制
- * @param event
- */
 void TipsWidget::paintEvent(QPaintEvent *event)
 {
     QFrame::paintEvent(event);
 
+    // 按当前文本内容绘制提示气泡。
     QPainter painter(this);
     painter.setPen(QPen(palette().brightText(), 1));
 
@@ -289,7 +258,7 @@ void TipsWidget::paintEvent(QPaintEvent *event)
         break;
     case MultiLine: {
         if (m_textList.size() == 0) {
-            m_textList.append(tr("Enterprise-level Upgrade Management System"));
+            m_textList.append(tr("Enterprise Upgrade Management System"));
         }
 
         int x = rect().x();

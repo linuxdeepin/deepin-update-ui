@@ -10,11 +10,7 @@
 #include <QIcon>
 #include <QtCore>
 
-///
-/// \brief The PluginsItemInterface class
-/// the dock plugins item interface, all dock plugins should
-/// inheirt this class and override all pure virtual function.
-///
+// Dock 插件条目接口，定义条目显示和交互能力。
 class PluginsItemInterface
 {
 public:
@@ -23,217 +19,92 @@ public:
         Fixed
     };
 
-    /**
-    * @brief Plugin size policy
-    */
+    // 条目尺寸跟随系统或使用自定义策略。
     enum PluginSizePolicy {
-        System = 1 << 0, // Follow the system
-        Custom = 1 << 1  // The custom
+        System = 1 << 0,
+        Custom = 1 << 1
     };
 
-    ///
-    /// \brief ~PluginsItemInterface
-    /// DON'T try to delete m_proxyInter.
-    ///
+    // 销毁插件条目对象。
     virtual ~PluginsItemInterface() {}
 
-    ///
-    /// \brief pluginName
-    /// tell dock the unique plugin id
-    /// \return
-    ///
+    // 返回插件唯一标识。
     virtual const QString pluginName() const = 0;
     virtual const QString pluginDisplayName() const { return QString(); }
 
-    ///
-    /// \brief init
-    /// init your plugins, you need to save proxyInter to m_proxyInter
-    /// member variable. but you shouldn't free this pointer.
-    /// \param proxyInter
-    /// DON'T try to delete this pointer.
-    ///
+    // 初始化条目并接收 dock 代理接口。
     virtual void init(PluginProxyInterface *proxyInter) = 0;
-    ///
-    /// \brief itemWidget
-    /// your plugin item widget, each item should have a unique key.
-    /// \param itemKey
-    /// your widget' unique key.
-    /// \return
-    ///
+
+    // 返回条目控件。
     virtual QWidget *itemWidget(const QString &itemKey) = 0;
 
-    ///
-    /// \brief itemTipsWidget
-    /// override this function if your item want to have a tips.
-    /// the tips will shown when user hover your item.
-    /// nullptr will be ignored.
-    /// \param itemKey
-    /// \return
-    ///
+    // 返回条目悬浮提示控件。
     virtual QWidget *itemTipsWidget(const QString &itemKey) {Q_UNUSED(itemKey); return nullptr;}
-    ///
-    /// \brief itemPopupApplet
-    /// override this function if your item wants to have an popup applet.
-    /// the popup applet will shown when user click your item.
-    ///
-    /// Tips:
-    /// dock should receive mouse press/release event to check user mouse operate,
-    /// if your item filter mouse event, this function will not be called.
-    /// so if you override mouse event and want to use popup applet, you
-    /// should pass event to your parent use QWidget::someEvent(e);
-    /// \param itemKey
-    /// \return
-    ///
+
+    // 返回条目点击后弹出的内容控件。
     virtual QWidget *itemPopupApplet(const QString &itemKey) {Q_UNUSED(itemKey); return nullptr;}
-    ///
-    /// \brief itemCommand
-    /// execute spec command when user clicked your item.
-    /// ensure your command do not get user input.
-    ///
-    /// empty string will be ignored.
-    /// \param itemKey
-    /// \return
-    ///
+
+    // 返回点击条目时执行的命令。
     virtual const QString itemCommand(const QString &itemKey) {Q_UNUSED(itemKey); return QString();}
 
-    ///
-    /// \brief itemContextMenu
-    /// context menu is shown when RequestPopupMenu called.
-    /// \param itemKey
-    /// \return
-    ///
+    // 返回条目上下文菜单定义。
     virtual const QString itemContextMenu(const QString &itemKey) {Q_UNUSED(itemKey); return QString();}
-    ///
-    /// \brief invokedMenuItem
-    /// call if context menu item is clicked
-    /// \param itemKey
-    /// \param itemId
-    /// menu item id
-    /// \param checked
-    ///
+
+    // 处理上下文菜单点击事件。
     virtual void invokedMenuItem(const QString &itemKey, const QString &menuId, const bool checked) {Q_UNUSED(itemKey); Q_UNUSED(menuId); Q_UNUSED(checked);}
 
-    ///
-    /// \brief itemSortKey
-    /// tell dock where your item wants to put on.
-    ///
-    /// this index is start from 1 and
-    /// 0 for left side
-    /// -1 for right side
-    /// \param itemKey
-    /// \return
-    ///
+    // 返回条目排序位置。
     virtual int itemSortKey(const QString &itemKey) {Q_UNUSED(itemKey); return 1;}
-    ///
-    /// \brief setSortKey
-    /// save your item new position
-    /// sort key will be changed when plugins order
-    /// changed(by user drag-drop)
-    /// \param itemKey
-    /// \param order
-    ///
+
+    // 保存条目排序位置。
     virtual void setSortKey(const QString &itemKey, const int order) {Q_UNUSED(itemKey); Q_UNUSED(order);}
 
-    ///
-    /// \brief itemAllowContainer
-    /// tell dock is your item allow to move into container
-    ///
-    /// if your item placed into container, popup tips and popup
-    /// applet will be disabled.
-    /// \param itemKey
-    /// \return
-    ///
+    // 返回条目是否允许进入容器区域。
     virtual bool itemAllowContainer(const QString &itemKey) {Q_UNUSED(itemKey); return false;}
-    ///
-    /// \brief itemIsInContainer
-    /// tell dock your item is in container, this function
-    /// called at item init and if your item enable container.
-    /// \param itemKey
-    /// \return
-    ///
+
+    // 返回条目当前是否在容器中。
     virtual bool itemIsInContainer(const QString &itemKey) {Q_UNUSED(itemKey); return false;}
-    ///
-    /// \brief setItemIsInContainer
-    /// save your item new state.
-    /// this function called when user drag out your item from
-    /// container or user drop item into container(if your item
-    /// allow drop into container).
-    /// \param itemKey
-    /// \param container
-    ///
+
+    // 保存条目容器状态。
     virtual void setItemIsInContainer(const QString &itemKey, const bool container) {Q_UNUSED(itemKey); Q_UNUSED(container);}
 
     virtual bool pluginIsAllowDisable() { return false; }
     virtual bool pluginIsDisable() { return false; }
     virtual void pluginStateSwitched() {}
 
-    ///
-    /// \brief displayModeChanged
-    /// override this function to receive display mode changed signal
-    /// \param displayMode
-    ///
+    // 处理 dock 显示模式变化。
     virtual void displayModeChanged(const Dock::DisplayMode displayMode) {Q_UNUSED(displayMode);}
-    ///
-    /// \brief positionChanged
-    /// override this function to receive dock position changed signal
-    /// \param position
-    ///
+
+    // 处理 dock 停靠位置变化。
     virtual void positionChanged(const Dock::Position position) {Q_UNUSED(position);}
 
-    ///
-    /// \brief refreshIcon
-    /// refresh item icon, its triggered when system icon theme changed.
-    /// \param itemKey
-    /// item key
-    ///
+    // 刷新条目图标。
     virtual void refreshIcon(const QString &itemKey) { Q_UNUSED(itemKey); }
 
-    ///
-    /// \brief displayMode
-    /// get current dock display mode
-    /// \return
-    ///
+    // 返回当前 dock 显示模式。
     inline Dock::DisplayMode displayMode() const
     {
         return qApp->property(PROP_DISPLAY_MODE).value<Dock::DisplayMode>();
     }
 
-    ///
-    /// \brief position
-    /// get current dock position
-    /// \return
-    ///
+    // 返回当前 dock 停靠位置。
     inline Dock::Position position() const
     {
         return qApp->property(PROP_POSITION).value<Dock::Position>();
     }
 
-    ///
-    /// \brief settingsChanged
-    /// override this function to receive plugin settings changed signal(DeepinSync)
-    ///
+    // 处理插件设置变化。
     virtual void pluginSettingsChanged() {}
 
-    ///
-    /// \brief type
-    /// Default plugin add dock right, fixed plugin add to dock fixed area
-    ///
-    /// This function is deprecated, please use `flags()` instead of it
-    ///
+    // 返回插件类型。
     QT_DEPRECATED_X("Use flags()")
     virtual PluginType type() { return Normal; }
 
-    ///
-    /// \brief plugin size policy
-    /// default plugin size policy
-    ///
+    // 返回条目尺寸策略。
     virtual PluginSizePolicy pluginSizePolicy() const { return System; }
 
 protected:
-    ///
-    /// \brief m_proxyInter
-    /// NEVER delete this object.
-    ///
+    // 保存 dock 代理接口。
     PluginProxyInterface *m_proxyInter = nullptr;
 };
 
