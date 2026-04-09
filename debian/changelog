@@ -1,3 +1,15 @@
+deepin-update-ui (1.0.49) unstable; urgency=medium
+
+  * feat: add update detail expansion and fix version display
+  * fix: prevent DBus signal infinite loop in QML bindings
+  * fix: fix up key navigation in error and update complete dialogs
+  * [dde-update-ui] Updates for project Deepin Desktop Environment
+    (#259)
+  * [dde-update-ui] Updates for project Deepin Desktop Environment
+    (#231)
+
+ -- zhangkun <zhangkun2@uniontech.com>  Thu, 09 Apr 2026 20:28:05 +0800
+
 deepin-update-ui (1.0.48) unstable; urgency=medium
 
   * fix: replace UpdateSelectDialog with Loader for dynamic creation
