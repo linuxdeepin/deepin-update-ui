@@ -491,6 +491,10 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Only numbers between 10-999999 are allowed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Join the internal testing channel to get deepin latest updates.</source>
         <translation type="unfinished"></translation>
     </message>

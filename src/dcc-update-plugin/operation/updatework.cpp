@@ -1749,6 +1749,7 @@ void UpdateWorker::setUpgradeDeliveryEnabled(bool enabled)
         if (watcher->isError()) {
             qCWarning(logDccUpdatePlugin) << "Set update assistant service failed, enabled " << enabled << " error: " << watcher->error().message();
             m_model->setUpgradeDeliveryEnable(!enabled);
+            Q_EMIT upgradeDeliveryEnableSetFailed();
             return;
         }
         func_set_success(enabled);

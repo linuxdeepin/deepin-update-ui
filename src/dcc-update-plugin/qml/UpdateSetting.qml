@@ -12,9 +12,81 @@ import org.deepin.dcc 1.0
 import org.deepin.dcc.update 1.0
 
 DccObject {
+    id: root
+
     FontMetrics {
         id: fm
     }
+
+    D.DialogWindow {
+        id: upgradeDeliveryFailedDialog
+        width: 360
+        icon: "preferences-system"
+        modality: Qt.WindowModal
+        visible: false
+
+        ColumnLayout {
+            width: parent.width
+
+            D.Label {
+                Layout.fillWidth: true
+                horizontalAlignment: Text.AlignHCenter
+                wrapMode: Text.WordWrap
+                text: qsTr("Failed to change Upgrade Delivery setting")
+            }
+
+            Item {
+                Layout.fillHeight: true
+                Layout.preferredHeight: 22
+            }
+
+            RowLayout {
+                Layout.fillWidth: true
+                Layout.bottomMargin: 10
+                spacing: 10
+
+                ButtonWithToolTip {
+                    text: qsTr("OK")
+                    Layout.fillWidth: true
+                    focus: upgradeDeliveryFailedDialog.visible
+                    onClicked: {
+                        upgradeDeliveryFailedDialog.close()
+                    }
+                }
+
+                component ButtonWithToolTip: D.Button {
+                    id: customButton
+
+                    contentItem: Text {
+                        id: buttonText
+                        text: customButton.text
+                        font: customButton.font
+                        color: customButton.D.ColorSelector.textColor
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        elide: Text.ElideRight
+                        width: customButton.width
+                    }
+
+                    hoverEnabled: true
+
+                    ToolTip {
+                        visible: customButton.hovered && buttonText.truncated
+                        delay: 500
+                        text: customButton.text
+                    }
+                }
+            }
+        }
+    }
+
+    Connections {
+        target: dccData.work()
+        function onUpgradeDeliveryEnableSetFailed() {
+            upgradeDeliveryFailedDialog.show()
+        }
+    }
+
     DccTitleObject {
         name: "updateTypeGrpTitle"
         parentName: "updateSettingsPage"
@@ -236,25 +308,29 @@ DccObject {
                         Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
                         D.LineEdit {
                             id: lineEdit
-                            maximumLength: 5
+                            maximumLength: 6
                             validator: RegularExpressionValidator { regularExpression: /^\d*$/ }
-                            alertText: qsTr("Only numbers between 1-99999 are allowed")
+                            alertText: qsTr("Only numbers between 10-999999 are allowed")
                             alertDuration: 3000
                             clearButton.active: lineEdit.activeFocus && (text.length !== 0)
                             text: dccData.model().upgradeDownloadSpeedCurrentRate
 
                             onTextChanged: {
-                                // 如果输入不为空且数字为0的情况，需要弹出提示且阻止继续输入
-                                if (lineEdit.text.length !== 0 && lineEdit.text[0] === "0") {
+                                if (lineEdit.text.length !== 0 && (lineEdit.text[0] === "0" || Number(lineEdit.text) > 999999)) {
                                     lineEdit.text = ""
                                     lineEdit.showAlert = true
-                                } else if (lineEdit.showAlert) {
+                                } else if (lineEdit.showAlert && (lineEdit.text.length === 0 || (Number(lineEdit.text) >= 10 && Number(lineEdit.text) <= 999999))) {
                                     lineEdit.showAlert = false
                                 }
                             }
                             onEditingFinished: {
                                 if (lineEdit.text.length === 0) {
-                                    lineEdit.text = dccData.model().upgradeDownloadSpeedLimitSize
+                                    lineEdit.text = dccData.model().upgradeDownloadSpeedCurrentRate
+                                    return
+                                }
+                                if (Number(lineEdit.text) < 10 || Number(lineEdit.text) > 999999) {
+                                    lineEdit.text = dccData.model().upgradeDownloadSpeedCurrentRate
+                                    lineEdit.showAlert = true
                                     return
                                 }
                                 dccData.work().setUpgradeDeliveryDownloadLimitSpeed(lineEdit.text, limitCheckBox.checked)
@@ -302,18 +378,13 @@ DccObject {
                             }
                         }
                         onCheckedChanged: {
-                            console.log("xiongbo111")
                             if (dccObj.isInitializing) {
-                                console.log("xiongbo222")
                                 dccObj.isInitializing = false
                                 return
                             }
-                            console.log("xiongbo333")
                             if (limitCheckBox.checked) {
-                                console.log("xiongbo444")
                                 dccData.work().setUpgradeDeliveryUploadLimitSpeed(lineEdit.text, limitCheckBox.checked)
                             } else {
-                                console.log("xiongbo555")
                                 dccData.work().setUpgradeDeliveryUploadLimitSpeed("102400", limitCheckBox.checked)
                             }
                         }
@@ -327,25 +398,29 @@ DccObject {
                         Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
                         D.LineEdit {
                             id: lineEdit
-                            maximumLength: 5
+                            maximumLength: 6
                             validator: RegularExpressionValidator { regularExpression: /^\d*$/ }
-                            alertText: qsTr("Only numbers between 1-99999 are allowed")
+                            alertText: qsTr("Only numbers between 10-999999 are allowed")
                             alertDuration: 3000
                             clearButton.active: lineEdit.activeFocus && (text.length !== 0)
                             text: dccData.model().upgradeUploadSpeedCurrentRate
 
                             onTextChanged: {
-                                // 如果输入不为空且数字为0的情况，需要弹出提示且阻止继续输入
-                                if (lineEdit.text.length !== 0 && lineEdit.text[0] === "0") {
+                                if (lineEdit.text.length !== 0 && (lineEdit.text[0] === "0" || Number(lineEdit.text) > 999999)) {
                                     lineEdit.text = ""
                                     lineEdit.showAlert = true
-                                } else if (lineEdit.showAlert) {
+                                } else if (lineEdit.showAlert && (lineEdit.text.length === 0 || (Number(lineEdit.text) >= 10 && Number(lineEdit.text) <= 999999))) {
                                     lineEdit.showAlert = false
                                 }
                             }
                             onEditingFinished: {
                                 if (lineEdit.text.length === 0) {
-                                    lineEdit.text = dccData.model().upgradeUploadSpeedLimitSize
+                                    lineEdit.text = dccData.model().upgradeUploadSpeedCurrentRate
+                                    return
+                                }
+                                if (Number(lineEdit.text) < 10 || Number(lineEdit.text) > 999999) {
+                                    lineEdit.text = dccData.model().upgradeUploadSpeedCurrentRate
+                                    lineEdit.showAlert = true
                                     return
                                 }
                                 dccData.work().setUpgradeDeliveryUploadLimitSpeed(lineEdit.text, limitCheckBox.checked)
@@ -372,6 +447,7 @@ DccObject {
         }
 
         DccObject {
+            id: downloadLimitGrp
             name: "downloadLimitGrp"
             parentName: "advancedSettingGroup"
             weight: 40
@@ -381,6 +457,12 @@ DccObject {
                 height: implicitHeight + 10
                 spacing: 0
             }
+            Connections {
+                target: dccData.model()
+                function onDownloadSpeedLimitConfigChanged() {
+                    downloadLimitGrp.enabled = !dccData.model().downloadIsOnlineSpeedLimit
+                }
+            }
 
             DccObject {
                 name: "downloadLimit"
@@ -389,9 +471,14 @@ DccObject {
                 weight: 10
                 enabled: !dccData.model().updateProhibited
                 pageType: DccObject.Editor
+                property bool isInitializing: true
                 page: D.Switch {
                     checked: dccData.model().downloadSpeedLimitEnabled || dccData.model().downloadIsOnlineSpeedLimit
                     onCheckedChanged: {
+                        if (dccObj.isInitializing) {
+                            dccObj.isInitializing = false
+                            return
+                        }
                         dccData.work().setDownloadSpeedLimitEnabled(checked)
                     }
                 }
