@@ -348,7 +348,7 @@
     </message>
     <message>
         <source>To use this software, you must accept the %1 that accompanies software updates.</source>
-        <translation>Aby korzystać z tego oprogramowania, musisz zaakceptować %1 dołączoną do aktualizacji.</translation>
+        <translation>Korzystając z tego oprogramowania, musisz zaakceptować %1 dołączoną do aktualizacji.</translation>
     </message>
     <message>
         <source>Turn on the switches under Update Content to get better experiences</source>
@@ -525,7 +525,7 @@
     </message>
     <message>
         <source>Update</source>
-        <translation>Aktualizuj</translation>
+        <translation>Aktualizacja</translation>
     </message>
     <message>
         <source>Please plug in and then install updates.</source>
