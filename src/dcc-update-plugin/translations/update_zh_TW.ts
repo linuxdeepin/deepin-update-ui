@@ -523,6 +523,14 @@
         <translation>只允許輸入1-99999</translation>
     </message>
     <message>
+        <source>Failed to change Upgrade Delivery setting</source>
+        <translation>更新傳遞設定修改失敗</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>確定</translation>
+    </message>
+    <message>
         <source>Join the internal testing channel to get deepin latest updates.</source>
         <translation>加入deepin內測通道，以獲取deepin最新更新內容</translation>
     </message>

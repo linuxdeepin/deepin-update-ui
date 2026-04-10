@@ -136,6 +136,7 @@ public Q_SLOTS:
 Q_SIGNALS:
     void requestCloseTestingChannel();
     void startDoUpgrade();
+    void upgradeDeliveryEnableSetFailed();
 
 private:
     Dtk::Core::DConfig *m_lastoreDConfig;

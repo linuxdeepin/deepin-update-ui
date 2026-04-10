@@ -1199,7 +1199,7 @@ QString UpdateModel::upgradeDownloadSpeedLimitRate() const
 
 bool UpdateModel::upgradeDownloadSpeedEnable() const
 {
-    qCInfo(logDccUpdatePlugin) << "xiongbo111 upgradeDownloadSpeedCurrentRate " << m_upgradeDownloadSpeedLimitConfig;
+    qCInfo(logDccUpdatePlugin) << "upgradeDownloadSpeedCurrentRate " << m_upgradeDownloadSpeedLimitConfig;
     return UpgradeSpeedLimitConfig::fromJson(m_upgradeDownloadSpeedLimitConfig).shouldLimitRate();
 }
 

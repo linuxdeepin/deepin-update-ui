@@ -523,6 +523,18 @@
         <translation>只允许输入1-99999</translation>
     </message>
     <message>
+        <source>Only numbers between 10-999999 are allowed</source>
+        <translation>只允许输入10-999999</translation>
+    </message>
+    <message>
+        <source>Failed to change Upgrade Delivery setting</source>
+        <translation>更新传递设置修改失败</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>确定</translation>
+    </message>
+    <message>
         <source>Join the internal testing channel to get deepin latest updates.</source>
         <translation>加入deepin内测通道，以获取deepin最新更新内容</translation>
     </message>
