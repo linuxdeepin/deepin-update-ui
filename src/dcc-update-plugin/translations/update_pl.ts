@@ -85,7 +85,7 @@
     </message>
     <message>
         <source>View More</source>
-        <translation type="unfinished"/>
+        <translation>Pokaż więcej</translation>
     </message>
     <message>
         <source>Collapse</source>
