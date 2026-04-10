@@ -10,7 +10,7 @@
     <name>QObject</name>
     <message>
         <source>Fixed some known bugs and security vulnerabilities</source>
-        <translation type="unfinished"/>
+        <translation>Виправлено деякі відомі вади та недоліки захисту</translation>
     </message>
 </context>
 <context>
@@ -32,11 +32,11 @@
     <name>Update</name>
     <message>
         <source>System Update</source>
-        <translation type="unfinished"/>
+        <translation>Оновлення системи</translation>
     </message>
     <message>
         <source>System update and upgrade</source>
-        <translation type="unfinished"/>
+        <translation>Оновлення пакунків та самої системи</translation>
     </message>
 </context>
 <context>
@@ -70,7 +70,7 @@
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished"/>
+        <translation>Версія:</translation>
     </message>
 </context>
 <context>
@@ -85,7 +85,7 @@
     </message>
     <message>
         <source>View More</source>
-        <translation type="unfinished"/>
+        <translation>Докладніше</translation>
     </message>
     <message>
         <source>Collapse</source>
@@ -181,23 +181,23 @@
     <name>UpdateMain</name>
     <message>
         <source>Installing updates...</source>
-        <translation type="unfinished"/>
+        <translation>Встановлення оновлень…</translation>
     </message>
     <message>
         <source>Installing</source>
-        <translation type="unfinished"/>
+        <translation>Встановлення</translation>
     </message>
     <message>
         <source>Backing up in progress...</source>
-        <translation type="unfinished"/>
+        <translation>Створюємо резервну копію…</translation>
     </message>
     <message>
         <source>Backing up in progress</source>
-        <translation type="unfinished"/>
+        <translation>Виконуємо створення резервної копії</translation>
     </message>
     <message>
         <source>Downloading updates...</source>
-        <translation type="unfinished"/>
+        <translation>Отримуємо оновлення…</translation>
     </message>
     <message>
         <source>Update size: </source>
