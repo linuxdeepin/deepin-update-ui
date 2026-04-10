@@ -71,6 +71,8 @@ private:
     bool checkShutdownUpdate();
     // 判断是否已设置定时升级。
     bool checkRegularlyUpdate();
+    // 判断任务列表中是否仍有未进入 failed/end 的任务。
+    bool hasUnfinishedJob(const QList<QDBusObjectPath> &jobs) const;
     // 将下载速度格式化为展示文本。
     QString regulateSpeed();
 

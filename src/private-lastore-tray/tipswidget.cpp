@@ -92,6 +92,30 @@ bool TipsWidget::checkRegularlyUpdate()
     return false;
 }
 
+bool TipsWidget::hasUnfinishedJob(const QList<QDBusObjectPath> &jobs) const
+{
+    for (const auto &job : jobs) {
+        UpdateJobDBusProxy jobInter(job.path());
+        if (!jobInter.isValid()) {
+            continue;
+        }
+
+        QString curJobId = jobInter.id();
+        if (curJobId != "prepare_dist_upgrade"
+                && curJobId != "dist_upgrade"
+                && curJobId != "update_source") {
+            continue;
+        }
+
+        const QString status = jobInter.status();
+        if (status != "failed" && status != "end") {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 void TipsWidget::onSetUpdateProgress(double progress)
 {
     m_updateProgress = progress;
@@ -117,7 +141,7 @@ void TipsWidget::refreshContent()
     // 优先根据当前任务生成提示，没有任务时再根据总体状态生成提示。
     if (m_managerInter) {
         QList<QDBusObjectPath> jobList = m_managerInter->jobList();
-        if (jobList.isEmpty()) {
+        if (jobList.isEmpty() || !hasUnfinishedJob(jobList)) {
             // 没有任务时优先显示下载完成后的后续状态。
             if (checkShutdownUpdate()) return;
             if (checkRegularlyUpdate()) return;
@@ -188,10 +212,7 @@ void TipsWidget::refreshContent()
                         }
                     }
                 } else {
-                    // 非运行态任务不显示进度提示。
-                    m_speed = 0.0;
-                    if (m_textList.length() != 0)
-                        m_textList.clear();
+                    // 非 failed/end 且暂不展示进度的任务先跳过。
                     continue;
                 }
             }
