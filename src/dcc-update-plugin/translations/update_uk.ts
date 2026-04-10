@@ -201,7 +201,7 @@
     </message>
     <message>
         <source>Update size: </source>
-        <translation type="unfinished"/>
+        <translation>Розмір оновлення:</translation>
     </message>
     <message>
         <source>Downloading</source>
