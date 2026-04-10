@@ -304,6 +304,9 @@ void UpdateWorker::initConfig()
                     m_model->setLastoreDaemonStatus(value);
                 }
             }
+            if ("update-time" == key) {
+                m_model->setScheduledUpgradeTime();
+            }
         });
     } else {
         qCWarning(logDccUpdatePlugin) << "Lastore dconfig is nullptr or invalid";

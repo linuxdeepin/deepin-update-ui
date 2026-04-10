@@ -289,21 +289,26 @@ DccObject {
         pageType: DccObject.Item
 
         page: UpdateControl {
+            id: preInstallUpdateControl
             updateListModels: dccData.model().preInstallListModel
             updateTitle: qsTr("Update download completed")
             btnActions: dccData.model().isPrivateUpdate ? [ 
                 qsTr("Install Now"),
                 qsTr("Check Again")
             ] : [qsTr("Install updates")]
+            function updateSecondaryTips() {
+                secondaryUpdateTips = dccData.model().scheduledUpgradeTime.length !== 0
+                    ? qsTr("will upgrade at %1").arg(dccData.model().scheduledUpgradeTime)
+                    : ""
+            }
             updateTips: {
                 if (!dccData.model().batterIsOK) {
                     return qsTr("The battery capacity is lower than 60%. To get successful updates, please plug in.")
                 }
                 return qsTr("Update size: ") + dccData.model().preInstallListModel.downloadSize
             }
-            secondaryUpdateTips: dccData.model().scheduledUpgradeTime.length !== 0
-                ? qsTr("will upgrade at %1").arg(dccData.model().scheduledUpgradeTime)
-                : ""
+            secondaryUpdateTips: ""
+            Component.onCompleted: updateSecondaryTips()
             busyState: dccData.model().upgradeWaiting
             updateListEnable: !dccData.model().upgradeWaiting
 
@@ -333,6 +338,13 @@ DccObject {
                 }
                 onUpgradeShutdownBtnClicked: {
                     dccData.work().modalUpgrade(false)
+                }
+            }
+
+            Connections {
+                target: dccData.model()
+                function onScheduledUpgradeTimeChanged() {
+                    preInstallUpdateControl.updateSecondaryTips()
                 }
             }
 
