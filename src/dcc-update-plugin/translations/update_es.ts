@@ -10,7 +10,7 @@
     <name>QObject</name>
     <message>
         <source>Fixed some known bugs and security vulnerabilities</source>
-        <translation type="unfinished"/>
+        <translation>Se corrigieron algunos errores conocidos y vulnerabilidades de seguridad.</translation>
     </message>
 </context>
 <context>
@@ -237,47 +237,47 @@
     </message>
     <message>
         <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation>Si continúa con las actualizaciones, no podra regresar a la version anterior.</translation>
+        <translation>Si continúa con las actualizaciones, no podra regresar a la version anterior del sistema.</translation>
     </message>
     <message>
         <source>Back Up Again</source>
-        <translation type="unfinished"/>
+        <translation>Respaldar nuevamente</translation>
     </message>
     <message>
         <source>Proceed to Update</source>
-        <translation type="unfinished"/>
+        <translation>Proceder a la actualización</translation>
     </message>
     <message>
         <source>Update download completed</source>
-        <translation type="unfinished"/>
+        <translation>Descarga de actualización completada</translation>
     </message>
     <message>
         <source>Install updates</source>
-        <translation type="unfinished"/>
+        <translation>Instalar actualizaciones</translation>
     </message>
     <message>
         <source>Update download failed</source>
-        <translation type="unfinished"/>
+        <translation>La descarga de la actualización falló</translation>
     </message>
     <message>
         <source>Retry</source>
-        <translation type="unfinished"/>
+        <translation>Reintentar</translation>
     </message>
     <message>
         <source>Updates Available</source>
-        <translation type="unfinished"/>
+        <translation>Actualizaciones disponibles</translation>
     </message>
     <message>
         <source>Download</source>
-        <translation type="unfinished"/>
+        <translation>Descargar</translation>
     </message>
     <message>
         <source>Update Settings</source>
-        <translation type="unfinished"/>
+        <translation>Ajustes de actualización</translation>
     </message>
     <message>
         <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
-        <translation type="unfinished"/>
+        <translation>Ajustes de actualizaciones, actualizaciones de seguridad, descarga automática y notificación</translation>
     </message>
 </context>
 <context>
