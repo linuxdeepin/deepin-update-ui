@@ -209,12 +209,13 @@ QString UpdateDBusProxy::updateStatus()
 
 bool UpdateDBusProxy::p2PUpdateEnable()
 {
-    return qvariant_cast<bool>(m_managerInter->property("P2PUpdateEnable"));
+    return qvariant_cast<bool>(m_updateInter->property("P2PUpdateEnable"));
 }
 
 bool UpdateDBusProxy::p2PUpdateSupport()
 {
-    return qvariant_cast<bool>(m_managerInter->property("P2PUpdateSupport"));
+    return true;
+    // return qvariant_cast<bool>(m_updateInter->property("P2PUpdateSupport"));
 }
 
 bool UpdateDBusProxy::immutableAutoRecovery()

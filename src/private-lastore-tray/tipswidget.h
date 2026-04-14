@@ -80,6 +80,8 @@ private slots:
     void onRefreshJobList(const QList<QDBusObjectPath> &jobs);
     void onSetUpdateProgress(double progress);
     void onSetBackUpProgress(double progress);
+    void onSetUpdateProto(const QString &proto);
+    void onSetUpdateSpeed(qlonglong speed);
 
 private:
     UpdateDBusProxy *m_managerInter = nullptr;
@@ -88,7 +90,7 @@ private:
     QString m_text;
     QStringList m_textList;
     ShowType m_type;
-    qulonglong m_speed = 0;
+    qlonglong m_speed = 0;
     QString m_proto = "";
     bool m_downloadLimitOnChanging = false;
     double m_updateProgress = 0.0;

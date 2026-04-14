@@ -185,6 +185,7 @@ struct UpgradeSpeedLimitConfig {
 
     static UpgradeSpeedLimitConfig fromJson(const QByteArray& configStr)
     {
+        qWarning() << "xiongbo123 fromJson: " << configStr;
         UpgradeSpeedLimitConfig config;
         QJsonParseError jsonParseError;
         const QJsonDocument doc = QJsonDocument::fromJson(configStr, &jsonParseError);

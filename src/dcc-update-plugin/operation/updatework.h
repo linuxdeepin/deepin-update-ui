@@ -74,7 +74,7 @@ public:
     Q_INVOKABLE void setIdleDownloadEnabled(bool enable);
     Q_INVOKABLE void setIdleDownloadBeginTime(QString time);
     Q_INVOKABLE void setIdleDownloadEndTime(QString time);
-    Q_INVOKABLE void setUpgradeDeliveryEnabled(bool enabled);
+    Q_INVOKABLE void setUpgradeDeliveryEnabled(bool enabled, bool fromRetryDialog = false);
     Q_INVOKABLE void setUpgradeDeliveryDownloadLimitSpeed(const QString& speed, bool enable);
     Q_INVOKABLE void setUpgradeDeliveryUploadLimitSpeed(const QString& speed, bool enable);
     Q_INVOKABLE void getUpgradeDeliveryDownloadLimitSpeed();
@@ -101,6 +101,7 @@ public:
     Q_INVOKABLE void setTestingChannelEnable(const bool& enable);
     Q_INVOKABLE bool openTestingChannelUrl();
     Q_INVOKABLE void exitTestingChannel(bool value);
+    Q_INVOKABLE bool p2pUpdateSupported() const;
     std::optional<QString> getMachineId();
     std::optional<QUrl> getTestingChannelUrl();
     void initTestingChannel();
@@ -109,6 +110,7 @@ public:
     void setRemovePackageJob(const QString& jobPath);
     QString getServiceUrlByRegion();
     void refreshUpgradeDeliveryInfo();
+    QString transferDeliveryConfigToLastoreDeliveryConfig(const QString& deliveryConfig);
 
     Q_INVOKABLE bool openUrl(const QString& url);
     Q_INVOKABLE void onRequestRetry(int type, int updateTypes);
@@ -137,6 +139,8 @@ Q_SIGNALS:
     void requestCloseTestingChannel();
     void startDoUpgrade();
     void upgradeDeliveryEnableSetFailed();
+    void upgradeDeliveryConfigSetFailed();
+    void p2PUpdateSupportChanged(bool supported);
 
 private:
     Dtk::Core::DConfig *m_lastoreDConfig;

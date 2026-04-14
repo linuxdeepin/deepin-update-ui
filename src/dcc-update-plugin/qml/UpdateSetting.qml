@@ -13,16 +13,18 @@ import org.deepin.dcc.update 1.0
 
 DccObject {
     id: root
+    property bool syncingUpgradeDeliverySwitch: false
+    property bool pendingUpgradeDeliveryEnabled: dccData.model().upgradeDeliveryEnable
 
     FontMetrics {
         id: fm
     }
 
     D.DialogWindow {
-        id: upgradeDeliveryFailedDialog
+        id: upgradeDeliverySetConfigFailedDialog
         width: 360
         icon: "preferences-system"
-        modality: Qt.WindowModal
+        modality: Qt.ApplicationModal
         visible: false
 
         ColumnLayout {
@@ -48,9 +50,9 @@ DccObject {
                 ButtonWithToolTip {
                     text: qsTr("OK")
                     Layout.fillWidth: true
-                    focus: upgradeDeliveryFailedDialog.visible
+                    focus: upgradeDeliverySetConfigFailedDialog.visible
                     onClicked: {
-                        upgradeDeliveryFailedDialog.close()
+                        upgradeDeliverySetConfigFailedDialog.close()
                     }
                 }
 
@@ -82,8 +84,86 @@ DccObject {
 
     Connections {
         target: dccData.work()
+        function onUpgradeDeliveryConfigSetFailed() {
+            upgradeDeliverySetConfigFailedDialog.show()
+        }
+    }
+
+    D.DialogWindow {
+        id: upgradeDeliverySetEnableFailedDialog
+        width: 360
+        icon: "preferences-system"
+        modality: Qt.ApplicationModal
+        visible: false
+
+        ColumnLayout {
+            width: parent.width
+
+            D.Label {
+                Layout.fillWidth: true
+                horizontalAlignment: Text.AlignHCenter
+                wrapMode: Text.WordWrap
+                text: qsTr("Failed to change Upgrade Delivery setting")
+            }
+
+            Item {
+                Layout.fillHeight: true
+                Layout.preferredHeight: 22
+            }
+
+            RowLayout {
+                Layout.fillWidth: true
+                Layout.bottomMargin: 10
+                spacing: 10
+
+                EnableFailedDialogButton {
+                    text: qsTr("Retry")
+                    Layout.fillWidth: true
+                    focus: upgradeDeliverySetEnableFailedDialog.visible
+                    onClicked: {
+                        upgradeDeliverySetEnableFailedDialog.close()
+                        dccData.work().setUpgradeDeliveryEnabled(!root.pendingUpgradeDeliveryEnabled, true)
+                    }
+                }
+
+                EnableFailedDialogButton {
+                    text: qsTr("OK")
+                    Layout.fillWidth: true
+                    onClicked: {
+                        upgradeDeliverySetEnableFailedDialog.close()
+                    }
+                }
+
+                component EnableFailedDialogButton: D.Button {
+                    id: customButton
+
+                    contentItem: Text {
+                        id: buttonText
+                        text: customButton.text
+                        font: customButton.font
+                        color: customButton.D.ColorSelector.textColor
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        elide: Text.ElideRight
+                        width: customButton.width
+                    }
+
+                    hoverEnabled: true
+
+                    ToolTip {
+                        visible: customButton.hovered && buttonText.truncated
+                        delay: 500
+                        text: customButton.text
+                    }
+                }
+            }
+        }
+    }
+
+    Connections {
+        target: dccData.work()
         function onUpgradeDeliveryEnableSetFailed() {
-            upgradeDeliveryFailedDialog.show()
+            upgradeDeliverySetEnableFailedDialog.show()
         }
     }
 
@@ -234,19 +314,28 @@ DccObject {
         }
 
         DccObject {
+            id: upgradeDeliveryGrp
             name: "upgradeDeliveryGrp"
             parentName: "advancedSettingGroup"
             weight: 40
+            visible: dccData.work().p2pUpdateSupported()
             pageType: DccObject.Item
             page: DccGroupView {
                 height: implicitHeight + 10
                 spacing: 0
+            }
+            Connections {
+                target: dccData.work()
+                function onP2PUpdateSupportChanged() {
+                    upgradeDeliveryGrp.visible = dccData.work().p2pUpdateSupported()
+                }
             }
 
             DccObject {
                 name: "upgradeDeliverySwitch"
                 parentName: "upgradeDeliveryGrp"
                 displayName: qsTr("Upgrade Delivery")
+                description: qsTr("Turning this on may cause your device to send previously downloaded system updates to devices on the local network. Turning this off will clear files cached for update delivery on restart")
                 weight: 10
                 enabled: !dccData.model().updateProhibited
                 pageType: DccObject.Editor
@@ -254,102 +343,18 @@ DccObject {
                     id: upgradeDeliverySwitch
                     checked: dccData.model().upgradeDeliveryEnable
                     onCheckedChanged: {
+                        if (root.syncingUpgradeDeliverySwitch) {
+                            return
+                        }
+                        root.pendingUpgradeDeliveryEnabled = checked
                         dccData.work().setUpgradeDeliveryEnabled(checked)
                     }
                     Connections {
                         target: dccData.model()
                         function onUpgradeDeliveryEnableChanged() {
+                            root.syncingUpgradeDeliverySwitch = true
                             upgradeDeliverySwitch.checked = dccData.model().upgradeDeliveryEnable
-                        }
-                    }
-                }
-            }
-
-            DccObject {
-                name: "upgradeDeliveryDownloadLimitSetting"
-                parentName: "upgradeDeliveryGrp"
-                displayName: qsTr("Upgrade Delivery Download Limit Setting")
-                visible: dccData.model().upgradeDeliveryEnable
-                weight: 20
-                enabled: !dccData.model().upgradeDownloadSpeedIsOnline
-                pageType: DccObject.Item
-                property bool isInitializing: true
-                page: RowLayout {
-                    D.CheckBox {
-                        id: limitCheckBox
-                        Layout.leftMargin: 14
-                        Layout.fillWidth: true
-                        text: dccObj.displayName
-                        checked: dccData.model().upgradeDownloadSpeedEnable
-                        Connections {
-                            target: dccData.model()
-                            function onUpgradeDownloadSpeedLimitConfigChanged() {
-                                limitCheckBox.checked = dccData.model().upgradeDownloadSpeedEnable
-                            }
-                        }
-                        onCheckedChanged: {
-                            if (dccObj.isInitializing) {
-                                dccObj.isInitializing = false
-                                return
-                            }
-                            if (limitCheckBox.checked) {
-                                dccData.work().setUpgradeDeliveryDownloadLimitSpeed(lineEdit.text, limitCheckBox.checked)
-                            } else {
-                                dccData.work().setUpgradeDeliveryDownloadLimitSpeed("102400", limitCheckBox.checked)
-                            }
-                        }
-                    }
-
-                    RowLayout {
-                        spacing: 10
-                        Layout.topMargin: 5
-                        Layout.bottomMargin: 5
-                        Layout.rightMargin: 10
-                        Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-                        D.LineEdit {
-                            id: lineEdit
-                            maximumLength: 6
-                            validator: RegularExpressionValidator { regularExpression: /^\d*$/ }
-                            alertText: qsTr("Only numbers between 10-999999 are allowed")
-                            alertDuration: 3000
-                            clearButton.active: lineEdit.activeFocus && (text.length !== 0)
-                            text: dccData.model().upgradeDownloadSpeedCurrentRate
-
-                            onTextChanged: {
-                                if (lineEdit.text.length !== 0 && (lineEdit.text[0] === "0" || Number(lineEdit.text) > 999999)) {
-                                    lineEdit.text = ""
-                                    lineEdit.showAlert = true
-                                } else if (lineEdit.showAlert && (lineEdit.text.length === 0 || (Number(lineEdit.text) >= 10 && Number(lineEdit.text) <= 999999))) {
-                                    lineEdit.showAlert = false
-                                }
-                            }
-                            onEditingFinished: {
-                                if (lineEdit.text.length === 0) {
-                                    lineEdit.text = dccData.model().upgradeDownloadSpeedCurrentRate
-                                    return
-                                }
-                                if (Number(lineEdit.text) < 10 || Number(lineEdit.text) > 999999) {
-                                    lineEdit.text = dccData.model().upgradeDownloadSpeedCurrentRate
-                                    lineEdit.showAlert = true
-                                    return
-                                }
-                                dccData.work().setUpgradeDeliveryDownloadLimitSpeed(lineEdit.text, limitCheckBox.checked)
-                            }
-                            Keys.onPressed: {
-                                if (event.key === Qt.Key_Return) {
-                                    lineEdit.forceActiveFocus(false);
-                                }
-                            }
-                            Connections {
-                                target: dccData.model()
-                                function onUpgradeDownloadSpeedLimitConfigChanged() {
-                                    lineEdit.text = dccData.model().upgradeDownloadSpeedCurrentRate
-                                }
-                            }
-                        }
-
-                        D.Label {
-                            text: "KB/S"
+                            root.syncingUpgradeDeliverySwitch = false
                         }
                     }
                 }
@@ -363,7 +368,6 @@ DccObject {
                 weight: 20
                 enabled: !dccData.model().upgradeUploadSpeedIsOnline
                 pageType: DccObject.Item
-                property bool isInitializing: true
                 page: RowLayout {
                     D.CheckBox {
                         id: limitCheckBox
@@ -378,15 +382,7 @@ DccObject {
                             }
                         }
                         onCheckedChanged: {
-                            if (dccObj.isInitializing) {
-                                dccObj.isInitializing = false
-                                return
-                            }
-                            if (limitCheckBox.checked) {
-                                dccData.work().setUpgradeDeliveryUploadLimitSpeed(lineEdit.text, limitCheckBox.checked)
-                            } else {
-                                dccData.work().setUpgradeDeliveryUploadLimitSpeed("102400", limitCheckBox.checked)
-                            }
+                            dccData.work().setUpgradeDeliveryUploadLimitSpeed(lineEdit.text, limitCheckBox.checked)
                         }
                     }
 
@@ -402,13 +398,25 @@ DccObject {
                             validator: RegularExpressionValidator { regularExpression: /^\d*$/ }
                             alertText: qsTr("Only numbers between 10-999999 are allowed")
                             alertDuration: 3000
+                            enabled: limitCheckBox.checked
                             clearButton.active: lineEdit.activeFocus && (text.length !== 0)
                             text: dccData.model().upgradeUploadSpeedCurrentRate
+
+                            function triggerAlert() {
+                                lineEdit.showAlert = true
+                                alertResetTimer.restart()
+                            }
+
+                            Timer {
+                                id: alertResetTimer
+                                interval: lineEdit.alertDuration
+                                onTriggered: lineEdit.showAlert = false
+                            }
 
                             onTextChanged: {
                                 if (lineEdit.text.length !== 0 && (lineEdit.text[0] === "0" || Number(lineEdit.text) > 999999)) {
                                     lineEdit.text = ""
-                                    lineEdit.showAlert = true
+                                    lineEdit.triggerAlert()
                                 } else if (lineEdit.showAlert && (lineEdit.text.length === 0 || (Number(lineEdit.text) >= 10 && Number(lineEdit.text) <= 999999))) {
                                     lineEdit.showAlert = false
                                 }
@@ -420,7 +428,7 @@ DccObject {
                                 }
                                 if (Number(lineEdit.text) < 10 || Number(lineEdit.text) > 999999) {
                                     lineEdit.text = dccData.model().upgradeUploadSpeedCurrentRate
-                                    lineEdit.showAlert = true
+                                    lineEdit.triggerAlert()
                                     return
                                 }
                                 dccData.work().setUpgradeDeliveryUploadLimitSpeed(lineEdit.text, limitCheckBox.checked)
@@ -434,6 +442,99 @@ DccObject {
                                 target: dccData.model()
                                 function onUpgradeUploadSpeedLimitConfigChanged() {
                                     lineEdit.text = dccData.model().upgradeUploadSpeedCurrentRate
+                                }
+                            }
+                        }
+
+                        D.Label {
+                            text: "KB/S"
+                        }
+                    }
+                }
+            }
+
+            DccObject {
+                name: "upgradeDeliveryDownloadLimitSetting"
+                parentName: "upgradeDeliveryGrp"
+                displayName: qsTr("Upgrade Delivery Download Limit Setting")
+                visible: dccData.model().upgradeDeliveryEnable
+                weight: 20
+                enabled: !dccData.model().upgradeDownloadSpeedIsOnline
+                pageType: DccObject.Item
+                page: RowLayout {
+                    D.CheckBox {
+                        id: limitCheckBox
+                        Layout.leftMargin: 14
+                        Layout.fillWidth: true
+                        text: dccObj.displayName
+                        checked: dccData.model().upgradeDownloadSpeedEnable
+                        Connections {
+                            target: dccData.model()
+                            function onUpgradeDownloadSpeedLimitConfigChanged() {
+                                limitCheckBox.checked = dccData.model().upgradeDownloadSpeedEnable
+                            }
+                        }
+                        onCheckedChanged: {
+                            dccData.work().setUpgradeDeliveryDownloadLimitSpeed(lineEdit.text, limitCheckBox.checked)
+                        }
+                    }
+
+                    RowLayout {
+                        spacing: 10
+                        Layout.topMargin: 5
+                        Layout.bottomMargin: 5
+                        Layout.rightMargin: 10
+                        Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+                        D.LineEdit {
+                            id: lineEdit
+                            maximumLength: 6
+                            validator: RegularExpressionValidator { regularExpression: /^\d*$/ }
+                            alertText: qsTr("Only numbers between 10-999999 are allowed")
+                            alertDuration: 3000
+                            enabled: limitCheckBox.checked
+                            clearButton.active: lineEdit.activeFocus && (text.length !== 0)
+                            text: dccData.model().upgradeDownloadSpeedCurrentRate
+
+                            function triggerAlert() {
+                                lineEdit.showAlert = true
+                                alertResetTimer.restart()
+                            }
+
+                            Timer {
+                                id: alertResetTimer
+                                interval: lineEdit.alertDuration
+                                onTriggered: lineEdit.showAlert = false
+                            }
+
+                            onTextChanged: {
+                                if (lineEdit.text.length !== 0 && (lineEdit.text[0] === "0" || Number(lineEdit.text) > 999999)) {
+                                    lineEdit.text = ""
+                                    lineEdit.triggerAlert()
+                                } else if (lineEdit.showAlert && (lineEdit.text.length === 0 || (Number(lineEdit.text) >= 10 && Number(lineEdit.text) <= 999999))) {
+                                    lineEdit.showAlert = false
+                                }
+                            }
+                            onEditingFinished: {
+                                if (lineEdit.text.length === 0) {
+                                    lineEdit.text = dccData.model().upgradeDownloadSpeedCurrentRate
+                                    return
+                                }
+                                if (Number(lineEdit.text) < 10 || Number(lineEdit.text) > 999999) {
+                                    lineEdit.text = dccData.model().upgradeDownloadSpeedCurrentRate
+                                    lineEdit.triggerAlert()
+                                    return
+                                }
+                                dccData.work().setUpgradeDeliveryDownloadLimitSpeed(lineEdit.text, limitCheckBox.checked)
+                            }
+                            Keys.onPressed: {
+                                if (event.key === Qt.Key_Return) {
+                                    lineEdit.forceActiveFocus(false);
+                                }
+                            }
+                            Connections {
+                                target: dccData.model()
+                                function onUpgradeDownloadSpeedLimitConfigChanged() {
+                                    lineEdit.text = dccData.model().upgradeDownloadSpeedCurrentRate
                                 }
                             }
                         }
@@ -471,14 +572,9 @@ DccObject {
                 weight: 10
                 enabled: !dccData.model().updateProhibited
                 pageType: DccObject.Editor
-                property bool isInitializing: true
                 page: D.Switch {
                     checked: dccData.model().downloadSpeedLimitEnabled || dccData.model().downloadIsOnlineSpeedLimit
                     onCheckedChanged: {
-                        if (dccObj.isInitializing) {
-                            dccObj.isInitializing = false
-                            return
-                        }
                         dccData.work().setDownloadSpeedLimitEnabled(checked)
                     }
                 }
@@ -497,23 +593,38 @@ DccObject {
                         id: lineEdit
                         maximumLength: 5
                         validator: RegularExpressionValidator { regularExpression: /^\d*$/ }
-                        alertText: qsTr("Only numbers between 1-99999 are allowed")
+                        alertText: qsTr("Only numbers between 10-999999 are allowed")
                         alertDuration: 3000
                         clearButton.active: lineEdit.activeFocus && (text.length !== 0)
                         text: dccData.model().downloadSpeedLimitSize
 
+                        function triggerAlert() {
+                            lineEdit.showAlert = true
+                            alertResetTimer.restart()
+                        }
+
+                        Timer {
+                            id: alertResetTimer
+                            interval: lineEdit.alertDuration
+                            onTriggered: lineEdit.showAlert = false
+                        }
+
                         onTextChanged: {
-                            // 如果输入不为空且数字为0的情况，需要弹出提示且阻止继续输入
-                            if (lineEdit.text.length !== 0 && lineEdit.text[0] === "0") {
+                            if (lineEdit.text.length !== 0 && (lineEdit.text[0] === "0" || Number(lineEdit.text) > 999999)) {
                                 lineEdit.text = ""
-                                lineEdit.showAlert = true
-                            } else if (lineEdit.showAlert) {
+                                lineEdit.triggerAlert()
+                            } else if (lineEdit.showAlert && (lineEdit.text.length === 0 || (Number(lineEdit.text) >= 10 && Number(lineEdit.text) <= 999999))) {
                                 lineEdit.showAlert = false
                             }
                         }
                         onEditingFinished: {
                             if (lineEdit.text.length === 0) {
                                 lineEdit.text = dccData.model().downloadSpeedLimitSize
+                                return
+                            }
+                            if (Number(lineEdit.text) < 10 || Number(lineEdit.text) > 999999) {
+                                lineEdit.text = dccData.model().downloadSpeedLimitSize
+                                lineEdit.triggerAlert()
                                 return
                             }
                             dccData.work().setDownloadSpeedLimitSize(lineEdit.text)

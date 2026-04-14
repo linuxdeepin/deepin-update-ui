@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018 - 2023 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2018-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 #include "updatejobdbusproxy.h"
@@ -102,4 +102,9 @@ QString UpdateJobDBusProxy::status()
 QString UpdateJobDBusProxy::type()
 {
     return qvariant_cast<QString>(m_updateJobInter->property("Type"));
+}
+
+QString UpdateJobDBusProxy::proto()
+{
+    return qvariant_cast<QString>(m_updateJobInter->property("Proto"));
 }

@@ -1,4 +1,4 @@
-//SPDX-FileCopyrightText: 2018 - 2023 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2018-2026 UnionTech Software Technology Co., Ltd.
 //
 //SPDX-License-Identifier: GPL-3.0-or-later
 #ifndef UPDATEJOBDBUSPROXY_H
@@ -56,6 +56,9 @@ public:
     Q_PROPERTY(QString Type READ type NOTIFY TypeChanged)
     QString type();
 
+    Q_PROPERTY(QString Proto READ proto NOTIFY ProtoChanged)
+    QString proto();
+
     inline QString path() const { return m_path; };
 
 signals:
@@ -73,6 +76,7 @@ signals:
     void SpeedChanged(qlonglong  value) const;
     void StatusChanged(const QString & value) const;
     void TypeChanged(const QString & value) const;
+    void ProtoChanged(const QString & value) const;
 
 private:
     DDBusInterface *m_updateJobInter;

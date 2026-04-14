@@ -23,6 +23,8 @@ ColumnLayout {
     property bool processState: false
     property bool busyState: false
     property bool updateListEnable: true
+    property bool buttonsEnabled: true
+    property var buttonEnabledStates: []
     property bool updateListcheck: true
     property bool isDownloading: false
     property bool isPauseOrNot: false
@@ -133,7 +135,9 @@ ColumnLayout {
                 text: modelData
                 font: D.DTK.fontManager.t6
                 visible: rootLayout.showActionButtons && modelData.length !== 0 && !initAnimation.visible
-                enabled: updatelistModel.model.isUpdateEnable
+                enabled: rootLayout.buttonsEnabled
+                    && updatelistModel.model.isUpdateEnable
+                    && (rootLayout.buttonEnabledStates.length <= index || rootLayout.buttonEnabledStates[index])
                 onClicked: {
                     rootLayout.btnClicked(index, updateListModels.getAllUpdateType())
                 }

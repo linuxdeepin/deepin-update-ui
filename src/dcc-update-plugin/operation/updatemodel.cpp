@@ -6,9 +6,11 @@
 #include "updatemodel.h"
 #include "updatehistorymodel.h"
 #include "operation/common.h"
+#include "common/common/dconfig_helper.h"
 #include "utils.h"
 
 #include <DSysInfo>
+#include <QDateTime>
 #include <QLoggingCategory>
 
 using namespace dcc::update::common;
@@ -16,6 +18,7 @@ using namespace dcc::update::common;
 Q_DECLARE_LOGGING_CATEGORY(logDccUpdatePlugin)
 
 DCORE_USE_NAMESPACE
+static constexpr int ShutdownUpdateStatus = 5;
 static const QMap<UpdatesStatus, ControlPanelType> ControlPanelTypeMapping = {
     { Default, CPT_Invalid },
     { UpdatesAvailable, CPT_Available },
@@ -90,6 +93,7 @@ UpdateModel::UpdateModel(QObject* parent)
     , m_showVersion("")
     , m_baseline("")
     , m_p2pUpdateEnabled(false)
+    , m_forceUpdate(false)
     , m_historyModel(new UpdateHistoryModel(this))
 {
     qCDebug(logDccUpdatePlugin) << "Initialize UpdateModel";
@@ -1175,73 +1179,80 @@ void UpdateModel::setSpeedLimitConfig(const QByteArray& config)
     Q_EMIT downloadSpeedLimitConfigChanged();
 }
 
-void UpdateModel::setUpgradeDownloadSpeedLimitConfig(const QByteArray& config)
+void UpdateModel::setUpgradeDownloadSpeedLimitConfig(const QByteArray& config, bool needEmitSignal)
 {
-    qCInfo(logDccUpdatePlugin) << "setUpgradeDownloadSpeedLimitConfig" << config;
-    // if (m_upgradeDownloadSpeedLimitConfig == config)
-    //     return;
-
+    qCInfo(logDccUpdatePlugin) << "Set upgrade download speed limit  config" << config;
     m_upgradeDownloadSpeedLimitConfig = config;
-    Q_EMIT upgradeDownloadSpeedLimitConfigChanged();
+    if (needEmitSignal)
+        Q_EMIT upgradeDownloadSpeedLimitConfigChanged();
 }
 
 QString UpdateModel::upgradeDownloadSpeedCurrentRate() const
 {
-    qCInfo(logDccUpdatePlugin) << "upgradeDownloadSpeedCurrentRate " << UpgradeSpeedLimitConfig::fromJson(m_upgradeDownloadSpeedLimitConfig).currentRate;
-    return QString::number(UpgradeSpeedLimitConfig::fromJson(m_upgradeDownloadSpeedLimitConfig).currentRate / 1024);
+    qCInfo(logDccUpdatePlugin) << "Upgrade download speed current rate " << UpgradeSpeedLimitConfig::fromJson(m_upgradeDownloadSpeedLimitConfig).currentRate;
+    return QString::number(LastoreUpgradeSpeedLimitConfig::fromJson(m_upgradeDownloadSpeedLimitConfig).limitSpeed.toInt() / 1024);
 }
 
 QString UpdateModel::upgradeDownloadSpeedLimitRate() const
 {
-    qCInfo(logDccUpdatePlugin) << "upgradeDownloadSpeedCurrentRate " << UpgradeSpeedLimitConfig::fromJson(m_upgradeDownloadSpeedLimitConfig).currentRate;
-    return QString::number(UpgradeSpeedLimitConfig::fromJson(m_upgradeDownloadSpeedLimitConfig).limitRate / 1024);
+    qCInfo(logDccUpdatePlugin) << "Upgrade download speed limit rate " << UpgradeSpeedLimitConfig::fromJson(m_upgradeDownloadSpeedLimitConfig).limitRate;
+    return LastoreUpgradeSpeedLimitConfig::fromJson(m_upgradeDownloadSpeedLimitConfig).limitSpeed;
 }
 
 bool UpdateModel::upgradeDownloadSpeedEnable() const
 {
-    qCInfo(logDccUpdatePlugin) << "upgradeDownloadSpeedCurrentRate " << m_upgradeDownloadSpeedLimitConfig;
-    return UpgradeSpeedLimitConfig::fromJson(m_upgradeDownloadSpeedLimitConfig).shouldLimitRate();
+    qCInfo(logDccUpdatePlugin) << "Upgrade download speed enable " << m_upgradeDownloadSpeedLimitConfig;
+    return LastoreUpgradeSpeedLimitConfig::fromJson(m_upgradeDownloadSpeedLimitConfig).speedLimitEnabled;
 }
 
 bool UpdateModel::upgradeDownloadSpeedIsOnline() const
 {
-    return UpgradeSpeedLimitConfig::fromJson(m_upgradeDownloadSpeedLimitConfig).ifInOnlineLimit();
+    qCInfo(logDccUpdatePlugin) << "Upgrade download speed is online " << m_upgradeDownloadSpeedLimitConfig;
+    return LastoreUpgradeSpeedLimitConfig::fromJson(m_upgradeDownloadSpeedLimitConfig).isOnlineSpeedLimit;
 }
 
-UpgradeSpeedLimitConfig UpdateModel::upgradeDownloadSpeedLimitConfig() const
+LastoreUpgradeSpeedLimitConfig UpdateModel::upgradeDownloadSpeedLimitConfig() const
 {
-    return UpgradeSpeedLimitConfig::fromJson(m_upgradeDownloadSpeedLimitConfig);
+    qCInfo(logDccUpdatePlugin) << "Upgrade download speed limit config " << m_upgradeDownloadSpeedLimitConfig;
+    return LastoreUpgradeSpeedLimitConfig::fromJson(m_upgradeDownloadSpeedLimitConfig);
 }
 
-void UpdateModel::setUpgradeUploadSpeedLimitConfig(const QByteArray& config)
+void UpdateModel::setUpgradeUploadSpeedLimitConfig(const QByteArray& config, bool needEmitSignal)
 {
+    qCInfo(logDccUpdatePlugin) << "Set upgrade upload speed limit config" << config;
     m_upgradeUploadSpeedLimitConfig = config;
-    Q_EMIT upgradeUploadSpeedLimitConfigChanged();
+    if (needEmitSignal)
+        Q_EMIT upgradeUploadSpeedLimitConfigChanged();
 }
 
 QString UpdateModel::upgradeUploadSpeedCurrentRate() const
 {
-    return QString::number(UpgradeSpeedLimitConfig::fromJson(m_upgradeUploadSpeedLimitConfig).currentRate / 1024);
+    qCInfo(logDccUpdatePlugin) << "Upgrade upload speed current rate " << UpgradeSpeedLimitConfig::fromJson(m_upgradeUploadSpeedLimitConfig).currentRate;
+    return QString::number(LastoreUpgradeSpeedLimitConfig::fromJson(m_upgradeUploadSpeedLimitConfig).limitSpeed.toInt() / 1024);
 }
 
 QString UpdateModel::upgradeUploadSpeedLimitRate() const
 {
-    return QString::number(UpgradeSpeedLimitConfig::fromJson(m_upgradeUploadSpeedLimitConfig).limitRate / 1024);
+     qCInfo(logDccUpdatePlugin) << "Upgrade upload speed limit rate " << UpgradeSpeedLimitConfig::fromJson(m_upgradeUploadSpeedLimitConfig).limitRate;
+    return LastoreUpgradeSpeedLimitConfig::fromJson(m_upgradeUploadSpeedLimitConfig).limitSpeed;
 }
 
 bool UpdateModel::upgradeUploadSpeedEnable() const
 {
-    return UpgradeSpeedLimitConfig::fromJson(m_upgradeUploadSpeedLimitConfig).shouldLimitRate();
+    qCInfo(logDccUpdatePlugin) << "Upgrade upload speed enable " << m_upgradeDownloadSpeedLimitConfig;
+    return LastoreUpgradeSpeedLimitConfig::fromJson(m_upgradeUploadSpeedLimitConfig).speedLimitEnabled;
 }
 
 bool UpdateModel::upgradeUploadSpeedIsOnline() const
 {
-    return UpgradeSpeedLimitConfig::fromJson(m_upgradeUploadSpeedLimitConfig).ifInOnlineLimit();
+    qCInfo(logDccUpdatePlugin) << "Upgrade upload speed is online " << m_upgradeDownloadSpeedLimitConfig;
+    return LastoreUpgradeSpeedLimitConfig::fromJson(m_upgradeUploadSpeedLimitConfig).isOnlineSpeedLimit;
 }
 
-UpgradeSpeedLimitConfig UpdateModel::upgradeUploadSpeedLimitConfig() const
+LastoreUpgradeSpeedLimitConfig UpdateModel::upgradeUploadSpeedLimitConfig() const
 {
-    return UpgradeSpeedLimitConfig::fromJson(m_upgradeUploadSpeedLimitConfig);
+    qCInfo(logDccUpdatePlugin) << "Upgrade upload speed limit config " << m_upgradeUploadSpeedLimitConfig;
+    return LastoreUpgradeSpeedLimitConfig::fromJson(m_upgradeUploadSpeedLimitConfig);
 }
 
 bool UpdateModel::upgradeDeliveryEnable() const
@@ -1449,6 +1460,29 @@ void UpdateModel::setP2PUpdateEnabled(bool enabled)
         m_p2pUpdateEnabled = enabled;
         Q_EMIT p2pUpdateEnableStateChanged(enabled);
     }
+}
+
+void UpdateModel::setForceUpdate()
+{
+    bool forceUpdate = false;
+    const int lastoreStatus = DConfigHelper::instance()->getConfig("org.deepin.dde.lastore", "org.deepin.dde.lastore", "", "lastore-daemon-status", 0).toInt();
+
+    if (lastoreStatus == ShutdownUpdateStatus) {
+        forceUpdate = true;
+    } else {
+        const QString updateTime = DConfigHelper::instance()->getConfig("org.deepin.dde.lastore", "org.deepin.dde.lastore", "", "update-time", "").toString();
+        if (!updateTime.isEmpty()) {
+            forceUpdate = QDateTime::fromString(updateTime, Qt::ISODate).isValid();
+        }
+    }
+
+    qCDebug(logDccUpdatePlugin) << "Set force update:" << forceUpdate << "old value:" << m_forceUpdate;
+    if (m_forceUpdate == forceUpdate) {
+        return;
+    }
+
+    m_forceUpdate = forceUpdate;
+    Q_EMIT forceUpdateChanged(m_forceUpdate);
 }
 
 bool UpdateModel::isCommunitySystem() const
