@@ -92,6 +92,8 @@ class UpdateModel : public QObject
     Q_PROPERTY(QString upgradeUploadSpeedLimitRate READ upgradeUploadSpeedLimitRate NOTIFY upgradeUploadSpeedLimitConfigChanged FINAL)
     Q_PROPERTY(bool upgradeUploadSpeedEnable READ upgradeUploadSpeedEnable NOTIFY upgradeUploadSpeedLimitConfigChanged FINAL)
     Q_PROPERTY(bool upgradeDeliveryEnable READ upgradeDeliveryEnable NOTIFY upgradeDeliveryEnableChanged FINAL)
+    Q_PROPERTY(bool p2pUpdateEnabled READ isP2PUpdateEnabled NOTIFY p2pUpdateEnableStateChanged FINAL)
+    Q_PROPERTY(bool forceUpdate READ forceUpdate NOTIFY forceUpdateChanged FINAL)
     Q_PROPERTY(UpdateHistoryModel *historyModel READ historyModel NOTIFY historyModelChanged FINAL)
 
 
@@ -282,18 +284,18 @@ public:
     DownloadSpeedLimitConfig speedLimitConfig() const;
     void setSpeedLimitConfig(const QByteArray &config);
 
-    void setUpgradeDownloadSpeedLimitConfig(const QByteArray& config);
+    void setUpgradeDownloadSpeedLimitConfig(const QByteArray& config, bool needEmitSignal = true);
     QString upgradeDownloadSpeedCurrentRate() const;
     QString upgradeDownloadSpeedLimitRate() const;
     bool upgradeDownloadSpeedEnable() const;
     bool upgradeDownloadSpeedIsOnline() const;
-    UpgradeSpeedLimitConfig upgradeDownloadSpeedLimitConfig() const;
-    void setUpgradeUploadSpeedLimitConfig(const QByteArray& config);
+    LastoreUpgradeSpeedLimitConfig upgradeDownloadSpeedLimitConfig() const;
+    void setUpgradeUploadSpeedLimitConfig(const QByteArray& config, bool needEmitSignal = true);
     QString upgradeUploadSpeedCurrentRate() const;
     QString upgradeUploadSpeedLimitRate() const;
     bool upgradeUploadSpeedEnable() const;
     bool upgradeUploadSpeedIsOnline() const;
-    UpgradeSpeedLimitConfig upgradeUploadSpeedLimitConfig() const;
+    LastoreUpgradeSpeedLimitConfig upgradeUploadSpeedLimitConfig() const;
     bool upgradeDeliveryEnable() const;
 
     void setUpgradeDeliveryEnable(bool enable);
@@ -346,6 +348,9 @@ public:
 
     bool isP2PUpdateEnabled() const { return m_p2pUpdateEnabled; }
     void setP2PUpdateEnabled(bool enabled);
+
+    bool forceUpdate() const { return m_forceUpdate; }
+    void setForceUpdate();
 
 
     Q_INVOKABLE bool isCommunitySystem() const;
@@ -436,6 +441,7 @@ Q_SIGNALS:
     void showVersionChanged(QString version);
     void baselineChanged(const QString &baseline);
     void p2pUpdateEnableStateChanged(bool enabled);
+    void forceUpdateChanged(bool forceUpdate);
     void historyModelChanged();
 
 private:
@@ -516,6 +522,7 @@ private:
     QString m_showVersion;
     QString m_baseline;
     bool m_p2pUpdateEnabled;
+    bool m_forceUpdate;
 
     // update history qml data
     UpdateHistoryModel *m_historyModel;

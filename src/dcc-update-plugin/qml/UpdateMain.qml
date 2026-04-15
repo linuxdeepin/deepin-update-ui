@@ -311,6 +311,9 @@ DccObject {
             Component.onCompleted: updateSecondaryTips()
             busyState: dccData.model().upgradeWaiting
             updateListEnable: !dccData.model().upgradeWaiting
+            buttonEnabledStates: dccData.model().isPrivateUpdate
+                ? [!dccData.model().forceUpdate, true]
+                : [true]
 
             onBtnClicked: function(index, updateType) {
                 if (index === 0) {

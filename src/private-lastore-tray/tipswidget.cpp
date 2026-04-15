@@ -116,6 +116,16 @@ bool TipsWidget::hasUnfinishedJob(const QList<QDBusObjectPath> &jobs) const
     return false;
 }
 
+void TipsWidget::onSetUpdateProto(const QString& proto)
+{
+    m_proto = proto;
+}
+
+void TipsWidget::onSetUpdateSpeed(qlonglong speed)
+{
+    m_speed = speed;
+}
+
 void TipsWidget::onSetUpdateProgress(double progress)
 {
     m_updateProgress = progress;
@@ -255,6 +265,8 @@ void TipsWidget::onRefreshJobList(const QList<QDBusObjectPath> &jobs)
         if (id == "dist_upgrade" || id == "prepare_dist_upgrade") {
             m_updateJobInter = new UpdateJobDBusProxy(jobPath, this);
             connect(m_updateJobInter, &UpdateJobDBusProxy::ProgressChanged, this, &TipsWidget::onSetUpdateProgress);
+            connect(m_updateJobInter, &UpdateJobDBusProxy::ProtoChanged, this, &TipsWidget::onSetUpdateProto);
+            connect(m_updateJobInter, &UpdateJobDBusProxy::SpeedChanged, this, &TipsWidget::onSetUpdateSpeed);
         } else if (id == "backup") {
             m_backupJobInter = new UpdateJobDBusProxy(jobPath, this);
             connect(m_backupJobInter, &UpdateJobDBusProxy::ProgressChanged, this, &TipsWidget::onSetBackUpProgress);

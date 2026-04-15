@@ -444,15 +444,19 @@
     </message>
     <message>
         <source>Upgrade Delivery</source>
-        <translation>更新传递</translation>
+        <translation>传递优化</translation>
+    </message>
+    <message>
+        <source>Turning this on may cause your device to send previously downloaded system updates to devices on the local network. Turning this off will clear files cached for update delivery on restart</source>
+        <translation>开启此功能，你的设备可能会将以前下载的部分系统更新发送到本地网络的设备上。关闭此功能后，将在重启时清除传递优化时缓存的文件</translation>
     </message>
     <message>
         <source>Upgrade Delivery Download Limit Setting</source>
-        <translation>更新传递-下载限速</translation>
+        <translation>下载限速</translation>
     </message>
     <message>
         <source>Upgrade Delivery Upload Limit Setting</source>
-        <translation>更新传递-上传限速</translation>
+        <translation>上传限速</translation>
     </message>
     <message>
         <source>Limit Speed</source>
@@ -528,7 +532,11 @@
     </message>
     <message>
         <source>Failed to change Upgrade Delivery setting</source>
-        <translation>更新传递设置修改失败</translation>
+        <translation>更新传递优化服务异常，设置失败</translation>
+    </message>
+    <message>
+        <source>Retry</source>
+        <translation>重试</translation>
     </message>
     <message>
         <source>OK</source>
