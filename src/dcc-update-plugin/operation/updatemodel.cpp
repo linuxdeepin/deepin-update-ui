@@ -1169,9 +1169,11 @@ DownloadSpeedLimitConfig UpdateModel::speedLimitConfig() const
     return DownloadSpeedLimitConfig::fromJson(m_speedLimitConfig);
 }
 
-void UpdateModel::setSpeedLimitConfig(const QByteArray& config)
+void UpdateModel::setSpeedLimitConfig(const QByteArray& config, bool isFromQml)
 {
     qCDebug(logDccUpdatePlugin) << "Set speed limit config:" << config;
+    if (DownloadSpeedLimitConfig::fromJson(m_speedLimitConfig).isOnlineSpeedLimit && isFromQml)
+        return;
     if (m_speedLimitConfig == config)
         return;
 
@@ -1523,7 +1525,6 @@ void UpdateModel::onUpdatePropertiesChanged(const QString& interfaceName, const 
 {
     qCDebug(logDccUpdatePlugin) << "Update properties changed for interface:" << interfaceName << "properties count:" << changedProperties.size();
     Q_UNUSED(invalidatedProperties)
-
     if (interfaceName == "org.deepin.dde.Lastore1.Manager") {
         qCDebug(logDccUpdatePlugin) << "Handling Lastore Manager property changes";
         if (changedProperties.contains("CheckUpdateMode")) {
@@ -1561,7 +1562,21 @@ void UpdateModel::onUpdatePropertiesChanged(const QString& interfaceName, const 
 
         if (changedProperties.contains("P2PUpdateEnable")) {
             qCDebug(logDccUpdatePlugin) << "P2PUpdateEnable property changed";
-            setP2PUpdateEnabled(changedProperties.value("P2PUpdateEnable").toBool());
+            setUpgradeDeliveryEnable(changedProperties.value("P2PUpdateEnable").toBool());
+        }
+    }
+
+    if (interfaceName == "org.deepin.upgradedelivery") {
+        qCDebug(logDccUpdatePlugin) << "Handling upgrade delivery property changes";
+        if (changedProperties.contains("DownloadLimitSpeed")) {
+            qCDebug(logDccUpdatePlugin) << "P2PUpgradeDownloadSpeedLimitConfig property changed";
+            qCDebug(logDccUpdatePlugin) << "P2PUpgradeDownloadSpeedLimitConfig property changed " << changedProperties.value("DownloadLimitSpeed");
+            setUpgradeDownloadSpeedLimitConfig(transferDeliveryConfigToLastoreDeliveryConfig(changedProperties.value("DownloadLimitSpeed").toByteArray()).toUtf8());
+        }
+
+        if (changedProperties.contains("UploadLimitSpeed")) {
+            qCDebug(logDccUpdatePlugin) << "P2PUpgradeUploadSpeedLimitConfig property changed";
+            setUpgradeUploadSpeedLimitConfig(transferDeliveryConfigToLastoreDeliveryConfig(changedProperties.value("UploadLimitSpeed").toByteArray()).toUtf8());
         }
     }
 }

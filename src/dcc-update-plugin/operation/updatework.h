@@ -110,7 +110,6 @@ public:
     void setRemovePackageJob(const QString& jobPath);
     QString getServiceUrlByRegion();
     void refreshUpgradeDeliveryInfo();
-    QString transferDeliveryConfigToLastoreDeliveryConfig(const QString& deliveryConfig);
 
     Q_INVOKABLE bool openUrl(const QString& url);
     Q_INVOKABLE void onRequestRetry(int type, int updateTypes);

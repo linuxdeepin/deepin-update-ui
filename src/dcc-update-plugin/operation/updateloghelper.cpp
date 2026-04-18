@@ -66,6 +66,7 @@ QString UpdateLogHelper::sumCveLevelUp(const QMap<VulLevel, int>& vulCount)
 
 void UpdateLogHelper::handleUpdateLog(const QString &log)
 {
+    qCDebug(logDccUpdatePlugin) << "Handling update log: " << log;
     qCDebug(logDccUpdatePlugin) << "Handling update log, length:" << log.length();
     const QJsonDocument& doc = QJsonDocument::fromJson(log.toLocal8Bit());
     const QJsonObject& rootObj = doc.object();

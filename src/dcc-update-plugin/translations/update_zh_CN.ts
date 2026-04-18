@@ -447,7 +447,7 @@
         <translation>传递优化</translation>
     </message>
     <message>
-        <source>Turning this on may cause your device to send previously downloaded system updates to devices on the local network. Turning this off will clear files cached for update delivery on restart</source>
+        <source>When enabled, your device may share previously downloaded system updates with other devices on your local network.When you turn it off, cached files from update delivery will be cleared during the next restart.</source>
         <translation>开启此功能，你的设备可能会将以前下载的部分系统更新发送到本地网络的设备上。关闭此功能后，将在重启时清除传递优化时缓存的文件</translation>
     </message>
     <message>
@@ -532,11 +532,19 @@
     </message>
     <message>
         <source>Failed to change Upgrade Delivery setting</source>
-        <translation>更新传递优化服务异常，设置失败</translation>
+        <translation>更新传递优化服务异常</translation>
+    </message>
+    <message>
+        <source>Update Delivery Optimization service exception. Failed to enable.</source>
+        <translation>更新传递优化服务异常,开启失败</translation>
+    </message>
+    <message>
+        <source>Update Delivery Optimization service exception. Failed to disable.</source>
+        <translation>更新传递优化服务异常,关闭失败</translation>
     </message>
     <message>
         <source>Retry</source>
-        <translation>重试</translation>
+        <translation>再试一次</translation>
     </message>
     <message>
         <source>OK</source>
