@@ -928,7 +928,7 @@ void UpdateWorker::setDownloadSpeedLimitEnabled(bool enable)
     config.downloadSpeedLimitEnabled = enable;
     config.isOnlineSpeedLimit = false;
     // dbus返回需要1s，导致界面更新慢，这里直接先更新model
-    m_model->setSpeedLimitConfig(config.toJson().toUtf8());
+    m_model->setSpeedLimitConfig(config.toJson().toUtf8(), true);
     setDownloadSpeedLimitConfig(config.toJson());
 }
 
@@ -1292,17 +1292,6 @@ void UpdateWorker::initTestingChannel()
         }
         watcher->deleteLater();
     });
-}
-
-QString UpdateWorker::transferDeliveryConfigToLastoreDeliveryConfig(const QString& deliveryConfig)
-{
-    qCDebug(logDccUpdatePlugin) << "xiongbo55555 transferDeliveryConfigToLastoreDeliveryConfig " << deliveryConfig;
-    LastoreUpgradeSpeedLimitConfig lastoreDeliveryConfig;
-    lastoreDeliveryConfig.isOnlineSpeedLimit = UpgradeSpeedLimitConfig::fromJson(deliveryConfig.toUtf8()).ifInOnlineLimit();
-    lastoreDeliveryConfig.speedLimitEnabled = UpgradeSpeedLimitConfig::fromJson(deliveryConfig.toUtf8()).shouldLimitRate();
-    lastoreDeliveryConfig.limitSpeed = QString::number(UpgradeSpeedLimitConfig::fromJson(deliveryConfig.toUtf8()).currentRate);
-    qCDebug(logDccUpdatePlugin) << "xiongbo55555 " << lastoreDeliveryConfig.toJson();
-    return lastoreDeliveryConfig.toJson();
 }
 
 void UpdateWorker::refreshUpgradeDeliveryInfo()
@@ -1786,11 +1775,10 @@ void UpdateWorker::setUpgradeDeliveryEnabled(bool enabled, bool fromRetryDialog)
 //设置更新传递下载限速
 void UpdateWorker::setUpgradeDeliveryDownloadLimitSpeed(const QString& speed, bool enable)
 {
-    qCInfo(logDccUpdatePlugin) << "xiongbo123 speed: " << speed;
     LastoreUpgradeSpeedLimitConfig downloadSpeedLimitConfig;
     downloadSpeedLimitConfig.isOnlineSpeedLimit = false;
     downloadSpeedLimitConfig.speedLimitEnabled = enable;
-    downloadSpeedLimitConfig.limitSpeed = QString::number(speed.toInt() * 1024);
+    downloadSpeedLimitConfig.limitSpeed = speed;
     qCInfo(logDccUpdatePlugin) << "Set upgrade download speed limit: " << downloadSpeedLimitConfig.toJson();
     auto watcher = new QDBusPendingCallWatcher(m_updateInter->SetUpgradeDeliveryDownloadSpeedLimit(downloadSpeedLimitConfig.toJson()), this);
     connect(watcher, &QDBusPendingCallWatcher::finished, [watcher, this, downloadSpeedLimitConfig] {
@@ -1801,7 +1789,6 @@ void UpdateWorker::setUpgradeDeliveryDownloadLimitSpeed(const QString& speed, bo
             Q_EMIT upgradeDeliveryConfigSetFailed();
             return;
         }
-        m_model->setUpgradeDownloadSpeedLimitConfig(downloadSpeedLimitConfig.toJson().toUtf8(), false);
     });
 }
 
@@ -1811,7 +1798,7 @@ void UpdateWorker::setUpgradeDeliveryUploadLimitSpeed(const QString& speed, bool
     LastoreUpgradeSpeedLimitConfig uploadSpeedLimitConfig;
     uploadSpeedLimitConfig.isOnlineSpeedLimit = false;
     uploadSpeedLimitConfig.speedLimitEnabled = enable;
-    uploadSpeedLimitConfig.limitSpeed = QString::number(speed.toInt() * 1024);
+    uploadSpeedLimitConfig.limitSpeed = speed;
     qCInfo(logDccUpdatePlugin) << "Set upgrade upload speed limit: " << uploadSpeedLimitConfig.toJson();
     auto watcher = new QDBusPendingCallWatcher(m_updateInter->SetUpgradeDeliveryUploadSpeedLimit(uploadSpeedLimitConfig.toJson()), this);
     connect(watcher, &QDBusPendingCallWatcher::finished, [watcher, this, uploadSpeedLimitConfig] {
@@ -1822,7 +1809,6 @@ void UpdateWorker::setUpgradeDeliveryUploadLimitSpeed(const QString& speed, bool
             Q_EMIT upgradeDeliveryConfigSetFailed();
             return;
         }
-        m_model->setUpgradeUploadSpeedLimitConfig(uploadSpeedLimitConfig.toJson().toUtf8(), false);
     });
 }
 

@@ -103,7 +103,8 @@ DccObject {
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.WordWrap
-                text: qsTr("Failed to change Upgrade Delivery setting")
+                text: root.pendingUpgradeDeliveryEnabled ?  qsTr("Update Delivery Optimization service exception. Failed to enable.")
+                : qsTr("Update Delivery Optimization service exception. Failed to disable.")
             }
 
             Item {
@@ -122,7 +123,7 @@ DccObject {
                     focus: upgradeDeliverySetEnableFailedDialog.visible
                     onClicked: {
                         upgradeDeliverySetEnableFailedDialog.close()
-                        dccData.work().setUpgradeDeliveryEnabled(!root.pendingUpgradeDeliveryEnabled, true)
+                        dccData.work().setUpgradeDeliveryEnabled(root.pendingUpgradeDeliveryEnabled, true)
                     }
                 }
 
@@ -335,7 +336,7 @@ DccObject {
                 name: "upgradeDeliverySwitch"
                 parentName: "upgradeDeliveryGrp"
                 displayName: qsTr("Upgrade Delivery")
-                description: qsTr("Turning this on may cause your device to send previously downloaded system updates to devices on the local network. Turning this off will clear files cached for update delivery on restart")
+                description: qsTr("When enabled, your device may share previously downloaded system updates with other devices on your local network.When you turn it off, cached files from update delivery will be cleared during the next restart.")
                 weight: 10
                 enabled: !dccData.model().updateProhibited
                 pageType: DccObject.Editor
@@ -361,6 +362,7 @@ DccObject {
             }
 
             DccObject {
+                id: upgradeDeliveryUploadLimitSetting
                 name: "upgradeDeliveryUploadLimitSetting"
                 parentName: "upgradeDeliveryGrp"
                 displayName: qsTr("Upgrade Delivery Upload Limit Setting")
@@ -368,6 +370,12 @@ DccObject {
                 weight: 20
                 enabled: !dccData.model().upgradeUploadSpeedIsOnline
                 pageType: DccObject.Item
+                Connections {
+                    target: dccData.model()
+                    function onUpgradeUploadSpeedLimitConfigChanged() {
+                        upgradeDeliveryUploadLimitSetting.enabled = !dccData.model().upgradeUploadSpeedIsOnline
+                    }
+                }
                 page: RowLayout {
                     D.CheckBox {
                         id: limitCheckBox
@@ -454,6 +462,7 @@ DccObject {
             }
 
             DccObject {
+                id: upgradeDeliveryDownloadLimitSetting
                 name: "upgradeDeliveryDownloadLimitSetting"
                 parentName: "upgradeDeliveryGrp"
                 displayName: qsTr("Upgrade Delivery Download Limit Setting")
@@ -461,6 +470,12 @@ DccObject {
                 weight: 20
                 enabled: !dccData.model().upgradeDownloadSpeedIsOnline
                 pageType: DccObject.Item
+                Connections {
+                    target: dccData.model()
+                    function onUpgradeDownloadSpeedLimitConfigChanged() {
+                        upgradeDeliveryDownloadLimitSetting.enabled = !dccData.model().upgradeDownloadSpeedIsOnline
+                    }
+                }
                 page: RowLayout {
                     D.CheckBox {
                         id: limitCheckBox
@@ -591,7 +606,7 @@ DccObject {
                 page: RowLayout {
                     D.LineEdit {
                         id: lineEdit
-                        maximumLength: 5
+                        maximumLength: 6
                         validator: RegularExpressionValidator { regularExpression: /^\d*$/ }
                         alertText: qsTr("Only numbers between 10-999999 are allowed")
                         alertDuration: 3000

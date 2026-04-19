@@ -148,16 +148,10 @@ struct UpgradeSpeedLimitConfig {
     QDateTime endTime;      // 结束时间
 
     bool ifInOnlineLimit() const {
-        if (limitType != 3) {
-            return false;
-        }
-
-        if (!startTime.isValid() || !endTime.isValid()) {
-            return false;
-        }
+        if (limitType == 2)
+            return true;
         
-        QDateTime currentTime = QDateTime::currentDateTime();
-        return currentTime >= startTime && currentTime <= endTime;
+        return false;
     }
 
     bool shouldLimitRate() const {
@@ -185,7 +179,6 @@ struct UpgradeSpeedLimitConfig {
 
     static UpgradeSpeedLimitConfig fromJson(const QByteArray& configStr)
     {
-        qWarning() << "xiongbo123 fromJson: " << configStr;
         UpgradeSpeedLimitConfig config;
         QJsonParseError jsonParseError;
         const QJsonDocument doc = QJsonDocument::fromJson(configStr, &jsonParseError);
@@ -317,6 +310,15 @@ struct LastoreDaemonUpdateStatus {
         return lastoreDaemonUpdateStatus;
     }
 };
+
+inline QString transferDeliveryConfigToLastoreDeliveryConfig(const QString& deliveryConfig)
+{
+    LastoreUpgradeSpeedLimitConfig lastoreDeliveryConfig;
+    lastoreDeliveryConfig.isOnlineSpeedLimit = UpgradeSpeedLimitConfig::fromJson(deliveryConfig.toUtf8()).ifInOnlineLimit();
+    lastoreDeliveryConfig.speedLimitEnabled = UpgradeSpeedLimitConfig::fromJson(deliveryConfig.toUtf8()).shouldLimitRate();
+    lastoreDeliveryConfig.limitSpeed = QString::number(UpgradeSpeedLimitConfig::fromJson(deliveryConfig.toUtf8()).currentRate);
+    return lastoreDeliveryConfig.toJson();
+}
 
 const int INSTALLATION_IS_READY = 1 << 0; // 是否可以安装
 const int UPDATE_IS_DISABLED = 1 << 1; // 更新功能是否被禁用

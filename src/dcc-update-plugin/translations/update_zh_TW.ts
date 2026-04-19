@@ -444,19 +444,19 @@
     </message>
     <message>
         <source>Upgrade Delivery</source>
-        <translation>更新傳遞</translation>
+        <translation>傳遞優化</translation>
     </message>
     <message>
-        <source>Turning this on may cause your device to send previously downloaded system updates to devices on the local network. Turning this off will clear files cached for update delivery on restart</source>
+        <source>When enabled, your device may share previously downloaded system updates with other devices on your local network.When you turn it off, cached files from update delivery will be cleared during the next restart.</source>
         <translation>開啟此功能，你的裝置可能會將以前下載的部分系統更新傳送到本機網路的裝置上。關閉此功能後，將在重新啟動時清除更新傳遞時快取的檔案</translation>
     </message>
     <message>
         <source>Upgrade Delivery Download Limit Setting</source>
-        <translation>更新傳遞-下載限速</translation>
+        <translation>下載限速</translation>
     </message>
     <message>
         <source>Upgrade Delivery Upload Limit Setting</source>
-        <translation>更新傳遞-上傳限速</translation>
+        <translation>上傳限速</translation>
     </message>
     <message>
         <source>Limit Speed</source>
@@ -528,11 +528,19 @@
     </message>
     <message>
         <source>Failed to change Upgrade Delivery setting</source>
-        <translation>更新傳遞優化服務異常，設置失敗</translation>
+        <translation>更新傳遞優化服務異常</translation>
+    </message>
+    <message>
+        <source>Update Delivery Optimization service exception. Failed to enable.</source>
+        <translation>更新傳遞優化服務異常,開啟失敗</translation>
+    </message>
+    <message>
+        <source>Update Delivery Optimization service exception. Failed to disable.</source>
+        <translation>更新傳遞優化服務異常,關閉失敗</translation>
     </message>
     <message>
         <source>Retry</source>
-        <translation>重試</translation>
+        <translation>再試一次</translation>
     </message>
     <message>
         <source>OK</source>

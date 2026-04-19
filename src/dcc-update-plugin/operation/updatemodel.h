@@ -88,6 +88,7 @@ class UpdateModel : public QObject
     Q_PROPERTY(QString upgradeDownloadSpeedCurrentRate READ upgradeDownloadSpeedCurrentRate NOTIFY upgradeDownloadSpeedLimitConfigChanged FINAL)
     Q_PROPERTY(QString upgradeDownloadSpeedLimitRate READ upgradeDownloadSpeedLimitRate NOTIFY upgradeDownloadSpeedLimitConfigChanged FINAL)
     Q_PROPERTY(bool upgradeDownloadSpeedEnable READ upgradeDownloadSpeedEnable NOTIFY upgradeDownloadSpeedLimitConfigChanged FINAL)
+    Q_PROPERTY(bool upgradeDownloadSpeedIsOnline READ upgradeDownloadSpeedIsOnline NOTIFY upgradeDownloadSpeedLimitConfigChanged FINAL)
     Q_PROPERTY(QString upgradeUploadSpeedCurrentRate READ upgradeUploadSpeedCurrentRate NOTIFY upgradeUploadSpeedLimitConfigChanged FINAL)
     Q_PROPERTY(QString upgradeUploadSpeedLimitRate READ upgradeUploadSpeedLimitRate NOTIFY upgradeUploadSpeedLimitConfigChanged FINAL)
     Q_PROPERTY(bool upgradeUploadSpeedEnable READ upgradeUploadSpeedEnable NOTIFY upgradeUploadSpeedLimitConfigChanged FINAL)
@@ -282,7 +283,7 @@ public:
     bool downloadIsOnlineSpeedLimit() const;
     QString downloadSpeedLimitSize() const;
     DownloadSpeedLimitConfig speedLimitConfig() const;
-    void setSpeedLimitConfig(const QByteArray &config);
+    void setSpeedLimitConfig(const QByteArray &config, bool isFromQml = false);
 
     void setUpgradeDownloadSpeedLimitConfig(const QByteArray& config, bool needEmitSignal = true);
     QString upgradeDownloadSpeedCurrentRate() const;
