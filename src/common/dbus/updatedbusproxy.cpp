@@ -214,8 +214,7 @@ bool UpdateDBusProxy::p2PUpdateEnable()
 
 bool UpdateDBusProxy::p2PUpdateSupport()
 {
-    return true;
-    // return qvariant_cast<bool>(m_updateInter->property("P2PUpdateSupport"));
+    return qvariant_cast<bool>(m_updateInter->property("P2PUpdateSupport"));
 }
 
 bool UpdateDBusProxy::immutableAutoRecovery()

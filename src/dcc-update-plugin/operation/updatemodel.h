@@ -91,6 +91,7 @@ class UpdateModel : public QObject
     Q_PROPERTY(bool upgradeDownloadSpeedIsOnline READ upgradeDownloadSpeedIsOnline NOTIFY upgradeDownloadSpeedLimitConfigChanged FINAL)
     Q_PROPERTY(QString upgradeUploadSpeedCurrentRate READ upgradeUploadSpeedCurrentRate NOTIFY upgradeUploadSpeedLimitConfigChanged FINAL)
     Q_PROPERTY(QString upgradeUploadSpeedLimitRate READ upgradeUploadSpeedLimitRate NOTIFY upgradeUploadSpeedLimitConfigChanged FINAL)
+    Q_PROPERTY(bool upgradeUploadSpeedIsOnline READ upgradeUploadSpeedIsOnline NOTIFY upgradeUploadSpeedLimitConfigChanged FINAL)
     Q_PROPERTY(bool upgradeUploadSpeedEnable READ upgradeUploadSpeedEnable NOTIFY upgradeUploadSpeedLimitConfigChanged FINAL)
     Q_PROPERTY(bool upgradeDeliveryEnable READ upgradeDeliveryEnable NOTIFY upgradeDeliveryEnableChanged FINAL)
     Q_PROPERTY(bool p2pUpdateEnabled READ isP2PUpdateEnabled NOTIFY p2pUpdateEnableStateChanged FINAL)
