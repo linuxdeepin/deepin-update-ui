@@ -135,6 +135,7 @@ DccObject {
                     hoveredDark: hovered
                 }
                 bottomPadding: 0
+                Layout.rightMargin: 8
                 font: D.DTK.fontManager.t8
                 text: advancedSetting.showDetails ? qsTr("Collapse") : qsTr("Expand")
                 onClicked: {
