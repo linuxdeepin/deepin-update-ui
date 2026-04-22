@@ -316,7 +316,11 @@ inline QString transferDeliveryConfigToLastoreDeliveryConfig(const QString& deli
     LastoreUpgradeSpeedLimitConfig lastoreDeliveryConfig;
     lastoreDeliveryConfig.isOnlineSpeedLimit = UpgradeSpeedLimitConfig::fromJson(deliveryConfig.toUtf8()).ifInOnlineLimit();
     lastoreDeliveryConfig.speedLimitEnabled = UpgradeSpeedLimitConfig::fromJson(deliveryConfig.toUtf8()).shouldLimitRate();
-    lastoreDeliveryConfig.limitSpeed = QString::number(UpgradeSpeedLimitConfig::fromJson(deliveryConfig.toUtf8()).currentRate);
+    if (lastoreDeliveryConfig.isOnlineSpeedLimit) {
+        lastoreDeliveryConfig.limitSpeed = QString::number(UpgradeSpeedLimitConfig::fromJson(deliveryConfig.toUtf8()).currentRate);
+    } else {
+        lastoreDeliveryConfig.limitSpeed = QString::number(UpgradeSpeedLimitConfig::fromJson(deliveryConfig.toUtf8()).limitRate);
+    } 
     return lastoreDeliveryConfig.toJson();
 }
 

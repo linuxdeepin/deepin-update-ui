@@ -443,7 +443,7 @@
         <translation>提供额外添加的仓库源更新内容</translation>
     </message>
     <message>
-        <source>Upgrade Delivery</source>
+        <source>Delivery Optimization</source>
         <translation>传递优化</translation>
     </message>
     <message>
@@ -451,12 +451,12 @@
         <translation>开启此功能，你的设备可能会将以前下载的部分系统更新发送到本地网络的设备上。关闭此功能后，将在重启时清除传递优化时缓存的文件</translation>
     </message>
     <message>
-        <source>Upgrade Delivery Download Limit Setting</source>
-        <translation>下载限速</translation>
+        <source>Delivery Optimization-Limit Speed</source>
+        <translation>传递优化-下载限速</translation>
     </message>
     <message>
-        <source>Upgrade Delivery Upload Limit Setting</source>
-        <translation>上传限速</translation>
+        <source>Delivery Optimization-Upload throttling</source>
+        <translation>传递优化-上传限速</translation>
     </message>
     <message>
         <source>Limit Speed</source>
@@ -531,24 +531,20 @@
         <translation>只允许输入10-999999</translation>
     </message>
     <message>
-        <source>Failed to change Upgrade Delivery setting</source>
+        <source>Failed to change Delivery Optimization setting</source>
         <translation>更新传递优化服务异常</translation>
     </message>
     <message>
-        <source>Update Delivery Optimization service exception. Failed to enable.</source>
-        <translation>更新传递优化服务异常,开启失败</translation>
-    </message>
-    <message>
-        <source>Update Delivery Optimization service exception. Failed to disable.</source>
-        <translation>更新传递优化服务异常,关闭失败</translation>
+        <source>Update Delivery Optimization service exception</source>
+        <translation>更新传递优化服务异常</translation>
     </message>
     <message>
         <source>Retry</source>
         <translation>再试一次</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation>确定</translation>
+        <source>Cancel</source>
+        <translation>取消</translation>
     </message>
     <message>
         <source>Join the internal testing channel to get deepin latest updates.</source>

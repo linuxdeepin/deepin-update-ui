@@ -40,6 +40,7 @@ PluginUpdatePlugin::PluginUpdatePlugin(QObject *parent)
     , m_currentState(UpdateState::UpdatesAvailable)
     , m_updateMode(0)
     , m_shouldShow(false)
+    , m_isPrivateUpdate(false)
 {
     m_tipsLabel->setVisible(false);
     m_tipsLabel->setAccessibleName("plugin-update");
@@ -239,7 +240,7 @@ void PluginUpdatePlugin::loadPlugin()
 
 void PluginUpdatePlugin::refreshPluginItemsVisible()
 {
-    bool shouldShow = !pluginIsDisable() && m_shouldShow;
+    bool shouldShow = !pluginIsDisable() && m_shouldShow && !m_isPrivateUpdate;
 
     if (!shouldShow) {
         if (m_pluginLoaded) {
@@ -288,6 +289,8 @@ void PluginUpdatePlugin::onConfigChanged(const QString &key)
     } else if (key == "update-status") {
         m_updateStatus = m_dconfig->value("update-status", QVariant());
         qCInfo(dockUpdatePlugin) << "UpdateStatus changed to:" << m_updateStatus;
+    } else if (key == "intranet-update") {
+        m_isPrivateUpdate = m_dconfig->value("intranet-update", false).toBool();
     }
     //对dconfig获取的数据进行解析，从而处理更新的状态和是否显示
     updateStateFromUpdateStatus();

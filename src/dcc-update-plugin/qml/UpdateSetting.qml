@@ -14,7 +14,6 @@ import org.deepin.dcc.update 1.0
 DccObject {
     id: root
     property bool syncingUpgradeDeliverySwitch: false
-    property bool pendingUpgradeDeliveryEnabled: dccData.model().upgradeDeliveryEnable
 
     FontMetrics {
         id: fm
@@ -34,7 +33,7 @@ DccObject {
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.WordWrap
-                text: qsTr("Failed to change Upgrade Delivery setting")
+                text: qsTr("Failed to change Delivery Optimization setting")
             }
 
             Item {
@@ -48,10 +47,13 @@ DccObject {
                 spacing: 10
 
                 ButtonWithToolTip {
-                    text: qsTr("OK")
+                    text: qsTr("Cancel")
                     Layout.fillWidth: true
                     focus: upgradeDeliverySetConfigFailedDialog.visible
                     onClicked: {
+                        upgradeDeliverySetConfigFailedDialog.close()
+                    }
+                    Keys.onEscapePressed: {
                         upgradeDeliverySetConfigFailedDialog.close()
                     }
                 }
@@ -103,8 +105,7 @@ DccObject {
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.WordWrap
-                text: root.pendingUpgradeDeliveryEnabled ?  qsTr("Update Delivery Optimization service exception. Failed to enable.")
-                : qsTr("Update Delivery Optimization service exception. Failed to disable.")
+                text: qsTr("Update Delivery Optimization service exception")
             }
 
             Item {
@@ -123,12 +124,15 @@ DccObject {
                     focus: upgradeDeliverySetEnableFailedDialog.visible
                     onClicked: {
                         upgradeDeliverySetEnableFailedDialog.close()
-                        dccData.work().setUpgradeDeliveryEnabled(root.pendingUpgradeDeliveryEnabled, true)
+                        dccData.work().setUpgradeDeliveryEnabled(!dccData.model().upgradeDeliveryEnable, true)
+                    }
+                    Keys.onEscapePressed: {
+                        upgradeDeliverySetEnableFailedDialog.close()
                     }
                 }
 
                 EnableFailedDialogButton {
-                    text: qsTr("OK")
+                    text: qsTr("Cancel")
                     Layout.fillWidth: true
                     onClicked: {
                         upgradeDeliverySetEnableFailedDialog.close()
@@ -173,6 +177,7 @@ DccObject {
         parentName: "updateSettingsPage"
         displayName: qsTr("Update Type")
         weight: 10
+        visible: !dccData.model().isPrivateUpdate
     }
 
     DccObject {
@@ -181,6 +186,7 @@ DccObject {
         parentName: "updateSettingsPage"
         weight: 20
         pageType: DccObject.Item
+        visible: !dccData.model().isPrivateUpdate
         page: DccGroupView {
             height: implicitHeight + 10
             spacing: 0
@@ -245,7 +251,7 @@ DccObject {
 
     DccObject {
         id: advancedSetting
-        property bool showDetails: false
+        property bool showDetails: dccData.model().isPrivateUpdate
         name: "advancedSettingTitle"
         parentName: "updateSettingsPage"
         displayName: qsTr("Advanced Settings")
@@ -253,7 +259,7 @@ DccObject {
         pageType: DccObject.Item
         page: RowLayout {
             Component.onDestruction:   {
-                advancedSetting.showDetails = false
+                advancedSetting.showDetails = false || dccData.model().isPrivateUpdate
             }
             DccLabel {
                 property D.Palette textColor: D.Palette {
@@ -335,10 +341,10 @@ DccObject {
             DccObject {
                 name: "upgradeDeliverySwitch"
                 parentName: "upgradeDeliveryGrp"
-                displayName: qsTr("Upgrade Delivery")
+                displayName: qsTr("Delivery Optimization")
                 description: qsTr("When enabled, your device may share previously downloaded system updates with other devices on your local network.When you turn it off, cached files from update delivery will be cleared during the next restart.")
                 weight: 10
-                enabled: !dccData.model().updateProhibited
+                enabled: !dccData.model().isPrivateUpdate
                 pageType: DccObject.Editor
                 page: D.Switch {
                     id: upgradeDeliverySwitch
@@ -347,7 +353,6 @@ DccObject {
                         if (root.syncingUpgradeDeliverySwitch) {
                             return
                         }
-                        root.pendingUpgradeDeliveryEnabled = checked
                         dccData.work().setUpgradeDeliveryEnabled(checked)
                     }
                     Connections {
@@ -365,7 +370,7 @@ DccObject {
                 id: upgradeDeliveryUploadLimitSetting
                 name: "upgradeDeliveryUploadLimitSetting"
                 parentName: "upgradeDeliveryGrp"
-                displayName: qsTr("Upgrade Delivery Upload Limit Setting")
+                displayName: qsTr("Delivery Optimization-Upload throttling")
                 visible: dccData.model().upgradeDeliveryEnable
                 weight: 20
                 enabled: !dccData.model().upgradeUploadSpeedIsOnline
@@ -465,9 +470,9 @@ DccObject {
                 id: upgradeDeliveryDownloadLimitSetting
                 name: "upgradeDeliveryDownloadLimitSetting"
                 parentName: "upgradeDeliveryGrp"
-                displayName: qsTr("Upgrade Delivery Download Limit Setting")
+                displayName: qsTr("Delivery Optimization-Limit Speed")
                 visible: dccData.model().upgradeDeliveryEnable
-                weight: 20
+                weight: 30
                 enabled: !dccData.model().upgradeDownloadSpeedIsOnline
                 pageType: DccObject.Item
                 Connections {
@@ -566,7 +571,7 @@ DccObject {
             id: downloadLimitGrp
             name: "downloadLimitGrp"
             parentName: "advancedSettingGroup"
-            weight: 40
+            weight: 50
             enabled: !dccData.model().downloadIsOnlineSpeedLimit
             pageType: DccObject.Item
             page: DccGroupView {
