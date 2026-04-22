@@ -245,15 +245,15 @@
     </message>
     <message>
         <source>Proceed to Update</source>
-        <translation type="unfinished"/>
+        <translation>Continuar com a atualização</translation>
     </message>
     <message>
         <source>Update download completed</source>
-        <translation type="unfinished"/>
+        <translation>Download da atualização concluído</translation>
     </message>
     <message>
         <source>Install updates</source>
-        <translation type="unfinished"/>
+        <translation>Instalar atualizações</translation>
     </message>
     <message>
         <source>Update download failed</source>
