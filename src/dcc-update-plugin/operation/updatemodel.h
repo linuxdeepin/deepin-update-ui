@@ -55,7 +55,7 @@ class UpdateModel : public QObject
     Q_PROPERTY(bool downloadWaiting READ downloadWaiting NOTIFY downloadWaitingChanged FINAL)
     Q_PROPERTY(bool downloadPaused READ downloadPaused NOTIFY downloadPausedChanged FINAL)
     Q_PROPERTY(bool upgradeWaiting READ upgradeWaiting NOTIFY upgradeWaitingChanged FINAL)
-    Q_PROPERTY(QString scheduledUpgradeTime READ scheduledUpgradeTime NOTIFY scheduledUpgradeTimeChanged FINAL)
+    Q_PROPERTY(QString forceUpdateText READ forceUpdateText NOTIFY forceUpdateTextChanged FINAL)
 
     Q_PROPERTY(double downloadProgress READ downloadProgress NOTIFY downloadProgressChanged FINAL)
     Q_PROPERTY(double backupProgress READ backupProgress NOTIFY backupProgressChanged FINAL)
@@ -200,8 +200,8 @@ public:
     bool upgradeWaiting() const { return m_upgradeWaiting; }
     void setUpgradeWaiting(bool waiting);
 
-    QString scheduledUpgradeTime() const { return m_scheduledUpgradeTime; }
-    void setScheduledUpgradeTime();
+    QString forceUpdateText() const { return m_forceUpdateText; }
+    void setForceUpdateText(const QString& updateTime, int lastoreStatus);
 
     double downloadProgress() const { return m_downloadProgress; }
     void setDownloadProgress(double downloadProgress);
@@ -401,7 +401,7 @@ Q_SIGNALS:
     void downloadWaitingChanged(bool waiting);
     void downloadPausedChanged(bool paused);
     void upgradeWaitingChanged(bool waiting);
-    void scheduledUpgradeTimeChanged();
+    void forceUpdateTextChanged();
 
     void downloadProgressChanged(const double &progress);
     void backupProgressChanged(double progress);
@@ -481,7 +481,7 @@ private:
     bool m_downloadWaiting;
     bool m_downloadPaused;
     bool m_upgradeWaiting;
-    QString m_scheduledUpgradeTime;
+    QString m_forceUpdateText;
     double m_downloadProgress;
     double m_distUpgradeProgress;
     double m_backupProgress;

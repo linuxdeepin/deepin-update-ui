@@ -67,7 +67,7 @@ UpdateModel::UpdateModel(QObject* parent)
     , m_downloadWaiting(false)
     , m_downloadPaused(false)
     , m_upgradeWaiting(false)
-    , m_scheduledUpgradeTime("")
+    , m_forceUpdateText("")
     , m_downloadProgress(0.0)
     , m_distUpgradeProgress(0.0)
     , m_backupProgress(0.0)
@@ -221,22 +221,25 @@ void UpdateModel::setBatterIsOK(bool ok)
     Q_EMIT batterIsOKChanged(ok);
 }
 
-void UpdateModel::setScheduledUpgradeTime()
+void UpdateModel::setForceUpdateText(const QString& updateTime, int lastoreStatus)
 {
-    QString updateTime = DConfigHelper::instance()->getConfig("org.deepin.dde.lastore", "org.deepin.dde.lastore", "","update-time", "").toString();
     if (!updateTime.isEmpty()) {
         QDateTime dateTime = QDateTime::fromString(updateTime, Qt::ISODate);
         if (dateTime.isValid()) {
             QString formattedDateTime = dateTime.toString("HH:mm:ss");
             qCDebug(logDccUpdatePlugin) << "Set scheduled upgrade time:" << formattedDateTime;
-            if (m_scheduledUpgradeTime == formattedDateTime) {
+            if (m_forceUpdateText == formattedDateTime) {
                 return;
             }
 
-            m_scheduledUpgradeTime = formattedDateTime;
-            Q_EMIT scheduledUpgradeTimeChanged();
+            m_forceUpdateText = tr("will upgrade at %1").arg(formattedDateTime);
         }
+    } else if (lastoreStatus == ShutdownUpdateStatus) {
+        m_forceUpdateText = tr("will upgrade when shutdown");
+    } else {
+        m_forceUpdateText = "";
     }
+    Q_EMIT forceUpdateTextChanged();
 }
 
 void UpdateModel::setLastStatus(const UpdatesStatus& status, int line, int types)

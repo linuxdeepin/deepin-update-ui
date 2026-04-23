@@ -297,9 +297,7 @@ DccObject {
                 qsTr("Check Again")
             ] : [qsTr("Install updates")]
             function updateSecondaryTips() {
-                secondaryUpdateTips = dccData.model().scheduledUpgradeTime.length !== 0
-                    ? qsTr("will upgrade at %1").arg(dccData.model().scheduledUpgradeTime)
-                    : ""
+                secondaryUpdateTips = dccData.model().forceUpdateText
             }
             updateTips: {
                 if (!dccData.model().batterIsOK) {
@@ -346,7 +344,7 @@ DccObject {
 
             Connections {
                 target: dccData.model()
-                function onScheduledUpgradeTimeChanged() {
+                function onForceUpdateTextChanged() {
                     preInstallUpdateControl.updateSecondaryTips()
                 }
             }

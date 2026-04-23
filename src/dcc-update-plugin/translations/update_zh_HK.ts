@@ -206,10 +206,6 @@
         <translation>更新大小：</translation>
     </message>
     <message>
-        <source>will upgrade at %1</source>
-        <translation>將於%1開始系統更新</translation>
-    </message>
-    <message>
         <source>Downloading</source>
         <translation>下載中</translation>
     </message>
@@ -377,6 +373,14 @@
         <translation>開啓更新內容開關，可以獲得更優質的功能體驗哦</translation>
     </message>
     <message>
+        <source>will upgrade when shutdown</source>
+        <translation>系統將在計算機關機或重啓時進行更新</translation>
+    </message>
+    <message>
+        <source>will upgrade at %1</source>
+        <translation>將於%1開始系統更新</translation>
+    </message>
+    <message>
         <source>Your system is not activated, and it failed to connect to update services</source>
         <translation>當前系統未激活，無法啓動更新服務</translation>
     </message>
@@ -525,6 +529,10 @@
     <message>
         <source>Only numbers between 1-99999 are allowed</source>
         <translation>只允許輸入1-99999</translation>
+    </message>
+    <message>
+        <source>Only numbers between 10-999999 are allowed</source>
+        <translation>只允許輸入10-999999</translation>
     </message>
     <message>
         <source>Failed to change Delivery Optimization setting</source>

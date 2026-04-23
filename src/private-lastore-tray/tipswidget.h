@@ -82,6 +82,7 @@ private slots:
     void onSetBackUpProgress(double progress);
     void onSetUpdateProto(const QString &proto);
     void onSetUpdateSpeed(qlonglong speed);
+    void onDownloadLimitChanged(bool value);
 
 private:
     UpdateDBusProxy *m_managerInter = nullptr;

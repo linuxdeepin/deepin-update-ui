@@ -206,10 +206,6 @@
         <translation>更新大小：</translation>
     </message>
     <message>
-        <source>will upgrade at %1</source>
-        <translation>将于%1开始系统更新</translation>
-    </message>
-    <message>
         <source>Downloading</source>
         <translation>下载中</translation>
     </message>
@@ -375,6 +371,14 @@
     <message>
         <source>Turn on the switches under Update Content to get better experiences</source>
         <translation>开启更新内容开关，可以获得更优质的功能体验哦</translation>
+    </message>
+    <message>
+        <source>will upgrade when shutdown</source>
+        <translation>系统将在计算机关机或重启时进行更新</translation>
+    </message>
+    <message>
+        <source>will upgrade at %1</source>
+        <translation>将于%1开始系统更新</translation>
     </message>
     <message>
         <source>Your system is not activated, and it failed to connect to update services</source>

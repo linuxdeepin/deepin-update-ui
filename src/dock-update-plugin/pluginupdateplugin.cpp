@@ -105,6 +105,7 @@ void PluginUpdatePlugin::init(PluginProxyInterface *proxyInter)
 
     m_updateMode = m_dconfig->value("update-mode").toInt();
     m_updateStatus = m_dconfig->value("update-status");
+    m_isPrivateUpdate = m_dconfig->value("intranet-update", false).toBool();
 
     connect(m_dconfig.data(), &DConfig::valueChanged, this, &PluginUpdatePlugin::onConfigChanged);
 

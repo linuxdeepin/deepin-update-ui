@@ -299,7 +299,7 @@ void UpdateWorker::initConfig()
     qCDebug(logDccUpdatePlugin) << "Initialize lastore daemon configuration";
     if (m_lastoreDConfig && m_lastoreDConfig->isValid()) {
         m_model->setLastoreDaemonStatus(m_lastoreDConfig->value("lastore-daemon-status").toInt());
-        m_model->setScheduledUpgradeTime();
+        m_model->setForceUpdateText(m_lastoreDConfig->value("update-time").toString(), m_lastoreDConfig->value("lastore-daemon-status").toInt());
         connect(m_lastoreDConfig, &DConfig::valueChanged, this, [this](const QString& key) {
             if ("lastore-daemon-status" == key) {
                 bool ok;
@@ -310,8 +310,8 @@ void UpdateWorker::initConfig()
                 }
                 m_model->setForceUpdate();
             }
-            if ("update-time" == key) {
-                m_model->setScheduledUpgradeTime();
+            if ("update-time" == key || "lastore-daemon-status" == key) {
+                m_model->setForceUpdateText(m_lastoreDConfig->value("update-time").toString(), m_lastoreDConfig->value("lastore-daemon-status").toInt());
                 m_model->setForceUpdate();
             }
         });
@@ -1785,7 +1785,7 @@ void UpdateWorker::setUpgradeDeliveryDownloadLimitSpeed(const QString& speed, bo
         watcher->deleteLater();
         if (watcher->isError()) {
             qCWarning(logDccUpdatePlugin) << "Set upgrade download speed limit config error: " << watcher->error().message();
-            getUpgradeDeliveryDownloadLimitSpeed();
+            m_model->setUpgradeDownloadSpeedLimitConfig(m_model->upgradeDownloadSpeedLimitConfig().toJson().toUtf8());
             Q_EMIT upgradeDeliveryConfigSetFailed();
             return;
         }
@@ -1805,7 +1805,7 @@ void UpdateWorker::setUpgradeDeliveryUploadLimitSpeed(const QString& speed, bool
         watcher->deleteLater();
         if (watcher->isError()) {
             qCWarning(logDccUpdatePlugin) << "Set upgrade upload speed limit config error: " << watcher->error().message();
-            getUpgradeDeliveryUploadLimitSpeed();
+            m_model->setUpgradeUploadSpeedLimitConfig(m_model->upgradeUploadSpeedLimitConfig().toJson().toUtf8());
             Q_EMIT upgradeDeliveryConfigSetFailed();
             return;
         }

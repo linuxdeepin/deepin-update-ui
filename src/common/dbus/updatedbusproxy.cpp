@@ -207,6 +207,11 @@ QString UpdateDBusProxy::updateStatus()
     return qvariant_cast<QString>(m_managerInter->property("UpdateStatus"));
 }
 
+bool UpdateDBusProxy::downloadLimitOnChanging()
+{
+    return qvariant_cast<bool>(m_managerInter->property("downloadLimitOnChanging"));
+}
+
 bool UpdateDBusProxy::p2PUpdateEnable()
 {
     return qvariant_cast<bool>(m_updateInter->property("P2PUpdateEnable"));

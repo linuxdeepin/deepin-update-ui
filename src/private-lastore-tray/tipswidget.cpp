@@ -20,6 +20,7 @@ TipsWidget::TipsWidget(QWidget *parent)
     m_type = TipsWidget::MultiLine;
     if (m_managerInter) {
         connect(m_managerInter, &UpdateDBusProxy::JobListChanged, this, &TipsWidget::onRefreshJobList);
+        connect(m_managerInter, &UpdateDBusProxy::DownloadLimitOnChangingChanged, this, &TipsWidget::onDownloadLimitChanged);
     }
 }
 
@@ -124,6 +125,10 @@ void TipsWidget::onSetUpdateProto(const QString& proto)
 void TipsWidget::onSetUpdateSpeed(qlonglong speed)
 {
     m_speed = speed;
+}
+
+void TipsWidget::onDownloadLimitChanged(bool value) {
+    m_downloadLimitOnChanging = value;
 }
 
 void TipsWidget::onSetUpdateProgress(double progress)

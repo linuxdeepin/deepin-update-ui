@@ -67,6 +67,9 @@ public:
     Q_PROPERTY(QString updateStatus  READ updateStatus NOTIFY UpdateStatusChanged)
     QString updateStatus();
 
+    Q_PROPERTY(bool downloadLimitOnChanging  READ downloadLimitOnChanging NOTIFY DownloadLimitOnChangingChanged)
+    bool downloadLimitOnChanging();
+
     Q_PROPERTY(bool ImmutableAutoRecovery READ immutableAutoRecovery NOTIFY ImmutableAutoRecoveryChanged)
     bool immutableAutoRecovery();
 
@@ -156,6 +159,7 @@ signals:
     void AutoCleanChanged(bool value) const;
     void UpdateModeChanged(qulonglong value) const;
     void UpdateStatusChanged(QString value) const;
+    void DownloadLimitOnChangingChanged(bool value) const;
     void ImmutableAutoRecoveryChanged(bool value) const;
     void P2PUpdateEnableChanged(bool value) const;
     void P2PUpdateSupportChanged(bool value) const;
