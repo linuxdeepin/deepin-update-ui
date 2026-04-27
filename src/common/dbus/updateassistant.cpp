@@ -1,4 +1,4 @@
-// // SPDX-FileCopyrightText: 2026 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 #include "updateassistant.h"
@@ -12,6 +12,8 @@ UpdateAssistant::UpdateAssistant(const QString &service, const QString &path, co
 
 UpdateAssistant::~UpdateAssistant()
 {
+    delete d_ptr;
+    d_ptr = nullptr;
 }
 
 void UpdateAssistant::onPropertyChanged(const QString& interfaceName,

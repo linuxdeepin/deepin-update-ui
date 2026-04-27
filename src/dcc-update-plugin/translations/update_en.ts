@@ -519,7 +519,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Retry</source>
+        <source>Try again</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -2,15 +2,15 @@
 
 if [ "$XDG_SESSION_TYPE" = "x11" ]; then
     if [ -f /tmp/deepin_update_option.json ]; then
-        display_daemon="/usr/lib/deepin-daemon/greeter-display-daemon"
-        if [ -x $display_daemon ]; then
-            $display_daemon 1>/tmp/greeter-display-daemon.log 2>&1 &
-        fi
-        xsettingsd_conf="/etc/lightdm/deepin/xsettingsd.conf"
-        if [ -e $xsettingsd_conf ]; then
-            xsettingsd -c $xsettingsd_conf &
-        fi
-        /usr/bin/dde-update
+        (
+            if systemctl --user start dde-update-env.service; then
+                # Add trap only after successful start to gracefully turn off service on exit
+                trap 'systemctl --user stop dde-update-env.service 2>/dev/null || true' EXIT INT TERM
+            else
+                echo "Warning: Failed to start dde-update-env.service, running dde-update as fallback." >&2
+            fi
+            /usr/bin/dde-update
+        )
     fi
 elif [ "$XDG_SESSION_TYPE" = "wayland" ]; then
     if [ -f /tmp/deepin_update_option.json ]; then

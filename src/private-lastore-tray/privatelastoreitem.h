@@ -26,6 +26,7 @@ public:
     explicit PrivateLastoreItem(QWidget *parent = nullptr);
 
     QWidget *tipsWidget();
+    void refreshTrayIcon();
 
 protected:
     void resizeEvent(QResizeEvent *e);

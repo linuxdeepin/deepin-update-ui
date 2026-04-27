@@ -18,7 +18,7 @@ PrivateLastoreItem::PrivateLastoreItem(QWidget* parent)
     , m_tipsLabel(new TipsWidget(this))
     , m_icon(new CommonIconButton(this))
     , m_managerInter(new UpdateDBusProxy(this))
-    , m_controlCenterInterface(new QDBusInterface("com.deepin.dde.ControlCenter", "/com/deepin/dde/ControlCenter", "com.deepin.dde.ControlCenter", QDBusConnection::sessionBus()))
+    , m_controlCenterInterface(new QDBusInterface("com.deepin.dde.ControlCenter", "/com/deepin/dde/ControlCenter", "com.deepin.dde.ControlCenter", QDBusConnection::sessionBus(), this))
 {
     m_tipsLabel->setVisible(false);
     auto vLayout = new QVBoxLayout(this);
@@ -37,6 +37,13 @@ QWidget* PrivateLastoreItem::tipsWidget()
 {
     m_tipsLabel->refreshContent();
     return m_tipsLabel;
+}
+
+void PrivateLastoreItem::refreshTrayIcon()
+{
+    m_icon->setFixedSize(Dock::DOCK_PLUGIN_ITEM_FIXED_SIZE);
+    m_icon->setIcon(QIcon(":resources/private-lastore-sleep_16px.svg"));
+    m_icon->setContentsMargins(0, 0, 0, 0);
 }
 
 void PrivateLastoreItem::onRefreshIcon(const QList<QDBusObjectPath> &jobs)

@@ -25,7 +25,7 @@
     </message>
     <message>
         <source>Welcome, system updated successfully</source>
-        <translation>Bem-vindo de volta, o seu sistema foi atualizado com sucesso</translation>
+        <translation>Bem-vindo, o sistema foi atualizado com sucesso!</translation>
     </message>
     <message>
         <source>Current Edition:</source>

@@ -1244,7 +1244,7 @@ QString UpdateModel::upgradeUploadSpeedLimitRate() const
 
 bool UpdateModel::upgradeUploadSpeedEnable() const
 {
-    qCInfo(logDccUpdatePlugin) << "Upgrade upload speed enable " << m_upgradeDownloadSpeedLimitConfig;
+    qCInfo(logDccUpdatePlugin) << "Upgrade upload speed enable " << m_upgradeUploadSpeedLimitConfig;
     return LastoreUpgradeSpeedLimitConfig::fromJson(m_upgradeUploadSpeedLimitConfig).speedLimitEnabled;
 }
 

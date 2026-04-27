@@ -9,6 +9,7 @@
 #include "plugins-logging-category.h"
 
 #include <QScopedPointer>
+#include <DConfig>
 
 #include "dtkcore_global.h"
 
@@ -32,7 +33,17 @@ public:
     QWidget *itemTipsWidget(const QString &itemKey) Q_DECL_OVERRIDE;
 
 private:
+    void loadPlugin();
+    void refreshPluginItemsVisible();
+    void updateDockHiddenSurfaceIds(bool shouldHide);
+    void onConfigChanged(const QString &key);
+
+private:
     PrivateLastoreItem *m_item;
+    QSharedPointer<Dtk::Core::DConfig> m_dconfig;
+    QSharedPointer<Dtk::Core::DConfig> m_dockTrayConfig;
+    bool m_shouldShow;
+    bool m_pluginLoaded;
 };
 
 #endif // PRIVATELASTOREPLUGIN_H

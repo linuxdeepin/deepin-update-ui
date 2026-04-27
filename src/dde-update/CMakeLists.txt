@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2025 UnionTech Software Technology Co., Ltd.
+# SPDX-FileCopyrightText: 2025 - 2026 UnionTech Software Technology Co., Ltd.
 #
 # SPDX-License-Identifier: CC0-1.0
 
@@ -66,12 +66,16 @@ install(FILES "misc/99_system_upgrade_conf.json"
 install(FILES "misc/dde-update-autostart.desktop"
         DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/xdg/autostart)
 
-install(FILES "misc/copy-update-log.sh"
+install(FILES "misc/copy-update-log.sh" "misc/dde-update-env.sh"
         DESTINATION ${CMAKE_INSTALL_LIBEXECDIR}/deepin-update-ui
         PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
 
 install(FILES "misc/deepin-update-log-copy@.service"
         DESTINATION lib/systemd/system
+        PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ)
+
+install(FILES "misc/dde-update-env.service"
+        DESTINATION lib/systemd/user
         PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ)
 
 install(FILES "misc/52-deepin-update-ui.rules"

@@ -215,8 +215,6 @@ void UpdateWorker::initConnect()
     });
 
     m_updateAssistant = new UpdateAssistant("org.deepin.upgradedelivery", "/org/deepin/upgradedelivery", QDBusConnection::systemBus(), this);
-    connect(m_updateInter, &UpdateDBusProxy::AutoDownloadUpdatesChanged, m_model, &UpdateModel::setAutoDownloadUpdates);
-    connect(m_updateInter, &UpdateDBusProxy::MirrorSourceChanged, m_model, &UpdateModel::setDefaultMirror);
     QDBusConnection::systemBus().connect("org.deepin.upgradedelivery",
         "/org/deepin/upgradedelivery",
         "org.freedesktop.DBus.Properties",
@@ -308,9 +306,10 @@ void UpdateWorker::initConfig()
                     qCDebug(logDccUpdatePlugin) << "Lastore daemon status changed:" << value;
                     m_model->setLastoreDaemonStatus(value);
                 }
+                m_model->setForceUpdateText(m_lastoreDConfig->value("update-time").toString(), m_lastoreDConfig->value("lastore-daemon-status").toInt());
                 m_model->setForceUpdate();
             }
-            if ("update-time" == key || "lastore-daemon-status" == key) {
+            if ("update-time" == key) {
                 m_model->setForceUpdateText(m_lastoreDConfig->value("update-time").toString(), m_lastoreDConfig->value("lastore-daemon-status").toInt());
                 m_model->setForceUpdate();
             }
@@ -1297,6 +1296,9 @@ void UpdateWorker::initTestingChannel()
 void UpdateWorker::refreshUpgradeDeliveryInfo()
 {
     qCDebug(logDccUpdatePlugin) << "Refresh upgrade delivery info";
+    if (!m_updateAssistant || !m_model) {
+        return;
+    }
     m_model->setUpgradeDownloadSpeedLimitConfig(transferDeliveryConfigToLastoreDeliveryConfig(m_updateAssistant->downloadLimitSpeed()).toUtf8());
     m_model->setUpgradeUploadSpeedLimitConfig(transferDeliveryConfigToLastoreDeliveryConfig(m_updateAssistant->uploadLimitSpeed()).toUtf8());
     m_model->setUpgradeDeliveryEnable(m_updateInter->p2pUpdateEnable());

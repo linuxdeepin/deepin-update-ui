@@ -128,8 +128,7 @@ Rectangle {
                                     }
                                     hoveredDark: hovered
                                 }
-                                // visible: repeater.model.getDetailInfos(index).length !== 0 && !itemCtl.showDetails
-                                visible: true
+                                visible: repeater.model.getDetailInfos(index).length !== 0 && !itemCtl.showDetails
                                 bottomPadding: 0
                                 font: D.DTK.fontManager.t8
                                 text: qsTr("View More")

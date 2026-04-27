@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="pt_BR">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="pt_BR">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -12,7 +10,7 @@
     <name>QObject</name>
     <message>
         <source>Fixed some known bugs and security vulnerabilities</source>
-        <translation type="unfinished">Correção de alguns bugs conhecidos e vulnerabilidades de segurança</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -34,11 +32,11 @@
     <name>Update</name>
     <message>
         <source>System Update</source>
-        <translation type="unfinished">Atualizações do Sistema</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>System update and upgrade</source>
-        <translation type="unfinished">Atualização do sistema e melhorias</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -52,15 +50,15 @@
     <name>UpdateHistoryDialog</name>
     <message>
         <source>Update History</source>
-        <translation>Histórico de Atualizações</translation>
+        <translation>Histórico de atualizações</translation>
     </message>
     <message>
         <source>No update history</source>
-        <translation>Nenhum histórico de atualizações</translation>
+        <translation>Nenhum histórico encontrado</translation>
     </message>
     <message>
         <source>System Updates</source>
-        <translation>Atualizações do Sistema</translation>
+        <translation>Atualização</translation>
     </message>
     <message>
         <source>Security Updates</source>
@@ -72,7 +70,7 @@
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished">Versão:</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -87,11 +85,11 @@
     </message>
     <message>
         <source>View More</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Collapse</source>
-        <translation type="unfinished">Recolher</translation>
+        <translation>Recolher</translation>
     </message>
 </context>
 <context>
@@ -183,103 +181,103 @@
     <name>UpdateMain</name>
     <message>
         <source>Installing updates...</source>
-        <translation type="unfinished">Instalando atualizações...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Installing</source>
-        <translation type="unfinished">Instalando</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Backing up in progress...</source>
-        <translation type="unfinished">Fazendo backup, aguarde...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Backing up in progress</source>
-        <translation type="unfinished">Fazendo backup, aguarde...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Downloading updates...</source>
-        <translation type="unfinished">Baixando atualizações...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update size: </source>
-        <translation type="unfinished">Tamanho da atualização: </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Downloading</source>
-        <translation type="unfinished">Baixando</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update installation successful</source>
-        <translation type="unfinished">Atualização instalada com sucesso</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
-        <translation type="unfinished">Para garantir o funcionamento adequado do seu sistema e aplicativos, reinicie o computador após a atualização</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Reboot now</source>
-        <translation type="unfinished">Reiniciar agora</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Installation update failed</source>
-        <translation type="unfinished">Falha na Instalação</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation type="unfinished">A capacidade da bateria está abaixo de 60%. Para atualizar sem riscos de problemas, conecte o carregador.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Continue Update</source>
-        <translation type="unfinished">Continuar a atualização</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Backup failed</source>
-        <translation type="unfinished">O backup falhou</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation type="unfinished">Se você continuar com as atualizações, não poderá reverter o sistema para uma versão anterior.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Back Up Again</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Proceed to Update</source>
-        <translation type="unfinished">Prosseguir com a atualização</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update download completed</source>
-        <translation type="unfinished">Download concluído</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Install updates</source>
-        <translation type="unfinished">Instalar atualizações</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update download failed</source>
-        <translation type="unfinished">Download falhou</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Retry</source>
-        <translation type="unfinished">Tentar Novamente</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Updates Available</source>
-        <translation type="unfinished">Atualizações disponíveis</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Download</source>
-        <translation type="unfinished">Download</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Update Settings</source>
-        <translation type="unfinished">Configurações de atualização</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
-        <translation type="unfinished">Configure as configurações de atualização, atualizações de segurança, download automático de atualizações e notificações de atualização</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -392,7 +390,7 @@
     <name>UpdateSetting</name>
     <message>
         <source>Smart Mirror Switch</source>
-        <translation>Troca inteligente de espelho</translation>
+        <translation>Mirror inteligente</translation>
     </message>
     <message>
         <source>Update Type</source>
@@ -400,7 +398,7 @@
     </message>
     <message>
         <source>Function Updates</source>
-        <translation>Atualização de função</translation>
+        <translation>Atualizações do sistema</translation>
     </message>
     <message>
         <source>Delivers a cumulative update including new features, quality updates, and  security updates</source>
@@ -424,11 +422,11 @@
     </message>
     <message>
         <source>Limit Speed</source>
-        <translation>Limite de velocidade</translation>
+        <translation>Limitar velocidade</translation>
     </message>
     <message>
         <source>Limit Setting</source>
-        <translation>Definição de limites</translation>
+        <translation>Definir limite</translation>
     </message>
     <message>
         <source>Auto Download</source>
@@ -436,7 +434,7 @@
     </message>
     <message>
         <source>Enabling &quot;Auto Download Updates&quot; will automatically download updates when connected to the internet</source>
-        <translation>Habilitar &quot;Download automático de atualizações&quot; fará o download automático das atualizações quando conectado à Internet</translation>
+        <translation>Baixa automaticamente as atualizações quando estiver conectado à internet</translation>
     </message>
     <message>
         <source>Download when Inactive</source>
@@ -464,11 +462,11 @@
     </message>
     <message>
         <source>Update History</source>
-        <translation>Histórico de Atualizações</translation>
+        <translation>Histórico de atualizações</translation>
     </message>
     <message>
         <source>View</source>
-        <translation>Visualizar</translation>
+        <translation>Exibir</translation>
     </message>
     <message>
         <source>Join Internal Testing Channel</source>
@@ -499,7 +497,7 @@
     <name>UpdateWorker</name>
     <message>
         <source>System Updates</source>
-        <translation>Atualizações do Sistema</translation>
+        <translation>Atualização</translation>
     </message>
     <message>
         <source>Fixed some known bugs and security vulnerabilities</source>

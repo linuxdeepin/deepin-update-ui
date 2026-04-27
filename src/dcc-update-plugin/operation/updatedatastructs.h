@@ -184,7 +184,6 @@ struct UpgradeSpeedLimitConfig {
         const QJsonDocument doc = QJsonDocument::fromJson(configStr, &jsonParseError);
         
         if (jsonParseError.error != QJsonParseError::NoError || doc.isEmpty()) {
-            // qCWarning(logDccUpdatePlugin) << "Parse upgrade speed limit config failed: " << jsonParseError.errorString();
             return config;
         }
 
@@ -314,13 +313,14 @@ struct LastoreDaemonUpdateStatus {
 inline QString transferDeliveryConfigToLastoreDeliveryConfig(const QString& deliveryConfig)
 {
     LastoreUpgradeSpeedLimitConfig lastoreDeliveryConfig;
-    lastoreDeliveryConfig.isOnlineSpeedLimit = UpgradeSpeedLimitConfig::fromJson(deliveryConfig.toUtf8()).ifInOnlineLimit();
-    lastoreDeliveryConfig.speedLimitEnabled = UpgradeSpeedLimitConfig::fromJson(deliveryConfig.toUtf8()).shouldLimitRate();
+    auto config = UpgradeSpeedLimitConfig::fromJson(deliveryConfig.toUtf8());
+    lastoreDeliveryConfig.isOnlineSpeedLimit = config.ifInOnlineLimit();
+    lastoreDeliveryConfig.speedLimitEnabled = config.shouldLimitRate();
     if (lastoreDeliveryConfig.isOnlineSpeedLimit) {
-        lastoreDeliveryConfig.limitSpeed = QString::number(UpgradeSpeedLimitConfig::fromJson(deliveryConfig.toUtf8()).currentRate);
+        lastoreDeliveryConfig.limitSpeed = QString::number(config.currentRate);
     } else {
-        lastoreDeliveryConfig.limitSpeed = QString::number(UpgradeSpeedLimitConfig::fromJson(deliveryConfig.toUtf8()).limitRate);
-    } 
+        lastoreDeliveryConfig.limitSpeed = QString::number(config.limitRate);
+    }
     return lastoreDeliveryConfig.toJson();
 }
 

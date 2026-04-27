@@ -268,6 +268,10 @@ void TipsWidget::onRefreshJobList(const QList<QDBusObjectPath> &jobs)
         // 记录任务代理并监听进度变化。
         const QString &id = jobInter.id();
         if (id == "dist_upgrade" || id == "prepare_dist_upgrade") {
+            if (m_updateJobInter) {
+                disconnect(m_updateJobInter, nullptr, this, nullptr);
+                m_updateJobInter->deleteLater();
+            }
             m_updateJobInter = new UpdateJobDBusProxy(jobPath, this);
             connect(m_updateJobInter, &UpdateJobDBusProxy::ProgressChanged, this, &TipsWidget::onSetUpdateProgress);
             connect(m_updateJobInter, &UpdateJobDBusProxy::ProtoChanged, this, &TipsWidget::onSetUpdateProto);
