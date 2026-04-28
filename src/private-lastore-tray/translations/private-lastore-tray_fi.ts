@@ -30,43 +30,43 @@
     </message>
     <message>
         <source>Upgrade complete. Please reboot.</source>
-        <translation type="unfinished"/>
+        <translation>Päivitys valmis. Käynnistä tietokone uudelleen.</translation>
     </message>
     <message>
         <source>Upgrade failed. Please check.</source>
-        <translation type="unfinished"/>
+        <translation>Päivitys epäonnistui. Tarkista.</translation>
     </message>
     <message>
         <source>New version available. Please check.</source>
-        <translation type="unfinished"/>
+        <translation>Uusi versio saatavilla. Tarkista.</translation>
     </message>
     <message>
         <source>Current upgrade progress</source>
-        <translation type="unfinished"/>
+        <translation>Päivityksen edistyminen</translation>
     </message>
     <message>
         <source>Backing up</source>
-        <translation type="unfinished"/>
+        <translation>Varmuuskopiointi</translation>
     </message>
     <message>
         <source>Downloading</source>
-        <translation type="unfinished"/>
+        <translation>Ladataan</translation>
     </message>
     <message>
         <source>Current download progress</source>
-        <translation type="unfinished"/>
+        <translation>Lataamisen edistyminen</translation>
     </message>
     <message>
         <source>Current speed</source>
-        <translation type="unfinished"/>
+        <translation>Nopeus</translation>
     </message>
     <message>
         <source>Installing</source>
-        <translation type="unfinished"/>
+        <translation>Asennetaan</translation>
     </message>
     <message>
         <source>Enterprise Upgrade Management System</source>
-        <translation type="unfinished"/>
+        <translation>Yritystason päivitysten hallinta</translation>
     </message>
 </context>
 </TS>
