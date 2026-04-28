@@ -410,7 +410,7 @@
     </message>
     <message>
         <source>Delivers security updates</source>
-        <translation>Toimittaa tietoturvapäivityksiä</translation>
+        <translation>Tietoturvapäivityksiä</translation>
     </message>
     <message>
         <source>Third-party Updates</source>
@@ -422,7 +422,7 @@
     </message>
     <message>
         <source>Delivery Optimization</source>
-        <translation>Toimituksen optimointi</translation>
+        <translation>Jakelun optimointi</translation>
     </message>
     <message>
         <source>When enabled, your device may share previously downloaded system updates with other devices on your local network.When you turn it off, cached files from update delivery will be cleared during the next restart.</source>
@@ -430,11 +430,11 @@
     </message>
     <message>
         <source>Delivery Optimization-Limit Speed</source>
-        <translation>Toimituksen optimoinnin nopeusrajoitus</translation>
+        <translation>Jakelun nopeusrajoitus</translation>
     </message>
     <message>
         <source>Delivery Optimization-Upload throttling</source>
-        <translation>Toimituksen optimoinnin lähetysrajoitus</translation>
+        <translation>Jakelun lähetysrajoitus</translation>
     </message>
     <message>
         <source>Limit Speed</source>
@@ -510,11 +510,11 @@
     </message>
     <message>
         <source>Failed to change Delivery Optimization setting</source>
-        <translation>Toimituksen optimoinnin asetukset epäonnistui</translation>
+        <translation>Jakelun asetukset epäonnistui</translation>
     </message>
     <message>
         <source>Update Delivery Optimization service exception</source>
-        <translation>Päivitä toimituspalvelun poikkeus</translation>
+        <translation>Päivitä jakelupalvelun poikkeus</translation>
     </message>
     <message>
         <source>Try again</source>
