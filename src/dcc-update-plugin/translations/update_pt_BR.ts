@@ -422,19 +422,19 @@
     </message>
     <message>
         <source>Delivery Optimization</source>
-        <translation type="unfinished"/>
+        <translation>Otimização de entrega</translation>
     </message>
     <message>
         <source>When enabled, your device may share previously downloaded system updates with other devices on your local network.When you turn it off, cached files from update delivery will be cleared during the next restart.</source>
-        <translation type="unfinished"/>
+        <translation>Quando ativado, seu dispositivo pode compartilhar atualizações do sistema já baixadas com outros dispositivos na sua rede local. Ao desativar, os arquivos em cache das atualizações serão limpos na próxima reinicialização.</translation>
     </message>
     <message>
         <source>Delivery Optimization-Limit Speed</source>
-        <translation type="unfinished"/>
+        <translation>Otimização de entrega - Limitar velocidade</translation>
     </message>
     <message>
         <source>Delivery Optimization-Upload throttling</source>
-        <translation type="unfinished"/>
+        <translation>Otimização de entrega - Limitação de upload</translation>
     </message>
     <message>
         <source>Limit Speed</source>
@@ -506,23 +506,23 @@
     </message>
     <message>
         <source>Only numbers between 10-999999 are allowed</source>
-        <translation type="unfinished"/>
+        <translation>Apenas números entre 10 e 999999 são permitidos</translation>
     </message>
     <message>
         <source>Failed to change Delivery Optimization setting</source>
-        <translation type="unfinished"/>
+        <translation>Falha ao alterar a configuração de Otimização de Entrega</translation>
     </message>
     <message>
         <source>Update Delivery Optimization service exception</source>
-        <translation type="unfinished"/>
+        <translation>Exceção no serviço de Otimização de Entrega durante a atualização</translation>
     </message>
     <message>
         <source>Try again</source>
-        <translation type="unfinished"/>
+        <translation>Tentar novamente</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Cancelar</translation>
     </message>
     <message>
         <source>Join the internal testing channel to get deepin latest updates.</source>
