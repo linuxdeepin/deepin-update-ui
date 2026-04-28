@@ -418,7 +418,7 @@
     </message>
     <message>
         <source>Delivers  updates for additional repository sources</source>
-        <translation>Toimittaa päivityksiä ohjelma-arkistojen lähteille</translation>
+        <translation>Päivityksiä arkistojen lisälähteistä</translation>
     </message>
     <message>
         <source>Delivery Optimization</source>
