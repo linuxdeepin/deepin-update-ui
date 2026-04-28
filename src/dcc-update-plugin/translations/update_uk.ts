@@ -422,19 +422,19 @@
     </message>
     <message>
         <source>Delivery Optimization</source>
-        <translation type="unfinished"/>
+        <translation>Оптимізація отримання</translation>
     </message>
     <message>
         <source>When enabled, your device may share previously downloaded system updates with other devices on your local network.When you turn it off, cached files from update delivery will be cleared during the next restart.</source>
-        <translation type="unfinished"/>
+        <translation>Якщо увімкнено, ваш пристрій зможе надавати у спільне використання раніше отримані оновлення системи для інших пристроїв у вашій локальній мережі. Якщо вимкнено, кешовані файли з отриманими оновленнями буде вилучено під час наступного перезапуску системи.</translation>
     </message>
     <message>
         <source>Delivery Optimization-Limit Speed</source>
-        <translation type="unfinished"/>
+        <translation>Оптимізація отримання — обмеження швидкості</translation>
     </message>
     <message>
         <source>Delivery Optimization-Upload throttling</source>
-        <translation type="unfinished"/>
+        <translation>Оптимізація отримання — дроселювання вивантаження</translation>
     </message>
     <message>
         <source>Limit Speed</source>
@@ -506,23 +506,23 @@
     </message>
     <message>
         <source>Only numbers between 10-999999 are allowed</source>
-        <translation type="unfinished"/>
+        <translation>Можна використовувати лише числа у діапазоні від 10 до 9999999</translation>
     </message>
     <message>
         <source>Failed to change Delivery Optimization setting</source>
-        <translation type="unfinished"/>
+        <translation>Не вдалося змінити параметр оптимізації отримання</translation>
     </message>
     <message>
         <source>Update Delivery Optimization service exception</source>
-        <translation type="unfinished"/>
+        <translation>Виключення у службі оптимізації отримання оновлень</translation>
     </message>
     <message>
         <source>Try again</source>
-        <translation type="unfinished"/>
+        <translation>Повторити спробу</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Скасувати</translation>
     </message>
     <message>
         <source>Join the internal testing channel to get deepin latest updates.</source>
