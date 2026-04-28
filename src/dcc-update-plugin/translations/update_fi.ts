@@ -434,7 +434,7 @@
     </message>
     <message>
         <source>Delivery Optimization-Upload throttling</source>
-        <translation type="unfinished"/>
+        <translation>Toimituksen optimoinnin lähetysrajoitus</translation>
     </message>
     <message>
         <source>Limit Speed</source>
@@ -510,11 +510,11 @@
     </message>
     <message>
         <source>Failed to change Delivery Optimization setting</source>
-        <translation type="unfinished"/>
+        <translation>Toimituksen optimoinnin asetukset epäonnistui</translation>
     </message>
     <message>
         <source>Update Delivery Optimization service exception</source>
-        <translation type="unfinished"/>
+        <translation>Päivitä toimituspalvelun poikkeus</translation>
     </message>
     <message>
         <source>Try again</source>
