@@ -10,35 +10,35 @@
     <name>TipsWidget</name>
     <message>
         <source>Download complete</source>
-        <translation type="unfinished"/>
+        <translation>Download concluído</translation>
     </message>
     <message>
         <source>Shutdown update</source>
-        <translation type="unfinished"/>
+        <translation>Atualizar ao desligar</translation>
     </message>
     <message>
         <source>Will upgrade at %1</source>
-        <translation type="unfinished"/>
+        <translation>Será atualizado às %1</translation>
     </message>
     <message>
         <source>Download complete. Please open Control Center to check.</source>
-        <translation type="unfinished"/>
+        <translation>O download foi concluído. Abra as Configurações para verificar.</translation>
     </message>
     <message>
         <source>Changing download speed limit. Please wait</source>
-        <translation type="unfinished"/>
+        <translation>Alterando o limite de velocidade de download. Aguarde</translation>
     </message>
     <message>
         <source>Upgrade complete. Please reboot.</source>
-        <translation type="unfinished"/>
+        <translation>A atualização foi concluída. Reinicie o sistema.</translation>
     </message>
     <message>
         <source>Upgrade failed. Please check.</source>
-        <translation type="unfinished"/>
+        <translation>A atualização falhou. Verifique.</translation>
     </message>
     <message>
         <source>New version available. Please check.</source>
-        <translation type="unfinished"/>
+        <translation>Nova versão disponível. Verifique.</translation>
     </message>
     <message>
         <source>Current upgrade progress</source>
