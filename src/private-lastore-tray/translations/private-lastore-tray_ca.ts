@@ -3,7 +3,7 @@
     <name>PrivateLastorePlugin</name>
     <message>
         <source>Private Lastore</source>
-        <translation type="unfinished"/>
+        <translation>Lastore privat</translation>
     </message>
 </context>
 <context>
