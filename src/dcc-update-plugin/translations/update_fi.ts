@@ -422,15 +422,15 @@
     </message>
     <message>
         <source>Delivery Optimization</source>
-        <translation type="unfinished"/>
+        <translation>Toimituksen optimointi</translation>
     </message>
     <message>
         <source>When enabled, your device may share previously downloaded system updates with other devices on your local network.When you turn it off, cached files from update delivery will be cleared during the next restart.</source>
-        <translation type="unfinished"/>
+        <translation>Kun tämä on käytössä, tietokoneesi voi jakaa aiemmin ladattuja päivityksiä muiden lähiverkon tietokoneiden kanssa. Poistamalla käytöstä, päivitysten välimuistissa olevat tiedostot poistetaan seuraavan käynnistyksen yhteydessä.</translation>
     </message>
     <message>
         <source>Delivery Optimization-Limit Speed</source>
-        <translation type="unfinished"/>
+        <translation>Toimituksen optimoinnin nopeusrajoitus</translation>
     </message>
     <message>
         <source>Delivery Optimization-Upload throttling</source>
@@ -506,7 +506,7 @@
     </message>
     <message>
         <source>Only numbers between 10-999999 are allowed</source>
-        <translation type="unfinished"/>
+        <translation>Numerot väliltä 10-999999 ovat sallittuja</translation>
     </message>
     <message>
         <source>Failed to change Delivery Optimization setting</source>
@@ -518,11 +518,11 @@
     </message>
     <message>
         <source>Try again</source>
-        <translation type="unfinished"/>
+        <translation>Yritä uudelleen</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Peruuta</translation>
     </message>
     <message>
         <source>Join the internal testing channel to get deepin latest updates.</source>
