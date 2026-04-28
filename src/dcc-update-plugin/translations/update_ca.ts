@@ -422,19 +422,19 @@
     </message>
     <message>
         <source>Delivery Optimization</source>
-        <translation type="unfinished"/>
+        <translation>Optimització del lliurament</translation>
     </message>
     <message>
         <source>When enabled, your device may share previously downloaded system updates with other devices on your local network.When you turn it off, cached files from update delivery will be cleared during the next restart.</source>
-        <translation type="unfinished"/>
+        <translation>En activar-se, el dispositiu pot compartir actualitzacions del sistema baixades anteriorment amb altres dispositius de la xarxa local. En desactivar-se, els fitxers emmagatzemats a la memòria cau del lliurament d&apos;actualitzacions s&apos;esborraran durant el següent reinici.</translation>
     </message>
     <message>
         <source>Delivery Optimization-Limit Speed</source>
-        <translation type="unfinished"/>
+        <translation>Velocitat límit d&apos;optimització del lliurament</translation>
     </message>
     <message>
         <source>Delivery Optimization-Upload throttling</source>
-        <translation type="unfinished"/>
+        <translation>Limitació de la càrrega per a l&apos;optimització del lliurament</translation>
     </message>
     <message>
         <source>Limit Speed</source>
@@ -506,23 +506,23 @@
     </message>
     <message>
         <source>Only numbers between 10-999999 are allowed</source>
-        <translation type="unfinished"/>
+        <translation>Només es permeten números entre 10 i 999999</translation>
     </message>
     <message>
         <source>Failed to change Delivery Optimization setting</source>
-        <translation type="unfinished"/>
+        <translation>No s&apos;ha pogut canviar la configuració d&apos;optimització del lliurament</translation>
     </message>
     <message>
         <source>Update Delivery Optimization service exception</source>
-        <translation type="unfinished"/>
+        <translation>Excepció del servei d&apos;optimització del lliurament d&apos;actualitzacions</translation>
     </message>
     <message>
         <source>Try again</source>
-        <translation type="unfinished"/>
+        <translation>Torna-ho a provar</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Cancel·la</translation>
     </message>
     <message>
         <source>Join the internal testing channel to get deepin latest updates.</source>
