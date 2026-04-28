@@ -429,6 +429,22 @@
         <translation type="unfinished"/>
     </message>
     <message>
+        <source>Delivery Optimization</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>When enabled, your device may share previously downloaded system updates with other devices on your local network.When you turn it off, cached files from update delivery will be cleared during the next restart.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Delivery Optimization-Limit Speed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Delivery Optimization-Upload throttling</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Limit Speed</source>
         <translation type="unfinished"/>
     </message>
@@ -494,6 +510,26 @@
     </message>
     <message>
         <source>Only numbers between 1-99999 are allowed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Only numbers between 10-999999 are allowed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to change Delivery Optimization setting</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Update Delivery Optimization service exception</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Try again</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cancel</source>
         <translation type="unfinished"/>
     </message>
     <message>
