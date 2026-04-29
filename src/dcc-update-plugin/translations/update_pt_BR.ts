@@ -395,7 +395,7 @@
     </message>
     <message>
         <source>Baseline</source>
-        <translation type="unfinished"/>
+        <translation>Base</translation>
     </message>
 </context>
 <context>
@@ -557,15 +557,15 @@
     </message>
     <message>
         <source>Default Mirror Source</source>
-        <translation type="unfinished"/>
+        <translation>Servidor espelho padrão</translation>
     </message>
     <message>
         <source>Untested</source>
-        <translation type="unfinished"/>
+        <translation>Não testado</translation>
     </message>
     <message>
         <source>Testing...</source>
-        <translation type="unfinished"/>
+        <translation>Testando...</translation>
     </message>
     <message>
         <source>Timeout</source>
