@@ -31,6 +31,7 @@ public:
     bool pluginIsAllowDisable() override { return true; }
     QWidget *itemWidget(const QString &itemKey) Q_DECL_OVERRIDE;
     QWidget *itemTipsWidget(const QString &itemKey) Q_DECL_OVERRIDE;
+    Dock::PluginFlags flags() const Q_DECL_OVERRIDE;
 
 private:
     void loadPlugin();

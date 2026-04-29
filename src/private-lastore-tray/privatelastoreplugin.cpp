@@ -77,6 +77,12 @@ QWidget *PrivateLastorePlugin::itemTipsWidget(const QString &itemKey)
     return m_item->tipsWidget();
 }
 
+Dock::PluginFlags PrivateLastorePlugin::flags() const
+{
+    //私有化托盘插件移除了Attribute_Normal中的Attribute_CanSetting属性，禁止用户在控制中心自行设置可见性
+    return Dock::PluginFlag::Type_System | Dock::PluginFlag::Attribute_CanDrag | Dock::PluginFlag::Attribute_CanInsert;
+}
+
 void PrivateLastorePlugin::loadPlugin()
 {
     if (m_pluginLoaded) {
