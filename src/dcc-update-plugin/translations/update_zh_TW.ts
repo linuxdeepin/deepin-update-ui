@@ -7,6 +7,13 @@
     </message>
 </context>
 <context>
+    <name>MirrorSourcePopup</name>
+    <message>
+        <source>Connectivity Test</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>QObject</name>
     <message>
         <source>Fixed some known bugs and security vulnerabilities</source>
@@ -279,6 +286,14 @@
         <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
         <translation>可設定系統更新、安全更折、閒時更新、更新提醒等</translation>
     </message>
+    <message>
+        <source>Install Now</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Check Again</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>UpdateModel</name>
@@ -365,6 +380,22 @@
     <message>
         <source>The system has enabled auto recovery function and does not support updates. If you have any questions, please contact the enterprise administrator</source>
         <translation>系統已開啟無憂還原功能，不支援更新，如有疑問請聯絡企業管理員</translation>
+    </message>
+    <message>
+        <source>will upgrade at %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>will upgrade when shutdown</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Current Edition</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Baseline</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -501,10 +532,6 @@
         <translation>收起</translation>
     </message>
     <message>
-        <source>Only numbers between 1-99999 are allowed</source>
-        <translation>只允許輸入1-99999</translation>
-    </message>
-    <message>
         <source>Only numbers between 10-999999 are allowed</source>
         <translation>只允許輸入10-999999</translation>
     </message>
@@ -527,6 +554,22 @@
     <message>
         <source>Join the internal testing channel to get deepin latest updates.</source>
         <translation>加入deepin內測通道，以獲取deepin最新更新內容</translation>
+    </message>
+    <message>
+        <source>Default Mirror Source</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Untested</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Testing...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Timeout</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
