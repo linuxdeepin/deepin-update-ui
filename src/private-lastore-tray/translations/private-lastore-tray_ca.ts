@@ -14,11 +14,11 @@
     </message>
     <message>
         <source>Shutdown update</source>
-        <translation>Actualització d&apos;apagada</translation>
+        <translation>Actualització d&apos;aturada</translation>
     </message>
     <message>
         <source>Will upgrade at %1</source>
-        <translation>S&apos;actualitzarà a les %1</translation>
+        <translation>S&apos;actualitzarà a %1</translation>
     </message>
     <message>
         <source>Download complete. Please open Control Center to check.</source>
@@ -26,19 +26,19 @@
     </message>
     <message>
         <source>Changing download speed limit. Please wait</source>
-        <translation>S&apos;està canviant el límit de velocitat de descàrrega. Espereu.</translation>
+        <translation>Es canvia el límit de velocitat de la baixada. Espereu, si us plau.</translation>
     </message>
     <message>
         <source>Upgrade complete. Please reboot.</source>
-        <translation>Actualització completada. Reinicieu.</translation>
+        <translation>Actualització completada. Si us plau, reinicieu el sistema.</translation>
     </message>
     <message>
         <source>Upgrade failed. Please check.</source>
-        <translation>L&apos;actualització ha fallat. Comproveu-ho.</translation>
+        <translation>L&apos;actualització ha fallat. Si us plau, comproveu-ho.</translation>
     </message>
     <message>
         <source>New version available. Please check.</source>
-        <translation>Nova versió disponible. Comproveu-ho.</translation>
+        <translation>Versió nova disponible. Si us plau, comproveu-ho.</translation>
     </message>
     <message>
         <source>Current upgrade progress</source>
@@ -46,11 +46,11 @@
     </message>
     <message>
         <source>Backing up</source>
-        <translation>Fent una còpia de seguretat</translation>
+        <translation>Es fa una còpia de seguretat</translation>
     </message>
     <message>
         <source>Downloading</source>
-        <translation>S&apos;està baixant</translation>
+        <translation>Es baixa</translation>
     </message>
     <message>
         <source>Current download progress</source>
@@ -62,11 +62,11 @@
     </message>
     <message>
         <source>Installing</source>
-        <translation>S&apos;està instal·lant</translation>
+        <translation>S&apos;instal·la</translation>
     </message>
     <message>
         <source>Enterprise Upgrade Management System</source>
-        <translation>Sistema de gestió d&apos;actualitzacions empresarials</translation>
+        <translation>Sistema de gestió d&apos;actualitzacions d&apos;empresa</translation>
     </message>
 </context>
 </TS>
