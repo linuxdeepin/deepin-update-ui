@@ -10,7 +10,7 @@
     <name>MirrorSourcePopup</name>
     <message>
         <source>Connectivity Test</source>
-        <translation type="unfinished"/>
+        <translation>Testim Lidhjeje</translation>
     </message>
 </context>
 <context>
@@ -288,11 +288,11 @@
     </message>
     <message>
         <source>Install Now</source>
-        <translation type="unfinished"/>
+        <translation>Instaloje Tani</translation>
     </message>
     <message>
         <source>Check Again</source>
-        <translation type="unfinished"/>
+        <translation>Rikontrollo</translation>
     </message>
 </context>
 <context>
@@ -383,15 +383,15 @@
     </message>
     <message>
         <source>will upgrade at %1</source>
-        <translation type="unfinished"/>
+        <translation>do të përmirësohet më %1</translation>
     </message>
     <message>
         <source>will upgrade when shutdown</source>
-        <translation type="unfinished"/>
+        <translation>do të përmirësohet pasi të fiket</translation>
     </message>
     <message>
         <source>Current Edition</source>
-        <translation type="unfinished"/>
+        <translation>Edicioni i Tanishëm</translation>
     </message>
     <message>
         <source>Baseline</source>
@@ -453,7 +453,7 @@
     </message>
     <message>
         <source>Delivery Optimization</source>
-        <translation type="unfinished"/>
+        <translation>Optimizim Dhënieje</translation>
     </message>
     <message>
         <source>When enabled, your device may share previously downloaded system updates with other devices on your local network.When you turn it off, cached files from update delivery will be cleared during the next restart.</source>
@@ -533,11 +533,11 @@
     </message>
     <message>
         <source>Only numbers between 10-999999 are allowed</source>
-        <translation type="unfinished"/>
+        <translation>Lejohen vetëm numra nga 10-999999</translation>
     </message>
     <message>
         <source>Failed to change Delivery Optimization setting</source>
-        <translation type="unfinished"/>
+        <translation>S’u arrit të ndryshohet rregullimi Optimizim Dhënieje</translation>
     </message>
     <message>
         <source>Update Delivery Optimization service exception</source>
@@ -545,11 +545,11 @@
     </message>
     <message>
         <source>Try again</source>
-        <translation type="unfinished"/>
+        <translation>Riprovoni</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Anuloje</translation>
     </message>
     <message>
         <source>Join the internal testing channel to get deepin latest updates.</source>
@@ -565,11 +565,11 @@
     </message>
     <message>
         <source>Testing...</source>
-        <translation type="unfinished"/>
+        <translation>Po testohet…</translation>
     </message>
     <message>
         <source>Timeout</source>
-        <translation type="unfinished"/>
+        <translation>Mbarim kohe</translation>
     </message>
 </context>
 <context>
