@@ -569,7 +569,7 @@
     </message>
     <message>
         <source>Timeout</source>
-        <translation type="unfinished"/>
+        <translation>Tempo esgotado</translation>
     </message>
 </context>
 <context>
