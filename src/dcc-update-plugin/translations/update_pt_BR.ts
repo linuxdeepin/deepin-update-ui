@@ -10,7 +10,7 @@
     <name>MirrorSourcePopup</name>
     <message>
         <source>Connectivity Test</source>
-        <translation type="unfinished"/>
+        <translation>Teste de conectividade</translation>
     </message>
 </context>
 <context>
@@ -288,11 +288,11 @@
     </message>
     <message>
         <source>Install Now</source>
-        <translation type="unfinished"/>
+        <translation>Instalar</translation>
     </message>
     <message>
         <source>Check Again</source>
-        <translation type="unfinished"/>
+        <translation>Verificar novamente</translation>
     </message>
 </context>
 <context>
@@ -383,15 +383,15 @@
     </message>
     <message>
         <source>will upgrade at %1</source>
-        <translation type="unfinished"/>
+        <translation>Será atualizado às %1</translation>
     </message>
     <message>
         <source>will upgrade when shutdown</source>
-        <translation type="unfinished"/>
+        <translation>Será atualizado ao desligar</translation>
     </message>
     <message>
         <source>Current Edition</source>
-        <translation type="unfinished"/>
+        <translation>Edição</translation>
     </message>
     <message>
         <source>Baseline</source>
