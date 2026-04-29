@@ -10,7 +10,7 @@
     <name>MirrorSourcePopup</name>
     <message>
         <source>Connectivity Test</source>
-        <translation type="unfinished"/>
+        <translation>Prova de connectivitat</translation>
     </message>
 </context>
 <context>
@@ -288,11 +288,11 @@
     </message>
     <message>
         <source>Install Now</source>
-        <translation type="unfinished"/>
+        <translation>Instal·la-la ara</translation>
     </message>
     <message>
         <source>Check Again</source>
-        <translation type="unfinished"/>
+        <translation>Torna-ho a comprovar</translation>
     </message>
 </context>
 <context>
@@ -383,19 +383,19 @@
     </message>
     <message>
         <source>will upgrade at %1</source>
-        <translation type="unfinished"/>
+        <translation>s&apos;actualitzarà a %1</translation>
     </message>
     <message>
         <source>will upgrade when shutdown</source>
-        <translation type="unfinished"/>
+        <translation>s&apos;actualitzarà quan s&apos;aturi</translation>
     </message>
     <message>
         <source>Current Edition</source>
-        <translation type="unfinished"/>
+        <translation>Edició actual</translation>
     </message>
     <message>
         <source>Baseline</source>
-        <translation type="unfinished"/>
+        <translation>Línia de base</translation>
     </message>
 </context>
 <context>
@@ -557,19 +557,19 @@
     </message>
     <message>
         <source>Default Mirror Source</source>
-        <translation type="unfinished"/>
+        <translation>Font de rèplica per defecte</translation>
     </message>
     <message>
         <source>Untested</source>
-        <translation type="unfinished"/>
+        <translation>Sense provar</translation>
     </message>
     <message>
         <source>Testing...</source>
-        <translation type="unfinished"/>
+        <translation>Es prova...</translation>
     </message>
     <message>
         <source>Timeout</source>
-        <translation type="unfinished"/>
+        <translation>Temps d&apos;espera</translation>
     </message>
 </context>
 <context>
