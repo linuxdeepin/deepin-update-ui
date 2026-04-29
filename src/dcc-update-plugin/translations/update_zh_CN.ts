@@ -422,19 +422,19 @@
     </message>
     <message>
         <source>Delivery Optimization</source>
-        <translation type="unfinished"/>
+        <translation>传递优化</translation>
     </message>
     <message>
         <source>When enabled, your device may share previously downloaded system updates with other devices on your local network.When you turn it off, cached files from update delivery will be cleared during the next restart.</source>
-        <translation type="unfinished"/>
+        <translation>开启此功能，你的设备可能会将以前下载的部分系统更新发送到本地网络的设备上。关闭此功能后，将在重启时清除传递优化时缓存的文件</translation>
     </message>
     <message>
         <source>Delivery Optimization-Limit Speed</source>
-        <translation type="unfinished"/>
+        <translation>传递优化-下载限速</translation>
     </message>
     <message>
         <source>Delivery Optimization-Upload throttling</source>
-        <translation type="unfinished"/>
+        <translation>传递优化-上传限速</translation>
     </message>
     <message>
         <source>Limit Speed</source>
@@ -506,23 +506,23 @@
     </message>
     <message>
         <source>Only numbers between 10-999999 are allowed</source>
-        <translation type="unfinished"/>
+        <translation>只允许输入10-999999</translation>
     </message>
     <message>
         <source>Failed to change Delivery Optimization setting</source>
-        <translation type="unfinished"/>
+        <translation>更新传递优化服务异常</translation>
     </message>
     <message>
         <source>Update Delivery Optimization service exception</source>
-        <translation type="unfinished"/>
+        <translation>更新传递优化服务异常</translation>
     </message>
     <message>
         <source>Try again</source>
-        <translation type="unfinished"/>
+        <translation>再试一次</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>取消</translation>
     </message>
     <message>
         <source>Join the internal testing channel to get deepin latest updates.</source>
