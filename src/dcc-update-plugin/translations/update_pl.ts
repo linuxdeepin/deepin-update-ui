@@ -457,15 +457,15 @@
     </message>
     <message>
         <source>When enabled, your device may share previously downloaded system updates with other devices on your local network.When you turn it off, cached files from update delivery will be cleared during the next restart.</source>
-        <translation type="unfinished"/>
+        <translation>Po włączeniu, wcześniej pobrane aktualizacje zostaną udostępnione innym urządzeniom w sieci lokalnej. Jeśli zdecydujesz się wyłączyć tę opcję, pliki pamięci podręcznej aktualizacji zostaną wyczyszczone przy następnym uruchomieniu urządzenia.</translation>
     </message>
     <message>
         <source>Delivery Optimization-Limit Speed</source>
-        <translation type="unfinished"/>
+        <translation>Ograniczenie pobierania współdzielenia pobierania</translation>
     </message>
     <message>
         <source>Delivery Optimization-Upload throttling</source>
-        <translation type="unfinished"/>
+        <translation>Ograniczenie wysyłania współdzielenia pobierania</translation>
     </message>
     <message>
         <source>Limit Speed</source>
@@ -533,7 +533,7 @@
     </message>
     <message>
         <source>Only numbers between 10-999999 are allowed</source>
-        <translation type="unfinished"/>
+        <translation>Dozwolone są tylko liczby w zakresie 10-999999</translation>
     </message>
     <message>
         <source>Failed to change Delivery Optimization setting</source>
