@@ -3,7 +3,7 @@
     <name>PrivateLastorePlugin</name>
     <message>
         <source>Private Lastore</source>
-        <translation type="unfinished"/>
+        <translation>Prywatny Lastore</translation>
     </message>
 </context>
 <context>
@@ -14,7 +14,7 @@
     </message>
     <message>
         <source>Shutdown update</source>
-        <translation type="unfinished"/>
+        <translation>Zaktualizuj po wyłączeniu</translation>
     </message>
     <message>
         <source>Will upgrade at %1</source>
@@ -34,39 +34,39 @@
     </message>
     <message>
         <source>Upgrade failed. Please check.</source>
-        <translation type="unfinished"/>
+        <translation>Wystąpił błąd aktualizacji. Prosimy o sprawdzenie.</translation>
     </message>
     <message>
         <source>New version available. Please check.</source>
-        <translation type="unfinished"/>
+        <translation>Nowa wersja jest dostępna. Prosimy o sprawdzenie.</translation>
     </message>
     <message>
         <source>Current upgrade progress</source>
-        <translation type="unfinished"/>
+        <translation>Postęp aktualizacji</translation>
     </message>
     <message>
         <source>Backing up</source>
-        <translation type="unfinished"/>
+        <translation>Tworzenie kopii zapasowej</translation>
     </message>
     <message>
         <source>Downloading</source>
-        <translation type="unfinished"/>
+        <translation>Pobieranie</translation>
     </message>
     <message>
         <source>Current download progress</source>
-        <translation type="unfinished"/>
+        <translation>Postęp pobierania</translation>
     </message>
     <message>
         <source>Current speed</source>
-        <translation type="unfinished"/>
+        <translation>Prędkość</translation>
     </message>
     <message>
         <source>Installing</source>
-        <translation type="unfinished"/>
+        <translation>Instalowanie</translation>
     </message>
     <message>
         <source>Enterprise Upgrade Management System</source>
-        <translation type="unfinished"/>
+        <translation>Zarządzanie aktualizacjami systemowymi w organizacji</translation>
     </message>
 </context>
 </TS>
