@@ -18,51 +18,51 @@
     </message>
     <message>
         <source>Will upgrade at %1</source>
-        <translation type="unfinished"/>
+        <translation>Do të përmirësohet më %1</translation>
     </message>
     <message>
         <source>Download complete. Please open Control Center to check.</source>
-        <translation type="unfinished"/>
+        <translation>Shkarkim i plotësuar! Ju lutemi, hapni Qendër Kontrolli për ta parë.</translation>
     </message>
     <message>
         <source>Changing download speed limit. Please wait</source>
-        <translation type="unfinished"/>
+        <translation>Po ndryshohet kufi shpejtësie shkarkimi. Ju lutemi, pritni</translation>
     </message>
     <message>
         <source>Upgrade complete. Please reboot.</source>
-        <translation type="unfinished"/>
+        <translation>Përmirësim i plotësuar. Ju lutemi, riniseni.</translation>
     </message>
     <message>
         <source>Upgrade failed. Please check.</source>
-        <translation type="unfinished"/>
+        <translation>Përmirësimi dështoi. Ju lutemi, kontrollojeni.</translation>
     </message>
     <message>
         <source>New version available. Please check.</source>
-        <translation type="unfinished"/>
+        <translation>Ka gati version të ri. Ju lutemi, kontrollojeni.</translation>
     </message>
     <message>
         <source>Current upgrade progress</source>
-        <translation type="unfinished"/>
+        <translation>Ecuri e përmirësimit të tanishëm</translation>
     </message>
     <message>
         <source>Backing up</source>
-        <translation type="unfinished"/>
+        <translation>Po kopjeruhet</translation>
     </message>
     <message>
         <source>Downloading</source>
-        <translation type="unfinished"/>
+        <translation>Po shkarkohet</translation>
     </message>
     <message>
         <source>Current download progress</source>
-        <translation type="unfinished"/>
+        <translation>Ecuri e shkarkimit të tanishëm</translation>
     </message>
     <message>
         <source>Current speed</source>
-        <translation type="unfinished"/>
+        <translation>Shpejtësi e tanishme</translation>
     </message>
     <message>
         <source>Installing</source>
-        <translation type="unfinished"/>
+        <translation>Po instalohet</translation>
     </message>
     <message>
         <source>Enterprise Upgrade Management System</source>
