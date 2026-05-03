@@ -457,7 +457,7 @@
     </message>
     <message>
         <source>When enabled, your device may share previously downloaded system updates with other devices on your local network.When you turn it off, cached files from update delivery will be cleared during the next restart.</source>
-        <translation type="unfinished"/>
+        <translation>Kur aktivizohet, pajisja juaj mund të japë përditësime sistemi të shkarkuara më herët, për pajisje të tjera në rrjetin tuaj vendor.Kur e çaktivizoni, kartelat e ruajtura në fshehtinë prej dhënies së përditësimeve do të spastrohen gjatë nisjes pasuese.</translation>
     </message>
     <message>
         <source>Delivery Optimization-Limit Speed</source>
