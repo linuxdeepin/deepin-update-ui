@@ -10,7 +10,7 @@
     <name>MirrorSourcePopup</name>
     <message>
         <source>Connectivity Test</source>
-        <translation type="unfinished"/>
+        <translation>Prueba de conectividad</translation>
     </message>
 </context>
 <context>
@@ -288,11 +288,11 @@
     </message>
     <message>
         <source>Install Now</source>
-        <translation type="unfinished"/>
+        <translation>Instalar ahora</translation>
     </message>
     <message>
         <source>Check Again</source>
-        <translation type="unfinished"/>
+        <translation>Buscar de nuevo</translation>
     </message>
 </context>
 <context>
@@ -391,7 +391,7 @@
     </message>
     <message>
         <source>Current Edition</source>
-        <translation type="unfinished"/>
+        <translation>Edición actual</translation>
     </message>
     <message>
         <source>Baseline</source>
@@ -545,11 +545,11 @@
     </message>
     <message>
         <source>Try again</source>
-        <translation type="unfinished"/>
+        <translation>Vuelva a intentar</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Cancelar</translation>
     </message>
     <message>
         <source>Join the internal testing channel to get deepin latest updates.</source>
@@ -557,19 +557,19 @@
     </message>
     <message>
         <source>Default Mirror Source</source>
-        <translation type="unfinished"/>
+        <translation>Espejo de fuente predeterminado</translation>
     </message>
     <message>
         <source>Untested</source>
-        <translation type="unfinished"/>
+        <translation>Sin probar</translation>
     </message>
     <message>
         <source>Testing...</source>
-        <translation type="unfinished"/>
+        <translation>Probando...</translation>
     </message>
     <message>
         <source>Timeout</source>
-        <translation type="unfinished"/>
+        <translation>Tiempo agotado</translation>
     </message>
 </context>
 <context>
