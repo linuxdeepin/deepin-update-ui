@@ -229,13 +229,14 @@ void PluginUpdatePlugin::loadPlugin()
     if (m_pluginLoaded) {
         return;
     }
-    m_proxyInter->itemAdded(this, UPDATE_STATE_KEY);
-    m_pluginLoaded = true;
-    
     m_dockIcon.reset(new DockIconWidget);
     m_dockIcon->setFixedSize(Dock::DOCK_PLUGIN_ITEM_FIXED_SIZE);
     
     updateIconState();
+
+    m_proxyInter->itemAdded(this, UPDATE_STATE_KEY);
+    m_pluginLoaded = true;
+
     displayModeChanged(displayMode());
 }
 
