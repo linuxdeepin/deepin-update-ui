@@ -5,6 +5,7 @@
 #include "updatework.h"
 #include "common/common/logwatcherhelper.h"
 #include "common/dbus/mirrorinfolist.h"
+#include "common/commondefine.h"
 #include "utils.h"
 #include "dconfigwatcher.h"
 #include "common/common/dconfig_helper.h"
@@ -1773,7 +1774,11 @@ void UpdateWorker::setUpgradeDeliveryEnabled(bool enabled, bool fromRetryDialog)
             m_model->setUpgradeDeliveryEnable(enabled);
         }
     };
-    auto watcher = new QDBusPendingCallWatcher(m_updateInter->SetUpgradeDeliveryEnable(enabled), this);
+    QDBusInterface updateIface(UpdaterService, UpdaterPath, UpdaterInterface,
+                                    QDBusConnection::systemBus());
+    updateIface.setTimeout(30 * 60 * 1000);
+    QDBusPendingCall call = updateIface.asyncCall(QStringLiteral("SetP2PUpdateEnable"), enabled);
+    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
     connect(watcher, &QDBusPendingCallWatcher::finished, [this, watcher, enabled, func_set_success] {
         watcher->deleteLater();
         if (watcher->isError()) {
