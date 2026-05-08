@@ -26,31 +26,31 @@
     </message>
     <message>
         <source>Changing download speed limit. Please wait</source>
-        <translation type="unfinished"/>
+        <translation>Ändern der Ladegeschwindigkeit. Einen Moment bitte.</translation>
     </message>
     <message>
         <source>Upgrade complete. Please reboot.</source>
-        <translation type="unfinished"/>
+        <translation>Aktualisierung beendet. Bitte Neustarten.</translation>
     </message>
     <message>
         <source>Upgrade failed. Please check.</source>
-        <translation type="unfinished"/>
+        <translation>Aktualisierung fehlgeschlagen. Bitte prüfen.</translation>
     </message>
     <message>
         <source>New version available. Please check.</source>
-        <translation type="unfinished"/>
+        <translation>Neue Version verfügbar. Bitte prüfen.</translation>
     </message>
     <message>
         <source>Current upgrade progress</source>
-        <translation type="unfinished"/>
+        <translation>Fortschritt dieser Aktualisierung</translation>
     </message>
     <message>
         <source>Backing up</source>
-        <translation type="unfinished"/>
+        <translation>Daten sichern</translation>
     </message>
     <message>
         <source>Downloading</source>
-        <translation type="unfinished"/>
+        <translation>Am Herunterladen</translation>
     </message>
     <message>
         <source>Current download progress</source>
