@@ -3,7 +3,7 @@
     <name>PrivateLastorePlugin</name>
     <message>
         <source>Private Lastore</source>
-        <translation>Privat-LA-Store</translation>
+        <translation>App-Aktualisierung</translation>
     </message>
 </context>
 <context>
@@ -14,7 +14,7 @@
     </message>
     <message>
         <source>Shutdown update</source>
-        <translation type="unfinished"/>
+        <translation>Aktualisierung bei nächstem Systemstart</translation>
     </message>
     <message>
         <source>Will upgrade at %1</source>
