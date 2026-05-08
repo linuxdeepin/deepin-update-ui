@@ -50,23 +50,23 @@
     </message>
     <message>
         <source>Downloading</source>
-        <translation>Am Herunterladen</translation>
+        <translation>Wird heruntergeladen</translation>
     </message>
     <message>
         <source>Current download progress</source>
-        <translation type="unfinished"/>
+        <translation>Fortschritt des Herunterladens</translation>
     </message>
     <message>
         <source>Current speed</source>
-        <translation type="unfinished"/>
+        <translation>Aktuelle Geschwindigkeit</translation>
     </message>
     <message>
         <source>Installing</source>
-        <translation type="unfinished"/>
+        <translation>Wird installiert</translation>
     </message>
     <message>
         <source>Enterprise Upgrade Management System</source>
-        <translation type="unfinished"/>
+        <translation>Unternehmens-Aktualisierungsverwaltung</translation>
     </message>
 </context>
 </TS>
