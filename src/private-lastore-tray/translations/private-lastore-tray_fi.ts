@@ -2,8 +2,8 @@
 <context>
     <name>PrivateLastorePlugin</name>
     <message>
-        <source>Private Lastore</source>
-        <translation>Private Lastore</translation>
+        <source>Private Update</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -13,8 +13,8 @@
         <translation>Lataaminen valmis</translation>
     </message>
     <message>
-        <source>Shutdown update</source>
-        <translation>Sammuta päivitys</translation>
+        <source>Updates will begin on the next shutdown or restart</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Will upgrade at %1</source>
