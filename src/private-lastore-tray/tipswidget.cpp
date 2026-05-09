@@ -64,7 +64,7 @@ bool TipsWidget::checkShutdownUpdate()
     int lastoreStatus = DConfigHelper::instance()->getConfig("org.deepin.dde.lastore", "org.deepin.dde.lastore", "","lastore-daemon-status", 0).toInt();
     if (lastoreStatus == SHUTDOWNUPDATESTATUS) {
         m_textList.append(tr("Download complete"));
-        m_textList.append(tr("Shutdown update"));
+        m_textList.append(tr("Updates will begin on the next shutdown or restart"));
         return true;
     } else {
         return false;

@@ -48,7 +48,7 @@ const QString PrivateLastorePlugin::pluginName() const
 
 const QString PrivateLastorePlugin::pluginDisplayName() const
 {
-    return tr("Private Lastore");
+    return tr("Private Update");
 }
 
 void PrivateLastorePlugin::init(PluginProxyInterface *proxyInter)

@@ -335,6 +335,7 @@ DccObject {
             parentName: "advancedSettingGroup"
             weight: 40
             visible: dccData.work().p2pUpdateSupported()
+            enabled: !dccData.model().updateProhibited
             pageType: DccObject.Item
             page: DccGroupView {
                 height: implicitHeight + 10
@@ -353,7 +354,7 @@ DccObject {
                 displayName: qsTr("Delivery Optimization")
                 description: qsTr("When enabled, your device may share previously downloaded system updates with other devices on your local network.When you turn it off, cached files from update delivery will be cleared during the next restart.")
                 weight: 10
-                enabled: !dccData.model().isPrivateUpdate
+                enabled: !dccData.model().isPrivateUpdate && !dccData.model().updateProhibited
                 pageType: DccObject.Editor
                 page: D.Switch {
                     id: upgradeDeliverySwitch
@@ -382,7 +383,7 @@ DccObject {
                 displayName: qsTr("Delivery Optimization-Upload throttling")
                 visible: dccData.model().upgradeDeliveryEnable
                 weight: 20
-                enabled: !dccData.model().upgradeUploadSpeedIsOnline
+                enabled: !dccData.model().upgradeUploadSpeedIsOnline && !dccData.model().updateProhibited
                 pageType: DccObject.Item
                 Connections {
                     target: dccData.model()
@@ -486,7 +487,7 @@ DccObject {
                 displayName: qsTr("Delivery Optimization-Limit Speed")
                 visible: dccData.model().upgradeDeliveryEnable
                 weight: 30
-                enabled: !dccData.model().upgradeDownloadSpeedIsOnline
+                enabled: !dccData.model().upgradeDownloadSpeedIsOnline && !dccData.model().updateProhibited
                 pageType: DccObject.Item
                 Connections {
                     target: dccData.model()

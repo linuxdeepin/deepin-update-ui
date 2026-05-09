@@ -4,8 +4,8 @@
 <context>
     <name>PrivateLastorePlugin</name>
     <message>
-        <source>Private Lastore</source>
-        <translation>更新独立客户端</translation>
+        <source>Private Update</source>
+        <translation>私有化更新</translation>
     </message>
 </context>
 <context>
@@ -15,7 +15,7 @@
         <translation>更新包下载完成</translation>
     </message>
     <message>
-        <source>Shutdown update</source>
+        <source>Updates will begin on the next shutdown or restart</source>
         <translation>将在下次关机/重启时开始更新</translation>
     </message>
     <message>

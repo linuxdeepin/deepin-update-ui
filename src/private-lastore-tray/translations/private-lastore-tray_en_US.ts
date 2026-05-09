@@ -4,7 +4,7 @@
 <context>
     <name>PrivateLastorePlugin</name>
     <message>
-        <source>Private Lastore</source>
+        <source>Private Update</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -15,7 +15,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Shutdown update</source>
+        <source>Updates will begin on the next shutdown or restart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
