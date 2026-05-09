@@ -2,8 +2,8 @@
 <context>
     <name>PrivateLastorePlugin</name>
     <message>
-        <source>Private Lastore</source>
-        <translation>Tienda de aplicaciones</translation>
+        <source>Private Update</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -13,8 +13,8 @@
         <translation>Descarga completa</translation>
     </message>
     <message>
-        <source>Shutdown update</source>
-        <translation>Reiniciar para actualizar</translation>
+        <source>Updates will begin on the next shutdown or restart</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Will upgrade at %1</source>
