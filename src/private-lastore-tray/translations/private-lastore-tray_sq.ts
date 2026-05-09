@@ -3,7 +3,7 @@
     <name>PrivateLastorePlugin</name>
     <message>
         <source>Private Update</source>
-        <translation type="unfinished"/>
+        <translation>Përditësim Privat</translation>
     </message>
 </context>
 <context>
@@ -14,7 +14,7 @@
     </message>
     <message>
         <source>Updates will begin on the next shutdown or restart</source>
-        <translation type="unfinished"/>
+        <translation>Përditësimet do të fillojnë pas fikjes ose rinisjes pasuese</translation>
     </message>
     <message>
         <source>Will upgrade at %1</source>
@@ -66,7 +66,7 @@
     </message>
     <message>
         <source>Enterprise Upgrade Management System</source>
-        <translation type="unfinished"/>
+        <translation>Sistem Administrimi Përmirësimesh Në Shkallë Ndërmarrjeje</translation>
     </message>
 </context>
 </TS>
