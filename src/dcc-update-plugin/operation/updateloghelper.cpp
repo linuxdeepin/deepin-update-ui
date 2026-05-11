@@ -90,16 +90,6 @@ void UpdateLogHelper::handleSystem(const QJsonArray &log)
 
         m_systemLog.append(std::move(SystemUpdateLog::fromJsonObj(obj)));
     }
-
-    // 不依赖服务器返回来日志顺序，用showVersion进行排序
-    // 如果showVersion版本号相同，则用发布时间排序；不考虑版本号相同且发布时间相同的情况，这种情况应该由运维人员避免
-    std::sort(m_systemLog.begin(), m_systemLog.end(), [](const SystemUpdateLog& v1, const SystemUpdateLog& v2) -> bool {
-        int compareRet = v1.showVersion.compare(v2.showVersion);
-        if (compareRet == 0) {
-            return v1.publishTime.compare(v2.publishTime) >= 0;
-        }
-        return compareRet > 0;
-    });
 }
 
 void UpdateLogHelper::handleSecurity(const QJsonObject &log)
