@@ -3,7 +3,7 @@
     <name>PrivateLastorePlugin</name>
     <message>
         <source>Private Update</source>
-        <translation type="unfinished"/>
+        <translation>Aktualizacja prywatna</translation>
     </message>
 </context>
 <context>
@@ -14,7 +14,7 @@
     </message>
     <message>
         <source>Updates will begin on the next shutdown or restart</source>
-        <translation type="unfinished"/>
+        <translation>Aktualizacja nastąpi przy następnym uruchomieniu lub restarcie</translation>
     </message>
     <message>
         <source>Will upgrade at %1</source>
@@ -30,7 +30,7 @@
     </message>
     <message>
         <source>Upgrade complete. Please reboot.</source>
-        <translation>Zaktualizowano pomyślnie. Uruchom ponownie.</translation>
+        <translation>Zaktualizowano pomyślnie. Uruchom ponownie urządzenie.</translation>
     </message>
     <message>
         <source>Upgrade failed. Please check.</source>
