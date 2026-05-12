@@ -1,3 +1,11 @@
+deepin-update-ui (1.0.52) unstable; urgency=medium
+
+  * fix: Gray out update transfer interface when updates are disabled
+  * fix: Remove sorting logic for update system logs
+    (#295)
+
+ -- xiongbo <xiongbo@uniontech.com>  Tue, 12 May 2026 13:21:26 +0800
+
 deepin-update-ui (1.0.51) unstable; urgency=medium
 
   * fix: reorder dock icon creation before plugin registration
