@@ -3,7 +3,7 @@
     <name>PrivateLastorePlugin</name>
     <message>
         <source>Private Update</source>
-        <translation type="unfinished"/>
+        <translation>Päivitys</translation>
     </message>
 </context>
 <context>
@@ -14,7 +14,7 @@
     </message>
     <message>
         <source>Updates will begin on the next shutdown or restart</source>
-        <translation type="unfinished"/>
+        <translation>Päivitykset suoritetaan seuraavan sammutuksen tai käynnistyksen aikana</translation>
     </message>
     <message>
         <source>Will upgrade at %1</source>
