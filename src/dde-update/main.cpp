@@ -135,7 +135,7 @@ int main(int argc, char *argv[])
     new FullScreenManager(createFrame);
 
     if (!whetherDoUpgrade) {
-        UpdateWorker::instance()->doCheckSystem(UpdateModel::instance()->updateMode(), UpdateModel::instance()->checkSystemStage());
+        UpdateWorker::instance()->checkSystem(UpdateModel::instance()->updateMode(), UpdateModel::instance()->checkSystemStage());
     }
 
     return app->exec();

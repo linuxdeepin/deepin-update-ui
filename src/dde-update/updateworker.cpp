@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -76,6 +76,9 @@ void UpdateWorker::init()
         } else {
             if (m_waitingToCheckSystem) {
                 m_waitingToCheckSystem = false;
+                if (m_waitServiceTimer->isActive()) {
+                    m_waitServiceTimer->stop();
+                }
                 doCheckSystem(UpdateModel::instance()->updateMode(), UpdateModel::instance()->checkSystemStage());
             }
         }
@@ -106,6 +109,19 @@ void UpdateWorker::startUpdateProgress()
     qCInfo(logUpdateModal) << "Start update progress";
 
     doDistUpgradeIfCanBackup();
+}
+
+void UpdateWorker::checkSystem(int updateMode, UpdateModel::CheckSystemStage stage)
+{
+    qCInfo(logUpdateModal) << "Check system with update mode:" << updateMode << "check system stage:" << stage;
+    if (!m_dbusProxy->managerInterIsValid()) {
+        qCWarning(logUpdateModal) << "org.deepin.dde.Lastore1 interface is invalid, wait for service to be valid";
+        m_waitingToCheckSystem = true;
+        m_waitServiceTimer->start();
+        return;
+    }
+
+    doCheckSystem(updateMode, stage);
 }
 
 void UpdateWorker::doDistUpgrade(bool doBackup)
@@ -387,14 +403,7 @@ void UpdateWorker::doDistUpgradeIfCanBackup()
 
 void UpdateWorker::doCheckSystem(int updateMode, UpdateModel::CheckSystemStage stage)
 {
-    qCInfo(logUpdateModal) << "Update mode:" << updateMode << ", check system stage:" << stage;
-    if (!m_dbusProxy->managerInterIsValid()) {
-        qCWarning(logUpdateModal) << "org.deepin.dde.Lastore1 interface is invalid, wait for service to be valid";
-        m_waitingToCheckSystem = true;
-        m_waitServiceTimer->start();
-        return;
-    }
-
+    qCInfo(logUpdateModal) << "doCheckSystem Update mode:" << updateMode << ", check system stage:" << stage;
     QDBusPendingReply<QDBusObjectPath> reply = m_dbusProxy->CheckUpgrade(updateMode, static_cast<int>(stage));
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, this);
     connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, watcher] {

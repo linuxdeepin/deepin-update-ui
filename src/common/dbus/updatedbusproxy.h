@@ -95,7 +95,7 @@ public:
     QDBusPendingCall CanRollback();
     QDBusPendingCall ConfirmRollback(bool confirm);
 
-    bool managerInterIsValid() const { return m_managerInter && m_managerInter->serviceValid(); }
+    bool managerInterIsValid() const { return m_managerInter && m_managerInter->isValid(); }
 
     QDBusPendingCall Poweroff(bool reboot = false);
 
