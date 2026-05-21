@@ -10,7 +10,7 @@
     <name>MirrorSourcePopup</name>
     <message>
         <source>Connectivity Test</source>
-        <translation type="unfinished"/>
+        <translation>Перевірка з&apos;єднання</translation>
     </message>
 </context>
 <context>
@@ -288,11 +288,11 @@
     </message>
     <message>
         <source>Install Now</source>
-        <translation type="unfinished"/>
+        <translation>Встановити зараз</translation>
     </message>
     <message>
         <source>Check Again</source>
-        <translation type="unfinished"/>
+        <translation>Повторити перевірку</translation>
     </message>
 </context>
 <context>
@@ -383,19 +383,19 @@
     </message>
     <message>
         <source>will upgrade at %1</source>
-        <translation type="unfinished"/>
+        <translation>буде оновлено о %1</translation>
     </message>
     <message>
         <source>will upgrade when shutdown</source>
-        <translation type="unfinished"/>
+        <translation>буде оновлено під час вимикання</translation>
     </message>
     <message>
         <source>Current Edition</source>
-        <translation type="unfinished"/>
+        <translation>Поточна версія</translation>
     </message>
     <message>
         <source>Baseline</source>
-        <translation type="unfinished"/>
+        <translation>Основа</translation>
     </message>
 </context>
 <context>
@@ -557,19 +557,19 @@
     </message>
     <message>
         <source>Default Mirror Source</source>
-        <translation type="unfinished"/>
+        <translation>Типове джерело дзеркал</translation>
     </message>
     <message>
         <source>Untested</source>
-        <translation type="unfinished"/>
+        <translation>Не перевірено</translation>
     </message>
     <message>
         <source>Testing...</source>
-        <translation type="unfinished"/>
+        <translation>Перевірка…</translation>
     </message>
     <message>
         <source>Timeout</source>
-        <translation type="unfinished"/>
+        <translation>Час очікування</translation>
     </message>
 </context>
 <context>
