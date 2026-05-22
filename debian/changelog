@@ -1,3 +1,10 @@
+deepin-update-ui (1.0.54) unstable; urgency=medium
+
+  * fix: clear update logs to prevent duplicate entries
+  * fix: remove redundant title label in dialog
+
+ -- zhangkun <zhangkun2@uniontech.com>  Fri, 22 May 2026 18:09:49 +0800
+
 deepin-update-ui (1.0.53) unstable; urgency=medium
 
   * fix: resolve lastore-daemon service registration status check issue
