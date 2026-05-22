@@ -11,7 +11,6 @@ import org.deepin.dcc 1.0
 D.DialogWindow {
     id: root
     width: 480
-    height: 380
     icon: "preferences-system"
     modality: Qt.WindowModal
     title: qsTr("Update Log")
@@ -20,22 +19,13 @@ D.DialogWindow {
     signal exportBtnClicked()
 
     ColumnLayout {
-        anchors.fill: parent
+        width: root.width - root.leftPadding - root.rightPadding
         spacing: 10
-
-        D.Label {
-            id: titleLabel
-            Layout.alignment: Qt.AlignHCenter
-            text: title
-            font: D.DTK.fontManager.t6
-            color: D.DTK.themeType === D.ApplicationHelper.LightType ? Qt.rgba(0, 0, 0, 1) : Qt.rgba(1, 1, 1, 1)
-            wrapMode: Text.WordWrap
-        }
 
         ScrollView {
             id: scrollView
             Layout.fillWidth: true
-            Layout.preferredHeight: root.height - titleLabel.height - buttonRow.height - 80
+            Layout.preferredHeight: 340 - DS.Style.dialogWindow.titleBarHeight - buttonRow.implicitHeight - DS.Style.dialogWindow.contentVMargin
             clip: true
 
             background: Rectangle {
@@ -65,6 +55,7 @@ D.DialogWindow {
         // 按钮行
         RowLayout {
             id: buttonRow
+            Layout.bottomMargin: DS.Style.dialogWindow.contentHMargin
             spacing: 10
             
             Button {

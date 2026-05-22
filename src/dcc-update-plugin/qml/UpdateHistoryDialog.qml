@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2025 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2025 - 2026 UnionTech Software Technology Co., Ltd.
 // SPDX-License-Identifier: GPL-3.0-or-later
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
@@ -22,14 +22,6 @@ D.DialogWindow {
         width: root.width// - DS.Style.dialogWindow.contentHMargin * 2
         spacing: 0
 
-        D.Label {
-            Layout.alignment: Qt.AlignHCenter
-            Layout.bottomMargin: 12
-            text: title
-            font: D.DTK.fontManager.t6
-            color: D.DTK.themeType == D.ApplicationHelper.LightType ? Qt.rgba(0, 0, 0, 1) : Qt.rgba(1, 1, 1, 1)
-            wrapMode: Text.WordWrap
-        }
 
         // 无更新历史时的提示
         Control {
