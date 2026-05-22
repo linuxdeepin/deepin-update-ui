@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2023 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2023 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -50,6 +50,7 @@ public:
     QList<DetailInfo> detailInfos() const;
     void setDetailInfos(QList<DetailInfo>& detailInfos);
     void addDetailInfo(DetailInfo detailInfo);
+    void clearDetailInfos();
 
     void setUpdateModeEnabled(bool enable) { m_enabled = enable; }
     bool isUpdateModeEnabled() const { return m_enabled; }

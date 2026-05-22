@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2023 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2023 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -102,6 +102,11 @@ void UpdateItemInfo::addDetailInfo(DetailInfo detailInfo)
 {
     qCDebug(logDccUpdatePlugin) << "Add detail info for item:" << m_name;
     m_detailInfos.append(std::move(detailInfo));
+}
+
+void UpdateItemInfo::clearDetailInfos()
+{
+    m_detailInfos.clear();
 }
 
 void UpdateItemInfo::setPackages(const QStringList& packages)

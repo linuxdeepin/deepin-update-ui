@@ -95,6 +95,7 @@ void UpdateLogHelper::handleSystem(const QJsonArray &log)
 void UpdateLogHelper::handleSecurity(const QJsonObject &log)
 {
     qCDebug(logDccUpdatePlugin) << "Handling security log with" << log.keys().size() << "entries";
+    m_securityLog.clear();
     for (const auto& key : log.keys()) {
         const auto& obj = log.value(key).toObject();
         if (obj.isEmpty())
@@ -141,6 +142,8 @@ void UpdateLogHelper::handleSystemItemInfo(UpdateItemInfo *itemInfo) const
         return;
     }
 
+    itemInfo->setCurrentVersion("");
+    itemInfo->clearDetailInfos();
     for (const auto &log : m_systemLog) {
         const QString& explain = getLanguageType() == "CN" ? log.cnLog : log.enLog;
         itemInfo->setBaseline(log.baseline);
@@ -170,6 +173,7 @@ void UpdateLogHelper::handleSecurityItemInfo(UpdateItemInfo *itemInfo) const
         return;
     }
 
+    itemInfo->clearDetailInfos();
     QMap<VulLevel, int> vulCount;
     for (const auto &log : m_securityLog) {
         // 写入最近的更新
