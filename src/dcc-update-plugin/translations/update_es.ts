@@ -461,11 +461,11 @@
     </message>
     <message>
         <source>Delivery Optimization-Limit Speed</source>
-        <translation type="unfinished"/>
+        <translation>Límite de velocidad de optimización de entrega</translation>
     </message>
     <message>
         <source>Delivery Optimization-Upload throttling</source>
-        <translation type="unfinished"/>
+        <translation>Limite de tamaño de optimización de entrega</translation>
     </message>
     <message>
         <source>Limit Speed</source>
@@ -533,11 +533,11 @@
     </message>
     <message>
         <source>Only numbers between 10-999999 are allowed</source>
-        <translation type="unfinished"/>
+        <translation>Solo se permiten números entre 10 y 999999</translation>
     </message>
     <message>
         <source>Failed to change Delivery Optimization setting</source>
-        <translation type="unfinished"/>
+        <translation>Fallo al cambiar los ajustes de optimización de entrega</translation>
     </message>
     <message>
         <source>Update Delivery Optimization service exception</source>
