@@ -402,19 +402,19 @@
     <name>UpdateSelectDialog</name>
     <message>
         <source>The updates have been already downloaded. What do you want to do?</source>
-        <translation>Ya se han descargado las actualizaciones. ¿Qué quiere hacer?</translation>
+        <translation>Luego de instalar las actualizaciones, ¿qué quiere hacer?</translation>
     </message>
     <message>
         <source>Silent Installation</source>
-        <translation>Instalación silenciosa</translation>
+        <translation>Continuar</translation>
     </message>
     <message>
         <source>Update and Reboot</source>
-        <translation>Actualizar y reiniciar</translation>
+        <translation>Reiniciar</translation>
     </message>
     <message>
         <source>Update and Shut Down</source>
-        <translation>Actualizar y apagar</translation>
+        <translation>Apagar</translation>
     </message>
 </context>
 <context>
