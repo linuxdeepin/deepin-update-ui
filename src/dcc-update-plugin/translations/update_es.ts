@@ -453,11 +453,11 @@
     </message>
     <message>
         <source>Delivery Optimization</source>
-        <translation type="unfinished"/>
+        <translation>Optimización de entrega</translation>
     </message>
     <message>
         <source>When enabled, your device may share previously downloaded system updates with other devices on your local network.When you turn it off, cached files from update delivery will be cleared during the next restart.</source>
-        <translation type="unfinished"/>
+        <translation>Cuando está activada, puede compartir con otros dispositivos en la red local, actualizaciones del sistema que ya han sido descargadas. Al desactivarla, los archivos en caché de actualizaciones se borrarán en el próximo reinicio.</translation>
     </message>
     <message>
         <source>Delivery Optimization-Limit Speed</source>
