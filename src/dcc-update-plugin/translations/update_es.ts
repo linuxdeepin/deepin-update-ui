@@ -537,11 +537,11 @@
     </message>
     <message>
         <source>Failed to change Delivery Optimization setting</source>
-        <translation>Fallo al cambiar los ajustes de optimización de entrega</translation>
+        <translation>Error al cambiar los ajustes de optimización de entrega</translation>
     </message>
     <message>
         <source>Update Delivery Optimization service exception</source>
-        <translation type="unfinished"/>
+        <translation>La actualización mediante el servicio de optimización de entrega falló</translation>
     </message>
     <message>
         <source>Try again</source>
