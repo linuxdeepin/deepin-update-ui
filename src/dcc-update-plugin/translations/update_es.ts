@@ -383,11 +383,11 @@
     </message>
     <message>
         <source>will upgrade at %1</source>
-        <translation type="unfinished"/>
+        <translation>Se actualizará a las %1</translation>
     </message>
     <message>
         <source>will upgrade when shutdown</source>
-        <translation type="unfinished"/>
+        <translation>Se actualizará al apagarse</translation>
     </message>
     <message>
         <source>Current Edition</source>
@@ -395,7 +395,7 @@
     </message>
     <message>
         <source>Baseline</source>
-        <translation type="unfinished"/>
+        <translation>Línea base</translation>
     </message>
 </context>
 <context>
