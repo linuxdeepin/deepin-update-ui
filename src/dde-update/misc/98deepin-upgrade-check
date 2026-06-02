@@ -9,6 +9,15 @@ if [ "$XDG_SESSION_TYPE" = "x11" ]; then
             else
                 echo "Warning: Failed to start dde-update-env.service, running dde-update as fallback." >&2
             fi
+            xsettingsd_conf="/etc/lightdm/deepin/xsettingsd.conf"
+            # xsettingsd.conf 不存在时，通过 greeter-display-setting 设置 QT 缩放环境变量
+            if [ ! -e "$xsettingsd_conf" ]; then
+                greeter_display_setting_path="/usr/bin/greeter-display-setting"
+                if [ -f $greeter_display_setting_path ]; then
+                    scale_env=$(/usr/bin/greeter-display-setting | tail -1)
+                    export $scale_env
+                fi
+            fi
             /usr/bin/dde-update
         )
     fi
