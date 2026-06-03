@@ -46,6 +46,7 @@ UpdateModel::UpdateModel(QObject* parent)
     , m_updateDisabledIcon("")
     , m_updateDisabledTips("")
     , m_batterIsOK(false)
+    , m_postUpdateCheckCompleted(true) // 非 Wayland 默认为 true，Wayland 下检查完成后再置为 true
     , m_lastStatus(Default)
     , m_showCheckUpdate(false)
     , m_checkUpdateIcon("")
@@ -220,6 +221,16 @@ void UpdateModel::setBatterIsOK(bool ok)
 
     m_batterIsOK = ok;
     Q_EMIT batterIsOKChanged(ok);
+}
+
+void UpdateModel::setPostUpdateCheckCompleted(bool completed)
+{
+    if (m_postUpdateCheckCompleted == completed) {
+        return;
+    }
+
+    m_postUpdateCheckCompleted = completed;
+    Q_EMIT postUpdateCheckCompletedChanged(completed);
 }
 
 void UpdateModel::setForceUpdateText(const QString& updateTime, int lastoreStatus)

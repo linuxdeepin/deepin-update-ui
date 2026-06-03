@@ -100,6 +100,7 @@ class UpdateModel : public QObject
     Q_PROPERTY(bool upgradeDeliveryEnable READ upgradeDeliveryEnable NOTIFY upgradeDeliveryEnableChanged FINAL)
     Q_PROPERTY(bool p2pUpdateEnabled READ isP2PUpdateEnabled NOTIFY p2pUpdateEnableStateChanged FINAL)
     Q_PROPERTY(bool forceUpdate READ forceUpdate NOTIFY forceUpdateChanged FINAL)
+    Q_PROPERTY(bool postUpdateCheckCompleted READ postUpdateCheckCompleted NOTIFY postUpdateCheckCompletedChanged FINAL)
     Q_PROPERTY(UpdateHistoryModel *historyModel READ historyModel NOTIFY historyModelChanged FINAL)
 
 
@@ -261,6 +262,9 @@ public:
     bool isPrivateUpdate() const { return m_isPrivateUpdate; }
     void setIsPrivateUpdate(bool isPrivateUpdate);
 
+    bool postUpdateCheckCompleted() const { return m_postUpdateCheckCompleted; }
+    void setPostUpdateCheckCompleted(bool completed);
+
     UpdatesStatus updateStatus(ControlPanelType type) const;
     UpdatesStatus updateStatus(UpdateType type) const;
     QList<UpdateType> updateTypesList(ControlPanelType type) const;
@@ -419,6 +423,7 @@ Q_SIGNALS:
     void updateInfoChanged(UpdateType);
     void isUpdatableChanged(const bool isUpdatablePackages);
     void isPrivateUpdateChanged(const bool isPrivateUpdate);
+    void postUpdateCheckCompletedChanged(bool completed);
     void updateStatusChanged(ControlPanelType, UpdatesStatus);
     void controlTypeChanged();
     void lastErrorChanged(UpdatesStatus, UpdateErrorType);
@@ -457,6 +462,7 @@ private:
     QString m_updateDisabledIcon;
     QString m_updateDisabledTips;
     bool m_batterIsOK;
+    bool m_postUpdateCheckCompleted;
     int m_lastStatus;
     bool m_immutableAutoRecovery;
 

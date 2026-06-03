@@ -59,6 +59,8 @@ public:
     Q_INVOKABLE void setShutdownAndUpgrade(bool isShutdownUpdate = false);
     void setBackupJob(const QString& jobPath);
     void setDistUpgradeJob(const QString& jobPath);
+    void doCheckSystemOnWayland(int stage);
+    void setCheckSystemJob(const QString& jobPath);
     void updateSystemVersion();
 
     // 更新设置-更新类型
@@ -133,6 +135,7 @@ public Q_SLOTS:
     void onDistUpgradeStatusChanged(const QString& status);
     void onInstallPackageStatusChanged(const QString& value);
     void onRemovePackageStatusChanged(const QString& value);
+    void onCheckSystemJobStatusChanged(const QString& status);
 
 Q_SIGNALS:
     void requestCloseTestingChannel();
@@ -163,6 +166,10 @@ private:
     QPointer<UpdateJobDBusProxy> m_backupJob;
     QPointer<UpdateJobDBusProxy> m_installPackageJob;
     QPointer<UpdateJobDBusProxy> m_removePackageJob;
+    QPointer<UpdateJobDBusProxy> m_checkSystemJob;
+
+    int m_updateMode;
+    int m_currentCheckStage; // 当前 check system 阶段: 1=CSS_BeforeLogin, 2=CSS_AfterLogin
 };
 
 #endif // UPDATEWORK_H

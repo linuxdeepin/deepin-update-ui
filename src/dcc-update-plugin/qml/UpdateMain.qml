@@ -199,6 +199,7 @@ DccObject {
             updateTips: qsTr("To ensure proper functioning of your system and applications, please restart your computer after the update")
             btnActions: [ qsTr("Reboot now") ]
             updateListcheck: false
+            busyState: !dccData.model().postUpdateCheckCompleted
 
             onBtnClicked: function(index, updateType) {
                 dccData.work().reStart()
@@ -318,8 +319,12 @@ DccObject {
                     if (dccData.model().isPrivateUpdate) {
                         dccData.work().doUpgrade(updateListModels.getAllUpdateType(), true)
                     } else {
-                        updateSelectLoader.updateType = updateType
-                        updateSelectLoader.active = true
+                        if (DccApp.isTreeland()) {
+                            dccData.work().doUpgrade(updateType, true)
+                        } else {
+                            updateSelectLoader.updateType = updateType
+                            updateSelectLoader.active = true
+                        }
                     }
                 } else if (index === 1) {
                     dccData.work().reCheckWithUi();

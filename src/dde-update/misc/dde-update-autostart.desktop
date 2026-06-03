@@ -2,5 +2,5 @@
 Name=dde-update
 Type=Application
 NoDisplay=true
-Exec=sh -c 'if [ -f /tmp/deepin_update_option.json ]; then /usr/bin/dde-update ; fi'
+Exec=sh -c 'if [ -f /tmp/deepin_update_option.json ] && [ "$XDG_SESSION_TYPE" != "wayland" ]; then /usr/bin/dde-update ; fi'
 X-Deepin-Vendor=deepin

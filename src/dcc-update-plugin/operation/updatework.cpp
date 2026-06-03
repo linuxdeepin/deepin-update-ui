@@ -132,6 +132,9 @@ UpdateWorker::UpdateWorker(UpdateModel* model, QObject* parent)
     , m_backupJob(nullptr)
     , m_installPackageJob(nullptr)
     , m_removePackageJob(nullptr)
+    , m_checkSystemJob(nullptr)
+    , m_updateMode(0)
+    , m_currentCheckStage(0)
 {
     qCDebug(logDccUpdatePlugin) << "Initializing UpdateWorker";
     qRegisterMetaType<UpdatesStatus>("UpdatesStatus");
@@ -151,6 +154,7 @@ UpdateWorker::~UpdateWorker()
     deleteJob(m_backupJob);
     deleteJob(m_installPackageJob);
     deleteJob(m_removePackageJob);
+    deleteJob(m_checkSystemJob);
 
     if (m_lastoreHeartBeatTimer != nullptr) {
         if (m_lastoreHeartBeatTimer->isActive()) {
@@ -773,6 +777,11 @@ void UpdateWorker::doUpgrade(int updateTypes, bool doBackup)
     qCInfo(logDccUpdatePlugin) << "Do upgrade, update types:" << updateTypes << ", whether do backup:" << doBackup;
     cleanLaStoreJob(m_distUpgradeJob);
     cleanLaStoreJob(m_backupJob);
+
+    if (DGuiApplicationHelper::testAttribute(DGuiApplicationHelper::IsWaylandPlatform)) {
+        m_updateMode = updateTypes;
+        m_model->setPostUpdateCheckCompleted(false);
+    }
 
     QDBusPendingCall call = m_updateInter->DistUpgradePartly(updateTypes, doBackup);
     QDBusPendingCallWatcher* watcher = new QDBusPendingCallWatcher(call, this);
@@ -1711,6 +1720,13 @@ void UpdateWorker::onDistUpgradeStatusChanged(const QString& status)
         if (updateStatus == UpgradeComplete) {
             cleanLaStoreJob(m_distUpgradeJob);
             updateSystemVersion();
+
+            // TODO: treeland 环境下重启后无法启动 dde-update 进程, 这里直接在安装更新完成后，进行检查：
+            // 串行执行: CheckUpgrade(stage=1, CSS_BeforeLogin) → CheckUpgrade(stage=2, CSS_AfterLogin) → 标记完成
+            if (DGuiApplicationHelper::testAttribute(DGuiApplicationHelper::IsWaylandPlatform)) {
+                doCheckSystemOnWayland(1);
+            }
+
         } else {
             if (updateStatus == UpgradeFailed && m_distUpgradeJob) {
                 const QString& description = m_distUpgradeJob->description();
@@ -1857,4 +1873,69 @@ void UpdateWorker::cleanUpgradeDeliveryCache()
             return;
         }
     });
+}
+
+void UpdateWorker::doCheckSystemOnWayland(int stage)
+{
+    qCInfo(logDccUpdatePlugin) << "treeland: start check system, stage:" << stage;
+    m_currentCheckStage = stage;
+
+    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(m_updateInter->CheckUpgrade(m_updateMode, stage), this);
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, watcher] {
+        QDBusPendingReply<QDBusObjectPath> reply = *watcher;
+        if (reply.isError()) {
+            qCWarning(logDccUpdatePlugin) << "CheckUpgrade stage" << m_currentCheckStage
+                                         << "failed:" << reply.error().message();
+            // 即使检查失败也标记完成，不阻塞后续流程
+            m_model->setPostUpdateCheckCompleted(true);
+        } else {
+            const QString jobPath = reply.value().path();
+            qCInfo(logDccUpdatePlugin) << "Check system job created:" << jobPath << "stage:" << m_currentCheckStage;
+            setCheckSystemJob(jobPath);
+        }
+        watcher->deleteLater();
+    });
+}
+
+void UpdateWorker::setCheckSystemJob(const QString& jobPath)
+{
+    qCInfo(logDccUpdatePlugin) << "Create check system job, path:" << jobPath;
+    if (m_checkSystemJob || jobPath.isEmpty()) {
+        qCWarning(logDccUpdatePlugin) << "Check system job already exists or path is empty";
+        m_model->setPostUpdateCheckCompleted(true);
+        return;
+    }
+
+    m_checkSystemJob = new UpdateJobDBusProxy(jobPath, this);
+    connect(m_checkSystemJob, &UpdateJobDBusProxy::StatusChanged, this, &UpdateWorker::onCheckSystemJobStatusChanged);
+    // 主动触发一次状态同步，避免 job 在连接信号前已完成
+    onCheckSystemJobStatusChanged(m_checkSystemJob->status());
+}
+
+void UpdateWorker::onCheckSystemJobStatusChanged(const QString& status)
+{
+    qCInfo(logDccUpdatePlugin) << "Check system job status changed, stage:" << m_currentCheckStage << "status:" << status;
+
+    // 仅关注终态：failed / succeed / end
+    if (status == "failed" || status == "succeed" || status == "end") {
+        cleanLaStoreJob(m_checkSystemJob);
+
+        if (m_currentCheckStage == 1) {
+            if (status == "failed") {
+                qCWarning(logDccUpdatePlugin) << "CheckUpgrade stage CSS_BeforeLogin failed, cannot continue to CSS_AfterLogin";
+                m_model->setPostUpdateCheckCompleted(true);
+                return;
+            } else if (status == "end") {
+                // CSS_BeforeLogin 阶段完成，继续 CSS_AfterLogin 阶段
+                qCInfo(logDccUpdatePlugin) << "treeland: CSS_BeforeLogin completed, starting CSS_AfterLogin";
+                QTimer::singleShot(1000, this, [this] {
+                    doCheckSystemOnWayland(2);
+                });
+            }
+        } else {
+            // CSS_AfterLogin 阶段完成，标记检查完成
+            qCInfo(logDccUpdatePlugin) << "treeland: CSS_AfterLogin completed, mark check completed";
+            m_model->setPostUpdateCheckCompleted(true);
+        }
+    }
 }
