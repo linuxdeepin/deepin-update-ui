@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2025-2026 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2025 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -189,12 +189,21 @@ void PluginUpdatePlugin::invokedMenuItem(const QString &itemKey, const QString &
             .call();
     } else if (menuId == MENU_RESTART) {
         // 重启系统
-        DDBusSender()
-            .service("org.deepin.dde.ShutdownFront1")
-            .interface("org.deepin.dde.ShutdownFront1")
-            .path("/org/deepin/dde/ShutdownFront1")
-            .method("Restart")
-            .call();
+        if (Dtk::Gui::DGuiApplicationHelper::testAttribute(Dtk::Gui::DGuiApplicationHelper::IsWaylandPlatform)) {
+            DDBusSender()
+                .service("org.deepin.dde.SessionManager1")
+                .interface("org.deepin.dde.SessionManager1")
+                .path("/org/deepin/dde/SessionManager1")
+                .method("RequestReboot")
+                .call();
+        } else {
+            DDBusSender()
+                .service("org.deepin.dde.ShutdownFront1")
+                .interface("org.deepin.dde.ShutdownFront1")
+                .path("/org/deepin/dde/ShutdownFront1")
+                .method("Restart")
+                .call();
+        }
     }
 }
 

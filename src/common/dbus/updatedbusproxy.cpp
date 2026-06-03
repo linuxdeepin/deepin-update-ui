@@ -10,6 +10,7 @@
 #include <QDBusReply>
 #include <QDBusUnixFileDescriptor>
 #include <QLoggingCategory>
+#include <DGuiApplicationHelper>
 
 #include "common/commondefine.h"
 
@@ -39,6 +40,8 @@ UpdateDBusProxy::UpdateDBusProxy(QObject *parent)
         LockService, LockPath, LockInterface, QDBusConnection::systemBus(), this))
     , m_shutdownFrontInter(new DDBusInterface(
         ShutdownFront1Service, ShutdownFront1Path, ShutdownFront1Interface, QDBusConnection::sessionBus(), this))
+    , m_sessionManagerInter(new DDBusInterface(
+        SessionManager1Service, SessionManager1Path, SessionManager1Interface, QDBusConnection::sessionBus(), this))
     , m_interWatcher(new QDBusServiceWatcher(UpdaterService, QDBusConnection::systemBus()))
 
 {
@@ -553,15 +556,27 @@ QString UpdateDBusProxy::CurrentUser()
 void UpdateDBusProxy::Restart()
 {
     qCInfo(logCommon) << "Calling system restart";
-    m_shutdownFrontInter->asyncCall(QStringLiteral("Restart"));
+    if (Dtk::Gui::DGuiApplicationHelper::testAttribute(Dtk::Gui::DGuiApplicationHelper::IsWaylandPlatform)) {
+        m_sessionManagerInter->asyncCall(QStringLiteral("RequestReboot"));
+    } else {
+        m_shutdownFrontInter->asyncCall(QStringLiteral("Restart"));
+    }
 }
 void UpdateDBusProxy::UpdateAndReboot()
 {
     qCInfo(logCommon) << "Calling update and reboot";
-    m_shutdownFrontInter->asyncCall(QStringLiteral("UpdateAndReboot"));
+    if (Dtk::Gui::DGuiApplicationHelper::testAttribute(Dtk::Gui::DGuiApplicationHelper::IsWaylandPlatform)) {
+        m_sessionManagerInter->asyncCall(QStringLiteral("RequestReboot"));
+    } else {
+        m_shutdownFrontInter->asyncCall(QStringLiteral("UpdateAndReboot"));
+    }
 }
 void UpdateDBusProxy::UpdateAndShutdown()
 {
     qCInfo(logCommon) << "Calling update and shutdown";
-    m_shutdownFrontInter->asyncCall(QStringLiteral("UpdateAndShutdown"));
+    if (Dtk::Gui::DGuiApplicationHelper::testAttribute(Dtk::Gui::DGuiApplicationHelper::IsWaylandPlatform)) {
+        m_sessionManagerInter->asyncCall(QStringLiteral("RequestShutdown"));
+    } else {
+        m_shutdownFrontInter->asyncCall(QStringLiteral("UpdateAndShutdown"));
+    }
 }

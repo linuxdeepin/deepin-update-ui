@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2025 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2025 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -40,6 +40,11 @@ const static QString LockInterface = QStringLiteral("org.deepin.dde.LockService1
 const static QString ShutdownFront1Service = QStringLiteral("org.deepin.dde.ShutdownFront1");
 const static QString ShutdownFront1Path = QStringLiteral("/org/deepin/dde/ShutdownFront1");
 const static QString ShutdownFront1Interface = QStringLiteral("org.deepin.dde.ShutdownFront1");
+
+// SessionManager1
+const static QString SessionManager1Service = QStringLiteral("org.deepin.dde.SessionManager1");
+const static QString SessionManager1Path = QStringLiteral("/org/deepin/dde/SessionManager1");
+const static QString SessionManager1Interface = QStringLiteral("org.deepin.dde.SessionManager1");
 
 const static QString PropertiesInterface = QStringLiteral("org.freedesktop.DBus.Properties");
 const static QString PropertiesChanged = QStringLiteral("PropertiesChanged");

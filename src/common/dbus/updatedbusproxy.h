@@ -188,6 +188,7 @@ private:
     DDBusInterface *m_login1Inter;
     DDBusInterface *m_lockServiceInter;
     DDBusInterface *m_shutdownFrontInter;
+    DDBusInterface *m_sessionManagerInter;
 
     QDBusServiceWatcher *m_interWatcher;
 };
