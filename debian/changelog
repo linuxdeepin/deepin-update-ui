@@ -1,3 +1,12 @@
+deepin-update-ui (1.0.56) unstable; urgency=medium
+
+  * feat: add dbus service permission config for update plugin
+  * feat(shortcut): support multi-field searching for shortcuts
+  * refactor(eventreporter): convert namespace to class with LRU cache
+  * fix: use sigkill for wayland killClient()
+
+ -- zhangkun <zhangkun2@uniontech.com>  Thu, 11 Jun 2026 19:45:36 +0800
+
 deepin-update-ui (1.0.55) unstable; urgency=medium
 
   * feat: add post-upgrade check for Wayland in treeland environment
