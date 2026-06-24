@@ -10,7 +10,7 @@
     <name>MirrorSourcePopup</name>
     <message>
         <source>Connectivity Test</source>
-        <translation type="unfinished"/>
+        <translation>連通性測試</translation>
     </message>
 </context>
 <context>
@@ -288,11 +288,11 @@
     </message>
     <message>
         <source>Install Now</source>
-        <translation type="unfinished"/>
+        <translation>立即更新</translation>
     </message>
     <message>
         <source>Check Again</source>
-        <translation type="unfinished"/>
+        <translation>重新檢查更新</translation>
     </message>
 </context>
 <context>
@@ -383,19 +383,19 @@
     </message>
     <message>
         <source>will upgrade at %1</source>
-        <translation type="unfinished"/>
+        <translation>將於%1開始系統更新</translation>
     </message>
     <message>
         <source>will upgrade when shutdown</source>
-        <translation type="unfinished"/>
+        <translation>系統將在計算機關機或重啓時進行更新</translation>
     </message>
     <message>
         <source>Current Edition</source>
-        <translation type="unfinished"/>
+        <translation>私有化更新版本號</translation>
     </message>
     <message>
         <source>Baseline</source>
-        <translation type="unfinished"/>
+        <translation>補丁版本號</translation>
     </message>
 </context>
 <context>
@@ -557,19 +557,19 @@
     </message>
     <message>
         <source>Default Mirror Source</source>
-        <translation type="unfinished"/>
+        <translation>默認鏡像源</translation>
     </message>
     <message>
         <source>Untested</source>
-        <translation type="unfinished"/>
+        <translation>未檢測</translation>
     </message>
     <message>
         <source>Testing...</source>
-        <translation type="unfinished"/>
+        <translation>測試中...</translation>
     </message>
     <message>
         <source>Timeout</source>
-        <translation type="unfinished"/>
+        <translation>超時</translation>
     </message>
 </context>
 <context>
