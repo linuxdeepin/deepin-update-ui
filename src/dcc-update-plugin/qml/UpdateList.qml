@@ -117,6 +117,10 @@ Rectangle {
                                 text: qsTr("Release time:") + model.releaseTime
                             }
 
+                            Item {
+                                Layout.fillWidth: true
+                            }
+
                             D.ToolButton {
                                 textColor: D.Palette {
                                     normal {
@@ -191,6 +195,10 @@ Rectangle {
                                         font: D.DTK.fontManager.t8
                                         visible: itemCtl.showDetails && modelData.updateTime !== ""
                                         text: qsTr("Release time:") + modelData.updateTime
+                                    }
+
+                                    Item {
+                                        Layout.fillWidth: true
                                     }
 
                                     D.ToolButton {
