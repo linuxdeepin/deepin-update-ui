@@ -1,3 +1,12 @@
+deepin-update-ui (1.0.57) unstable; urgency=medium
+
+  * fix: align release date and expand button in update list
+  * chore: Sync by
+    https://github.com/linuxdeepin/.github/commit/88706fa723e3771211cb07
+    81d3d97fd4a6cd2a68
+
+ -- zhangkun <zhangkun2@uniontech.com>  Wed, 24 Jun 2026 15:35:19 +0800
+
 deepin-update-ui (1.0.56) unstable; urgency=medium
 
   * feat: add dbus service permission config for update plugin
