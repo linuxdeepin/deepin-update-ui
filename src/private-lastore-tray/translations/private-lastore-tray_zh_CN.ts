@@ -3,7 +3,7 @@
     <name>PrivateLastorePlugin</name>
     <message>
         <source>Private Update</source>
-        <translation type="unfinished"/>
+        <translation>私有化更新</translation>
     </message>
 </context>
 <context>
@@ -14,7 +14,7 @@
     </message>
     <message>
         <source>Updates will begin on the next shutdown or restart</source>
-        <translation type="unfinished"/>
+        <translation>将在下次关机/重启时开始更新</translation>
     </message>
     <message>
         <source>Will upgrade at %1</source>
