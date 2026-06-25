@@ -100,6 +100,18 @@
         <source>Collapse</source>
         <translation>Inklappen</translation>
     </message>
+    <message>
+        <source>Vulnerability ID:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Severity:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Description:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UpdateLogDialog</name>

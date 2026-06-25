@@ -40,6 +40,7 @@ Rectangle {
                 spacing: 0
 
                 property bool showDetails: false
+                property bool isSecurityUpdate: repeater.model.getUpdateType(index) === Common.SecurityUpdate
 
                 content: RowLayout {
                     spacing: 10
@@ -102,6 +103,11 @@ Rectangle {
                             wrapMode: Text.WordWrap
                             onLinkActivated: (link)=> {
                                 dccData.work().openUrl(link)
+                            }
+                            MouseArea {
+                                anchors.fill: parent
+                                cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
+                                acceptedButtons: Qt.NoButton
                             }
                         }
 
@@ -167,10 +173,21 @@ Rectangle {
                                     horizontalAlignment: Text.AlignLeft
                                     Layout.fillWidth: true
                                     font: D.DTK.fontManager.t8
-                                    color: D.DTK.themeType == D.ApplicationHelper.LightType ? 
+                                    color: D.DTK.themeType == D.ApplicationHelper.LightType ?
                                                               Qt.rgba(0, 0, 0, 1) : Qt.rgba(1, 1, 1, 1)
                                     visible: itemCtl.showDetails && modelData.name !== ""
-                                    text: qsTr("Version:") + modelData.name
+                                    text: (itemCtl.isSecurityUpdate ? qsTr("Vulnerability ID:") : qsTr("Version:")) + modelData.name
+                                }
+
+                                D.Label {
+                                    Layout.alignment: Qt.AlignLeft
+                                    horizontalAlignment: Text.AlignLeft
+                                    Layout.fillWidth: true
+                                    font: D.DTK.fontManager.t8
+                                    color: D.DTK.themeType == D.ApplicationHelper.LightType ?
+                                                              Qt.rgba(0, 0, 0, 1) : Qt.rgba(1, 1, 1, 1)
+                                    visible: itemCtl.showDetails && itemCtl.isSecurityUpdate && modelData.vulLevel !== ""
+                                    text: qsTr("Severity:") + modelData.vulLevel
                                 }
 
                                 D.Label {
@@ -179,11 +196,16 @@ Rectangle {
                                     Layout.fillWidth: true
                                     font: D.DTK.fontManager.t8
                                     visible: itemCtl.showDetails && modelData.info !== ""
-                                    text: modelData.info
+                                    text: itemCtl.isSecurityUpdate ? qsTr("Description:") + modelData.info : modelData.info
                                     textFormat: Text.RichText
                                     wrapMode: Text.WordWrap
                                     onLinkActivated: (link)=> {
                                         dccData.work().openUrl(link)
+                                    }
+                                    MouseArea {
+                                        anchors.fill: parent
+                                        cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
+                                        acceptedButtons: Qt.NoButton
                                     }
                                 }
 

@@ -100,6 +100,18 @@
         <source>Collapse</source>
         <translation>收起詳細</translation>
     </message>
+    <message>
+        <source>Vulnerability ID:</source>
+        <translation> 漏洞編號：</translation>
+    </message>
+    <message>
+        <source>Severity:</source>
+        <translation>漏洞等級：</translation>
+    </message>
+    <message>
+        <source>Description:</source>
+        <translation>漏洞描述：</translation>
+    </message>
 </context>
 <context>
     <name>UpdateLogDialog</name>
