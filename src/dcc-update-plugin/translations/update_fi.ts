@@ -100,15 +100,15 @@
     </message>
     <message>
         <source>Vulnerability ID:</source>
-        <translation type="unfinished"/>
+        <translation>Haavoittuvuustunnus:</translation>
     </message>
     <message>
         <source>Severity:</source>
-        <translation type="unfinished"/>
+        <translation>Vakavuus:</translation>
     </message>
     <message>
         <source>Description:</source>
-        <translation type="unfinished"/>
+        <translation>Kuvaus:</translation>
     </message>
 </context>
 <context>
