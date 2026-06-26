@@ -1,3 +1,10 @@
+deepin-update-ui (1.0.58) unstable; urgency=medium
+
+  * feat: add security update details display
+  * fix: fix blank area in security update log details view
+
+ -- xionglinlin <xionglinlin@uniontech.com>  Fri, 26 Jun 2026 22:00:28 +0800
+
 deepin-update-ui (1.0.57) unstable; urgency=medium
 
   * fix: align release date and expand button in update list
