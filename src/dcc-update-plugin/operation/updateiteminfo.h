@@ -62,6 +62,9 @@ public:
     void setIsChecked(bool isChecked);
     bool isChecked() const { return m_isChecked; }
 
+    void setExpanded(bool expanded) { m_expanded = expanded; }
+    bool isExpanded() const { return m_expanded; }
+
     UpdateType updateType() const { return m_updateType; }
 
     void setUpdateStatus(UpdatesStatus status);
@@ -91,6 +94,7 @@ private:
     QStringList m_packages;
     QList<DetailInfo> m_detailInfos;
     bool m_isChecked;
+    bool m_expanded = false;
     UpdatesStatus m_updateStatus;
     QString m_typeString;
 };

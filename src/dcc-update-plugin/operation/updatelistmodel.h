@@ -24,7 +24,9 @@ public:
         ReleaseTime,
         Checked,
         UpdateStatus,
-        IconName
+        IconName,
+        Expanded,
+        DetailInfos
     };
 
     explicit UpdateListModel(QObject *parent = nullptr);
@@ -34,11 +36,16 @@ public:
 
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
-    void addUpdateData(UpdateItemInfo *itemData);
+    // 用目标列表整体同步模型内容；当内容与当前一致时不发出任何信号，
+    // 避免无意义的 beginResetModel/endResetModel 造成视图重建与滚动跳动
+    void syncData(const QList<UpdateItemInfo *> &items);
 
     void clearAllData();
 
     Q_INVOKABLE void setChecked(int index, bool checked);
+
+    Q_INVOKABLE void setExpanded(int index, bool expanded);
+    Q_INVOKABLE void collapseAll();
 
     Q_INVOKABLE int getAllUpdateType() const;
 
@@ -54,6 +61,8 @@ public:
         roles[Checked] = "checked";
         roles[UpdateStatus] = "updateStatus";
         roles[IconName] = "iconName";
+        roles[Expanded] = "expanded";
+        roles[DetailInfos] = "detailInfos";
         return roles;
     }
 
@@ -62,7 +71,6 @@ public:
     QString downloadSize() const;
 
     Q_INVOKABLE UpdateType getUpdateType(int index) const;
-    Q_INVOKABLE QVariantList getDetailInfos(int index) const;
 
 public Q_SLOTS:
     void refreshDownloadSize();

@@ -862,41 +862,18 @@ void UpdateModel::refreshUpdateStatus()
 void UpdateModel::refreshUpdateUiModel()
 {
     qCDebug(logDccUpdatePlugin) << "Refreshing update UI models";
-    if (m_preUpdatelistModel) {
-        m_preUpdatelistModel->clearAllData();
-    }
 
-    if (m_downloadinglistModel) {
-        m_downloadinglistModel->clearAllData();
-    }
-
-    if (m_installinglistModel) {
-        m_installinglistModel->clearAllData();
-    }
-
-    if (m_installCompleteListModel) {
-        m_installCompleteListModel->clearAllData();
-    }
-
-    if (m_installFailedListModel) {
-        m_installFailedListModel->clearAllData();
-    }
-
-    if (m_downloadFailedListModel) {
-        m_downloadFailedListModel->clearAllData();
-    }
-
-    if (m_preInstallListModel) {
-        m_preInstallListModel->clearAllData();
-    }
-
-    if (m_backingUpListModel) {
-        m_backingUpListModel->clearAllData();
-    }
-
-    if (m_backupFailedListModel) {
-        m_backupFailedListModel->clearAllData();
-    }
+    // 先按目标状态分桶，再用 syncData 整体同步；内容未变化的模型不会触发 reset，
+    // 从而避免勾选 CheckBox 等仅改变选中态的场景下列表重建与滚动跳动
+    QList<UpdateItemInfo *> preUpdateList;
+    QList<UpdateItemInfo *> downloadingList;
+    QList<UpdateItemInfo *> preInstallList;
+    QList<UpdateItemInfo *> downloadFailedList;
+    QList<UpdateItemInfo *> installingList;
+    QList<UpdateItemInfo *> installCompleteList;
+    QList<UpdateItemInfo *> installFailedList;
+    QList<UpdateItemInfo *> backingUpList;
+    QList<UpdateItemInfo *> backupFailedList;
 
     for (auto item : m_allUpdateInfos.values()) {
         qCDebug(logDccUpdatePlugin) << "refresh Update Ui:" << item->updateType() << item->updateStatus() << item->isUpdateModeEnabled();
@@ -905,44 +882,63 @@ void UpdateModel::refreshUpdateUiModel()
 
         switch (item->updateStatus()) {
         case Updated:
-            m_installCompleteListModel->addUpdateData(item);
+            installCompleteList.append(item);
             break;
         case UpdatesAvailable:
-            m_preUpdatelistModel->addUpdateData(item);
+            preUpdateList.append(item);
             break;
         case DownloadWaiting:
         case Downloading:
         case DownloadPaused:
         case UpgradeWaiting:
-            m_downloadinglistModel->addUpdateData(item);
+            downloadingList.append(item);
             break;
         case Downloaded:
-            m_preInstallListModel->addUpdateData(item);
+            preInstallList.append(item);
             break;
         case DownloadFailed:
-            m_downloadFailedListModel->addUpdateData(item);
+            downloadFailedList.append(item);
             break;
         case UpgradeReady:
         case Upgrading:
-            m_installinglistModel->addUpdateData(item);
+            installingList.append(item);
             break;
         case  UpgradeFailed:
-            m_installFailedListModel->addUpdateData(item);
+            installFailedList.append(item);
             break;
         case UpgradeSuccess:
         case UpgradeComplete:
-            m_installCompleteListModel->addUpdateData(item);
+            installCompleteList.append(item);
             break;
         case BackingUp:
         case BackupSuccess:
-            m_backingUpListModel->addUpdateData(item);
+            backingUpList.append(item);
             break;
         case BackupFailed:
-            m_backupFailedListModel->addUpdateData(item);
+            backupFailedList.append(item);
         default:
             break;
         }
     }
+
+    if (m_preUpdatelistModel)
+        m_preUpdatelistModel->syncData(preUpdateList);
+    if (m_downloadinglistModel)
+        m_downloadinglistModel->syncData(downloadingList);
+    if (m_preInstallListModel)
+        m_preInstallListModel->syncData(preInstallList);
+    if (m_downloadFailedListModel)
+        m_downloadFailedListModel->syncData(downloadFailedList);
+    if (m_installinglistModel)
+        m_installinglistModel->syncData(installingList);
+    if (m_installCompleteListModel)
+        m_installCompleteListModel->syncData(installCompleteList);
+    if (m_installFailedListModel)
+        m_installFailedListModel->syncData(installFailedList);
+    if (m_backingUpListModel)
+        m_backingUpListModel->syncData(backingUpList);
+    if (m_backupFailedListModel)
+        m_backupFailedListModel->syncData(backupFailedList);
 }
 
 void UpdateModel::updateAvailableState()

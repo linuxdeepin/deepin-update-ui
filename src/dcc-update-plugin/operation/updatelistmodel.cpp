@@ -48,6 +48,22 @@ QVariant UpdateListModel::data(const QModelIndex &index, int role) const
         return data->updateStatus();
     case IconName:
         return getIconName(data->updateType());
+    case Expanded:
+        return data->isExpanded();
+    case DetailInfos: {
+        QVariantList result;
+        const auto& detailInfos = data->detailInfos();
+        for (const auto& detail : detailInfos) {
+            QVariantMap map;
+            map["name"] = detail.name;
+            map["updateTime"] = detail.updateTime;
+            map["info"] = detail.info;
+            map["link"] = detail.link;
+            map["vulLevel"] = detail.vulLevel;
+            result.append(map);
+        }
+        return result;
+    }
     default:
         qCDebug(logDccUpdatePlugin) << "Unknown role requested:" << role;
         break;
@@ -55,18 +71,31 @@ QVariant UpdateListModel::data(const QModelIndex &index, int role) const
      return QVariant();
 }
 
-void UpdateListModel::addUpdateData(UpdateItemInfo* itemData)
+void UpdateListModel::syncData(const QList<UpdateItemInfo *> &items)
 {
-    qCDebug(logDccUpdatePlugin) << "Adding update data:" << itemData->name() << "type:" << itemData->updateType();
-    int row = rowCount();
-    beginInsertRows(QModelIndex(), row, row);
-    m_updateLists.append(itemData);
-    connect(itemData, &UpdateItemInfo::downloadSizeChanged, this, &UpdateListModel::refreshDownloadSize);
-    endInsertRows();
+    // 指针列表（含顺序）未变化，不触发 reset 避免滚动跳动。
+    // item 内部数据（如异步获取的日志）的变更通过 dataChanged 通知视图刷新；
+    if (items == m_updateLists) {
+        if (!m_updateLists.isEmpty()) {
+            emit dataChanged(index(0), index(m_updateLists.count() - 1));
+        }
+        refreshDownloadSize();
+        emit visibilityChanged();
+        return;
+    }
+
+    beginResetModel();
+    for (auto item : m_updateLists) {
+        disconnect(item, &UpdateItemInfo::downloadSizeChanged, this, &UpdateListModel::refreshDownloadSize);
+    }
+    m_updateLists = items;
+    for (auto item : m_updateLists) {
+        connect(item, &UpdateItemInfo::downloadSizeChanged, this, &UpdateListModel::refreshDownloadSize, Qt::UniqueConnection);
+    }
+    endResetModel();
 
     refreshDownloadSize();
     emit visibilityChanged();
-    qCDebug(logDccUpdatePlugin) << "Update data added, total items:" << m_updateLists.size();
 }
 
 QString UpdateListModel::getIconName(UpdateType type) const
@@ -180,6 +209,31 @@ void UpdateListModel::setChecked(int index, bool checked)
     }
 }
 
+void UpdateListModel::setExpanded(int index, bool expanded)
+{
+    if (index >= 0 && index < m_updateLists.count()) {
+        if (m_updateLists[index]->isExpanded() == expanded) {
+            return;
+        }
+        m_updateLists[index]->setExpanded(expanded);
+
+        QModelIndex changedIndex = this->index(index);
+        emit dataChanged(changedIndex, changedIndex, { Expanded });
+    } else {
+        qCWarning(logDccUpdatePlugin) << "Invalid index for setExpanded:" << index;
+    }
+}
+
+void UpdateListModel::collapseAll()
+{
+    for (int i = 0; i < m_updateLists.count(); ++i) {
+        if (m_updateLists[i]->isExpanded()) {
+            m_updateLists[i]->setExpanded(false);
+            emit dataChanged(index(i), index(i), { Expanded });
+        }
+    }
+}
+
 int UpdateListModel::getAllUpdateType() const
 {
     qCDebug(logDccUpdatePlugin) << "Getting combined update type for all checked items";
@@ -190,24 +244,4 @@ int UpdateListModel::getAllUpdateType() const
         }
     }
     return updateType;
-}
-
-QVariantList UpdateListModel::getDetailInfos(int index) const
-{
-    QVariantList result;
-    if (index >= 0 && index < m_updateLists.count()) {
-        const auto& detailInfos = m_updateLists[index]->detailInfos();
-        for (const auto& detail : detailInfos) {
-            QVariantMap map;
-            map["name"] = detail.name;
-            map["updateTime"] = detail.updateTime;
-            map["info"] = detail.info;
-            map["link"] = detail.link;
-            map["vulLevel"] = detail.vulLevel;
-            result.append(map);
-        }
-    } else {
-        qCWarning(logDccUpdatePlugin) << "Invalid index for getDetailInfos:" << index;
-    }
-    return result;
 }
