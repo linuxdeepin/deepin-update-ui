@@ -100,15 +100,15 @@
     </message>
     <message>
         <source>Vulnerability ID:</source>
-        <translation type="unfinished"/>
+        <translation>ID da vulnerabilidade:</translation>
     </message>
     <message>
         <source>Severity:</source>
-        <translation type="unfinished"/>
+        <translation>Nível de gravidade:</translation>
     </message>
     <message>
         <source>Description:</source>
-        <translation type="unfinished"/>
+        <translation>Descrição:</translation>
     </message>
 </context>
 <context>
