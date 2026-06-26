@@ -98,6 +98,18 @@
         <source>Collapse</source>
         <translation>ຫຍໍ້</translation>
     </message>
+    <message>
+        <source>Vulnerability ID:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Severity:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Description:</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>UpdateLogDialog</name>
