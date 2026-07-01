@@ -100,15 +100,15 @@
     </message>
     <message>
         <source>Vulnerability ID:</source>
-        <translation type="unfinished"/>
+        <translation>漏洞编号：</translation>
     </message>
     <message>
         <source>Severity:</source>
-        <translation type="unfinished"/>
+        <translation>漏洞等级：</translation>
     </message>
     <message>
         <source>Description:</source>
-        <translation type="unfinished"/>
+        <translation>漏洞描述：</translation>
     </message>
 </context>
 <context>
