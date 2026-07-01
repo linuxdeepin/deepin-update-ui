@@ -148,7 +148,7 @@ D.DialogWindow {
                                     text: {
                                         switch(Type) {
                                         case 1: return qsTr("Version:") + modelData.name
-                                        case 4: return modelData.name
+                                        case 4: return qsTr("Vulnerability ID: ") + modelData.name
                                         default: return ""
                                         }
                                     }
@@ -159,7 +159,7 @@ D.DialogWindow {
                                     Layout.fillWidth: true
                                 }
                                 Label {
-                                    text: modelData.displayVulLevel
+                                    text: qsTr("Severity: ") + modelData.displayVulLevel
                                     visible: modelData.displayVulLevel !== ""
                                     font: D.DTK.fontManager.t8
                                     color: D.DTK.themeType == D.ApplicationHelper.LightType ? Qt.rgba(0, 0, 0, 1) : Qt.rgba(1, 1, 1, 1)
@@ -178,7 +178,9 @@ D.DialogWindow {
                                     }
                                 }
                                 Label {
-                                    text: modelData.description
+                                    text: {
+                                        Type === 4 ? qsTr("Description: ") + modelData.description : modelData.description
+                                    }
                                     visible: modelData.description !== ""
                                     font: D.DTK.fontManager.t8
                                     wrapMode: Text.WordWrap

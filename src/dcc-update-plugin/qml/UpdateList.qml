@@ -185,7 +185,7 @@ Rectangle {
                                         color: D.DTK.themeType == D.ApplicationHelper.LightType ?
                                                                 Qt.rgba(0, 0, 0, 1) : Qt.rgba(1, 1, 1, 1)
                                         visible: itemCtl.showDetails && modelData.name !== ""
-                                        text: (itemCtl.isSecurityUpdate ? qsTr("Vulnerability ID:") : qsTr("Version:")) + modelData.name
+                                        text: (itemCtl.isSecurityUpdate ? qsTr("Vulnerability ID: ") : qsTr("Version:")) + modelData.name
                                     }
 
                                     D.Label {
@@ -196,7 +196,7 @@ Rectangle {
                                         color: D.DTK.themeType == D.ApplicationHelper.LightType ?
                                                                 Qt.rgba(0, 0, 0, 1) : Qt.rgba(1, 1, 1, 1)
                                         visible: itemCtl.showDetails && itemCtl.isSecurityUpdate && modelData.vulLevel !== ""
-                                        text: qsTr("Severity:") + modelData.vulLevel
+                                        text: qsTr("Severity: ") + modelData.vulLevel
                                     }
 
                                     D.Label {
@@ -205,7 +205,7 @@ Rectangle {
                                         Layout.fillWidth: true
                                         font: D.DTK.fontManager.t8
                                         visible: itemCtl.showDetails && modelData.info !== ""
-                                        text: itemCtl.isSecurityUpdate ? qsTr("Description:") + modelData.info : modelData.info
+                                        text: itemCtl.isSecurityUpdate ? qsTr("Description: ") + modelData.info : modelData.info
                                         textFormat: Text.RichText
                                         wrapMode: Text.WordWrap
                                         onLinkActivated: (link)=> {
