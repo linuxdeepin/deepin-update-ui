@@ -81,6 +81,18 @@
         <source>Version:</source>
         <translation type="unfinished">Sürüm:</translation>
     </message>
+    <message>
+        <source>Vulnerability ID: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Severity: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Description: </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UpdateList</name>
@@ -101,15 +113,15 @@
         <translation>Daralt</translation>
     </message>
     <message>
-        <source>Vulnerability ID:</source>
+        <source>Vulnerability ID: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Severity:</source>
+        <source>Severity: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Description:</source>
+        <source>Description: </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
