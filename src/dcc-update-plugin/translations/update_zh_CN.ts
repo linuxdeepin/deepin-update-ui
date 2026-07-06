@@ -79,6 +79,18 @@
         <source>Version:</source>
         <translation>版本：</translation>
     </message>
+    <message>
+        <source>Vulnerability ID: </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Severity: </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Description: </source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>UpdateList</name>
@@ -99,16 +111,16 @@
         <translation>收起详细</translation>
     </message>
     <message>
-        <source>Vulnerability ID:</source>
-        <translation>漏洞编号：</translation>
+        <source>Vulnerability ID: </source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <source>Severity:</source>
-        <translation>漏洞等级：</translation>
+        <source>Severity: </source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <source>Description:</source>
-        <translation>漏洞描述：</translation>
+        <source>Description: </source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
