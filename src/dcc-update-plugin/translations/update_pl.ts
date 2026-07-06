@@ -79,6 +79,18 @@
         <source>Version:</source>
         <translation>Wersja:</translation>
     </message>
+    <message>
+        <source>Vulnerability ID: </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Severity: </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Description: </source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>UpdateList</name>
@@ -99,16 +111,16 @@
         <translation>Zwiń</translation>
     </message>
     <message>
-        <source>Vulnerability ID:</source>
-        <translation>ID luki bezpieczeństwa:</translation>
+        <source>Vulnerability ID: </source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <source>Severity:</source>
-        <translation>Poziom zagrożenia:</translation>
+        <source>Severity: </source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <source>Description:</source>
-        <translation>Opis:</translation>
+        <source>Description: </source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
