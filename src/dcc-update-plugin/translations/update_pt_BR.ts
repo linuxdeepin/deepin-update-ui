@@ -79,6 +79,18 @@
         <source>Version:</source>
         <translation>Versão:</translation>
     </message>
+    <message>
+        <source>Vulnerability ID: </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Severity: </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Description: </source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>UpdateList</name>
@@ -99,16 +111,16 @@
         <translation>Recolher</translation>
     </message>
     <message>
-        <source>Vulnerability ID:</source>
-        <translation>ID da vulnerabilidade:</translation>
+        <source>Vulnerability ID: </source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <source>Severity:</source>
-        <translation>Nível de gravidade:</translation>
+        <source>Severity: </source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <source>Description:</source>
-        <translation>Descrição:</translation>
+        <source>Description: </source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
