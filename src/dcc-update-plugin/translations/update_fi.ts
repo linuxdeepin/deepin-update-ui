@@ -79,6 +79,18 @@
         <source>Version:</source>
         <translation>Versio:</translation>
     </message>
+    <message>
+        <source>Vulnerability ID: </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Severity: </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Description: </source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>UpdateList</name>
@@ -99,16 +111,16 @@
         <translation>Tiivistetty</translation>
     </message>
     <message>
-        <source>Vulnerability ID:</source>
-        <translation>Haavoittuvuustunnus:</translation>
+        <source>Vulnerability ID: </source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <source>Severity:</source>
-        <translation>Vakavuus:</translation>
+        <source>Severity: </source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <source>Description:</source>
-        <translation>Kuvaus:</translation>
+        <source>Description: </source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
