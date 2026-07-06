@@ -81,15 +81,15 @@
     </message>
     <message>
         <source>Vulnerability ID: </source>
-        <translation type="unfinished"/>
+        <translation>ID da vulnerabilidade:</translation>
     </message>
     <message>
         <source>Severity: </source>
-        <translation type="unfinished"/>
+        <translation>Gravidade:</translation>
     </message>
     <message>
         <source>Description: </source>
-        <translation type="unfinished"/>
+        <translation>Descrição:</translation>
     </message>
 </context>
 <context>
@@ -112,15 +112,15 @@
     </message>
     <message>
         <source>Vulnerability ID: </source>
-        <translation type="unfinished"/>
+        <translation>ID da vulnerabilidade:</translation>
     </message>
     <message>
         <source>Severity: </source>
-        <translation type="unfinished"/>
+        <translation>Gravidade:</translation>
     </message>
     <message>
         <source>Description: </source>
-        <translation type="unfinished"/>
+        <translation>Descrição:</translation>
     </message>
 </context>
 <context>
