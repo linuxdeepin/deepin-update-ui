@@ -81,7 +81,7 @@
     </message>
     <message>
         <source>Vulnerability ID: </source>
-        <translation type="unfinished"/>
+        <translation>ID Cenueshmërie: </translation>
     </message>
     <message>
         <source>Severity: </source>
@@ -89,7 +89,7 @@
     </message>
     <message>
         <source>Description: </source>
-        <translation type="unfinished"/>
+        <translation>Përshkrim: </translation>
     </message>
 </context>
 <context>
@@ -112,7 +112,7 @@
     </message>
     <message>
         <source>Vulnerability ID: </source>
-        <translation type="unfinished"/>
+        <translation>ID Cenueshmërie: </translation>
     </message>
     <message>
         <source>Severity: </source>
@@ -120,7 +120,7 @@
     </message>
     <message>
         <source>Description: </source>
-        <translation type="unfinished"/>
+        <translation>Përshkrim: </translation>
     </message>
 </context>
 <context>
