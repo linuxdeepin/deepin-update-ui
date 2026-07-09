@@ -1,3 +1,10 @@
+deepin-update-ui (1.0.59) unstable; urgency=medium
+
+  * fix: improve security update label formatting and translations
+  * i18n: Updates for project Deepin Desktop Environment (#315)
+
+ -- zhangkun <zhangkun2@uniontech.com>  Thu, 09 Jul 2026 13:32:47 +0800
+
 deepin-update-ui (1.0.58) unstable; urgency=medium
 
   * feat: add security update details display
