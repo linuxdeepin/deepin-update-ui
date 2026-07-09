@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="ca">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ca">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -12,7 +10,7 @@
     <name>MirrorSourcePopup</name>
     <message>
         <source>Connectivity Test</source>
-        <translation type="unfinished"></translation>
+        <translation>Prova de connectivitat</translation>
     </message>
 </context>
 <context>
@@ -83,15 +81,15 @@
     </message>
     <message>
         <source>Vulnerability ID: </source>
-        <translation type="unfinished"></translation>
+        <translation>ID de la vulnerabilitat:</translation>
     </message>
     <message>
         <source>Severity: </source>
-        <translation type="unfinished"></translation>
+        <translation>Severitat:</translation>
     </message>
     <message>
         <source>Description: </source>
-        <translation type="unfinished"></translation>
+        <translation>Descripció:</translation>
     </message>
 </context>
 <context>
@@ -114,15 +112,15 @@
     </message>
     <message>
         <source>Vulnerability ID: </source>
-        <translation type="unfinished"></translation>
+        <translation>ID de la vulnerabilitat:</translation>
     </message>
     <message>
         <source>Severity: </source>
-        <translation type="unfinished"></translation>
+        <translation>Severitat:</translation>
     </message>
     <message>
         <source>Description: </source>
-        <translation type="unfinished"></translation>
+        <translation>Descripció:</translation>
     </message>
 </context>
 <context>
@@ -314,11 +312,11 @@
     </message>
     <message>
         <source>Install Now</source>
-        <translation type="unfinished"></translation>
+        <translation>Instal·la-la ara</translation>
     </message>
     <message>
         <source>Check Again</source>
-        <translation type="unfinished">Torna-ho a comprovar</translation>
+        <translation>Torna-ho a comprovar</translation>
     </message>
 </context>
 <context>
@@ -409,19 +407,19 @@
     </message>
     <message>
         <source>will upgrade at %1</source>
-        <translation type="unfinished"></translation>
+        <translation>s&apos;actualitzarà a %1</translation>
     </message>
     <message>
         <source>will upgrade when shutdown</source>
-        <translation type="unfinished"></translation>
+        <translation>s&apos;actualitzarà quan s&apos;aturi</translation>
     </message>
     <message>
         <source>Current Edition</source>
-        <translation type="unfinished"></translation>
+        <translation>Edició actual</translation>
     </message>
     <message>
         <source>Baseline</source>
-        <translation type="unfinished"></translation>
+        <translation>Línia de base</translation>
     </message>
 </context>
 <context>
@@ -476,6 +474,22 @@
     <message>
         <source>Delivers  updates for additional repository sources</source>
         <translation>Ofereix actualitzacions per a fonts de repositoris addicionals.</translation>
+    </message>
+    <message>
+        <source>Delivery Optimization</source>
+        <translation>Optimització del lliurament</translation>
+    </message>
+    <message>
+        <source>When enabled, your device may share previously downloaded system updates with other devices on your local network.When you turn it off, cached files from update delivery will be cleared during the next restart.</source>
+        <translation>En activar-se, el dispositiu pot compartir actualitzacions del sistema baixades anteriorment amb altres dispositius de la xarxa local. En desactivar-se, els fitxers emmagatzemats a la memòria cau del lliurament d&apos;actualitzacions s&apos;esborraran durant el següent reinici.</translation>
+    </message>
+    <message>
+        <source>Delivery Optimization-Limit Speed</source>
+        <translation>Velocitat límit d&apos;optimització del lliurament</translation>
+    </message>
+    <message>
+        <source>Delivery Optimization-Upload throttling</source>
+        <translation>Limitació de la càrrega per a l&apos;optimització del lliurament</translation>
     </message>
     <message>
         <source>Limit Speed</source>
@@ -542,60 +556,44 @@
         <translation>Replega</translation>
     </message>
     <message>
+        <source>Only numbers between 10-999999 are allowed</source>
+        <translation>Només es permeten números entre 10 i 999999</translation>
+    </message>
+    <message>
+        <source>Failed to change Delivery Optimization setting</source>
+        <translation>No s&apos;ha pogut canviar la configuració d&apos;optimització del lliurament</translation>
+    </message>
+    <message>
+        <source>Update Delivery Optimization service exception</source>
+        <translation>Excepció del servei d&apos;optimització del lliurament d&apos;actualitzacions</translation>
+    </message>
+    <message>
+        <source>Try again</source>
+        <translation>Torna-ho a provar</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Cancel·la</translation>
+    </message>
+    <message>
         <source>Join the internal testing channel to get deepin latest updates.</source>
         <translation>Uniu-vos al canal de proves intern per obtenir les darreres actualitzacions del Deepin.</translation>
     </message>
     <message>
-        <source>Failed to change Delivery Optimization setting</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="unfinished">Cancel·la</translation>
-    </message>
-    <message>
-        <source>Update Delivery Optimization service exception</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Try again</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delivery Optimization</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>When enabled, your device may share previously downloaded system updates with other devices on your local network.When you turn it off, cached files from update delivery will be cleared during the next restart.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delivery Optimization-Upload throttling</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Only numbers between 10-999999 are allowed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delivery Optimization-Limit Speed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Default Mirror Source</source>
-        <translation type="unfinished"></translation>
+        <translation>Font de rèplica per defecte</translation>
     </message>
     <message>
         <source>Untested</source>
-        <translation type="unfinished"></translation>
+        <translation>Sense provar</translation>
     </message>
     <message>
         <source>Testing...</source>
-        <translation type="unfinished"></translation>
+        <translation>Es prova...</translation>
     </message>
     <message>
         <source>Timeout</source>
-        <translation type="unfinished"></translation>
+        <translation>Temps d&apos;espera</translation>
     </message>
 </context>
 <context>

@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="pt_BR">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="pt_BR">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -12,14 +10,14 @@
     <name>MirrorSourcePopup</name>
     <message>
         <source>Connectivity Test</source>
-        <translation type="unfinished"></translation>
+        <translation>Teste de conectividade</translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
         <source>Fixed some known bugs and security vulnerabilities</source>
-        <translation type="unfinished">Correção de alguns bugs conhecidos e vulnerabilidades de segurança</translation>
+        <translation>Corrigidos alguns bugs conhecidos e vulnerabilidades de segurança</translation>
     </message>
 </context>
 <context>
@@ -41,11 +39,11 @@
     <name>Update</name>
     <message>
         <source>System Update</source>
-        <translation type="unfinished"></translation>
+        <translation>Atualizações do sistema</translation>
     </message>
     <message>
         <source>System update and upgrade</source>
-        <translation type="unfinished"></translation>
+        <translation>Atualizações e upgrade do sistema</translation>
     </message>
 </context>
 <context>
@@ -79,19 +77,19 @@
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished">Versão:</translation>
+        <translation>Versão:</translation>
     </message>
     <message>
         <source>Vulnerability ID: </source>
-        <translation type="unfinished"></translation>
+        <translation>ID da vulnerabilidade:</translation>
     </message>
     <message>
         <source>Severity: </source>
-        <translation type="unfinished"></translation>
+        <translation>Gravidade:</translation>
     </message>
     <message>
         <source>Description: </source>
-        <translation type="unfinished"></translation>
+        <translation>Descrição:</translation>
     </message>
 </context>
 <context>
@@ -106,7 +104,7 @@
     </message>
     <message>
         <source>View More</source>
-        <translation type="unfinished"></translation>
+        <translation>Exibir mais</translation>
     </message>
     <message>
         <source>Collapse</source>
@@ -114,15 +112,15 @@
     </message>
     <message>
         <source>Vulnerability ID: </source>
-        <translation type="unfinished"></translation>
+        <translation>ID da vulnerabilidade:</translation>
     </message>
     <message>
         <source>Severity: </source>
-        <translation type="unfinished"></translation>
+        <translation>Gravidade:</translation>
     </message>
     <message>
         <source>Description: </source>
-        <translation type="unfinished"></translation>
+        <translation>Descrição:</translation>
     </message>
 </context>
 <context>
@@ -214,111 +212,111 @@
     <name>UpdateMain</name>
     <message>
         <source>Installing updates...</source>
-        <translation type="unfinished"></translation>
+        <translation>Instalando atualizações…</translation>
     </message>
     <message>
         <source>Installing</source>
-        <translation type="unfinished"></translation>
+        <translation>Instalando</translation>
     </message>
     <message>
         <source>Backing up in progress...</source>
-        <translation type="unfinished"></translation>
+        <translation>Backup em andamento…</translation>
     </message>
     <message>
         <source>Backing up in progress</source>
-        <translation type="unfinished"></translation>
+        <translation>Backup em andamento</translation>
     </message>
     <message>
         <source>Downloading updates...</source>
-        <translation type="unfinished"></translation>
+        <translation>Baixando atualizações...</translation>
     </message>
     <message>
         <source>Update size: </source>
-        <translation type="unfinished"></translation>
+        <translation>Tamanho da atualização:</translation>
     </message>
     <message>
         <source>Downloading</source>
-        <translation type="unfinished"></translation>
+        <translation>Baixando</translation>
     </message>
     <message>
         <source>Update installation successful</source>
-        <translation type="unfinished"></translation>
+        <translation>Atualização instalada com sucesso</translation>
     </message>
     <message>
         <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
-        <translation type="unfinished"></translation>
+        <translation>Para garantir o funcionamento correto do sistema e dos aplicativos, reinicie o computador após a atualização</translation>
     </message>
     <message>
         <source>Reboot now</source>
-        <translation type="unfinished"></translation>
+        <translation>Reiniciar</translation>
     </message>
     <message>
         <source>Installation update failed</source>
-        <translation type="unfinished"></translation>
+        <translation>A instalação da atualização falhou</translation>
     </message>
     <message>
         <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation type="unfinished"></translation>
+        <translation>A carga da bateria está abaixo de 60%. Para concluir as atualizações com sucesso, conecte o carregador.</translation>
     </message>
     <message>
         <source>Continue Update</source>
-        <translation type="unfinished"></translation>
+        <translation>Continuar atualização</translation>
     </message>
     <message>
         <source>Backup failed</source>
-        <translation type="unfinished"></translation>
+        <translation>O backup falhou</translation>
     </message>
     <message>
         <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation type="unfinished">Se você continuar com as atualizações, não poderá reverter o sistema para uma versão anterior.</translation>
+        <translation>Se você continuar as atualizações, não será possível reverter para o sistema anterior.</translation>
     </message>
     <message>
         <source>Back Up Again</source>
-        <translation type="unfinished"></translation>
+        <translation>Refazer backup</translation>
     </message>
     <message>
         <source>Proceed to Update</source>
-        <translation type="unfinished"></translation>
+        <translation>Continuar com a atualização</translation>
     </message>
     <message>
         <source>Update download completed</source>
-        <translation type="unfinished"></translation>
+        <translation>Download da atualização concluído</translation>
     </message>
     <message>
         <source>Install updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Instalar atualizações</translation>
     </message>
     <message>
         <source>Update download failed</source>
-        <translation type="unfinished"></translation>
+        <translation>O download da atualização falhou</translation>
     </message>
     <message>
         <source>Retry</source>
-        <translation type="unfinished"></translation>
+        <translation>Tentar novamente</translation>
     </message>
     <message>
         <source>Updates Available</source>
-        <translation type="unfinished"></translation>
+        <translation>Atualizações disponíveis</translation>
     </message>
     <message>
         <source>Download</source>
-        <translation type="unfinished"></translation>
+        <translation>Download</translation>
     </message>
     <message>
         <source>Update Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Configurações de atualização</translation>
     </message>
     <message>
         <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
-        <translation type="unfinished"></translation>
+        <translation>Configurar atualizações, atualizações de segurança, download automático de atualizações e notificações de atualização</translation>
     </message>
     <message>
         <source>Install Now</source>
-        <translation type="unfinished"></translation>
+        <translation>Instalar</translation>
     </message>
     <message>
         <source>Check Again</source>
-        <translation type="unfinished">Verificar novamente</translation>
+        <translation>Verificar novamente</translation>
     </message>
 </context>
 <context>
@@ -409,19 +407,19 @@
     </message>
     <message>
         <source>will upgrade at %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Será atualizado às %1</translation>
     </message>
     <message>
         <source>will upgrade when shutdown</source>
-        <translation type="unfinished"></translation>
+        <translation>Será atualizado ao desligar</translation>
     </message>
     <message>
         <source>Current Edition</source>
-        <translation type="unfinished"></translation>
+        <translation>Edição</translation>
     </message>
     <message>
         <source>Baseline</source>
-        <translation type="unfinished"></translation>
+        <translation>Base</translation>
     </message>
 </context>
 <context>
@@ -476,6 +474,22 @@
     <message>
         <source>Delivers  updates for additional repository sources</source>
         <translation>Fornece atualizações para fontes de repositório adicionais</translation>
+    </message>
+    <message>
+        <source>Delivery Optimization</source>
+        <translation>Otimização de entrega</translation>
+    </message>
+    <message>
+        <source>When enabled, your device may share previously downloaded system updates with other devices on your local network.When you turn it off, cached files from update delivery will be cleared during the next restart.</source>
+        <translation>Quando ativado, seu dispositivo pode compartilhar atualizações do sistema já baixadas com outros dispositivos na sua rede local. Ao desativar, os arquivos em cache das atualizações serão limpos na próxima reinicialização.</translation>
+    </message>
+    <message>
+        <source>Delivery Optimization-Limit Speed</source>
+        <translation>Otimização de entrega - Limitar velocidade</translation>
+    </message>
+    <message>
+        <source>Delivery Optimization-Upload throttling</source>
+        <translation>Otimização de entrega - Limitação de upload</translation>
     </message>
     <message>
         <source>Limit Speed</source>
@@ -542,60 +556,44 @@
         <translation>Recolher</translation>
     </message>
     <message>
+        <source>Only numbers between 10-999999 are allowed</source>
+        <translation>Apenas números entre 10 e 999999 são permitidos</translation>
+    </message>
+    <message>
+        <source>Failed to change Delivery Optimization setting</source>
+        <translation>Falha ao alterar a configuração de Otimização de Entrega</translation>
+    </message>
+    <message>
+        <source>Update Delivery Optimization service exception</source>
+        <translation>Exceção no serviço de Otimização de Entrega durante a atualização</translation>
+    </message>
+    <message>
+        <source>Try again</source>
+        <translation>Tentar novamente</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Cancelar</translation>
+    </message>
+    <message>
         <source>Join the internal testing channel to get deepin latest updates.</source>
         <translation>Participe do canal de testes internos para receber as últimas atualizações do deepin.</translation>
     </message>
     <message>
-        <source>Failed to change Delivery Optimization setting</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="unfinished">Cancelar</translation>
-    </message>
-    <message>
-        <source>Update Delivery Optimization service exception</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Try again</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delivery Optimization</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>When enabled, your device may share previously downloaded system updates with other devices on your local network.When you turn it off, cached files from update delivery will be cleared during the next restart.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delivery Optimization-Upload throttling</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Only numbers between 10-999999 are allowed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delivery Optimization-Limit Speed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Default Mirror Source</source>
-        <translation type="unfinished"></translation>
+        <translation>Servidor espelho padrão</translation>
     </message>
     <message>
         <source>Untested</source>
-        <translation type="unfinished"></translation>
+        <translation>Não testado</translation>
     </message>
     <message>
         <source>Testing...</source>
-        <translation type="unfinished"></translation>
+        <translation>Testando...</translation>
     </message>
     <message>
         <source>Timeout</source>
-        <translation type="unfinished"></translation>
+        <translation>Tempo esgotado</translation>
     </message>
 </context>
 <context>

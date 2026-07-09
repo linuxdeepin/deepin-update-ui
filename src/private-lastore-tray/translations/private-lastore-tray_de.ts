@@ -1,72 +1,72 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="zh_TW">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="de">
 <context>
     <name>PrivateLastorePlugin</name>
     <message>
         <source>Private Update</source>
-        <translation>私有化更新</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>TipsWidget</name>
     <message>
         <source>Download complete</source>
-        <translation>更新包下載完成</translation>
+        <translation>Vollständig heruntergeladen</translation>
     </message>
     <message>
         <source>Updates will begin on the next shutdown or restart</source>
-        <translation>將在下次關機/重新啟動時開始更新</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Will upgrade at %1</source>
-        <translation>將於%1開始系統更新</translation>
+        <translation>Wird aktualisiert um %1</translation>
     </message>
     <message>
         <source>Download complete. Please open Control Center to check.</source>
-        <translation>更新包下載完成，點擊圖標進入更新介面進行查看與安裝更新</translation>
+        <translation>Fertig heruntergeladen. Bitte im Kontrollzenrum prüfen.</translation>
     </message>
     <message>
         <source>Changing download speed limit. Please wait</source>
-        <translation>下載限速配置切換中，切換完成後將會繼續下載更新資源</translation>
+        <translation>Ändern der Ladegeschwindigkeit. Einen Moment bitte.</translation>
     </message>
     <message>
         <source>Upgrade complete. Please reboot.</source>
-        <translation>更新完成，請重新啟動系統</translation>
+        <translation>Aktualisierung beendet. Bitte Neustarten.</translation>
     </message>
     <message>
         <source>Upgrade failed. Please check.</source>
-        <translation>更新失敗，點擊查看</translation>
+        <translation>Aktualisierung fehlgeschlagen. Bitte prüfen.</translation>
     </message>
     <message>
         <source>New version available. Please check.</source>
-        <translation>有新版本，點擊圖標查看</translation>
+        <translation>Neue Version verfügbar. Bitte prüfen.</translation>
     </message>
     <message>
         <source>Current upgrade progress</source>
-        <translation>更新進度</translation>
+        <translation>Fortschritt dieser Aktualisierung</translation>
     </message>
     <message>
         <source>Backing up</source>
-        <translation>備份中</translation>
+        <translation>Daten sichern</translation>
     </message>
     <message>
         <source>Downloading</source>
-        <translation>更新包下載中</translation>
+        <translation>Wird heruntergeladen</translation>
     </message>
     <message>
         <source>Current download progress</source>
-        <translation>已下載</translation>
+        <translation>Fortschritt des Herunterladens</translation>
     </message>
     <message>
         <source>Current speed</source>
-        <translation>下載速度</translation>
+        <translation>Aktuelle Geschwindigkeit</translation>
     </message>
     <message>
         <source>Installing</source>
-        <translation>系統更新中，請勿關閉電腦</translation>
+        <translation>Wird installiert</translation>
     </message>
     <message>
         <source>Enterprise Upgrade Management System</source>
-        <translation>企業級更新管理系統</translation>
+        <translation>Unternehmens-Aktualisierungsverwaltung</translation>
     </message>
 </context>
 </TS>

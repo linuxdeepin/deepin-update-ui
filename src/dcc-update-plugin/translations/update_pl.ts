@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="pl">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="pl">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -12,7 +10,7 @@
     <name>MirrorSourcePopup</name>
     <message>
         <source>Connectivity Test</source>
-        <translation type="unfinished"></translation>
+        <translation>Test połączenia</translation>
     </message>
 </context>
 <context>
@@ -83,15 +81,15 @@
     </message>
     <message>
         <source>Vulnerability ID: </source>
-        <translation type="unfinished"></translation>
+        <translation>ID luki bezpieczeństwa: </translation>
     </message>
     <message>
         <source>Severity: </source>
-        <translation type="unfinished"></translation>
+        <translation>Poziom zagrożenia: </translation>
     </message>
     <message>
         <source>Description: </source>
-        <translation type="unfinished"></translation>
+        <translation>Opis: </translation>
     </message>
 </context>
 <context>
@@ -106,7 +104,7 @@
     </message>
     <message>
         <source>View More</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaż więcej</translation>
     </message>
     <message>
         <source>Collapse</source>
@@ -114,15 +112,15 @@
     </message>
     <message>
         <source>Vulnerability ID: </source>
-        <translation type="unfinished"></translation>
+        <translation>ID luki bezpieczeństwa: </translation>
     </message>
     <message>
         <source>Severity: </source>
-        <translation type="unfinished"></translation>
+        <translation>Poziom zagrożenia: </translation>
     </message>
     <message>
         <source>Description: </source>
-        <translation type="unfinished"></translation>
+        <translation>Opis: </translation>
     </message>
 </context>
 <context>
@@ -314,11 +312,11 @@
     </message>
     <message>
         <source>Install Now</source>
-        <translation type="unfinished"></translation>
+        <translation>Zainstaluj teraz</translation>
     </message>
     <message>
         <source>Check Again</source>
-        <translation type="unfinished">Sprawdź ponownie</translation>
+        <translation>Sprawdź ponownie</translation>
     </message>
 </context>
 <context>
@@ -389,7 +387,7 @@
     </message>
     <message>
         <source>To use this software, you must accept the %1 that accompanies software updates.</source>
-        <translation>Aby korzystać z tego oprogramowania, musisz zaakceptować %1 dołączoną do aktualizacji.</translation>
+        <translation>Korzystając z tego oprogramowania, musisz zaakceptować %1 dołączoną do aktualizacji.</translation>
     </message>
     <message>
         <source>Turn on the switches under Update Content to get better experiences</source>
@@ -409,19 +407,19 @@
     </message>
     <message>
         <source>will upgrade at %1</source>
-        <translation type="unfinished"></translation>
+        <translation>aktualizacja nastąpi o %1</translation>
     </message>
     <message>
         <source>will upgrade when shutdown</source>
-        <translation type="unfinished"></translation>
+        <translation>aktualizacja nastąpi po zamknięciu</translation>
     </message>
     <message>
         <source>Current Edition</source>
-        <translation type="unfinished"></translation>
+        <translation>Obecne wydanie</translation>
     </message>
     <message>
         <source>Baseline</source>
-        <translation type="unfinished"></translation>
+        <translation>Podstawa</translation>
     </message>
 </context>
 <context>
@@ -476,6 +474,22 @@
     <message>
         <source>Delivers  updates for additional repository sources</source>
         <translation>Zapewnia aktualizacje dla dodatkowych repozytoriów</translation>
+    </message>
+    <message>
+        <source>Delivery Optimization</source>
+        <translation>Współdzielenie pobierania</translation>
+    </message>
+    <message>
+        <source>When enabled, your device may share previously downloaded system updates with other devices on your local network.When you turn it off, cached files from update delivery will be cleared during the next restart.</source>
+        <translation>Po włączeniu, wcześniej pobrane aktualizacje zostaną udostępnione innym urządzeniom w sieci lokalnej. Jeśli zdecydujesz się wyłączyć tę opcję, pliki pamięci podręcznej aktualizacji zostaną wyczyszczone przy następnym uruchomieniu urządzenia.</translation>
+    </message>
+    <message>
+        <source>Delivery Optimization-Limit Speed</source>
+        <translation>Ograniczenie pobierania współdzielenia pobierania</translation>
+    </message>
+    <message>
+        <source>Delivery Optimization-Upload throttling</source>
+        <translation>Ograniczenie wysyłania współdzielenia pobierania</translation>
     </message>
     <message>
         <source>Limit Speed</source>
@@ -542,60 +556,44 @@
         <translation>Zwiń</translation>
     </message>
     <message>
+        <source>Only numbers between 10-999999 are allowed</source>
+        <translation>Dozwolone są tylko liczby w zakresie 10-999999</translation>
+    </message>
+    <message>
+        <source>Failed to change Delivery Optimization setting</source>
+        <translation>Nie udało się zmienić opcji współdzielenia pobierania</translation>
+    </message>
+    <message>
+        <source>Update Delivery Optimization service exception</source>
+        <translation>Zaktualizuj usługę współdzielenia pobierania</translation>
+    </message>
+    <message>
+        <source>Try again</source>
+        <translation>Spróbuj ponownie</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
         <source>Join the internal testing channel to get deepin latest updates.</source>
         <translation>Dołącz do wewnętrznego kanału testowego, aby uzyskać dostęp do najnowszych funkcji.</translation>
     </message>
     <message>
-        <source>Failed to change Delivery Optimization setting</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="unfinished">Anuluj</translation>
-    </message>
-    <message>
-        <source>Update Delivery Optimization service exception</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Try again</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delivery Optimization</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>When enabled, your device may share previously downloaded system updates with other devices on your local network.When you turn it off, cached files from update delivery will be cleared during the next restart.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delivery Optimization-Upload throttling</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Only numbers between 10-999999 are allowed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delivery Optimization-Limit Speed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Default Mirror Source</source>
-        <translation type="unfinished"></translation>
+        <translation>Domyślny mirror źródłowy</translation>
     </message>
     <message>
         <source>Untested</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieprzetestowane</translation>
     </message>
     <message>
         <source>Testing...</source>
-        <translation type="unfinished"></translation>
+        <translation>Testowanie...</translation>
     </message>
     <message>
         <source>Timeout</source>
-        <translation type="unfinished"></translation>
+        <translation>Upłynął limit czasu</translation>
     </message>
 </context>
 <context>
@@ -630,7 +628,7 @@
     </message>
     <message>
         <source>Update</source>
-        <translation>Aktualizuj</translation>
+        <translation>Aktualizacja</translation>
     </message>
     <message>
         <source>Please plug in and then install updates.</source>

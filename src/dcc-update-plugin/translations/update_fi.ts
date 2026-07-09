@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="fi">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="fi">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -12,7 +10,7 @@
     <name>MirrorSourcePopup</name>
     <message>
         <source>Connectivity Test</source>
-        <translation type="unfinished"></translation>
+        <translation>Yhteystesti</translation>
     </message>
 </context>
 <context>
@@ -83,15 +81,15 @@
     </message>
     <message>
         <source>Vulnerability ID: </source>
-        <translation type="unfinished"></translation>
+        <translation>Haavoittuvuuden tunnus: </translation>
     </message>
     <message>
         <source>Severity: </source>
-        <translation type="unfinished"></translation>
+        <translation>Vakavuus: </translation>
     </message>
     <message>
         <source>Description: </source>
-        <translation type="unfinished"></translation>
+        <translation>Kuvaus: </translation>
     </message>
 </context>
 <context>
@@ -106,7 +104,7 @@
     </message>
     <message>
         <source>View More</source>
-        <translation type="unfinished"></translation>
+        <translation>Näytä lisää</translation>
     </message>
     <message>
         <source>Collapse</source>
@@ -114,15 +112,15 @@
     </message>
     <message>
         <source>Vulnerability ID: </source>
-        <translation type="unfinished"></translation>
+        <translation>Haavoittuvuuden tunnus: </translation>
     </message>
     <message>
         <source>Severity: </source>
-        <translation type="unfinished"></translation>
+        <translation>Vakavuus: </translation>
     </message>
     <message>
         <source>Description: </source>
-        <translation type="unfinished"></translation>
+        <translation>Kuvaus: </translation>
     </message>
 </context>
 <context>
@@ -314,11 +312,11 @@
     </message>
     <message>
         <source>Install Now</source>
-        <translation type="unfinished"></translation>
+        <translation>Asenna nyt</translation>
     </message>
     <message>
         <source>Check Again</source>
-        <translation type="unfinished">Tarkista uudelleen</translation>
+        <translation>Tarkista uudelleen</translation>
     </message>
 </context>
 <context>
@@ -409,19 +407,19 @@
     </message>
     <message>
         <source>will upgrade at %1</source>
-        <translation type="unfinished"></translation>
+        <translation>päivitetään %1</translation>
     </message>
     <message>
         <source>will upgrade when shutdown</source>
-        <translation type="unfinished"></translation>
+        <translation>päivitetään kun tietokone sammuu</translation>
     </message>
     <message>
         <source>Current Edition</source>
-        <translation type="unfinished"></translation>
+        <translation>Nykyinen versio</translation>
     </message>
     <message>
         <source>Baseline</source>
-        <translation type="unfinished"></translation>
+        <translation>Lähtötilanne</translation>
     </message>
 </context>
 <context>
@@ -467,7 +465,7 @@
     </message>
     <message>
         <source>Delivers security updates</source>
-        <translation>Toimittaa tietoturvapäivityksiä</translation>
+        <translation>Tietoturvapäivityksiä</translation>
     </message>
     <message>
         <source>Third-party Updates</source>
@@ -475,7 +473,23 @@
     </message>
     <message>
         <source>Delivers  updates for additional repository sources</source>
-        <translation>Toimittaa päivityksiä ohjelma-arkistojen lähteille</translation>
+        <translation>Päivityksiä arkistojen lisälähteistä</translation>
+    </message>
+    <message>
+        <source>Delivery Optimization</source>
+        <translation>Jakelun optimointi</translation>
+    </message>
+    <message>
+        <source>When enabled, your device may share previously downloaded system updates with other devices on your local network.When you turn it off, cached files from update delivery will be cleared during the next restart.</source>
+        <translation>Kun tämä on käytössä, tietokoneesi voi jakaa aiemmin ladattuja päivityksiä muiden lähiverkon tietokoneiden kanssa. Poistamalla käytöstä, päivitysten välimuistissa olevat tiedostot poistetaan seuraavan käynnistyksen yhteydessä.</translation>
+    </message>
+    <message>
+        <source>Delivery Optimization-Limit Speed</source>
+        <translation>Jakelun nopeusrajoitus</translation>
+    </message>
+    <message>
+        <source>Delivery Optimization-Upload throttling</source>
+        <translation>Jakelun lähetysrajoitus</translation>
     </message>
     <message>
         <source>Limit Speed</source>
@@ -542,60 +556,44 @@
         <translation>Tiivistetty</translation>
     </message>
     <message>
+        <source>Only numbers between 10-999999 are allowed</source>
+        <translation>Numerot väliltä 10-999999 ovat sallittuja</translation>
+    </message>
+    <message>
+        <source>Failed to change Delivery Optimization setting</source>
+        <translation>Jakelun asetukset epäonnistui</translation>
+    </message>
+    <message>
+        <source>Update Delivery Optimization service exception</source>
+        <translation>Päivitä jakelupalvelun poikkeus</translation>
+    </message>
+    <message>
+        <source>Try again</source>
+        <translation>Yritä uudelleen</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Peruuta</translation>
+    </message>
+    <message>
         <source>Join the internal testing channel to get deepin latest updates.</source>
         <translation>Liity testauskanavaan ja saat viimeisimmät päivitykset.</translation>
     </message>
     <message>
-        <source>Failed to change Delivery Optimization setting</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="unfinished">Peruuta</translation>
-    </message>
-    <message>
-        <source>Update Delivery Optimization service exception</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Try again</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delivery Optimization</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>When enabled, your device may share previously downloaded system updates with other devices on your local network.When you turn it off, cached files from update delivery will be cleared during the next restart.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delivery Optimization-Upload throttling</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Only numbers between 10-999999 are allowed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delivery Optimization-Limit Speed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Default Mirror Source</source>
-        <translation type="unfinished"></translation>
+        <translation>Lähteen oletuspeili</translation>
     </message>
     <message>
         <source>Untested</source>
-        <translation type="unfinished"></translation>
+        <translation>Testaamaton</translation>
     </message>
     <message>
         <source>Testing...</source>
-        <translation type="unfinished"></translation>
+        <translation>Testataan...</translation>
     </message>
     <message>
         <source>Timeout</source>
-        <translation type="unfinished"></translation>
+        <translation>Aikakatkaisu</translation>
     </message>
 </context>
 <context>

@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="zh_CN">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="zh_CN">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -289,14 +287,6 @@
         <translation>安装更新</translation>
     </message>
     <message>
-        <source>Install Now</source>
-        <translation>立即更新</translation>
-    </message>
-    <message>
-        <source>Check Again</source>
-        <translation>重新检查更新</translation>
-    </message>
-    <message>
         <source>Update download failed</source>
         <translation>更新下载失败</translation>
     </message>
@@ -320,17 +310,17 @@
         <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
         <translation>可设置系統更新、安全更新、闲时更新、更新提醒等</translation>
     </message>
+    <message>
+        <source>Install Now</source>
+        <translation>立即更新</translation>
+    </message>
+    <message>
+        <source>Check Again</source>
+        <translation>重新检查更新</translation>
+    </message>
 </context>
 <context>
     <name>UpdateModel</name>
-    <message>
-        <source>Current Edition</source>
-        <translation>私有化更新版本号</translation>
-    </message>
-    <message>
-        <source>Baseline</source>
-        <translation>补丁版本号</translation>
-    </message>
     <message>
         <source>Checking for updates, please wait…</source>
         <translation>正在检查更新，请等待…</translation>
@@ -404,14 +394,6 @@
         <translation>开启更新内容开关，可以获得更优质的功能体验哦</translation>
     </message>
     <message>
-        <source>will upgrade when shutdown</source>
-        <translation>系统将在计算机关机或重启时进行更新</translation>
-    </message>
-    <message>
-        <source>will upgrade at %1</source>
-        <translation>将于%1开始系统更新</translation>
-    </message>
-    <message>
         <source>Your system is not activated, and it failed to connect to update services</source>
         <translation>当前系统未激活，无法启动更新服务</translation>
     </message>
@@ -422,6 +404,22 @@
     <message>
         <source>The system has enabled auto recovery function and does not support updates. If you have any questions, please contact the enterprise administrator</source>
         <translation>系统已开启无忧还原功能，不支持更新，如有疑问请联系企业管理员</translation>
+    </message>
+    <message>
+        <source>will upgrade at %1</source>
+        <translation>将于%1开始系统更新</translation>
+    </message>
+    <message>
+        <source>will upgrade when shutdown</source>
+        <translation>系统将在计算机关机或重启时进行更新</translation>
+    </message>
+    <message>
+        <source>Current Edition</source>
+        <translation>私有化更新版本号</translation>
+    </message>
+    <message>
+        <source>Baseline</source>
+        <translation>补丁版本号</translation>
     </message>
 </context>
 <context>
