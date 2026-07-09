@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="sq">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="sq">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -12,7 +10,7 @@
     <name>MirrorSourcePopup</name>
     <message>
         <source>Connectivity Test</source>
-        <translation type="unfinished"></translation>
+        <translation>Testim Lidhjeje</translation>
     </message>
 </context>
 <context>
@@ -83,15 +81,15 @@
     </message>
     <message>
         <source>Vulnerability ID: </source>
-        <translation type="unfinished"></translation>
+        <translation>ID Cenueshmërie: </translation>
     </message>
     <message>
         <source>Severity: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Description: </source>
-        <translation type="unfinished"></translation>
+        <translation>Përshkrim: </translation>
     </message>
 </context>
 <context>
@@ -114,15 +112,15 @@
     </message>
     <message>
         <source>Vulnerability ID: </source>
-        <translation type="unfinished"></translation>
+        <translation>ID Cenueshmërie: </translation>
     </message>
     <message>
         <source>Severity: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Description: </source>
-        <translation type="unfinished"></translation>
+        <translation>Përshkrim: </translation>
     </message>
 </context>
 <context>
@@ -314,11 +312,11 @@
     </message>
     <message>
         <source>Install Now</source>
-        <translation type="unfinished"></translation>
+        <translation>Instaloje Tani</translation>
     </message>
     <message>
         <source>Check Again</source>
-        <translation type="unfinished">Rikontrollo</translation>
+        <translation>Rikontrollo</translation>
     </message>
 </context>
 <context>
@@ -409,19 +407,19 @@
     </message>
     <message>
         <source>will upgrade at %1</source>
-        <translation type="unfinished"></translation>
+        <translation>do të përmirësohet më %1</translation>
     </message>
     <message>
         <source>will upgrade when shutdown</source>
-        <translation type="unfinished"></translation>
+        <translation>do të përmirësohet pasi të fiket</translation>
     </message>
     <message>
         <source>Current Edition</source>
-        <translation type="unfinished"></translation>
+        <translation>Edicioni i Tanishëm</translation>
     </message>
     <message>
         <source>Baseline</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -476,6 +474,22 @@
     <message>
         <source>Delivers  updates for additional repository sources</source>
         <translation>Sjell përditësime për burime shtesë deposh</translation>
+    </message>
+    <message>
+        <source>Delivery Optimization</source>
+        <translation>Optimizim Dhënieje</translation>
+    </message>
+    <message>
+        <source>When enabled, your device may share previously downloaded system updates with other devices on your local network.When you turn it off, cached files from update delivery will be cleared during the next restart.</source>
+        <translation>Kur aktivizohet, pajisja juaj mund të japë përditësime sistemi të shkarkuara më herët, për pajisje të tjera në rrjetin tuaj vendor.Kur e çaktivizoni, kartelat e ruajtura në fshehtinë prej dhënies së përditësimeve do të spastrohen gjatë nisjes pasuese.</translation>
+    </message>
+    <message>
+        <source>Delivery Optimization-Limit Speed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Delivery Optimization-Upload throttling</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Limit Speed</source>
@@ -542,60 +556,44 @@
         <translation>Palose</translation>
     </message>
     <message>
+        <source>Only numbers between 10-999999 are allowed</source>
+        <translation>Lejohen vetëm numra nga 10-999999</translation>
+    </message>
+    <message>
+        <source>Failed to change Delivery Optimization setting</source>
+        <translation>S’u arrit të ndryshohet rregullimi Optimizim Dhënieje</translation>
+    </message>
+    <message>
+        <source>Update Delivery Optimization service exception</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Try again</source>
+        <translation>Riprovoni</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuloje</translation>
+    </message>
+    <message>
         <source>Join the internal testing channel to get deepin latest updates.</source>
         <translation>Që të merrni përditësimet më të reja të deepin-it, bëhuni pjesë e kanalit të brendshëm të testimeve.</translation>
     </message>
     <message>
-        <source>Failed to change Delivery Optimization setting</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="unfinished">Anuloje</translation>
-    </message>
-    <message>
-        <source>Update Delivery Optimization service exception</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Try again</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delivery Optimization</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>When enabled, your device may share previously downloaded system updates with other devices on your local network.When you turn it off, cached files from update delivery will be cleared during the next restart.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delivery Optimization-Upload throttling</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Only numbers between 10-999999 are allowed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delivery Optimization-Limit Speed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Default Mirror Source</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Untested</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Testing...</source>
-        <translation type="unfinished"></translation>
+        <translation>Po testohet…</translation>
     </message>
     <message>
         <source>Timeout</source>
-        <translation type="unfinished"></translation>
+        <translation>Mbarim kohe</translation>
     </message>
 </context>
 <context>
