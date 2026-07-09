@@ -3,23 +3,23 @@
     <name>PluginUpdatePlugin</name>
     <message>
         <source>Restart to finish installing</source>
-        <translation type="unfinished"/>
+        <translation>Reinicie para concluir a instalação</translation>
     </message>
     <message>
         <source>Install updates to get the latest features and security improvements.</source>
-        <translation type="unfinished"/>
+        <translation>Instale as atualizações para obter os recursos mais recentes e melhorias de segurança.</translation>
     </message>
     <message>
         <source>New updates are available, Restart to finish installing.</source>
-        <translation type="unfinished"/>
+        <translation>Novas atualizações estão disponíveis. Reinicie para concluir a instalação.</translation>
     </message>
     <message>
         <source>Open Update</source>
-        <translation type="unfinished"/>
+        <translation>Abrir atualizações</translation>
     </message>
     <message>
         <source>Update status</source>
-        <translation>Status de atualização</translation>
+        <translation>Status da atualização</translation>
     </message>
 </context>
 </TS>
