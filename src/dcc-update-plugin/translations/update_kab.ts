@@ -7,6 +7,13 @@
     </message>
 </context>
 <context>
+    <name>MirrorSourcePopup</name>
+    <message>
+        <source>Connectivity Test</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>QObject</name>
     <message>
         <source>Fixed some known bugs and security vulnerabilities</source>
@@ -72,6 +79,18 @@
         <source>Version:</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Vulnerability ID: </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Severity: </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Description: </source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>UpdateList</name>
@@ -90,6 +109,18 @@
     <message>
         <source>Collapse</source>
         <translation>Réduire</translation>
+    </message>
+    <message>
+        <source>Vulnerability ID: </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Severity: </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Description: </source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -279,6 +310,14 @@
         <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Install Now</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Check Again</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>UpdateModel</name>
@@ -366,6 +405,22 @@
         <source>The system has enabled auto recovery function and does not support updates. If you have any questions, please contact the enterprise administrator</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>will upgrade at %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>will upgrade when shutdown</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Current Edition</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Baseline</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>UpdateSelectDialog</name>
@@ -418,6 +473,22 @@
     </message>
     <message>
         <source>Delivers  updates for additional repository sources</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Delivery Optimization</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>When enabled, your device may share previously downloaded system updates with other devices on your local network.When you turn it off, cached files from update delivery will be cleared during the next restart.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Delivery Optimization-Limit Speed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Delivery Optimization-Upload throttling</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -485,11 +556,43 @@
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Only numbers between 1-99999 are allowed</source>
+        <source>Only numbers between 10-999999 are allowed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to change Delivery Optimization setting</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Update Delivery Optimization service exception</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Try again</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cancel</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>Join the internal testing channel to get deepin latest updates.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Default Mirror Source</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Untested</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Testing...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Timeout</source>
         <translation type="unfinished"/>
     </message>
 </context>
