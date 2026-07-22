@@ -58,7 +58,7 @@ include(GNUInstallDirs)
 ## qm files
 install(FILES ${TR_QM_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}/translations)
 
-install(TARGETS ${UPDATE_EXEC_NAME} DESTINATION ${CMAKE_INSTALL_BINDIR})
+install(TARGETS ${UPDATE_EXEC_NAME} DESTINATION ${CMAKE_INSTALL_LIBEXECDIR}/deepin)
 
 install(FILES "misc/99_system_upgrade_conf.json"
         DESTINATION ${CMAKE_INSTALL_DATADIR}/dde-session-shell/greeters.d/launch.conf.d)
@@ -86,7 +86,9 @@ install(PROGRAMS "misc/98deepin-upgrade-check"
         DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/X11/Xsession.d)
 
 install(PROGRAMS 
+        "misc/dde-update"
         "misc/system_upgrade_check.sh"
         "misc/run-kwayland-check-wrapper.sh"
         "misc/run-kwayland-check.sh"
+        "misc/launch-dde-update"
         DESTINATION ${CMAKE_INSTALL_BINDIR})
