@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
+        <file>misc/org.deepin.dde-update.json</file>
         <file>img/failed.svg</file>
         <file>img/success.svg</file>
         <file>img/uos_logo.svg</file>

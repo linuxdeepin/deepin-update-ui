@@ -42,4 +42,4 @@ fi
 
 #崩溃后重新登录会冲掉崩溃时候的kwin日志，此处加入一次拷贝，保证可以获取到kwin崩溃时候的那次日志
 mv $HOME/.kwin.log $HOME/.kwin-old.log
-/usr/bin/kwin_wayland  --exit-with-session=/usr/bin/dde-update -platform wayland-org.kde.kwin.qpa --xwayland --drm --no-lockscreen 1> $HOME/.kwin.log 2>&1
+/usr/bin/kwin_wayland  --exit-with-session=/usr/bin/launch-dde-update -platform wayland-org.kde.kwin.qpa --xwayland --drm --no-lockscreen 1> $HOME/.kwin.log 2>&1
