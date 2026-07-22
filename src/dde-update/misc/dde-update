@@ -1,0 +1,157 @@
+#!/bin/bash
+#SPDX-FileCopyrightText: 2026 UnionTech Software Technology Co., Ltd.
+#
+#SPDX-License-Identifier: GPL-3.0-or-later
+
+TAG="dde-update"
+
+# 解析 --wait 参数: 启用时创建 FIFO 阻塞等待 dde-update 退出
+wait_mode=false
+pass_args=()
+for arg in "$@"; do
+    if [ "$arg" = "--wait" ]; then
+        wait_mode=true
+    else
+        pass_args+=("$arg")
+    fi
+done
+
+logger -t "$TAG" -p daemon.info "Starting dde-update via deepin-security-loader, args: ${pass_args[*]}, wait_mode: $wait_mode"
+
+if [ "$wait_mode" = "false" ]; then
+    # 非 wait 模式: 直接启动, 不阻塞
+    exec /usr/bin/deepin-security-loader --group deepin-daemon -- /usr/libexec/deepin/dde-update "${pass_args[@]}"
+fi
+
+# === wait 模式: FIFO + PID 跟踪 + 看门狗兜底 ===
+
+# 在私有临时目录中创建 FIFO, 避免 TOCTOU 竞态
+notify_dir=$(mktemp -d /tmp/dde-update-notify.XXXXXX) || {
+    logger -t "$TAG" -p daemon.err "Failed to create temp dir"
+    exit 1
+}
+chmod 700 "$notify_dir"
+notify_fifo="$notify_dir/notify.fifo"
+if ! mkfifo "$notify_fifo"; then
+    logger -t "$TAG" -p daemon.err "Failed to create FIFO: $notify_fifo"
+    rm -rf "$notify_dir"
+    exit 1
+fi
+logger -t "$TAG" -p daemon.info "Created notify FIFO: $notify_fifo"
+
+# 先打开双向 fd 持有读端, 防止 dde-update 竞态 open 失败
+exec 3<> "$notify_fifo" || {
+    logger -t "$TAG" -p daemon.err "Failed to open FIFO fd 3"
+    rm -rf "$notify_dir"
+    exit 1
+}
+logger -t "$TAG" -p daemon.info "FIFO fd 3 opened OK"
+
+# 看门狗 PID, 用于信号清理
+watchdog_pid=""
+
+# 清理函数: 关闭 fd、杀看门狗进程组、删临时目录。
+# 幂等, 可被 trap 和正常退出路径多次调用。
+cleanup() {
+    trap - INT TERM EXIT 2>/dev/null
+    if [ -n "$watchdog_pid" ]; then
+        kill -- -"$watchdog_pid" 2>/dev/null
+        wait "$watchdog_pid" 2>/dev/null
+        logger -t "$TAG" -p daemon.info "Watchdog (pgid=$watchdog_pid) cleaned up"
+    fi
+    exec 3>&- 2>/dev/null
+    rm -rf "$notify_dir" 2>/dev/null
+}
+trap cleanup INT TERM EXIT
+
+# security-loader 通过 setsid 将 dde-update 脱离当前会话启动, 无法阻塞等待;
+# --notify-fifo 透传给 dde-update, 启动时写 PID:xxx, 退出时写 EXIT。
+/usr/bin/deepin-security-loader --group deepin-daemon -- /usr/libexec/deepin/dde-update "${pass_args[@]}" --notify-fifo "$notify_fifo"
+rc=$?
+logger -t "$TAG" -p daemon.info "security-loader exited with code $rc"
+
+# 读取 dde-update 上报的 PID (30 秒超时, 处理启动前崩溃)
+if read -r -t 30 pid_line <&3; then
+    target_pid=$(echo "$pid_line" | sed -n 's/^PID:\([0-9]*\)$/\1/p')
+    if [ -z "$target_pid" ] || ! [ "$target_pid" -gt 0 ] 2>/dev/null; then
+        logger -t "$TAG" -p daemon.err "Unexpected or invalid FIFO data (not a PID): $pid_line, aborting"
+        exit 1
+    fi
+    logger -t "$TAG" -p daemon.info "Received PID from dde-update: $target_pid"
+else
+    # 无 PID 时不能继续阻塞: 3<> 持有写端, read 永远不会 EOF, 必须主动退出
+    logger -t "$TAG" -p daemon.err "Timeout waiting for PID from dde-update (30s), dde-update may have crashed before startup, aborting"
+    exit 1
+fi
+
+# 记录目标进程的启动时间, 防止 PID 复用导致误判
+target_starttime=$(awk '{n=split($0,a,") "); split(a[2],b," "); print b[20]}' /proc/$target_pid/stat 2>/dev/null)
+if [ -z "$target_starttime" ]; then
+    logger -t "$TAG" -p daemon.warning "Cannot read starttime for PID $target_pid, process may have already exited"
+fi
+logger -t "$TAG" -p daemon.info "Target PID: $target_pid, starttime: ${target_starttime:-unknown}"
+
+# 看门狗: dde-update 崩溃(SIGKILL/SEGV)时无法通知, 用 kill -0 + starttime 比较跟踪目标 PID。
+# 使用 setsid 放入独立进程组, 清理时杀整个进程组避免遗留孤儿 sleep。
+# 降级策略: starttime 为空时先 kill -0 判断进程是否仍存活,
+#   - 已消失: 直接发 EXIT 解除主循环阻塞 (PID 上报后立即崩溃的场景)
+#   - 仍存活但无法读 /proc: 启动仅基于 kill -0 的降级看门狗, 跳过 starttime 比较
+if [ -n "$target_starttime" ]; then
+    setsid bash -c '
+        sleep 2
+        while true; do
+            if ! kill -0 '"$target_pid"' 2>/dev/null; then
+                break
+            fi
+            current_starttime=$(awk "{n=split(\$0,a,\") \"); split(a[2],b,\" \"); print b[20]}" /proc/'"$target_pid"'/stat 2>/dev/null)
+            if [ "$current_starttime" != "'"$target_starttime"'" ]; then
+                logger -t "'"$TAG"'" "Watchdog: PID '"$target_pid"' reused (starttime changed: '"$target_starttime"' -> ${current_starttime:-N/A}), treating as exited"
+                break
+            fi
+            sleep 300
+        done
+        logger -t "'"$TAG"'" "Watchdog: dde-update (PID '"$target_pid"') no longer running, sending fallback notify"
+        echo "EXIT" > "'"$notify_fifo"'" 2>/dev/null
+    ' &
+    watchdog_pid=$!
+    logger -t "$TAG" -p daemon.info "Watchdog started (pgid=$watchdog_pid), tracking PID $target_pid (starttime=$target_starttime)"
+elif ! kill -0 "$target_pid" 2>/dev/null; then
+    # PID 已消失 (上报后立即崩溃): 直接发 EXIT, 无需看门狗
+    logger -t "$TAG" -p daemon.warning "PID $target_pid already gone (crashed after PID report), sending EXIT now"
+    echo "EXIT" > "$notify_fifo" 2>/dev/null
+else
+    # 进程仍存活但无法读 starttime: 降级看门狗, 仅用 kill -0, 不做 starttime 比较
+    logger -t "$TAG" -p daemon.warning "No starttime for PID $target_pid, starting degraded watchdog (kill -0 only)"
+    setsid bash -c '
+        sleep 2
+        while kill -0 '"$target_pid"' 2>/dev/null; do
+            sleep 300
+        done
+        logger -t "'"$TAG"'" "Watchdog(degraded): dde-update (PID '"$target_pid"') no longer running, sending fallback notify"
+        echo "EXIT" > "'"$notify_fifo"'" 2>/dev/null
+    ' &
+    watchdog_pid=$!
+    logger -t "$TAG" -p daemon.info "Degraded watchdog started (pgid=$watchdog_pid), tracking PID $target_pid"
+fi
+
+# 阻塞等待退出通知
+# FIFO 协议: PID:xxx = 进程上报, EXIT = 退出通知
+# 迟到的 PID 不能被误认为退出通知, 只接受 EXIT 行
+while read -r notify_line <&3; do
+    case "$notify_line" in
+        EXIT)
+            logger -t "$TAG" -p daemon.info "Received exit notify from FIFO"
+            break
+            ;;
+        PID:*)
+            logger -t "$TAG" -p daemon.warning "Received late PID message (ignored): $notify_line"
+            ;;
+        *)
+            logger -t "$TAG" -p daemon.warning "Unexpected FIFO data: $notify_line"
+            ;;
+    esac
+done
+
+logger -t "$TAG" -p daemon.info "dde-update finished, FIFO cleaning up"
+# cleanup 由 trap EXIT 触发, 负责关闭 fd3、杀看门狗、删临时目录 (rm -rf 幂等)
+exit 0
