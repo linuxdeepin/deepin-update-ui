@@ -1,4 +1,4 @@
 {
-    "ExecPath": "/usr/bin/dde-update",
+    "ExecPath": "/usr/libexec/deepin/dde-update",
     "NeedExecScript": "/usr/bin/system_upgrade_check.sh"
 }

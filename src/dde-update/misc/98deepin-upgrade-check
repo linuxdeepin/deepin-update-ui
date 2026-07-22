@@ -18,7 +18,7 @@ if [ "$XDG_SESSION_TYPE" = "x11" ]; then
                     export $scale_env
                 fi
             fi
-            /usr/bin/dde-update
+            /usr/bin/dde-update --wait
         )
     fi
 elif [ "$XDG_SESSION_TYPE" = "wayland" ]; then

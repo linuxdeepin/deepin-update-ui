@@ -1,0 +1,8 @@
+#!/bin/bash
+#SPDX-FileCopyrightText: 2026 UnionTech Software Technology Co., Ltd.
+#
+#SPDX-License-Identifier: GPL-3.0-or-later
+# launch-dde-update: 由 kwin --exit-with-session 调用, 作为中间层将 --wait 透传给 dde-update wrapper。
+# --exit-with-session 只接受路径不支持传参, 因此需要一个中间脚本。
+# 使用 exec 保持 PID 不变, 以便 kwin --exit-with-session 正确跟踪生命周期。
+exec /usr/bin/dde-update --wait
