@@ -1,3 +1,12 @@
+deepin-update-ui (1.0.60) unstable; urgency=medium
+
+  * fix(CI): broken cppcheck
+  * feat: integrate security-loader and FIFO-based lifecycle management
+    for dde-update
+  * fix: add FIFO validation to prevent arbitrary file writes
+
+ -- zhangkun <zhangkun2@uniontech.com>  Thu, 23 Jul 2026 21:50:21 +0800
+
 deepin-update-ui (1.0.59) unstable; urgency=medium
 
   * fix: improve security update label formatting and translations
