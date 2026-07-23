@@ -24,6 +24,7 @@
 #include <poll.h>
 #include <cerrno>
 #include <cstring>
+#include <sys/stat.h>
 
 Q_LOGGING_CATEGORY(logUpdateModal, "dde.update.modalupdate")
 
@@ -86,12 +87,20 @@ private:
         if (m_path.isEmpty()) {
             return;
         }
-        // Write our PID so the wrapper can track this exact process via kill -0.
+        // Open first, then verify it's a FIFO via fstat().
+        // This avoids the TOCTOU race of stat() before open().
         int fd = open(m_path.toUtf8().constData(), O_WRONLY | O_NONBLOCK);
         if (fd < 0) {
             qCWarning(logUpdateModal) << "FifoNotifier: cannot report PID, open failed:" << strerror(errno);
             return;
         }
+        struct stat st;
+        if (fstat(fd, &st) != 0 || !S_ISFIFO(st.st_mode)) {
+            qCWarning(logUpdateModal) << "FifoNotifier: path is not a FIFO, cannot report PID";
+            close(fd);
+            return;
+        }
+        // Write our PID so the wrapper can track this exact process via kill -0.
         QByteArray msg = "PID:" + QByteArray::number(getpid()) + "\n";
         bool ok = writeAllFifo(fd, msg, 5000);
         close(fd);
@@ -108,11 +117,19 @@ private:
             return;
         }
         qCInfo(logUpdateModal) << "FifoNotifier: notifying FIFO" << m_path;
+        // Open first, then verify it's a FIFO via fstat().
+        // This avoids the TOCTOU race of stat() before open().
         // O_NONBLOCK so we don't hang if the reader already closed;
         // the script opens fd 3<> before launching us so a reader exists.
         int fd = open(m_path.toUtf8().constData(), O_WRONLY | O_NONBLOCK);
         if (fd < 0) {
             qCWarning(logUpdateModal) << "FifoNotifier: cannot open" << m_path << ":" << strerror(errno);
+            return;
+        }
+        struct stat st;
+        if (fstat(fd, &st) != 0 || !S_ISFIFO(st.st_mode)) {
+            qCWarning(logUpdateModal) << "FifoNotifier: path is not a FIFO, cannot notify";
+            close(fd);
             return;
         }
         // Write "EXIT\n" to signal exit to the wrapper.
