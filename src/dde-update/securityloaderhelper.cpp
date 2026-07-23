@@ -18,6 +18,7 @@
 #include <cstring>
 #include <cstdlib>
 #include <climits>
+#include <sys/stat.h>
 
 static const QString DEFAULT_AUTH_RESOURCE = ":/misc/org.deepin.dde-update.json";
 // Upper bound for the authorization response to guard against a misbehaving
@@ -65,6 +66,14 @@ LoaderHandshakeInfo SecurityLoaderHelper::parseLoaderArgs(int argc, char *argv[]
                 continue;
             }
             info.fd1 = static_cast<int>(fd);
+            // Verify the fd is actually a FIFO to prevent writing
+            // authorization data to arbitrary open files.
+            struct stat st;
+            if (fstat(info.fd1, &st) != 0 || !S_ISFIFO(st.st_mode)) {
+                qWarning() << "fd1 is not a FIFO, ignoring";
+                info.fd1 = -1;
+                continue;
+            }
             info.isLoadedByLoader = true;
         } else if (strcmp(argv[i], "--fd2") == 0 && i + 1 < argc) {
             const char *val = argv[++i];
@@ -77,6 +86,14 @@ LoaderHandshakeInfo SecurityLoaderHelper::parseLoaderArgs(int argc, char *argv[]
                 continue;
             }
             info.fd2 = static_cast<int>(fd);
+            // Verify the fd is actually a FIFO to prevent writing
+            // authorization data to arbitrary open files.
+            struct stat st;
+            if (fstat(info.fd2, &st) != 0 || !S_ISFIFO(st.st_mode)) {
+                qWarning() << "fd2 is not a FIFO, ignoring";
+                info.fd2 = -1;
+                continue;
+            }
         }
     }
 
