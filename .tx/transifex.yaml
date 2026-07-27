@@ -18,7 +18,7 @@ filters:
     source_file: src/dock-update-plugin/translations/dock-update-plugin_en.ts
     file_format: QT
     source_language: en_US
-    translation_files_expression: src/ddock-update-plugin/translations/dock-update-plugin_<lang>.ts
+    translation_files_expression: src/dock-update-plugin/translations/dock-update-plugin_<lang>.ts
   - filter_type: file
     source_file: src/private-lastore-tray/translations/private-lastore-tray_en.ts
     file_format: QT
