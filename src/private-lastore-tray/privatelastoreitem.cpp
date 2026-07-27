@@ -46,6 +46,15 @@ void PrivateLastoreItem::refreshTrayIcon()
     m_icon->setContentsMargins(0, 0, 0, 0);
 }
 
+void PrivateLastoreItem::setAnimationPaused(bool paused)
+{
+    if (paused) {
+        m_icon->stopAnimation();
+    } else {
+        onStartAnimation("");
+    }
+}
+
 void PrivateLastoreItem::onRefreshIcon(const QList<QDBusObjectPath> &jobs)
 {
     qInfo() << "Update job list changed";
