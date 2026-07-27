@@ -121,6 +121,7 @@ void PrivateLastorePlugin::updateDockHiddenSurfaceIds(bool shouldHide)
 {
     const QString surfaceId = "private-lastore::private-lastore";
     QStringList hiddenIds = m_dockTrayConfig->value("dockHiddenSurfaceIds").toStringList();
+    m_item->setAnimationPaused(shouldHide);
 
     if (shouldHide) {
         // 添加到隐藏列表

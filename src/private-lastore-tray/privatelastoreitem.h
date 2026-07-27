@@ -27,6 +27,7 @@ public:
 
     QWidget *tipsWidget();
     void refreshTrayIcon();
+    void setAnimationPaused(bool paused);
 
 protected:
     void resizeEvent(QResizeEvent *e);
