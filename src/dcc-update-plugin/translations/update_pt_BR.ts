@@ -3,7 +3,7 @@
     <name>CheckUpdate</name>
     <message>
         <source>Last check: </source>
-        <translation>Última verificação:</translation>
+        <translation>Última verificação: </translation>
     </message>
 </context>
 <context>
