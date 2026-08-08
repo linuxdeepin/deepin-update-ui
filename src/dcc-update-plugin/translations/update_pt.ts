@@ -445,39 +445,39 @@
     <name>UpdateSetting</name>
     <message>
         <source>Smart Mirror Switch</source>
-        <translation type="unfinished"/>
+        <translation>Interruptor Inteligente de Mirror</translation>
     </message>
     <message>
         <source>Update Type</source>
-        <translation type="unfinished"/>
+        <translation>Tipo de Atualização</translation>
     </message>
     <message>
         <source>Function Updates</source>
-        <translation type="unfinished"/>
+        <translation>Atualizações de Função</translation>
     </message>
     <message>
         <source>Delivers a cumulative update including new features, quality updates, and  security updates</source>
-        <translation type="unfinished"/>
+        <translation>Entrega uma atualização cumulativa incluindo nova funcionalidades, atualizações de qualidade, e atualizações de segurança</translation>
     </message>
     <message>
         <source>Security Updates</source>
-        <translation type="unfinished"/>
+        <translation>Atualizações de Segurança</translation>
     </message>
     <message>
         <source>Delivers security updates</source>
-        <translation type="unfinished"/>
+        <translation>Entrega atualizações de segurança</translation>
     </message>
     <message>
         <source>Third-party Updates</source>
-        <translation type="unfinished"/>
+        <translation>Atualizações de Terceiros</translation>
     </message>
     <message>
         <source>Delivers  updates for additional repository sources</source>
-        <translation type="unfinished"/>
+        <translation>Entrega atualizações para fontes de repositórios adicionais</translation>
     </message>
     <message>
         <source>Delivery Optimization</source>
-        <translation type="unfinished"/>
+        <translation>Otimização de Entrega</translation>
     </message>
     <message>
         <source>When enabled, your device may share previously downloaded system updates with other devices on your local network.When you turn it off, cached files from update delivery will be cleared during the next restart.</source>
