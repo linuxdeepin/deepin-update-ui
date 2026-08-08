@@ -10,7 +10,7 @@
     <name>TipsWidget</name>
     <message>
         <source>Download complete</source>
-        <translation>Transferência completa</translation>
+        <translation>Transferência teminada</translation>
     </message>
     <message>
         <source>Updates will begin on the next shutdown or restart</source>
@@ -22,7 +22,7 @@
     </message>
     <message>
         <source>Download complete. Please open Control Center to check.</source>
-        <translation>Transferência completa. Por favor abra o Centro de Controlo para verificar.</translation>
+        <translation>Transferência terminada. Por favor abra o Centro de Controlo para verificar.</translation>
     </message>
     <message>
         <source>Changing download speed limit. Please wait</source>
@@ -30,7 +30,7 @@
     </message>
     <message>
         <source>Upgrade complete. Please reboot.</source>
-        <translation>Atualização completada. Por favor reinicie.</translation>
+        <translation>Atualização terminada. Por favor reinicie.</translation>
     </message>
     <message>
         <source>Upgrade failed. Please check.</source>
@@ -50,23 +50,23 @@
     </message>
     <message>
         <source>Downloading</source>
-        <translation>A descarregar</translation>
+        <translation>A transferir</translation>
     </message>
     <message>
         <source>Current download progress</source>
-        <translation type="unfinished"/>
+        <translation>Progresso atual da transferência</translation>
     </message>
     <message>
         <source>Current speed</source>
-        <translation type="unfinished"/>
+        <translation>Velocidade atual</translation>
     </message>
     <message>
         <source>Installing</source>
-        <translation type="unfinished"/>
+        <translation>A instalar</translation>
     </message>
     <message>
         <source>Enterprise Upgrade Management System</source>
-        <translation type="unfinished"/>
+        <translation>Sistema de Gestão de Atualização Empresarial</translation>
     </message>
 </context>
 </TS>
