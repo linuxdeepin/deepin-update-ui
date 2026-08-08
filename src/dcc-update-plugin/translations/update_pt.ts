@@ -375,51 +375,51 @@
     </message>
     <message>
         <source>The repository source configuration is not valid, please check and try again.</source>
-        <translation type="unfinished"/>
+        <translation>A configuração da origem do repositório não é válida, por favor verifique e tente novamente.</translation>
     </message>
     <message>
         <source>Check Again</source>
-        <translation type="unfinished"/>
+        <translation>Verificar Novamente</translation>
     </message>
     <message>
         <source>Privacy Policy</source>
-        <translation type="unfinished"/>
+        <translation>Política de Privacidade</translation>
     </message>
     <message>
         <source>To use this software, you must accept the %1 that accompanies software updates.</source>
-        <translation type="unfinished"/>
+        <translation>Para usar este programa, tem de aceitar %1 que acompanham as atualizações do programa</translation>
     </message>
     <message>
         <source>Turn on the switches under Update Content to get better experiences</source>
-        <translation type="unfinished"/>
+        <translation>Ligue os interruptores debaixo do Conteúdo da Atualização para ter uma experiência melhor</translation>
     </message>
     <message>
         <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation type="unfinished"/>
+        <translation>O seu sistema não está ativado, e falhou a conexão aos serviços de atualização</translation>
     </message>
     <message>
         <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation type="unfinished"/>
+        <translation>As atualizações de sistema estão desativadas. Por favor contacto o seu administrador para ajuda</translation>
     </message>
     <message>
         <source>The system has enabled auto recovery function and does not support updates. If you have any questions, please contact the enterprise administrator</source>
-        <translation type="unfinished"/>
+        <translation>O sistema ativou a funcionalidade de auto recuperação e não suporta atualizações. Se tem alguma questão, por favor contacte o seu administrador empresarial</translation>
     </message>
     <message>
         <source>will upgrade at %1</source>
-        <translation type="unfinished"/>
+        <translation>irá atualizar em %1</translation>
     </message>
     <message>
         <source>will upgrade when shutdown</source>
-        <translation type="unfinished"/>
+        <translation>irá atualizar quando encerrar</translation>
     </message>
     <message>
         <source>Current Edition</source>
-        <translation type="unfinished"/>
+        <translation>Edição Atual</translation>
     </message>
     <message>
         <source>Baseline</source>
-        <translation type="unfinished"/>
+        <translation>Linha de base</translation>
     </message>
 </context>
 <context>
