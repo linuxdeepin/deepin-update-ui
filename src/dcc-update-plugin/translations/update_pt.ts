@@ -549,51 +549,51 @@
     </message>
     <message>
         <source>Expand</source>
-        <translation type="unfinished"/>
+        <translation>Expandir</translation>
     </message>
     <message>
         <source>Collapse</source>
-        <translation type="unfinished"/>
+        <translation>Colapsar</translation>
     </message>
     <message>
         <source>Only numbers between 10-999999 are allowed</source>
-        <translation type="unfinished"/>
+        <translation>Apenas números entre 10-999999 são permitidos</translation>
     </message>
     <message>
         <source>Failed to change Delivery Optimization setting</source>
-        <translation type="unfinished"/>
+        <translation>Falha ao alterar a definição de Otimização de Entrega</translation>
     </message>
     <message>
         <source>Update Delivery Optimization service exception</source>
-        <translation type="unfinished"/>
+        <translation>Exceção do serviço de Otimização de Entrega de Atualizações</translation>
     </message>
     <message>
         <source>Try again</source>
-        <translation type="unfinished"/>
+        <translation>Tentar novamente</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Cancelar</translation>
     </message>
     <message>
         <source>Join the internal testing channel to get deepin latest updates.</source>
-        <translation type="unfinished"/>
+        <translation>Junte-se ao canal de testes interno para obter as últimas atualizações do deepin.</translation>
     </message>
     <message>
         <source>Default Mirror Source</source>
-        <translation type="unfinished"/>
+        <translation>Fonte Padrão do Mirror</translation>
     </message>
     <message>
         <source>Untested</source>
-        <translation type="unfinished"/>
+        <translation>Não testado</translation>
     </message>
     <message>
         <source>Testing...</source>
-        <translation type="unfinished"/>
+        <translation>A testar...</translation>
     </message>
     <message>
         <source>Timeout</source>
-        <translation type="unfinished"/>
+        <translation>Intervalo</translation>
     </message>
 </context>
 <context>
@@ -620,11 +620,11 @@
     </message>
     <message>
         <source>Log export failed, please try again</source>
-        <translation type="unfinished"/>
+        <translation>Falha ao exportar o histórico, por favor tente novamente</translation>
     </message>
     <message>
         <source>The log has been exported to the desktop</source>
-        <translation type="unfinished"/>
+        <translation>O histórico foi exportado para o ambiente de trabalho</translation>
     </message>
     <message>
         <source>Update</source>
