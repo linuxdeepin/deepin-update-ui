@@ -86,73 +86,73 @@
     </message>
     <message>
         <source>Unknown error</source>
-        <translation type="unfinished"/>
+        <translation>Erro desconhecido</translation>
     </message>
     <message>
         <source>Backup failed</source>
-        <translation type="unfinished"/>
+        <translation>Cópia de segurança falhou</translation>
     </message>
     <message>
         <source>Unable to perform system backup. If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation type="unfinished"/>
+        <translation>Incapaz de efetuar cópia de segurança do sistema. Se continuar com as atualizações, não pode reverter para o sistema antigo mais tarde.</translation>
     </message>
     <message>
         <source>Insufficient disk space. Please clean up your disk and try again.</source>
-        <translation type="unfinished"/>
+        <translation>Espaço em disco insuficiente. Por favor limpe o seu disco e tente novamente.</translation>
     </message>
     <message>
         <source>Failed to connect to backup services. Please check and retry again.</source>
-        <translation type="unfinished"/>
+        <translation>Falha ao ligar os serviços de cópia de segurança. Por favor verifique e tente novamente.</translation>
     </message>
     <message>
         <source>Failed to connect to update services. Please check and retry again.</source>
-        <translation type="unfinished"/>
+        <translation>Falha ao ligar serviços de atualização. Por favor verifique e tente novamente.</translation>
     </message>
     <message>
         <source>Dependency error</source>
-        <translation type="unfinished"/>
+        <translation>Erro de dependência</translation>
     </message>
     <message>
         <source>DPKG error</source>
-        <translation type="unfinished"/>
+        <translation>Erro DPKG</translation>
     </message>
     <message>
         <source>Back Up Again</source>
-        <translation type="unfinished"/>
+        <translation>Fazer Cópia de Segurança Novamente</translation>
     </message>
     <message>
         <source>Abort</source>
-        <translation type="unfinished"/>
+        <translation>Abortar</translation>
     </message>
     <message>
         <source>Proceed to Update</source>
-        <translation type="unfinished"/>
+        <translation>Avançar para Atualização</translation>
     </message>
     <message>
         <source>Reboot</source>
-        <translation type="unfinished"/>
+        <translation>Reiniciar</translation>
     </message>
     <message>
         <source>Shut Down</source>
-        <translation type="unfinished"/>
+        <translation>Encerrar</translation>
     </message>
     <message>
         <source>Go to Desktop</source>
-        <translation type="unfinished"/>
+        <translation>Ir para o Ambiente de Trabalho</translation>
     </message>
 </context>
 <context>
     <name>UpdatePrepareWidget</name>
     <message>
         <source>Preparing for updates…</source>
-        <translation type="unfinished"/>
+        <translation>A preparar atualizações...</translation>
     </message>
 </context>
 <context>
     <name>UpdateProgressWidget</name>
     <message>
         <source>Do not force a shutdown or power off when installing updates. Otherwise, your system may be damaged.</source>
-        <translation type="unfinished"/>
+        <translation>Não force um encerramento ou desligue da corrente enquanto instalar atualizações. Caso contrário, o seu sistema pode ficar danificado.</translation>
     </message>
     <message>
         <source>View update logs</source>
