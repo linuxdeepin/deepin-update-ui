@@ -331,7 +331,7 @@
     </message>
     <message>
         <source>Unknown error</source>
-        <translation type="unfinished"/>
+        <translation>Erro desconhecido</translation>
     </message>
     <message>
         <source>Downloading updates failed. Please free up %1 disk space first.</source>
@@ -351,7 +351,7 @@
     </message>
     <message>
         <source>Unable to perform system backup. If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation type="unfinished"/>
+        <translation>Incapaz de efetuar cópia de segurança do sistema. Se continuar com as atualizações, não pode reverter para o sistema antigo mais tarde.</translation>
     </message>
     <message>
         <source>If you continue the updates, you cannot roll back to the old system later.</source>
@@ -363,7 +363,7 @@
     </message>
     <message>
         <source>DPKG error</source>
-        <translation type="unfinished"/>
+        <translation>Erro DPKG</translation>
     </message>
     <message>
         <source>File missing</source>
@@ -616,7 +616,7 @@
     </message>
     <message>
         <source>updatelog</source>
-        <translation type="unfinished"/>
+        <translation>histórico de atualizações</translation>
     </message>
     <message>
         <source>Log export failed, please try again</source>
@@ -628,11 +628,11 @@
     </message>
     <message>
         <source>Update</source>
-        <translation type="unfinished"/>
+        <translation>Atualizar</translation>
     </message>
     <message>
         <source>Please plug in and then install updates.</source>
-        <translation type="unfinished"/>
+        <translation>Por favor insira e depois instale atualizações.</translation>
     </message>
 </context>
 </TS>
