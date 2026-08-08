@@ -3,150 +3,150 @@
     <name>CheckUpdate</name>
     <message>
         <source>Last check: </source>
-        <translation type="unfinished"/>
+        <translation>Última verificação:</translation>
     </message>
 </context>
 <context>
     <name>MirrorSourcePopup</name>
     <message>
         <source>Connectivity Test</source>
-        <translation type="unfinished"/>
+        <translation>Teste de Conectividade</translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
         <source>Fixed some known bugs and security vulnerabilities</source>
-        <translation type="unfinished"/>
+        <translation>Corrigidos alguns bugs conhecidos e vulnerabilidades de segurança</translation>
     </message>
 </context>
 <context>
     <name>QuitTestingChannelDialog</name>
     <message>
         <source>If you exit the beta program, you will no longer receive beta updates.</source>
-        <translation type="unfinished"/>
+        <translation>Se sair do programa beta, deixará de receber atualizações beta.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Cancelar</translation>
     </message>
     <message>
         <source>Exit</source>
-        <translation type="unfinished"/>
+        <translation>Sair</translation>
     </message>
 </context>
 <context>
     <name>Update</name>
     <message>
         <source>System Update</source>
-        <translation type="unfinished"/>
+        <translation>Atualização de Sistema</translation>
     </message>
     <message>
         <source>System update and upgrade</source>
-        <translation type="unfinished"/>
+        <translation>Atualização de sistema e nova versão</translation>
     </message>
 </context>
 <context>
     <name>UpdateControl</name>
     <message>
         <source>View Update Log</source>
-        <translation type="unfinished"/>
+        <translation>Ver Históricos de Atualizações</translation>
     </message>
 </context>
 <context>
     <name>UpdateHistoryDialog</name>
     <message>
         <source>Update History</source>
-        <translation type="unfinished"/>
+        <translation>Histórico de Atualizações</translation>
     </message>
     <message>
         <source>No update history</source>
-        <translation type="unfinished"/>
+        <translation>Sem histórico de atualizações</translation>
     </message>
     <message>
         <source>System Updates</source>
-        <translation type="unfinished"/>
+        <translation>Atualizações de Sistema</translation>
     </message>
     <message>
         <source>Security Updates</source>
-        <translation type="unfinished"/>
+        <translation>Atualizações de Segurança</translation>
     </message>
     <message>
         <source>Installation date:</source>
-        <translation type="unfinished"/>
+        <translation>Data de instalação:</translation>
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished"/>
+        <translation>Versão:</translation>
     </message>
     <message>
         <source>Vulnerability ID: </source>
-        <translation type="unfinished"/>
+        <translation>ID da Vulnerabilidade:</translation>
     </message>
     <message>
         <source>Severity: </source>
-        <translation type="unfinished"/>
+        <translation>Severidade:</translation>
     </message>
     <message>
         <source>Description: </source>
-        <translation type="unfinished"/>
+        <translation>Descrição:</translation>
     </message>
 </context>
 <context>
     <name>UpdateList</name>
     <message>
         <source>Release time:</source>
-        <translation type="unfinished"/>
+        <translation>Data de lançamento:</translation>
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished"/>
+        <translation>Versão:</translation>
     </message>
     <message>
         <source>View More</source>
-        <translation type="unfinished"/>
+        <translation>Ver Mais</translation>
     </message>
     <message>
         <source>Collapse</source>
-        <translation type="unfinished"/>
+        <translation>Colapsar</translation>
     </message>
     <message>
         <source>Vulnerability ID: </source>
-        <translation type="unfinished"/>
+        <translation>ID da Vulnerabilidade:</translation>
     </message>
     <message>
         <source>Severity: </source>
-        <translation type="unfinished"/>
+        <translation>Severidade:</translation>
     </message>
     <message>
         <source>Description: </source>
-        <translation type="unfinished"/>
+        <translation>Descrição:</translation>
     </message>
 </context>
 <context>
     <name>UpdateLogDialog</name>
     <message>
         <source>Update Log</source>
-        <translation type="unfinished"/>
+        <translation>Histórico de Atualizações</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"/>
+        <translation>Fechar</translation>
     </message>
     <message>
         <source>Export to desktop</source>
-        <translation type="unfinished"/>
+        <translation>Enviar para o ambiente de trabalho</translation>
     </message>
 </context>
 <context>
     <name>UpdateLogHelper</name>
     <message>
         <source>NONE</source>
-        <translation type="unfinished"/>
+        <translation>NENHUM</translation>
     </message>
     <message>
         <source>LOW</source>
-        <translation type="unfinished"/>
+        <translation>BAIXO</translation>
     </message>
     <message>
         <source>MEDIUM</source>
