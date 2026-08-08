@@ -256,55 +256,55 @@
     </message>
     <message>
         <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation type="unfinished"/>
+        <translation>A capacidade da bateria está abaixo dos 60%. Para obter atualizações com sucesso por favor ligue à corrente.</translation>
     </message>
     <message>
         <source>Continue Update</source>
-        <translation type="unfinished"/>
+        <translation>Continuar Atualização</translation>
     </message>
     <message>
         <source>Backup failed</source>
-        <translation type="unfinished"/>
+        <translation>Cópia de segurança falhou</translation>
     </message>
     <message>
         <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation type="unfinished"/>
+        <translation>Se continuar com as atualizações, não pode reverter para o sistema antigo mais tarde.</translation>
     </message>
     <message>
         <source>Back Up Again</source>
-        <translation type="unfinished"/>
+        <translation>Fazer Cópia de Segurança Novamente</translation>
     </message>
     <message>
         <source>Proceed to Update</source>
-        <translation type="unfinished"/>
+        <translation>Avançar para Atualização</translation>
     </message>
     <message>
         <source>Update download completed</source>
-        <translation type="unfinished"/>
+        <translation>Transferência da atualização completada</translation>
     </message>
     <message>
         <source>Install updates</source>
-        <translation type="unfinished"/>
+        <translation>Instalar atualizações</translation>
     </message>
     <message>
         <source>Update download failed</source>
-        <translation type="unfinished"/>
+        <translation>A transferência da atualização falhou</translation>
     </message>
     <message>
         <source>Retry</source>
-        <translation type="unfinished"/>
+        <translation>Tentar novamente</translation>
     </message>
     <message>
         <source>Updates Available</source>
-        <translation type="unfinished"/>
+        <translation>Atualizações Disponíveis</translation>
     </message>
     <message>
         <source>Download</source>
-        <translation type="unfinished"/>
+        <translation>Transferir</translation>
     </message>
     <message>
         <source>Update Settings</source>
-        <translation type="unfinished"/>
+        <translation>Definições de Atualização</translation>
     </message>
     <message>
         <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
