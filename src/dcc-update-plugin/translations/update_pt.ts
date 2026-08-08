@@ -308,26 +308,26 @@
     </message>
     <message>
         <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
-        <translation type="unfinished"/>
+        <translation>Configurar definições de Atualização、Atualizações de Segurança、Auto Transferência de Atualizações e Notificações de Atualizações</translation>
     </message>
     <message>
         <source>Install Now</source>
-        <translation type="unfinished"/>
+        <translation>Instalar Agora</translation>
     </message>
     <message>
         <source>Check Again</source>
-        <translation type="unfinished"/>
+        <translation>Verificar Novamente</translation>
     </message>
 </context>
 <context>
     <name>UpdateModel</name>
     <message>
         <source>Checking for updates, please wait…</source>
-        <translation type="unfinished"/>
+        <translation>A procurar por atualizações, por favor aguarde...</translation>
     </message>
     <message>
         <source>Your system is up to date</source>
-        <translation type="unfinished"/>
+        <translation>O sistema está atualizado</translation>
     </message>
     <message>
         <source>Unknown error</source>
@@ -335,19 +335,19 @@
     </message>
     <message>
         <source>Downloading updates failed. Please free up %1 disk space first.</source>
-        <translation type="unfinished"/>
+        <translation>A transferência de atualizações falhou. Por favor liberte %1 de espaço em disco primeiro.</translation>
     </message>
     <message>
         <source>Dependency error, failed to detect the updates</source>
-        <translation type="unfinished"/>
+        <translation>Erro de dependência, falha ao detetar as atualizações</translation>
     </message>
     <message>
         <source>Please check your network and try again.</source>
-        <translation type="unfinished"/>
+        <translation>Por favor verifique a sua rede e tente novamente.</translation>
     </message>
     <message>
         <source>Downloading updates failed. Please check your network and try again.</source>
-        <translation type="unfinished"/>
+        <translation>A transferência das atualizações falhou. Por favor verifique a sua rede e tente novamente.</translation>
     </message>
     <message>
         <source>Unable to perform system backup. If you continue the updates, you cannot roll back to the old system later.</source>
@@ -355,11 +355,11 @@
     </message>
     <message>
         <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation type="unfinished"/>
+        <translation>Se continuar com as atualizações, não pode reverter para o sistema antigo mais tarde.</translation>
     </message>
     <message>
         <source>Insufficient disk space</source>
-        <translation type="unfinished"/>
+        <translation>Espaço em disco insuficiente</translation>
     </message>
     <message>
         <source>DPKG error</source>
@@ -367,11 +367,11 @@
     </message>
     <message>
         <source>File missing</source>
-        <translation type="unfinished"/>
+        <translation>Ficheiro em falta</translation>
     </message>
     <message>
         <source>Service connection is abnormal, please check the network and try again</source>
-        <translation type="unfinished"/>
+        <translation>O serviço de conexão está anormal, por favor verifique a rede e tente novamente</translation>
     </message>
     <message>
         <source>The repository source configuration is not valid, please check and try again.</source>
