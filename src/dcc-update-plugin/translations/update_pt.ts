@@ -426,19 +426,19 @@
     <name>UpdateSelectDialog</name>
     <message>
         <source>The updates have been already downloaded. What do you want to do?</source>
-        <translation type="unfinished"/>
+        <translation>As atualizações já foram transferidas. O que quer fazer?</translation>
     </message>
     <message>
         <source>Silent Installation</source>
-        <translation type="unfinished"/>
+        <translation>Instalação Silenciosa</translation>
     </message>
     <message>
         <source>Update and Reboot</source>
-        <translation type="unfinished"/>
+        <translation>Atualizar e Reiniciar</translation>
     </message>
     <message>
         <source>Update and Shut Down</source>
-        <translation type="unfinished"/>
+        <translation>Atualizar e Encerrar</translation>
     </message>
 </context>
 <context>
