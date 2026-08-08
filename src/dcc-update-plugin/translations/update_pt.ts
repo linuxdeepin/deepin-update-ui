@@ -150,61 +150,61 @@
     </message>
     <message>
         <source>MEDIUM</source>
-        <translation type="unfinished"/>
+        <translation>MÉDIO</translation>
     </message>
     <message>
         <source>HIGH</source>
-        <translation type="unfinished"/>
+        <translation>ALTO</translation>
     </message>
     <message>
         <source>CRITICAL</source>
-        <translation type="unfinished"/>
+        <translation>CRÍTICO</translation>
     </message>
     <message>
         <source>critical-risk</source>
-        <translation type="unfinished"/>
+        <translation>risco-crítico</translation>
     </message>
     <message>
         <source>high-risk</source>
-        <translation type="unfinished"/>
+        <translation>alto-risco</translation>
     </message>
     <message>
         <source>medium-risk</source>
-        <translation type="unfinished"/>
+        <translation>risco-médio</translation>
     </message>
     <message>
         <source>low-risk</source>
-        <translation type="unfinished"/>
+        <translation>baixo-risco</translation>
     </message>
     <message>
         <source>unknown</source>
-        <translation type="unfinished"/>
+        <translation>desconhecido</translation>
     </message>
     <message>
         <source>This update fixes</source>
-        <translation type="unfinished"/>
+        <translation>Esta atualização resolve</translation>
     </message>
     <message>
         <source>vulnerabilities</source>
-        <translation type="unfinished"/>
+        <translation>vulnerabilidades</translation>
     </message>
     <message>
         <source>vulnerability</source>
-        <translation type="unfinished"/>
+        <translation>vulnerabilidade</translation>
     </message>
     <message>
         <source>%1 of %2 %3</source>
-        <translation type="unfinished"/>
+        <translation>%1 de %2 %3</translation>
         <extra-content_explain>`数字+%`会在代码中替换为字符串，例如：3 of high-risk vulnerabilities；各语言需要根据实际情况增加空格(例如：中文没有空格，英文有空格)</extra-content_explain>
     </message>
     <message>
         <source>, </source>
-        <translation type="unfinished"/>
+        <translation>, </translation>
         <extra-content_explain>中文逗号不需要空格，英文逗号需要空格For more details, please visit</extra-content_explain>
     </message>
     <message>
         <source>for more details, please visit </source>
-        <translation type="unfinished"/>
+        <translation>para mais detalhes, por favor visite</translation>
         <extra-content_explain>这句话后面会带上一个超链接，各语言自行决定末尾需不需要加空格</extra-content_explain>
     </message>
 </context>
@@ -212,47 +212,47 @@
     <name>UpdateMain</name>
     <message>
         <source>Installing updates...</source>
-        <translation type="unfinished"/>
+        <translation>A instalar atualizações...</translation>
     </message>
     <message>
         <source>Installing</source>
-        <translation type="unfinished"/>
+        <translation>A instalar</translation>
     </message>
     <message>
         <source>Backing up in progress...</source>
-        <translation type="unfinished"/>
+        <translation>Cópia de segurança em curso...</translation>
     </message>
     <message>
         <source>Backing up in progress</source>
-        <translation type="unfinished"/>
+        <translation>Cópia de segurança em curso</translation>
     </message>
     <message>
         <source>Downloading updates...</source>
-        <translation type="unfinished"/>
+        <translation>A descarregar atualizações...</translation>
     </message>
     <message>
         <source>Update size: </source>
-        <translation type="unfinished"/>
+        <translation>Tamanho da atualização:</translation>
     </message>
     <message>
         <source>Downloading</source>
-        <translation type="unfinished"/>
+        <translation>A transferir</translation>
     </message>
     <message>
         <source>Update installation successful</source>
-        <translation type="unfinished"/>
+        <translation>Instalação de atualização bem sucedida</translation>
     </message>
     <message>
         <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
-        <translation type="unfinished"/>
+        <translation>Para garantir o correto funcionamento do seu sistema e aplicações, por favor reinicie o seu computador após a atualização</translation>
     </message>
     <message>
         <source>Reboot now</source>
-        <translation type="unfinished"/>
+        <translation>Reiniciar agora</translation>
     </message>
     <message>
         <source>Installation update failed</source>
-        <translation type="unfinished"/>
+        <translation>A instalação da atualização falhou</translation>
     </message>
     <message>
         <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
