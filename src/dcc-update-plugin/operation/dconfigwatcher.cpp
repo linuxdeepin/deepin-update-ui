@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020 - 2023 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2020 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -30,26 +30,26 @@ DConfigWatcher::DConfigWatcher(QObject *parent)
     : QObject(parent)
 {
     qCDebug(logDccUpdatePlugin) << "Initialize DConfigWatcher";
-    //通过模块枚举加载所有的文件，并从文件中获取所有的dconfig对象
-    QMetaEnum metaEnum = QMetaEnum::fromType<ModuleType>();
+    // 仅加载本插件声明支持的模块，新增模块时同步添加对应的 DConfig schema。
+    const QMetaEnum metaEnum = QMetaEnum::fromType<ModuleType>();
     qCDebug(logDccUpdatePlugin) << "Loading" << metaEnum.keyCount() << "module configs";
-    for (int i = 0; i <  metaEnum.keyCount(); i++) {
-        const QString fileName = QString("org.deepin.dde.control-center.%1").arg(metaEnum.valueToKey(i));
+    for (int i = 0; i < metaEnum.keyCount(); i++) {
+        const ModuleType moduleType = static_cast<ModuleType>(metaEnum.value(i));
+        const QString moduleName = QString::fromLatin1(metaEnum.valueToKey(moduleType));
+        const QString fileName = QStringLiteral("org.deepin.dde.control-center.%1").arg(moduleName);
         qCDebug(logDccUpdatePlugin) << "Creating config for module:" << fileName;
-        DConfig *config = DConfig::create("org.deepin.dde.control-center", fileName, "", this);
+        DConfig *config = DConfig::create(QStringLiteral("org.deepin.dde.control-center"), fileName, QString(), this);
         if (!config->isValid()) {
             qCWarning(logDccUpdatePlugin) << QString("DConfig is invalide, name: [%1], subpath: [%2]").arg(config->name(), config->subpath());
             continue;
-        } else {
-            qCDebug(logDccUpdatePlugin) << "Successfully loaded config for module:" << metaEnum.valueToKey(i);
-            m_mapModulesConfig.insert(metaEnum.valueToKey(i), config);
-            connect(config, &DConfig::valueChanged, this, [this, config](QString key) {
-                auto moduleName = m_mapModulesConfig.key(config);
-                qCDebug(logDccUpdatePlugin) << "Config value changed for module:" << moduleName << "key:" << key;
-                int type = QMetaEnum::fromType<ModuleType>().keyToValue(moduleName.toStdString().c_str());
-                onStatusModeChanged(static_cast<ModuleType>(type), key);
-            });
         }
+
+        qCDebug(logDccUpdatePlugin) << "Successfully loaded config for module:" << moduleName;
+        m_mapModulesConfig.insert(moduleName, config);
+        connect(config, &DConfig::valueChanged, this, [this, moduleType, moduleName](const QString &key) {
+            qCDebug(logDccUpdatePlugin) << "Config value changed for module:" << moduleName << "key:" << key;
+            onStatusModeChanged(moduleType, key);
+        });
     }
 }
 
