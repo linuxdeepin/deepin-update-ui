@@ -10,39 +10,39 @@
     <name>RecoveryWidget</name>
     <message>
         <source>Rollback failed.</source>
-        <translation type="unfinished"/>
+        <translation>A reversão falhou.</translation>
     </message>
     <message>
         <source>Reboot</source>
-        <translation type="unfinished"/>
+        <translation>Reiniciar</translation>
     </message>
     <message>
         <source>Updates failed.</source>
-        <translation type="unfinished"/>
+        <translation>As atualizações falharam.</translation>
     </message>
     <message>
         <source>Updates failed: it was interrupted.</source>
-        <translation type="unfinished"/>
+        <translation>Falha nas atualizações: foram interrompidas.</translation>
     </message>
     <message>
         <source>Updates failed: DPKG error.</source>
-        <translation type="unfinished"/>
+        <translation>Falha nas atualizações: erro DPKG.</translation>
     </message>
     <message>
         <source>Updates failed: insufficient disk space.</source>
-        <translation type="unfinished"/>
+        <translation>Falha nas atualizações: espaço insuficiente no disco.</translation>
     </message>
     <message>
         <source>Are you sure you want to roll back to %1 backed up on %2?</source>
-        <translation type="unfinished"/>
+        <translation>Tem a certeza que deseja reverter para %1 com cópia de segurança em %2?</translation>
     </message>
     <message>
         <source>Cancel and Reboot</source>
-        <translation type="unfinished"/>
+        <translation>Cancelar e Reiniciar</translation>
     </message>
     <message>
         <source>Confirm</source>
-        <translation type="unfinished"/>
+        <translation>Confirmar</translation>
     </message>
 </context>
 </TS>
