@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020 - 2023 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2020 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -21,25 +21,7 @@ class DConfigWatcher : public QObject
     Q_OBJECT
 public:
     enum ModuleType {
-        mainwindow,
-        authentication,
-        accounts,
-        bluetooth,
-        cloudsync,
-        datetime,
-        display,
-        defapp,
-        mouse,
-        notifiction,
-        personalization,
-        power,
-        sound,
-        keyboard,
-        touchscreen,
-        wacom,
-        update,
-        systeminfo,
-        commoninfo
+        update
     };
     Q_ENUM(ModuleType)
 
@@ -49,7 +31,7 @@ public:
 
         ModuleKey()
         {
-            this->type = ModuleType::mainwindow;
+            this->type = ModuleType::update;
             this->key = "";
         }
 
