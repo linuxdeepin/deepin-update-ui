@@ -1,0 +1,3 @@
+usr/bin/dde-gather-info
+var/lib/lastore/scripts/start-gather-console-info.sh
+etc/xdg/autostart/lastore-tools-gatherinfo-autostart.desktop
