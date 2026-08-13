@@ -42,3 +42,44 @@ add_subdirectory("src/dcc-update-plugin")
 add_subdirectory("src/dock-update-plugin")
 add_subdirectory("src/private-lastore-tray")
 
+
+#-------------------------------dde-gather-info-----------------------------
+set(GATHERINFO_NAME dde-gather-info)
+
+find_package(Dtk6 COMPONENTS Gui Widget REQUIRED)
+find_package(Qt6 REQUIRED COMPONENTS Widgets DBus WebChannel WebEngineCore WebEngineWidgets)
+
+file(GLOB_RECURSE DDE-GATHER-INFO_SRCS
+    "src/dde-gather-info/*.h"
+    "src/dde-gather-info/*.cpp"
+    "src/dde-gather-info/*.qrc"
+)
+list(REMOVE_ITEM DDE-GATHER-INFO_SRCS "${CMAKE_SOURCE_DIR}/src/dde-gather-info/main.cpp")
+
+add_executable(${GATHERINFO_NAME}
+    ${DDE-GATHER-INFO_SRCS}
+    src/dde-gather-info/main.cpp
+)
+
+target_link_libraries(${GATHERINFO_NAME} PRIVATE
+    Qt6::Widgets
+    Qt6::DBus
+    Qt6::WebChannel
+    Qt6::WebEngineCore
+    Qt6::WebEngineWidgets
+    Dtk6::Gui
+    Dtk6::Widget
+)
+
+install(TARGETS ${GATHERINFO_NAME} DESTINATION bin)
+
+
+# Install gather-info scripts
+install(FILES src/dde-gather-info/start-gather-console-info.sh
+    DESTINATION /var/lib/lastore/scripts
+    PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
+)
+
+install(FILES src/dde-gather-info/lastore-tools-gatherinfo-autostart.desktop
+    DESTINATION /etc/xdg/autostart
+)
