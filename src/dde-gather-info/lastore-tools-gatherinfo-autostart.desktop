@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=lastore-tools
+Type=Application
+NoDisplay=true
+Exec=/var/lib/lastore/scripts/start-gather-console-info.sh
+X-Deepin-Vendor=deepin
