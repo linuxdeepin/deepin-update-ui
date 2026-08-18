@@ -1,3 +1,16 @@
+deepin-update-ui (1.0.61) unstable; urgency=medium
+
+  * fix(transifex): correct typo in translation path and remove stale
+    files
+  * feat(private-lastore-tray): stop animation when tray surface is
+    hidden
+  * i18n: Updates for project Deepin Desktop Environment (#317)
+  * fix: hand cursor on privacy policy link hover
+  * refactor: restrict DConfigWatcher to load only update module configs
+  * i18n: Updates for project Deepin Desktop Environment (#327)
+
+ -- zhangkun <zhangkun2@uniontech.com>  Tue, 18 Aug 2026 13:28:22 +0800
+
 deepin-update-ui (1.0.60) unstable; urgency=medium
 
   * fix(CI): broken cppcheck
