@@ -149,12 +149,13 @@ Rectangle {
                                         }
                                         hoveredDark: hovered
                                     }
-                                    visible: model.detailInfos.length !== 0 && !itemCtl.showDetails
+                                    // 折叠时显示"查看详细"，展开后同位置变为"收起"，避免收起按钮沉在长列表末尾
+                                    visible: model.detailInfos.length !== 0
                                     bottomPadding: 0
                                     font: D.DTK.fontManager.t8
-                                    text: qsTr("View More")
+                                    text: itemCtl.showDetails ? qsTr("Collapse") : qsTr("View More")
                                     onClicked: {
-                                        repeater.model.setExpanded(itemCtl.itemIndex, true)
+                                        repeater.model.setExpanded(itemCtl.itemIndex, !itemCtl.showDetails)
                                     }
                                     background: Item {}
                                 }
@@ -168,98 +169,97 @@ Rectangle {
                                 visible: itemCtl.showDetails
                             }
 
-                            // 详情列表
-                            Repeater {
-                                id: innerRepeater
-                                model: itemCtl.detailModel
-                                ColumnLayout {
-                                    spacing: 6
+                            // 详情列表：Loader 惰性创建 + ListView 虚拟化
+                            // 折叠时 Loader 不创建任何 delegate（零开销）；展开时 ListView 只实例化可视区项
+                            Loader {
+                                id: detailLoader
+                                Layout.fillWidth: true
+                                Layout.minimumHeight: 0
+                                Layout.preferredHeight: active && item ? item.implicitHeight : 0
 
-                                    visible: itemCtl.showDetails
+                                active: itemCtl.showDetails
 
-                                    D.Label {
-                                        Layout.alignment: Qt.AlignLeft
-                                        horizontalAlignment: Text.AlignLeft
-                                        Layout.fillWidth: true
-                                        font: D.DTK.fontManager.t8
-                                        color: D.DTK.themeType == D.ApplicationHelper.LightType ?
-                                                                Qt.rgba(0, 0, 0, 1) : Qt.rgba(1, 1, 1, 1)
-                                        visible: itemCtl.showDetails && modelData.name !== ""
-                                        text: (itemCtl.isSecurityUpdate ? qsTr("Vulnerability ID: ") : qsTr("Version:")) + modelData.name
-                                    }
+                                property var detailModel: itemCtl.detailModel
+                                property bool isSecurityUpdate: itemCtl.isSecurityUpdate
 
-                                    D.Label {
-                                        Layout.alignment: Qt.AlignLeft
-                                        horizontalAlignment: Text.AlignLeft
-                                        Layout.fillWidth: true
-                                        font: D.DTK.fontManager.t8
-                                        color: D.DTK.themeType == D.ApplicationHelper.LightType ?
-                                                                Qt.rgba(0, 0, 0, 1) : Qt.rgba(1, 1, 1, 1)
-                                        visible: itemCtl.showDetails && itemCtl.isSecurityUpdate && modelData.vulLevel !== ""
-                                        text: qsTr("Severity: ") + modelData.vulLevel
-                                    }
-
-                                    D.Label {
-                                        Layout.alignment: Qt.AlignLeft
-                                        horizontalAlignment: Text.AlignLeft
-                                        Layout.fillWidth: true
-                                        font: D.DTK.fontManager.t8
-                                        visible: itemCtl.showDetails && modelData.info !== ""
-                                        text: itemCtl.isSecurityUpdate ? qsTr("Description: ") + modelData.info : modelData.info
-                                        textFormat: Text.RichText
-                                        wrapMode: Text.WordWrap
-                                        onLinkActivated: (link)=> {
-                                            dccData.work().openUrl(link)
-                                        }
-                                        MouseArea {
-                                            anchors.fill: parent
-                                            cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
-                                            acceptedButtons: Qt.NoButton
-                                        }
-                                    }
-
-                                    RowLayout {
-                                        D.Label {
-                                            Layout.alignment: Qt.AlignLeft
-                                            horizontalAlignment: Text.AlignLeft
-                                            Layout.fillWidth: true
-                                            font: D.DTK.fontManager.t8
-                                            visible: itemCtl.showDetails && modelData.updateTime !== ""
-                                            text: qsTr("Release time:") + modelData.updateTime
+                                sourceComponent: Component {
+                                    ListView {
+                                        id: detailView
+                                        width: parent.width
+                                        // 最小 1 仅防死锁（contentHeight 初始为 0，视口为 0 则不实例化 delegate）；
+                                        // 最大 500 限制视口高度，内容超出时 ListView 内部滚动并只实例化可视区项。
+                                        implicitHeight: Math.min(Math.max(contentHeight, 1), 500)
+                                        clip: true
+                                        spacing: 6
+                                        model: detailLoader.detailModel
+                                        // 内容不足一屏时自动隐藏（AsNeeded）
+                                        ScrollBar.vertical: ScrollBar {
+                                            policy: ScrollBar.AsNeeded
+                                            active: true
                                         }
 
-                                        Item {
-                                            Layout.fillWidth: true
-                                        }
+                                        delegate: ColumnLayout {
+                                            width: detailView.width
+                                            spacing: 6
 
-                                        D.ToolButton {
-                                            textColor: D.Palette {
-                                                normal {
-                                                    common: D.DTK.makeColor(D.Color.Highlight)
-                                                }
-                                                normalDark: normal
-                                                hovered {
-                                                    common: D.DTK.makeColor(D.Color.Highlight).lightness(+30)
-                                                }
-                                                hoveredDark: hovered
+                                            D.Label {
+                                                Layout.alignment: Qt.AlignLeft
+                                                horizontalAlignment: Text.AlignLeft
+                                                Layout.fillWidth: true
+                                                font: D.DTK.fontManager.t8
+                                                color: D.DTK.themeType == D.ApplicationHelper.LightType ?
+                                                                        Qt.rgba(0, 0, 0, 1) : Qt.rgba(1, 1, 1, 1)
+                                                visible: modelData.name !== ""
+                                                text: (detailLoader.isSecurityUpdate ? qsTr("Vulnerability ID: ") : qsTr("Version:")) + modelData.name
                                             }
-                                            visible: itemCtl.showDetails && (index === innerRepeater.count - 1 )
-                                            bottomPadding: 0
-                                            font: D.DTK.fontManager.t8
-                                            text: qsTr("Collapse")
-                                            onClicked: {
-                                                repeater.model.setExpanded(itemCtl.itemIndex, false)
-                                            }
-                                            background: Item {}
-                                        }
-                                    }
 
-                                    Rectangle {
-                                        height: 1
-                                        color: D.DTK.themeType === D.ApplicationHelper.LightType ? 
-                                                                Qt.rgba(0, 0, 0, 0.05) : Qt.rgba(1, 1, 1, 0.05)
-                                        Layout.fillWidth: true
-                                        visible: itemCtl.showDetails && (index !== innerRepeater.count - 1 )
+                                            D.Label {
+                                                Layout.alignment: Qt.AlignLeft
+                                                horizontalAlignment: Text.AlignLeft
+                                                Layout.fillWidth: true
+                                                font: D.DTK.fontManager.t8
+                                                color: D.DTK.themeType == D.ApplicationHelper.LightType ?
+                                                                        Qt.rgba(0, 0, 0, 1) : Qt.rgba(1, 1, 1, 1)
+                                                visible: detailLoader.isSecurityUpdate && modelData.vulLevel !== ""
+                                                text: qsTr("Severity: ") + modelData.vulLevel
+                                            }
+
+                                            D.Label {
+                                                Layout.alignment: Qt.AlignLeft
+                                                horizontalAlignment: Text.AlignLeft
+                                                Layout.fillWidth: true
+                                                font: D.DTK.fontManager.t8
+                                                visible: modelData.info !== ""
+                                                text: detailLoader.isSecurityUpdate ? qsTr("Description: ") + modelData.info : modelData.info
+                                                textFormat: Text.RichText
+                                                wrapMode: Text.WordWrap
+                                                onLinkActivated: (link)=> {
+                                                    dccData.work().openUrl(link)
+                                                }
+                                                MouseArea {
+                                                    anchors.fill: parent
+                                                    cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
+                                                    acceptedButtons: Qt.NoButton
+                                                }
+                                            }
+
+                                            D.Label {
+                                                Layout.alignment: Qt.AlignLeft
+                                                horizontalAlignment: Text.AlignLeft
+                                                Layout.fillWidth: true
+                                                font: D.DTK.fontManager.t8
+                                                visible: modelData.updateTime !== ""
+                                                text: qsTr("Release time:") + modelData.updateTime
+                                            }
+
+                                            Rectangle {
+                                                height: 1
+                                                color: D.DTK.themeType === D.ApplicationHelper.LightType ?
+                                                                        Qt.rgba(0, 0, 0, 0.05) : Qt.rgba(1, 1, 1, 0.05)
+                                                Layout.fillWidth: true
+                                                visible: index !== detailView.count - 1
+                                            }
+                                        }
                                     }
                                 }
                             }
