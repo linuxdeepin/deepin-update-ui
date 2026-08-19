@@ -71,7 +71,9 @@ QString UpdateItemInfo::explain() const
 
 void UpdateItemInfo::setExplain(const QString& explain)
 {
-    qCDebug(logDccUpdatePlugin) << "Set explain:" << explain << "for item:" << m_name;
+    if (m_explain == explain)
+        return;
+
     m_explain = explain;
 }
 
@@ -100,7 +102,6 @@ void UpdateItemInfo::setDetailInfos(QList<DetailInfo>& detailInfos)
 
 void UpdateItemInfo::addDetailInfo(DetailInfo detailInfo)
 {
-    qCDebug(logDccUpdatePlugin) << "Add detail info for item:" << m_name;
     m_detailInfos.append(std::move(detailInfo));
 }
 
