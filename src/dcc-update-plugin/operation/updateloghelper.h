@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019 - 2023 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2019 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -126,9 +126,23 @@ enum VulLevel {
     VulLevel_Critical
 };
 
+inline VulLevel vulLevelFromString(const QString &level)
+{
+    if (level == QLatin1String("critical"))
+        return VulLevel_Critical;
+    if (level == QLatin1String("high"))
+        return VulLevel_High;
+    if (level == QLatin1String("medium"))
+        return VulLevel_Medium;
+    if (level == QLatin1String("low"))
+        return VulLevel_Low;
+    return VulLevel_None;
+}
+
 struct SecurityUpdateLog {
     QString cveId; // ID
     QString vulLevel; // 等级 high medium low
+    VulLevel level = VulLevel_None; // 预解析的等级枚举，供排序与统计使用，避免重复查表
     QString cveDescription; // 描述
     QString upgradeTime; // 更新时间
 
@@ -138,6 +152,7 @@ struct SecurityUpdateLog {
         item.cveId = obj.value("cveId").toString();
         const auto &level = obj.value("vulLevel").toString().toLower();
         item.vulLevel = level.isEmpty() ? "none" : level;
+        item.level = vulLevelFromString(item.vulLevel);
         item.cveDescription = obj.value("cveDescription").toString();
         return item;
     }

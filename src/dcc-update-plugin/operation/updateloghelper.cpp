@@ -23,7 +23,6 @@ UpdateLogHelper::~UpdateLogHelper()
 
 const QMap<QString, QPair<VulLevel, QString>>& UpdateLogHelper::vulLevelMap()
 {
-    qCDebug(logDccUpdatePlugin) << "Getting vulnerability level map";
     const static QMap<QString, QPair<VulLevel, QString>> VulLevelMap = {
         {"none", QPair<VulLevel, QString>(VulLevel_None, tr("NONE"))},
         {"low", QPair<VulLevel, QString>(VulLevel_Low, tr("LOW"))},
@@ -105,12 +104,10 @@ void UpdateLogHelper::handleSecurity(const QJsonObject &log)
     }
 
     std::sort(m_securityLog.begin(), m_securityLog.end(), [](const SecurityUpdateLog& v1, const SecurityUpdateLog& v2) -> bool {
-        auto v1Level = vulLevelMap().value(v1.vulLevel).first;
-        auto v2Level = vulLevelMap().value(v2.vulLevel).first;
-        if (v1Level == v2Level) {
-            return v1.cveId.compare(v2.cveId) >= 0;
+        if (v1.level == v2.level) {
+            return v1.cveId.compare(v2.cveId) > 0;
         }
-        return v1Level > v2Level;
+        return v1.level > v2.level;
     });
 }
 
@@ -178,10 +175,8 @@ void UpdateLogHelper::handleSecurityItemInfo(UpdateItemInfo *itemInfo) const
     for (const auto &log : m_securityLog) {
         // 写入最近的更新
         DetailInfo detailInfo;
-        const auto &pair = vulLevelMap().value(log.vulLevel);
-        detailInfo.vulLevel = pair.second;
-        auto count = vulCount.value(pair.first, 0);
-        vulCount[pair.first] = ++count;
+        detailInfo.vulLevel = vulLevelMap().value(log.vulLevel).second;
+        vulCount[log.level]++;
         detailInfo.name = log.cveId;
         detailInfo.info = log.cveDescription;
         itemInfo->addDetailInfo(detailInfo);
@@ -213,17 +208,16 @@ QList<HistoryItemInfo> UpdateLogHelper::handleHistoryUpdateLog(const QString &lo
             qCDebug(logDccUpdatePlugin) << "Processing security update history item";
             QMap<VulLevel, int> vulCount;
             for (auto &detail : item.details) {
-                const auto &pair = vulLevelMap().value(detail.vulLevel);
-                auto count = vulCount.value(pair.first, 0);
-                vulCount[pair.first] = ++count;
+                const auto level = vulLevelFromString(detail.vulLevel);
+                vulCount[level]++;
                 item.summary = sumCveLevelUp(vulCount);
-                detail.displayVulLevel = pair.second;
+                detail.displayVulLevel = vulLevelMap().value(detail.vulLevel).second;
             }
             std::sort(item.details.begin(), item.details.end(), [](const HistoryItemDetail& v1, const HistoryItemDetail& v2) -> bool {
-                auto v1Level = vulLevelMap().value(v1.vulLevel).first;
-                auto v2Level = vulLevelMap().value(v2.vulLevel).first;
+                const auto v1Level = vulLevelFromString(v1.vulLevel);
+                const auto v2Level = vulLevelFromString(v2.vulLevel);
                 if (v1Level == v2Level) {
-                    return v1.name.compare(v2.name) >= 0;
+                    return v1.name.compare(v2.name) > 0;
                 }
                 return v1Level > v2Level;
             });
