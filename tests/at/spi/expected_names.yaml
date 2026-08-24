@@ -1,0 +1,127 @@
+version: '1.0'
+widgets:
+- variable: m_confirmBtn
+  type: QPushButton *
+  object_name: ConfirmBtn
+  accessible_id: ConfirmBtn
+  source_file: src/dde-abrecovery/recoverydialog.cpp
+  class_name: RecoveryWidget
+  line: 84
+- variable: m_rebootBtn
+  type: QPushButton *
+  object_name: RebootBtn
+  accessible_id: RebootBtn
+  source_file: src/dde-abrecovery/recoverydialog.cpp
+  class_name: RecoveryWidget
+  line: 85
+- variable: m_waitingView
+  type: Dtk::Widget::DPictureSequenceView *
+  object_name: CheckWaitingUpdateSequenceView
+  accessible_id: CheckWaitingUpdateSequenceView
+  source_file: src/dde-update/checksystemwidget.cpp
+  class_name: CheckProgressWidget
+  line: 40
+- variable: m_progressBar
+  type: Dtk::Widget::DProgressBar *
+  object_name: CheckProgressBar
+  accessible_id: CheckProgressBar
+  source_file: src/dde-update/checksystemwidget.cpp
+  class_name: CheckProgressWidget
+  line: 41
+- variable: m_waterProgress
+  type: Dtk::Widget::DWaterProgress *
+  object_name: CheckWaterProgress
+  accessible_id: CheckWaterProgress
+  source_file: src/dde-update/checksystemwidget.cpp
+  class_name: CheckProgressWidget
+  line: 42
+- variable: m_enterBtn
+  type: BlurTransparentButton *
+  object_name: GoToDesktop
+  accessible_id: GoToDesktop
+  source_file: src/dde-update/checksystemwidget.cpp
+  class_name: SuccessFrame
+  line: 58
+- variable: m_logTextEdit
+  type: QPlainTextEdit *
+  object_name: LogTextEdit
+  accessible_id: LogTextEdit
+  source_file: src/dde-update/updatewidget.cpp
+  class_name: UpdateLogWidget
+  line: 78
+- variable: m_exportButton
+  type: Dtk::Widget::DPushButton *
+  object_name: ExportButton
+  accessible_id: ExportButton
+  source_file: src/dde-update/updatewidget.cpp
+  class_name: UpdateLogWidget
+  line: 79
+- variable: m_waitingView
+  type: Dtk::Widget::DPictureSequenceView *
+  object_name: UpdateWaitingUpdateSequenceView
+  accessible_id: UpdateWaitingUpdateSequenceView
+  source_file: src/dde-update/updatewidget.cpp
+  class_name: UpdateProgressWidget
+  line: 112
+- variable: m_progressBar
+  type: Dtk::Widget::DProgressBar *
+  object_name: UpdateProgressBar
+  accessible_id: UpdateProgressBar
+  source_file: src/dde-update/updatewidget.cpp
+  class_name: UpdateProgressWidget
+  line: 113
+- variable: m_showLogButton
+  type: Dtk::Widget::DCommandLinkButton *
+  object_name: ShowLogButton
+  accessible_id: ShowLogButton
+  source_file: src/dde-update/updatewidget.cpp
+  class_name: UpdateProgressWidget
+  line: 115
+- variable: m_showLogButton
+  type: Dtk::Widget::DCommandLinkButton *
+  object_name: ShowLogButton_2
+  accessible_id: ShowLogButton_2
+  source_file: src/dde-update/updatewidget.cpp
+  class_name: UpdateCompleteWidget
+  line: 149
+qml_elements: []
+transient_elements:
+- variable: m_actionButtons
+  type: QList<QPushButton *>
+  source_file: src/dde-update/checksystemwidget.cpp
+  class_name: ErrorFrame
+  method: createButtons
+  naming: QMetaEnum::fromType<UpdateModel::UpdateAction>().valueToKey(action)
+  expected_names:
+  - Reboot
+  - EnterDesktop
+- variable: rebootBtn
+  type: QPushButton *
+  source_file: src/dde-abrecovery/recoverydialog.cpp
+  class_name: RecoveryWidget
+  method: updateRestoringFailedUI
+  naming: static "FailedRebootBtn"
+  expected_names:
+  - FailedRebootBtn
+- variable: m_actionButtons
+  type: QList<QPushButton *>
+  source_file: src/dde-update/updatewidget.cpp
+  class_name: UpdateCompleteWidget
+  method: createButtons
+  naming: QMetaEnum::fromType<UpdateModel::UpdateAction>().valueToKey(action)
+  expected_names:
+  - ContinueUpdating
+  - ExitUpdating
+  - DoBackupAgain
+  - Reboot
+  - ShutDown
+  - EnterDesktop
+- variable: m_actionButtons
+  type: QPushButton *
+  source_file: src/dde-update/updatewidget.cpp
+  class_name: UpdateCompleteWidget
+  method: showSuccessFrame
+  naming: 'isReboot() ? "Reboot" : "ShutDown"'
+  expected_names:
+  - Reboot
+  - ShutDown

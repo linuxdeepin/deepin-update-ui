@@ -14,6 +14,7 @@
 
 #include <QEvent>
 #include <QApplication>
+#include <QMetaEnum>
 #include <QKeyEvent>
 #include <QLoggingCategory>
 
@@ -37,6 +38,7 @@ CheckProgressWidget::CheckProgressWidget(QWidget *parent)
     m_tip->setPalette(palette);
     DFontSizeManager::instance()->bind(m_tip, DFontSizeManager::T6);
 
+    m_waitingView->setObjectName("CheckWaitingUpdateSequenceView");
     m_waitingView->setAccessibleName("WaitingUpdateSequenceView");
     m_waitingView->setFixedSize(20 * qApp->devicePixelRatio(), 20 * qApp->devicePixelRatio());
     m_waitingView->setSingleShot(false);
@@ -69,6 +71,7 @@ CheckProgressWidget::CheckProgressWidget(QWidget *parent)
         m_progressBar->setFixedHeight(8);
         m_progressBar->setRange(0, 100);
         m_progressBar->setAlignment(Qt::AlignRight);
+        m_progressBar->setObjectName("CheckProgressBar");
         m_progressBar->setAccessibleName("ProgressBar");
         m_progressBar->setValue(1);
         DPaletteHelper::instance()->setPalette(m_progressBar, DGuiApplicationHelper::instance()->standardPalette(DGuiApplicationHelper::DarkType));
@@ -83,6 +86,7 @@ CheckProgressWidget::CheckProgressWidget(QWidget *parent)
         m_waterProgress->setFixedSize(98, 98);
         m_waterProgress->setValue(1);
         m_waterProgress->start();
+        m_waterProgress->setObjectName("CheckWaterProgress");
     }
 
     QHBoxLayout *pProgressLayout = new QHBoxLayout;
@@ -148,6 +152,7 @@ SuccessFrame::SuccessFrame(QWidget *parent)
 
     m_enterBtn->setFixedSize(240, 48);
     m_enterBtn->enableHighLightFocus(false);
+    m_enterBtn->setObjectName("GoToDesktop");
 
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
     mainLayout->setContentsMargins(0, 0, 0, 0);
@@ -258,6 +263,7 @@ void ErrorFrame::createButtons(const QList<UpdateModel::UpdateAction> &actions)
         button->setFixedSize(240, 48);
         m_mainLayout->addWidget(button, 0, Qt::AlignHCenter);
         m_actionButtons.append(button);
+        button->setObjectName(QMetaEnum::fromType<UpdateModel::UpdateAction>().valueToKey(action));
         button->setFocusPolicy(Qt::NoFocus);
         button->setCheckable(true);
         // 按钮的选中状态跟随用户最初选择的是关机还是重启

@@ -8,6 +8,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QApplication>
+#include <QMetaEnum>
 #include <QScrollArea>
 #include <QScrollBar>
 #include <QWindow>
@@ -51,6 +52,7 @@ UpdateLogWidget::UpdateLogWidget(QWidget *parent)
 {
     qCDebug(logUpdateModal) << "Initialize UpdateLogWidget";
     m_logTextEdit->setReadOnly(true);
+    m_logTextEdit->setObjectName("LogTextEdit");
     m_logTextEdit->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
     m_logTextEdit->setWordWrapMode(QTextOption::WordWrap);
     m_logTextEdit->setFrameStyle(QFrame::NoFrame);
@@ -89,6 +91,7 @@ UpdateLogWidget::UpdateLogWidget(QWidget *parent)
     mainLayout->addStretch();
     mainLayout->addSpacing(10);
     m_exportButton->setMinimumWidth(136);
+    m_exportButton->setObjectName("ExportButton");
     mainLayout->addWidget(m_exportButton, 0, Qt::AlignHCenter);
     mainLayout->addWidget(m_notifyWidget, 0, Qt::AlignHCenter);
 
@@ -220,6 +223,7 @@ UpdateProgressWidget::UpdateProgressWidget(QWidget *parent)
     m_tip->setText(tr("Do not force a shutdown or power off when installing updates. Otherwise, your system may be damaged."));
     DFontSizeManager::instance()->bind(m_tip, DFontSizeManager::T6);
 
+    m_waitingView->setObjectName("UpdateWaitingUpdateSequenceView");
     m_waitingView->setAccessibleName("WaitingUpdateSequenceView");
     m_waitingView->setFixedSize(20 * qApp->devicePixelRatio(), 20 * qApp->devicePixelRatio());
     m_waitingView->setSingleShot(false);
@@ -240,6 +244,7 @@ UpdateProgressWidget::UpdateProgressWidget(QWidget *parent)
     m_progressBar->setFixedHeight(8);
     m_progressBar->setRange(0, 100);
     m_progressBar->setAlignment(Qt::AlignRight);
+    m_progressBar->setObjectName("UpdateProgressBar");
     m_progressBar->setAccessibleName("ProgressBar");
     m_progressBar->setValue(1);
     DPaletteHelper::instance()->setPalette(m_progressBar, DGuiApplicationHelper::instance()->standardPalette(DGuiApplicationHelper::DarkType));
@@ -263,6 +268,7 @@ UpdateProgressWidget::UpdateProgressWidget(QWidget *parent)
     pLayout->addSpacing(10);
     pLayout->addLayout(tipsLayout, 0);
     pLayout->addSpacing(10);
+    m_showLogButton->setObjectName("ShowLogButton");
     pLayout->addWidget(m_showLogButton, 0, Qt::AlignCenter);
 
     auto mainAnchors = new DAnchors<QWidget>(this);
@@ -342,6 +348,7 @@ UpdateCompleteWidget::UpdateCompleteWidget(QWidget *parent)
     m_mainLayout->addWidget(m_iconLabel, 0, Qt::AlignCenter);
     m_mainLayout->addWidget(m_title, 0, Qt::AlignCenter);
     m_mainLayout->addWidget(m_tips,0 , Qt::AlignCenter);
+    m_showLogButton->setObjectName("ShowLogButton_2");
     m_mainLayout->addWidget(m_showLogButton,0 , Qt::AlignCenter);
 
     m_expendLayout = new QVBoxLayout(m_expendWidget);
@@ -444,6 +451,7 @@ void UpdateCompleteWidget::showSuccessFrame()
         int insertIndex = m_expendLayout->count() - 1; // stretch 的位置
         m_expendLayout->insertWidget(insertIndex, button, 0, Qt::AlignHCenter);
         m_actionButtons.append(button);
+        button->setObjectName(UpdateModel::instance()->isReboot() ? "Reboot" : "ShutDown");
         button->setFocusPolicy(Qt::NoFocus);
         button->setCheckable(true);
         m_mainLayout->invalidate();
@@ -512,6 +520,7 @@ void UpdateCompleteWidget::createButtons(const QList<UpdateModel::UpdateAction> 
         int insertIndex = m_expendLayout->count() - 1; // stretch 的位置
         m_expendLayout->insertWidget(insertIndex, button, 0, Qt::AlignHCenter);
         m_actionButtons.append(button);
+        button->setObjectName(QMetaEnum::fromType<UpdateModel::UpdateAction>().valueToKey(action));
         button->setFocusPolicy(Qt::NoFocus);
         button->setCheckable(true);
         // 按钮的选中状态跟随用户最初选择的是关机还是重启
