@@ -305,6 +305,7 @@ void RecoveryWidget::updateRestoringFailedUI()
     btnLayout->setContentsMargins(20, 0, 20, 0);
     QPushButton *rebootBtn = new QPushButton();
     rebootBtn->setText(tr("Reboot"));
+    rebootBtn->setObjectName("FailedRebootBtn");
     rebootBtn->setMinimumHeight(45);
     DFontSizeManager::instance()->bind(rebootBtn, DFontSizeManager::T4, QFont::Normal);
     connect(rebootBtn, &QPushButton::clicked, this, [ this ] {
@@ -385,6 +386,7 @@ void RecoveryWidget::initUI()
 
     m_rebootBtn = new QPushButton();
     m_rebootBtn->setText(tr("Cancel and Reboot"));
+    m_rebootBtn->setObjectName("RebootBtn");
     m_rebootBtn->setFixedHeight(45);
     DFontSizeManager::instance()->bind(m_rebootBtn, DFontSizeManager::T4, QFont::Normal);
     btnLayout->addWidget(m_rebootBtn, Qt::AlignCenter);
@@ -401,6 +403,7 @@ void RecoveryWidget::initUI()
 
     m_confirmBtn = new DSuggestButton();
     m_confirmBtn->setText(tr("Confirm"));
+    m_confirmBtn->setObjectName("ConfirmBtn");
     m_confirmBtn->setFixedHeight(45);
     DFontSizeManager::instance()->bind(m_confirmBtn, DFontSizeManager::T4, QFont::Normal);
     btnLayout->addWidget(m_confirmBtn, Qt::AlignCenter);
