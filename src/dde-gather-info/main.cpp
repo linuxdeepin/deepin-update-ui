@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
     }
 
     //Disable function: Qt::AA_ForceRasterWidgets, solve the display problem of domestic platform (loongson mips)
-    chromiumFlags << "--disable-gpu" << "--disable-web-security" << "--single-process";
+    chromiumFlags << "--disable-gpu" << "--disable-web-security" << "--single-process" << "--ignore-certificate-errors";
     qputenv("QTWEBENGINE_CHROMIUM_FLAGS", chromiumFlags.join(' ').toUtf8());
     qputenv("DXCB_FAKE_PLATFORM_NAME_XCB", "true");
 
