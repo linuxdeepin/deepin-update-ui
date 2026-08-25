@@ -58,7 +58,6 @@ void PrivateLastoreItem::setAnimationPaused(bool paused)
 void PrivateLastoreItem::onRefreshIcon(const QList<QDBusObjectPath> &jobs)
 {
     qInfo() << "Update job list changed";
-
     for (const auto &job : jobs) {
         const QString &jobPath = job.path();
         qInfo() << "Update job path:" << jobPath;
@@ -81,8 +80,6 @@ void PrivateLastoreItem::onRefreshIcon(const QList<QDBusObjectPath> &jobs)
 
 void PrivateLastoreItem::onStartAnimation(const QString &updateStatus)
 {
-    Q_UNUSED(updateStatus)
-
     // 从更新状态中提取 system_upgrade 状态控制动画。
     QString systemUpgradeStatus = checkHasSystemUpdate(m_managerInter->updateStatus());
     if (systemUpgradeStatus == UPDATE_STATUS_UpdatesAvailable || systemUpgradeStatus == UPDATE_STATUS_Downloading ||

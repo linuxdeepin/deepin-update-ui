@@ -8,10 +8,9 @@
 #include <QIcon>
 #include <QWidget>
 #include <QMap>
-#include <QLabel>
 #include <QTimer>
 #include <QPropertyAnimation>
-#include <QGraphicsOpacityEffect>
+#include <QPixmap>
 
 // 托盘图标按钮，负责显示静态图标和更新动画。
 class CommonIconButton : public QWidget
@@ -26,6 +25,8 @@ public:
     Q_OBJECT
 public:
     Q_PROPERTY(qreal rotation READ rotation WRITE setRotation)
+    Q_PROPERTY(qreal opacity1 READ opacity1 WRITE setOpacity1)
+    Q_PROPERTY(qreal opacity2 READ opacity2 WRITE setOpacity2)
 
     explicit CommonIconButton(QWidget *parent = nullptr);
 
@@ -42,8 +43,13 @@ public:
 
     inline void setRotation(qreal rotation) { m_rotation = rotation; update(); }
     inline qreal rotation() const { return m_rotation;}
+    inline void setOpacity1(qreal opacity) { m_opacity1 = opacity; update(); }
+    inline qreal opacity1() const { return m_opacity1; }
+    inline void setOpacity2(qreal opacity) { m_opacity2 = opacity; update(); }
+    inline qreal opacity2() const { return m_opacity2; }
     void startAnimation();
     void stopAnimation();
+    bool isAnimating() const { return m_animating; }
 
 public Q_SLOTS:
     void setIcon(const QString &icon, const QString &fallback = "", const QString &suffix = ".svg");
@@ -86,14 +92,15 @@ private:
     qreal m_rotation;
     QPalette m_defaultPalette;
 
-    QLabel *m_animLabel1;
-    QLabel *m_animLabel2;
-    QGraphicsOpacityEffect* m_effect1;
-    QGraphicsOpacityEffect* m_effect2;
+    QPixmap m_animPixmap1;
+    QPixmap m_animPixmap2;
+    qreal m_opacity1;
+    qreal m_opacity2;
     QPropertyAnimation* m_fadeOutAnim;
     QPropertyAnimation* m_fadeInAnim;
     QTimer* m_animTimer;
     bool m_showingFirst;
+    bool m_animating;
 };
 
 #endif // DOCKICONBUTTON_H
