@@ -3,93 +3,93 @@
     <name>CheckUpdate</name>
     <message>
         <source>Last check: </source>
-        <translation type="unfinished"/>
+        <translation>آخر فحص: </translation>
     </message>
 </context>
 <context>
     <name>MirrorSourcePopup</name>
     <message>
         <source>Connectivity Test</source>
-        <translation type="unfinished"/>
+        <translation>اختبار الاتصال</translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
         <source>Fixed some known bugs and security vulnerabilities</source>
-        <translation type="unfinished"/>
+        <translation>إصلاح بعض الأخطاء المعروفة والثغرات الأمنية</translation>
     </message>
 </context>
 <context>
     <name>QuitTestingChannelDialog</name>
     <message>
         <source>If you exit the beta program, you will no longer receive beta updates.</source>
-        <translation type="unfinished"/>
+        <translation>إذا خرجت من برنامج التجريب، فلن تتلقى تحديثات التجريب بعد الآن.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>إلغاء</translation>
     </message>
     <message>
         <source>Exit</source>
-        <translation type="unfinished"/>
+        <translation>خروج</translation>
     </message>
 </context>
 <context>
     <name>Update</name>
     <message>
         <source>System Update</source>
-        <translation type="unfinished"/>
+        <translation>تحديث النظام</translation>
     </message>
     <message>
         <source>System update and upgrade</source>
-        <translation type="unfinished"/>
+        <translation>تحديث النظام وترقيته</translation>
     </message>
 </context>
 <context>
     <name>UpdateControl</name>
     <message>
         <source>View Update Log</source>
-        <translation type="unfinished"/>
+        <translation>عرض سجل التحديث</translation>
     </message>
 </context>
 <context>
     <name>UpdateHistoryDialog</name>
     <message>
         <source>Update History</source>
-        <translation type="unfinished"/>
+        <translation>سجل التحديثات</translation>
     </message>
     <message>
         <source>No update history</source>
-        <translation type="unfinished"/>
+        <translation>لا يوجد سجل تحديثات</translation>
     </message>
     <message>
         <source>System Updates</source>
-        <translation type="unfinished"/>
+        <translation>تحديثات النظام</translation>
     </message>
     <message>
         <source>Security Updates</source>
-        <translation type="unfinished"/>
+        <translation>تحديثات الأمان</translation>
     </message>
     <message>
         <source>Installation date:</source>
-        <translation type="unfinished"/>
+        <translation>تاريخ التثبيت:</translation>
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished"/>
+        <translation>الإصدار:</translation>
     </message>
     <message>
         <source>Vulnerability ID: </source>
-        <translation type="unfinished"/>
+        <translation>معرّف الثغرة: </translation>
     </message>
     <message>
         <source>Severity: </source>
-        <translation type="unfinished"/>
+        <translation>الخطورة: </translation>
     </message>
     <message>
         <source>Description: </source>
-        <translation type="unfinished"/>
+        <translation>الوصف: </translation>
     </message>
 </context>
 <context>
@@ -100,11 +100,11 @@
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished"/>
+        <translation>الإصدار:</translation>
     </message>
     <message>
         <source>View More</source>
-        <translation type="unfinished"/>
+        <translation>عرض المزيد</translation>
     </message>
     <message>
         <source>Collapse</source>
@@ -112,99 +112,99 @@
     </message>
     <message>
         <source>Vulnerability ID: </source>
-        <translation type="unfinished"/>
+        <translation>معرّف الثغرة: </translation>
     </message>
     <message>
         <source>Severity: </source>
-        <translation type="unfinished"/>
+        <translation>الخطورة: </translation>
     </message>
     <message>
         <source>Description: </source>
-        <translation type="unfinished"/>
+        <translation>الوصف: </translation>
     </message>
 </context>
 <context>
     <name>UpdateLogDialog</name>
     <message>
         <source>Update Log</source>
-        <translation type="unfinished"/>
+        <translation>سجل التحديث</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"/>
+        <translation>إغلاق</translation>
     </message>
     <message>
         <source>Export to desktop</source>
-        <translation type="unfinished"/>
+        <translation>تصدير إلى سطح المكتب</translation>
     </message>
 </context>
 <context>
     <name>UpdateLogHelper</name>
     <message>
         <source>NONE</source>
-        <translation type="unfinished"/>
+        <translation>لا شيء</translation>
     </message>
     <message>
         <source>LOW</source>
-        <translation type="unfinished"/>
+        <translation>منخفض</translation>
     </message>
     <message>
         <source>MEDIUM</source>
-        <translation type="unfinished"/>
+        <translation>متوسط</translation>
     </message>
     <message>
         <source>HIGH</source>
-        <translation type="unfinished"/>
+        <translation>مرتفع</translation>
     </message>
     <message>
         <source>CRITICAL</source>
-        <translation type="unfinished"/>
+        <translation>حرج</translation>
     </message>
     <message>
         <source>critical-risk</source>
-        <translation type="unfinished"/>
+        <translation>خطر حرج</translation>
     </message>
     <message>
         <source>high-risk</source>
-        <translation type="unfinished"/>
+        <translation>خطر مرتفع</translation>
     </message>
     <message>
         <source>medium-risk</source>
-        <translation type="unfinished"/>
+        <translation>خطر متوسط</translation>
     </message>
     <message>
         <source>low-risk</source>
-        <translation type="unfinished"/>
+        <translation>خطر منخفض</translation>
     </message>
     <message>
         <source>unknown</source>
-        <translation type="unfinished"/>
+        <translation>غير معروف</translation>
     </message>
     <message>
         <source>This update fixes</source>
-        <translation type="unfinished"/>
+        <translation>يصلح هذا التحديث</translation>
     </message>
     <message>
         <source>vulnerabilities</source>
-        <translation type="unfinished"/>
+        <translation>ثغرات أمنية</translation>
     </message>
     <message>
         <source>vulnerability</source>
-        <translation type="unfinished"/>
+        <translation>ثغرة أمنية</translation>
     </message>
     <message>
         <source>%1 of %2 %3</source>
-        <translation type="unfinished"/>
+        <translation>%1 من %2 %3</translation>
         <extra-content_explain>`数字+%`会在代码中替换为字符串，例如：3 of high-risk vulnerabilities；各语言需要根据实际情况增加空格(例如：中文没有空格，英文有空格)</extra-content_explain>
     </message>
     <message>
         <source>, </source>
-        <translation type="unfinished"/>
+        <translation>، </translation>
         <extra-content_explain>中文逗号不需要空格，英文逗号需要空格For more details, please visit</extra-content_explain>
     </message>
     <message>
         <source>for more details, please visit </source>
-        <translation type="unfinished"/>
+        <translation>لمزيد من التفاصيل، يرجى زيارة </translation>
         <extra-content_explain>这句话后面会带上一个超链接，各语言自行决定末尾需不需要加空格</extra-content_explain>
     </message>
 </context>
@@ -212,111 +212,111 @@
     <name>UpdateMain</name>
     <message>
         <source>Installing updates...</source>
-        <translation type="unfinished"/>
+        <translation>جارٍ تثبيت التحديثات...</translation>
     </message>
     <message>
         <source>Installing</source>
-        <translation type="unfinished"/>
+        <translation>جارٍ التثبيت</translation>
     </message>
     <message>
         <source>Backing up in progress...</source>
-        <translation type="unfinished"/>
+        <translation>جارٍ النسخ الاحتياطي...</translation>
     </message>
     <message>
         <source>Backing up in progress</source>
-        <translation type="unfinished"/>
+        <translation>جارٍ النسخ الاحتياطي</translation>
     </message>
     <message>
         <source>Downloading updates...</source>
-        <translation type="unfinished"/>
+        <translation>جارٍ تنزيل التحديثات...</translation>
     </message>
     <message>
         <source>Update size: </source>
-        <translation type="unfinished"/>
+        <translation>حجم التحديث: </translation>
     </message>
     <message>
         <source>Downloading</source>
-        <translation type="unfinished"/>
+        <translation>جارٍ التنزيل</translation>
     </message>
     <message>
         <source>Update installation successful</source>
-        <translation type="unfinished"/>
+        <translation>تم تثبيت التحديث بنجاح</translation>
     </message>
     <message>
         <source>To ensure proper functioning of your system and applications, please restart your computer after the update</source>
-        <translation type="unfinished"/>
+        <translation>لضمان عمل النظام والتطبيقات بشكل صحيح، يرجى إعادة تشغيل الكمبيوتر بعد التحديث</translation>
     </message>
     <message>
         <source>Reboot now</source>
-        <translation type="unfinished"/>
+        <translation>إعادة التشغيل الآن</translation>
     </message>
     <message>
         <source>Installation update failed</source>
-        <translation type="unfinished"/>
+        <translation>فشل تثبيت التحديث</translation>
     </message>
     <message>
         <source>The battery capacity is lower than 60%. To get successful updates, please plug in.</source>
-        <translation type="unfinished"/>
+        <translation>سعة البطارية أقل من 60%. لضمان نجاح التحديث، يرجى توصيل الجهاز بمصدر الطاقة.</translation>
     </message>
     <message>
         <source>Continue Update</source>
-        <translation type="unfinished"/>
+        <translation>متابعة التحديث</translation>
     </message>
     <message>
         <source>Backup failed</source>
-        <translation type="unfinished"/>
+        <translation>فشل النسخ الاحتياطي</translation>
     </message>
     <message>
         <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation type="unfinished"/>
+        <translation>إذا واصلت التحديثات، فلن تتمكن من العودة إلى النظام القديم لاحقًا.</translation>
     </message>
     <message>
         <source>Back Up Again</source>
-        <translation type="unfinished"/>
+        <translation>إعادة النسخ الاحتياطي</translation>
     </message>
     <message>
         <source>Proceed to Update</source>
-        <translation type="unfinished"/>
+        <translation>متابعة التحديث</translation>
     </message>
     <message>
         <source>Update download completed</source>
-        <translation type="unfinished"/>
+        <translation>اكتمل تنزيل التحديث</translation>
     </message>
     <message>
         <source>Install updates</source>
-        <translation type="unfinished"/>
+        <translation>تثبيت التحديثات</translation>
     </message>
     <message>
         <source>Update download failed</source>
-        <translation type="unfinished"/>
+        <translation>فشل تنزيل التحديث</translation>
     </message>
     <message>
         <source>Retry</source>
-        <translation type="unfinished"/>
+        <translation>إعادة المحاولة</translation>
     </message>
     <message>
         <source>Updates Available</source>
-        <translation type="unfinished"/>
+        <translation>تحديثات متاحة</translation>
     </message>
     <message>
         <source>Download</source>
-        <translation type="unfinished"/>
+        <translation>تنزيل</translation>
     </message>
     <message>
         <source>Update Settings</source>
-        <translation type="unfinished"/>
+        <translation>إعدادات التحديث</translation>
     </message>
     <message>
         <source>Configure Update settings、Security Updates、Auto Download Updates and Updates Notification</source>
-        <translation type="unfinished"/>
+        <translation>تكوين إعدادات التحديث، تحديثات الأمان، التنزيل التلقائي للتحديثات، وإشعارات التحديث</translation>
     </message>
     <message>
         <source>Install Now</source>
-        <translation type="unfinished"/>
+        <translation>تثبيت الآن</translation>
     </message>
     <message>
         <source>Check Again</source>
-        <translation type="unfinished"/>
+        <translation>فحص مرة أخرى</translation>
     </message>
 </context>
 <context>
@@ -331,114 +331,114 @@
     </message>
     <message>
         <source>Unknown error</source>
-        <translation type="unfinished"/>
+        <translation>خطأ غير معروف</translation>
     </message>
     <message>
         <source>Downloading updates failed. Please free up %1 disk space first.</source>
-        <translation type="unfinished"/>
+        <translation>فشل تنزيل التحديثات. يرجى تحرير مساحة قرص %1 أولاً.</translation>
     </message>
     <message>
         <source>Dependency error, failed to detect the updates</source>
-        <translation type="unfinished"/>
+        <translation>خطأ في التبعيات، تعذر اكتشاف التحديثات</translation>
     </message>
     <message>
         <source>Please check your network and try again.</source>
-        <translation type="unfinished"/>
+        <translation>يرجى التحقق من الشبكة وإعادة المحاولة.</translation>
     </message>
     <message>
         <source>Downloading updates failed. Please check your network and try again.</source>
-        <translation type="unfinished"/>
+        <translation>فشل تنزيل التحديثات. يرجى التحقق من الشبكة وإعادة المحاولة.</translation>
     </message>
     <message>
         <source>Unable to perform system backup. If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation type="unfinished"/>
+        <translation>تعذر إجراء نسخ احتياطي للنظام. إذا واصلت التحديثات، فلن تتمكن من العودة إلى النظام القديم لاحقًا.</translation>
     </message>
     <message>
         <source>If you continue the updates, you cannot roll back to the old system later.</source>
-        <translation type="unfinished"/>
+        <translation>إذا واصلت التحديثات، فلن تتمكن من العودة إلى النظام القديم لاحقًا.</translation>
     </message>
     <message>
         <source>Insufficient disk space</source>
-        <translation type="unfinished"/>
+        <translation>مساحة قرص غير كافية</translation>
     </message>
     <message>
         <source>DPKG error</source>
-        <translation type="unfinished"/>
+        <translation>خطأ DPKG</translation>
     </message>
     <message>
         <source>File missing</source>
-        <translation type="unfinished"/>
+        <translation>ملف مفقود</translation>
     </message>
     <message>
         <source>Service connection is abnormal, please check the network and try again</source>
-        <translation type="unfinished"/>
+        <translation>اتصال الخدمة غير طبيعي، يرجى التحقق من الشبكة وإعادة المحاولة</translation>
     </message>
     <message>
         <source>The repository source configuration is not valid, please check and try again.</source>
-        <translation type="unfinished"/>
+        <translation>تكوين مصدر المستودع غير صالح، يرجى التحقق وإعادة المحاولة.</translation>
     </message>
     <message>
         <source>Check Again</source>
-        <translation type="unfinished"/>
+        <translation>فحص مرة أخرى</translation>
     </message>
     <message>
         <source>Privacy Policy</source>
-        <translation type="unfinished"/>
+        <translation>سياسة الخصوصية</translation>
     </message>
     <message>
         <source>To use this software, you must accept the %1 that accompanies software updates.</source>
-        <translation type="unfinished"/>
+        <translation>لاستخدام هذا البرنامج، يجب عليك قبول %1 المرافق لتحديثات البرنامج.</translation>
     </message>
     <message>
         <source>Turn on the switches under Update Content to get better experiences</source>
-        <translation type="unfinished"/>
+        <translation>قم بتشغيل المفاتيح ضمن محتوى التحديث للحصول على تجربة أفضل</translation>
     </message>
     <message>
         <source>Your system is not activated, and it failed to connect to update services</source>
-        <translation type="unfinished"/>
+        <translation>النظام غير مُفعّل، وفشل في الاتصال بخدمات التحديث</translation>
     </message>
     <message>
         <source>The system updates are disabled. Please contact your administrator for help</source>
-        <translation type="unfinished"/>
+        <translation>تحديثات النظام معطّلة. يرجى الاتصال بالمسؤول للحصول على المساعدة</translation>
     </message>
     <message>
         <source>The system has enabled auto recovery function and does not support updates. If you have any questions, please contact the enterprise administrator</source>
-        <translation type="unfinished"/>
+        <translation>قام النظام بتمكين وظيفة الاستعادة التلقائية ولا يدعم التحديثات. إذا كان لديك أي أسئلة، يرجى الاتصال بمسؤول المؤسسة</translation>
     </message>
     <message>
         <source>will upgrade at %1</source>
-        <translation type="unfinished"/>
+        <translation>سيتم الترقية في %1</translation>
     </message>
     <message>
         <source>will upgrade when shutdown</source>
-        <translation type="unfinished"/>
+        <translation>سيتم الترقية عند إيقاف التشغيل</translation>
     </message>
     <message>
         <source>Current Edition</source>
-        <translation type="unfinished"/>
+        <translation>الإصدار الحالي</translation>
     </message>
     <message>
         <source>Baseline</source>
-        <translation type="unfinished"/>
+        <translation>الخط الأساسي</translation>
     </message>
 </context>
 <context>
     <name>UpdateSelectDialog</name>
     <message>
         <source>The updates have been already downloaded. What do you want to do?</source>
-        <translation type="unfinished"/>
+        <translation>تم تنزيل التحديثات بالفعل. ماذا تريد أن تفعل؟</translation>
     </message>
     <message>
         <source>Silent Installation</source>
-        <translation type="unfinished"/>
+        <translation>تثبيت صامت</translation>
     </message>
     <message>
         <source>Update and Reboot</source>
-        <translation type="unfinished"/>
+        <translation>تحديث وإعادة تشغيل</translation>
     </message>
     <message>
         <source>Update and Shut Down</source>
-        <translation type="unfinished"/>
+        <translation>تحديث وإيقاف التشغيل</translation>
     </message>
 </context>
 <context>
@@ -449,190 +449,190 @@
     </message>
     <message>
         <source>Update Type</source>
-        <translation type="unfinished"/>
+        <translation>نوع التحديث</translation>
     </message>
     <message>
         <source>Function Updates</source>
-        <translation type="unfinished"/>
+        <translation>تحديثات الوظائف</translation>
     </message>
     <message>
         <source>Delivers a cumulative update including new features, quality updates, and  security updates</source>
-        <translation type="unfinished"/>
+        <translation>يوفر تحديثًا تراكميًا يتضمن ميزات جديدة وتحديثات للجودة وتحديثات أمنية</translation>
     </message>
     <message>
         <source>Security Updates</source>
-        <translation type="unfinished"/>
+        <translation>تحديثات الأمان</translation>
     </message>
     <message>
         <source>Delivers security updates</source>
-        <translation type="unfinished"/>
+        <translation>يوفر تحديثات أمنية</translation>
     </message>
     <message>
         <source>Third-party Updates</source>
-        <translation type="unfinished"/>
+        <translation>تحديثات الطرف الثالث</translation>
     </message>
     <message>
         <source>Delivers  updates for additional repository sources</source>
-        <translation type="unfinished"/>
+        <translation>يوفر تحديثات لمصادر مستودعات إضافية</translation>
     </message>
     <message>
         <source>Delivery Optimization</source>
-        <translation type="unfinished"/>
+        <translation>تحسين التسليم</translation>
     </message>
     <message>
         <source>When enabled, your device may share previously downloaded system updates with other devices on your local network.When you turn it off, cached files from update delivery will be cleared during the next restart.</source>
-        <translation type="unfinished"/>
+        <translation>عند التمكين، قد يشارك جهازك تحديثات النظام التي تم تنزيلها مسبقًا مع الأجهزة الأخرى على شبكتك المحلية. عند إيقافه، سيتم مسح الملفات المؤقتة لتسليم التحديثات عند إعادة التشغيل التالية.</translation>
     </message>
     <message>
         <source>Delivery Optimization-Limit Speed</source>
-        <translation type="unfinished"/>
+        <translation>تحسين التسليم - تحديد السرعة</translation>
     </message>
     <message>
         <source>Delivery Optimization-Upload throttling</source>
-        <translation type="unfinished"/>
+        <translation>تحسين التسليم - تقييد الرفع</translation>
     </message>
     <message>
         <source>Limit Speed</source>
-        <translation type="unfinished"/>
+        <translation>تحديد السرعة</translation>
     </message>
     <message>
         <source>Limit Setting</source>
-        <translation type="unfinished"/>
+        <translation>إعداد التحديد</translation>
     </message>
     <message>
         <source>Auto Download</source>
-        <translation type="unfinished"/>
+        <translation>تنزيل تلقائي</translation>
     </message>
     <message>
         <source>Enabling &quot;Auto Download Updates&quot; will automatically download updates when connected to the internet</source>
-        <translation type="unfinished"/>
+        <translation>عند تمكين &quot;التنزيل التلقائي للتحديثات&quot;، سيتم تنزيل التحديثات تلقائيًا عند الاتصال بالإنترنت</translation>
     </message>
     <message>
         <source>Download when Inactive</source>
-        <translation type="unfinished"/>
+        <translation>التنزيل عند الخمول</translation>
     </message>
     <message>
         <source>Start at</source>
-        <translation type="unfinished"/>
+        <translation>البدء من</translation>
     </message>
     <message>
         <source>End at</source>
-        <translation type="unfinished"/>
+        <translation>الانتهاء عند</translation>
     </message>
     <message>
         <source>Advanced Settings</source>
-        <translation type="unfinished"/>
+        <translation>الإعدادات المتقدمة</translation>
     </message>
     <message>
         <source>Updates Notification</source>
-        <translation type="unfinished"/>
+        <translation>إشعارات التحديثات</translation>
     </message>
     <message>
         <source>Clear Package Cache</source>
-        <translation type="unfinished"/>
+        <translation>مسح ذاكرة الحزم المؤقتة</translation>
     </message>
     <message>
         <source>Update History</source>
-        <translation type="unfinished"/>
+        <translation>سجل التحديثات</translation>
     </message>
     <message>
         <source>View</source>
-        <translation type="unfinished"/>
+        <translation>عرض</translation>
     </message>
     <message>
         <source>Join Internal Testing Channel</source>
-        <translation type="unfinished"/>
+        <translation>الانضمام إلى قناة الاختبار الداخلي</translation>
     </message>
     <message>
         <source>Click here to complete the application</source>
-        <translation type="unfinished"/>
+        <translation>انقر هنا لإكمال الطلب</translation>
     </message>
     <message>
         <source>Expand</source>
-        <translation type="unfinished"/>
+        <translation>توسيع</translation>
     </message>
     <message>
         <source>Collapse</source>
-        <translation type="unfinished"/>
+        <translation>طي</translation>
     </message>
     <message>
         <source>Only numbers between 10-999999 are allowed</source>
-        <translation type="unfinished"/>
+        <translation>يُسمح فقط بالأرقام بين 10-999999</translation>
     </message>
     <message>
         <source>Failed to change Delivery Optimization setting</source>
-        <translation type="unfinished"/>
+        <translation>فشل تغيير إعداد تحسين التسليم</translation>
     </message>
     <message>
         <source>Update Delivery Optimization service exception</source>
-        <translation type="unfinished"/>
+        <translation>استثناء في خدمة تحسين تسليم التحديثات</translation>
     </message>
     <message>
         <source>Try again</source>
-        <translation type="unfinished"/>
+        <translation>إعادة المحاولة</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>إلغاء</translation>
     </message>
     <message>
         <source>Join the internal testing channel to get deepin latest updates.</source>
-        <translation type="unfinished"/>
+        <translation>انضم إلى قناة الاختبار الداخلي للحصول على أحدث تحديثات deepin.</translation>
     </message>
     <message>
         <source>Default Mirror Source</source>
-        <translation type="unfinished"/>
+        <translation>مصدر المرآة الافتراضي</translation>
     </message>
     <message>
         <source>Untested</source>
-        <translation type="unfinished"/>
+        <translation>غير مُختبَر</translation>
     </message>
     <message>
         <source>Testing...</source>
-        <translation type="unfinished"/>
+        <translation>جارٍ الاختبار...</translation>
     </message>
     <message>
         <source>Timeout</source>
-        <translation type="unfinished"/>
+        <translation>انتهت المهلة</translation>
     </message>
 </context>
 <context>
     <name>UpdateWorker</name>
     <message>
         <source>System Updates</source>
-        <translation type="unfinished"/>
+        <translation>تحديثات النظام</translation>
     </message>
     <message>
         <source>Fixed some known bugs and security vulnerabilities</source>
-        <translation type="unfinished"/>
+        <translation>إصلاح بعض الأخطاء المعروفة والثغرات الأمنية</translation>
     </message>
     <message>
         <source>Security Updates</source>
-        <translation type="unfinished"/>
+        <translation>تحديثات الأمان</translation>
     </message>
     <message>
         <source>Third-party Repositories</source>
-        <translation type="unfinished"/>
+        <translation>مستودعات الطرف الثالث</translation>
     </message>
     <message>
         <source>updatelog</source>
-        <translation type="unfinished"/>
+        <translation>سجل التحديث</translation>
     </message>
     <message>
         <source>Log export failed, please try again</source>
-        <translation type="unfinished"/>
+        <translation>فشل تصدير السجل، يرجى إعادة المحاولة</translation>
     </message>
     <message>
         <source>The log has been exported to the desktop</source>
-        <translation type="unfinished"/>
+        <translation>تم تصدير السجل إلى سطح المكتب</translation>
     </message>
     <message>
         <source>Update</source>
-        <translation type="unfinished"/>
+        <translation>تحديث</translation>
     </message>
     <message>
         <source>Please plug in and then install updates.</source>
-        <translation type="unfinished"/>
+        <translation>يرجى توصيل الجهاز بمصدر الطاقة ثم تثبيت التحديثات.</translation>
     </message>
 </context>
 </TS>
