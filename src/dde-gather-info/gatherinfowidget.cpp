@@ -60,6 +60,7 @@ void CustomWebEnginePage::ignoreCertificateErrors()
 {
     connect(this, &QWebEnginePage::certificateError, this, [](const QWebEngineCertificateError &) {
         // ignore all certificate errors
+        return true;
     });
 }
 
