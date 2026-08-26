@@ -24,14 +24,13 @@ CommonIconButton::CommonIconButton(QWidget *parent)
     , m_hoverEnable(true)
     , m_iconSize(QSize())
     , m_rotation(0)
-    , m_animLabel1(new QLabel(this))
-    , m_animLabel2(new QLabel(this))
-    , m_effect1(new QGraphicsOpacityEffect(this))
-    , m_effect2(new QGraphicsOpacityEffect(this))
-    , m_fadeOutAnim(new QPropertyAnimation)
-    , m_fadeInAnim(new QPropertyAnimation)
+    , m_opacity1(0.0)
+    , m_opacity2(0.0)
+    , m_fadeOutAnim(new QPropertyAnimation(this))
+    , m_fadeInAnim(new QPropertyAnimation(this))
     , m_animTimer(new QTimer(this))
     , m_showingFirst(true)
+    , m_animating(false)
 {
     setAccessibleName("IconButton");
     setFixedSize(Dock::DOCK_PLUGIN_ITEM_FIXED_SIZE);
@@ -40,27 +39,11 @@ CommonIconButton::CommonIconButton(QWidget *parent)
 
     m_defaultPalette = palette();
 
-    m_animLabel1->setGraphicsEffect(m_effect1);
-    m_animLabel2->setGraphicsEffect(m_effect2);
-    m_animLabel1->setScaledContents(true);
-    m_animLabel2->setScaledContents(true);
-    m_animLabel1->setGeometry(this->rect());
-    m_animLabel2->setGeometry(this->rect());
-    m_animLabel1->setPixmap(QPixmap(":resources/private-lastore-sleep_16px.svg"));
-    m_animLabel2->setPixmap(QPixmap(":resources/private-lastore-active_16px.svg"));
-    m_animLabel1->setFixedSize(Dock::DOCK_PLUGIN_ITEM_FIXED_SIZE);
-    m_animLabel2->setFixedSize(Dock::DOCK_PLUGIN_ITEM_FIXED_SIZE);
-    m_animLabel1->hide();
-    m_animLabel2->hide();
-
-    m_effect1->setOpacity(1.0);
-    m_effect2->setOpacity(0.0);
+    m_animPixmap1 = QPixmap(":resources/private-lastore-sleep_16px.svg");
+    m_animPixmap2 = QPixmap(":resources/private-lastore-active_16px.svg");
 
     m_fadeOutAnim->setDuration(500);
-    m_fadeOutAnim->setPropertyName("opacity");
     m_fadeInAnim->setDuration(500);
-    m_fadeInAnim->setPropertyName("opacity");
-
     m_fadeOutAnim->setEasingCurve(QEasingCurve::InOutQuad);
     m_fadeInAnim->setEasingCurve(QEasingCurve::InOutQuad);
 
@@ -85,7 +68,6 @@ void CommonIconButton::startRotate()
     if (!m_refreshTimer) {
         m_refreshTimer = new QTimer(this);
         m_refreshTimer->setInterval(70);
-        // 定时累加角度，驱动旋转绘制。
         connect(m_refreshTimer, &QTimer::timeout, this, &CommonIconButton::startRotate);
     }
     m_refreshTimer->start();
@@ -102,22 +84,29 @@ void CommonIconButton::stopRotate()
 
 void CommonIconButton::startAnimation()
 {
-    // 通过两张图标交替淡入淡出显示活动状态。
+    if (m_animating) {
+        return;
+    }
+    m_animating = true;
     m_showingFirst = true;
-    m_effect1->setOpacity(1.0);
-    m_effect2->setOpacity(0.0);
-    m_animLabel1->setVisible(true);
-    m_animLabel2->setVisible(true);
+    m_opacity1 = 1.0;
+    m_opacity2 = 0.0;
     if (!m_animTimer->isActive()) {
         m_animTimer->start(2000);
     }
+    update();
 }
 
 void CommonIconButton::stopAnimation()
 {
-    m_animLabel1->setVisible(false);
-    m_animLabel2->setVisible(false);
+    if (!m_animating) {
+        return;
+    }
+    m_animating = false;
     m_animTimer->stop();
+    m_fadeOutAnim->stop();
+    m_fadeInAnim->stop();
+    update();
 }
 
 void CommonIconButton::setIcon(const QIcon &icon, QColor lightThemeColor, QColor darkThemeColor)
@@ -151,21 +140,24 @@ void CommonIconButton::updatePalette()
 
 void CommonIconButton::switchIcon()
 {
-    // 切换当前显示的图标层并启动透明度动画。
     if (m_showingFirst) {
-        m_fadeOutAnim->setTargetObject(m_effect1);
+        m_fadeOutAnim->setTargetObject(this);
+        m_fadeOutAnim->setPropertyName("opacity1");
         m_fadeOutAnim->setStartValue(1.0);
         m_fadeOutAnim->setEndValue(0.0);
 
-        m_fadeInAnim->setTargetObject(m_effect2);
+        m_fadeInAnim->setTargetObject(this);
+        m_fadeInAnim->setPropertyName("opacity2");
         m_fadeInAnim->setStartValue(0.0);
         m_fadeInAnim->setEndValue(1.0);
     } else {
-        m_fadeOutAnim->setTargetObject(m_effect2);
+        m_fadeOutAnim->setTargetObject(this);
+        m_fadeOutAnim->setPropertyName("opacity2");
         m_fadeOutAnim->setStartValue(1.0);
         m_fadeOutAnim->setEndValue(0.0);
 
-        m_fadeInAnim->setTargetObject(m_effect1);
+        m_fadeInAnim->setTargetObject(this);
+        m_fadeInAnim->setPropertyName("opacity1");
         m_fadeInAnim->setStartValue(0.0);
         m_fadeInAnim->setEndValue(1.0);
     }
@@ -200,7 +192,6 @@ void CommonIconButton::setIcon(const QString &icon, const QString &fallback, con
     QString tmp = icon;
     QString tmpFallback = fallback;
 
-    // 浅色主题下优先使用带 `-dark` 后缀的图标资源。
     static auto addDarkMark = [suffix] (QString &file) {
         if (file.contains(suffix)) {
             file.replace(suffix, "-dark" + suffix);
@@ -244,7 +235,19 @@ void CommonIconButton::paintEvent(QPaintEvent *e)
 {
     QWidget::paintEvent(e);
 
-    if (m_animLabel1->isVisible() || m_animLabel2->isVisible()) {
+    if (m_animating) {
+        QPainter painter(this);
+        painter.setRenderHint(QPainter::Antialiasing);
+        painter.setRenderHint(QPainter::SmoothPixmapTransform);
+
+        if (m_opacity1 > 0.01) {
+            painter.setOpacity(m_opacity1);
+            painter.drawPixmap(rect(), m_animPixmap1);
+        }
+        if (m_opacity2 > 0.01) {
+            painter.setOpacity(m_opacity2);
+            painter.drawPixmap(rect(), m_animPixmap2);
+        }
         return;
     }
 
@@ -278,7 +281,6 @@ void CommonIconButton::mousePressEvent(QMouseEvent *event)
 
 void CommonIconButton::mouseReleaseEvent(QMouseEvent *event)
 {
-    // 旋转期间不触发点击信号。
     if (m_clickable && rect().contains(m_pressPos) && rect().contains(event->pos()) && (!m_refreshTimer || !m_refreshTimer->isActive())) {
         Q_EMIT clicked();
         return;
