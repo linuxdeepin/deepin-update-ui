@@ -1,0 +1,17 @@
+{
+    "magic": "dsg.config.meta",
+    "version": "1.0",
+    "contents": {
+        "showWelcomePage": {
+            "value": true,
+            "serial": 0,
+            "flags": ["global"],
+            "name": "ShowWelcomePage",
+            "name[zh_CN]": "更新完成是否显示欢迎界面",
+            "description": "",
+            "description[zh_CN]": "如果为 true，按版本类型判断：跨大版本更新显示欢迎界面，小版本更新直接进入桌面；如果为 false，任何更新完成后均不显示欢迎界面，直接进入桌面。",
+            "permissions": "readwrite",
+            "visibility": "private"
+        }
+    }
+}

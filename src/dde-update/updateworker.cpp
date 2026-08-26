@@ -644,6 +644,12 @@ void UpdateWorker::getUpdateOption()
             qCInfo(logUpdateModal) << "Upgrade mode:" << upgradeMode;
             UpdateModel::instance()->setUpdateMode(upgradeMode);
         }
+        if (obj.contains("MajorUpgrade")) {
+            const bool majorUpgrade = obj.value("MajorUpgrade").toBool(false);
+            qCInfo(logUpdateModal) << "Major upgrade:" << majorUpgrade;
+            UpdateModel::instance()->setMajorUpgrade(majorUpgrade);
+        }
+
         if (obj.contains("DoUpgrade")) {
             const bool whetherDoUpgrade = obj.value("DoUpgrade").toBool(false); // system:1 security:4
             qCInfo(logUpdateModal) << "Whether do upgrade:" << whetherDoUpgrade;

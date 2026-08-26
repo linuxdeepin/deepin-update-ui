@@ -63,6 +63,10 @@ install(TARGETS ${UPDATE_EXEC_NAME} DESTINATION ${CMAKE_INSTALL_LIBEXECDIR}/deep
 install(FILES "misc/99_system_upgrade_conf.json"
         DESTINATION ${CMAKE_INSTALL_DATADIR}/dde-session-shell/greeters.d/launch.conf.d)
 
+# DConfig: 更新完成欢迎界面配置
+install(FILES "misc/org.deepin.dde.update.json"
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/dsg/configs/org.deepin.dde.update)
+
 install(FILES "misc/dde-update-autostart.desktop"
         DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/xdg/autostart)
 
