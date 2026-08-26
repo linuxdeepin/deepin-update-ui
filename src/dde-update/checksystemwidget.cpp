@@ -4,6 +4,7 @@
 
 #include "checksystemwidget.h"
 #include "updateworker.h"
+#include "common/common/dconfig_helper.h"
 
 #include <DFontSizeManager>
 #include <DHiDPIHelper>
@@ -380,6 +381,17 @@ void CheckSystemWidget::initConnections()
             if (mainLayout)
                 mainLayout->addWidget(errorFrame);
         } else if (UpdateModel::CheckSuccess == status) {
+            // 配置开关: false 时任何更新完成后均不显示欢迎界面, 直接进入桌面
+            const bool showWelcomePage = DConfigHelper::instance()->getConfig(
+                "org.deepin.dde.update", "org.deepin.dde.update", "", "showWelcomePage", true).toBool();
+            // 小版本升级（非大版本）或配置关闭时不显示欢迎界面, 直接退出进入桌面
+            if (!showWelcomePage || !UpdateModel::instance()->majorUpgrade()) {
+                qCInfo(logUpdateModal) << "Skip welcome page and exit, showWelcomePage:" << showWelcomePage
+                                       << ", majorUpgrade:" << UpdateModel::instance()->majorUpgrade();
+                qApp->exit();
+                return;
+            }
+
             m_checkProgressWidget->setVisible(false);
             auto successFrame = new SuccessFrame(this);
             auto mainLayout = dynamic_cast<QVBoxLayout*>(layout());

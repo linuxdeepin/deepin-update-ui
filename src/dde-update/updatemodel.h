@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2022 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -101,6 +101,9 @@ public:
     void setDoUpgrade(bool doUpgrade) { m_doUpgrade = doUpgrade; }
     bool whetherDoUpgrade() const { return m_doUpgrade; }
 
+    void setMajorUpgrade(bool majorUpgrade) { m_majorUpgrade = majorUpgrade; }
+    bool majorUpgrade() const { return m_majorUpgrade; }
+
     void setUpdateMode(int updateMode) { m_updateMode = updateMode; }
     int updateMode() const { return m_updateMode; }
 
@@ -141,6 +144,7 @@ private:
     bool m_isReboot;                // true 更新并重启 false 更新并关机
     int m_updateMode; // 更新类型
     bool m_doUpgrade; // 是否进行更新操作
+    bool m_majorUpgrade = false; // 是否为大版本升级 (lastore-daemon 判定并写入选项文件)
     bool m_hasBackup = false; // 是否有备份
 
     CheckStatus m_checkStatus;
