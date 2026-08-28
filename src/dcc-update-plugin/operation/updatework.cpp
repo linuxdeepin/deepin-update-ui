@@ -13,6 +13,7 @@
 
 #include <QDBusError>
 #include <QDBusPendingCallWatcher>
+#include <QDBusVariant>
 #include <QDesktopServices>
 #include <QFuture>
 #include <QFutureWatcher>
@@ -1319,8 +1320,8 @@ void UpdateWorker::refreshUpgradeDeliveryInfo()
     if (!m_updateAssistant || !m_model) {
         return;
     }
-    m_model->setUpgradeDownloadSpeedLimitConfig(transferDeliveryConfigToLastoreDeliveryConfig(m_updateAssistant->downloadLimitSpeed()).toUtf8());
-    m_model->setUpgradeUploadSpeedLimitConfig(transferDeliveryConfigToLastoreDeliveryConfig(m_updateAssistant->uploadLimitSpeed()).toUtf8());
+    refreshUpgradeDeliveryDownloadLimitSpeed();
+    refreshUpgradeDeliveryUploadLimitSpeed();
     m_model->setUpgradeDeliveryEnable(m_updateInter->p2pUpdateEnable());
 }
 
@@ -1782,8 +1783,8 @@ void UpdateWorker::setUpgradeDeliveryEnabled(bool enabled, bool fromRetryDialog)
     auto func_set_success = [=](bool enabled) {
         qCDebug(logDccUpdatePlugin) << "Set update assistant service succeed, enabled " << enabled;
         if (m_updateAssistant && m_model) {
-            m_model->setUpgradeDownloadSpeedLimitConfig(transferDeliveryConfigToLastoreDeliveryConfig(m_updateAssistant->downloadLimitSpeed()).toUtf8());
-            m_model->setUpgradeUploadSpeedLimitConfig(transferDeliveryConfigToLastoreDeliveryConfig(m_updateAssistant->uploadLimitSpeed()).toUtf8());
+            refreshUpgradeDeliveryDownloadLimitSpeed();
+            refreshUpgradeDeliveryUploadLimitSpeed();
             m_model->setUpgradeDeliveryEnable(enabled);
         }
     };
@@ -1848,15 +1849,53 @@ void UpdateWorker::setUpgradeDeliveryUploadLimitSpeed(const QString& speed, bool
 void UpdateWorker::getUpgradeDeliveryDownloadLimitSpeed()
 {
     if (m_updateAssistant && m_model) {
-        m_model->setUpgradeDownloadSpeedLimitConfig(transferDeliveryConfigToLastoreDeliveryConfig(m_updateAssistant->downloadLimitSpeed()).toUtf8());
+        refreshUpgradeDeliveryDownloadLimitSpeed();
     }
 }
 
 void UpdateWorker::getUpgradeDeliveryUploadLimitSpeed()
 {
     if (m_updateAssistant && m_model) {
-        m_model->setUpgradeUploadSpeedLimitConfig(transferDeliveryConfigToLastoreDeliveryConfig(m_updateAssistant->uploadLimitSpeed()).toUtf8());
+        refreshUpgradeDeliveryUploadLimitSpeed();
     }
+}
+
+void UpdateWorker::refreshUpgradeDeliveryDownloadLimitSpeed()
+{
+    auto watcher = new QDBusPendingCallWatcher(m_updateAssistant->asyncGetDownloadLimitSpeed(), this);
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, watcher] {
+        watcher->deleteLater();
+        QDBusPendingReply<QDBusVariant> reply = *watcher;
+        if (reply.isError()) {
+            qCWarning(logDccUpdatePlugin) << "async get download limit speed failed:" << reply.error().message();
+            return;
+        }
+        const QString speed = reply.value().variant().toString();
+        if (speed.isEmpty()) {
+            qCWarning(logDccUpdatePlugin) << "async get download limit speed is empty";
+            return;
+        }
+        m_model->setUpgradeDownloadSpeedLimitConfig(transferDeliveryConfigToLastoreDeliveryConfig(speed).toUtf8());
+    });
+}
+
+void UpdateWorker::refreshUpgradeDeliveryUploadLimitSpeed()
+{
+    auto watcher = new QDBusPendingCallWatcher(m_updateAssistant->asyncGetUploadLimitSpeed(), this);
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, watcher] {
+        watcher->deleteLater();
+        QDBusPendingReply<QDBusVariant> reply = *watcher;
+        if (reply.isError()) {
+            qCWarning(logDccUpdatePlugin) << "async get upload limit speed failed:" << reply.error().message();
+            return;
+        }
+        const QString speed = reply.value().variant().toString();
+        if (speed.isEmpty()) {
+            qCWarning(logDccUpdatePlugin) << "async get upload limit speed is empty";
+            return;
+        }
+        m_model->setUpgradeUploadSpeedLimitConfig(transferDeliveryConfigToLastoreDeliveryConfig(speed).toUtf8());
+    });
 }
 
 void UpdateWorker::cleanUpgradeDeliveryCache()

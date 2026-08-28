@@ -45,6 +45,8 @@ public:
     Q_PROPERTY(QString DownloadLimitSpeed READ downloadLimitSpeed NOTIFY DownloadLimitSpeedChanged)
     inline QString downloadLimitSpeed() const
     { return qvariant_cast<QString>(internalPropGet("DownloadLimitSpeed")); }
+    QDBusPendingCall asyncGetUploadLimitSpeed();
+    QDBusPendingCall asyncGetDownloadLimitSpeed();
 
 public Q_SLOTS: // METHODS
 
@@ -76,6 +78,7 @@ private Q_SLOTS:
     void onPropertyChanged(const QString& interfaceName,
                            const QVariantMap& changedProperties,
                            const QStringList& invalidatedProperties);
+    QDBusPendingCall asyncGetProperty(const QString &propertyName);
 
 private:
     UpdateAssistantPrivate *d_ptr;
