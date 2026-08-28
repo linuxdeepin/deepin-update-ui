@@ -81,6 +81,8 @@ public:
     Q_INVOKABLE void setUpgradeDeliveryUploadLimitSpeed(const QString& speed, bool enable);
     Q_INVOKABLE void getUpgradeDeliveryDownloadLimitSpeed();
     Q_INVOKABLE void getUpgradeDeliveryUploadLimitSpeed();
+    void refreshUpgradeDeliveryDownloadLimitSpeed();
+    void refreshUpgradeDeliveryUploadLimitSpeed();
     Q_INVOKABLE void cleanUpgradeDeliveryCache();
     Q_INVOKABLE void setIdleDownloadConfig(const IdleDownloadConfig& config);
     QString adjustTimeFunc(const QString& start, const QString& end, bool returnEndTime);

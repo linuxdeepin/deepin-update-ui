@@ -23,14 +23,34 @@ void UpdateAssistant::onPropertyChanged(const QString& interfaceName,
     if (interfaceName != staticInterfaceName())
         return;
 
+    // 直接使用信号携带的新值，避免同步回读属性导致阻塞
     if (changedProperties.contains("UploadLimitSpeed")) {
-        Q_EMIT UploadLimitSpeedChanged(uploadLimitSpeed());
+        Q_EMIT UploadLimitSpeedChanged(changedProperties.value("UploadLimitSpeed").toString());
     }
     if (changedProperties.contains("DownloadLimitSpeed")) {
-        Q_EMIT DownloadLimitSpeedChanged(downloadLimitSpeed());
+        Q_EMIT DownloadLimitSpeedChanged(changedProperties.value("DownloadLimitSpeed").toString());
     }
 
     return;
+}
+
+QDBusPendingCall UpdateAssistant::asyncGetUploadLimitSpeed()
+{
+    return asyncGetProperty("UploadLimitSpeed");
+}
+
+QDBusPendingCall UpdateAssistant::asyncGetDownloadLimitSpeed()
+{
+    return asyncGetProperty("DownloadLimitSpeed");
+}
+
+QDBusPendingCall UpdateAssistant::asyncGetProperty(const QString &propertyName)
+{
+    QDBusMessage msg = QDBusMessage::createMethodCall(service(), path(),
+                                                      QStringLiteral("org.freedesktop.DBus.Properties"),
+                                                      QStringLiteral("Get"));
+    msg.setArguments({ QVariant::fromValue(QString(staticInterfaceName())), QVariant::fromValue(propertyName) });
+    return connection().asyncCall(msg);
 }
 
 void UpdateAssistant::CallQueued(const QString &callName, const QList<QVariant> &args)
