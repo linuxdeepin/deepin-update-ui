@@ -158,11 +158,11 @@
     </message>
     <message>
         <source>CRITICAL</source>
-        <translation>严重</translation>
+        <translation>超危</translation>
     </message>
     <message>
         <source>critical-risk</source>
-        <translation>严重</translation>
+        <translation>超危</translation>
     </message>
     <message>
         <source>high-risk</source>
