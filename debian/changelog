@@ -1,3 +1,11 @@
+deepin-update-ui (1.0.62) unstable; urgency=medium
+
+  * feat: show welcome page based on major upgrade status
+  * fix: 修复更新图标动画导致GPU利用率每隔1s发生跳变的问题 (#336)
+  * i18n: Updates for project Deepin Desktop Environment (#335)
+
+ -- xionglinlin <xionglinlin@uniontech.com>  Tue, 01 Sep 2026 15:51:35 +0800
+
 deepin-update-ui (1.0.61) unstable; urgency=medium
 
   * fix(transifex): correct typo in translation path and remove stale
