@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2025 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2025 - 2026 UnionTech Software Technology Co., Ltd.
 // SPDX-License-Identifier: GPL-3.0-or-later
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
@@ -29,6 +29,7 @@ D.DialogWindow {
             text: qsTr("If you exit the beta program, you will no longer receive beta updates.")
             wrapMode: Text.WordWrap
             horizontalAlignment: Text.AlignHCenter
+            font: D.DTK.fontManager.t8
         }
         RowLayout {
             Layout.topMargin: 10
@@ -37,6 +38,7 @@ D.DialogWindow {
             D.Button {
                 Layout.fillWidth: true
                 text: qsTr("Cancel")
+                font: D.DTK.fontManager.t6
                 onClicked: {
                     close()
                 }
@@ -44,6 +46,7 @@ D.DialogWindow {
             D.RecommandButton {
                 Layout.fillWidth: true
                 text: qsTr("Exit")
+                font: D.DTK.fontManager.t6
                 onClicked: {
                     bExit = true
                     close()
