@@ -1127,9 +1127,6 @@ void UpdateWorker::refreshMirrors()
     m_model->setDefaultMirror(m_updateInter->MirrorSource());
 
     QString locale = QLocale::system().name();
-    if (!(QLocale::system().name() == "zh_CN" || QLocale::system().name() == "zh_TW")) {
-        locale = "zh_CN";
-    }
     qCDebug(logDccUpdatePlugin) << "Refreshing mirrors from DBus for locale:" << locale;
 
     QDBusPendingReply<MirrorInfoList> reply = m_updateInter->ListMirrorSources(locale);
