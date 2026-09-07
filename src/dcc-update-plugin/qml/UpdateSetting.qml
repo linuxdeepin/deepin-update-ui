@@ -34,6 +34,7 @@ DccObject {
                 horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.WordWrap
                 text: qsTr("Failed to change Delivery Optimization setting")
+                font: D.DTK.fontManager.t8
             }
 
             Item {
@@ -60,6 +61,7 @@ DccObject {
 
                 component ButtonWithToolTip: D.Button {
                     id: customButton
+                    font: D.DTK.fontManager.t6
 
                     contentItem: Text {
                         id: buttonText
@@ -106,6 +108,7 @@ DccObject {
                 horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.WordWrap
                 text: qsTr("Update Delivery Optimization service exception")
+                font: D.DTK.fontManager.t8
             }
 
             Item {
@@ -141,6 +144,7 @@ DccObject {
 
                 component EnableFailedDialogButton: D.Button {
                     id: customButton
+                    font: D.DTK.fontManager.t6
 
                     contentItem: Text {
                         id: buttonText
