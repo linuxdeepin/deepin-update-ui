@@ -1,3 +1,13 @@
+deepin-update-ui (1.0.63) unstable; urgency=medium
+
+  * i18n: Updates for project Deepin Desktop Environment (#339)
+  * fix: use system locale for mirror source list
+  * fix: optimize update list performance and fix detail view issues
+  * fix: make upgrade delivery property reads async
+  * fix(at-spi): add accessible names for update-ui widgets
+
+ -- zhangkun <zhangkun2@uniontech.com>  Thu, 10 Sep 2026 20:29:59 +0800
+
 deepin-update-ui (1.0.62) unstable; urgency=medium
 
   * feat: show welcome page based on major upgrade status
