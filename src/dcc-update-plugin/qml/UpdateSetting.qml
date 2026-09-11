@@ -34,6 +34,7 @@ DccObject {
                 horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.WordWrap
                 text: qsTr("Failed to change Delivery Optimization setting")
+                font: D.DTK.fontManager.t6
             }
 
             Item {
@@ -60,6 +61,7 @@ DccObject {
 
                 component ButtonWithToolTip: D.Button {
                     id: customButton
+                    font: D.DTK.fontManager.t6
 
                     contentItem: Text {
                         id: buttonText
@@ -78,6 +80,7 @@ DccObject {
                         visible: customButton.hovered && buttonText.truncated
                         delay: 500
                         text: customButton.text
+                        font: customButton.font
                     }
                 }
             }
@@ -106,6 +109,7 @@ DccObject {
                 horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.WordWrap
                 text: qsTr("Update Delivery Optimization service exception")
+                font: D.DTK.fontManager.t6
             }
 
             Item {
@@ -141,6 +145,7 @@ DccObject {
 
                 component EnableFailedDialogButton: D.Button {
                     id: customButton
+                    font: D.DTK.fontManager.t6
 
                     contentItem: Text {
                         id: buttonText
@@ -159,6 +164,7 @@ DccObject {
                         visible: customButton.hovered && buttonText.truncated
                         delay: 500
                         text: customButton.text
+                        font: customButton.font
                     }
                 }
             }
@@ -970,6 +976,7 @@ DccObject {
                                                 visible: labelHandler.hovered && mirrorId.truncated
                                                 delay: 500
                                                 timeout: 4000
+                                                font: mirrorId.font
                                             }
 
                                             HoverHandler {

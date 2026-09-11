@@ -26,6 +26,7 @@ D.DialogWindow {
             horizontalAlignment: Text.AlignHCenter
             wrapMode: Text.WordWrap
             text: qsTr("The updates have been already downloaded. What do you want to do?")
+            font: D.DTK.fontManager.t6
         }
 
         Item {
@@ -70,6 +71,7 @@ D.DialogWindow {
 
             component ButtonWithToolTip: D.Button {
                 id: customButton
+                font: D.DTK.fontManager.t6
 
                 contentItem: Text {
                     id: buttonText
@@ -88,6 +90,7 @@ D.DialogWindow {
                     visible: customButton.hovered && buttonText.truncated
                     delay: 500
                     text: customButton.text
+                    font: customButton.font
                 }
             }
         }

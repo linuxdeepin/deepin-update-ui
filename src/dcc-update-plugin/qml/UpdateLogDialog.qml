@@ -44,6 +44,7 @@ D.DialogWindow {
                 wrapMode: TextArea.Wrap
                 text: logContent
                 background: null
+                font: D.DTK.fontManager.t6
 
                 onTextChanged: {
                     // 滚动到底部
@@ -61,6 +62,7 @@ D.DialogWindow {
             Button {
                 Layout.fillWidth: true
                 text: qsTr("Close")
+                font: D.DTK.fontManager.t6
                 onClicked: {
                     root.close()
                 }
@@ -69,6 +71,7 @@ D.DialogWindow {
             D.RecommandButton {
                 Layout.fillWidth: true
                 text: qsTr("Export to desktop")
+                font: D.DTK.fontManager.t6
                 onClicked: {
                     root.exportBtnClicked()
                 }
