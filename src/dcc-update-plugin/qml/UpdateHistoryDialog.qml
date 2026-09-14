@@ -75,7 +75,7 @@ D.DialogWindow {
                 id: logItem
                 width: listView.width
                 padding: 0
-                height: children.height
+                height: contentItem.implicitHeight
                 checkable: false
                 cascadeSelected: !checked
                 background: Rectangle {
