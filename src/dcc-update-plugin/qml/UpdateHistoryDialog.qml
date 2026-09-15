@@ -63,7 +63,7 @@ D.DialogWindow {
             height: 450
             spacing: 6
             clip: true
-            cacheBuffer: 1000
+            cacheBuffer: contentHeight
             ScrollBar.vertical: D.ScrollBar {
                 width: 10
             }
@@ -75,7 +75,7 @@ D.DialogWindow {
                 id: logItem
                 width: listView.width
                 padding: 0
-                height: children.height
+                height: contentItem.implicitHeight
                 checkable: false
                 cascadeSelected: !checked
                 background: Rectangle {
