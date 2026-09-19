@@ -327,7 +327,7 @@
     </message>
     <message>
         <source>Your system is up to date</source>
-        <translation>Seu sistema está atualizado</translation>
+        <translation>O sistema está atualizado</translation>
     </message>
     <message>
         <source>Unknown error</source>
