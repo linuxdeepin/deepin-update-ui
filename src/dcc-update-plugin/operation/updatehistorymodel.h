@@ -13,14 +13,18 @@ class UpdateHistoryModel : public QAbstractListModel
 public:
     enum updateRoles {
         Type = Qt::UserRole + 1,
+        Version,
         Summary,
         Details,
-        UpgradeTime
+        UpgradeTime,
+        Expanded
     };
 
     explicit UpdateHistoryModel(QObject *parent = nullptr);
 
     Q_INVOKABLE void refreshHistory();
+    Q_INVOKABLE void setExpanded(int index, bool expanded);
+    Q_INVOKABLE void collapseAll();
     // QAbstractItemModel interface
 public:
     int rowCount(const QModelIndex &parent) const override;

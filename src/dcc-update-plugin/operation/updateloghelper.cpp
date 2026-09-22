@@ -47,7 +47,10 @@ QString UpdateLogHelper::sumCveLevelUp(const QMap<VulLevel, int>& vulCount)
         {VulLevel_None, tr("unknown")},
     };
     QString explain = tr("This update fixes");
-    for (auto it = --vulCount.cend() ; it != --vulCount.begin(); it--) {
+    // QMap 按 VulLevel 升序存储，逆序遍历即为 critical -> none 的展示顺序
+    // 注意：不要对 begin() 做自减（未定义行为），这里从 end() 起显式前置递减
+    for (auto it = vulCount.constEnd(); it != vulCount.constBegin();) {
+        --it;
         const int count = it.value();
         QString vulnerability = count > 1 ? tr("vulnerabilities") : tr("vulnerability");
         //~ content_explain `数字+%`会在代码中替换为字符串，例如：3 of high-risk vulnerabilities；各语言需要根据实际情况增加空格(例如：中文没有空格，英文有空格)
@@ -208,18 +211,19 @@ QList<HistoryItemInfo> UpdateLogHelper::handleHistoryUpdateLog(const QString &lo
             qCDebug(logDccUpdatePlugin) << "Processing security update history item";
             QMap<VulLevel, int> vulCount;
             for (auto &detail : item.details) {
-                const auto level = vulLevelFromString(detail.vulLevel);
-                vulCount[level]++;
-                item.summary = sumCveLevelUp(vulCount);
+                // level 已在 fromCveJsonObj 中预解析，此处直接复用，避免重复做字符串查表
+                vulCount[detail.level]++;
                 detail.displayVulLevel = vulLevelMap().value(detail.vulLevel).second;
             }
+            // 统计完成后统一生成一次摘要，避免在循环内重复拼接；details 为空时保留 fromJsonObj 设置的兜底文案
+            if (!item.details.isEmpty())
+                item.summary = sumCveLevelUp(vulCount);
+
             std::sort(item.details.begin(), item.details.end(), [](const HistoryItemDetail& v1, const HistoryItemDetail& v2) -> bool {
-                const auto v1Level = vulLevelFromString(v1.vulLevel);
-                const auto v2Level = vulLevelFromString(v2.vulLevel);
-                if (v1Level == v2Level) {
+                if (v1.level == v2.level) {
                     return v1.name.compare(v2.name) > 0;
                 }
-                return v1Level > v2Level;
+                return v1.level > v2.level;
             });
         }
         infos.append(std::move(item));

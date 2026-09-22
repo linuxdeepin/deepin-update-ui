@@ -99,7 +99,6 @@ Loader {
                 activeFocusOnTab: true
                 ScrollBar.vertical: ScrollBar {
                     id: verticalScrollBar
-                    implicitWidth: 10
                     active: hovered || pressed || listView.moving || listView.flicking
                 }
                 interactive: true

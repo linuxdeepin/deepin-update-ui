@@ -44,7 +44,6 @@ void UpdateHistoryModel::refreshHistory()
     });
 }
 
-
 int UpdateHistoryModel::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent);
@@ -61,6 +60,8 @@ QVariant UpdateHistoryModel::data(const QModelIndex &index, int role) const
     switch (role) {
     case Type:
         return data.type;
+    case Version:
+        return data.version;
     case Summary:
         return data.summary;
     case Details: {
@@ -71,8 +72,35 @@ QVariant UpdateHistoryModel::data(const QModelIndex &index, int role) const
     }
     case UpgradeTime:
         return data.upgradeTime;
+    case Expanded:
+        return data.expanded;
     default:
         return QVariant();
+    }
+}
+
+void UpdateHistoryModel::setExpanded(int index, bool expanded)
+{
+    if (index < 0 || index >= m_data.count()) {
+        qCWarning(logDccUpdatePlugin) << "Invalid index for setExpanded:" << index;
+        return;
+    }
+    if (m_data[index].expanded == expanded)
+        return;
+
+    m_data[index].expanded = expanded;
+    const QModelIndex changedIndex = this->index(index);
+    emit dataChanged(changedIndex, changedIndex, { Expanded });
+}
+
+void UpdateHistoryModel::collapseAll()
+{
+    for (int i = 0; i < m_data.count(); ++i) {
+        if (!m_data[i].expanded)
+            continue;
+
+        m_data[i].expanded = false;
+        emit dataChanged(this->index(i), this->index(i), { Expanded });
     }
 }
 
@@ -80,8 +108,10 @@ QHash<int, QByteArray> UpdateHistoryModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[Type] = "Type";
+    roles[Version] = "Version";
     roles[Summary] = "Summary";
     roles[Details] = "Details";
     roles[UpgradeTime] = "UpgradeTime";
+    roles[Expanded] = "expanded";
     return roles;
 }

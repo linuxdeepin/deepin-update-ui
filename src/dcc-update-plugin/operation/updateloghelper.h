@@ -170,6 +170,7 @@ public:
     QString name;
     QString vulLevel;
     QString displayVulLevel;
+    VulLevel level = VulLevel_None; // 预解析的等级枚举，供排序与统计使用，避免重复查表
 
     static HistoryItemDetail fromCveJsonObj(const QJsonObject &obj)
     {
@@ -177,6 +178,7 @@ public:
         item.name = obj.value("cveId").toString();
         const auto &level = obj.value("vulLevel").toString().toLower();
         item.vulLevel = level.isEmpty() ? "none" : level;
+        item.level = vulLevelFromString(item.vulLevel);
         item.description = obj.value("cveDescription").toString();
         return item;
     }
@@ -192,11 +194,13 @@ public:
 Q_DECLARE_METATYPE(HistoryItemDetail)
 
 struct HistoryItemInfo {
-    QString upgradeTime; // 更新时间;
-    QString summary;
+    QString upgradeTime = ""; // 更新时间;
+    QString version = ""; // 版本号
+    QString summary = "";
     UpdateType type = UpdateType::Invalid;
 
     QList<HistoryItemDetail> details;
+    bool expanded = false; // 详情是否展开，由界面切换
 
     bool isInvalid() const { return type != UpdateType::Invalid; }
 
@@ -211,16 +215,24 @@ struct HistoryItemInfo {
         if (SystemUpdate == item.type) {
             const auto &originChangLog = obj.value("OriginChangelog").toArray();
             for (const auto &value : originChangLog) {
-                item.details.append(HistoryItemDetail::fromSystemJsonObj(value.toObject()));
+                if (item.version.isEmpty()) {
+                    item.version = value.toObject().value("showVersion").toString();
+                    item.summary = value.toObject().value(getLanguageType() == "CN" ? "cnLog" : "enLog").toString();
+                } else {
+                    item.details.append(HistoryItemDetail::fromSystemJsonObj(value.toObject()));
+                }
+            }
+            if (item.summary.isEmpty()) {
+                item.summary = QObject::tr("Fixed some known bugs and security vulnerabilities");
             }
         } else {
             const auto &originChangLog = obj.value("OriginChangelog").toObject();
             for (const auto &key : originChangLog.keys()) {
                 item.details.append(HistoryItemDetail::fromCveJsonObj(originChangLog.value(key).toObject()));
             }
-        }
-        if (item.details.isEmpty()) {
-            item.summary = QObject::tr("Fixed some known bugs and security vulnerabilities");
+            if (item.details.isEmpty()) {
+                item.summary = QObject::tr("Fixed some known bugs and security vulnerabilities");
+            }
         }
         return item;
     }

@@ -34,7 +34,6 @@ D.DialogWindow {
             }
 
             // 滚动条策略
-            ScrollBar.vertical.policy: ScrollBar.AsNeeded
             ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
             TextArea {

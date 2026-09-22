@@ -193,10 +193,7 @@ Rectangle {
                                         spacing: 6
                                         model: detailLoader.detailModel
                                         // 内容不足一屏时自动隐藏（AsNeeded）
-                                        ScrollBar.vertical: ScrollBar {
-                                            policy: ScrollBar.AsNeeded
-                                            active: true
-                                        }
+                                        ScrollBar.vertical: ScrollBar {}
 
                                         delegate: ColumnLayout {
                                             width: detailView.width
