@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="pt_BR">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="pt_BR">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -95,11 +93,11 @@
     </message>
     <message>
         <source>Collapse</source>
-        <translation type="unfinished">Recolher</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>View More</source>
-        <translation type="unfinished">Exibir mais</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
