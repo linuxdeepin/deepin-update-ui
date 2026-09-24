@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ja">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="ja">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -10,7 +12,7 @@
     <name>MirrorSourcePopup</name>
     <message>
         <source>Connectivity Test</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -81,15 +83,23 @@
     </message>
     <message>
         <source>Vulnerability ID: </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Severity: </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Description: </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Collapse</source>
+        <translation type="unfinished">折りたたむ</translation>
+    </message>
+    <message>
+        <source>View More</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -104,7 +114,7 @@
     </message>
     <message>
         <source>View More</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Collapse</source>
@@ -112,15 +122,15 @@
     </message>
     <message>
         <source>Vulnerability ID: </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Severity: </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Description: </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -312,11 +322,11 @@
     </message>
     <message>
         <source>Install Now</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Check Again</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">もう一度確認する</translation>
     </message>
 </context>
 <context>
@@ -407,19 +417,19 @@
     </message>
     <message>
         <source>will upgrade at %1</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>will upgrade when shutdown</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Current Edition</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Baseline</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -477,19 +487,19 @@
     </message>
     <message>
         <source>Delivery Optimization</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>When enabled, your device may share previously downloaded system updates with other devices on your local network.When you turn it off, cached files from update delivery will be cleared during the next restart.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Delivery Optimization-Limit Speed</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Delivery Optimization-Upload throttling</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Limit Speed</source>
@@ -557,23 +567,23 @@
     </message>
     <message>
         <source>Only numbers between 10-999999 are allowed</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Failed to change Delivery Optimization setting</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Update Delivery Optimization service exception</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Try again</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">キャンセル</translation>
     </message>
     <message>
         <source>Join the internal testing channel to get deepin latest updates.</source>
@@ -581,19 +591,19 @@
     </message>
     <message>
         <source>Default Mirror Source</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Untested</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Testing...</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Timeout</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

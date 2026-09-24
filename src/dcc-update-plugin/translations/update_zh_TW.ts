@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="zh_TW">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="zh_TW">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -90,6 +92,14 @@
     <message>
         <source>Description: </source>
         <translation>漏洞描述：</translation>
+    </message>
+    <message>
+        <source>Collapse</source>
+        <translation>收起詳細</translation>
+    </message>
+    <message>
+        <source>View More</source>
+        <translation>查看詳細</translation>
     </message>
 </context>
 <context>

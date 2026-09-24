@@ -93,6 +93,14 @@
         <source>Description: </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Collapse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View More</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UpdateList</name>
