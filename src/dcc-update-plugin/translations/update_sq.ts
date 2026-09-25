@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="sq">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="sq">
 <context>
     <name>CheckUpdate</name>
     <message>
@@ -87,7 +85,7 @@
     </message>
     <message>
         <source>Severity: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Description: </source>
@@ -95,11 +93,11 @@
     </message>
     <message>
         <source>Collapse</source>
-        <translation type="unfinished">Palose</translation>
+        <translation>Palose</translation>
     </message>
     <message>
         <source>View More</source>
-        <translation type="unfinished">Shihni Më Tepër</translation>
+        <translation>Shihni Më Tepër</translation>
     </message>
 </context>
 <context>
@@ -126,7 +124,7 @@
     </message>
     <message>
         <source>Severity: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Description: </source>
@@ -429,7 +427,7 @@
     </message>
     <message>
         <source>Baseline</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -495,11 +493,11 @@
     </message>
     <message>
         <source>Delivery Optimization-Limit Speed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Delivery Optimization-Upload throttling</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Limit Speed</source>
@@ -575,7 +573,7 @@
     </message>
     <message>
         <source>Update Delivery Optimization service exception</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Try again</source>
@@ -591,11 +589,11 @@
     </message>
     <message>
         <source>Default Mirror Source</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Untested</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Testing...</source>
