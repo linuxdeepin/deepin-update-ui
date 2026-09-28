@@ -93,11 +93,11 @@
     </message>
     <message>
         <source>Collapse</source>
-        <translation type="unfinished"/>
+        <translation>Tiivistetty</translation>
     </message>
     <message>
         <source>View More</source>
-        <translation type="unfinished"/>
+        <translation>Näytä lisää</translation>
     </message>
 </context>
 <context>
