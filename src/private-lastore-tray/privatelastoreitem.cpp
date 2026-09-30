@@ -8,7 +8,6 @@
 
 #include <DDBusSender>
 
-#include <QDBusConnection>
 #include <QIcon>
 #include <QVBoxLayout>
 #include <QMouseEvent>
@@ -18,7 +17,6 @@ PrivateLastoreItem::PrivateLastoreItem(QWidget* parent)
     , m_tipsLabel(new TipsWidget(this))
     , m_icon(new CommonIconButton(this))
     , m_managerInter(new UpdateDBusProxy(this))
-    , m_controlCenterInterface(new QDBusInterface("com.deepin.dde.ControlCenter", "/com/deepin/dde/ControlCenter", "com.deepin.dde.ControlCenter", QDBusConnection::sessionBus(), this))
 {
     m_tipsLabel->setVisible(false);
     auto vLayout = new QVBoxLayout(this);
@@ -107,7 +105,7 @@ void PrivateLastoreItem::resizeEvent(QResizeEvent* e)
 
 void PrivateLastoreItem::mouseReleaseEvent(QMouseEvent *event)
 {
-    if (event->button() == Qt::LeftButton && m_controlCenterInterface) {
+    if (event->button() == Qt::LeftButton) {
         // 左键点击后打开控制中心更新模块。
         DDBusSender()
             .service("org.deepin.dde.ControlCenter1")
