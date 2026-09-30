@@ -11,7 +11,6 @@
 #include "tipswidget.h"
 
 #include <QWidget>
-#include <QDBusAbstractInterface>
 
 namespace Dock {
 class TipsWidget;
@@ -41,7 +40,6 @@ private:
     TipsWidget *m_tipsLabel;
     CommonIconButton *m_icon;
     UpdateDBusProxy *m_managerInter = nullptr;
-    QDBusInterface *m_controlCenterInterface = nullptr;
 };
 
 #endif // PRIVATELASTOREITEM_H
