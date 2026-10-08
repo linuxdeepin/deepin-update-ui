@@ -93,11 +93,11 @@
     </message>
     <message>
         <source>Collapse</source>
-        <translation type="unfinished"/>
+        <translation>收起详细</translation>
     </message>
     <message>
         <source>View More</source>
-        <translation type="unfinished"/>
+        <translation>查看详细</translation>
     </message>
 </context>
 <context>
