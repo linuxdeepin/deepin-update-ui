@@ -1,3 +1,13 @@
+deepin-update-ui (1.0.65) unstable; urgency=medium
+
+  * fix: virtualize update history list with expand support
+  * i18n: Translate update_en.ts in pt_BR
+  * fix: update translations
+  * i18n: Updates for project Deepin Desktop Environment (#358)
+  * fix: avoid legacy control center introspection in tray startup
+
+ -- zhangkun <zhangkun2@uniontech.com>  Mon, 12 Oct 2026 18:17:03 +0800
+
 deepin-update-ui (1.0.64) unstable; urgency=medium
 
   * fix: bind update dialogs to fontManager for live font size update
