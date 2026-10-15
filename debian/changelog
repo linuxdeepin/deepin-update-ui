@@ -1,3 +1,9 @@
+deepin-update-ui (1.0.66) unstable; urgency=medium
+
+  * i18n: Updates for project Deepin Desktop Environment (#361)
+
+ -- zhangkun <zhangkun2@uniontech.com>  Thu, 15 Oct 2026 21:34:49 +0800
+
 deepin-update-ui (1.0.65) unstable; urgency=medium
 
   * fix: virtualize update history list with expand support
