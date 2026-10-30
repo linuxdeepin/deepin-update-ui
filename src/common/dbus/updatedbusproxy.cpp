@@ -59,14 +59,14 @@ UpdateDBusProxy::UpdateDBusProxy(QObject *parent)
     connect(m_interWatcher, &QDBusServiceWatcher::serviceRegistered, this, [this](const QString &serviceName) {
         qCDebug(logCommon) << "DBus service registered:" << serviceName;
         if (serviceName == ManagerService) {
-            emit managerInterServiceValidChanged(true);
+            Q_EMIT managerInterServiceValidChanged(true);
         }
     });
 
     connect(m_interWatcher, &QDBusServiceWatcher::serviceUnregistered, this, [this](const QString &serviceName) {
         qCDebug(logCommon) << "DBus service unregistered:" << serviceName;
         if (serviceName == ManagerService) {
-            emit managerInterServiceValidChanged(false);
+            Q_EMIT managerInterServiceValidChanged(false);
         }
     });
 }

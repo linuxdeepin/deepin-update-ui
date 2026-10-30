@@ -56,7 +56,7 @@ void MirrorSourceModel::updateMirrorSpeed(const QString &mirrorId, int speed)
         if (m_mirrors[i].id == mirrorId) {
             m_mirrors[i].speed = speed;
             QModelIndex changedIndex = index(i);
-            emit dataChanged(changedIndex, changedIndex, {SpeedRole});
+            Q_EMIT dataChanged(changedIndex, changedIndex, {SpeedRole});
             return;
         }
     }
@@ -70,5 +70,5 @@ void MirrorSourceModel::resetSpeedInfo()
     for (auto &item : m_mirrors) {
         item.speed = SpeedStatus::Testing;
     }
-    emit dataChanged(index(0), index(m_mirrors.count() - 1), {SpeedRole});
+    Q_EMIT dataChanged(index(0), index(m_mirrors.count() - 1), {SpeedRole});
 }

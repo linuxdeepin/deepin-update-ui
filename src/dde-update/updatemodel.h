@@ -125,7 +125,7 @@ public:
 private:
     explicit UpdateModel(QObject *parent = nullptr);
 
-signals:
+Q_SIGNALS:
     void updateAvailableChanged(bool available);
     void updateStatusChanged(UpdateStatus status);
     void JobProgressChanged(double progress);

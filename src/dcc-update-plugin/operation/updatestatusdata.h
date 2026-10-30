@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2025 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2025-2026 UnionTech Software Technology Co., Ltd.
 // SPDX-License-Identifier: GPL-3.0-or-later
 #ifndef UPDATESTATUSDATA_H
 #define UPDATESTATUSDATA_H
@@ -31,7 +31,7 @@ public:
                m_unknowUpgrade != other.m_unknowUpgrade;
     }
 
-signals:
+Q_SIGNALS:
     void securityUpgradeChanged(const QString &securityUpgrade);
     void systemUpgradeChanged(const QString &systemUpgrade);
     void unknowUpgradeChanged(const QString &unknowUpgrade);

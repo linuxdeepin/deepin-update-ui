@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2025 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2025-2026 UnionTech Software Technology Co., Ltd.
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #include "logwatcherhelper.h"
@@ -173,7 +173,7 @@ void LogWatcherHelper::readAvailableData()
         QString newContent = QString::fromUtf8(buffer);
 
         m_data.append(newContent);
-        emit incrementalDataChanged(newContent);
+        Q_EMIT incrementalDataChanged(newContent);
     } else {
         qCDebug(logCommon) << "No new data available from pipe";
     }

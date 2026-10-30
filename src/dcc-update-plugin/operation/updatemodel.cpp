@@ -289,7 +289,7 @@ void UpdateModel::setShowCheckUpdate(bool value)
     }
 
     m_showCheckUpdate = value;
-    emit showCheckUpdateChanged();
+    Q_EMIT showCheckUpdateChanged();
 }
 
 void UpdateModel::setCheckUpdateIcon(const QString &newCheckUpdateIcon)
@@ -299,7 +299,7 @@ void UpdateModel::setCheckUpdateIcon(const QString &newCheckUpdateIcon)
         return;
     }
     m_checkUpdateIcon = newCheckUpdateIcon;
-    emit checkUpdateIconChanged();
+    Q_EMIT checkUpdateIconChanged();
 }
 
 void UpdateModel::setCheckUpdateProgress(double updateProgress)
@@ -318,7 +318,7 @@ void UpdateModel::setCheckUpdateStatus(UpdatesStatus newCheckUpdateStatus)
         return;
 
     m_checkUpdateStatus = newCheckUpdateStatus;
-    emit checkUpdateStatusChanged();
+    Q_EMIT checkUpdateStatusChanged();
 
     updateCheckUpdateUi();
 }
@@ -367,7 +367,7 @@ void UpdateModel::setVersionInfo(const QString &versionInfo)
     }
 
     m_versionInfo = versionInfo;
-    emit versionInfoChanged();
+    Q_EMIT versionInfoChanged();
 }
 
 void UpdateModel::setCheckUpdateErrTips(const QString &newCheckUpdateErrTips)
@@ -378,7 +378,7 @@ void UpdateModel::setCheckUpdateErrTips(const QString &newCheckUpdateErrTips)
     }
 
     m_checkUpdateErrTips = newCheckUpdateErrTips;
-    emit checkUpdateErrTipsChanged();
+    Q_EMIT checkUpdateErrTipsChanged();
 }
 
 void UpdateModel::setCheckBtnText(const QString &newCheckBtnText)
@@ -389,14 +389,14 @@ void UpdateModel::setCheckBtnText(const QString &newCheckBtnText)
     }
 
     m_checkBtnText = newCheckBtnText;
-    emit checkBtnTextChanged();
+    Q_EMIT checkBtnTextChanged();
 }
 
 void UpdateModel::setLastCheckUpdateTime(const QString& lastTime)
 {
     qCInfo(logDccUpdatePlugin) << "Last check time:" << lastTime;
     m_lastCheckUpdateTime = lastTime.left(QString("0000-00-00 00:00:00").size());
-    emit lastCheckUpdateTimeChanged();
+    Q_EMIT lastCheckUpdateTimeChanged();
 }
 
 void UpdateModel::setCheckUpdateMode(quint64 value)
@@ -430,7 +430,7 @@ void UpdateModel::setPreUpdatelistModel(UpdateListModel *newPreUpdatelistModel)
     }
 
     m_preUpdatelistModel = newPreUpdatelistModel;
-    emit preUpdatelistModelChanged();
+    Q_EMIT preUpdatelistModelChanged();
 }
 
 void UpdateModel::setDownloadinglistModel(UpdateListModel *newDownloadinglistModel)
@@ -441,7 +441,7 @@ void UpdateModel::setDownloadinglistModel(UpdateListModel *newDownloadinglistMod
     }
 
     m_downloadinglistModel = newDownloadinglistModel;
-    emit downloadinglistModelChanged();
+    Q_EMIT downloadinglistModelChanged();
 }
 
 void UpdateModel::setDownloadFailedListModel(UpdateListModel *newDownloadFailedListModel)
@@ -452,7 +452,7 @@ void UpdateModel::setDownloadFailedListModel(UpdateListModel *newDownloadFailedL
     }
 
     m_downloadFailedListModel = newDownloadFailedListModel;
-    emit downloadFailedListModelChanged();
+    Q_EMIT downloadFailedListModelChanged();
 }
 
 void UpdateModel::setPreInstallListModel(UpdateListModel *newPreInstallListModel)
@@ -463,7 +463,7 @@ void UpdateModel::setPreInstallListModel(UpdateListModel *newPreInstallListModel
     }
 
     m_preInstallListModel = newPreInstallListModel;
-    emit preInstallListModelChanged();
+    Q_EMIT preInstallListModelChanged();
 }
 
 void UpdateModel::setInstallinglistModel(UpdateListModel *newInstallinglistModel)
@@ -474,7 +474,7 @@ void UpdateModel::setInstallinglistModel(UpdateListModel *newInstallinglistModel
     }
 
     m_installinglistModel = newInstallinglistModel;
-    emit installinglistModelChanged();
+    Q_EMIT installinglistModelChanged();
 }
 
 void UpdateModel::setInstallCompleteListModel(UpdateListModel *newInstallCompleteListModel)
@@ -485,7 +485,7 @@ void UpdateModel::setInstallCompleteListModel(UpdateListModel *newInstallComplet
     }
 
     m_installCompleteListModel = newInstallCompleteListModel;
-    emit installCompleteListModelChanged();
+    Q_EMIT installCompleteListModelChanged();
 }
 
 void UpdateModel::setInstallFailedListModel(UpdateListModel *newInstallFailedListModel)
@@ -496,7 +496,7 @@ void UpdateModel::setInstallFailedListModel(UpdateListModel *newInstallFailedLis
     }
 
     m_installFailedListModel = newInstallFailedListModel;
-    emit installFailedListModelChanged();
+    Q_EMIT installFailedListModelChanged();
 }
 
 void UpdateModel::setBackingUpListModel(UpdateListModel *newBackingUpListModel)
@@ -507,7 +507,7 @@ void UpdateModel::setBackingUpListModel(UpdateListModel *newBackingUpListModel)
     }
 
     m_backingUpListModel = newBackingUpListModel;
-    emit backingUpListModelChanged();
+    Q_EMIT backingUpListModelChanged();
 }
 
 void UpdateModel::setBackupFailedListModel(UpdateListModel *newBackupFailedListModel)
@@ -518,7 +518,7 @@ void UpdateModel::setBackupFailedListModel(UpdateListModel *newBackupFailedListM
     }
 
     m_backupFailedListModel = newBackupFailedListModel;
-    emit backupFailedListModelChanged();
+    Q_EMIT backupFailedListModelChanged();
 }
 
 void UpdateModel::setDownloadWaiting(bool waiting)
@@ -595,7 +595,7 @@ void UpdateModel::setPreUpdateTips(const QString &newPreUpdateTips)
     }
 
     m_preUpdateTips = newPreUpdateTips;
-    emit preUpdateTipsChanged();
+    Q_EMIT preUpdateTipsChanged();
 }
 
 void UpdateModel::setDownloadFailedTips(const QString &newDownloadFailedTips)
@@ -606,7 +606,7 @@ void UpdateModel::setDownloadFailedTips(const QString &newDownloadFailedTips)
     }
 
     m_downloadFailedTips = newDownloadFailedTips;
-    emit downloadFailedTipsChanged();
+    Q_EMIT downloadFailedTipsChanged();
 }
 
 void UpdateModel::setInstallFailedTips(const QString &newInstallFailedTips)
@@ -617,7 +617,7 @@ void UpdateModel::setInstallFailedTips(const QString &newInstallFailedTips)
     }
 
     m_installFailedTips = newInstallFailedTips;
-    emit installFailedTipsChanged();
+    Q_EMIT installFailedTipsChanged();
 }
 
 void UpdateModel::setBackupFailedTips(const QString &newBackupFailedTips)
@@ -628,20 +628,20 @@ void UpdateModel::setBackupFailedTips(const QString &newBackupFailedTips)
     }
 
     m_backupFailedTips = newBackupFailedTips;
-    emit backupFailedTipsChanged();
+    Q_EMIT backupFailedTipsChanged();
 }
 
 void UpdateModel::setUpdateLog(const QString &log)
 {
     qCDebug(logDccUpdatePlugin) << "Setting update log, size:" << log.size() << "chars";
     m_installLog = log;
-    emit updateInstallLogChanged(m_installLog);
+    Q_EMIT updateInstallLogChanged(m_installLog);
 }
 
 void UpdateModel::appendUpdateLog(const QString &log)
 {
     m_installLog += log;
-    emit updateInstallLogChanged(m_installLog);
+    Q_EMIT updateInstallLogChanged(m_installLog);
 }
 
 void UpdateModel::addUpdateInfo(UpdateItemInfo* info)
@@ -1442,7 +1442,7 @@ void UpdateModel::setShowVersion(const QString &showVersion)
         return;
 
     m_showVersion = showVersion;
-    emit showVersionChanged(m_showVersion);
+    Q_EMIT showVersionChanged(m_showVersion);
 }
 
 void UpdateModel::setBaseline(const QString &baseline)

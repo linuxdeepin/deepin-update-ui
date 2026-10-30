@@ -367,7 +367,7 @@ public:
 
     UpdateHistoryModel *historyModel() const;
 
-public slots:
+public Q_SLOTS:
     void onUpdatePropertiesChanged(const QString &interfaceName,
                                    const QVariantMap &changedProperties,
                                    const QStringList &invalidatedProperties);

@@ -75,7 +75,7 @@ public:
 public Q_SLOTS:
     void refreshDownloadSize();
 
-signals:
+Q_SIGNALS:
     void visibilityChanged();
     void isUpdateEnableChanged();
     void downloadSizeChanged();
