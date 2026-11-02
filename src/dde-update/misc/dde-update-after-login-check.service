@@ -1,0 +1,38 @@
+# SPDX-FileCopyrightText: 2026 UnionTech Software Technology Co., Ltd.
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+# 登录后的系统检查（AfterGreeterCheck）。
+#
+# 位置说明（等价于 X11 的 /etc/X11/Xsession.d/98deepin-upgrade-check）：
+#   dde-session 依次拉起 dde-session-pre.target → dde-session-core.target
+#   → dde-session-initialized.target → dde-session.target；
+#   而 dde-shell@DDE.service（桌面 shell）是
+#       After=dde-session-pre.target / Before=dde-session-core.target。
+# 本单元挂在 pre.target 下，必须 Before=pre.target 才能真正阻塞桌面：
+#   - 只写 Before=dde-session-core.target 不够：dde-shell 也是 Before=core，
+#     二者并列，pre.target 激活时不会等待本单元 → 桌面先起来，检查后到；
+#   - 写成 Before=dde-session-pre.target 后，pre.target 的启动 job 会等
+#     oneshot 结束，dde-shell（After=pre.target）才会启动。
+# 同时按 pre.target 的 After 顺序补齐依赖：dde-update 是 DTK/Qt 应用，
+# 启动早期会初始化 DPlatformTheme/DNativeSettings，需要 DConfig（DSG）
+# 与 dde-session-daemon 已就绪，否则会在平台插件里崩溃（见 PR 说明）。
+#
+# 没有待办时脚本立即返回（判定逻辑在 dde-update-after-login-check.sh 内）。
+[Unit]
+Description=DDE update after-login check (before desktop)
+CollectMode=inactive-or-failed
+After=graphical-session-pre.target org.desktopspec.ApplicationManager1.service org.dde.session.Daemon1.service org.deepin.dde.XSettings1.service treeland-sd.service
+Before=dde-session-pre.target dde-session-core.target
+PartOf=dde-session-pre.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/dde-update-after-login-check.sh
+Slice=session.slice
+StandardOutput=journal
+StandardError=journal
+# 检查界面可能停留等待用户点击"进入桌面"，不设启动超时
+TimeoutStartSec=infinity
+
+[Install]
+WantedBy=dde-session-pre.target

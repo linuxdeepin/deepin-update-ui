@@ -89,6 +89,29 @@ install(FILES "misc/52-deepin-update-ui.rules"
 install(PROGRAMS "misc/98deepin-upgrade-check"
         DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/X11/Xsession.d)
 
+# treeland prestart hook：等价于 X11 的 greeters.d/launch.conf.d
+#   10-system_upgrade_check.sh -> 99_system_upgrade_conf.json（dde-update）
+# 编号从 10 起，给更早执行的钩子留空间；
+# 钩子在锁屏加载之前串行执行，脚本内部前台 exec，GUI 退出后才返回。
+install(PROGRAMS
+        "misc/10-system_upgrade_check.sh"
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/deepin/treeland/prestart.d/blocking)
+
+# 登录后系统检查（AfterGreeterCheck）：等价 X11 的 /etc/X11/Xsession.d/98deepin-upgrade-check
+# 挂在 dde-session-pre.target 下且 Before=dde-session-pre.target，
+# 使 dde-shell（After=pre.target）等检查完成后再启动。
+install(PROGRAMS "misc/dde-update-after-login-check.sh" DESTINATION ${CMAKE_INSTALL_BINDIR})
+install(FILES "misc/dde-update-after-login-check.service"
+        DESTINATION lib/systemd/user
+        PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ)
+set(_after_login_wants_dir "${CMAKE_CURRENT_BINARY_DIR}/systemd-wants")
+file(MAKE_DIRECTORY "${_after_login_wants_dir}")
+execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
+        ../dde-update-after-login-check.service
+        "${_after_login_wants_dir}/dde-update-after-login-check.service")
+install(FILES "${_after_login_wants_dir}/dde-update-after-login-check.service"
+        DESTINATION lib/systemd/user/dde-session-pre.target.wants)
+
 install(PROGRAMS 
         "misc/dde-update"
         "misc/system_upgrade_check.sh"
