@@ -17,6 +17,9 @@ struct LoaderHandshakeInfo {
 class SecurityLoaderHelper
 {
 public:
+    //! authResource 指向本程序内置的 DestList JSON（qrc 路径），各程序声明自己需要的接口
+    explicit SecurityLoaderHelper(const QString &authResource);
+
     bool doSecurityLoader(int argc, char *argv[]);
 
 private:
@@ -25,6 +28,7 @@ private:
     bool performHandshake(const LoaderHandshakeInfo &info);
 
     QJsonArray m_destList;
+    QString m_authResource;
 };
 
 #endif // SECURITYLOADERHELPER_H
