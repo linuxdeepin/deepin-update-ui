@@ -6,9 +6,12 @@
 #include <QDBusArgument>
 #include <QDBusInterface>
 #include <QDBusMetaType>
+#include <QDBusPendingCallWatcher>
 #include <QDBusPendingReply>
 #include <QDBusReply>
 #include <QDBusUnixFileDescriptor>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QLoggingCategory>
 #include <DGuiApplicationHelper>
 
@@ -566,7 +569,7 @@ void UpdateDBusProxy::UpdateAndReboot()
 {
     qCInfo(logCommon) << "Calling update and reboot";
     if (Dtk::Gui::DGuiApplicationHelper::testAttribute(Dtk::Gui::DGuiApplicationHelper::IsWaylandPlatform)) {
-        m_sessionManagerInter->asyncCall(QStringLiteral("RequestReboot"));
+        prepareFullScreenUpgrade(false);
     } else {
         m_shutdownFrontInter->asyncCall(QStringLiteral("UpdateAndReboot"));
     }
@@ -575,8 +578,31 @@ void UpdateDBusProxy::UpdateAndShutdown()
 {
     qCInfo(logCommon) << "Calling update and shutdown";
     if (Dtk::Gui::DGuiApplicationHelper::testAttribute(Dtk::Gui::DGuiApplicationHelper::IsWaylandPlatform)) {
-        m_sessionManagerInter->asyncCall(QStringLiteral("RequestShutdown"));
+        prepareFullScreenUpgrade(true);
     } else {
         m_shutdownFrontInter->asyncCall(QStringLiteral("UpdateAndShutdown"));
     }
+}
+
+void UpdateDBusProxy::prepareFullScreenUpgrade(bool powerOff)
+{
+    // lastore 会写入 /tmp/deepin_update_option.json（DoUpgrade=true）并重建图形会话，
+    // treeland 适配后即重启合成器，由 prestart 钩子拉起 dde-update 显示模态界面。
+    // 调用后当前会话会被结束（本进程也会退出），因此只 async、不依赖返回值。
+    QJsonObject option;
+    option.insert(QStringLiteral("DoUpgradeMode"), static_cast<int>(checkUpdateMode()));
+    option.insert(QStringLiteral("IsPowerOff"), powerOff);
+    const QString arg = QString::fromUtf8(QJsonDocument(option).toJson(QJsonDocument::Compact));
+
+    qCInfo(logCommon) << "Calling PrepareFullScreenUpgrade with option:" << arg;
+
+    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(
+        m_managerInter->asyncCall(QStringLiteral("PrepareFullScreenUpgrade"), arg), this);
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, [watcher] {
+        watcher->deleteLater();
+        QDBusPendingReply<void> reply = *watcher;
+        if (reply.isError()) {
+            qCWarning(logCommon) << "PrepareFullScreenUpgrade failed:" << reply.error().message();
+        }
+    });
 }

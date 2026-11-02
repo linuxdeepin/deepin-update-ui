@@ -179,6 +179,10 @@ signals:
     // Smart Mirror
     void EnableChanged(bool enable);
 private:
+    // treeland 没有 dde-session-shell，模态更新由 lastore 直接准备：
+    // 写 /tmp/deepin_update_option.json 并重建图形会话。
+    void prepareFullScreenUpgrade(bool powerOff);
+
     DDBusInterface *m_hostname1Inter;
     DDBusInterface *m_updateInter;
     DDBusInterface *m_managerInter;
