@@ -58,7 +58,15 @@ include(GNUInstallDirs)
 ## qm files
 install(FILES ${TR_QM_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}/translations)
 
-install(TARGETS ${ROLLBACK_EXEC_NAME} DESTINATION ${CMAKE_INSTALL_BINDIR})
+# deepin-security-loader 只允许执行 /usr/libexec/deepin/ 下的程序，treeland 下
+# 回滚必须经 loader 完成 allow-caller 握手，所以二进制装到 libexec。
+install(TARGETS ${ROLLBACK_EXEC_NAME} DESTINATION ${CMAKE_INSTALL_LIBEXECDIR}/deepin)
+# /usr/bin/dde-rollback 由包装脚本承担：支持 --wait（钩子用来阻塞等待回滚框关闭）；
+# 不经 --wait 时直接执行 libexec 下的二进制，保持 X11 pre-greeter 的阻塞语义。
+install(PROGRAMS "misc/dde-rollback" DESTINATION ${CMAKE_INSTALL_BINDIR})
 # 需要在greeter之前启动的配置和脚本
 install(FILES "misc/98_rollback_conf.json" DESTINATION ${CMAKE_INSTALL_DATADIR}/dde-session-shell/greeters.d/launch.conf.d)
 install(PROGRAMS "misc/rollback_check.sh" DESTINATION ${CMAKE_INSTALL_BINDIR})
+# treeland prestart hook：等价于 X11 的 98_rollback_conf.json，编号排在更新的 10- 之后
+install(PROGRAMS "misc/20-rollback_check.sh"
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/deepin/treeland/prestart.d/blocking)

@@ -20,12 +20,16 @@
 #include <climits>
 #include <sys/stat.h>
 
-static const QString DEFAULT_AUTH_RESOURCE = ":/misc/org.deepin.dde-update.json";
 // Upper bound for the authorization response to guard against a misbehaving
 // loader that never closes its write end or streams excessive data.
 static constexpr int MAX_RESPONSE_BYTES = 1024 * 1024;  // 1 MiB
 // Loader-injected fds must not collide with the standard streams.
 static constexpr int MIN_VALID_FD = 3;
+
+SecurityLoaderHelper::SecurityLoaderHelper(const QString &authResource)
+    : m_authResource(authResource)
+{
+}
 
 bool SecurityLoaderHelper::doSecurityLoader(int argc, char *argv[])
 {
@@ -34,7 +38,7 @@ bool SecurityLoaderHelper::doSecurityLoader(int argc, char *argv[])
         return true;
     }
 
-    if (!loadDestList(DEFAULT_AUTH_RESOURCE)) {
+    if (!loadDestList(m_authResource)) {
         qWarning() << "Failed to load DestList, cannot perform handshake";
         if (loaderInfo.fd1 >= 0) close(loaderInfo.fd1);
         if (loaderInfo.fd2 >= 0) close(loaderInfo.fd2);
