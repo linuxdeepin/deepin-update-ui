@@ -45,6 +45,7 @@ private:
 
 private:
     UpdateDBusProxy *m_updateDBusProxy;
+    QWidget *m_window;          // 全屏黑色窗口，回滚弹窗嵌在正中间
     RecoveryWidget *m_recoveryWidget;
     QString m_backupTime;
 };

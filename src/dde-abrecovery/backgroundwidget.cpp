@@ -21,10 +21,11 @@ BackgroundWidget::BackgroundWidget(bool bRestoring, QWidget *parent)
     , m_bIsRestoring(bRestoring)
 {
     qCDebug(logUpdateRecovery) << "Initialize BackgroundWidget, restoring:" << bRestoring;
-    setAttribute(Qt::WA_TranslucentBackground, true);
     setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
     QScreen *pScreen = qApp->primaryScreen();
     this->setFixedSize(pScreen->size());
+    // 不透明全屏黑底，必须从屏幕左上角开始铺满
+    this->move(0, 0);
 
     if (m_bIsRestoring) {
         m_loadingIndicator = new DSpinner(this);
@@ -46,7 +47,7 @@ void BackgroundWidget::paintEvent(QPaintEvent *event)
     Q_UNUSED(event)
 
     QPainter painter(this);
-    painter.fillRect(this->rect(), QColor(0, 0, 0, 150));
+    painter.fillRect(this->rect(), Qt::black);
 
     // 绘制文字无背景
     if (m_bIsRestoring) {

@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
 #include "recoverydialog.h"
+
 #include "backgroundwidget.h"
 #include "dconfig_helper.h"
 #include "common/commondefine.h"
@@ -36,9 +37,31 @@ Q_DECLARE_LOGGING_CATEGORY(logUpdateRecovery)
 
 DCORE_USE_NAMESPACE
 
+namespace {
+// 全屏黑底容器：自己刷黑，不动 palette。
+// 用 palette 设 Window 为黑色会向下传给子控件，DTK 会据此推算文字颜色，
+// 结果白底卡片上出现白字（看起来像没显示）。
+class BlackBackgroundWindow : public QWidget
+{
+public:
+    explicit BlackBackgroundWindow(QWidget *parent = nullptr)
+        : QWidget(parent)
+    {
+    }
+
+protected:
+    void paintEvent(QPaintEvent *) override
+    {
+        QPainter painter(this);
+        painter.fillRect(rect(), Qt::black);
+    }
+};
+}
+
 Manage::Manage(QObject *parent)
     : QObject(parent)
     , m_updateDBusProxy(new UpdateDBusProxy(this))
+    , m_window(nullptr)
     , m_recoveryWidget(nullptr)
 {
     qCDebug(logUpdateRecovery) << "Initialize recovery manager";
@@ -62,8 +85,19 @@ void Manage::showDialog()
         return;
     }
 
+    const QPointer<QScreen> primaryScreen = QGuiApplication::primaryScreen();
+    if (!primaryScreen) {
+        qCWarning(logUpdateRecovery) << "Primary screen is nullptr";
+    }
+
+    // treeland 下没有 greeter 遮住桌面，只弹一个小窗口会悬在锁屏之上、位置也不对；
+    // 统一改成"全屏黑底 + 弹窗居中"，与 X11 上被 greeter 挡住后的观感一致。
+    qCDebug(logUpdateRecovery) << "Creating full screen rollback window";
+    m_window = new BlackBackgroundWindow();
+    m_window->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+
     qCDebug(logUpdateRecovery) << "Creating new recovery widget";
-    m_recoveryWidget = new RecoveryWidget();
+    m_recoveryWidget = new RecoveryWidget(m_window);
     m_recoveryWidget->backupInfomation(DSysInfo::productVersion() , m_backupTime);
 
     connect(m_recoveryWidget, &RecoveryWidget::notifyButtonClicked, this, [ = ](bool state) {
@@ -73,31 +107,18 @@ void Manage::showDialog()
         doConfirmRollback(state);
     });
 
+    QVBoxLayout *windowLayout = new QVBoxLayout(m_window);
+    windowLayout->setContentsMargins(0, 0, 0, 0);
+    windowLayout->addWidget(m_recoveryWidget, 0, Qt::AlignCenter);
 
-    const QPointer<QScreen> primaryScreen = QGuiApplication::primaryScreen();
     if (primaryScreen) {
-        qCDebug(logUpdateRecovery) << "Primary screen found, setting up centering";
-        auto moveRecoveryWidget2Center = [this, primaryScreen] {
-            qCDebug(logUpdateRecovery) << "Moving recovery widget to center of screen";
-            if (!primaryScreen) {
-                qCWarning(logUpdateRecovery) << "Primary screen is nullptr";
-                return;
-            }
-            qCDebug(logUpdateRecovery) << "Screen geometry:" << primaryScreen->geometry();
-            QRect rect = m_recoveryWidget->geometry();
-            rect.moveCenter(primaryScreen->geometry().center());
-            m_recoveryWidget->move(rect.topLeft());
-        };
-        connect(primaryScreen, &QScreen::geometryChanged, this, moveRecoveryWidget2Center);
-        moveRecoveryWidget2Center();
-    } else {
-        qCWarning(logUpdateRecovery) << "Primary screen is nullptr";
+        m_window->setGeometry(primaryScreen->geometry());
     }
 
-    qCDebug(logUpdateRecovery) << "Showing recovery widget";
-    m_recoveryWidget->setVisible(true);
-    m_recoveryWidget->activateWindow();
-    m_recoveryWidget->show();
+    qCDebug(logUpdateRecovery) << "Showing full screen rollback window";
+    m_window->showFullScreen();
+    m_window->activateWindow();
+    m_recoveryWidget->setFocus();
 }
 
 void Manage::recoveryCanRestore()
@@ -154,9 +175,10 @@ void Manage::recoveryCanRestore()
 void Manage::exitApp(bool isExec)
 {
     qCDebug(logUpdateRecovery) << "Exit application requested, isExec:" << isExec;
-    if (m_recoveryWidget) {
-        qCDebug(logUpdateRecovery) << "Cleaning up recovery widget";
-        delete m_recoveryWidget;
+    if (m_window) {
+        qCDebug(logUpdateRecovery) << "Cleaning up full screen rollback window";
+        delete m_window;   // 内嵌的回滚弹窗随之销毁
+        m_window = nullptr;
         m_recoveryWidget = nullptr;
     }
 
@@ -223,9 +245,11 @@ RecoveryWidget::RecoveryWidget(QWidget *parent)
     , m_rebootBtn(nullptr)
 {
     qCDebug(logUpdateRecovery) << "Initialize RecoveryWidget dialog";
-    this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
-    this->setAttribute(Qt::WA_TranslucentBackground);
-    this->setFixedSize(490, 220);
+
+    // 只固定宽度，高度跟着内容长：文案换行或变长时固定高度会把内容裁掉
+    this->setFixedWidth(490);
+    // 作为子控件时也能拿到焦点，Enter 才能落到"确认"按钮上
+    this->setFocusPolicy(Qt::StrongFocus);
 }
 
 RecoveryWidget::~RecoveryWidget()
