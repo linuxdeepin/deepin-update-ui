@@ -70,6 +70,7 @@ D.DialogWindow {
             }
 
             component ButtonWithToolTip: D.Button {
+                Accessible.id: "UpdateSelectDialog_Button"
                 id: customButton
                 font: D.DTK.fontManager.t6
 

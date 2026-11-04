@@ -87,6 +87,7 @@ Loader {
             spacing: 0
 
             ListView {
+                Accessible.id: "MirrorSourcePopup_ListView"
                 id: listView
                 clip: true
                 Layout.fillWidth: true
@@ -98,6 +99,7 @@ Loader {
                 focus: true
                 activeFocusOnTab: true
                 ScrollBar.vertical: ScrollBar {
+                    Accessible.id: "MirrorSourcePopup_ScrollBar"
                     id: verticalScrollBar
                     active: hovered || pressed || listView.moving || listView.flicking
                 }
@@ -173,6 +175,7 @@ Loader {
 
                 // 底部按钮
                 D.ToolButton {
+                    Accessible.id: "MirrorSourcePopup_ToolButton"
                     id: testButton
                     text: qsTr("Connectivity Test")
                     implicitHeight: 36

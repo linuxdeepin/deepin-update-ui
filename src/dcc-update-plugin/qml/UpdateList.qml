@@ -36,6 +36,7 @@ Rectangle {
             id: repeater
 
             delegate: D.ItemDelegate {
+                Accessible.id: "UpdateList_ItemDelegate"
                 id: itemCtl
                 Layout.fillWidth: true
                 leftPadding: 6
@@ -105,6 +106,7 @@ Rectangle {
                             }
 
                             D.Label {
+                                Accessible.id: "UpdateList_Label"
                                 Layout.alignment: Qt.AlignLeft
                                 horizontalAlignment: Text.AlignLeft
                                 Layout.fillWidth: true
@@ -139,6 +141,7 @@ Rectangle {
                                 }
 
                                 D.ToolButton {
+                                    Accessible.id: "UpdateList_ToolButton"
                                     textColor: D.Palette {
                                         normal {
                                             common: D.DTK.makeColor(D.Color.Highlight)
@@ -184,6 +187,7 @@ Rectangle {
 
                                 sourceComponent: Component {
                                     ListView {
+                                        Accessible.id: "UpdateList_ListView"
                                         id: detailView
                                         width: parent.width
                                         // 最小 1 仅防死锁（contentHeight 初始为 0，视口为 0 则不实例化 delegate）；
@@ -193,7 +197,9 @@ Rectangle {
                                         spacing: 6
                                         model: detailLoader.detailModel
                                         // 内容不足一屏时自动隐藏（AsNeeded）
-                                        ScrollBar.vertical: ScrollBar {}
+                                        ScrollBar.vertical: ScrollBar {
+                                        Accessible.id: "UpdateList_ScrollBar"
+                                    }
 
                                         delegate: ColumnLayout {
                                             width: detailView.width
@@ -222,6 +228,7 @@ Rectangle {
                                             }
 
                                             D.Label {
+                                                Accessible.id: "UpdateList_Label"
                                                 Layout.alignment: Qt.AlignLeft
                                                 horizontalAlignment: Text.AlignLeft
                                                 Layout.fillWidth: true

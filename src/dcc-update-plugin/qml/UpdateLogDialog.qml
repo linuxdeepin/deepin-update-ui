@@ -23,6 +23,7 @@ D.DialogWindow {
         spacing: 10
 
         ScrollView {
+            Accessible.id: "UpdateLogDialog_ScrollView"
             id: scrollView
             Layout.fillWidth: true
             Layout.preferredHeight: 340 - DS.Style.dialogWindow.titleBarHeight - buttonRow.implicitHeight - DS.Style.dialogWindow.contentVMargin
@@ -37,6 +38,7 @@ D.DialogWindow {
             ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
             TextArea {
+                Accessible.id: "UpdateLogDialog_TextArea"
                 id: textArea1
                 selectByMouse: true
                 readOnly: true
@@ -59,6 +61,7 @@ D.DialogWindow {
             spacing: 10
             
             Button {
+                Accessible.id: "UpdateLogDialog_Button"
                 Layout.fillWidth: true
                 text: qsTr("Close")
                 font: D.DTK.fontManager.t6
@@ -68,6 +71,7 @@ D.DialogWindow {
             }
 
             D.RecommandButton {
+                Accessible.id: "UpdateLogDialog_RecommandButton"
                 Layout.fillWidth: true
                 text: qsTr("Export to desktop")
                 font: D.DTK.fontManager.t6

@@ -451,6 +451,7 @@ DccObject {
                 Layout.preferredHeight: privacyLabel.implicitHeight + 20
                 D.Label {
                     id: privacyLabel
+                    Accessible.id: "UpdateMain_Label"
                     anchors.left: parent.left
                     anchors.leftMargin: 10
                     anchors.right: parent.right
