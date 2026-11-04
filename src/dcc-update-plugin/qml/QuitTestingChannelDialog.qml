@@ -36,6 +36,7 @@ D.DialogWindow {
             Layout.bottomMargin: 10
             spacing: 10
             D.Button {
+                Accessible.id: "QuitTestingChannelDialog_Button"
                 Layout.fillWidth: true
                 text: qsTr("Cancel")
                 font: D.DTK.fontManager.t6
@@ -44,6 +45,7 @@ D.DialogWindow {
                 }
             }
             D.RecommandButton {
+                Accessible.id: "QuitTestingChannelDialog_RecommandButton"
                 Layout.fillWidth: true
                 text: qsTr("Exit")
                 font: D.DTK.fontManager.t6

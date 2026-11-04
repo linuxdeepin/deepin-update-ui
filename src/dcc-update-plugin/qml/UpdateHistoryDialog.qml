@@ -65,18 +65,20 @@ D.DialogWindow {
 
         // 更新历史列表
         ListView {
+            Accessible.id: "UpdateHistoryDialog_ListView"
             id: listView
             width: parent.width
             height: 450
             spacing: 6
             clip: true
             cacheBuffer: 1000
-            ScrollBar.vertical: D.ScrollBar {}
+            ScrollBar.vertical: D.ScrollBar { Accessible.id: "UpdateHistoryDialog_ScrollBar" }
 
             model: dccData.model().historyModel
             visible: model.rowCount() > 0
 
             delegate: D.ItemDelegate {
+                Accessible.id: "UpdateHistoryDialog_ItemDelegate"
                 id: logItem
                 width: listView.width
                 padding: 0
@@ -148,6 +150,7 @@ D.DialogWindow {
 
                         // 摘要
                         Label {
+                            Accessible.id: "UpdateHistoryDialog_Label"
                             Layout.alignment: Qt.AlignLeft
                             horizontalAlignment: Text.AlignLeft
                             text: Summary
@@ -181,6 +184,7 @@ D.DialogWindow {
 
                             // 展开/收起：按钮位于详情列表之前，收起按钮不会沉在上千条列表末尾
                             D.ToolButton {
+                                Accessible.id: "UpdateHistoryDialog_ToolButton"
                                 textColor: D.Palette {
                                     normal {
                                         common: D.DTK.makeColor(D.Color.Highlight)
@@ -225,6 +229,7 @@ D.DialogWindow {
 
                             sourceComponent: Component {
                                 ListView {
+                                    Accessible.id: "UpdateHistoryDialog_ListView"
                                     id: detailView
                                     width: parent.width
                                     // 视口高度取内容高度，上限 500：内容不足一屏时随内容收缩，超出时内部滚动
@@ -233,7 +238,7 @@ D.DialogWindow {
                                     clip: true
                                     spacing: 6
                                     model: detailLoader.detailModel
-                                    ScrollBar.vertical: D.ScrollBar {}
+                                    ScrollBar.vertical: D.ScrollBar { Accessible.id: "UpdateHistoryDialog_ScrollBar_Detail" }
 
                                     delegate: ColumnLayout {
                                         width: detailView.width
@@ -266,6 +271,7 @@ D.DialogWindow {
                                             Layout.fillWidth: true
                                         }
                                         Label {
+                                            Accessible.id: "UpdateHistoryDialog_Label"
                                             Layout.alignment: Qt.AlignLeft
                                             horizontalAlignment: Text.AlignLeft
                                             text: {
