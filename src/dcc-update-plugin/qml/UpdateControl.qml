@@ -102,6 +102,7 @@ ColumnLayout {
             }
 
             D.Button {
+                Accessible.id: "UpdateControl_Button"
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
                 visible: showLogButton
                 text: qsTr("View Update Log")
@@ -131,6 +132,7 @@ ColumnLayout {
         Repeater {
             model: btnActions
             delegate: D.Button {
+                Accessible.id: "UpdateControl_Button"
                 Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
                 text: modelData
                 font: D.DTK.fontManager.t6
@@ -170,6 +172,7 @@ ColumnLayout {
                 }
 
                 D.ToolButton {
+                    Accessible.id: "UpdateControl_ToolButton"
                     id: pauseIcon
                     icon.name: isPauseOrNot ? "update_start" : "update_pause"
                     icon.width: 24
@@ -188,6 +191,7 @@ ColumnLayout {
                 }
 
                 D.ToolButton {
+                    Accessible.id: "UpdateControl_ToolButton"
                     id: stopIcon
                     icon.name: "update_stop"
                     icon.width: 24

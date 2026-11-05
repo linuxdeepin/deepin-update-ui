@@ -61,6 +61,7 @@ ColumnLayout {
             }
 
             D.Button {
+                Accessible.id: "CheckUpdate_Button"
                 Layout.alignment: Qt.AlignHCenter
                 implicitWidth: 200
                 visible: text.length !== 0

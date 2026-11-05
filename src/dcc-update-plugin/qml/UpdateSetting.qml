@@ -60,6 +60,7 @@ DccObject {
                 }
 
                 component ButtonWithToolTip: D.Button {
+                    Accessible.id: "UpdateSetting_Button"
                     id: customButton
                     font: D.DTK.fontManager.t6
 
@@ -144,6 +145,7 @@ DccObject {
                 }
 
                 component EnableFailedDialogButton: D.Button {
+                    Accessible.id: "UpdateSetting_Button"
                     id: customButton
                     font: D.DTK.fontManager.t6
 
@@ -215,6 +217,7 @@ DccObject {
             enabled: updateTypeGrp.editorEnabled
             pageType: DccObject.Editor
             page: D.Switch {
+                Accessible.id: "UpdateSetting_Switch"
                 checked: dccData.model().functionUpdate
                 onCheckedChanged: {
                     if (checked !== dccData.model().functionUpdate) {
@@ -233,6 +236,7 @@ DccObject {
             enabled: updateTypeGrp.editorEnabled
             pageType: DccObject.Editor
             page: D.Switch {
+                Accessible.id: "UpdateSetting_Switch"
                 checked: dccData.model().securityUpdate
                 onCheckedChanged: {
                     if (checked !== dccData.model().securityUpdate) {
@@ -251,6 +255,7 @@ DccObject {
             enabled: updateTypeGrp.editorEnabled
             pageType: DccObject.Editor
             page: D.Switch {
+                Accessible.id: "UpdateSetting_Switch"
                 checked: dccData.model().thirdPartyUpdate
                 onCheckedChanged: {
                     if (checked !== dccData.model().thirdPartyUpdate) {
@@ -289,6 +294,7 @@ DccObject {
                 Layout.fillWidth: true
             }
             D.ToolButton {
+                Accessible.id: "UpdateSetting_ToolButton"
                 textColor: D.Palette {
                     normal {
                         common: D.DTK.makeColor(D.Color.Highlight)
@@ -363,6 +369,7 @@ DccObject {
                 enabled: !dccData.model().isPrivateUpdate && !dccData.model().updateProhibited
                 pageType: DccObject.Editor
                 page: D.Switch {
+                    Accessible.id: "UpdateSetting_Switch"
                     id: upgradeDeliverySwitch
                     checked: dccData.model().upgradeDeliveryEnable
                     onCheckedChanged: {
@@ -399,6 +406,7 @@ DccObject {
                 }
                 page: RowLayout {
                     D.CheckBox {
+                        Accessible.id: "UpdateSetting_CheckBox"
                         id: uploadLimitCheckBox
                         Layout.leftMargin: 14
                         Layout.fillWidth: true
@@ -426,6 +434,7 @@ DccObject {
                         Layout.rightMargin: 10
                         Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
                         D.LineEdit {
+                            Accessible.id: "UpdateSetting_LineEdit"
                             id: uploadLineEdit
                             maximumLength: 6
                             validator: RegularExpressionValidator { regularExpression: /^\d*$/ }
@@ -503,6 +512,7 @@ DccObject {
                 }
                 page: RowLayout {
                     D.CheckBox {
+                        Accessible.id: "UpdateSetting_CheckBox"
                         id: downloadLimitCheckBox
                         Layout.leftMargin: 14
                         Layout.fillWidth: true
@@ -530,6 +540,7 @@ DccObject {
                         Layout.rightMargin: 10
                         Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
                         D.LineEdit {
+                            Accessible.id: "UpdateSetting_LineEdit"
                             id: downloadLineEdit
                             maximumLength: 6
                             validator: RegularExpressionValidator { regularExpression: /^\d*$/ }
@@ -617,6 +628,7 @@ DccObject {
                 enabled: !dccData.model().updateProhibited
                 pageType: DccObject.Editor
                 page: D.Switch {
+                    Accessible.id: "UpdateSetting_Switch"
                     checked: dccData.model().downloadSpeedLimitEnabled || dccData.model().downloadIsOnlineSpeedLimit
                     onCheckedChanged: {
                         if (checked !== dccData.model().downloadSpeedLimitEnabled) {
@@ -636,6 +648,7 @@ DccObject {
                 pageType: DccObject.Editor
                 page: RowLayout {
                     D.LineEdit {
+                        Accessible.id: "UpdateSetting_LineEdit"
                         id: lineEdit
                         maximumLength: 6
                         validator: RegularExpressionValidator { regularExpression: /^\d*$/ }
@@ -708,6 +721,7 @@ DccObject {
                 enabled: !dccData.model().updateProhibited && !dccData.model().updateModeDisabled
                 pageType: DccObject.Editor
                 page: D.Switch {
+                    Accessible.id: "UpdateSetting_Switch"
                     checked: dccData.model().autoDownloadUpdates
                     onCheckedChanged: {
                         if (checked !== dccData.model().autoDownloadUpdates) {
@@ -727,6 +741,7 @@ DccObject {
                 pageType: DccObject.Item
                 page: RowLayout {
                     D.CheckBox {
+                        Accessible.id: "UpdateSetting_CheckBox"
                         id: inactiveDownloadCheckBox
                         Layout.leftMargin: 14
                         Layout.fillWidth: true
@@ -809,6 +824,7 @@ DccObject {
                 visible: !dccData.model().isPrivateUpdate
                 enabled: !dccData.model().updateProhibited && !dccData.model().updateModeDisabled
                 page: D.Switch {
+                    Accessible.id: "UpdateSetting_Switch"
                     checked: dccData.model().updateNotify
                     onCheckedChanged: {
                         if (checked !== dccData.model().updateNotify) {
@@ -826,6 +842,7 @@ DccObject {
                 visible: !dccData.model().isPrivateUpdate
                 pageType: DccObject.Editor
                 page: D.Switch {
+                    Accessible.id: "UpdateSetting_Switch"
                     checked: dccData.model().autoCleanCache
                     onCheckedChanged: {
                         if (checked !== dccData.model().autoCleanCache) {
@@ -844,6 +861,7 @@ DccObject {
                 backgroundType: DccObject.Normal
                 pageType: DccObject.Editor
                 page: D.Button {
+                    Accessible.id: "UpdateSetting_Button"
                     implicitWidth: fm.advanceWidth(text) + fm.averageCharacterWidth * 2
                     text: qsTr("View")
                     onClicked: {
@@ -886,6 +904,7 @@ DccObject {
                 enabled: !dccData.model().updateProhibited
                 pageType: DccObject.Editor
                 page: D.Switch {
+                    Accessible.id: "UpdateSetting_Switch"
                     checked: dccData.model().smartMirrorSwitch
                     onCheckedChanged: {
                         if (checked !== dccData.model().smartMirrorSwitch) {
@@ -906,6 +925,7 @@ DccObject {
 
                 page: Item {
                     id: mirrorItem
+                    Accessible.id: "UpdateSetting_Item"
                     implicitWidth: rowlayout.implicitWidth
                     implicitHeight: rowlayout.implicitHeight
 
@@ -941,6 +961,7 @@ DccObject {
                                 model: dccData.model().mirrorSourceModel
                                 delegate: D.MenuItem {
                                     id: menuItem
+                                    Accessible.id: "UpdateSetting_MenuItem"
                                     width: mirrorPopupWindow.viewWidth
                                     useIndicatorPadding: true
                                     checkable: true
@@ -1055,6 +1076,7 @@ DccObject {
             }
 
             page: D.Switch {
+                Accessible.id: "UpdateSetting_Switch_testingChannel"
                 checked: {
                     if (dccData.model().testingChannelStatus === Common.WaitToLeave ||
                         dccData.model().testingChannelStatus === Common.Joined)
@@ -1098,6 +1120,7 @@ DccObject {
             pageType: DccObject.Editor
             page: D.ToolButton {
                 text: qsTr("Click here to complete the application")
+                Accessible.id: "UpdateSetting_ToolButton_testingChannelUrl"
                 textColor: D.Palette {
                     normal {
                         common: D.DTK.makeColor(D.Color.Highlight)
