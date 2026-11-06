@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2025 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2025-2026 UnionTech Software Technology Co., Ltd.
 // SPDX-License-Identifier: GPL-3.0-or-later
 #ifndef UPDATESTATUS_H
 #define UPDATESTATUS_H
@@ -33,7 +33,7 @@ public:
 
     UpdateStatusData* statusData() const;
 
-signals:
+Q_SIGNALS:
     void ABStatusChanged(const QString &ABStatus);
     void ABErrorChanged(const QString &ABError);
     void TriggerBackingUpTypeChanged(int TriggerBackingUpType);

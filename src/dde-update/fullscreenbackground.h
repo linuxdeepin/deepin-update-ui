@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2011 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2011 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -28,12 +28,12 @@ public:
     void unBindContent();
     static void setContent(QWidget *const w);
 
-public slots:
+public Q_SLOTS:
     void updateBackground(const QString &path);
     void updateBlurBackground(const QString &path);
     void setScreen(QPointer<QScreen> screen, bool isVisible = true) override;
 
-signals:
+Q_SIGNALS:
     void blurImageReturned();
 
 protected:

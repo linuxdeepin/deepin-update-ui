@@ -76,7 +76,7 @@ private:
     // 将下载速度格式化为展示文本。
     QString regulateSpeed();
 
-private slots:
+private Q_SLOTS:
     void onRefreshJobList(const QList<QDBusObjectPath> &jobs);
     void onSetUpdateProgress(double progress);
     void onSetBackUpProgress(double progress);
