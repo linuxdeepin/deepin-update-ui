@@ -716,6 +716,10 @@ void UpdateModel::setLastError(UpdatesStatus status, UpdateErrorType errorType)
     }
 
     m_errorMap.insert(status, errorType);
+    if (status == CheckingFailed && m_checkUpdateStatus == CheckingFailed) {
+        // A retry can change the failure reason without changing the status enum.
+        updateCheckUpdateUi();
+    }
     Q_EMIT lastErrorChanged(status, errorType);
 }
 

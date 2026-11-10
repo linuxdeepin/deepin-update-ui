@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2018-2026 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2018 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 #include "updatejobdbusproxy.h"
@@ -23,10 +23,11 @@ const static QString AtomicUpdaterJobInterface = QStringLiteral("org.deepin.Atom
 const static QString PropertiesInterface = QStringLiteral("org.freedesktop.DBus.Properties");
 const static QString PropertiesChanged = QStringLiteral("PropertiesChanged");
 
-UpdateJobDBusProxy::UpdateJobDBusProxy(const QString &jobPath, QObject *parent)
+UpdateJobDBusProxy::UpdateJobDBusProxy(const QString &jobPath, QObject *parent,
+                                     const QDBusConnection &connection)
     : QObject(parent)
     , m_updateJobInter(new DDBusInterface(
-              UpdaterService, jobPath, UpdaterJobInterface, QDBusConnection::systemBus(), this))
+              UpdaterService, jobPath, UpdaterJobInterface, connection, this))
     , m_path(jobPath)
 {
     qCDebug(logCommon) << "Initialize UpdateJobDBusProxy with path:" << jobPath;
