@@ -689,14 +689,14 @@ bool UpdateWorker::exportUpdateLog()
     const auto& [uid, name] = getCurrentUser();
     if (uid == 0) {
         qCWarning(logUpdateModal) << "Current user's uid is invalid";
-        emit exportUpdateLogFinished(false);
+        Q_EMIT exportUpdateLogFinished(false);
         return false;
     }
 
     QString desktopPath = Dtk::Core::DStandardPaths::homePath(uid) + "/Desktop";
     if (desktopPath.isEmpty()) {
         qCWarning(logUpdateModal) << "Cannot get desktop path for user:" << name << "uid:" << uid;
-        emit exportUpdateLogFinished(false);
+        Q_EMIT exportUpdateLogFinished(false);
         return false;
     }
 
@@ -706,7 +706,7 @@ bool UpdateWorker::exportUpdateLog()
     if (!tempDir.exists(tempDirPath)) {
         if (!tempDir.mkpath(tempDirPath)) {
             qCWarning(logUpdateModal) << "Failed to create temp directory:" << tempDirPath;
-            emit exportUpdateLogFinished(false);
+            Q_EMIT exportUpdateLogFinished(false);
             return false;
         }
     }
@@ -714,7 +714,7 @@ bool UpdateWorker::exportUpdateLog()
     // 只有lightdm用户和lightdm组可以访问
     if (chmod(tempDirPath.toUtf8().constData(), 0750) == -1) {
         qCWarning(logUpdateModal) << "Failed to set directory permissions:" << strerror(errno);
-        emit exportUpdateLogFinished(false);
+        Q_EMIT exportUpdateLogFinished(false);
         return false;
     }
 
@@ -729,7 +729,7 @@ bool UpdateWorker::exportUpdateLog()
     int fd = open(tempLogPath.toUtf8().constData(), O_WRONLY | O_CREAT | O_TRUNC, 0640);
     if (fd == -1) {
         qCWarning(logUpdateModal) << "Failed to create temp log file:" << tempLogPath << "error:" << strerror(errno);
-        emit exportUpdateLogFinished(false);
+        Q_EMIT exportUpdateLogFinished(false);
         return false;
     }
 
@@ -744,7 +744,7 @@ bool UpdateWorker::exportUpdateLog()
             qCWarning(logUpdateModal) << "Export update details failed:" << reply.error().message();
             // 清理失败的临时文件
             QFile::remove(tempLogPath);
-            emit exportUpdateLogFinished(false);
+            Q_EMIT exportUpdateLogFinished(false);
         } else {
             qCInfo(logUpdateModal) << "Export update log successfully to temp file:" << tempLogPath;
 
@@ -756,7 +756,7 @@ bool UpdateWorker::exportUpdateLog()
             QProcess::startDetached("systemctl", QStringList() << "start" << serviceName);
             qCInfo(logUpdateModal) << "Started copy service with hex encoded parameters:" << pathsParam;
             
-            emit exportUpdateLogFinished(true);
+            Q_EMIT exportUpdateLogFinished(true);
         }
         watcher->deleteLater();
     });

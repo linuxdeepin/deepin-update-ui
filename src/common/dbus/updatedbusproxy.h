@@ -147,7 +147,7 @@ public:
     void Restart();
     void UpdateAndReboot();
     void UpdateAndShutdown();
-signals:
+Q_SIGNALS:
     // updater
     void UpdateNotifyChanged(bool value) const;
     void AutoDownloadUpdatesChanged(bool value) const;

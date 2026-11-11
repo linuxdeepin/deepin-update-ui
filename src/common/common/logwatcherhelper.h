@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2025 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2025-2026 UnionTech Software Technology Co., Ltd.
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #ifndef LOGWATCHERHELPER_H
@@ -20,10 +20,10 @@ public:
     void startWatchFile();
     void stopWatchFile();
 
-private slots:
+private Q_SLOTS:
     void onDataAvailable();
 
-signals:
+Q_SIGNALS:
     void incrementalDataChanged(const QString &incrementaldata);
     void fileReset();
 

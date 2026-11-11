@@ -32,7 +32,7 @@ protected:
     void resizeEvent(QResizeEvent *e);
     void mouseReleaseEvent(QMouseEvent *event) override;
 
-private slots:
+private Q_SLOTS:
     void onRefreshIcon(const QList<QDBusObjectPath> &jobs);
     void onStartAnimation(const QString &updateStatus);
 

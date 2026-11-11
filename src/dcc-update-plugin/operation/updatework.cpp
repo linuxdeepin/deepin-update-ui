@@ -769,7 +769,7 @@ void UpdateWorker::doUpgrade(int updateTypes, bool doBackup)
         return;
     }
 
-    emit startDoUpgrade();
+    Q_EMIT startDoUpgrade();
 
     qCInfo(logDccUpdatePlugin) << "Do upgrade, update types:" << updateTypes << ", whether do backup:" << doBackup;
     cleanLaStoreJob(m_distUpgradeJob);
@@ -1182,7 +1182,7 @@ void UpdateWorker::setTestingChannelEnable(const bool& enable)
             if (!enable) {
                 if (m_updateInter->PackageExists(TestingChannelPackage)) {
                     qCDebug(logDccUpdatePlugin) << "Testing:" << "Uninstall testing channel package";
-                    emit requestCloseTestingChannel();
+                    Q_EMIT requestCloseTestingChannel();
                 } else {
                     m_model->setTestingChannelStatus(TestingChannelStatus::NotJoined);
                 }
