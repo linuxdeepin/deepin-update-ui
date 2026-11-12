@@ -13,6 +13,7 @@
 #include <QApplication>
 #include <QStyleOption>
 #include <QLoggingCategory>
+#include <QTouchEvent>
 
 Q_DECLARE_LOGGING_CATEGORY(logUpdateModal)
 
@@ -47,6 +48,8 @@ BlurTransparentButton::BlurTransparentButton(const QString &text, QWidget *paren
     this->setPalette(palette);
 
     this->setLayout(layout);
+
+    setAttribute(Qt::WA_AcceptTouchEvents);
     qCDebug(logUpdateModal) << "BlurTransparentButton setup completed";
 }
 
@@ -166,6 +169,15 @@ void BlurTransparentButton::mouseReleaseEvent(QMouseEvent *event)
     Q_UNUSED(event);
     emit clicked();
     return;
+}
+
+void BlurTransparentButton::touchEvent(QTouchEvent *event)
+{
+    if (event->type() == QEvent::TouchEnd) {
+        qCDebug(logUpdateModal) << "Touch end detected, emitting clicked signal";
+        emit clicked();
+    }
+    QWidget::touchEvent(event);
 }
 
 void BlurTransparentButton::keyPressEvent(QKeyEvent *event)
