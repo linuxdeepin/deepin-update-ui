@@ -2,7 +2,17 @@
 #SPDX-FileCopyrightText: 2026 UnionTech Software Technology Co., Ltd.
 #
 #SPDX-License-Identifier: GPL-3.0-or-later
-# launch-dde-update: 由 kwin --exit-with-session 调用, 作为中间层将 --wait 透传给 dde-update wrapper。
-# --exit-with-session 只接受路径不支持传参, 因此需要一个中间脚本。
+# 由 KWin --exit-with-session 在 Wayland/Xwayland 就绪后调用。
+# 显示服务需要继承此时的 DISPLAY/WAYLAND_DISPLAY，才能正确绑定触摸屏。
+display_daemon="/usr/lib/deepin-daemon/greeter-display-daemon"
+dde_wloutput_daemon="/usr/bin/dde-wloutput-daemon"
+if [ -x "$dde_wloutput_daemon" ]; then
+    "$dde_wloutput_daemon" &
+fi
+if [ -x "$display_daemon" ]; then
+    "$display_daemon" > /tmp/greeter-display-daemon-for-update-ui.log 2>&1 &
+fi
+
+# 保留 security-loader/FIFO 的等待流程。
 # 使用 exec 保持 PID 不变, 以便 kwin --exit-with-session 正确跟踪生命周期。
 exec /usr/bin/dde-update --wait
