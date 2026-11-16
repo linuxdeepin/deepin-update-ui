@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019 - 2023 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2019-2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -7,6 +7,9 @@
 
 #include <QMap>
 #include <QPair>
+#include <QJsonParseError>
+
+#include <algorithm>
 
 using namespace dcc::update;
 
@@ -35,6 +38,9 @@ const QMap<QString, QPair<VulLevel, QString>>& UpdateLogHelper::vulLevelMap()
 
 QString UpdateLogHelper::sumCveLevelUp(const QMap<VulLevel, int>& vulCount)
 {
+    if (vulCount.isEmpty())
+        return QString();
+
     // 拼接描述：本次更新修复n%个高危漏洞、n%个中危漏洞、n%个低危漏洞、n％个未知漏洞
     // 没有的漏洞则不显示
     const static QMap<VulLevel, QString> textMap = {
@@ -45,7 +51,8 @@ QString UpdateLogHelper::sumCveLevelUp(const QMap<VulLevel, int>& vulCount)
         {VulLevel_None, tr("unknown")},
     };
     QString explain = tr("This update fixes");
-    for (auto it = --vulCount.cend() ; it != --vulCount.begin(); it--) {
+    for (auto it = vulCount.cend(); it != vulCount.cbegin();) {
+        --it;
         const int count = it.value();
         QString vulnerability = count > 1 ? tr("vulnerabilities") : tr("vulnerability");
         //~ content_explain `数字+%`会在代码中替换为字符串，例如：3 of high-risk vulnerabilities；各语言需要根据实际情况增加空格(例如：中文没有空格，英文有空格)
@@ -63,15 +70,63 @@ QString UpdateLogHelper::sumCveLevelUp(const QMap<VulLevel, int>& vulCount)
 
 void UpdateLogHelper::handleUpdateLog(const QString &log)
 {
-    const QJsonDocument& doc = QJsonDocument::fromJson(log.toLocal8Bit());
-    const QJsonObject& rootObj = doc.object();
-    if (rootObj.isEmpty()) {
-        qCWarning(DCC_UPDATE) << "Update log json object is empty";
+    QJsonParseError error;
+    const QJsonDocument doc = QJsonDocument::fromJson(log.toUtf8(), &error);
+    if (error.error != QJsonParseError::NoError) {
+        qCWarning(DCC_UPDATE) << "Invalid update log JSON; keeping previous logs:"
+                             << error.errorString();
+        return;
+    }
+    if (!doc.isObject()) {
+        qCWarning(DCC_UPDATE) << "Update log root is not an object; keeping previous logs";
         return;
     }
 
-    handleSystem(rootObj.value(QString::number(static_cast<int>(SystemUpdate))).toArray());
-    handleSecurity(rootObj.value(QString::number(static_cast<int>(SecurityUpdate))).toObject());
+    const QJsonObject rootObj = doc.object();
+    if (rootObj.isEmpty()) {
+        // The producer contract for {} is not available. Do not infer that
+        // there are no updates from an ambiguous response. An explicit empty
+        // section, e.g. {"4": {}}, remains an authoritative empty snapshot.
+        qCWarning(DCC_UPDATE) << "Ambiguous empty update log object; keeping previous logs";
+        return;
+    }
+
+    const QString systemKey = QString::number(static_cast<int>(SystemUpdate));
+    const QString securityKey = QString::number(static_cast<int>(SecurityUpdate));
+    if (!rootObj.contains(systemKey) && !rootObj.contains(securityKey)) {
+        qCWarning(DCC_UPDATE) << "No supported update log section; keeping previous logs";
+        return;
+    }
+
+    const QJsonValue systemValue = rootObj.value(systemKey);
+    const QJsonValue securityValue = rootObj.value(securityKey);
+    if ((!systemValue.isUndefined() && !systemValue.isArray())
+            || (!securityValue.isUndefined() && !securityValue.isObject())) {
+        qCWarning(DCC_UPDATE) << "Invalid update log section type; keeping previous logs";
+        return;
+    }
+
+    const QJsonArray systemLogs = systemValue.toArray();
+    const QJsonObject securityLogs = securityValue.toObject();
+    // Validate both sections before replacing either cache. Do not partially
+    // apply a response or silently turn malformed records into an empty list.
+    for (const QJsonValue &value : systemLogs) {
+        if (!value.isObject()) {
+            qCWarning(DCC_UPDATE) << "Invalid system log record; keeping previous logs";
+            return;
+        }
+    }
+    for (auto it = securityLogs.constBegin(); it != securityLogs.constEnd(); ++it) {
+        if (!it.value().isObject()) {
+            qCWarning(DCC_UPDATE) << "Invalid security log record; keeping previous logs";
+            return;
+        }
+    }
+
+    // Preserve the existing full-snapshot behavior for supported responses:
+    // omitted sections become empty; explicitly empty sections clear caches.
+    handleSystem(systemLogs);
+    handleSecurity(securityLogs);
 }
 
 void UpdateLogHelper::handleSystem(const QJsonArray &log)
@@ -90,7 +145,7 @@ void UpdateLogHelper::handleSystem(const QJsonArray &log)
     qSort(m_systemLog.begin(), m_systemLog.end(), [](const SystemUpdateLog& v1, const SystemUpdateLog& v2) -> bool {
         int compareRet = v1.showVersion.compare(v2.showVersion);
         if (compareRet == 0) {
-            return v1.publishTime.compare(v2.publishTime) >= 0;
+            return v1.publishTime.compare(v2.publishTime) > 0;
         }
         return compareRet > 0;
     });
@@ -98,6 +153,7 @@ void UpdateLogHelper::handleSystem(const QJsonArray &log)
 
 void UpdateLogHelper::handleSecurity(const QJsonObject &log)
 {
+    m_securityLog.clear();
     for (const auto& key : log.keys()) {
         const auto& obj = log.value(key).toObject();
         if (obj.isEmpty())
@@ -110,7 +166,7 @@ void UpdateLogHelper::handleSecurity(const QJsonObject &log)
         auto v1Level = vulLevelMap().value(v1.vulLevel).first;
         auto v2Level = vulLevelMap().value(v2.vulLevel).first;
         if (v1Level == v2Level) {
-            return v1.cveId.compare(v2.cveId) >= 0;
+            return v1.cveId.compare(v2.cveId) > 0;
         }
         return v1Level > v2Level;
     });
@@ -182,7 +238,7 @@ QList<HistoryItemInfo> UpdateLogHelper::handleHistoryUpdateLog(const QString &lo
 {
     QList<HistoryItemInfo> infos;
     QJsonParseError error;
-    const QJsonDocument& doc = QJsonDocument::fromJson(log.toLocal8Bit(), &error);
+    const QJsonDocument& doc = QJsonDocument::fromJson(log.toUtf8(), &error);
     if (QJsonParseError::NoError != error.error) {
         qWarning() << "Parse update history log failed, error:" << error.errorString();
         return infos;
@@ -209,7 +265,7 @@ QList<HistoryItemInfo> UpdateLogHelper::handleHistoryUpdateLog(const QString &lo
                 auto v1Level = vulLevelMap().value(v1.vulLevel).first;
                 auto v2Level = vulLevelMap().value(v2.vulLevel).first;
                 if (v1Level == v2Level) {
-                    return v1.name.compare(v2.name) >= 0;
+                    return v1.name.compare(v2.name) > 0;
                 }
                 return v1Level > v2Level;
             });
