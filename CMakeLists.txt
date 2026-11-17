@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2025-2026 UnionTech Software Technology Co., Ltd.
+# SPDX-FileCopyrightText: 2025 - 2026 UnionTech Software Technology Co., Ltd.
 #
 # SPDX-License-Identifier: CC0-1.0
 
@@ -13,6 +13,11 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
 set(QT_VERSION_MAJOR 6)
+
+option(BUILD_TESTING "Build update regression tests" OFF)
+if(BUILD_TESTING)
+    enable_testing()
+endif()
 
 if (DEFINED ENABLE_MIEEE)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mieee")
@@ -41,4 +46,8 @@ add_subdirectory("src/dde-abrecovery")
 add_subdirectory("src/dcc-update-plugin")
 add_subdirectory("src/dock-update-plugin")
 add_subdirectory("src/private-lastore-tray")
+
+if(BUILD_TESTING)
+    add_subdirectory("tests/ut")
+endif()
 

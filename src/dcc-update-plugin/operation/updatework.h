@@ -12,6 +12,7 @@
 #include "common/dbus/updatejobdbusproxy.h"
 #include "common/dbus/updateassistant.h"
 
+#include <QHash>
 #include <QLoggingCategory>
 #include <QNetworkAccessManager>
 #include <QObject>
@@ -29,8 +30,6 @@ public:
     void initConfig();
     void getLicenseState();
 
-    bool checkDbusIsValid();
-    bool checkJobIsValid(QPointer<UpdateJobDBusProxy> dbusJob);
     void deleteJob(QPointer<UpdateJobDBusProxy> dbusJob);
     void cleanLaStoreJob(QPointer<UpdateJobDBusProxy> dbusJob);
     UpdateErrorType analyzeJobErrorMessage(const QString& jobDescription, UpdatesStatus status = Default);
@@ -39,8 +38,8 @@ public:
     Q_INVOKABLE void checkNeedDoUpdates();
     Q_INVOKABLE void doCheckUpdates();
     Q_INVOKABLE void reCheckWithUi();
-    void setCheckUpdatesJob(const QString& jobPath);
-    void createCheckUpdateJob(const QString& jobPath);
+    void setCheckUpdatesJob(const QString& jobPath, qlonglong createTime = 0);
+    void createCheckUpdateJob(const QString& jobPath, qlonglong createTime = 0);
     void refreshLastTimeAndCheckCircle();
     void setUpdateInfo();
     QMap<UpdateType, UpdateItemInfo*> getAllUpdateInfo(const QMap<QString, QStringList>& updatePackages);
@@ -144,6 +143,12 @@ Q_SIGNALS:
     void p2PUpdateSupportChanged(bool supported);
 
 private:
+    bool ensureCheckUpdateConnection();
+    void failCheckUpdate(const QString &message);
+    void refreshCheckUpdateJob();
+    void resetCheckUpdateJob();
+    void handleCheckUpdateStatus(const QString &value, bool fromSnapshot);
+
     Dtk::Core::DConfig *m_lastoreDConfig;
     UpdateModel* m_model;
     UpdateDBusProxy *m_updateInter;
@@ -158,6 +163,13 @@ private:
     QString calculateRequiredSpaceText(int updateTypes, const QString &originalText);
 
     bool m_doCheckUpdates;
+    QDBusConnection m_checkUpdateConnection;
+    QTimer *m_checkUpdateTimer;
+    bool m_checkUpdateRefreshPending = false;
+    quint64 m_checkUpdateGeneration = 0;
+    quint64 m_checkUpdateSignalRevision = 0;
+    qlonglong m_checkUpdateJobCreateTime = 0;
+    QHash<QString, qlonglong> m_completedCheckUpdateJobs;
     QPointer<UpdateJobDBusProxy> m_checkUpdateJob;
     QPointer<UpdateJobDBusProxy> m_fixErrorJob;
     QPointer<UpdateJobDBusProxy> m_downloadJob;

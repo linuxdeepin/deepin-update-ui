@@ -126,6 +126,10 @@ UpdateWorker::UpdateWorker(UpdateModel* model, QObject* parent)
     , m_machineid(std::nullopt)
     , m_testingChannelUrl(std::nullopt)
     , m_doCheckUpdates(false)
+    , m_checkUpdateConnection(QDBusConnection::connectToBus(
+          QDBusConnection::SystemBus,
+          QStringLiteral("dcc-update-check-%1").arg(reinterpret_cast<quintptr>(this), 0, 16)))
+    , m_checkUpdateTimer(new QTimer(this))
     , m_checkUpdateJob(nullptr)
     , m_fixErrorJob(nullptr)
     , m_downloadJob(nullptr)
@@ -140,12 +144,15 @@ UpdateWorker::UpdateWorker(UpdateModel* model, QObject* parent)
     qRegisterMetaType<ControlPanelType>("ControlPanelType");
 
     initConnect();
+    // Property signals are the fast path; reconcile while checking if a signal is lost.
+    m_checkUpdateTimer->setInterval(2000);
+    connect(m_checkUpdateTimer, &QTimer::timeout, this, &UpdateWorker::refreshCheckUpdateJob);
 }
 
 UpdateWorker::~UpdateWorker()
 {
     qCDebug(logDccUpdatePlugin) << "Destroying UpdateWorker, cleaning up jobs";
-    deleteJob(m_checkUpdateJob);
+    resetCheckUpdateJob();
     deleteJob(m_fixErrorJob);
     deleteJob(m_downloadJob);
     deleteJob(m_distUpgradeJob);
@@ -160,6 +167,7 @@ UpdateWorker::~UpdateWorker()
         delete m_lastoreHeartBeatTimer;
         m_lastoreHeartBeatTimer = nullptr;
     }
+    QDBusConnection::disconnectFromBus(m_checkUpdateConnection.name());
 }
 
 void UpdateWorker::initConnect()
@@ -346,30 +354,6 @@ void UpdateWorker::getLicenseState()
     m_model->setSystemActivation(isActivated);
 }
 
-bool UpdateWorker::checkDbusIsValid()
-{
-    const auto result = checkJobIsValid(m_checkUpdateJob) && checkJobIsValid(m_downloadJob);
-    qCDebug(logDccUpdatePlugin) << "DBus jobs validity check result:" << result;
-    return result;
-}
-
-bool UpdateWorker::checkJobIsValid(QPointer<UpdateJobDBusProxy> dbusJob)
-{
-    if (dbusJob.isNull()) {
-        qCDebug(logDccUpdatePlugin) << "DBus job is null";
-        return false;
-    }
-
-    if (dbusJob->isValid()) {
-        qCDebug(logDccUpdatePlugin) << "DBus job is valid";
-        return true;
-    }
-
-    qCDebug(logDccUpdatePlugin) << "DBus job invalid, deleting";
-    dbusJob->deleteLater();
-    return false;
-}
-
 void UpdateWorker::deleteJob(QPointer<UpdateJobDBusProxy> dbusJob)
 {
     if (!dbusJob.isNull()) {
@@ -446,14 +430,16 @@ void UpdateWorker::checkNeedDoUpdates()
         return;
     }
 
+    static bool doCheckFirst = true;
     // 如果当前正在检查更新，则不再检查
     if (m_doCheckUpdates) {
+        // An adopted background check also satisfies the first visit.
+        doCheckFirst = false;
         qCDebug(logDccUpdatePlugin) << "Is doing check updates";
         return;
     }
 
     // 如果打开控制中心后第一次进入检查更新界面,则显示页面并进行检查
-    static bool doCheckFirst = true;
     if (doCheckFirst) {
         doCheckFirst = false;
         m_model->setShowCheckUpdate(true);
@@ -478,12 +464,11 @@ void UpdateWorker::checkNeedDoUpdates()
 void UpdateWorker::doCheckUpdates()
 {
     qCInfo(logDccUpdatePlugin) << "do check updates";
-    if (checkDbusIsValid()) {
-        qCWarning(logDccUpdatePlugin) << "Check Dbus's validation failed do nothing";
-        return;
+    if (m_checkUpdateJob && m_model->checkUpdateStatus() == CheckingFailed) {
+        // A polled failure keeps observing possible backend retries until the user retries.
+        resetCheckUpdateJob();
     }
-
-    if (m_checkUpdateJob) {
+    if (m_doCheckUpdates || m_checkUpdateJob) {
         qCWarning(logDccUpdatePlugin) << "Is checking update, won't do it again";
         return;
     }
@@ -498,25 +483,30 @@ void UpdateWorker::doCheckUpdates()
         return;
     }
 
+    // Do not start a backend check until its observer can connect.
+    if (!ensureCheckUpdateConnection()) {
+        return;
+    }
     m_model->resetDownloadInfo(); // 在检查更新前重置数据，避免有上次检查的数据残留
 
     m_doCheckUpdates = true;
+    const quint64 generation = ++m_checkUpdateGeneration;
     QDBusPendingCall call = m_updateInter->UpdateSource();
     QDBusPendingCallWatcher* watcher = new QDBusPendingCallWatcher(call, this);
-    connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, watcher] {
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, watcher, generation] {
+        watcher->deleteLater();
+        if (generation != m_checkUpdateGeneration || !m_doCheckUpdates) {
+            return;
+        }
         QDBusPendingReply<QDBusObjectPath> reply = *watcher;
         if (reply.isError()) {
             qCWarning(logDccUpdatePlugin) << "Check update failed, error: " << reply.error().message();
-            m_model->setLastStatus(UpdatesStatus::CheckingFailed, __LINE__);
-            m_model->setCheckUpdateStatus(CheckingFailed);
-            cleanLaStoreJob(m_checkUpdateJob);
-            m_doCheckUpdates = false;
+            failCheckUpdate(reply.error().message());
         } else {
             const QString jobPath = reply.value().path();
             qCInfo(logDccUpdatePlugin) << "jobpath:" << jobPath;
             setCheckUpdatesJob(jobPath);
         }
-        watcher->deleteLater();
     });
 }
 
@@ -526,19 +516,56 @@ void UpdateWorker::reCheckWithUi()
     doCheckUpdates();
 }
 
-void UpdateWorker::setCheckUpdatesJob(const QString& jobPath)
+bool UpdateWorker::ensureCheckUpdateConnection()
+{
+    if (m_checkUpdateConnection.isConnected()) {
+        return true;
+    }
+    // A failed named connection must be released before Qt can open it again.
+    const auto name = QStringLiteral("dcc-update-check-%1").arg(reinterpret_cast<quintptr>(this), 0, 16);
+    QDBusConnection::disconnectFromBus(name);
+    m_checkUpdateConnection = QDBusConnection::connectToBus(QDBusConnection::SystemBus, name);
+    if (m_checkUpdateConnection.isConnected()) {
+        return true;
+    }
+    qCWarning(logDccUpdatePlugin) << "Cannot connect check update observer:" << m_checkUpdateConnection.lastError();
+    failCheckUpdate(m_checkUpdateConnection.lastError().message());
+    return false;
+}
+
+void UpdateWorker::failCheckUpdate(const QString &message)
+{
+    resetCheckUpdateJob();
+    m_model->setLastErrorLog(CheckingFailed, message);
+    m_model->setLastError(CheckingFailed, UnKnown);
+    m_model->setLastStatus(CheckingFailed, __LINE__);
+    m_model->setCheckUpdateStatus(CheckingFailed);
+}
+
+void UpdateWorker::setCheckUpdatesJob(const QString& jobPath, qlonglong createTime)
 {
     qCInfo(logDccUpdatePlugin) << "Set check updates job";
+    // UpdateSource's reply and JobListChanged may both announce the same job.
+    if (m_checkUpdateJob) {
+        return;
+    }
+    if (!m_doCheckUpdates) {
+        ++m_checkUpdateGeneration;
+    }
+    m_doCheckUpdates = true;
+    m_model->setCheckUpdateProgress(0);
     UpdatesStatus state = m_model->updateStatus(CPT_Downloading);
     if (UpdatesStatus::Downloading != state && UpdatesStatus::DownloadPaused != state) {
+        // Adopting a background check skips checkNeedDoUpdates()' page selection.
+        m_model->setShowCheckUpdate(true);
         m_model->setLastStatus(UpdatesStatus::Checking, __LINE__);
     }
 
     m_model->setCheckUpdateStatus(UpdatesStatus::Checking);
-    createCheckUpdateJob(jobPath);
+    createCheckUpdateJob(jobPath, createTime);
 }
 
-void UpdateWorker::createCheckUpdateJob(const QString& jobPath)
+void UpdateWorker::createCheckUpdateJob(const QString& jobPath, qlonglong createTime)
 {
     qCInfo(logDccUpdatePlugin) << "Create check update job: " << jobPath;
 
@@ -546,13 +573,105 @@ void UpdateWorker::createCheckUpdateJob(const QString& jobPath)
         qCInfo(logDccUpdatePlugin) << "Check update job existed";
         return;
     }
-    m_checkUpdateJob = new UpdateJobDBusProxy(jobPath, this);
+    // Background jobs and delayed UpdateSource replies need the same validation.
+    if (!ensureCheckUpdateConnection()) {
+        return;
+    }
+    // Control Center's shared bus may exhaust its match-rule quota in other modules.
+    // Observe public job properties separately; privileged manager calls keep their authorized bus.
+    m_checkUpdateJob = new UpdateJobDBusProxy(jobPath, this, m_checkUpdateConnection);
+    qCDebug(logDccUpdatePlugin) << "Check update observer connection:" << m_checkUpdateConnection.baseService();
+    // A delayed terminal signal may arrive after this path has been reused.
+    m_checkUpdateJobCreateTime = createTime > 0 ? createTime : m_checkUpdateJob->createTime();
 
-    connect(m_checkUpdateJob, &UpdateJobDBusProxy::StatusChanged, this, &UpdateWorker::onCheckUpdateStatusChanged);
-    connect(m_checkUpdateJob, &UpdateJobDBusProxy::ProgressChanged, m_model, &UpdateModel::setCheckUpdateProgress, Qt::QueuedConnection);
+    const QPointer<UpdateJobDBusProxy> job = m_checkUpdateJob;
+    connect(job, &UpdateJobDBusProxy::StatusChanged, this, [this, job](const QString &status) {
+        if (job && job == m_checkUpdateJob) {
+            ++m_checkUpdateSignalRevision;
+            onCheckUpdateStatusChanged(status);
+        }
+    });
+    connect(job, &UpdateJobDBusProxy::ProgressChanged, this, [this, job](double progress) {
+        if (job && job == m_checkUpdateJob) {
+            ++m_checkUpdateSignalRevision;
+            m_model->setCheckUpdateProgress(progress);
+        }
+    });
 
-    m_checkUpdateJob->ProgressChanged(m_checkUpdateJob->progress());
-    m_checkUpdateJob->StatusChanged(m_checkUpdateJob->status());
+    m_checkUpdateTimer->start();
+    refreshCheckUpdateJob();
+}
+
+void UpdateWorker::refreshCheckUpdateJob()
+{
+    if (!m_checkUpdateJob || m_checkUpdateRefreshPending) {
+        return;
+    }
+    if (!m_checkUpdateConnection.isConnected()) {
+        // The proxy is bound to this connection; retry must create a fresh observer.
+        failCheckUpdate(m_checkUpdateConnection.lastError().message());
+        return;
+    }
+
+    const QPointer<UpdateJobDBusProxy> job = m_checkUpdateJob;
+    auto message = QDBusMessage::createMethodCall("org.deepin.dde.Lastore1", job->path(),
+                                                "org.freedesktop.DBus.Properties", "GetAll");
+    message << QStringLiteral("org.deepin.dde.Lastore1.Job");
+    const quint64 revision = m_checkUpdateSignalRevision;
+    m_checkUpdateRefreshPending = true;
+    auto watcher = new QDBusPendingCallWatcher(m_checkUpdateConnection.asyncCall(message, 5000), this);
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, job, watcher, revision] {
+        watcher->deleteLater();
+        if (!job || job != m_checkUpdateJob) {
+            return;
+        }
+        m_checkUpdateRefreshPending = false;
+        if (revision != m_checkUpdateSignalRevision) {
+            // A signal received since this request is newer than its snapshot.
+            return;
+        }
+        QDBusPendingReply<QVariantMap> reply = *watcher;
+        if (reply.isError()) {
+            qCWarning(logDccUpdatePlugin) << "Cannot refresh check update job:" << reply.error();
+            const auto error = reply.error().type();
+            if (error == QDBusError::UnknownObject || error == QDBusError::UnknownInterface
+                || error == QDBusError::ServiceUnknown
+                // Lastore's godbus reports a removed object as NoSuchObject (Qt: Other).
+                || reply.error().name() == QStringLiteral("org.freedesktop.DBus.Error.NoSuchObject")
+                || reply.error().name() == QStringLiteral("org.freedesktop.DBus.Error.NameHasNoOwner")) {
+                onCheckUpdateStatusChanged(QString());
+            }
+            // A timeout or transport error does not establish the job's result.
+            // Keep its signal subscriptions and retry on the next timer tick.
+            return;
+        }
+        const auto properties = reply.value();
+        const auto createTime = properties.value("CreateTime").toLongLong();
+        if (createTime > 0 && createTime != m_checkUpdateJobCreateTime) {
+            // The path now belongs to another job, even if its list signal was lost.
+            const auto jobPath = job->path();
+            resetCheckUpdateJob();
+            setCheckUpdatesJob(jobPath, createTime);
+        }
+        if (properties.contains("Progress")) {
+            m_model->setCheckUpdateProgress(properties.value("Progress").toDouble());
+        }
+        handleCheckUpdateStatus(properties.value("Status").toString(), true);
+    });
+}
+
+void UpdateWorker::resetCheckUpdateJob()
+{
+    m_checkUpdateTimer->stop();
+    m_checkUpdateRefreshPending = false;
+    m_doCheckUpdates = false;
+    m_checkUpdateJobCreateTime = 0;
+    if (m_checkUpdateJob) {
+        m_checkUpdateJob->disconnect(this);
+        m_checkUpdateJob->deleteLater();
+        // Clear immediately, rather than waiting for deferred QObject destruction.
+        m_checkUpdateJob = nullptr;
+    }
 }
 
 void UpdateWorker::refreshLastTimeAndCheckCircle()
@@ -1578,6 +1697,11 @@ void UpdateWorker::onJobListChanged(const QList<QDBusObjectPath>& jobs)
 {
     qCInfo(logDccUpdatePlugin) << "Job list changed, size:" << jobs.size();
 
+    if (m_checkUpdateJob && !jobs.contains(QDBusObjectPath(m_checkUpdateJob->path()))) {
+        // Recheck the object: a queued JobList snapshot may already be out of date.
+        refreshCheckUpdateJob();
+    }
+
     for (const auto& job : jobs) {
         QString jobPath = job.path();
         UpdateJobDBusProxy jobInter(jobPath, this);
@@ -1588,8 +1712,23 @@ void UpdateWorker::onJobListChanged(const QList<QDBusObjectPath>& jobs)
             continue;
 
         qCInfo(logDccUpdatePlugin) << "Job id: " << id << ", job path: " << jobPath;
-        if ((id == "update_source" || id == "custom_update") && m_checkUpdateJob == nullptr) {
-            setCheckUpdatesJob(jobPath);
+        if (id == "update_source" || id == "custom_update") {
+            const auto createTime = jobInter.createTime();
+            if (m_checkUpdateJob) {
+                if (jobPath != m_checkUpdateJob->path() || createTime <= 0
+                    || createTime == m_checkUpdateJobCreateTime) {
+                    continue;
+                }
+                // Retire the old observer before binding the replacement instance.
+                resetCheckUpdateJob();
+            }
+            const auto completed = m_completedCheckUpdateJobs.constFind(jobPath);
+            if (createTime > 0 && completed != m_completedCheckUpdateJobs.cend() && completed.value() == createTime) {
+                // JobListChanged can still contain a confirmed result awaiting removal.
+                // CreateTime distinguishes the next job reusing the same object path.
+                continue;
+            }
+            setCheckUpdatesJob(jobPath, createTime);
         } else if (id == "dist_upgrade" && m_distUpgradeJob == nullptr) {
             setDistUpgradeJob(jobPath);
         } else if (id == "prepare_dist_upgrade" && m_downloadJob == nullptr) {
@@ -1618,21 +1757,45 @@ void UpdateWorker::onClassifiedUpdatablePackagesChanged(const QMap<QString, QStr
 
 void UpdateWorker::onCheckUpdateStatusChanged(const QString& value)
 {
+    handleCheckUpdateStatus(value, false);
+}
+
+void UpdateWorker::handleCheckUpdateStatus(const QString &value, bool fromSnapshot)
+{
     qCInfo(logDccUpdatePlugin) << "Check update status changed: " << value;
-    if (value == "failed" || value.isEmpty()) {
-        if (m_checkUpdateJob != nullptr) {
-            m_updateInter->CleanJob(m_checkUpdateJob->id());
-            const auto& description = m_checkUpdateJob->description();
-            m_model->setLastErrorLog(CheckingFailed, description);
-            m_model->setLastError(CheckingFailed, analyzeJobErrorMessage(description, CheckingFailed));
-            m_model->setLastStatus(CheckingFailed, __LINE__);
-            m_model->setCheckUpdateStatus(CheckingFailed);
-            deleteJob(m_checkUpdateJob);
-            m_doCheckUpdates = false;
+    if (!m_checkUpdateJob) {
+        return;
+    }
+    if (value == "failed" || value.isEmpty() || value == "end") {
+        QString description = QStringLiteral("Check update job ended without a confirmed result");
+        UpdateErrorType error = UnKnown;
+        if (value == "failed") {
+            description = m_checkUpdateJob->description();
+            error = analyzeJobErrorMessage(description, CheckingFailed);
+            if (!fromSnapshot) {
+                // Remember the confirmed failure before CleanJob transitions it to end.
+                m_completedCheckUpdateJobs.insert(m_checkUpdateJob->path(), m_checkUpdateJobCreateTime);
+                m_updateInter->CleanJob(m_checkUpdateJob->id());
+            }
         }
+        // lastore exposes failed while preparing an automatic retry but suppresses
+        // the failed signal. A snapshot must not clean that job or stop observing it.
+        if (!fromSnapshot || value != "failed") {
+            resetCheckUpdateJob();
+        }
+        m_model->setLastErrorLog(CheckingFailed, description);
+        m_model->setLastError(CheckingFailed, error);
+        m_model->setLastStatus(CheckingFailed, __LINE__);
+        m_model->setCheckUpdateStatus(CheckingFailed);
     } else if (value == "success" || value == "succeed") {
+        m_completedCheckUpdateJobs.insert(m_checkUpdateJob->path(), m_checkUpdateJobCreateTime);
+        const quint64 generation = m_checkUpdateGeneration;
         auto watcher = new QDBusPendingCallWatcher(m_updateInter->GetUpdateLogs(SystemUpdate | SecurityUpdate), this);
-        connect(watcher, &QDBusPendingCallWatcher::finished, [this, watcher] {
+        connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, watcher, generation] {
+            watcher->deleteLater();
+            if (generation != m_checkUpdateGeneration) {
+                return;
+            }
             if (!watcher->isError()) {
                 QDBusPendingReply<QString> reply = watcher->reply();
                 UpdateLogHelper::ref().handleUpdateLog(reply.value());
@@ -1644,16 +1807,18 @@ void UpdateWorker::onCheckUpdateStatusChanged(const QString& value)
             } else {
                 qCWarning(logDccUpdatePlugin) << "Get update log failed";
             }
-            watcher->deleteLater();
             // 日志处理完了再显示更新内容界面
         });
         setUpdateInfo();
         m_model->setShowCheckUpdate(!m_model->isUpdatable());
-    } else if (value == "end") {
+        // A successful result is sufficient; do not depend on a subsequent end signal.
+        m_model->setCheckUpdateProgress(1);
         refreshLastTimeAndCheckCircle();
+        resetCheckUpdateJob();
         m_model->setCheckUpdateStatus(UpdatesStatus(m_model->lastStatus()));
-        deleteJob(m_checkUpdateJob);
-        m_doCheckUpdates = false;
+    } else if ((value == "ready" || value == "running") && m_model->checkUpdateStatus() == CheckingFailed) {
+        m_model->setLastStatus(Checking, __LINE__);
+        m_model->setCheckUpdateStatus(Checking);
     }
 }
 

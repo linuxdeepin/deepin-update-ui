@@ -1,10 +1,11 @@
-// SPDX-FileCopyrightText: 2018-2026 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2018 - 2026 UnionTech Software Technology Co., Ltd.
 //
 //SPDX-License-Identifier: GPL-3.0-or-later
 #ifndef UPDATEJOBDBUSPROXY_H
 #define UPDATEJOBDBUSPROXY_H
 
 #include <QObject>
+#include <QDBusConnection>
 #include <DDBusInterface>
 
 using Dtk::Core::DDBusInterface;
@@ -15,7 +16,8 @@ class UpdateJobDBusProxy : public QObject
 {
     Q_OBJECT
 public:
-    explicit UpdateJobDBusProxy(const QString &jobPath, QObject *parent = nullptr);
+    explicit UpdateJobDBusProxy(const QString &jobPath, QObject *parent = nullptr,
+                               const QDBusConnection &connection = QDBusConnection::systemBus());
     ~UpdateJobDBusProxy();
 
     bool isValid() const;
