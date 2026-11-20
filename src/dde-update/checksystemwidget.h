@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019 - 2023 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2019 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
@@ -28,7 +28,7 @@ class CheckProgressWidget : public QWidget
 public:
     explicit CheckProgressWidget(QWidget *parent = nullptr);
 
-public slots:
+public Q_SLOTS:
     void setValue(double value);
 
 protected:

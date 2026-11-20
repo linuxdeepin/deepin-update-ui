@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2011 - 2022 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2011 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -164,7 +164,7 @@ void BlurTransparentButton::paintEvent(QPaintEvent *event)
 void BlurTransparentButton::mouseReleaseEvent(QMouseEvent *event)
 {
     Q_UNUSED(event);
-    emit clicked();
+    Q_EMIT clicked();
     return;
 }
 
@@ -174,7 +174,7 @@ void BlurTransparentButton::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Return:
     case Qt::Key_Enter:
         qCDebug(logUpdateModal) << "Enter key pressed, emitting clicked signal";
-        emit clicked();
+        Q_EMIT clicked();
         break;
     }
     QWidget::keyPressEvent(event);

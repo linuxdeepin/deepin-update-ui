@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2025 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2025-2026 UnionTech Software Technology Co., Ltd.
 // SPDX-License-Identifier: GPL-3.0-or-later
 #include "updatehistorymodel.h"
 
@@ -90,7 +90,7 @@ void UpdateHistoryModel::setExpanded(int index, bool expanded)
 
     m_data[index].expanded = expanded;
     const QModelIndex changedIndex = this->index(index);
-    emit dataChanged(changedIndex, changedIndex, { Expanded });
+    Q_EMIT dataChanged(changedIndex, changedIndex, { Expanded });
 }
 
 void UpdateHistoryModel::collapseAll()
@@ -100,7 +100,7 @@ void UpdateHistoryModel::collapseAll()
             continue;
 
         m_data[i].expanded = false;
-        emit dataChanged(this->index(i), this->index(i), { Expanded });
+        Q_EMIT dataChanged(this->index(i), this->index(i), { Expanded });
     }
 }
 

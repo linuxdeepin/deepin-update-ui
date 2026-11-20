@@ -77,10 +77,10 @@ void UpdateListModel::syncData(const QList<UpdateItemInfo *> &items)
     // item 内部数据（如异步获取的日志）的变更通过 dataChanged 通知视图刷新；
     if (items == m_updateLists) {
         if (!m_updateLists.isEmpty()) {
-            emit dataChanged(index(0), index(m_updateLists.count() - 1));
+            Q_EMIT dataChanged(index(0), index(m_updateLists.count() - 1));
         }
         refreshDownloadSize();
-        emit visibilityChanged();
+        Q_EMIT visibilityChanged();
         return;
     }
 
@@ -95,7 +95,7 @@ void UpdateListModel::syncData(const QList<UpdateItemInfo *> &items)
     endResetModel();
 
     refreshDownloadSize();
-    emit visibilityChanged();
+    Q_EMIT visibilityChanged();
 }
 
 QString UpdateListModel::getIconName(UpdateType type) const
@@ -150,7 +150,7 @@ void UpdateListModel::refreshDownloadSize()
     }
 
     m_downloadSize = sizeUnit;
-    emit downloadSizeChanged();
+    Q_EMIT downloadSizeChanged();
 }
 
 bool UpdateListModel::anyVisible() const
@@ -188,7 +188,7 @@ void UpdateListModel::clearAllData()
     m_updateLists.clear();
     endResetModel();
 
-    emit visibilityChanged();
+    Q_EMIT visibilityChanged();
 }
 
 void UpdateListModel::setChecked(int index, bool checked)
@@ -200,10 +200,10 @@ void UpdateListModel::setChecked(int index, bool checked)
         qCDebug(logDccUpdatePlugin) << "Updated check state for item:" << itemName;
 
         QModelIndex changedIndex = this->index(index);
-        emit dataChanged(changedIndex, changedIndex, { Checked });
+        Q_EMIT dataChanged(changedIndex, changedIndex, { Checked });
 
         refreshDownloadSize();
-        emit isUpdateEnableChanged();
+        Q_EMIT isUpdateEnableChanged();
     } else {
         qCWarning(logDccUpdatePlugin) << "Invalid index for setChecked:" << index;
     }
@@ -218,7 +218,7 @@ void UpdateListModel::setExpanded(int index, bool expanded)
         m_updateLists[index]->setExpanded(expanded);
 
         QModelIndex changedIndex = this->index(index);
-        emit dataChanged(changedIndex, changedIndex, { Expanded });
+        Q_EMIT dataChanged(changedIndex, changedIndex, { Expanded });
     } else {
         qCWarning(logDccUpdatePlugin) << "Invalid index for setExpanded:" << index;
     }
@@ -229,7 +229,7 @@ void UpdateListModel::collapseAll()
     for (int i = 0; i < m_updateLists.count(); ++i) {
         if (m_updateLists[i]->isExpanded()) {
             m_updateLists[i]->setExpanded(false);
-            emit dataChanged(index(i), index(i), { Expanded });
+            Q_EMIT dataChanged(index(i), index(i), { Expanded });
         }
     }
 }

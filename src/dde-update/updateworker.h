@@ -53,7 +53,7 @@ Q_SIGNALS:
     void requestExitUpdating();
     void exportUpdateLogFinished(bool success);
 
-public slots:
+public Q_SLOTS:
     bool exportUpdateLog();
 
 private:
@@ -68,7 +68,7 @@ private:
     void cleanLaStoreJob(QPointer<JobInter> dbusJob);
     void getUpdateOption();
 
-private slots:
+private Q_SLOTS:
     void onJobListChanged(const QList<QDBusObjectPath> &jobs);
     void onDistUpgradeStatusChanged(const QString &status);
     void onCheckSystemStatusChanged(const QString &status);

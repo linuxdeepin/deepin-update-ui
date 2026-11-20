@@ -65,7 +65,7 @@ public:
 Q_SIGNALS:
     void requestHideLogWidget();
 
-public slots:
+public Q_SLOTS:
     void setLog(const QString &log);
     void appendLog(const QString &log);
 
@@ -162,13 +162,13 @@ public:
     static UpdateWidget* instance();
     void showUpdate();
 
-signals:
+Q_SIGNALS:
     void updateExited();
 
 protected:
     void keyPressEvent(QKeyEvent *e) override;
 
-private slots:
+private Q_SLOTS:
     void onUpdateStatusChanged(UpdateModel::UpdateStatus status);
     void showLogWidget();
     void hideLogWidget();
